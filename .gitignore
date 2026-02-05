@@ -1,0 +1,176 @@
+# Loomworks ERP .gitignore
+# Based on Python, Odoo, and Node.js conventions
+
+# ===========================================
+# Python
+# ===========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.python-version
+
+# ===========================================
+# Odoo Specific
+# ===========================================
+# Filestore
+filestore/
+.local/
+
+# Sessions
+sessions/
+
+# Odoo configuration (may contain passwords)
+odoo.conf
+openerp-server.conf
+*.conf
+
+# Odoo data directories
+.odoo/
+odoo_data/
+
+# ===========================================
+# IDE and Editors
+# ===========================================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+.spyderproject
+.spyproject
+.ropeproject
+
+# ===========================================
+# Node.js (for frontend builds)
+# ===========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+.pnp.*
+
+# ===========================================
+# Testing
+# ===========================================
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# ===========================================
+# Build and Distribution
+# ===========================================
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ===========================================
+# Documentation
+# ===========================================
+docs/_build/
+site/
+
+# ===========================================
+# Jupyter Notebooks
+# ===========================================
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+profile_default/
+ipython_config.py
+
+# ===========================================
+# System Files
+# ===========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.bak
+*.tmp
+*.temp
+
+# ===========================================
+# Logs
+# ===========================================
+*.log
+logs/
+log/
+
+# ===========================================
+# Security - Never commit these!
+# ===========================================
+*.pem
+*.key
+*.crt
+.env.local
+.env.*.local
+secrets.yml
+secrets.yaml
+credentials.json
+service-account*.json
+
+# ===========================================
+# Database dumps
+# ===========================================
+*.sql
+*.dump
+*.backup
+
+# ===========================================
+# Compiled Assets
+# ===========================================
+*.css.map
+*.js.map
+static/lib/
+*.min.js
+*.min.css
+
+# ===========================================
+# Claude Code
+# ===========================================
+.claude/

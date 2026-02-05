@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+
+    This file is part of Loomworks ERP, a fork of Odoo Community.
+    Original software copyright: Odoo S.A.
+    Loomworks modifications copyright: Loomworks
+    License: LGPL-3
+-->
+<templates xml:space="preserve">
+    <!-- Override navbar logo in Owl NavBar component -->
+    <t t-inherit="web.NavBar" t-inherit-mode="extension">
+        <xpath expr="//img[hasclass('o_menu_brand_icon')]" position="replace">
+            <img class="o_menu_brand_icon"
+                 src="/loomworks_core/static/src/img/loomworks_icon.png"
+                 alt="Loomworks"
+                 style="height: 30px; width: auto;"/>
+        </xpath>
+    </t>
+</templates>

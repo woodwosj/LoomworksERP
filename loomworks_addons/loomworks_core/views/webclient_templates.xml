@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+
+    This file is part of Loomworks ERP, a fork of Odoo Community.
+    Original software copyright: Odoo S.A.
+    Loomworks modifications copyright: Loomworks
+    License: LGPL-3
+-->
+<odoo>
+    <!-- Override favicon in web.layout -->
+    <template id="loomworks_favicon" inherit_id="web.layout" name="Loomworks Favicon">
+        <xpath expr="//link[@rel='shortcut icon']" position="replace">
+            <link rel="shortcut icon" href="/loomworks_core/static/src/img/loomworks_favicon.ico" type="image/x-icon"/>
+        </xpath>
+        <xpath expr="//link[@sizes='192x192']" position="replace">
+            <link rel="icon" sizes="192x192" href="/loomworks_core/static/src/img/loomworks_favicon.png" type="image/png"/>
+        </xpath>
+    </template>
+
+    <!-- Override page title to use Loomworks ERP -->
+    <template id="loomworks_title" inherit_id="web.layout" name="Loomworks Page Title">
+        <xpath expr="//title" position="replace">
+            <title><t t-esc="title or 'Loomworks ERP'"/></title>
+        </xpath>
+    </template>
+
+    <!-- Override login page branding -->
+    <template id="loomworks_login" inherit_id="web.login" name="Loomworks Login">
+        <xpath expr="//div[hasclass('text-center')]//img" position="replace">
+            <img src="/loomworks_core/static/src/img/loomworks_logo.png"
+                 alt="Loomworks ERP"
+                 class="img-fluid mb-4"
+                 style="max-height: 80px; width: auto;"/>
+        </xpath>
+    </template>
+
+    <!-- Override login page title -->
+    <template id="loomworks_login_title" inherit_id="web.login_layout" name="Loomworks Login Title">
+        <xpath expr="//title" position="replace">
+            <title>Login | Loomworks ERP</title>
+        </xpath>
+    </template>
+</odoo>

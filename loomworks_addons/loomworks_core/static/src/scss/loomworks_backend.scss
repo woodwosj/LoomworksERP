@@ -1,0 +1,109 @@
+// -*- coding: utf-8 -*-
+// Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+//
+// This file is part of Loomworks ERP, a fork of Odoo Community.
+// Original software copyright: Odoo S.A.
+// Loomworks modifications copyright: Loomworks
+// License: LGPL-3
+
+// ============================================
+// LOOMWORKS BACKEND STYLES
+// ============================================
+
+// Custom styles for the Loomworks ERP backend interface.
+// These styles complement the primary variables to provide
+// a cohesive branded experience.
+
+// Navbar branding adjustments
+.o_main_navbar {
+    .o_menu_brand_icon {
+        height: 30px;
+        width: auto;
+    }
+}
+
+// Login page enhancements
+.oe_login_form {
+    .oe_login_logo {
+        max-height: 80px;
+        width: auto;
+    }
+}
+
+// Button hover states with secondary color accent
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: $lw-primary-light;
+    border-color: $lw-primary-light;
+}
+
+// Secondary button styling
+.btn-secondary {
+    background-color: $lw-secondary;
+    border-color: $lw-secondary;
+    color: $lw-gray-900;
+
+    &:hover,
+    &:focus {
+        background-color: $lw-secondary-dark;
+        border-color: $lw-secondary-dark;
+        color: white;
+    }
+}
+
+// Kanban card accent
+.o_kanban_record {
+    border-left: 3px solid transparent;
+
+    &:hover {
+        border-left-color: $lw-secondary;
+    }
+}
+
+// Form view section headers
+.o_form_view .o_inner_group .o_td_label {
+    color: $lw-primary;
+}
+
+// Breadcrumb styling
+.breadcrumb {
+    background-color: transparent;
+
+    .breadcrumb-item {
+        &.active {
+            color: $lw-primary;
+        }
+
+        a {
+            color: $lw-primary;
+
+            &:hover {
+                color: $lw-primary-dark;
+            }
+        }
+    }
+}
+
+// Statusbar customization
+.o_statusbar_status {
+    .btn-secondary {
+        &.disabled,
+        &:disabled {
+            background-color: $lw-gray-200;
+            border-color: $lw-gray-300;
+            color: $lw-gray-600;
+        }
+    }
+}
+
+// App menu icons
+.o_app_icon {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Selection highlight
+::selection {
+    background-color: $lw-secondary-light;
+    color: $lw-gray-900;
+}

@@ -1,0 +1,74 @@
+// -*- coding: utf-8 -*-
+// Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+//
+// This file is part of Loomworks ERP, a fork of Odoo Community.
+// Original software copyright: Odoo S.A.
+// Loomworks modifications copyright: Loomworks
+// License: LGPL-3
+
+// ============================================
+// LOOMWORKS COLOR PALETTE
+// ============================================
+
+// Primary brand color (deep blue - trust, professionalism)
+$lw-primary: #1e3a5f;
+$lw-primary-light: #2d5a8a;
+$lw-primary-dark: #0f2840;
+
+// Secondary/accent color (teal - innovation, growth)
+$lw-secondary: #2dd4bf;
+$lw-secondary-light: #5eead4;
+$lw-secondary-dark: #14b8a6;
+
+// Neutral palette
+$lw-gray-50: #f8fafc;
+$lw-gray-100: #f1f5f9;
+$lw-gray-200: #e2e8f0;
+$lw-gray-300: #cbd5e1;
+$lw-gray-400: #94a3b8;
+$lw-gray-500: #64748b;
+$lw-gray-600: #475569;
+$lw-gray-700: #334155;
+$lw-gray-800: #1e293b;
+$lw-gray-900: #0f172a;
+
+// Semantic colors
+$lw-success: #22c55e;
+$lw-warning: #f59e0b;
+$lw-danger: #ef4444;
+$lw-info: #3b82f6;
+
+// ============================================
+// ODOO VARIABLE OVERRIDES
+// ============================================
+
+// Override Odoo's primary brand color
+$o-brand-odoo: $lw-primary !default;
+$o-brand-primary: $lw-primary !default;
+$o-brand-secondary: $lw-secondary !default;
+
+// Navbar colors
+$o-navbar-inverse-bg: $lw-primary !default;
+$o-navbar-inverse-color: #ffffff !default;
+$o-navbar-inverse-link-color: rgba(255, 255, 255, 0.85) !default;
+$o-navbar-inverse-link-hover-color: #ffffff !default;
+
+// Form and input styling
+$o-form-lightsecondary: $lw-gray-100 !default;
+
+// ============================================
+// BOOTSTRAP VARIABLE OVERRIDES
+// ============================================
+
+$primary: $lw-primary !default;
+$secondary: $lw-secondary !default;
+$success: $lw-success !default;
+$info: $lw-info !default;
+$warning: $lw-warning !default;
+$danger: $lw-danger !default;
+
+$body-bg: $lw-gray-50 !default;
+$body-color: $lw-gray-800 !default;
+
+$link-color: $lw-primary !default;
+$link-hover-color: $lw-primary-dark !default;
