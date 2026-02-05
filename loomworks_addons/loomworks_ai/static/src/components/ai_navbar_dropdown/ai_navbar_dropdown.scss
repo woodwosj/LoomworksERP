@@ -1,0 +1,106 @@
+// Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+// License: LGPL-3
+
+// AI Navbar Dropdown Styles
+
+.o_ai_navbar_dropdown {
+    .o_ai_toggler {
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .fa-robot {
+            font-size: 1.1rem;
+        }
+    }
+
+    .o_ai_dropdown_menu {
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+    }
+
+    .o_ai_dropdown_header {
+        background: linear-gradient(135deg, var(--o-brand-primary, #714B67) 0%, darken(#714B67, 10%) 100%);
+    }
+
+    .o_ai_context_indicator {
+        font-size: 0.85rem;
+    }
+
+    .o_ai_suggestions {
+        .o_ai_suggestion_item {
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+            &:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            &.border-danger {
+                border-left-color: var(--bs-danger) !important;
+            }
+
+            &.border-warning {
+                border-left-color: var(--bs-warning) !important;
+            }
+        }
+    }
+
+    .o_ai_quick_actions {
+        .btn {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+        }
+    }
+
+    .o_ai_quick_input {
+        input {
+            font-size: 0.875rem;
+        }
+    }
+
+    // Badge animations
+    .badge {
+        &.bg-primary {
+            animation: pulse 2s infinite;
+        }
+
+        &.bg-danger {
+            animation: pulse-danger 1s infinite;
+        }
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.7;
+        }
+    }
+
+    @keyframes pulse-danger {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+    }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+    .o_ai_navbar_dropdown {
+        .o_ai_dropdown_content {
+            width: 100vw !important;
+            max-width: 100vw !important;
+            margin: 0;
+            border-radius: 0;
+        }
+    }
+}

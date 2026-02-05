@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+    License: LGPL-3
+
+    AI User Settings Views
+-->
+<odoo>
+
+    <!-- Form View -->
+    <record id="view_ai_user_settings_form" model="ir.ui.view">
+        <field name="name">loomworks.ai.user.settings.form</field>
+        <field name="model">loomworks.ai.user.settings</field>
+        <field name="arch" type="xml">
+            <form string="AI Settings">
+                <sheet>
+                    <group>
+                        <group string="Proactive Suggestions" name="suggestions">
+                            <field name="enable_suggestions" widget="boolean_toggle"/>
+                            <field name="suggestion_frequency"
+                                   invisible="not enable_suggestions"/>
+                            <field name="notification_style"
+                                   invisible="not enable_suggestions"/>
+                        </group>
+                        <group string="Display Options" name="display">
+                            <field name="show_context_indicator" widget="boolean_toggle"/>
+                            <field name="enable_quick_actions" widget="boolean_toggle"/>
+                            <field name="auto_expand_chat" widget="boolean_toggle"/>
+                            <field name="keyboard_shortcut"/>
+                        </group>
+                    </group>
+                    <group string="Rate Limiting" name="rate_limiting" groups="base.group_no_one">
+                        <group>
+                            <field name="max_suggestions_per_session"/>
+                            <field name="cooldown_seconds"/>
+                        </group>
+                    </group>
+                    <group string="System" groups="base.group_no_one">
+                        <field name="user_id" readonly="1"/>
+                        <field name="company_id" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_ai_user_settings_tree" model="ir.ui.view">
+        <field name="name">loomworks.ai.user.settings.tree</field>
+        <field name="model">loomworks.ai.user.settings</field>
+        <field name="arch" type="xml">
+            <tree string="AI User Settings">
+                <field name="user_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="enable_suggestions"/>
+                <field name="suggestion_frequency"/>
+                <field name="notification_style"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_ai_user_settings_search" model="ir.ui.view">
+        <field name="name">loomworks.ai.user.settings.search</field>
+        <field name="model">loomworks.ai.user.settings</field>
+        <field name="arch" type="xml">
+            <search string="AI User Settings">
+                <field name="user_id"/>
+                <filter name="suggestions_enabled" string="Suggestions Enabled"
+                        domain="[('enable_suggestions', '=', True)]"/>
+                <filter name="suggestions_disabled" string="Suggestions Disabled"
+                        domain="[('enable_suggestions', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_frequency" string="Frequency"
+                            context="{'group_by': 'suggestion_frequency'}"/>
+                    <filter name="group_by_company" string="Company"
+                            context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_ai_user_settings" model="ir.actions.act_window">
+        <field name="name">AI User Settings</field>
+        <field name="res_model">loomworks.ai.user.settings</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure AI assistant preferences for users
+            </p>
+            <p>
+                Each user can customize how proactive the AI assistant is,
+                including suggestion frequency and notification style.
+            </p>
+        </field>
+    </record>
+
+    <!-- My Settings Action (for regular users) -->
+    <record id="action_my_ai_settings" model="ir.actions.act_window">
+        <field name="name">My AI Settings</field>
+        <field name="res_model">loomworks.ai.user.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_user_id': uid}</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+    </record>
+
+</odoo>

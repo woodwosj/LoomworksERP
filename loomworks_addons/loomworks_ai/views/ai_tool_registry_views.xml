@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+    License: LGPL-3
+
+    AI Tool Registry Views
+-->
+<odoo>
+
+    <!-- Form View -->
+    <record id="view_ai_tool_registry_form" model="ir.ui.view">
+        <field name="name">loomworks.ai.tool.registry.form</field>
+        <field name="model">loomworks.ai.tool.registry</field>
+        <field name="arch" type="xml">
+            <form string="AI Tool Registry">
+                <header>
+                    <button name="action_refresh_tools"
+                            string="Refresh Tools"
+                            type="object"
+                            class="btn-primary"
+                            icon="fa-refresh"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="provider_count"/>
+                            <field name="tool_count"/>
+                        </group>
+                        <group>
+                            <field name="last_refresh"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_ai_tool_registry_tree" model="ir.ui.view">
+        <field name="name">loomworks.ai.tool.registry.tree</field>
+        <field name="model">loomworks.ai.tool.registry</field>
+        <field name="arch" type="xml">
+            <tree string="AI Tool Registries">
+                <field name="name"/>
+                <field name="provider_count"/>
+                <field name="tool_count"/>
+                <field name="last_refresh"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_ai_tool_registry" model="ir.actions.act_window">
+        <field name="name">Tool Registry</field>
+        <field name="res_model">loomworks.ai.tool.registry</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                AI Tool Registry
+            </p>
+            <p>
+                The tool registry discovers and manages AI tools from all installed modules.
+                Use the "Refresh Tools" button to re-scan for new tool providers.
+            </p>
+        </field>
+    </record>
+
+</odoo>

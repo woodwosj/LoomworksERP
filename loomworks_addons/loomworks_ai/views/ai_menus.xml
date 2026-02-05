@@ -42,6 +42,18 @@
               action="action_ai_tool"
               sequence="2"/>
 
+    <menuitem id="menu_ai_tool_registry"
+              name="Tool Registry"
+              parent="menu_ai_config"
+              action="action_ai_tool_registry"
+              sequence="3"/>
+
+    <menuitem id="menu_ai_user_settings"
+              name="User Settings"
+              parent="menu_ai_config"
+              action="action_ai_user_settings"
+              sequence="5"/>
+
     <!-- Audit Menu -->
     <menuitem id="menu_ai_audit"
               name="Audit"

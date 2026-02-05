@@ -70,15 +70,26 @@ This is part of Loomworks ERP, a fork of Odoo Community v18 (LGPL v3).
         'views/ai_session_views.xml',
         'views/ai_tool_views.xml',
         'views/ai_operation_log_views.xml',
+        'views/ai_user_settings_views.xml',
+        'views/ai_tool_registry_views.xml',
         'views/ai_menus.xml',
     ],
     'assets': {
         'web.assets_backend': [
+            # Stylesheets
             'loomworks_ai/static/src/scss/ai_chat.scss',
+            'loomworks_ai/static/src/components/ai_navbar_dropdown/ai_navbar_dropdown.scss',
+            # Services
+            'loomworks_ai/static/src/services/ai_context_service.js',
+            'loomworks_ai/static/src/services/ai_suggestion_service.js',
+            # Components
             'loomworks_ai/static/src/components/ai_message/ai_message.js',
             'loomworks_ai/static/src/components/ai_message/ai_message.xml',
             'loomworks_ai/static/src/components/ai_chat/ai_chat.js',
             'loomworks_ai/static/src/components/ai_chat/ai_chat.xml',
+            'loomworks_ai/static/src/components/ai_navbar_dropdown/ai_navbar_dropdown.js',
+            'loomworks_ai/static/src/components/ai_navbar_dropdown/ai_navbar_dropdown.xml',
+            # Legacy systray (keeping for compatibility)
             'loomworks_ai/static/src/xml/ai_systray.xml',
         ],
     },

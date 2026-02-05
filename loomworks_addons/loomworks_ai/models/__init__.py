@@ -11,3 +11,5 @@ from . import ai_session
 from . import ai_tool
 from . import ai_operation_log
 from . import ai_sandbox
+from . import ai_tool_provider
+from . import ai_user_settings

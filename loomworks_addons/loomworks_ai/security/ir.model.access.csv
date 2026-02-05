@@ -9,3 +9,7 @@ access_ai_tool_user,loomworks.ai.tool.user,model_loomworks_ai_tool,group_ai_user
 access_ai_tool_manager,loomworks.ai.tool.manager,model_loomworks_ai_tool,group_ai_manager,1,1,1,1
 access_ai_operation_log_user,loomworks.ai.operation.log.user,model_loomworks_ai_operation_log,group_ai_user,1,0,1,0
 access_ai_operation_log_manager,loomworks.ai.operation.log.manager,model_loomworks_ai_operation_log,group_ai_manager,1,1,1,1
+access_ai_tool_registry_user,loomworks.ai.tool.registry.user,model_loomworks_ai_tool_registry,group_ai_user,1,0,0,0
+access_ai_tool_registry_manager,loomworks.ai.tool.registry.manager,model_loomworks_ai_tool_registry,group_ai_manager,1,1,1,1
+access_ai_user_settings_user,loomworks.ai.user.settings.user,model_loomworks_ai_user_settings,group_ai_user,1,1,1,0
+access_ai_user_settings_manager,loomworks.ai.user.settings.manager,model_loomworks_ai_user_settings,group_ai_manager,1,1,1,1

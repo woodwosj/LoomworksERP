@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+    License: LGPL-3
+
+    AI Navbar Dropdown Template
+    Contextual AI assistant in the navigation bar.
+-->
+<templates xml:space="preserve">
+
+    <t t-name="loomworks_ai.AINavbarDropdown">
+        <Dropdown
+            class="'o_ai_navbar_dropdown'"
+            togglerClass="'o-dropdown--no-caret'"
+            menuClass="'o_ai_dropdown_menu p-0'"
+            onStateChanged.bind="onDropdownToggle"
+        >
+            <t t-set-slot="toggler">
+                <span class="d-flex align-items-center px-2 py-1 rounded o_ai_toggler"
+                      title="AI Assistant">
+                    <i class="fa fa-robot"/>
+                    <span class="d-none d-lg-inline ms-1">AI</span>
+                    <t t-if="badgeCount > 0">
+                        <span class="badge rounded-pill ms-1"
+                              t-attf-class="{{ suggestionBadgeClass }}">
+                            <t t-esc="badgeCount"/>
+                        </span>
+                    </t>
+                </span>
+            </t>
+
+            <!-- Dropdown Menu Content -->
+            <div class="o_ai_dropdown_content" style="width: 360px; max-height: 80vh; overflow: hidden; display: flex; flex-direction: column;">
+
+                <!-- Header -->
+                <div class="o_ai_dropdown_header d-flex justify-content-between align-items-center p-3 border-bottom bg-primary text-white">
+                    <span class="fw-bold">
+                        <i class="fa fa-robot me-2"/>
+                        Loomworks AI
+                    </span>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-link text-white-50 p-0"
+                                t-on-click="openSettings"
+                                title="Settings">
+                            <i class="fa fa-cog"/>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Context Indicator -->
+                <t t-if="showContextIndicator and state.contextSummary">
+                    <div class="o_ai_context_indicator p-2 bg-light border-bottom small">
+                        <span class="text-muted me-1">Currently:</span>
+                        <span class="fw-medium" t-esc="state.contextSummary"/>
+                    </div>
+                </t>
+
+                <!-- Scrollable Content -->
+                <div class="flex-grow-1 overflow-auto" style="max-height: 400px;">
+
+                    <!-- Suggestions -->
+                    <t t-if="state.suggestions.length > 0">
+                        <div class="o_ai_suggestions p-2">
+                            <small class="text-muted px-1 mb-2 d-block text-uppercase">
+                                Suggestions (<t t-esc="state.suggestions.length"/>)
+                            </small>
+
+                            <t t-foreach="state.suggestions" t-as="suggestion" t-key="suggestion.id">
+                                <div class="o_ai_suggestion_item card mb-2 border-start border-3"
+                                     t-attf-class="{{ getPriorityClass(suggestion.priority) }}">
+                                    <div class="card-body p-2">
+                                        <div class="d-flex align-items-start">
+                                            <i t-attf-class="fa {{ getPriorityIcon(suggestion.priority) }} me-2 mt-1"/>
+                                            <div class="flex-grow-1 small">
+                                                <div class="fw-medium" t-esc="suggestion.title"/>
+                                                <div class="text-muted" t-esc="suggestion.description"/>
+                                            </div>
+                                            <button class="btn btn-sm btn-link p-0 text-muted ms-2"
+                                                    t-on-click="() => this.dismissSuggestion(suggestion)"
+                                                    title="Dismiss">
+                                                <i class="fa fa-times"/>
+                                            </button>
+                                        </div>
+                                        <div class="mt-2 text-end">
+                                            <button class="btn btn-sm btn-primary"
+                                                    t-on-click="() => this.acceptSuggestion(suggestion)">
+                                                <t t-if="suggestion.action?.type === 'ask_ai'">
+                                                    <i class="fa fa-comment me-1"/>Ask AI
+                                                </t>
+                                                <t t-else="">
+                                                    Go <i class="fa fa-arrow-right ms-1"/>
+                                                </t>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+
+                    <!-- Quick Actions -->
+                    <t t-if="state.quickActions.length > 0">
+                        <div class="o_ai_quick_actions p-2 border-top">
+                            <small class="text-muted px-1 mb-2 d-block text-uppercase">Quick Actions</small>
+                            <div class="d-flex flex-wrap gap-1">
+                                <t t-foreach="state.quickActions" t-as="action" t-key="action.id">
+                                    <button class="btn btn-sm btn-outline-secondary"
+                                            t-on-click="() => this.executeQuickAction(action)"
+                                            t-att-disabled="state.isLoading">
+                                        <i t-if="action.icon" t-attf-class="fa {{ action.icon }} me-1"/>
+                                        <t t-esc="action.label"/>
+                                    </button>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+
+                    <!-- Empty State -->
+                    <t t-if="state.suggestions.length === 0 and state.quickActions.length === 0">
+                        <div class="p-4 text-center text-muted">
+                            <i class="fa fa-robot fa-2x mb-2 d-block"/>
+                            <p class="mb-0 small">How can I help you today?</p>
+                        </div>
+                    </t>
+
+                </div>
+
+                <!-- Quick Input -->
+                <div class="o_ai_quick_input p-2 border-top bg-light">
+                    <div class="input-group input-group-sm">
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Ask Loomworks AI..."
+                               t-att-value="state.inputValue"
+                               t-on-input="onQuickInputChange"
+                               t-on-keydown="onQuickInputKeydown"
+                               t-ref="quickInput"/>
+                        <button class="btn btn-primary"
+                                t-on-click="submitQuickInput"
+                                t-att-disabled="!state.inputValue.trim()">
+                            <i class="fa fa-paper-plane"/>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="o_ai_dropdown_footer p-2 border-top d-flex justify-content-between align-items-center bg-white">
+                    <button class="btn btn-sm btn-link text-muted p-0"
+                            t-on-click="openFullChat">
+                        <i class="fa fa-external-link me-1"/>
+                        Open Full Chat
+                    </button>
+                    <button class="btn btn-sm btn-link text-muted p-0"
+                            t-on-click="openSettings">
+                        <i class="fa fa-sliders me-1"/>
+                        Settings
+                    </button>
+                </div>
+            </div>
+        </Dropdown>
+    </t>
+
+</templates>

@@ -194,6 +194,97 @@ Examples:
             <field name="sequence">6</field>
         </record>
 
+        <!-- Get Field Info Tool -->
+        <record id="tool_get_field_info" model="loomworks.ai.tool">
+            <field name="name">Get Field Info</field>
+            <field name="technical_name">get_field_info</field>
+            <field name="category">system</field>
+            <field name="risk_level">safe</field>
+            <field name="description">Get field schema information for an Odoo model.
+
+Use this tool to understand the structure of a model before creating or updating records.
+Returns field names, types, required status, and for relational fields, the related model.
+
+Examples:
+- Get all fields: get_field_info(model='sale.order')
+- Get specific fields: get_field_info(model='res.partner', field_names=['name', 'email', 'phone'])
+- Include related info: get_field_info(model='sale.order.line', include_related=True)</field>
+            <field name="parameters_schema">{
+    "type": "object",
+    "properties": {
+        "model": {"type": "string", "description": "Odoo model name to introspect"},
+        "field_names": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Specific fields to return (default: all)"
+        },
+        "include_related": {
+            "type": "boolean",
+            "default": false,
+            "description": "Include related model info for relational fields"
+        }
+    },
+    "required": ["model"]
+}</field>
+            <field name="returns_description">Dictionary with 'model_info' (metadata), 'fields' (field definitions), 'field_count', and 'success' status.</field>
+            <field name="requires_confirmation">False</field>
+            <field name="sequence">7</field>
+        </record>
+
+        <!-- Get Dashboard Data Tool -->
+        <record id="tool_get_dashboard_data" model="loomworks.ai.tool">
+            <field name="name">Get Dashboard Data</field>
+            <field name="technical_name">get_dashboard_data</field>
+            <field name="category">report</field>
+            <field name="risk_level">safe</field>
+            <field name="description">Fetch KPIs and dashboard metrics for business insights.
+
+Use this tool to get pre-calculated business metrics and key performance indicators.
+
+Dashboard types:
+- overview: General business metrics (contacts, products, orders)
+- sales: Sales pipeline, revenue, conversion rates
+- inventory: Stock levels, low stock alerts
+- accounting: Receivables, payables, cash flow
+- custom: Custom metrics for any model
+
+Examples:
+- Business overview: get_dashboard_data(dashboard_type='overview', date_range='month')
+- Sales metrics: get_dashboard_data(dashboard_type='sales', date_range='quarter')
+- Custom metrics: get_dashboard_data(dashboard_type='custom', model='project.task', metrics=['planned_hours'])</field>
+            <field name="parameters_schema">{
+    "type": "object",
+    "properties": {
+        "dashboard_type": {
+            "type": "string",
+            "enum": ["overview", "sales", "inventory", "accounting", "custom"],
+            "default": "overview",
+            "description": "Type of dashboard"
+        },
+        "model": {"type": "string", "description": "Model for custom dashboards"},
+        "metrics": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Metric field names for custom dashboards"
+        },
+        "date_range": {
+            "type": "string",
+            "enum": ["today", "week", "month", "quarter", "year"],
+            "default": "month",
+            "description": "Time period for metrics"
+        },
+        "custom_domain": {
+            "type": "array",
+            "description": "Additional filter for custom metrics"
+        }
+    },
+    "required": []
+}</field>
+            <field name="returns_description">Dictionary with 'dashboard_type', 'date_range', 'kpis' (key metrics), 'trends', 'alerts', and 'success' status.</field>
+            <field name="requires_confirmation">False</field>
+            <field name="sequence">8</field>
+        </record>
+
         <!-- Default AI Agent -->
         <record id="default_ai_agent" model="loomworks.ai.agent">
             <field name="name">Loomworks Assistant</field>
@@ -215,6 +306,8 @@ Examples:
                 ref('tool_update_record'),
                 ref('tool_execute_action'),
                 ref('tool_generate_report'),
+                ref('tool_get_field_info'),
+                ref('tool_get_dashboard_data'),
             ])]"/>
             <field name="system_prompt">You are Loomworks AI, an intelligent assistant for enterprise resource planning.
 

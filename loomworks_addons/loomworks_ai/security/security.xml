@@ -74,4 +74,20 @@
         <field name="groups" eval="[(4, ref('group_ai_manager'))]"/>
     </record>
 
+    <!-- User Settings: Users see only their own -->
+    <record id="ai_user_settings_rule_own" model="ir.rule">
+        <field name="name">AI User Settings: Own Only</field>
+        <field name="model_id" ref="model_loomworks_ai_user_settings"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_ai_user'))]"/>
+    </record>
+
+    <!-- Managers can see all user settings in their company -->
+    <record id="ai_user_settings_rule_manager" model="ir.rule">
+        <field name="name">AI User Settings: Manager Access</field>
+        <field name="model_id" ref="model_loomworks_ai_user_settings"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_ai_manager'))]"/>
+    </record>
+
 </odoo>

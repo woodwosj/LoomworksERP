@@ -414,6 +414,259 @@ class AIController(http.Controller):
         }
 
     # =========================================================================
+    # TOOLS
+    # =========================================================================
+
+    @http.route('/loomworks/ai/tools', type='json', auth='user', methods=['POST'])
+    def list_tools(self, agent_id=None, category=None, **kwargs):
+        """
+        List available AI tools.
+
+        Request:
+            {
+                "agent_id": 1,  // Optional - filter by agent
+                "category": "data"  // Optional - filter by category
+            }
+
+        Response:
+            {
+                "tools": [
+                    {
+                        "id": 1,
+                        "name": "Search Records",
+                        "technical_name": "search_records",
+                        "category": "data",
+                        "description": "...",
+                        "risk_level": "safe"
+                    }
+                ]
+            }
+        """
+        Tool = request.env['loomworks.ai.tool']
+        domain = [('active', '=', True)]
+
+        if agent_id:
+            agent = request.env['loomworks.ai.agent'].browse(agent_id)
+            if agent.exists() and agent.tool_ids:
+                domain.append(('id', 'in', agent.tool_ids.ids))
+
+        if category:
+            domain.append(('category', '=', category))
+
+        tools = Tool.search(domain, order='category, sequence, name')
+
+        return {
+            'tools': [{
+                'id': t.id,
+                'name': t.name,
+                'technical_name': t.technical_name,
+                'category': t.category,
+                'description': t.description,
+                'risk_level': t.risk_level,
+                'requires_confirmation': t.requires_confirmation,
+                'usage_count': t.usage_count,
+            } for t in tools],
+            'total': len(tools),
+        }
+
+    @http.route('/loomworks/ai/tools/<string:technical_name>', type='json', auth='user', methods=['POST'])
+    def get_tool(self, technical_name, **kwargs):
+        """
+        Get detailed information about a specific tool.
+        """
+        tool = request.env['loomworks.ai.tool'].search([
+            ('technical_name', '=', technical_name),
+            ('active', '=', True)
+        ], limit=1)
+
+        if not tool:
+            return {'error': 'Tool not found'}
+
+        import json
+        return {
+            'id': tool.id,
+            'name': tool.name,
+            'technical_name': tool.technical_name,
+            'category': tool.category,
+            'description': tool.description,
+            'parameters_schema': json.loads(tool.parameters_schema),
+            'returns_description': tool.returns_description,
+            'risk_level': tool.risk_level,
+            'requires_confirmation': tool.requires_confirmation,
+            'usage_count': tool.usage_count,
+            'last_used': tool.last_used.isoformat() if tool.last_used else None,
+        }
+
+    # =========================================================================
+    # FEEDBACK
+    # =========================================================================
+
+    @http.route('/loomworks/ai/feedback', type='json', auth='user', methods=['POST'])
+    def submit_feedback(self, session_uuid, message_id=None, rating=None, feedback_text=None, feedback_type='general', **kwargs):
+        """
+        Submit feedback on AI responses.
+
+        Request:
+            {
+                "session_uuid": "abc-123-...",
+                "message_id": 42,  // Optional - specific message
+                "rating": 5,  // 1-5 scale
+                "feedback_text": "This was very helpful!",
+                "feedback_type": "helpful"  // 'helpful', 'unhelpful', 'incorrect', 'general'
+            }
+
+        Response:
+            {
+                "success": true,
+                "feedback_id": 1
+            }
+        """
+        session = request.env['loomworks.ai.session'].search([
+            ('uuid', '=', session_uuid),
+            ('user_id', '=', request.env.user.id)
+        ], limit=1)
+
+        if not session:
+            return {'error': 'Session not found'}
+
+        # Create feedback record
+        Feedback = request.env['loomworks.ai.feedback']
+
+        # Check if model exists (it might not be created yet)
+        if 'loomworks.ai.feedback' not in request.env:
+            # Log feedback to operation log instead
+            request.env['loomworks.ai.operation.log'].create_log(
+                session_id=session.id,
+                tool_name='user_feedback',
+                operation_type='other',
+                input_data={
+                    'message_id': message_id,
+                    'rating': rating,
+                    'feedback_text': feedback_text,
+                    'feedback_type': feedback_type,
+                },
+                state='success',
+            )
+            return {
+                'success': True,
+                'feedback_id': None,
+                'note': 'Feedback logged to operation log'
+            }
+
+        try:
+            feedback = Feedback.create({
+                'session_id': session.id,
+                'message_id': message_id,
+                'user_id': request.env.user.id,
+                'rating': rating,
+                'feedback_text': feedback_text,
+                'feedback_type': feedback_type,
+            })
+
+            return {
+                'success': True,
+                'feedback_id': feedback.id,
+            }
+        except Exception as e:
+            return {'error': str(e)}
+
+    # =========================================================================
+    # USER SETTINGS
+    # =========================================================================
+
+    @http.route('/loomworks/ai/settings', type='json', auth='user', methods=['POST'])
+    def get_user_settings(self, **kwargs):
+        """
+        Get current user's AI settings.
+        """
+        settings = request.env['loomworks.ai.user.settings'].get_user_settings()
+        return settings.get_settings_dict()
+
+    @http.route('/loomworks/ai/settings/update', type='json', auth='user', methods=['POST'])
+    def update_user_settings(self, **kwargs):
+        """
+        Update current user's AI settings.
+
+        Request:
+            {
+                "enableSuggestions": true,
+                "suggestionFrequency": "normal",
+                "notificationStyle": "popup"
+            }
+        """
+        # Remove non-setting keys
+        values = {k: v for k, v in kwargs.items() if k not in ['csrf_token']}
+        result = request.env['loomworks.ai.user.settings'].update_user_settings(values)
+        return result
+
+    # =========================================================================
+    # CONTEXT QUICK ACTIONS
+    # =========================================================================
+
+    @http.route('/loomworks/ai/quick_actions', type='json', auth='user', methods=['POST'])
+    def get_quick_actions(self, model=None, record_id=None, view_type=None, **kwargs):
+        """
+        Get context-specific quick actions for the AI navbar.
+
+        Request:
+            {
+                "model": "sale.order",
+                "record_id": 42,
+                "view_type": "form"
+            }
+
+        Response:
+            {
+                "actions": [
+                    {"id": "confirm", "label": "Confirm Order", "icon": "fa-check"}
+                ]
+            }
+        """
+        if not model:
+            return {'actions': []}
+
+        actions = []
+
+        # Model-specific quick actions
+        if model == 'sale.order':
+            actions = [
+                {'id': 'create_quote', 'label': 'New Quote', 'icon': 'fa-plus', 'query': 'Create a new sales quotation'},
+                {'id': 'check_inventory', 'label': 'Check Stock', 'icon': 'fa-cubes', 'query': 'Check inventory for this order'},
+            ]
+            if record_id:
+                actions.append({'id': 'order_status', 'label': 'Order Status', 'icon': 'fa-info', 'query': f'What is the status of order {record_id}?'})
+
+        elif model == 'purchase.order':
+            actions = [
+                {'id': 'create_po', 'label': 'New PO', 'icon': 'fa-plus', 'query': 'Create a new purchase order'},
+                {'id': 'check_deliveries', 'label': 'Deliveries', 'icon': 'fa-truck', 'query': 'Show pending deliveries'},
+            ]
+
+        elif model == 'res.partner':
+            actions = [
+                {'id': 'create_contact', 'label': 'New Contact', 'icon': 'fa-user-plus', 'query': 'Create a new contact'},
+                {'id': 'contact_history', 'label': 'History', 'icon': 'fa-history', 'query': 'Show transaction history for this contact'},
+            ]
+
+        elif model == 'account.move':
+            actions = [
+                {'id': 'create_invoice', 'label': 'New Invoice', 'icon': 'fa-file-text', 'query': 'Create a new invoice'},
+                {'id': 'overdue_invoices', 'label': 'Overdue', 'icon': 'fa-exclamation-triangle', 'query': 'Show overdue invoices'},
+            ]
+
+        else:
+            # Generic actions
+            actions = [
+                {'id': 'search', 'label': 'Search', 'icon': 'fa-search', 'query': f'Search {model}'},
+                {'id': 'create', 'label': 'Create', 'icon': 'fa-plus', 'query': f'Create a new {model} record'},
+            ]
+
+        # Always include dashboard
+        actions.append({'id': 'dashboard', 'label': 'Dashboard', 'icon': 'fa-tachometer', 'query': 'Show business dashboard'})
+
+        return {'actions': actions[:5]}  # Limit to 5
+
+    # =========================================================================
     # HELPERS
     # =========================================================================
 

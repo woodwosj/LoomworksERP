@@ -274,6 +274,8 @@ class LoomworksClaudeClient:
             'delete_record': self.mcp_tools.delete_record,
             'execute_action': self.mcp_tools.execute_action,
             'generate_report': self.mcp_tools.generate_report,
+            'get_field_info': self.mcp_tools.get_field_info,
+            'get_dashboard_data': self.mcp_tools.get_dashboard_data,
         }
 
         if tool_name not in tools:
