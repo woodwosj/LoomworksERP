@@ -32,6 +32,17 @@ Loomworks ERP is a **complete fork** of Odoo Community v18 licensed under LGPL v
 - Website/e-commerce theming (separate module if needed)
 - Odoo Enterprise features (must be independently developed)
 
+### Phase 2 Dependencies
+
+> **Important**: The navbar design must accommodate the **Contextual AI Navbar** feature from Phase 2. When implementing navbar branding overrides, ensure the systray area has sufficient space for the AI dropdown component that will be added in Phase 2.7.
+>
+> See: `/openspec/FEATURE_CONTEXTUAL_AI_NAVBAR.md` for full specification.
+>
+> Key considerations:
+> - Reserve systray space for AI button with badge indicator
+> - Ensure navbar colors work with AI dropdown styling
+> - Navbar logo positioning should not conflict with AI dropdown width (320-420px)
+
 ## Technical Decisions
 
 ### Decision 0: Fork Strategy (CRITICAL - Do First)
@@ -611,6 +622,12 @@ $link-hover-color: $lw-primary-dark !default;
                  style="height: 30px; width: auto;"/>
         </xpath>
     </t>
+    <!--
+    NOTE: Phase 2.7 will add the AINavbarDropdown component to the systray area.
+    Ensure the systray has sufficient space and that these branding overrides
+    do not conflict with the AI dropdown (320-420px width).
+    See: /openspec/FEATURE_CONTEXTUAL_AI_NAVBAR.md
+    -->
 </templates>
 ```
 

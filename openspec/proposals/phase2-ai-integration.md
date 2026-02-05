@@ -3728,6 +3728,126 @@ FORBIDDEN_MODELS = [
 
 **Dependencies**: All previous phases
 
+### Phase 2.7: Contextual AI Navbar (Week 11-12)
+
+> **Full Specification**: See `/openspec/FEATURE_CONTEXTUAL_AI_NAVBAR.md`
+
+The Contextual AI Navbar transforms the basic AI button into an intelligent, context-aware assistant dropdown that proactively offers relevant suggestions based on user activity.
+
+#### Key Design Principle: Event-Driven Architecture
+
+The AI only "thinks" about context when triggered by user actions - **no constant polling or monitoring**.
+
+```javascript
+// Triggers that invoke context analysis
+const CONTEXT_TRIGGERS = [
+    'view_loaded',        // User opens a form/list/kanban
+    'record_created',     // User clicks "Create" button
+    'record_selected',    // User clicks into a record
+    'action_executed',    // User runs a workflow action
+    'error_occurred',     // Something failed
+    'idle_threshold',     // User paused for 10+ seconds
+    'search_performed',   // User searched for something
+    'tab_switched',       // User switched browser tab back
+];
+
+// NOT constantly monitoring:
+// - No polling intervals
+// - No continuous screenshot capture
+// - No always-on pattern analysis
+```
+
+#### Key Components
+
+| Component | Description |
+|-----------|-------------|
+| `ai_context_service.js` | Event-driven context detection (triggers on user actions) |
+| `ai_suggestion_service.js` | Generates proactive suggestions with debouncing |
+| `AINavbarDropdown` | Owl component with suggestions, quick actions, chat |
+| `loomworks.ai.user.settings` | Simplified user preferences (3 fields) |
+
+#### Implementation Tasks
+
+- [ ] 2.7.1 Create `ai_context_service.js` (event-driven triggers)
+- [ ] 2.7.2 Create `ai_suggestion_service.js` with debounced analysis
+- [ ] 2.7.3 Create `AINavbarDropdown` Owl component
+- [ ] 2.7.4 Create `AIContextIndicator` sub-component
+- [ ] 2.7.5 Create `AISuggestionList` sub-component
+- [ ] 2.7.6 Create `loomworks.ai.user.settings` model (simplified)
+- [ ] 2.7.7 Create AI settings modal component (simplified)
+- [ ] 2.7.8 Integrate with existing `AIChat` component
+- [ ] 2.7.9 Implement backend suggestion triggers
+- [ ] 2.7.10 Hook context triggers into view controllers
+- [ ] 2.7.11 Add idle detection (10s threshold)
+- [ ] 2.7.12 Write tests (unit + integration)
+- [ ] 2.7.13 Documentation and UX testing
+
+**Dependencies**: 2.5 (requires base AI components), 2.6 (integration tested)
+
+#### Event Flow
+
+```
+User Action (trigger)
+       │
+       ▼
+   Debounce (2-3 seconds)
+       │
+       ▼
+   Capture Context
+   - Current view state
+   - Screenshot (if helpful)
+   - Recent actions buffer
+       │
+       ▼
+   AI Analysis (single call)
+       │
+       ▼
+   Show suggestion (if any) or stay quiet
+```
+
+#### Suggestion Triggers
+
+| Trigger Event | Context | Suggestion |
+|---------------|---------|------------|
+| `view_loaded` (sales order form) | model: sale.order | Check customer credit status |
+| `record_created` (new quote) | state: draft | "Customer has overdue invoices" |
+| `error_occurred` | lastError: validation | "I can help fix that" |
+| `search_performed` (no results) | results: 0 | "Try broader search?" |
+| `idle_threshold` (10s on empty form) | hasUnsavedChanges: false | "Need help getting started?" |
+
+#### User Settings (Simplified)
+
+```python
+class AIUserSettings(models.Model):
+    _name = 'loomworks.ai.user.settings'
+
+    user_id = fields.Many2one('res.users', required=True)
+
+    # Proactive suggestions on/off
+    enable_suggestions = fields.Boolean(default=True)
+
+    # How often to suggest
+    suggestion_frequency = fields.Selection([
+        ('minimal', 'Minimal - Only critical issues'),
+        ('normal', 'Normal - Helpful suggestions'),
+        ('frequent', 'Frequent - More proactive'),
+    ], default='normal')
+
+    # Notification style
+    notification_style = fields.Selection([
+        ('badge', 'Badge only'),
+        ('popup', 'Popup notification'),
+    ], default='popup')
+```
+
+#### Privacy & Data Handling
+
+- **Anthropic Privacy**: Data processed by Claude AI with strict privacy policies - not used for training
+- **Event-Driven**: Analysis only on user actions, no constant monitoring
+- **Metadata Only**: Field names sent, not actual field values
+- **EULA Coverage**: Vision/screenshot analysis consent covered at signup
+- **Simple Controls**: Users can disable suggestions or adjust frequency
+
 ---
 
 ## API Specifications
@@ -4847,6 +4967,24 @@ async aiBulkAction() {
 | **List** | `odoo/addons/web/static/src/views/list/list_controller.js` | Modify | AI bulk actions |
 | **AI Core** | `odoo/addons/web/static/src/core/ai/` | Create | AI service directory |
 | **Assets** | `odoo/addons/web/views/webclient_templates.xml` | Modify | AI asset bundles |
+| **Context Service** | `odoo/addons/web/static/src/core/ai/ai_context_service.js` | Create | Event-driven context detection |
+| **Suggestion Service** | `odoo/addons/web/static/src/core/ai/ai_suggestion_service.js` | Create | Debounced suggestion generation |
+| **Idle Detector** | `odoo/addons/web/static/src/core/ai/ai_idle_detector.js` | Create | Simple idle detection (10s) |
+| **AI Dropdown** | `odoo/addons/web/static/src/core/ai/ai_navbar_dropdown/` | Create | Navbar dropdown component |
+| **User Settings** | `loomworks_ai/models/ai_user_settings.py` | Create | Simplified AI preferences (3 fields) |
+
+#### Phase 2.7: Contextual AI Navbar (Week 11-12)
+
+- [ ] 2.7.1 Create `ai_context_service.js` (event-driven)
+- [ ] 2.7.2 Create `ai_suggestion_service.js`
+- [ ] 2.7.3 Create `AINavbarDropdown` Owl component
+- [ ] 2.7.4 Create `loomworks.ai.user.settings` model (simplified)
+- [ ] 2.7.5 Create settings modal component (simplified)
+- [ ] 2.7.6 Integrate with existing `AIChat` component
+- [ ] 2.7.7 Add backend suggestion triggers
+- [ ] 2.7.8 Hook context triggers into view controllers
+- [ ] 2.7.9 Add idle detection (10s threshold)
+- [ ] 2.7.10 Write tests (unit + integration)
 
 ### 3.7 Maintaining Upgrade Compatibility
 
@@ -4882,6 +5020,9 @@ Even though we own the fork, we should maintain a clean separation to facilitate
 | Claude Agent SDK API changes | Medium | Medium | Abstraction layer, version pinning |
 | Fork maintenance burden | High | Medium | Upstream tracking branch, marked modifications, feature flags |
 | Core modification conflicts | Medium | High | Minimal invasive changes, use registries where possible |
+| Proactive AI feels intrusive | Medium | Medium | Conservative defaults, frequency control, easy disable |
+| Privacy concerns | Low | Medium | Event-driven (not constant), Anthropic privacy policies, EULA coverage |
+| Context detection errors | Medium | Low | Graceful fallbacks, user feedback mechanism |
 
 ---
 
