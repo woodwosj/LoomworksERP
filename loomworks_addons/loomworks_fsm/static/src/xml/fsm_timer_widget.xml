@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="loomworks_fsm.FsmTimerWidget">
+        <div t-att-class="widgetClass">
+            <div class="o_fsm_timer_display">
+                <t t-esc="displayTime"/>
+            </div>
+            <div class="o_fsm_timer_buttons">
+                <button t-if="showStartButton"
+                        class="btn btn-start"
+                        t-on-click="onStartClick"
+                        title="Start Timer">
+                    <i class="fa fa-play"/> Start
+                </button>
+                <button t-if="showPauseButton"
+                        class="btn btn-pause"
+                        t-on-click="onPauseClick"
+                        title="Pause Timer">
+                    <i class="fa fa-pause"/> Pause
+                </button>
+                <button t-if="showResumeButton"
+                        class="btn btn-start"
+                        t-on-click="onResumeClick"
+                        title="Resume Timer">
+                    <i class="fa fa-play"/> Resume
+                </button>
+                <button t-if="showStopButton"
+                        class="btn btn-stop"
+                        t-on-click="onStopClick"
+                        title="Stop Timer">
+                    <i class="fa fa-stop"/> Stop
+                </button>
+            </div>
+        </div>
+    </t>
+
+</templates>

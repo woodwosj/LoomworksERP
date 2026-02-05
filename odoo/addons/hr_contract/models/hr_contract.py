@@ -385,3 +385,46 @@ class Contract(models.Model):
                       'views':  [[False, 'list'], [False, 'kanban'], [False, 'activity'], [False, 'form']],
                        'context': {'default_employee_id': self.employee_id.id}})
         return action
+
+    # -------------------------------------------------------------------------
+    # Loomworks Payroll Integration Fields (Phase 3.3)
+    # These fields support payroll computation when loomworks_payroll is installed
+    # -------------------------------------------------------------------------
+
+    # Tax filing configuration (US-specific)
+    filing_status = fields.Selection([
+        ('single', 'Single'),
+        ('married', 'Married Filing Jointly'),
+        ('married_separate', 'Married Filing Separately'),
+        ('head_household', 'Head of Household'),
+    ], string='Filing Status', default='single',
+        help="Employee tax filing status for federal income tax withholding (US)")
+
+    # Federal and state withholding allowances
+    federal_allowances = fields.Integer(
+        string='Federal Allowances', default=0,
+        help="Number of federal withholding allowances claimed on W-4")
+    state_allowances = fields.Integer(
+        string='State Allowances', default=0,
+        help="Number of state withholding allowances claimed")
+
+    # Additional withholding amounts
+    additional_federal_withholding = fields.Monetary(
+        string='Additional Federal Withholding',
+        help="Additional amount to withhold from each paycheck for federal taxes")
+    additional_state_withholding = fields.Monetary(
+        string='Additional State Withholding',
+        help="Additional amount to withhold from each paycheck for state taxes")
+
+    # Hourly rate (for hourly employees)
+    hourly_wage = fields.Monetary(
+        string='Hourly Rate',
+        help="Hourly wage for employees with hourly wage type")
+
+    @api.depends('structure_type_id.wage_type', 'wage', 'hourly_wage')
+    def _compute_contract_wage(self):
+        for contract in self:
+            if contract.structure_type_id.wage_type == 'hourly':
+                contract.contract_wage = contract.hourly_wage
+            else:
+                contract.contract_wage = contract._get_contract_wage()

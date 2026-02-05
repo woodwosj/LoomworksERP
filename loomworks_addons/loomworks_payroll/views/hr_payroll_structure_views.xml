@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Payroll Structure Form View -->
+    <record id="hr_payroll_structure_view_form" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.form</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="arch" type="xml">
+            <form string="Salary Structure">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive"
+                                invisible="active">
+                            <field name="active" widget="boolean_button"
+                                   options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <group>
+                        <group>
+                            <field name="name" placeholder="e.g. US Salaried Employee"/>
+                            <field name="code" placeholder="e.g. US_SALARY"/>
+                            <field name="type_id"/>
+                            <field name="schedule_pay"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="country_id" invisible="1"/>
+                            <field name="state_id"
+                                   domain="[('country_id', '=', country_id)]"
+                                   placeholder="e.g. California"/>
+                            <field name="parent_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Salary Rules" name="rules">
+                            <field name="rule_ids">
+                                <list string="Salary Rules">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="category_id"/>
+                                    <field name="amount_select"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Description" name="description">
+                            <field name="note" placeholder="Description of this salary structure..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Payroll Structure List View -->
+    <record id="hr_payroll_structure_view_list" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.list</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="arch" type="xml">
+            <list string="Salary Structures">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="type_id"/>
+                <field name="schedule_pay"/>
+                <field name="parent_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Payroll Structure Search View -->
+    <record id="hr_payroll_structure_view_search" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.search</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="arch" type="xml">
+            <search string="Search Salary Structures">
+                <field name="name"/>
+                <field name="code"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Structure Type" name="type" context="{'group_by': 'type_id'}"/>
+                    <filter string="Schedule" name="schedule" context="{'group_by': 'schedule_pay'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hr_payroll_structure" model="ir.actions.act_window">
+        <field name="name">Salary Structures</field>
+        <field name="res_model">hr.payroll.structure</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hr_payroll_structure_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new salary structure
+            </p>
+            <p>
+                Salary structures define sets of salary rules that are
+                used to compute employee payslips.
+            </p>
+        </field>
+    </record>
+</odoo>

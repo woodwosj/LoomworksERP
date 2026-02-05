@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_spreadsheet_document_user,spreadsheet.document.user,model_spreadsheet_document,group_spreadsheet_user,1,1,1,0
+access_spreadsheet_document_manager,spreadsheet.document.manager,model_spreadsheet_document,group_spreadsheet_manager,1,1,1,1
+access_spreadsheet_data_source_user,spreadsheet.data.source.user,model_spreadsheet_data_source,group_spreadsheet_user,1,1,1,0
+access_spreadsheet_data_source_manager,spreadsheet.data.source.manager,model_spreadsheet_data_source,group_spreadsheet_manager,1,1,1,1
+access_spreadsheet_pivot_user,spreadsheet.pivot.user,model_spreadsheet_pivot,group_spreadsheet_user,1,1,1,0
+access_spreadsheet_pivot_manager,spreadsheet.pivot.manager,model_spreadsheet_pivot,group_spreadsheet_manager,1,1,1,1
+access_spreadsheet_pivot_measure_user,spreadsheet.pivot.measure.user,model_spreadsheet_pivot_measure,group_spreadsheet_user,1,1,1,0
+access_spreadsheet_pivot_measure_manager,spreadsheet.pivot.measure.manager,model_spreadsheet_pivot_measure,group_spreadsheet_manager,1,1,1,1
+access_spreadsheet_chart_user,spreadsheet.chart.user,model_spreadsheet_chart,group_spreadsheet_user,1,1,1,0
+access_spreadsheet_chart_manager,spreadsheet.chart.manager,model_spreadsheet_chart,group_spreadsheet_manager,1,1,1,1
+access_spreadsheet_tag_user,spreadsheet.document.tag.user,model_spreadsheet_document_tag,group_spreadsheet_user,1,0,0,0
+access_spreadsheet_tag_manager,spreadsheet.document.tag.manager,model_spreadsheet_document_tag,group_spreadsheet_manager,1,1,1,1
+access_spreadsheet_folder_user,spreadsheet.folder.user,model_spreadsheet_folder,group_spreadsheet_user,1,1,1,0
+access_spreadsheet_folder_manager,spreadsheet.folder.manager,model_spreadsheet_folder,group_spreadsheet_manager,1,1,1,1

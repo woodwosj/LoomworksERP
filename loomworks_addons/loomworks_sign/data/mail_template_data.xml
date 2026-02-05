@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Signature Request Email Template -->
+    <record id="mail_template_signature_request" model="mail.template">
+        <field name="name">Sign: Signature Request</field>
+        <field name="model_id" ref="model_sign_request"/>
+        <field name="subject">{{ object.subject or 'Signature Required' }}: {{ object.template_id.name }}</field>
+        <field name="email_from">{{ (object.company_id.email or user.email_formatted) }}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
+    <p>Hello {{ ctx.get('signer_name', 'there') }},</p>
+
+    <p>You have been requested to sign a document.</p>
+
+    <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
+        <p><strong>Document:</strong> {{ object.template_id.name }}</p>
+        <p><strong>From:</strong> {{ object.create_uid.name }}</p>
+        {% if object.expire_date %}
+        <p><strong>Please sign by:</strong> {{ object.expire_date }}</p>
+        {% endif %}
+    </div>
+
+    {% if object.message %}
+    <div style="margin: 20px 0;">
+        <p><strong>Message from sender:</strong></p>
+        {{ object.message }}
+    </div>
+    {% endif %}
+
+    <p style="margin-top: 25px;">
+        <a href="{{ ctx.get('signing_url', '#') }}"
+           style="display: inline-block; padding: 12px 30px; background-color: #875A7B;
+                  color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            Review &amp; Sign Document
+        </a>
+    </p>
+
+    <p style="color: #666; font-size: 12px; margin-top: 30px;">
+        This link is unique to you. Do not share it with others.<br/>
+        If you did not expect this request, please contact the sender.
+    </p>
+
+    <p style="color: #666; font-size: 12px;">
+        Powered by Loomworks Sign
+    </p>
+</div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+
+    <!-- Signature Complete Email Template -->
+    <record id="mail_template_signature_complete" model="mail.template">
+        <field name="name">Sign: Document Completed</field>
+        <field name="model_id" ref="model_sign_request"/>
+        <field name="subject">Document Signed: {{ object.template_id.name }}</field>
+        <field name="email_from">{{ (object.company_id.email or user.email_formatted) }}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
+    <p>Hello,</p>
+
+    <p>The document <strong>{{ object.template_id.name }}</strong> has been signed by all parties.</p>
+
+    <div style="background: #d4edda; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #28a745;">
+        <p><strong>Reference:</strong> {{ object.name }}</p>
+        <p><strong>Completed:</strong> {{ object.completion_date }}</p>
+        <p><strong>Signers:</strong></p>
+        <ul>
+            {% for signer in object.signer_ids %}
+            <li>{{ signer.partner_id.name }} ({{ signer.role_id.name }}) - Signed {{ signer.signed_date }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <p>A copy of the signed document is attached to this email.</p>
+
+    <p style="color: #666; font-size: 12px; margin-top: 30px;">
+        This document was signed electronically using Loomworks Sign.<br/>
+        Document Hash: {{ object.final_hash }}
+    </p>
+</div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+
+    <!-- Signature Reminder Template -->
+    <record id="mail_template_signature_reminder" model="mail.template">
+        <field name="name">Sign: Signature Reminder</field>
+        <field name="model_id" ref="model_sign_request"/>
+        <field name="subject">Reminder: Please sign {{ object.template_id.name }}</field>
+        <field name="email_from">{{ (object.company_id.email or user.email_formatted) }}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
+    <p>Hello {{ ctx.get('signer_name', 'there') }},</p>
+
+    <p>This is a friendly reminder that a document is awaiting your signature.</p>
+
+    <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #ffc107;">
+        <p><strong>Document:</strong> {{ object.template_id.name }}</p>
+        <p><strong>From:</strong> {{ object.create_uid.name }}</p>
+        {% if object.expire_date %}
+        <p><strong>Expires:</strong> {{ object.expire_date }}</p>
+        {% endif %}
+    </div>
+
+    <p style="margin-top: 25px;">
+        <a href="{{ ctx.get('signing_url', '#') }}"
+           style="display: inline-block; padding: 12px 30px; background-color: #ffc107;
+                  color: #212529; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            Sign Now
+        </a>
+    </p>
+</div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+</odoo>

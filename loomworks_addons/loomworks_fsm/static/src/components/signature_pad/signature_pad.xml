@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="loomworks_fsm.FsmSignaturePad">
+        <div t-att-class="containerClass">
+            <div class="o_signature_canvas_container">
+                <canvas t-ref="canvas"/>
+                <span t-if="showPlaceholder" class="o_signature_placeholder">
+                    Sign here...
+                </span>
+            </div>
+            <div t-if="showActions" class="o_signature_actions">
+                <button class="btn btn-sm btn-clear"
+                        t-on-click="onClearClick"
+                        title="Clear signature">
+                    <i class="fa fa-eraser"/> Clear
+                </button>
+                <button class="btn btn-sm btn-save"
+                        t-on-click="onSaveClick"
+                        t-att-disabled="state.isEmpty"
+                        title="Save signature">
+                    <i class="fa fa-check"/> Save
+                </button>
+            </div>
+        </div>
+    </t>
+
+</templates>

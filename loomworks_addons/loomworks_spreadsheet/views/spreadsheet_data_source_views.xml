@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Spreadsheet Data Source Views -->
+
+    <!-- Tree View -->
+    <record id="spreadsheet_data_source_view_tree" model="ir.ui.view">
+        <field name="name">spreadsheet.data.source.view.tree</field>
+        <field name="model">spreadsheet.data.source</field>
+        <field name="arch" type="xml">
+            <tree string="Data Sources">
+                <field name="name"/>
+                <field name="document_id"/>
+                <field name="source_type"/>
+                <field name="model_name"/>
+                <field name="record_count"/>
+                <field name="target_cell"/>
+                <field name="auto_refresh" widget="boolean_toggle"/>
+                <field name="last_refresh"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="spreadsheet_data_source_view_form" model="ir.ui.view">
+        <field name="name">spreadsheet.data.source.view.form</field>
+        <field name="model">spreadsheet.data.source</field>
+        <field name="arch" type="xml">
+            <form string="Data Source">
+                <header>
+                    <button name="action_refresh" type="object"
+                            string="Refresh Data" class="btn-primary"/>
+                    <button name="insert_into_spreadsheet" type="object"
+                            string="Insert into Spreadsheet"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Data Source Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Source Configuration">
+                            <field name="document_id"/>
+                            <field name="source_type"/>
+                            <field name="model_id"
+                                   invisible="source_type != 'model'"
+                                   required="source_type == 'model'"/>
+                            <field name="model_name" invisible="1"/>
+                        </group>
+                        <group string="Target Location">
+                            <field name="target_sheet"/>
+                            <field name="target_cell"/>
+                            <field name="include_headers"/>
+                        </group>
+                    </group>
+                    <group invisible="source_type != 'model'">
+                        <group string="Data Selection">
+                            <field name="field_ids" widget="many2many_tags"
+                                   domain="[('model_id', '=', model_id)]"
+                                   placeholder="Select fields to include"/>
+                            <field name="domain" widget="domain"
+                                   options="{'model': 'model_name'}"/>
+                            <field name="limit"/>
+                            <field name="order" placeholder="e.g., name desc, id"/>
+                        </group>
+                        <group string="Refresh Settings">
+                            <field name="auto_refresh"/>
+                            <field name="refresh_interval"
+                                   invisible="not auto_refresh"/>
+                            <field name="last_refresh" readonly="1"/>
+                            <field name="record_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Data Preview" colspan="2">
+                        <field name="preview_data" widget="ace"
+                               options="{'mode': 'json'}" readonly="1"
+                               nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="spreadsheet_data_source_view_search" model="ir.ui.view">
+        <field name="name">spreadsheet.data.source.view.search</field>
+        <field name="model">spreadsheet.data.source</field>
+        <field name="arch" type="xml">
+            <search string="Data Sources">
+                <field name="name"/>
+                <field name="document_id"/>
+                <field name="model_name"/>
+                <filter name="auto_refresh" string="Auto Refresh"
+                        domain="[('auto_refresh', '=', True)]"/>
+                <filter name="archived" string="Archived"
+                        domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_document" string="Document"
+                            context="{'group_by': 'document_id'}"/>
+                    <filter name="group_by_type" string="Source Type"
+                            context="{'group_by': 'source_type'}"/>
+                    <filter name="group_by_model" string="Model"
+                            context="{'group_by': 'model_name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_spreadsheet_data_source" model="ir.actions.act_window">
+        <field name="name">Data Sources</field>
+        <field name="res_model">spreadsheet.data.source</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="spreadsheet_data_source_view_search"/>
+    </record>
+
+</odoo>

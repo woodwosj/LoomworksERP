@@ -1,0 +1,32 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+# Salary Rule Category
+access_salary_rule_category_user,hr.salary.rule.category.user,model_hr_salary_rule_category,group_payroll_user,1,0,0,0
+access_salary_rule_category_manager,hr.salary.rule.category.manager,model_hr_salary_rule_category,group_payroll_manager,1,1,1,1
+# Salary Rule
+access_salary_rule_user,hr.salary.rule.user,model_hr_salary_rule,group_payroll_user,1,0,0,0
+access_salary_rule_manager,hr.salary.rule.manager,model_hr_salary_rule,group_payroll_manager,1,1,1,1
+# Payroll Structure
+access_payroll_structure_user,hr.payroll.structure.user,model_hr_payroll_structure,group_payroll_user,1,0,0,0
+access_payroll_structure_manager,hr.payroll.structure.manager,model_hr_payroll_structure,group_payroll_manager,1,1,1,1
+# Payslip
+access_payslip_employee,hr.payslip.employee,model_hr_payslip,base.group_user,1,0,0,0
+access_payslip_user,hr.payslip.user,model_hr_payslip,group_payroll_user,1,1,1,0
+access_payslip_manager,hr.payslip.manager,model_hr_payslip,group_payroll_manager,1,1,1,1
+# Payslip Line
+access_payslip_line_employee,hr.payslip.line.employee,model_hr_payslip_line,base.group_user,1,0,0,0
+access_payslip_line_user,hr.payslip.line.user,model_hr_payslip_line,group_payroll_user,1,1,1,0
+access_payslip_line_manager,hr.payslip.line.manager,model_hr_payslip_line,group_payroll_manager,1,1,1,1
+# Payslip Worked Days
+access_payslip_worked_days_user,hr.payslip.worked_days.user,model_hr_payslip_worked_days,group_payroll_user,1,1,1,0
+access_payslip_worked_days_manager,hr.payslip.worked_days.manager,model_hr_payslip_worked_days,group_payroll_manager,1,1,1,1
+# Payslip Input
+access_payslip_input_user,hr.payslip.input.user,model_hr_payslip_input,group_payroll_user,1,1,1,0
+access_payslip_input_manager,hr.payslip.input.manager,model_hr_payslip_input,group_payroll_manager,1,1,1,1
+# Payslip Input Type
+access_payslip_input_type_user,hr.payslip.input.type.user,model_hr_payslip_input_type,group_payroll_user,1,0,0,0
+access_payslip_input_type_manager,hr.payslip.input.type.manager,model_hr_payslip_input_type,group_payroll_manager,1,1,1,1
+# Payslip Run (Batch)
+access_payslip_run_user,hr.payslip.run.user,model_hr_payslip_run,group_payroll_user,1,1,1,0
+access_payslip_run_manager,hr.payslip.run.manager,model_hr_payslip_run,group_payroll_manager,1,1,1,1
+# Wizard
+access_payslip_employees_user,hr.payslip.employees.user,model_hr_payslip_employees,group_payroll_user,1,1,1,0

@@ -1,0 +1,352 @@
+/**
+ * Loomworks Planning Styles
+ * Visual workforce scheduling
+ */
+
+// Planning Colors
+$planning-primary: #714B67;
+$planning-success: #28a745;
+$planning-warning: #ffc107;
+$planning-danger: #dc3545;
+$planning-info: #17a2b8;
+
+// Role Colors (matching Odoo color indices)
+$role-colors: (
+    0: #6c757d,   // Gray
+    1: #007bff,   // Blue
+    2: #28a745,   // Green
+    3: #ffc107,   // Yellow
+    4: #dc3545,   // Red
+    5: #17a2b8,   // Cyan
+    6: #6f42c1,   // Purple
+    7: #fd7e14,   // Orange
+    8: #20c997,   // Teal
+    9: #e83e8c,   // Pink
+    10: #714B67,  // Loomworks primary
+);
+
+// Gantt View Styles
+.o_gantt_view {
+    .o_gantt_header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+
+        .o_gantt_header_cell {
+            padding: 8px;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #495057;
+            border-right: 1px solid #e9ecef;
+
+            &.o_gantt_header_today {
+                background-color: rgba($planning-primary, 0.1);
+                font-weight: 600;
+            }
+        }
+    }
+
+    .o_gantt_row_container {
+        .o_gantt_row {
+            min-height: 40px;
+            border-bottom: 1px solid #e9ecef;
+
+            &:hover {
+                background-color: rgba($planning-primary, 0.03);
+            }
+        }
+
+        .o_gantt_row_sidebar {
+            width: 200px;
+            padding: 8px 12px;
+            background-color: #fafafa;
+            border-right: 1px solid #dee2e6;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+
+            .o_gantt_row_title {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    // Gantt pill (slot representation)
+    .o_gantt_pill {
+        height: 28px;
+        margin: 4px 2px;
+        border-radius: 4px;
+        padding: 2px 8px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        overflow: hidden;
+
+        // Generate role color classes
+        @each $index, $color in $role-colors {
+            &.o_gantt_color_#{$index} {
+                background-color: $color;
+                color: if(lightness($color) > 60%, #333, white);
+            }
+        }
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        &.o_gantt_pill_dragging {
+            opacity: 0.8;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        // Conflict styling
+        &.o_gantt_pill_conflict {
+            border: 2px solid $planning-danger;
+            position: relative;
+
+            &::after {
+                content: '!';
+                position: absolute;
+                top: -6px;
+                right: -6px;
+                width: 16px;
+                height: 16px;
+                background: $planning-danger;
+                color: white;
+                border-radius: 50%;
+                font-size: 10px;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        // Progress bar
+        .o_gantt_pill_progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .o_gantt_pill_title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 1;
+        }
+
+        .o_gantt_pill_hours {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            margin-left: 8px;
+        }
+    }
+
+    // Today line
+    .o_gantt_today_line {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: $planning-primary;
+        z-index: 10;
+        pointer-events: none;
+
+        &::before {
+            content: 'Today';
+            position: absolute;
+            top: 0;
+            left: -20px;
+            background: $planning-primary;
+            color: white;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            border-radius: 0 0 4px 4px;
+        }
+    }
+
+    // Scale controls
+    .o_gantt_controls {
+        padding: 8px 12px;
+        background: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .o_gantt_scale_buttons {
+            display: flex;
+            gap: 4px;
+
+            .btn {
+                padding: 4px 12px;
+                font-size: 0.85rem;
+
+                &.active {
+                    background: $planning-primary;
+                    border-color: $planning-primary;
+                    color: white;
+                }
+            }
+        }
+
+        .o_gantt_navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .o_gantt_current_period {
+                font-weight: 500;
+                min-width: 150px;
+                text-align: center;
+            }
+        }
+    }
+
+    // Grid lines
+    .o_gantt_grid {
+        .o_gantt_grid_line {
+            border-right: 1px solid #e9ecef;
+
+            &.o_gantt_grid_line_weekend {
+                background-color: rgba(0, 0, 0, 0.02);
+            }
+
+            &.o_gantt_grid_line_today {
+                background-color: rgba($planning-primary, 0.05);
+            }
+        }
+    }
+}
+
+// Planning Kanban
+.o_planning_kanban {
+    .o_kanban_record {
+        border-left: 4px solid transparent;
+        transition: border-color 0.2s ease;
+
+        &:hover {
+            border-left-color: $planning-primary;
+        }
+
+        &.border-danger {
+            border-left-color: $planning-danger !important;
+            background-color: rgba($planning-danger, 0.03);
+        }
+    }
+}
+
+// Planning Form Conflict Warning
+.o_form_view {
+    .o_web_ribbon.text-bg-danger {
+        background: linear-gradient(135deg, $planning-danger, darken($planning-danger, 10%)) !important;
+    }
+}
+
+// Quick Create Wizard
+.o_dialog {
+    .modal-content {
+        [model="planning.slot.quick.create"] {
+            .form-check {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                margin-right: 16px;
+
+                .form-check-input {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+}
+
+// Employee Planning Stats
+.oe_stat_button {
+    &[name="action_view_planning"],
+    &[name="action_view_this_week"] {
+        .o_stat_value {
+            color: $planning-primary;
+        }
+    }
+}
+
+// Slot State Badges
+.o_list_view, .o_form_view {
+    .badge {
+        &[data-value="draft"] {
+            background-color: $planning-info !important;
+        }
+        &[data-value="published"] {
+            background-color: $planning-success !important;
+        }
+        &[data-value="done"] {
+            background-color: $planning-primary !important;
+        }
+        &[data-value="cancelled"] {
+            background-color: #6c757d !important;
+        }
+    }
+}
+
+// Calendar View Colors
+.o_calendar_view {
+    .fc-event {
+        @each $index, $color in $role-colors {
+            &.o_calendar_color_#{$index} {
+                background-color: $color !important;
+                border-color: darken($color, 10%) !important;
+            }
+        }
+    }
+}
+
+// Mobile Responsiveness
+@media (max-width: 768px) {
+    .o_gantt_view {
+        .o_gantt_row_sidebar {
+            width: 120px;
+            font-size: 0.85rem;
+        }
+
+        .o_gantt_pill {
+            font-size: 0.75rem;
+            height: 24px;
+        }
+
+        .o_gantt_controls {
+            flex-wrap: wrap;
+
+            .o_gantt_scale_buttons {
+                order: 2;
+                width: 100%;
+                justify-content: center;
+                margin-top: 8px;
+            }
+        }
+    }
+}
+
+// Print Styles
+@media print {
+    .o_gantt_view {
+        .o_gantt_controls {
+            display: none;
+        }
+
+        .o_gantt_pill {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+    }
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="sequence_sign_request" model="ir.sequence">
+        <field name="name">Signature Request</field>
+        <field name="code">sign.request</field>
+        <field name="prefix">SIGN/%(year)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

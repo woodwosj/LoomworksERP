@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Worksheet Template Form View -->
+    <record id="fsm_worksheet_template_view_form" model="ir.ui.view">
+        <field name="name">fsm.worksheet.template.form</field>
+        <field name="model">fsm.worksheet.template</field>
+        <field name="arch" type="xml">
+            <form string="Worksheet Template">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive"
+                                invisible="active">
+                            <field name="active" widget="boolean_button"
+                                   options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="project_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Fields" name="fields">
+                            <field name="field_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="technical_name"/>
+                                    <field name="field_type"/>
+                                    <field name="required"/>
+                                    <field name="selection_options" invisible="field_type != 'select'"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Description" name="description">
+                            <field name="description" placeholder="Instructions for filling out this worksheet..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Worksheet Template List View -->
+    <record id="fsm_worksheet_template_view_list" model="ir.ui.view">
+        <field name="name">fsm.worksheet.template.list</field>
+        <field name="model">fsm.worksheet.template</field>
+        <field name="arch" type="xml">
+            <list string="Worksheet Templates">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="field_ids" widget="many2many_tags"/>
+                <field name="project_ids" widget="many2many_tags"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Worksheet Template Action -->
+    <record id="action_fsm_worksheet_template" model="ir.actions.act_window">
+        <field name="name">Worksheet Templates</field>
+        <field name="res_model">fsm.worksheet.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a worksheet template
+            </p>
+            <p>
+                Worksheet templates define the forms technicians fill out on-site.
+            </p>
+        </field>
+    </record>
+
+    <!-- Worksheet Field Form (for editing in template) -->
+    <record id="fsm_worksheet_field_view_form" model="ir.ui.view">
+        <field name="name">fsm.worksheet.field.form</field>
+        <field name="model">fsm.worksheet.field</field>
+        <field name="arch" type="xml">
+            <form string="Worksheet Field">
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="technical_name"/>
+                        <field name="field_type"/>
+                        <field name="sequence"/>
+                    </group>
+                    <group>
+                        <field name="required"/>
+                        <field name="placeholder"/>
+                        <field name="default_value"/>
+                    </group>
+                </group>
+                <group invisible="field_type != 'select'">
+                    <field name="selection_options" placeholder="One option per line..."/>
+                </group>
+                <field name="help_text" placeholder="Help text for this field..."/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Project Form Extension to show FSM settings -->
+    <record id="project_project_view_form_fsm" model="ir.ui.view">
+        <field name="name">project.project.form.fsm</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_fsm_tasks" type="object"
+                        class="oe_stat_button" icon="fa-wrench"
+                        invisible="not is_fsm">
+                    <div class="o_stat_info">
+                        <field name="fsm_done_count" class="o_stat_value"/>
+                        <span class="o_stat_text"> / </span>
+                        <field name="fsm_task_count" class="o_stat_value"/>
+                    </div>
+                    <span class="o_stat_text">FSM Tasks</span>
+                </button>
+            </xpath>
+            <xpath expr="//group[@name='project_info']" position="after">
+                <group string="Field Service" invisible="not is_fsm">
+                    <field name="default_worksheet_template_id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

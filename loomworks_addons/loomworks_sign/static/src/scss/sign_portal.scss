@@ -1,0 +1,306 @@
+// Loomworks Sign - Portal Styles
+// Public signing interface
+
+// Variables
+$sign-primary: #875A7B;
+$sign-success: #28a745;
+$sign-warning: #ffc107;
+$sign-danger: #dc3545;
+
+// Main Container
+.o_sign_document_main {
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+// Header
+.o_sign_header {
+    background: linear-gradient(135deg, $sign-primary 0%, darken($sign-primary, 15%) 100%);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+// Document Viewer
+.o_sign_document_viewer {
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+// PDF Container
+.o_sign_pdf_container {
+    background-color: #525659;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+// PDF Pages
+.o_sign_page {
+    background-color: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+
+    img {
+        display: block;
+        width: 100%;
+    }
+}
+
+// Signature Fields
+.o_sign_field {
+    border: 2px dashed $sign-primary;
+    background-color: rgba($sign-primary, 0.1);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    overflow: hidden;
+
+    &:hover {
+        background-color: rgba($sign-primary, 0.2);
+        border-style: solid;
+        transform: scale(1.02);
+    }
+
+    &[data-required="true"] {
+        border-color: $sign-danger;
+        background-color: rgba($sign-danger, 0.1);
+
+        &:hover {
+            background-color: rgba($sign-danger, 0.2);
+        }
+    }
+
+    &.completed {
+        border-color: $sign-success;
+        background-color: rgba($sign-success, 0.1);
+        cursor: default;
+
+        &:hover {
+            transform: none;
+        }
+    }
+}
+
+// Signature Field Placeholder
+.o_sign_signature_field,
+.o_sign_initial_field {
+    cursor: pointer;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 5px,
+        rgba($sign-primary, 0.05) 5px,
+        rgba($sign-primary, 0.05) 10px
+    );
+
+    &:hover {
+        background: rgba($sign-primary, 0.15);
+    }
+
+    span {
+        font-size: 13px;
+    }
+}
+
+// Completed Signature Display
+.o_sign_completed_signature {
+    padding: 4px;
+    height: 100%;
+    width: 100%;
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+}
+
+// Form Controls in Fields
+.o_sign_field {
+    input[type="text"],
+    input[type="date"],
+    textarea {
+        border: none;
+        background-color: transparent;
+        width: 100%;
+        height: 100%;
+        padding: 4px 8px;
+        font-size: 14px;
+
+        &:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+    }
+
+    textarea {
+        resize: none;
+    }
+
+    .form-check-input {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+}
+
+// Signature Canvas
+#signature-canvas,
+#initial-canvas {
+    background-color: #fff;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+// Signature Text Preview
+.signature-preview {
+    min-height: 80px;
+    background-color: #f8f9fa;
+}
+
+#signature-text-preview {
+    color: #333;
+}
+
+// Upload Preview
+#signature-upload-preview {
+    max-height: 150px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 8px;
+    background-color: white;
+}
+
+// Action Buttons
+#btn-sign-submit {
+    font-size: 16px;
+    padding: 12px 24px;
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+// Completion Page
+.o_sign_complete_page {
+    .success-icon {
+        animation: scaleIn 0.5s ease-out;
+    }
+
+    @keyframes scaleIn {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+        50% {
+            transform: scale(1.2);
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+}
+
+// Mobile Responsive
+@media (max-width: 768px) {
+    .o_sign_header {
+        h4 {
+            font-size: 16px;
+        }
+    }
+
+    .o_sign_pdf_container {
+        padding: 10px;
+    }
+
+    .o_sign_field {
+        .o_sign_signature_field span,
+        .o_sign_initial_field span {
+            font-size: 11px;
+        }
+    }
+
+    #btn-sign-submit {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+
+    .modal-dialog {
+        margin: 10px;
+    }
+
+    #signature-canvas,
+    #initial-canvas {
+        height: 150px !important;
+    }
+}
+
+// Print Styles
+@media print {
+    .o_sign_header,
+    .btn,
+    .card-footer {
+        display: none !important;
+    }
+
+    .o_sign_pdf_container {
+        background-color: white !important;
+        padding: 0 !important;
+    }
+
+    .o_sign_page {
+        box-shadow: none !important;
+        page-break-after: always;
+    }
+
+    .o_sign_field {
+        border: 1px solid #ccc !important;
+        background-color: transparent !important;
+    }
+}
+
+// Loading State
+.o_sign_loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+        color: $sign-primary;
+    }
+}
+
+// Validation Feedback
+.o_sign_validation_error {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: $sign-danger;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 100;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 6px solid transparent;
+        border-top-color: $sign-danger;
+    }
+}

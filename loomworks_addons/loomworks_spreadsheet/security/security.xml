@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Spreadsheet Security Groups -->
+
+    <record id="module_category_spreadsheet" model="ir.module.category">
+        <field name="name">Spreadsheet</field>
+        <field name="description">Spreadsheet and Data Analysis</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <!-- User Group - Can view and edit spreadsheets -->
+    <record id="group_spreadsheet_user" model="res.groups">
+        <field name="name">Spreadsheet User</field>
+        <field name="comment">Can create and edit spreadsheets, use data sources</field>
+        <field name="category_id" ref="module_category_spreadsheet"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Manager Group - Can manage data sources and templates -->
+    <record id="group_spreadsheet_manager" model="res.groups">
+        <field name="name">Spreadsheet Manager</field>
+        <field name="comment">Can manage data sources, create templates, share spreadsheets</field>
+        <field name="category_id" ref="module_category_spreadsheet"/>
+        <field name="implied_ids" eval="[(4, ref('group_spreadsheet_user'))]"/>
+    </record>
+
+    <!-- Admin Group - Full access -->
+    <record id="group_spreadsheet_admin" model="res.groups">
+        <field name="name">Spreadsheet Administrator</field>
+        <field name="comment">Full access to all spreadsheet features and settings</field>
+        <field name="category_id" ref="module_category_spreadsheet"/>
+        <field name="implied_ids" eval="[(4, ref('group_spreadsheet_manager'))]"/>
+    </record>
+
+    <!-- Record Rules -->
+
+    <!-- Users can only see their own documents or published ones -->
+    <record id="spreadsheet_document_user_rule" model="ir.rule">
+        <field name="name">Spreadsheet Document: User Access</field>
+        <field name="model_id" ref="model_spreadsheet_document"/>
+        <field name="groups" eval="[(4, ref('group_spreadsheet_user'))]"/>
+        <field name="domain_force">[
+            '|',
+            ('create_uid', '=', user.id),
+            ('is_published', '=', True)
+        ]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <!-- Managers can see all documents -->
+    <record id="spreadsheet_document_manager_rule" model="ir.rule">
+        <field name="name">Spreadsheet Document: Manager Access</field>
+        <field name="model_id" ref="model_spreadsheet_document"/>
+        <field name="groups" eval="[(4, ref('group_spreadsheet_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <!-- Data sources visible to their document owners -->
+    <record id="spreadsheet_data_source_user_rule" model="ir.rule">
+        <field name="name">Data Source: User Access</field>
+        <field name="model_id" ref="model_spreadsheet_data_source"/>
+        <field name="groups" eval="[(4, ref('group_spreadsheet_user'))]"/>
+        <field name="domain_force">[
+            '|',
+            ('document_id.create_uid', '=', user.id),
+            ('document_id.is_published', '=', True)
+        ]</field>
+    </record>
+
+    <!-- Pivot tables visible to document owners -->
+    <record id="spreadsheet_pivot_user_rule" model="ir.rule">
+        <field name="name">Pivot Table: User Access</field>
+        <field name="model_id" ref="model_spreadsheet_pivot"/>
+        <field name="groups" eval="[(4, ref('group_spreadsheet_user'))]"/>
+        <field name="domain_force">[
+            '|',
+            ('document_id.create_uid', '=', user.id),
+            ('document_id.is_published', '=', True)
+        ]</field>
+    </record>
+
+    <!-- Charts visible to document owners -->
+    <record id="spreadsheet_chart_user_rule" model="ir.rule">
+        <field name="name">Chart: User Access</field>
+        <field name="model_id" ref="model_spreadsheet_chart"/>
+        <field name="groups" eval="[(4, ref('group_spreadsheet_user'))]"/>
+        <field name="domain_force">[
+            '|',
+            ('document_id.create_uid', '=', user.id),
+            ('document_id.is_published', '=', True)
+        ]</field>
+    </record>
+
+</odoo>

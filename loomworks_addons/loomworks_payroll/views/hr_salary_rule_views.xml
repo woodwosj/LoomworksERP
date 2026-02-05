@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Salary Rule Category Views -->
+    <record id="hr_salary_rule_category_view_form" model="ir.ui.view">
+        <field name="name">hr.salary.rule.category.form</field>
+        <field name="model">hr.salary.rule.category</field>
+        <field name="arch" type="xml">
+            <form string="Salary Rule Category">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="parent_id"/>
+                        </group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="note" placeholder="Description..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_salary_rule_category_view_list" model="ir.ui.view">
+        <field name="name">hr.salary.rule.category.list</field>
+        <field name="model">hr.salary.rule.category</field>
+        <field name="arch" type="xml">
+            <list string="Salary Rule Categories" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="parent_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_hr_salary_rule_category" model="ir.actions.act_window">
+        <field name="name">Rule Categories</field>
+        <field name="res_model">hr.salary.rule.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Salary Rule Form View -->
+    <record id="hr_salary_rule_view_form" model="ir.ui.view">
+        <field name="name">hr.salary.rule.form</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="arch" type="xml">
+            <form string="Salary Rule">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive"
+                                invisible="active">
+                            <field name="active" widget="boolean_button"
+                                   options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="category_id"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="appears_on_payslip"/>
+                            <field name="is_tax"/>
+                            <field name="tax_type" invisible="not is_tax"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="General" name="general">
+                            <group string="Conditions">
+                                <group>
+                                    <field name="condition_select"/>
+                                </group>
+                                <group invisible="condition_select != 'range'">
+                                    <field name="condition_range"/>
+                                    <field name="condition_range_min"/>
+                                    <field name="condition_range_max"/>
+                                </group>
+                            </group>
+                            <group invisible="condition_select != 'python'">
+                                <field name="condition_python" widget="ace"
+                                       options="{'mode': 'python'}" nolabel="1"/>
+                            </group>
+
+                            <group string="Computation">
+                                <group>
+                                    <field name="amount_select"/>
+                                </group>
+                                <group invisible="amount_select != 'fixed'">
+                                    <field name="amount_fix"/>
+                                </group>
+                                <group invisible="amount_select != 'percentage'">
+                                    <field name="amount_percentage"/>
+                                    <field name="amount_percentage_base"/>
+                                </group>
+                            </group>
+                            <group invisible="amount_select != 'code'">
+                                <field name="amount_python_compute" widget="ace"
+                                       options="{'mode': 'python'}" nolabel="1"/>
+                            </group>
+                        </page>
+                        <page string="Structures" name="structures">
+                            <field name="struct_ids">
+                                <list string="Salary Structures">
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="schedule_pay"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Description" name="description">
+                            <field name="note" placeholder="Documentation for this rule..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Salary Rule List View -->
+    <record id="hr_salary_rule_view_list" model="ir.ui.view">
+        <field name="name">hr.salary.rule.list</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="arch" type="xml">
+            <list string="Salary Rules">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="category_id"/>
+                <field name="amount_select"/>
+                <field name="is_tax"/>
+                <field name="appears_on_payslip"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Salary Rule Search View -->
+    <record id="hr_salary_rule_view_search" model="ir.ui.view">
+        <field name="name">hr.salary.rule.search</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="arch" type="xml">
+            <search string="Search Salary Rules">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="category_id"/>
+                <filter string="Tax Rules" name="tax_rules" domain="[('is_tax', '=', True)]"/>
+                <filter string="Appears on Payslip" name="on_payslip" domain="[('appears_on_payslip', '=', True)]"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Category" name="group_category" context="{'group_by': 'category_id'}"/>
+                    <filter string="Amount Type" name="group_amount" context="{'group_by': 'amount_select'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hr_salary_rule" model="ir.actions.act_window">
+        <field name="name">Salary Rules</field>
+        <field name="res_model">hr.salary.rule</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hr_salary_rule_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new salary rule
+            </p>
+            <p>
+                Salary rules define how amounts are computed on payslips.
+                Rules can use fixed amounts, percentages, or Python code.
+            </p>
+        </field>
+    </record>
+</odoo>

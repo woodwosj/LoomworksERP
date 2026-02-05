@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payslip">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            .payslip-table th { background-color: #f8f9fa; }
+                            .payslip-section { margin-bottom: 20px; }
+                            .payslip-total { font-weight: bold; border-top: 2px solid #333; }
+                            .amount-positive { color: #28a745; }
+                            .amount-negative { color: #dc3545; }
+                        </style>
+
+                        <!-- Header -->
+                        <div class="row mb-4">
+                            <div class="col-12 text-center">
+                                <h2>PAYSLIP</h2>
+                                <h4 t-field="o.name"/>
+                            </div>
+                        </div>
+
+                        <!-- Employee and Period Info -->
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <table class="table table-sm table-borderless">
+                                    <tr>
+                                        <td><strong>Employee:</strong></td>
+                                        <td t-field="o.employee_id.name"/>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Department:</strong></td>
+                                        <td t-field="o.employee_id.department_id.name"/>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Job Position:</strong></td>
+                                        <td t-field="o.employee_id.job_id.name"/>
+                                    </tr>
+                                    <tr t-if="o.number">
+                                        <td><strong>Reference:</strong></td>
+                                        <td t-field="o.number"/>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <table class="table table-sm table-borderless">
+                                    <tr>
+                                        <td><strong>Pay Period:</strong></td>
+                                        <td>
+                                            <span t-field="o.date_from"/> to <span t-field="o.date_to"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Contract:</strong></td>
+                                        <td t-field="o.contract_id.name"/>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Structure:</strong></td>
+                                        <td t-field="o.struct_id.name"/>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Worked Days -->
+                        <div class="payslip-section" t-if="o.worked_days_line_ids">
+                            <h5>Worked Days</h5>
+                            <table class="table table-sm table-bordered payslip-table">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th class="text-end">Days</th>
+                                        <th class="text-end">Hours</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.worked_days_line_ids" t-as="wd">
+                                        <tr>
+                                            <td t-field="wd.name"/>
+                                            <td class="text-end" t-field="wd.number_of_days"/>
+                                            <td class="text-end" t-field="wd.number_of_hours"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Earnings -->
+                        <div class="payslip-section">
+                            <h5>Earnings</h5>
+                            <table class="table table-sm table-bordered payslip-table">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th class="text-end">Quantity</th>
+                                        <th class="text-end">Rate</th>
+                                        <th class="text-end">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.line_ids.filtered(lambda l: l.total >= 0 and l.category_id.code != 'NET')" t-as="line">
+                                        <tr>
+                                            <td t-field="line.name"/>
+                                            <td class="text-end" t-field="line.quantity"/>
+                                            <td class="text-end">
+                                                <t t-if="line.rate != 100.0">
+                                                    <span t-field="line.rate"/>%
+                                                </t>
+                                            </td>
+                                            <td class="text-end amount-positive"
+                                                t-field="line.total"
+                                                t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="payslip-total">
+                                        <td colspan="3"><strong>Gross Pay</strong></td>
+                                        <td class="text-end"
+                                            t-field="o.gross_wage"
+                                            t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <!-- Deductions -->
+                        <div class="payslip-section">
+                            <h5>Deductions</h5>
+                            <table class="table table-sm table-bordered payslip-table">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th class="text-end">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.line_ids.filtered(lambda l: l.total &lt; 0)" t-as="line">
+                                        <tr>
+                                            <td t-field="line.name"/>
+                                            <td class="text-end amount-negative"
+                                                t-field="line.total"
+                                                t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="payslip-total">
+                                        <td><strong>Total Deductions</strong></td>
+                                        <td class="text-end amount-negative">
+                                            -<span t-field="o.total_deductions"
+                                                   t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <!-- Net Pay -->
+                        <div class="row mt-4">
+                            <div class="col-6 offset-6">
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td><strong>Gross Pay:</strong></td>
+                                        <td class="text-end"
+                                            t-field="o.gross_wage"
+                                            t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Deductions:</strong></td>
+                                        <td class="text-end amount-negative">
+                                            -<span t-field="o.total_deductions"
+                                                   t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="payslip-total" style="font-size: 1.2em;">
+                                        <td><strong>NET PAY:</strong></td>
+                                        <td class="text-end"
+                                            t-field="o.net_wage"
+                                            t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Footer Note -->
+                        <div class="row mt-4" t-if="o.note">
+                            <div class="col-12">
+                                <small><strong>Note:</strong> <span t-field="o.note"/></small>
+                            </div>
+                        </div>
+
+                        <div class="row mt-5">
+                            <div class="col-12 text-center">
+                                <small class="text-muted">
+                                    This document is computer-generated and confidential.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

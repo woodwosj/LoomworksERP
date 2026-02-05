@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Main Studio Menu -->
+    <menuitem id="menu_studio_root"
+              name="Studio"
+              web_icon="loomworks_studio,static/description/icon.png"
+              sequence="90"
+              groups="loomworks_studio.group_studio_user"/>
+
+    <!-- Studio Apps Menu -->
+    <menuitem id="menu_studio_apps"
+              name="Apps"
+              parent="menu_studio_root"
+              sequence="10"/>
+
+    <menuitem id="menu_studio_apps_list"
+              name="My Apps"
+              parent="menu_studio_apps"
+              action="action_studio_app"
+              sequence="10"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_studio_configuration"
+              name="Configuration"
+              parent="menu_studio_root"
+              sequence="50"
+              groups="loomworks_studio.group_studio_manager"/>
+
+    <menuitem id="menu_studio_automations"
+              name="Automations"
+              parent="menu_studio_configuration"
+              action="action_studio_automation"
+              sequence="10"/>
+
+    <menuitem id="menu_studio_view_customizations"
+              name="View Customizations"
+              parent="menu_studio_configuration"
+              action="action_studio_view_customization"
+              sequence="20"/>
+
+    <menuitem id="menu_studio_models"
+              name="Custom Models"
+              parent="menu_studio_configuration"
+              action="action_studio_models"
+              sequence="30"/>
+
+</odoo>

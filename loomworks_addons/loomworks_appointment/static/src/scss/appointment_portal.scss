@@ -1,0 +1,317 @@
+// Loomworks Appointment - Portal Styles
+// Public booking interface
+
+// Variables
+$appointment-primary: #875A7B;
+$appointment-success: #28a745;
+$appointment-warning: #ffc107;
+$appointment-danger: #dc3545;
+
+// Calendar Widget
+.o_appointment_calendar {
+    .flatpickr-calendar {
+        width: 100%;
+        box-shadow: none;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+    }
+
+    .flatpickr-day {
+        &.selected {
+            background-color: $appointment-primary;
+            border-color: $appointment-primary;
+        }
+
+        &:hover {
+            background-color: rgba($appointment-primary, 0.1);
+        }
+
+        &.disabled {
+            color: #ccc;
+        }
+    }
+}
+
+// Time Slots Grid
+.o_appointment_time_slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
+
+    .o_time_slot {
+        padding: 12px 8px;
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background-color: white;
+
+        .o_slot_time {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .o_slot_available {
+            font-size: 11px;
+            color: #6c757d;
+        }
+
+        &:hover {
+            border-color: $appointment-primary;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        &.selected {
+            border-color: $appointment-primary;
+            background-color: $appointment-primary;
+            color: white;
+
+            .o_slot_available {
+                color: rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        &.unavailable {
+            background-color: #f8f9fa;
+            border-color: #f1f1f1;
+            color: #ccc;
+            cursor: not-allowed;
+
+            &:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+    }
+}
+
+// Resource Selection Cards
+.o_appointment_resource_select {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+
+    .o_resource_card {
+        padding: 20px;
+        border: 2px solid #dee2e6;
+        border-radius: 12px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        .o_resource_avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .o_resource_name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .o_resource_title {
+            font-size: 13px;
+            color: #6c757d;
+        }
+
+        &:hover {
+            border-color: $appointment-primary;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        &.selected {
+            border-color: $appointment-primary;
+            background-color: rgba($appointment-primary, 0.05);
+        }
+    }
+}
+
+// Booking Summary Card
+.o_appointment_summary {
+    position: sticky;
+    top: 20px;
+
+    .o_summary_header {
+        background: linear-gradient(135deg, $appointment-primary 0%, darken($appointment-primary, 15%) 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .o_summary_body {
+        padding: 20px;
+        background-color: white;
+        border: 1px solid #dee2e6;
+        border-top: none;
+        border-radius: 0 0 12px 12px;
+    }
+
+    .o_summary_item {
+        display: flex;
+        align-items: flex-start;
+        padding: 10px 0;
+        border-bottom: 1px solid #f1f1f1;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .o_summary_icon {
+            width: 24px;
+            color: $appointment-primary;
+            margin-right: 12px;
+        }
+
+        .o_summary_label {
+            font-size: 12px;
+            color: #6c757d;
+            text-transform: uppercase;
+        }
+
+        .o_summary_value {
+            font-weight: 500;
+        }
+    }
+}
+
+// Confirmation Page
+.o_appointment_confirmed {
+    text-align: center;
+    padding: 40px 20px;
+
+    .o_success_icon {
+        font-size: 80px;
+        color: $appointment-success;
+        margin-bottom: 20px;
+        animation: scaleIn 0.5s ease-out;
+    }
+
+    @keyframes scaleIn {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+        50% {
+            transform: scale(1.2);
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .o_confirmation_details {
+        background-color: #f8f9fa;
+        padding: 25px;
+        border-radius: 12px;
+        margin: 30px 0;
+        text-align: left;
+    }
+}
+
+// Form Styles
+.o_appointment_form {
+    .form-label {
+        font-weight: 500;
+        color: #333;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 8px;
+        padding: 10px 15px;
+
+        &:focus {
+            border-color: $appointment-primary;
+            box-shadow: 0 0 0 3px rgba($appointment-primary, 0.1);
+        }
+    }
+
+    .btn-primary {
+        background-color: $appointment-primary;
+        border-color: $appointment-primary;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: 500;
+
+        &:hover {
+            background-color: darken($appointment-primary, 10%);
+            border-color: darken($appointment-primary, 10%);
+        }
+    }
+}
+
+// Loading State
+.o_appointment_loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+
+    .spinner-border {
+        color: $appointment-primary;
+    }
+}
+
+// Mobile Responsive
+@media (max-width: 768px) {
+    .o_appointment_time_slots {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .o_appointment_resource_select {
+        grid-template-columns: 1fr;
+    }
+
+    .o_appointment_summary {
+        position: static;
+        margin-top: 30px;
+    }
+}
+
+// Date Navigation
+.o_appointment_date_nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+
+    .o_nav_btn {
+        width: 40px;
+        height: 40px;
+        border: none;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+            background-color: $appointment-primary;
+            color: white;
+        }
+
+        &:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+    }
+
+    .o_current_date {
+        font-weight: 600;
+        font-size: 18px;
+    }
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- ECO Stages -->
+    <record id="plm_eco_stage_draft" model="plm.eco.stage">
+        <field name="name">Draft</field>
+        <field name="sequence">10</field>
+        <field name="state">draft</field>
+        <field name="fold">False</field>
+    </record>
+
+    <record id="plm_eco_stage_confirmed" model="plm.eco.stage">
+        <field name="name">Confirmed</field>
+        <field name="sequence">20</field>
+        <field name="state">confirmed</field>
+        <field name="fold">False</field>
+    </record>
+
+    <record id="plm_eco_stage_review" model="plm.eco.stage">
+        <field name="name">Under Review</field>
+        <field name="sequence">30</field>
+        <field name="state">in_progress</field>
+        <field name="is_blocking">True</field>
+        <field name="require_approval">True</field>
+        <field name="fold">False</field>
+    </record>
+
+    <record id="plm_eco_stage_approved" model="plm.eco.stage">
+        <field name="name">Approved</field>
+        <field name="sequence">40</field>
+        <field name="state">approved</field>
+        <field name="fold">False</field>
+    </record>
+
+    <record id="plm_eco_stage_done" model="plm.eco.stage">
+        <field name="name">Done</field>
+        <field name="sequence">50</field>
+        <field name="state">done</field>
+        <field name="fold">True</field>
+    </record>
+
+    <record id="plm_eco_stage_cancelled" model="plm.eco.stage">
+        <field name="name">Cancelled</field>
+        <field name="sequence">60</field>
+        <field name="state">cancelled</field>
+        <field name="fold">True</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend HR Employee Form with Planning -->
+    <record id="hr_employee_view_form_planning" model="ir.ui.view">
+        <field name="name">hr.employee.form.planning</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <!-- Add planning stat buttons -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_planning" type="object"
+                        class="oe_stat_button" icon="fa-calendar-check-o"
+                        groups="loomworks_planning.group_planning_user">
+                    <div class="o_stat_info">
+                        <field name="planning_slot_count" class="o_stat_value"/>
+                        <span class="o_stat_text">Slots</span>
+                    </div>
+                </button>
+                <button name="action_view_this_week" type="object"
+                        class="oe_stat_button" icon="fa-calendar"
+                        groups="loomworks_planning.group_planning_user">
+                    <div class="o_stat_info">
+                        <field name="planning_hours_this_week" class="o_stat_value" widget="float_time"/>
+                        <span class="o_stat_text">This Week</span>
+                    </div>
+                </button>
+            </xpath>
+
+            <!-- Add planning fields to Work Information tab -->
+            <xpath expr="//page[@name='public']//group[@name='identification_group']" position="after">
+                <group string="Planning" groups="loomworks_planning.group_planning_manager">
+                    <field name="default_planning_role_id"/>
+                    <field name="planning_hours_next_week" widget="float_time" readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Employee Kanban Planning Extension -->
+    <record id="hr_kanban_view_employees_planning" model="ir.ui.view">
+        <field name="name">hr.employee.kanban.planning</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="inside">
+                <field name="planning_hours_this_week"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

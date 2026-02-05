@@ -1,0 +1,395 @@
+// Loomworks Studio Styles
+// Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+
+// Variables
+$studio-primary: #7c3aed;
+$studio-secondary: #a855f7;
+$studio-success: #10b981;
+$studio-warning: #f59e0b;
+$studio-danger: #ef4444;
+
+// Studio Mode Indicator
+.o_studio_mode {
+    border: 2px dashed $studio-primary;
+    border-radius: 4px;
+    position: relative;
+
+    &::after {
+        content: 'Studio Mode';
+        position: absolute;
+        top: -12px;
+        right: 10px;
+        background: $studio-primary;
+        color: white;
+        padding: 2px 8px;
+        font-size: 10px;
+        border-radius: 4px;
+        z-index: 100;
+    }
+}
+
+// Field Palette
+.o_studio_field_palette {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    max-height: 80vh;
+    overflow-y: auto;
+
+    .o_palette_header {
+        padding: 16px;
+        border-bottom: 1px solid #e5e7eb;
+        background: #f9fafb;
+        border-radius: 8px 8px 0 0;
+
+        h5 {
+            margin: 0;
+            font-weight: 600;
+            color: #374151;
+        }
+    }
+
+    .o_palette_search {
+        padding: 12px 16px;
+        border-bottom: 1px solid #e5e7eb;
+
+        input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+
+            &:focus {
+                outline: none;
+                border-color: $studio-primary;
+                box-shadow: 0 0 0 3px rgba($studio-primary, 0.1);
+            }
+        }
+    }
+
+    .o_palette_tabs {
+        display: flex;
+        border-bottom: 1px solid #e5e7eb;
+
+        .o_palette_tab {
+            flex: 1;
+            padding: 10px 16px;
+            text-align: center;
+            cursor: pointer;
+            color: #6b7280;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+
+            &:hover {
+                color: $studio-primary;
+            }
+
+            &.active {
+                color: $studio-primary;
+                border-bottom-color: $studio-primary;
+            }
+        }
+    }
+
+    .o_palette_content {
+        padding: 8px;
+    }
+}
+
+// Field Type Item
+.o_studio_field_type {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    margin: 4px 0;
+    border-radius: 6px;
+    cursor: grab;
+    transition: all 0.2s;
+
+    &:hover {
+        background: #f3f4f6;
+    }
+
+    &:active {
+        cursor: grabbing;
+    }
+
+    .o_field_icon {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e5e7eb;
+        border-radius: 6px;
+        margin-right: 12px;
+
+        i {
+            font-size: 16px;
+            color: #6b7280;
+        }
+    }
+
+    .o_field_info {
+        flex: 1;
+
+        .o_field_label {
+            font-weight: 500;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .o_field_description {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+    }
+
+    &.o_dragging {
+        opacity: 0.5;
+        background: #e5e7eb;
+    }
+}
+
+// Existing Field Item
+.o_studio_existing_field {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    margin: 2px 0;
+    border-radius: 4px;
+    cursor: grab;
+    font-size: 13px;
+
+    &:hover {
+        background: #f3f4f6;
+    }
+
+    .o_field_type_badge {
+        padding: 2px 6px;
+        background: #e5e7eb;
+        border-radius: 4px;
+        font-size: 11px;
+        color: #6b7280;
+        margin-left: auto;
+    }
+}
+
+// Drop Zone
+.o_studio_drop_zone {
+    min-height: 40px;
+    border: 2px dashed #d1d5db;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 0;
+    transition: all 0.2s;
+    color: #9ca3af;
+
+    &.o_drag_over {
+        border-color: $studio-primary;
+        background: rgba($studio-primary, 0.05);
+        color: $studio-primary;
+    }
+}
+
+// Studio Sidebar
+.o_studio_sidebar {
+    width: 280px;
+    background: white;
+    border-left: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .o_sidebar_header {
+        padding: 16px;
+        border-bottom: 1px solid #e5e7eb;
+        background: linear-gradient(135deg, $studio-primary, $studio-secondary);
+        color: white;
+
+        h4 {
+            margin: 0;
+            font-weight: 600;
+        }
+    }
+
+    .o_sidebar_content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+    }
+
+    .o_sidebar_footer {
+        padding: 16px;
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        gap: 8px;
+
+        .btn {
+            flex: 1;
+        }
+    }
+}
+
+// Studio Toolbar
+.o_studio_toolbar {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+    gap: 8px;
+
+    .o_toolbar_group {
+        display: flex;
+        gap: 4px;
+        padding: 0 8px;
+        border-right: 1px solid #e5e7eb;
+
+        &:last-child {
+            border-right: none;
+        }
+    }
+
+    .o_toolbar_btn {
+        padding: 6px 10px;
+        border-radius: 4px;
+        border: none;
+        background: transparent;
+        color: #6b7280;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        &.active {
+            background: $studio-primary;
+            color: white;
+        }
+
+        i {
+            font-size: 14px;
+        }
+    }
+}
+
+// View Designer
+.o_studio_view_designer {
+    display: flex;
+    height: calc(100vh - 120px);
+
+    .o_designer_main {
+        flex: 1;
+        overflow: auto;
+        padding: 20px;
+        background: #f3f4f6;
+    }
+
+    .o_designer_canvas {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        min-height: 500px;
+        padding: 20px;
+    }
+}
+
+// Automation Builder
+.o_studio_automation_builder {
+    .o_trigger_block,
+    .o_action_block {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        margin-bottom: 16px;
+        overflow: hidden;
+
+        .o_block_header {
+            padding: 12px 16px;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+
+            i {
+                margin-right: 8px;
+                color: $studio-primary;
+            }
+
+            strong {
+                flex: 1;
+            }
+        }
+
+        .o_block_content {
+            padding: 16px;
+        }
+    }
+
+    .o_connector {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+
+        .o_connector_line {
+            width: 2px;
+            height: 30px;
+            background: #d1d5db;
+        }
+
+        .o_connector_icon {
+            width: 24px;
+            height: 24px;
+            background: #d1d5db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+    }
+}
+
+// Dragging state
+body.studio-dragging {
+    .o_studio_drop_zone {
+        display: flex;
+    }
+
+    * {
+        cursor: grabbing !important;
+    }
+}
+
+// Studio Toggle Button
+.o_studio_toggle {
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: $studio-primary;
+    color: white;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        background: darken($studio-primary, 10%);
+    }
+
+    i {
+        margin-right: 4px;
+    }
+
+    &.o_active {
+        background: $studio-success;
+    }
+}

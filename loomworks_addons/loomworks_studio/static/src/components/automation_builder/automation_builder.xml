@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="loomworks_studio.AutomationBuilder">
+        <div class="o_studio_automation_builder p-4">
+            <t t-if="state.loading">
+                <div class="text-center py-5">
+                    <i class="fa fa-spinner fa-spin fa-2x"/>
+                </div>
+            </t>
+
+            <t t-else="">
+                <!-- Name -->
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Automation Name</label>
+                    <input type="text" class="form-control"
+                           t-att-value="state.name"
+                           t-on-input="onNameChange"
+                           placeholder="e.g., Send welcome email on signup"/>
+                </div>
+
+                <!-- Trigger Block -->
+                <div class="o_trigger_block">
+                    <div class="o_block_header">
+                        <i class="fa fa-bolt"/>
+                        <strong>When...</strong>
+                    </div>
+                    <div class="o_block_content">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Model</label>
+                                <select class="form-select" t-on-change="onModelChange">
+                                    <option value="">Select a model...</option>
+                                    <t t-foreach="state.models" t-as="model" t-key="model.id">
+                                        <option t-att-value="model.id"
+                                                t-att-selected="model.id === state.selectedModel">
+                                            <t t-out="model.name"/> (<t t-out="model.model"/>)
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Trigger</label>
+                                <select class="form-select" t-on-change="onTriggerChange">
+                                    <t t-foreach="triggerOptions" t-as="opt" t-key="opt.value">
+                                        <option t-att-value="opt.value"
+                                                t-att-selected="opt.value === state.trigger">
+                                            <t t-out="opt.label"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Filter (optional)</label>
+                            <input type="text" class="form-control font-monospace"
+                                   t-att-value="state.filterDomain"
+                                   t-on-input="onDomainChange"
+                                   placeholder="[]"/>
+                            <small class="text-muted">
+                                Only trigger for records matching this domain
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connector -->
+                <div class="o_connector">
+                    <div class="o_connector_line"/>
+                    <div class="o_connector_icon">
+                        <i class="fa fa-arrow-down"/>
+                    </div>
+                    <div class="o_connector_line"/>
+                </div>
+
+                <!-- Action Block -->
+                <div class="o_action_block">
+                    <div class="o_block_header">
+                        <i class="fa fa-play"/>
+                        <strong>Do...</strong>
+                    </div>
+                    <div class="o_block_content">
+                        <div class="mb-3">
+                            <label class="form-label">Action Type</label>
+                            <select class="form-select" t-on-change="onActionChange">
+                                <t t-foreach="actionOptions" t-as="opt" t-key="opt.value">
+                                    <option t-att-value="opt.value"
+                                            t-att-selected="opt.value === state.actionType">
+                                        <t t-out="opt.label"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+
+                        <!-- Python Code Editor -->
+                        <t t-if="state.actionType === 'python_code'">
+                            <div class="mb-3">
+                                <label class="form-label">Python Code</label>
+                                <textarea class="form-control font-monospace"
+                                          rows="10"
+                                          t-on-input="onCodeChange"
+                                          placeholder="# Write your Python code here..."><t t-out="state.pythonCode"/></textarea>
+                                <small class="text-muted">
+                                    Available variables: env, record, records, time, datetime
+                                </small>
+                            </div>
+                        </t>
+
+                        <!-- Update Record Options -->
+                        <t t-if="state.actionType === 'update_record'">
+                            <div class="alert alert-info">
+                                <i class="fa fa-info-circle me-2"/>
+                                Configure field updates in the form view after saving.
+                            </div>
+                        </t>
+
+                        <!-- Send Email Options -->
+                        <t t-if="state.actionType === 'send_email'">
+                            <div class="alert alert-info">
+                                <i class="fa fa-info-circle me-2"/>
+                                Select an email template in the form view after saving.
+                            </div>
+                        </t>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <button class="btn btn-secondary" t-on-click="cancel">
+                        Cancel
+                    </button>
+                    <button class="btn btn-primary" t-on-click="save">
+                        <i class="fa fa-save me-1"/>
+                        Save Automation
+                    </button>
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>

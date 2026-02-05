@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Main Menu -->
+    <menuitem id="menu_appointment_root"
+        name="Appointments"
+        web_icon="loomworks_appointment,static/description/icon.png"
+        sequence="65"/>
+
+    <!-- Appointments Submenu -->
+    <menuitem id="menu_appointment_bookings"
+        name="Appointments"
+        parent="menu_appointment_root"
+        sequence="10"/>
+
+    <menuitem id="menu_appointment_booking_all"
+        name="All Appointments"
+        parent="menu_appointment_bookings"
+        action="appointment_booking_action"
+        sequence="10"/>
+
+    <menuitem id="menu_appointment_booking_today"
+        name="Today"
+        parent="menu_appointment_bookings"
+        action="appointment_booking_action_today"
+        sequence="20"/>
+
+    <!-- Appointment Types Submenu -->
+    <menuitem id="menu_appointment_types"
+        name="Appointment Types"
+        parent="menu_appointment_root"
+        sequence="20"/>
+
+    <menuitem id="menu_appointment_type_all"
+        name="All Types"
+        parent="menu_appointment_types"
+        action="appointment_type_action"
+        sequence="10"/>
+
+    <!-- Resources Submenu -->
+    <menuitem id="menu_appointment_resources"
+        name="Resources"
+        parent="menu_appointment_root"
+        sequence="30"/>
+
+    <menuitem id="menu_appointment_resource_all"
+        name="All Resources"
+        parent="menu_appointment_resources"
+        action="appointment_resource_action"
+        sequence="10"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_appointment_config"
+        name="Configuration"
+        parent="menu_appointment_root"
+        groups="loomworks_appointment.group_appointment_manager"
+        sequence="100"/>
+
+    <menuitem id="menu_appointment_config_slots"
+        name="Availability Slots"
+        parent="menu_appointment_config"
+        action="appointment_slot_action"
+        sequence="10"/>
+
+    <menuitem id="menu_appointment_config_exceptions"
+        name="Availability Exceptions"
+        parent="menu_appointment_config"
+        action="appointment_slot_exception_action"
+        sequence="20"/>
+
+</odoo>

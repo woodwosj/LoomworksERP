@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="loomworks_studio.ViewDesigner">
+        <div class="o_studio_view_designer d-flex h-100">
+            <!-- Main Design Area -->
+            <div class="o_designer_main flex-grow-1">
+                <!-- Toolbar -->
+                <div class="o_studio_toolbar">
+                    <div class="o_toolbar_group">
+                        <button class="o_toolbar_btn" t-on-click="togglePalette"
+                                t-attf-class="#{state.showPalette ? 'active' : ''}">
+                            <i class="fa fa-plus"/> Add Field
+                        </button>
+                    </div>
+                    <div class="o_toolbar_group">
+                        <button class="o_toolbar_btn">
+                            <i class="fa fa-undo"/> Undo
+                        </button>
+                        <button class="o_toolbar_btn">
+                            <i class="fa fa-repeat"/> Redo
+                        </button>
+                    </div>
+                    <div class="o_toolbar_group ms-auto">
+                        <button class="o_toolbar_btn btn-primary" t-on-click="saveChanges">
+                            <i class="fa fa-save"/> Save
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Canvas -->
+                <div class="o_designer_canvas" t-ref="canvas">
+                    <t t-if="state.loading">
+                        <div class="text-center py-5">
+                            <i class="fa fa-spinner fa-spin fa-3x"/>
+                            <p class="mt-3 text-muted">Loading view...</p>
+                        </div>
+                    </t>
+
+                    <t t-elif="props.viewType === 'form'">
+                        <!-- Form View Editor -->
+                        <div class="o_form_preview">
+                            <div class="o_form_sheet">
+                                <t t-foreach="state.viewArch?.fields || []" t-as="field" t-key="field.name">
+                                    <div t-attf-class="o_form_field_wrapper #{state.selectedField?.name === field.name ? 'selected' : ''} #{state.dragOverIndex === field_index ? 'drag-over' : ''}"
+                                         t-on-click="() => this.onFieldSelect(field)"
+                                         t-on-dragover="(ev) => this.onDragOver(ev, field_index)"
+                                         t-on-dragleave="onDragLeave"
+                                         t-on-drop="(ev) => this.onDrop(ev, field_index)">
+                                        <label class="o_form_label">
+                                            <t t-out="field.label"/>
+                                        </label>
+                                        <div class="o_field_widget">
+                                            <span class="o_field_placeholder">
+                                                [<t t-out="field.type"/>]
+                                            </span>
+                                        </div>
+                                        <div class="o_field_actions">
+                                            <button class="btn btn-sm btn-link"
+                                                    t-on-click.stop="() => this.removeField(field.name)">
+                                                <i class="fa fa-trash text-danger"/>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </t>
+
+                                <!-- Drop zone for new fields -->
+                                <div class="o_studio_drop_zone"
+                                     t-on-dragover="(ev) => this.onDragOver(ev, -1)"
+                                     t-on-dragleave="onDragLeave"
+                                     t-on-drop="(ev) => this.onDrop(ev, -1)"
+                                     t-attf-class="#{state.dragOverIndex === -1 ? 'o_drag_over' : ''}">
+                                    <i class="fa fa-plus me-2"/>
+                                    Drop field here
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-elif="props.viewType === 'list'">
+                        <!-- List View Editor -->
+                        <div class="o_list_preview">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <t t-foreach="state.viewArch?.fields || []" t-as="field" t-key="field.name">
+                                            <th t-attf-class="#{state.selectedField?.name === field.name ? 'selected' : ''}"
+                                                t-on-click="() => this.onFieldSelect(field)">
+                                                <t t-out="field.label"/>
+                                                <button class="btn btn-sm btn-link float-end"
+                                                        t-on-click.stop="() => this.removeField(field.name)">
+                                                    <i class="fa fa-times"/>
+                                                </button>
+                                            </th>
+                                        </t>
+                                        <th class="o_studio_drop_zone"
+                                            t-on-dragover="(ev) => this.onDragOver(ev, -1)"
+                                            t-on-dragleave="onDragLeave"
+                                            t-on-drop="(ev) => this.onDrop(ev, -1)">
+                                            <i class="fa fa-plus"/>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <t t-foreach="state.viewArch?.fields || []" t-as="field" t-key="field.name">
+                                            <td class="text-muted">[<t t-out="field.type"/>]</td>
+                                        </t>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+
+                    <t t-elif="props.viewType === 'kanban'">
+                        <!-- Kanban View Editor -->
+                        <div class="o_kanban_preview d-flex gap-3">
+                            <div class="o_kanban_card_preview p-3 bg-white border rounded" style="width: 300px;">
+                                <t t-foreach="state.viewArch?.fields || []" t-as="field" t-key="field.name">
+                                    <div t-attf-class="o_kanban_field #{field_first ? 'fw-bold' : ''} mb-2">
+                                        <t t-out="field.label"/>: [<t t-out="field.type"/>]
+                                        <button class="btn btn-sm btn-link float-end"
+                                                t-on-click="() => this.removeField(field.name)">
+                                            <i class="fa fa-times"/>
+                                        </button>
+                                    </div>
+                                </t>
+                                <div class="o_studio_drop_zone"
+                                     t-on-dragover="(ev) => this.onDragOver(ev, -1)"
+                                     t-on-dragleave="onDragLeave"
+                                     t-on-drop="(ev) => this.onDrop(ev, -1)">
+                                    <i class="fa fa-plus me-2"/> Add field
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+
+            <!-- Sidebar with Field Palette -->
+            <div class="o_studio_sidebar" t-if="state.showPalette">
+                <FieldPalette
+                    modelId="props.modelId"
+                    modelName="props.modelName"
+                    onFieldDrop.bind="onFieldDrop"
+                    onClose.bind="togglePalette"/>
+            </div>
+        </div>
+    </t>
+
+</templates>

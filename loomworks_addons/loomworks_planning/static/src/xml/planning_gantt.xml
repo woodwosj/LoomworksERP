@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Planning Gantt Controller Template -->
+    <t t-name="loomworks_planning.PlanningGanttController">
+        <div class="o_planning_gantt_controller d-flex align-items-center gap-2 p-2 bg-light border-bottom">
+            <!-- Quick Actions -->
+            <div class="btn-group">
+                <button class="btn btn-sm btn-primary" t-on-click="onQuickCreate">
+                    <i class="fa fa-plus me-1"/>Quick Create
+                </button>
+                <button class="btn btn-sm btn-success" t-on-click="onPublishAll">
+                    <i class="fa fa-check me-1"/>Publish All
+                </button>
+            </div>
+
+            <!-- Conflict Indicator -->
+            <div class="ms-auto d-flex align-items-center gap-2">
+                <button t-if="state.conflictCount > 0"
+                        class="btn btn-sm btn-outline-danger"
+                        t-on-click="onViewConflicts">
+                    <i class="fa fa-exclamation-triangle me-1"/>
+                    <t t-esc="state.conflictCount"/> Conflicts
+                </button>
+                <div class="form-check form-switch">
+                    <input type="checkbox"
+                           class="form-check-input"
+                           id="conflictToggle"
+                           t-att-checked="state.showConflicts"
+                           t-on-change="toggleConflictHighlight"/>
+                    <label class="form-check-label small" for="conflictToggle">
+                        Highlight Conflicts
+                    </label>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- Planning Gantt Popup Template -->
+    <t t-name="loomworks_planning.PlanningGanttPopup">
+        <div class="o_planning_popup p-3" style="min-width: 280px;">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <h6 class="mb-0">
+                    <t t-esc="slot.display_name || slot.name"/>
+                </h6>
+                <button class="btn-close" t-on-click="props.onClose"/>
+            </div>
+
+            <div class="small text-muted mb-2">
+                <span t-att-class="statusClass">
+                    <t t-esc="slot.state"/>
+                </span>
+                <span t-if="slot.has_conflict" class="badge text-bg-danger ms-1">
+                    Conflict
+                </span>
+            </div>
+
+            <div class="o_planning_popup_details">
+                <div class="mb-2" t-if="slot.employee_id">
+                    <i class="fa fa-user me-2 text-muted"/>
+                    <strong><t t-esc="slot.employee_id[1]"/></strong>
+                </div>
+
+                <div class="mb-2" t-if="slot.role_id">
+                    <i class="fa fa-briefcase me-2 text-muted"/>
+                    <t t-esc="slot.role_id[1]"/>
+                </div>
+
+                <div class="mb-2">
+                    <i class="fa fa-clock-o me-2 text-muted"/>
+                    <t t-esc="formatDateTime(slot.start_datetime)"/>
+                    <span class="mx-1">-</span>
+                    <t t-esc="formatDateTime(slot.end_datetime)"/>
+                </div>
+
+                <div class="mb-2">
+                    <i class="fa fa-hourglass-half me-2 text-muted"/>
+                    <t t-esc="formatHours(slot.allocated_hours)"/>
+                </div>
+
+                <div t-if="slot.has_conflict" class="alert alert-danger py-1 px-2 mb-2 small">
+                    <i class="fa fa-exclamation-triangle me-1"/>
+                    <t t-esc="slot.conflict_description"/>
+                </div>
+
+                <div t-if="slot.project_id" class="mb-2">
+                    <i class="fa fa-folder me-2 text-muted"/>
+                    <t t-esc="slot.project_id[1]"/>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- Planning Gantt Pill Template -->
+    <t t-name="loomworks_planning.PlanningGanttPill">
+        <div t-attf-class="o_gantt_pill #{getRoleColorClass()} #{slot.has_conflict ? 'o_gantt_pill_conflict' : ''}"
+             t-att-title="slot.name">
+            <span class="o_gantt_pill_title">
+                <t t-esc="slot.employee_id ? slot.employee_id[1] : 'Unassigned'"/>
+            </span>
+            <span class="o_gantt_pill_hours">
+                <t t-esc="formatDuration(slot.allocated_hours)"/>
+            </span>
+            <div class="o_gantt_pill_progress" t-att-style="'width: ' + slot.progress + '%'"/>
+        </div>
+    </t>
+
+    <!-- Planning Gantt Empty Slot -->
+    <t t-name="loomworks_planning.PlanningGanttEmptySlot">
+        <div class="o_gantt_empty_slot text-center text-muted p-3">
+            <i class="fa fa-calendar-plus-o fa-2x mb-2"/>
+            <p class="mb-0 small">Click to create a slot</p>
+        </div>
+    </t>
+
+</templates>

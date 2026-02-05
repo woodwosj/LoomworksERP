@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Default FSM Project -->
+        <record id="project_fsm_default" model="project.project">
+            <field name="name">Field Service</field>
+            <field name="is_fsm">True</field>
+            <field name="privacy_visibility">employees</field>
+            <field name="label_tasks">Service Orders</field>
+        </record>
+
+        <!-- Default Worksheet Templates -->
+
+        <!-- General Service Report -->
+        <record id="worksheet_template_general" model="fsm.worksheet.template">
+            <field name="name">General Service Report</field>
+            <field name="code">GENERAL</field>
+            <field name="description">
+                <![CDATA[<p>Standard service report for general field service tasks.</p>]]>
+            </field>
+        </record>
+
+        <!-- General Service Report Fields -->
+        <record id="worksheet_field_general_arrival" model="fsm.worksheet.field">
+            <field name="template_id" ref="worksheet_template_general"/>
+            <field name="name">Arrival Time</field>
+            <field name="technical_name">arrival_time</field>
+            <field name="field_type">datetime</field>
+            <field name="required">True</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="worksheet_field_general_work" model="fsm.worksheet.field">
+            <field name="template_id" ref="worksheet_template_general"/>
+            <field name="name">Work Performed</field>
+            <field name="technical_name">work_performed</field>
+            <field name="field_type">textarea</field>
+            <field name="required">True</field>
+            <field name="placeholder">Describe the work completed...</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <record id="worksheet_field_general_issues" model="fsm.worksheet.field">
+            <field name="template_id" ref="worksheet_template_general"/>
+            <field name="name">Issues Found</field>
+            <field name="technical_name">issues_found</field>
+            <field name="field_type">textarea</field>
+            <field name="placeholder">List any issues or concerns...</field>
+            <field name="sequence">30</field>
+        </record>
+
+        <record id="worksheet_field_general_complete" model="fsm.worksheet.field">
+            <field name="template_id" ref="worksheet_template_general"/>
+            <field name="name">Work Completed Successfully</field>
+            <field name="technical_name">work_complete</field>
+            <field name="field_type">checkbox</field>
+            <field name="sequence">40</field>
+        </record>
+
+        <record id="worksheet_field_general_followup" model="fsm.worksheet.field">
+            <field name="template_id" ref="worksheet_template_general"/>
+            <field name="name">Follow-up Required</field>
+            <field name="technical_name">followup_required</field>
+            <field name="field_type">checkbox</field>
+            <field name="sequence">50</field>
+        </record>
+
+        <record id="worksheet_field_general_photo" model="fsm.worksheet.field">
+            <field name="template_id" ref="worksheet_template_general"/>
+            <field name="name">Site Photo</field>
+            <field name="technical_name">site_photo</field>
+            <field name="field_type">photo</field>
+            <field name="sequence">60</field>
+        </record>
+
+        <!-- Inspection Checklist Template -->
+        <record id="worksheet_template_inspection" model="fsm.worksheet.template">
+            <field name="name">Inspection Checklist</field>
+            <field name="code">INSPECT</field>
+            <field name="description">
+                <![CDATA[<p>Standard inspection checklist for equipment/facility inspections.</p>]]>
+            </field>
+        </record>
+
+        <record id="worksheet_field_inspect_section1" model="fsm.worksheet.field">
+            <field name="template_id" ref="worksheet_template_inspection"/>
+            <field name="name">Visual Inspection</field>
+            <field name="technical_name">section_visual</field>
+            <field name="field_type">section</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="worksheet_field_inspect_condition" model="fsm.worksheet.field">
+            <field name="template_id" ref="worksheet_template_inspection"/>
+            <field name="name">Overall Condition</field>
+            <field name="technical_name">overall_condition</field>
+            <field name="field_type">select</field>
+            <field name="selection_options">Good
+Fair
+Poor
+Critical</field>
+            <field name="required">True</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <record id="worksheet_field_inspect_damage" model="fsm.worksheet.field">
+            <field name="template_id" ref="worksheet_template_inspection"/>
+            <field name="name">Visible Damage</field>
+            <field name="technical_name">visible_damage</field>
+            <field name="field_type">checkbox</field>
+            <field name="sequence">30</field>
+        </record>
+
+        <record id="worksheet_field_inspect_damage_desc" model="fsm.worksheet.field">
+            <field name="template_id" ref="worksheet_template_inspection"/>
+            <field name="name">Damage Description</field>
+            <field name="technical_name">damage_description</field>
+            <field name="field_type">textarea</field>
+            <field name="sequence">40</field>
+        </record>
+
+        <record id="worksheet_field_inspect_section2" model="fsm.worksheet.field">
+            <field name="template_id" ref="worksheet_template_inspection"/>
+            <field name="name">Functional Tests</field>
+            <field name="technical_name">section_functional</field>
+            <field name="field_type">section</field>
+            <field name="sequence">50</field>
+        </record>
+
+        <record id="worksheet_field_inspect_functional" model="fsm.worksheet.field">
+            <field name="template_id" ref="worksheet_template_inspection"/>
+            <field name="name">All Functions Working</field>
+            <field name="technical_name">functions_working</field>
+            <field name="field_type">checkbox</field>
+            <field name="sequence">60</field>
+        </record>
+
+        <record id="worksheet_field_inspect_notes" model="fsm.worksheet.field">
+            <field name="template_id" ref="worksheet_template_inspection"/>
+            <field name="name">Additional Notes</field>
+            <field name="technical_name">notes</field>
+            <field name="field_type">textarea</field>
+            <field name="sequence">70</field>
+        </record>
+
+        <record id="worksheet_field_inspect_recommendation" model="fsm.worksheet.field">
+            <field name="template_id" ref="worksheet_template_inspection"/>
+            <field name="name">Recommendation</field>
+            <field name="technical_name">recommendation</field>
+            <field name="field_type">select</field>
+            <field name="selection_options">Pass - No action required
+Pass - Minor maintenance recommended
+Fail - Repairs required
+Fail - Replacement recommended</field>
+            <field name="required">True</field>
+            <field name="sequence">80</field>
+        </record>
+    </data>
+</odoo>

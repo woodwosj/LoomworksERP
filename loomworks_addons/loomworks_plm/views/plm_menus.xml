@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- PLM Root Menu -->
+    <menuitem id="menu_plm_root"
+              name="PLM"
+              web_icon="loomworks_plm,static/description/icon.png"
+              sequence="35"/>
+
+    <!-- ECO Menu -->
+    <menuitem id="menu_plm_eco"
+              name="Engineering Change Orders"
+              parent="menu_plm_root"
+              action="plm_eco_action"
+              sequence="10"/>
+
+    <!-- BOM Revisions Menu -->
+    <menuitem id="menu_plm_bom_revisions"
+              name="BOM Revisions"
+              parent="menu_plm_root"
+              action="plm_bom_revision_action"
+              sequence="20"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_plm_config"
+              name="Configuration"
+              parent="menu_plm_root"
+              sequence="100"
+              groups="loomworks_plm.group_plm_manager"/>
+
+    <menuitem id="menu_plm_eco_types"
+              name="ECO Types"
+              parent="menu_plm_config"
+              action="plm_eco_type_action"
+              sequence="10"/>
+
+    <menuitem id="menu_plm_eco_stages"
+              name="ECO Stages"
+              parent="menu_plm_config"
+              action="plm_eco_stage_action"
+              sequence="20"/>
+
+</odoo>

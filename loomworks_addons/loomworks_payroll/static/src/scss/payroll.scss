@@ -1,0 +1,39 @@
+// Loomworks Payroll Styles
+
+.o_payslip_form {
+  // Payslip totals styling
+  .oe_subtotal_footer {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 4px;
+
+    .oe_subtotal_footer_separator {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+  }
+}
+
+// Payslip list decorations
+.o_list_view {
+  .text-danger {
+    color: #dc3545 !important;
+  }
+}
+
+// Salary rule code editor
+.o_field_ace {
+  min-height: 200px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+// Mobile optimizations for payroll
+@media (max-width: 768px) {
+  .o_payslip_form {
+    .oe_subtotal_footer {
+      margin-top: 1rem;
+    }
+  }
+}

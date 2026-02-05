@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Studio Toggle Button for Views -->
+    <t t-name="loomworks_studio.StudioToggle">
+        <button class="o_studio_toggle"
+                t-att-class="isActive ? 'o_active' : ''"
+                t-on-click="onToggle">
+            <i class="fa fa-magic"/>
+            <span t-if="isActive">Exit Studio</span>
+            <span t-else="">Open Studio</span>
+        </button>
+    </t>
+
+    <!-- Studio Mode Overlay -->
+    <t t-name="loomworks_studio.StudioOverlay">
+        <div class="o_studio_overlay" t-if="active">
+            <div class="o_studio_toolbar_top">
+                <span class="o_studio_badge">
+                    <i class="fa fa-magic"/> Studio Mode
+                </span>
+            </div>
+        </div>
+    </t>
+
+    <!-- Field Creation Dialog -->
+    <t t-name="loomworks_studio.FieldCreationDialog">
+        <div class="o_studio_field_dialog">
+            <div class="mb-3">
+                <label class="form-label">Field Name</label>
+                <input type="text" class="form-control"
+                       t-att-value="state.fieldName"
+                       t-on-input="(ev) => this.state.fieldName = ev.target.value"
+                       placeholder="e.g., customer_code"/>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Label</label>
+                <input type="text" class="form-control"
+                       t-att-value="state.fieldLabel"
+                       t-on-input="(ev) => this.state.fieldLabel = ev.target.value"
+                       placeholder="e.g., Customer Code"/>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Field Type</label>
+                <select class="form-select"
+                        t-on-change="(ev) => this.state.fieldType = ev.target.value">
+                    <t t-foreach="fieldTypes" t-as="ft" t-key="ft.type">
+                        <option t-att-value="ft.type"
+                                t-att-selected="ft.type === state.fieldType">
+                            <t t-out="ft.label"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input"
+                       t-att-checked="state.required"
+                       t-on-change="(ev) => this.state.required = ev.target.checked"/>
+                <label class="form-check-label">Required</label>
+            </div>
+
+            <!-- Selection Options -->
+            <t t-if="state.fieldType === 'selection'">
+                <div class="mb-3">
+                    <label class="form-label">Options (one per line: value,Label)</label>
+                    <textarea class="form-control" rows="4"
+                              t-on-input="(ev) => this.state.selectionOptions = ev.target.value"
+                              placeholder="draft,Draft&#10;done,Done&#10;cancelled,Cancelled"><t t-out="state.selectionOptions"/></textarea>
+                </div>
+            </t>
+
+            <!-- Relation Field -->
+            <t t-if="['many2one', 'many2many', 'one2many'].includes(state.fieldType)">
+                <div class="mb-3">
+                    <label class="form-label">Related Model</label>
+                    <select class="form-select"
+                            t-on-change="(ev) => this.state.relation = ev.target.value">
+                        <option value="">Select model...</option>
+                        <t t-foreach="models" t-as="model" t-key="model.id">
+                            <option t-att-value="model.model">
+                                <t t-out="model.name"/>
+                            </option>
+                        </t>
+                    </select>
+                </div>
+            </t>
+
+            <div class="mb-3">
+                <label class="form-label">Help Text (optional)</label>
+                <input type="text" class="form-control"
+                       t-att-value="state.help"
+                       t-on-input="(ev) => this.state.help = ev.target.value"
+                       placeholder="Tooltip shown when hovering the field"/>
+            </div>
+        </div>
+    </t>
+
+    <!-- App Creation Wizard -->
+    <t t-name="loomworks_studio.AppCreationWizard">
+        <div class="o_studio_app_wizard p-4">
+            <h4 class="mb-4">Create New Application</h4>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Application Name *</label>
+                <input type="text" class="form-control form-control-lg"
+                       t-att-value="state.name"
+                       t-on-input="onNameChange"
+                       placeholder="e.g., Project Tracker"/>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Technical Name *</label>
+                <div class="input-group">
+                    <span class="input-group-text">x_</span>
+                    <input type="text" class="form-control"
+                           t-att-value="state.technicalName"
+                           t-on-input="onTechnicalNameChange"
+                           placeholder="project_tracker"/>
+                </div>
+                <small class="text-muted">
+                    Used as prefix for models (lowercase, underscores only)
+                </small>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" rows="3"
+                          t-on-input="onDescriptionChange"
+                          placeholder="What does this application do?"><t t-out="state.description"/></textarea>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Icon</label>
+                    <select class="form-select" t-on-change="onIconChange">
+                        <option value="fa-cube">Cube</option>
+                        <option value="fa-users">Users</option>
+                        <option value="fa-tasks">Tasks</option>
+                        <option value="fa-calendar">Calendar</option>
+                        <option value="fa-file-text">Document</option>
+                        <option value="fa-shopping-cart">Shopping Cart</option>
+                        <option value="fa-building">Building</option>
+                        <option value="fa-truck">Truck</option>
+                        <option value="fa-cogs">Cogs</option>
+                        <option value="fa-chart-line">Chart</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Color</label>
+                    <select class="form-select" t-on-change="onColorChange">
+                        <t t-foreach="Array.from({length: 12}, (_, i) => i)" t-as="color" t-key="color">
+                            <option t-att-value="color">Color <t t-out="color"/></option>
+                        </t>
+                    </select>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-4">
+                <button class="btn btn-secondary" t-on-click="onCancel">Cancel</button>
+                <button class="btn btn-primary" t-on-click="onCreate">
+                    <i class="fa fa-plus me-1"/> Create Application
+                </button>
+            </div>
+        </div>
+    </t>
+
+</templates>

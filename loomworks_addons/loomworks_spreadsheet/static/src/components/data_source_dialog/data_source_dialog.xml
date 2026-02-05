@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="loomworks_spreadsheet.DataSourceDialog">
+        <div class="o_data_source_dialog">
+            <div class="o_data_source_form">
+                <div class="row">
+                    <!-- Model Selection -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Select Model</label>
+                            <input type="text" class="form-control mb-2"
+                                   placeholder="Search models..."
+                                   t-model="state.modelSearch"/>
+
+                            <div class="border rounded" style="max-height: 200px; overflow-y: auto;">
+                                <t t-if="state.isLoadingModels">
+                                    <div class="p-3 text-center text-muted">
+                                        <i class="fa fa-spinner fa-spin me-1"></i>
+                                        Loading models...
+                                    </div>
+                                </t>
+                                <t t-else="">
+                                    <t t-foreach="filteredModels" t-as="model" t-key="model.id">
+                                        <div class="p-2 border-bottom cursor-pointer"
+                                             t-att-class="{'bg-primary text-white': state.selectedModelId === model.id}"
+                                             t-on-click="() => selectModel(model)">
+                                            <div class="fw-semibold">
+                                                <t t-esc="model.name"/>
+                                            </div>
+                                            <small class="text-muted"
+                                                   t-att-class="{'text-white-50': state.selectedModelId === model.id}">
+                                                <t t-esc="model.model"/>
+                                            </small>
+                                        </div>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Field Selection -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Select Fields</label>
+                            <div class="mb-2">
+                                <button class="btn btn-sm btn-outline-secondary me-1"
+                                        t-on-click="selectAllFields"
+                                        t-att-disabled="!state.fields.length">
+                                    Select All
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary"
+                                        t-on-click="clearFieldSelection"
+                                        t-att-disabled="!state.selectedFieldIds.length">
+                                    Clear
+                                </button>
+                            </div>
+
+                            <div class="o_field_selection">
+                                <t t-if="state.isLoadingFields">
+                                    <div class="p-3 text-center text-muted">
+                                        <i class="fa fa-spinner fa-spin me-1"></i>
+                                        Loading fields...
+                                    </div>
+                                </t>
+                                <t t-elif="!state.selectedModelId">
+                                    <div class="p-3 text-center text-muted">
+                                        Select a model to see available fields
+                                    </div>
+                                </t>
+                                <t t-else="">
+                                    <t t-foreach="state.fields" t-as="field" t-key="field.id">
+                                        <div class="o_field_item"
+                                             t-on-click="() => toggleField(field)">
+                                            <input type="checkbox"
+                                                   t-att-checked="isFieldSelected(field)"
+                                                   t-on-click.stop="() => toggleField(field)"/>
+                                            <span t-esc="field.label"/>
+                                            <span class="o_field_type badge"
+                                                  t-att-class="getFieldTypeBadge(field.type)">
+                                                <t t-esc="field.type"/>
+                                            </span>
+                                        </div>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Options Row -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">Target Cell</label>
+                            <input type="text" class="form-control"
+                                   t-model="state.targetCell"
+                                   placeholder="A1"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">Record Limit</label>
+                            <input type="number" class="form-control"
+                                   t-model.number="state.limit"
+                                   min="1" max="10000"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label d-block">Options</label>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input"
+                                       id="includeHeaders"
+                                       t-model="state.includeHeaders"/>
+                                <label class="form-check-label" for="includeHeaders">
+                                    Include column headers
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Domain Filter -->
+                <div class="mb-3">
+                    <label class="form-label">Filter Domain (optional)</label>
+                    <input type="text" class="form-control font-monospace"
+                           t-model="state.domain"
+                           placeholder="[('active', '=', True)]"/>
+                    <small class="text-muted">
+                        Use Odoo domain syntax to filter records
+                    </small>
+                </div>
+
+                <!-- Preview Button -->
+                <div class="mb-3">
+                    <button class="btn btn-outline-primary"
+                            t-on-click="loadPreview"
+                            t-att-disabled="state.isLoadingPreview or !state.selectedModelName or selectedFieldNames.length === 0">
+                        <t t-if="state.isLoadingPreview">
+                            <i class="fa fa-spinner fa-spin me-1"></i>
+                        </t>
+                        <t t-else="">
+                            <i class="fa fa-eye me-1"></i>
+                        </t>
+                        Preview Data
+                    </button>
+                </div>
+
+                <!-- Data Preview -->
+                <t t-if="state.previewData">
+                    <div class="o_preview_container">
+                        <h6 class="mb-2">
+                            Preview (<t t-esc="state.previewData.record_count"/> records shown)
+                        </h6>
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <t t-foreach="state.previewData.headers" t-as="header" t-key="header_index">
+                                        <th t-esc="header"/>
+                                    </t>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.previewData.rows" t-as="row" t-key="row_index">
+                                    <tr>
+                                        <t t-foreach="row" t-as="cell" t-key="cell_index">
+                                            <td>
+                                                <t t-if="cell === null or cell === ''">
+                                                    <span class="text-muted">-</span>
+                                                </t>
+                                                <t t-elif="typeof cell === 'boolean'">
+                                                    <i t-att-class="cell ? 'fa fa-check text-success' : 'fa fa-times text-danger'"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-esc="cell"/>
+                                                </t>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </div>
+
+            <!-- Dialog Actions -->
+            <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                <button class="btn btn-secondary" t-on-click="props.onClose">
+                    Cancel
+                </button>
+                <button class="btn btn-primary" t-on-click="confirm"
+                        t-att-disabled="!state.selectedModelId or state.selectedFieldIds.length === 0">
+                    <i class="fa fa-table me-1"></i>
+                    Insert Data
+                </button>
+            </div>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View Customization Form View -->
+    <record id="studio_view_customization_view_form" model="ir.ui.view">
+        <field name="name">studio.view.customization.form</field>
+        <field name="model">studio.view.customization</field>
+        <field name="arch" type="xml">
+            <form string="View Customization">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="model_name"/>
+                            <field name="model_id" invisible="1"/>
+                            <field name="view_type"/>
+                            <field name="app_id"/>
+                        </group>
+                        <group>
+                            <field name="base_view_id"/>
+                            <field name="generated_view_id"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="last_modified" readonly="1"/>
+                            <field name="modified_by_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Fields" name="fields">
+                            <field name="field_ids">
+                                <list string="Fields" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="field_id"/>
+                                    <field name="field_name" readonly="1"/>
+                                    <field name="field_type" readonly="1"/>
+                                    <field name="visible"/>
+                                    <field name="custom_label"/>
+                                    <field name="widget"/>
+                                    <field name="readonly"/>
+                                    <field name="required"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Advanced" name="advanced">
+                            <field name="arch_json" widget="ace" options="{'mode': 'json'}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- View Customization List View -->
+    <record id="studio_view_customization_view_list" model="ir.ui.view">
+        <field name="name">studio.view.customization.list</field>
+        <field name="model">studio.view.customization</field>
+        <field name="arch" type="xml">
+            <list string="View Customizations">
+                <field name="name"/>
+                <field name="model_name"/>
+                <field name="view_type"/>
+                <field name="app_id"/>
+                <field name="last_modified"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- View Customization Search View -->
+    <record id="studio_view_customization_view_search" model="ir.ui.view">
+        <field name="name">studio.view.customization.search</field>
+        <field name="model">studio.view.customization</field>
+        <field name="arch" type="xml">
+            <search string="Search View Customizations">
+                <field name="name"/>
+                <field name="model_name"/>
+                <field name="app_id"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Model" name="group_model" context="{'group_by': 'model_name'}"/>
+                    <filter string="View Type" name="group_view_type" context="{'group_by': 'view_type'}"/>
+                    <filter string="App" name="group_app" context="{'group_by': 'app_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- View Customization Action -->
+    <record id="action_studio_view_customization" model="ir.actions.act_window">
+        <field name="name">View Customizations</field>
+        <field name="res_model">studio.view.customization</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No view customizations yet
+            </p>
+            <p>
+                View customizations are created automatically when you modify views using Studio.
+            </p>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Payroll Root Menu -->
+    <menuitem id="menu_payroll_root"
+              name="Payroll"
+              web_icon="loomworks_payroll,static/description/icon.png"
+              sequence="25"
+              groups="loomworks_payroll.group_payroll_user"/>
+
+    <!-- Payroll Operations -->
+    <menuitem id="menu_payroll_payslips"
+              name="Payslips"
+              parent="menu_payroll_root"
+              sequence="10"/>
+
+    <menuitem id="menu_payroll_payslip_all"
+              name="All Payslips"
+              parent="menu_payroll_payslips"
+              action="action_hr_payslip"
+              sequence="10"/>
+
+    <menuitem id="menu_payroll_batches"
+              name="Batches"
+              parent="menu_payroll_payslips"
+              action="action_hr_payslip_run"
+              sequence="20"/>
+
+    <!-- Reporting -->
+    <menuitem id="menu_payroll_reporting"
+              name="Reporting"
+              parent="menu_payroll_root"
+              sequence="20"
+              groups="loomworks_payroll.group_payroll_manager"/>
+
+    <!-- Configuration -->
+    <menuitem id="menu_payroll_config"
+              name="Configuration"
+              parent="menu_payroll_root"
+              sequence="90"
+              groups="loomworks_payroll.group_payroll_manager"/>
+
+    <menuitem id="menu_payroll_structures"
+              name="Salary Structures"
+              parent="menu_payroll_config"
+              action="action_hr_payroll_structure"
+              sequence="10"/>
+
+    <menuitem id="menu_payroll_rules"
+              name="Salary Rules"
+              parent="menu_payroll_config"
+              action="action_hr_salary_rule"
+              sequence="20"/>
+
+    <menuitem id="menu_payroll_categories"
+              name="Rule Categories"
+              parent="menu_payroll_config"
+              action="action_hr_salary_rule_category"
+              sequence="30"/>
+
+    <!-- Wizard Menu -->
+    <record id="action_hr_payslip_employees" model="ir.actions.act_window">
+        <field name="name">Generate Payslips</field>
+        <field name="res_model">hr.payslip.employees</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_payroll_generate"
+              name="Generate Payslips"
+              parent="menu_payroll_payslips"
+              action="action_hr_payslip_employees"
+              sequence="5"/>
+</odoo>

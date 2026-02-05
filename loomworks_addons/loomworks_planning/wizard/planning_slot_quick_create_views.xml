@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Quick Create Shifts Wizard Form -->
+    <record id="planning_slot_quick_create_view_form" model="ir.ui.view">
+        <field name="name">planning.slot.quick.create.form</field>
+        <field name="model">planning.slot.quick.create</field>
+        <field name="arch" type="xml">
+            <form string="Quick Create Shifts">
+                <group>
+                    <group string="Template">
+                        <field name="template_id" options="{'no_create': True}"/>
+                        <field name="role_id" options="{'no_create': True}"/>
+                    </group>
+                    <group string="Date Range">
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                </group>
+                <group string="Employees">
+                    <field name="employee_ids" widget="many2many_tags" nolabel="1"
+                           options="{'no_create': True}"
+                           domain="[('active', '=', True)]"/>
+                </group>
+                <group string="Recurrence" invisible="not create_recurrence">
+                    <field name="create_recurrence"/>
+                </group>
+                <group invisible="not create_recurrence">
+                    <group>
+                        <field name="repeat_type"/>
+                    </group>
+                    <group invisible="repeat_type != 'weekly'">
+                        <div class="d-flex flex-wrap gap-3">
+                            <label class="form-check">
+                                <field name="mon" class="form-check-input"/>
+                                <span class="form-check-label">Mon</span>
+                            </label>
+                            <label class="form-check">
+                                <field name="tue" class="form-check-input"/>
+                                <span class="form-check-label">Tue</span>
+                            </label>
+                            <label class="form-check">
+                                <field name="wed" class="form-check-input"/>
+                                <span class="form-check-label">Wed</span>
+                            </label>
+                            <label class="form-check">
+                                <field name="thu" class="form-check-input"/>
+                                <span class="form-check-label">Thu</span>
+                            </label>
+                            <label class="form-check">
+                                <field name="fri" class="form-check-input"/>
+                                <span class="form-check-label">Fri</span>
+                            </label>
+                            <label class="form-check">
+                                <field name="sat" class="form-check-input"/>
+                                <span class="form-check-label">Sat</span>
+                            </label>
+                            <label class="form-check">
+                                <field name="sun" class="form-check-input"/>
+                                <span class="form-check-label">Sun</span>
+                            </label>
+                        </div>
+                    </group>
+                </group>
+                <group string="Options">
+                    <field name="create_recurrence"/>
+                    <field name="skip_conflicts"/>
+                    <field name="publish_immediately"/>
+                </group>
+                <footer>
+                    <button name="action_create_slots" string="Create Shifts"
+                            type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

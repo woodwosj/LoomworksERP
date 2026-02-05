@@ -1,0 +1,258 @@
+// Loomworks Appointment - Backend Styles
+// Odoo 18 Compatible
+
+// Variables
+$appointment-primary: #875A7B;
+$appointment-success: #28a745;
+$appointment-warning: #ffc107;
+$appointment-danger: #dc3545;
+$appointment-info: #17a2b8;
+
+// Appointment Type Kanban
+.o_appointment_type_kanban {
+    .o_kanban_record {
+        .o_kanban_aside_full {
+            width: 80px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+            border-radius: 8px 0 0 8px;
+
+            img {
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+// Appointment Booking Kanban
+.o_appointment_booking_kanban {
+    .o_kanban_record {
+        border-left: 3px solid transparent;
+
+        &[data-state="draft"] {
+            border-left-color: #6c757d;
+        }
+
+        &[data-state="pending"] {
+            border-left-color: $appointment-warning;
+        }
+
+        &[data-state="confirmed"] {
+            border-left-color: $appointment-primary;
+        }
+
+        &[data-state="done"] {
+            border-left-color: $appointment-success;
+        }
+
+        &[data-state="canceled"],
+        &[data-state="no_show"] {
+            border-left-color: $appointment-danger;
+        }
+    }
+}
+
+// Resource Kanban
+.o_appointment_resource_kanban {
+    .o_kanban_record {
+        aside {
+            width: 60px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+// Calendar View Customizations
+.o_appointment_calendar {
+    .fc-event {
+        &.o_appointment_pending {
+            background-color: $appointment-warning;
+            border-color: darken($appointment-warning, 10%);
+        }
+
+        &.o_appointment_confirmed {
+            background-color: $appointment-primary;
+            border-color: darken($appointment-primary, 10%);
+        }
+
+        &.o_appointment_done {
+            background-color: $appointment-success;
+            border-color: darken($appointment-success, 10%);
+        }
+
+        &.o_appointment_canceled {
+            background-color: $appointment-danger;
+            border-color: darken($appointment-danger, 10%);
+            text-decoration: line-through;
+        }
+    }
+}
+
+// Availability Slots Display
+.o_appointment_slots_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 8px;
+
+    .o_appointment_slot {
+        padding: 8px 12px;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background-color: #f8f9fa;
+            border-color: $appointment-primary;
+        }
+
+        &.selected {
+            background-color: $appointment-primary;
+            border-color: $appointment-primary;
+            color: white;
+        }
+
+        &.unavailable {
+            background-color: #f1f1f1;
+            color: #999;
+            cursor: not-allowed;
+        }
+    }
+}
+
+// Resource Selection
+.o_appointment_resource_select {
+    .o_resource_card {
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 2px solid transparent;
+
+        &:hover {
+            border-color: $appointment-primary;
+        }
+
+        &.selected {
+            border-color: $appointment-primary;
+            background-color: rgba($appointment-primary, 0.1);
+        }
+
+        .o_resource_avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+}
+
+// Status Badges
+.o_appointment_status {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+
+    &.draft {
+        background-color: #e9ecef;
+        color: #495057;
+    }
+
+    &.pending {
+        background-color: rgba($appointment-warning, 0.2);
+        color: darken($appointment-warning, 20%);
+    }
+
+    &.confirmed {
+        background-color: rgba($appointment-primary, 0.2);
+        color: darken($appointment-primary, 10%);
+    }
+
+    &.done {
+        background-color: rgba($appointment-success, 0.2);
+        color: darken($appointment-success, 10%);
+    }
+
+    &.canceled,
+    &.no_show {
+        background-color: rgba($appointment-danger, 0.2);
+        color: darken($appointment-danger, 10%);
+    }
+}
+
+// Duration Display
+.o_appointment_duration {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    color: #666;
+
+    .fa {
+        margin-right: 4px;
+    }
+}
+
+// Booking Form Wizard Steps
+.o_appointment_wizard_steps {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+
+    .o_wizard_step {
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+
+        &:not(:last-child)::after {
+            content: '';
+            width: 50px;
+            height: 2px;
+            background-color: #dee2e6;
+            margin-left: 15px;
+        }
+
+        .o_step_number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e9ecef;
+            color: #6c757d;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+
+        &.active .o_step_number {
+            background-color: $appointment-primary;
+            color: white;
+        }
+
+        &.completed .o_step_number {
+            background-color: $appointment-success;
+            color: white;
+
+            &::before {
+                content: '\f00c';
+                font-family: FontAwesome;
+            }
+        }
+    }
+}

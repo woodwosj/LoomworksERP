@@ -1,0 +1,86 @@
+// PLM Kanban Styling
+// Part of Loomworks ERP
+
+.o_plm_eco_kanban {
+    .o_kanban_record {
+        .o_kanban_record_title {
+            font-weight: 600;
+        }
+
+        .o_kanban_record_body {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        // Priority indicators
+        .o_priority {
+            .o_priority_star {
+                font-size: 1.1em;
+            }
+        }
+
+        // Approval state badges
+        .badge {
+            font-size: 0.75em;
+            padding: 3px 8px;
+        }
+    }
+
+    // Color coding for kanban cards by priority
+    .oe_kanban_card.o_kanban_draggable {
+        border-left: 3px solid transparent;
+
+        &.o_priority_critical {
+            border-left-color: #dc3545;
+        }
+
+        &.o_priority_high {
+            border-left-color: #ffc107;
+        }
+    }
+}
+
+// ECO form styling
+.o_form_view {
+    .o_plm_eco_form {
+        // Impact analysis section
+        .o_impact_analysis {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        // Change lines styling
+        .o_list_table {
+            .o_data_cell {
+                &.o_cost_impact_positive {
+                    color: #28a745;
+                }
+
+                &.o_cost_impact_negative {
+                    color: #dc3545;
+                }
+            }
+        }
+    }
+}
+
+// BOM revision comparison
+.o_plm_bom_compare {
+    .o_diff_added {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .o_diff_removed {
+        background-color: #f8d7da;
+        color: #721c24;
+        text-decoration: line-through;
+    }
+
+    .o_diff_modified {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+}

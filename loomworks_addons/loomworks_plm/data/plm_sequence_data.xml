@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- ECO Sequence -->
+    <record id="sequence_plm_eco" model="ir.sequence">
+        <field name="name">Engineering Change Order</field>
+        <field name="code">plm.eco</field>
+        <field name="prefix">ECO/%(year)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Spreadsheet Action Client -->
+    <t t-name="loomworks_spreadsheet.SpreadsheetAction">
+        <div class="o_spreadsheet_action h-100">
+            <SpreadsheetView
+                documentId="props.action.context.active_id or props.action.params.document_id"
+                readonly="props.action.context.readonly"/>
+        </div>
+    </t>
+
+    <!-- Empty State -->
+    <t t-name="loomworks_spreadsheet.EmptyState">
+        <div class="o_spreadsheet_empty_state text-center p-5">
+            <i class="fa fa-table fa-4x text-muted mb-3"></i>
+            <h4>No Spreadsheet Selected</h4>
+            <p class="text-muted">
+                Create a new spreadsheet or select an existing one to get started.
+            </p>
+            <button class="btn btn-primary" t-on-click="props.onCreate">
+                <i class="fa fa-plus me-1"></i>
+                Create Spreadsheet
+            </button>
+        </div>
+    </t>
+
+    <!-- Spreadsheet Card (for kanban) -->
+    <t t-name="loomworks_spreadsheet.SpreadsheetCard">
+        <div class="o_spreadsheet_card card h-100">
+            <div class="card-body">
+                <div class="d-flex align-items-start">
+                    <i class="fa fa-table fa-2x text-primary me-3"></i>
+                    <div class="flex-grow-1">
+                        <h5 class="card-title mb-1">
+                            <t t-esc="props.record.name"/>
+                        </h5>
+                        <p class="card-text text-muted small mb-2">
+                            <t t-esc="props.record.description"/>
+                        </p>
+                        <div class="d-flex gap-3 text-muted small">
+                            <span>
+                                <i class="fa fa-file-o me-1"></i>
+                                <t t-esc="props.record.sheet_count"/> sheets
+                            </span>
+                            <span>
+                                <i class="fa fa-database me-1"></i>
+                                <t t-esc="props.record.data_source_count"/> sources
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent">
+                <small class="text-muted">
+                    Modified <t t-esc="props.record.write_date"/>
+                </small>
+            </div>
+        </div>
+    </t>
+
+    <!-- Toolbar Separator -->
+    <t t-name="loomworks_spreadsheet.ToolbarSeparator">
+        <div class="o_toolbar_separator"></div>
+    </t>
+
+    <!-- Chart Type Selector -->
+    <t t-name="loomworks_spreadsheet.ChartTypeSelector">
+        <div class="o_chart_type_selector">
+            <t t-foreach="chartTypes" t-as="type" t-key="type.id">
+                <div class="o_chart_type_option"
+                     t-att-class="{'selected': props.selected === type.id}"
+                     t-on-click="() => props.onSelect(type.id)">
+                    <i t-att-class="'fa fa-' + type.icon"/>
+                    <span t-esc="type.label"/>
+                </div>
+            </t>
+        </div>
+    </t>
+
+    <!-- Pivot Configuration -->
+    <t t-name="loomworks_spreadsheet.PivotConfig">
+        <div class="o_pivot_dialog">
+            <div class="o_pivot_config">
+                <div>
+                    <h6>Row Fields</h6>
+                    <div class="o_field_list" data-type="rows">
+                        <t t-foreach="props.rowFields" t-as="field" t-key="field.id">
+                            <div class="o_field_chip">
+                                <span t-esc="field.label"/>
+                                <span class="o_remove_field"
+                                      t-on-click="() => props.onRemoveRow(field)">
+                                    <i class="fa fa-times"></i>
+                                </span>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+                <div>
+                    <h6>Column Fields</h6>
+                    <div class="o_field_list" data-type="columns">
+                        <t t-foreach="props.columnFields" t-as="field" t-key="field.id">
+                            <div class="o_field_chip">
+                                <span t-esc="field.label"/>
+                                <span class="o_remove_field"
+                                      t-on-click="() => props.onRemoveColumn(field)">
+                                    <i class="fa fa-times"></i>
+                                </span>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <h6>Measures</h6>
+                <div class="o_field_list">
+                    <t t-foreach="props.measures" t-as="measure" t-key="measure.id">
+                        <div class="o_field_chip">
+                            <span t-esc="measure.label"/>
+                            <span class="badge bg-secondary ms-1">
+                                <t t-esc="measure.aggregator"/>
+                            </span>
+                            <span class="o_remove_field"
+                                  t-on-click="() => props.onRemoveMeasure(measure)">
+                                <i class="fa fa-times"></i>
+                            </span>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- Cell Format Menu -->
+    <t t-name="loomworks_spreadsheet.CellFormatMenu">
+        <div class="o_spreadsheet_context_menu">
+            <div class="o_menu_item" t-on-click="() => props.onFormat('number')">
+                <i class="fa fa-hashtag"></i>
+                <span>Number</span>
+            </div>
+            <div class="o_menu_item" t-on-click="() => props.onFormat('currency')">
+                <i class="fa fa-usd"></i>
+                <span>Currency</span>
+            </div>
+            <div class="o_menu_item" t-on-click="() => props.onFormat('percentage')">
+                <i class="fa fa-percent"></i>
+                <span>Percentage</span>
+            </div>
+            <div class="o_menu_separator"></div>
+            <div class="o_menu_item" t-on-click="() => props.onFormat('date')">
+                <i class="fa fa-calendar"></i>
+                <span>Date</span>
+            </div>
+            <div class="o_menu_item" t-on-click="() => props.onFormat('datetime')">
+                <i class="fa fa-clock-o"></i>
+                <span>Date &amp; Time</span>
+            </div>
+            <div class="o_menu_separator"></div>
+            <div class="o_menu_item" t-on-click="() => props.onFormat('text')">
+                <i class="fa fa-font"></i>
+                <span>Plain Text</span>
+            </div>
+        </div>
+    </t>
+
+    <!-- Insert Menu -->
+    <t t-name="loomworks_spreadsheet.InsertMenu">
+        <div class="o_spreadsheet_context_menu">
+            <div class="o_menu_item" t-on-click="props.onInsertRow">
+                <i class="fa fa-plus"></i>
+                <span>Insert Row Above</span>
+            </div>
+            <div class="o_menu_item" t-on-click="props.onInsertRowBelow">
+                <i class="fa fa-plus"></i>
+                <span>Insert Row Below</span>
+            </div>
+            <div class="o_menu_separator"></div>
+            <div class="o_menu_item" t-on-click="props.onInsertColumn">
+                <i class="fa fa-plus"></i>
+                <span>Insert Column Left</span>
+            </div>
+            <div class="o_menu_item" t-on-click="props.onInsertColumnRight">
+                <i class="fa fa-plus"></i>
+                <span>Insert Column Right</span>
+            </div>
+            <div class="o_menu_separator"></div>
+            <div class="o_menu_item" t-on-click="props.onInsertSheet">
+                <i class="fa fa-file-o"></i>
+                <span>Insert New Sheet</span>
+            </div>
+        </div>
+    </t>
+
+</templates>

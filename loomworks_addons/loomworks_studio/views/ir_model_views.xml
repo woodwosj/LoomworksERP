@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Extend ir.model form to show Studio fields -->
+    <record id="view_model_form_studio" model="ir.ui.view">
+        <field name="name">ir.model.form.studio</field>
+        <field name="model">ir.model</field>
+        <field name="inherit_id" ref="base.view_model_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Studio Settings" groups="loomworks_studio.group_studio_user"
+                       invisible="studio_origin == 'odoo'">
+                    <group>
+                        <field name="studio_app_id"/>
+                        <field name="studio_origin" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="studio_icon"/>
+                        <field name="studio_color" widget="color_picker"/>
+                    </group>
+                    <field name="studio_description" colspan="2"/>
+                </group>
+            </xpath>
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button name="action_open_studio" type="object" class="oe_stat_button"
+                        icon="fa-magic" string="Open in Studio"
+                        groups="loomworks_studio.group_studio_user"
+                        invisible="studio_origin == 'odoo'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Extend ir.model list to show Studio info -->
+    <record id="view_model_list_studio" model="ir.ui.view">
+        <field name="name">ir.model.list.studio</field>
+        <field name="model">ir.model</field>
+        <field name="inherit_id" ref="base.view_model_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="inside">
+                <field name="studio_origin" optional="hide"/>
+                <field name="studio_app_id" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Studio Models Action (shows only Studio-created models) -->
+    <record id="action_studio_models" model="ir.actions.act_window">
+        <field name="name">Studio Models</field>
+        <field name="res_model">ir.model</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('studio_origin', 'in', ['studio', 'customized'])]</field>
+        <field name="context">{'search_default_manual': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No custom models yet
+            </p>
+            <p>
+                Create models through Studio Apps to see them here.
+            </p>
+        </field>
+    </record>
+
+</odoo>

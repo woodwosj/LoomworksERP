@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Booking Confirmation Email Template -->
+    <record id="mail_template_booking_confirmation" model="mail.template">
+        <field name="name">Appointment: Booking Confirmation</field>
+        <field name="model_id" ref="model_appointment_booking"/>
+        <field name="subject">Appointment Confirmed: {{ object.appointment_type_id.name }} on {{ object.start_datetime.strftime('%B %d, %Y') }}</field>
+        <field name="email_from">{{ (object.company_id.email or user.email_formatted) }}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
+    <p>Hello {{ object.partner_id.name }},</p>
+
+    <p>Your appointment has been confirmed!</p>
+
+    <div style="background: #d4edda; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #28a745;">
+        <h3 style="margin-top: 0; color: #155724;">{{ object.appointment_type_id.name }}</h3>
+        <p style="margin: 5px 0;"><strong>Date:</strong> {{ object.start_datetime.strftime('%A, %B %d, %Y') }}</p>
+        <p style="margin: 5px 0;"><strong>Time:</strong> {{ object.start_datetime.strftime('%I:%M %p') }} - {{ object.end_datetime.strftime('%I:%M %p') }}</p>
+        {% if object.resource_id %}
+        <p style="margin: 5px 0;"><strong>With:</strong> {{ object.resource_id.name }}</p>
+        {% endif %}
+        {% if object.location %}
+        <p style="margin: 5px 0;"><strong>Location:</strong> {{ object.location }}</p>
+        {% endif %}
+        {% if object.meeting_url %}
+        <p style="margin: 5px 0;"><strong>Meeting Link:</strong> <a href="{{ object.meeting_url }}">{{ object.meeting_url }}</a></p>
+        {% endif %}
+    </div>
+
+    <p>Reference: <strong>{{ object.name }}</strong></p>
+
+    <p style="margin-top: 25px;">
+        <a href="{{ object.booking_url }}"
+           style="display: inline-block; padding: 12px 30px; background-color: #875A7B;
+                  color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            View Appointment Details
+        </a>
+    </p>
+
+    {% if object.appointment_type_id.allow_reschedule or object.appointment_type_id.allow_cancel %}
+    <p style="color: #666; font-size: 12px; margin-top: 30px;">
+        Need to make changes?
+        {% if object.appointment_type_id.allow_reschedule %}You can reschedule{% endif %}
+        {% if object.appointment_type_id.allow_reschedule and object.appointment_type_id.allow_cancel %} or {% endif %}
+        {% if object.appointment_type_id.allow_cancel %}cancel{% endif %}
+        your appointment through the link above.
+    </p>
+    {% endif %}
+
+    <p>Best regards,<br/>
+    {{ object.company_id.name or 'The Team' }}</p>
+</div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+
+    <!-- Booking Cancellation Email Template -->
+    <record id="mail_template_booking_cancellation" model="mail.template">
+        <field name="name">Appointment: Booking Canceled</field>
+        <field name="model_id" ref="model_appointment_booking"/>
+        <field name="subject">Appointment Canceled: {{ object.appointment_type_id.name }}</field>
+        <field name="email_from">{{ (object.company_id.email or user.email_formatted) }}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
+    <p>Hello {{ object.partner_id.name }},</p>
+
+    <p>Your appointment has been canceled.</p>
+
+    <div style="background: #f8d7da; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #dc3545;">
+        <h3 style="margin-top: 0; color: #721c24;">{{ object.appointment_type_id.name }}</h3>
+        <p style="margin: 5px 0;"><strong>Original Date:</strong> {{ object.start_datetime.strftime('%A, %B %d, %Y') }}</p>
+        <p style="margin: 5px 0;"><strong>Original Time:</strong> {{ object.start_datetime.strftime('%I:%M %p') }}</p>
+        {% if object.cancel_reason %}
+        <p style="margin: 5px 0;"><strong>Reason:</strong> {{ object.cancel_reason }}</p>
+        {% endif %}
+    </div>
+
+    <p>Reference: <strong>{{ object.name }}</strong></p>
+
+    <p style="margin-top: 25px;">
+        <a href="/appointment"
+           style="display: inline-block; padding: 12px 30px; background-color: #875A7B;
+                  color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            Book a New Appointment
+        </a>
+    </p>
+
+    <p>Best regards,<br/>
+    {{ object.company_id.name or 'The Team' }}</p>
+</div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <!-- Booking Reminder Email Template -->
+    <record id="mail_template_booking_reminder" model="mail.template">
+        <field name="name">Appointment: Reminder</field>
+        <field name="model_id" ref="model_appointment_booking"/>
+        <field name="subject">Reminder: {{ object.appointment_type_id.name }} Tomorrow</field>
+        <field name="email_from">{{ (object.company_id.email or user.email_formatted) }}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
+    <p>Hello {{ object.partner_id.name }},</p>
+
+    <p>This is a friendly reminder about your upcoming appointment.</p>
+
+    <div style="background: #fff3cd; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #ffc107;">
+        <h3 style="margin-top: 0; color: #856404;">{{ object.appointment_type_id.name }}</h3>
+        <p style="margin: 5px 0;"><strong>Date:</strong> {{ object.start_datetime.strftime('%A, %B %d, %Y') }}</p>
+        <p style="margin: 5px 0;"><strong>Time:</strong> {{ object.start_datetime.strftime('%I:%M %p') }} - {{ object.end_datetime.strftime('%I:%M %p') }}</p>
+        {% if object.resource_id %}
+        <p style="margin: 5px 0;"><strong>With:</strong> {{ object.resource_id.name }}</p>
+        {% endif %}
+        {% if object.location %}
+        <p style="margin: 5px 0;"><strong>Location:</strong> {{ object.location }}</p>
+        {% endif %}
+        {% if object.meeting_url %}
+        <p style="margin: 5px 0;"><strong>Meeting Link:</strong> <a href="{{ object.meeting_url }}">Join Meeting</a></p>
+        {% endif %}
+    </div>
+
+    <p style="margin-top: 25px;">
+        <a href="{{ object.booking_url }}"
+           style="display: inline-block; padding: 12px 30px; background-color: #875A7B;
+                  color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            View Appointment Details
+        </a>
+    </p>
+
+    <p>We look forward to seeing you!</p>
+
+    <p>Best regards,<br/>
+    {{ object.company_id.name or 'The Team' }}</p>
+</div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Automation Form View -->
+    <record id="studio_automation_view_form" model="ir.ui.view">
+        <field name="name">studio.automation.form</field>
+        <field name="model">studio.automation</field>
+        <field name="arch" type="xml">
+            <form string="Automation Rule">
+                <header>
+                    <button name="action_activate" type="object" string="Activate"
+                            class="btn-primary" invisible="state == 'active'"/>
+                    <button name="action_deactivate" type="object" string="Deactivate"
+                            invisible="state != 'active'"/>
+                    <button name="action_test" type="object" string="Test"
+                            groups="loomworks_studio.group_studio_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,disabled"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Disabled" bg_color="bg-secondary"
+                            invisible="state != 'disabled'"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Automation Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Trigger">
+                            <field name="model_id" options="{'no_create': True}"/>
+                            <field name="model_name" invisible="1"/>
+                            <field name="trigger_type"/>
+                            <field name="filter_domain" widget="domain"
+                                   options="{'model': 'model_name'}"/>
+                            <field name="filter_pre_domain" widget="domain"
+                                   options="{'model': 'model_name'}"
+                                   invisible="trigger_type != 'on_write'"/>
+                        </group>
+                        <group string="Settings">
+                            <field name="app_id"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+
+                    <!-- Time-based trigger settings -->
+                    <group string="Time Trigger Settings" invisible="trigger_type != 'on_time'">
+                        <group>
+                            <field name="trg_date_id"
+                                   domain="[('model_id', '=', model_id), ('ttype', 'in', ['date', 'datetime'])]"/>
+                        </group>
+                        <group>
+                            <label for="trg_date_range"/>
+                            <div class="o_row">
+                                <field name="trg_date_range"/>
+                                <field name="trg_date_range_type"/>
+                                <span>after trigger date</span>
+                            </div>
+                        </group>
+                    </group>
+
+                    <group string="Action">
+                        <field name="action_type"/>
+                    </group>
+
+                    <!-- Update Record Action -->
+                    <group string="Field Updates" invisible="action_type != 'update_record'">
+                        <field name="update_field_ids" nolabel="1" context="{'default_is_create_action': False}">
+                            <list string="Updates" editable="bottom">
+                                <field name="field_id"
+                                       domain="[('model_id', '=', parent.model_id)]"/>
+                                <field name="value_type"/>
+                                <field name="value_char" invisible="field_type != 'char'"/>
+                                <field name="value_integer" invisible="field_type != 'integer'"/>
+                                <field name="value_float" invisible="field_type != 'float'"/>
+                                <field name="value_boolean" invisible="field_type != 'boolean'"/>
+                                <field name="value_date" invisible="field_type != 'date'"/>
+                                <field name="value_datetime" invisible="field_type != 'datetime'"/>
+                                <field name="value_selection" invisible="field_type != 'selection'"/>
+                                <field name="value_reference" invisible="value_type != 'reference'"/>
+                                <field name="value_python" invisible="value_type != 'python'"/>
+                                <field name="field_type" column_invisible="1"/>
+                            </list>
+                        </field>
+                    </group>
+
+                    <!-- Create Record Action -->
+                    <group invisible="action_type != 'create_record'">
+                        <field name="create_model_id"/>
+                    </group>
+
+                    <!-- Send Email Action -->
+                    <group invisible="action_type != 'send_email'">
+                        <field name="email_template_id"
+                               domain="[('model_id', '=', model_id)]"/>
+                    </group>
+
+                    <!-- Create Activity Action -->
+                    <group string="Activity Settings" invisible="action_type != 'create_activity'">
+                        <group>
+                            <field name="activity_type_id"/>
+                            <field name="activity_summary"/>
+                        </group>
+                        <group>
+                            <field name="activity_user_id"/>
+                            <field name="activity_user_field_id"
+                                   domain="[('model_id', '=', model_id), ('ttype', '=', 'many2one'), ('relation', '=', 'res.users')]"/>
+                            <label for="activity_date_deadline_range"/>
+                            <div class="o_row">
+                                <field name="activity_date_deadline_range"/>
+                                <field name="activity_date_deadline_range_type"/>
+                            </div>
+                        </group>
+                        <field name="activity_note" placeholder="Activity note..."/>
+                    </group>
+
+                    <!-- Python Code Action -->
+                    <group string="Python Code" invisible="action_type != 'python_code'">
+                        <field name="python_code" widget="ace" options="{'mode': 'python'}" nolabel="1"/>
+                    </group>
+
+                    <!-- Webhook Action -->
+                    <group invisible="action_type != 'webhook'">
+                        <field name="webhook_url"/>
+                        <field name="webhook_payload" widget="ace" options="{'mode': 'json'}"/>
+                    </group>
+
+                    <group string="Statistics" col="4">
+                        <field name="execution_count" readonly="1"/>
+                        <field name="last_run" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Automation List View -->
+    <record id="studio_automation_view_list" model="ir.ui.view">
+        <field name="name">studio.automation.list</field>
+        <field name="model">studio.automation</field>
+        <field name="arch" type="xml">
+            <list string="Automations">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="trigger_type"/>
+                <field name="action_type"/>
+                <field name="app_id"/>
+                <field name="execution_count"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'active'"
+                       decoration-muted="state == 'disabled'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Automation Search View -->
+    <record id="studio_automation_view_search" model="ir.ui.view">
+        <field name="name">studio.automation.search</field>
+        <field name="model">studio.automation</field>
+        <field name="arch" type="xml">
+            <search string="Search Automations">
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="app_id"/>
+                <filter string="Active" name="active" domain="[('state', '=', 'active')]"/>
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Disabled" name="disabled" domain="[('state', '=', 'disabled')]"/>
+                <separator/>
+                <filter string="On Create" name="on_create" domain="[('trigger_type', '=', 'on_create')]"/>
+                <filter string="On Update" name="on_write" domain="[('trigger_type', '=', 'on_write')]"/>
+                <filter string="Time-Based" name="on_time" domain="[('trigger_type', '=', 'on_time')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Model" name="group_model" context="{'group_by': 'model_id'}"/>
+                    <filter string="Trigger Type" name="group_trigger" context="{'group_by': 'trigger_type'}"/>
+                    <filter string="Action Type" name="group_action" context="{'group_by': 'action_type'}"/>
+                    <filter string="App" name="group_app" context="{'group_by': 'app_id'}"/>
+                    <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Automation Action -->
+    <record id="action_studio_automation" model="ir.actions.act_window">
+        <field name="name">Automations</field>
+        <field name="res_model">studio.automation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first automation!
+            </p>
+            <p>
+                Automations let you define rules that trigger actions automatically
+                when records are created, updated, or at specific times.
+            </p>
+        </field>
+    </record>
+
+</odoo>

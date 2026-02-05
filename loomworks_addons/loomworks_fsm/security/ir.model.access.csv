@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+# Worksheet Template
+access_fsm_worksheet_template_user,fsm.worksheet.template.user,model_fsm_worksheet_template,group_fsm_user,1,0,0,0
+access_fsm_worksheet_template_manager,fsm.worksheet.template.manager,model_fsm_worksheet_template,group_fsm_manager,1,1,1,1
+# Worksheet Field
+access_fsm_worksheet_field_user,fsm.worksheet.field.user,model_fsm_worksheet_field,group_fsm_user,1,0,0,0
+access_fsm_worksheet_field_manager,fsm.worksheet.field.manager,model_fsm_worksheet_field,group_fsm_manager,1,1,1,1
+# Material Line
+access_fsm_material_line_user,fsm.material.line.user,model_fsm_material_line,group_fsm_user,1,1,1,0
+access_fsm_material_line_manager,fsm.material.line.manager,model_fsm_material_line,group_fsm_manager,1,1,1,1
+# Route Helper (transient)
+access_fsm_route_helper_user,fsm.route.helper.user,model_fsm_route_helper,group_fsm_user,1,1,1,0

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- ECO Approval Request Email Template -->
+    <record id="mail_template_eco_approval_request" model="mail.template">
+        <field name="name">PLM: ECO Approval Request</field>
+        <field name="model_id" ref="model_plm_eco_approval"/>
+        <field name="subject">ECO Approval Required: {{ object.eco_id.name }} - {{ object.eco_id.title }}</field>
+        <field name="email_from">{{ (object.eco_id.company_id.email or user.email_formatted) }}</field>
+        <field name="email_to">{{ object.user_id.email }}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
+    <p>Hello {{ object.user_id.name }},</p>
+
+    <p>An Engineering Change Order requires your approval:</p>
+
+    <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; background: #f5f5f5; width: 150px;"><strong>ECO Number</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.eco_id.name }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; background: #f5f5f5;"><strong>Title</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.eco_id.title }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; background: #f5f5f5;"><strong>Requested By</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.eco_id.requester_id.name }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; background: #f5f5f5;"><strong>Affected BOM</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.eco_id.bom_id.product_tmpl_id.name or 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; background: #f5f5f5;"><strong>Priority</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">
+                {% if object.eco_id.priority == '3' %}Critical
+                {% elif object.eco_id.priority == '2' %}High
+                {% elif object.eco_id.priority == '1' %}Normal
+                {% else %}Low{% endif %}
+            </td>
+        </tr>
+    </table>
+
+    <p>Please review and approve or reject this ECO.</p>
+
+    <p style="margin-top: 20px;">
+        <a href="{{ object.eco_id.get_base_url() }}/web#id={{ object.eco_id.id }}&amp;model=plm.eco&amp;view_type=form"
+           style="display: inline-block; padding: 10px 20px; background-color: #875A7B; color: white;
+                  text-decoration: none; border-radius: 5px; margin-right: 10px;">
+            Review ECO
+        </a>
+    </p>
+
+    <p style="color: #666; font-size: 12px; margin-top: 20px;">
+        This is an automated message from Loomworks PLM.
+    </p>
+</div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+
+    <!-- ECO Approval Reminder Template -->
+    <record id="mail_template_eco_approval_reminder" model="mail.template">
+        <field name="name">PLM: ECO Approval Reminder</field>
+        <field name="model_id" ref="model_plm_eco_approval"/>
+        <field name="subject">Reminder: ECO Approval Pending - {{ object.eco_id.name }}</field>
+        <field name="email_from">{{ (object.eco_id.company_id.email or user.email_formatted) }}</field>
+        <field name="email_to">{{ object.user_id.email }}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
+    <p>Hello {{ object.user_id.name }},</p>
+
+    <p>This is a reminder that ECO <strong>{{ object.eco_id.name }}</strong> is still awaiting your approval.</p>
+
+    <p><strong>{{ object.eco_id.title }}</strong></p>
+
+    <p>Please review and provide your decision at your earliest convenience.</p>
+
+    <p>
+        <a href="{{ object.eco_id.get_base_url() }}/web#id={{ object.eco_id.id }}&amp;model=plm.eco&amp;view_type=form"
+           style="display: inline-block; padding: 10px 20px; background-color: #f0ad4e; color: white;
+                  text-decoration: none; border-radius: 5px;">
+            Review ECO
+        </a>
+    </p>
+</div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <!-- ECO Stage Change Notification -->
+    <record id="mail_template_eco_stage_change" model="mail.template">
+        <field name="name">PLM: ECO Stage Changed</field>
+        <field name="model_id" ref="model_plm_eco"/>
+        <field name="subject">ECO {{ object.name }} moved to {{ object.stage_id.name }}</field>
+        <field name="email_from">{{ (object.company_id.email or user.email_formatted) }}</field>
+        <field name="partner_to">{{ object.requester_id.partner_id.id }},{{ object.responsible_id.partner_id.id if object.responsible_id else '' }}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
+    <p>Hello,</p>
+
+    <p>ECO <strong>{{ object.name }}</strong> has been moved to stage <strong>{{ object.stage_id.name }}</strong>.</p>
+
+    <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; background: #f5f5f5; width: 150px;"><strong>Title</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.title }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; background: #f5f5f5;"><strong>Status</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.state }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; background: #f5f5f5;"><strong>Approval Status</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.approval_state }}</td>
+        </tr>
+    </table>
+
+    <p>
+        <a href="{{ object.get_base_url() }}/web#id={{ object.id }}&amp;model=plm.eco&amp;view_type=form"
+           style="display: inline-block; padding: 10px 20px; background-color: #875A7B; color: white;
+                  text-decoration: none; border-radius: 5px;">
+            View ECO
+        </a>
+    </p>
+</div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+</odoo>

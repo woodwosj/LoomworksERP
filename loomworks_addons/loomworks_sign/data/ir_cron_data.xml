@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Cron Job: Send Signature Reminders -->
+    <record id="ir_cron_sign_reminder" model="ir.cron">
+        <field name="name">Sign: Send Signature Reminders</field>
+        <field name="model_id" ref="model_sign_request"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_send_reminders()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Cron Job: Expire Old Requests -->
+    <record id="ir_cron_sign_expire" model="ir.cron">
+        <field name="name">Sign: Expire Old Signature Requests</field>
+        <field name="model_id" ref="model_sign_request"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_expire_requests()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Cron Job: Verify Audit Log Integrity -->
+    <record id="ir_cron_sign_audit_verify" model="ir.cron">
+        <field name="name">Sign: Verify Audit Log Integrity</field>
+        <field name="model_id" ref="model_sign_audit_log"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_verify_integrity()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">weeks</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>

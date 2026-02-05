@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ECO Type Tree View -->
+    <record id="plm_eco_type_view_tree" model="ir.ui.view">
+        <field name="name">plm.eco.type.tree</field>
+        <field name="model">plm.eco.type</field>
+        <field name="arch" type="xml">
+            <tree string="ECO Types">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="require_approval"/>
+                <field name="min_approvers"/>
+                <field name="eco_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ECO Type Form View -->
+    <record id="plm_eco_type_view_form" model="ir.ui.view">
+        <field name="name">plm.eco.type.form</field>
+        <field name="model">plm.eco.type</field>
+        <field name="arch" type="xml">
+            <form string="ECO Type">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="action" icon="fa-clipboard"
+                                name="%(plm_eco_action)d"
+                                context="{'search_default_type_id': active_id}">
+                            <field name="eco_count" string="ECOs" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="ECO Type Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="color" widget="color_picker"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="require_approval"/>
+                            <field name="min_approvers" invisible="not require_approval"/>
+                        </group>
+                    </group>
+                    <separator string="Description"/>
+                    <field name="description" placeholder="When to use this ECO type..."/>
+                    <notebook>
+                        <page string="Workflow" name="workflow">
+                            <group>
+                                <group>
+                                    <field name="stage_ids" widget="many2many_tags"/>
+                                    <field name="default_stage_id" domain="[('id', 'in', stage_ids)]"/>
+                                </group>
+                                <group>
+                                    <field name="default_responsible_id"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Approvers" name="approvers">
+                            <group>
+                                <field name="default_approver_ids" widget="many2many_tags"/>
+                                <field name="auto_approve_user_ids" widget="many2many_tags"
+                                       help="Users who can approve ECOs of this type without additional approvals"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ECO Type Action -->
+    <record id="plm_eco_type_action" model="ir.actions.act_window">
+        <field name="name">ECO Types</field>
+        <field name="res_model">plm.eco.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create ECO Types
+            </p>
+            <p>
+                ECO types categorize changes and define their approval requirements.
+                Examples: Design Change, Supplier Change, Cost Reduction.
+            </p>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Default Appointment Type: Consultation -->
+    <record id="appointment_type_consultation" model="appointment.type">
+        <field name="name">Consultation</field>
+        <field name="description"><![CDATA[
+            <p>Schedule a consultation with our team. Perfect for:</p>
+            <ul>
+                <li>Initial meetings</li>
+                <li>Project discussions</li>
+                <li>General inquiries</li>
+            </ul>
+        ]]></field>
+        <field name="duration">1.0</field>
+        <field name="location">in_person</field>
+        <field name="min_schedule_hours">2.0</field>
+        <field name="max_schedule_days">30</field>
+        <field name="slot_duration">0.5</field>
+        <field name="allow_reschedule" eval="True"/>
+        <field name="allow_cancel" eval="True"/>
+        <field name="cancel_limit_hours">24.0</field>
+        <field name="icon">fa-comments</field>
+        <field name="color">1</field>
+    </record>
+
+    <!-- Default Appointment Type: Phone Call -->
+    <record id="appointment_type_phone_call" model="appointment.type">
+        <field name="name">Phone Call</field>
+        <field name="description"><![CDATA[
+            <p>Quick phone call for:</p>
+            <ul>
+                <li>Brief discussions</li>
+                <li>Follow-ups</li>
+                <li>Quick questions</li>
+            </ul>
+        ]]></field>
+        <field name="duration">0.5</field>
+        <field name="location">phone</field>
+        <field name="min_schedule_hours">1.0</field>
+        <field name="max_schedule_days">14</field>
+        <field name="slot_duration">0.25</field>
+        <field name="allow_reschedule" eval="True"/>
+        <field name="allow_cancel" eval="True"/>
+        <field name="cancel_limit_hours">2.0</field>
+        <field name="icon">fa-phone</field>
+        <field name="color">2</field>
+    </record>
+
+    <!-- Default Appointment Type: Video Meeting -->
+    <record id="appointment_type_video_meeting" model="appointment.type">
+        <field name="name">Video Meeting</field>
+        <field name="description"><![CDATA[
+            <p>Online video conference for:</p>
+            <ul>
+                <li>Remote meetings</li>
+                <li>Presentations</li>
+                <li>Team discussions</li>
+            </ul>
+        ]]></field>
+        <field name="duration">1.0</field>
+        <field name="location">online</field>
+        <field name="min_schedule_hours">2.0</field>
+        <field name="max_schedule_days">30</field>
+        <field name="slot_duration">0.5</field>
+        <field name="allow_reschedule" eval="True"/>
+        <field name="allow_cancel" eval="True"/>
+        <field name="cancel_limit_hours">4.0</field>
+        <field name="icon">fa-video-camera</field>
+        <field name="color">3</field>
+    </record>
+
+    <!-- Default Slots for Consultation (Monday-Friday 9AM-5PM) -->
+    <record id="slot_consultation_mon" model="appointment.slot">
+        <field name="appointment_type_id" ref="appointment_type_consultation"/>
+        <field name="weekday">0</field>
+        <field name="start_hour">9.0</field>
+        <field name="end_hour">17.0</field>
+    </record>
+
+    <record id="slot_consultation_tue" model="appointment.slot">
+        <field name="appointment_type_id" ref="appointment_type_consultation"/>
+        <field name="weekday">1</field>
+        <field name="start_hour">9.0</field>
+        <field name="end_hour">17.0</field>
+    </record>
+
+    <record id="slot_consultation_wed" model="appointment.slot">
+        <field name="appointment_type_id" ref="appointment_type_consultation"/>
+        <field name="weekday">2</field>
+        <field name="start_hour">9.0</field>
+        <field name="end_hour">17.0</field>
+    </record>
+
+    <record id="slot_consultation_thu" model="appointment.slot">
+        <field name="appointment_type_id" ref="appointment_type_consultation"/>
+        <field name="weekday">3</field>
+        <field name="start_hour">9.0</field>
+        <field name="end_hour">17.0</field>
+    </record>
+
+    <record id="slot_consultation_fri" model="appointment.slot">
+        <field name="appointment_type_id" ref="appointment_type_consultation"/>
+        <field name="weekday">4</field>
+        <field name="start_hour">9.0</field>
+        <field name="end_hour">17.0</field>
+    </record>
+
+</odoo>

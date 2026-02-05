@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Signature Field Types -->
+    <record id="sign_item_type_signature" model="sign.item.type">
+        <field name="name">Signature</field>
+        <field name="technical_name">signature</field>
+        <field name="item_type">signature</field>
+        <field name="sequence">10</field>
+        <field name="icon">fa-pencil</field>
+        <field name="default_width">25.0</field>
+        <field name="default_height">8.0</field>
+    </record>
+
+    <record id="sign_item_type_initial" model="sign.item.type">
+        <field name="name">Initials</field>
+        <field name="technical_name">initial</field>
+        <field name="item_type">initial</field>
+        <field name="sequence">20</field>
+        <field name="icon">fa-font</field>
+        <field name="default_width">10.0</field>
+        <field name="default_height">5.0</field>
+    </record>
+
+    <record id="sign_item_type_name" model="sign.item.type">
+        <field name="name">Full Name</field>
+        <field name="technical_name">name</field>
+        <field name="item_type">name</field>
+        <field name="sequence">30</field>
+        <field name="icon">fa-user</field>
+        <field name="auto_fill">True</field>
+        <field name="auto_fill_field">name</field>
+        <field name="default_width">30.0</field>
+        <field name="default_height">4.0</field>
+    </record>
+
+    <record id="sign_item_type_email" model="sign.item.type">
+        <field name="name">Email</field>
+        <field name="technical_name">email</field>
+        <field name="item_type">email</field>
+        <field name="sequence">40</field>
+        <field name="icon">fa-envelope</field>
+        <field name="auto_fill">True</field>
+        <field name="auto_fill_field">email</field>
+        <field name="default_width">30.0</field>
+        <field name="default_height">4.0</field>
+    </record>
+
+    <record id="sign_item_type_date" model="sign.item.type">
+        <field name="name">Date</field>
+        <field name="technical_name">date</field>
+        <field name="item_type">date</field>
+        <field name="sequence">50</field>
+        <field name="icon">fa-calendar</field>
+        <field name="default_width">15.0</field>
+        <field name="default_height">4.0</field>
+    </record>
+
+    <record id="sign_item_type_text" model="sign.item.type">
+        <field name="name">Text</field>
+        <field name="technical_name">text</field>
+        <field name="item_type">text</field>
+        <field name="sequence">60</field>
+        <field name="icon">fa-font</field>
+        <field name="default_width">25.0</field>
+        <field name="default_height">4.0</field>
+    </record>
+
+    <record id="sign_item_type_textarea" model="sign.item.type">
+        <field name="name">Text Area</field>
+        <field name="technical_name">textarea</field>
+        <field name="item_type">textarea</field>
+        <field name="sequence">70</field>
+        <field name="icon">fa-align-left</field>
+        <field name="default_width">40.0</field>
+        <field name="default_height">10.0</field>
+    </record>
+
+    <record id="sign_item_type_checkbox" model="sign.item.type">
+        <field name="name">Checkbox</field>
+        <field name="technical_name">checkbox</field>
+        <field name="item_type">checkbox</field>
+        <field name="sequence">80</field>
+        <field name="icon">fa-check-square</field>
+        <field name="default_width">3.0</field>
+        <field name="default_height">3.0</field>
+    </record>
+
+    <record id="sign_item_type_company" model="sign.item.type">
+        <field name="name">Company</field>
+        <field name="technical_name">company</field>
+        <field name="item_type">company</field>
+        <field name="sequence">90</field>
+        <field name="icon">fa-building</field>
+        <field name="auto_fill">True</field>
+        <field name="auto_fill_field">company_id.name</field>
+        <field name="default_width">30.0</field>
+        <field name="default_height">4.0</field>
+    </record>
+
+</odoo>

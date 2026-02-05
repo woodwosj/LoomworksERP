@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="loomworks_spreadsheet.SpreadsheetView">
+        <div class="o_spreadsheet_container" t-ref="spreadsheetContainer">
+            <!-- Loading State -->
+            <div t-if="state.isLoading" class="o_spreadsheet_loading">
+                <div class="o_loading_content">
+                    <div class="o_loading_spinner"></div>
+                    <div class="o_loading_text">Loading spreadsheet...</div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <t t-else="">
+                <!-- Toolbar -->
+                <div class="o_spreadsheet_toolbar">
+                    <!-- File Operations -->
+                    <div class="o_toolbar_group">
+                        <button class="o_toolbar_button" t-on-click="goBack"
+                                title="Back to Documents">
+                            <i class="fa fa-arrow-left"></i>
+                        </button>
+                        <button class="o_toolbar_button" t-on-click="() => saveDocument()"
+                                t-att-disabled="state.isSaving"
+                                title="Save (Ctrl+S)">
+                            <i class="fa fa-save"></i>
+                        </button>
+                        <span class="o_toolbar_separator"></span>
+                        <span class="text-truncate" style="max-width: 200px;">
+                            <t t-esc="state.documentName"/>
+                        </span>
+                        <span t-if="state.isDirty" class="text-warning ms-1">*</span>
+                    </div>
+
+                    <!-- Data Operations -->
+                    <div class="o_toolbar_group">
+                        <button class="o_toolbar_button" t-on-click="openDataSourceDialog"
+                                title="Insert Odoo Data">
+                            <i class="fa fa-database"></i>
+                        </button>
+                        <button class="o_toolbar_button" t-on-click="openPivotDialog"
+                                title="Create Pivot Table">
+                            <i class="fa fa-th"></i>
+                        </button>
+                        <button class="o_toolbar_button" t-on-click="openChartDialog"
+                                title="Create Chart">
+                            <i class="fa fa-bar-chart"></i>
+                        </button>
+                        <button class="o_toolbar_button" t-on-click="refreshAllData"
+                                title="Refresh All Data">
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </div>
+
+                    <!-- Sheet Operations -->
+                    <div class="o_toolbar_group">
+                        <button class="o_toolbar_button" t-on-click="addSheet"
+                                title="Add Sheet">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+
+                    <!-- Export -->
+                    <div class="o_toolbar_group ms-auto">
+                        <div class="dropdown">
+                            <button class="o_toolbar_button dropdown-toggle"
+                                    data-bs-toggle="dropdown" title="Export">
+                                <i class="fa fa-download"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item"
+                                       t-on-click="() => exportSpreadsheet('xlsx')">
+                                        <i class="fa fa-file-excel-o me-2"></i>
+                                        Export as Excel
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item"
+                                       t-on-click="() => exportSpreadsheet('csv')">
+                                        <i class="fa fa-file-text-o me-2"></i>
+                                        Export as CSV
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Zoom -->
+                    <div class="o_toolbar_group">
+                        <select class="form-select form-select-sm" style="width: auto;"
+                                t-on-change="(e) => setZoom(parseInt(e.target.value))">
+                            <option value="50">50%</option>
+                            <option value="75">75%</option>
+                            <option value="100" selected="selected">100%</option>
+                            <option value="125">125%</option>
+                            <option value="150">150%</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Formula Bar -->
+                <div class="o_spreadsheet_formula_bar">
+                    <div class="o_cell_reference">
+                        <t t-esc="state.currentCell"/>
+                    </div>
+                    <input type="text" class="o_formula_input"
+                           t-att-value="state.formula"
+                           placeholder="Enter formula or value"/>
+                </div>
+
+                <!-- Sheet Area -->
+                <div class="o_spreadsheet_sheet">
+                    <UniverWrapper
+                        t-ref="univerWrapper"
+                        documentId="props.documentId"
+                        readonly="props.readonly"
+                        onDataChange.bind="onDataChange"
+                        onSelectionChange.bind="onSelectionChange"/>
+                </div>
+
+                <!-- Status Bar -->
+                <div class="o_spreadsheet_status">
+                    <div class="o_status_info">
+                        <span>
+                            <i class="fa fa-file-o me-1"></i>
+                            <t t-esc="state.currentSheet"/>
+                        </span>
+                        <span t-if="state.isSaving">
+                            <i class="fa fa-spinner fa-spin me-1"></i>
+                            Saving...
+                        </span>
+                    </div>
+                    <div class="o_status_actions">
+                        <span class="text-muted">
+                            Zoom: <t t-esc="state.zoom"/>%
+                        </span>
+                    </div>
+                </div>
+            </t>
+
+            <!-- Data Source Dialog -->
+            <t t-if="state.showDataSourceDialog">
+                <div class="modal d-block" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Insert Odoo Data</h5>
+                                <button type="button" class="btn-close"
+                                        t-on-click="closeDataSourceDialog"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-muted">
+                                    Select an Odoo model and fields to insert data into the spreadsheet.
+                                </p>
+                                <!-- DataSourceDialog component would go here -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                        t-on-click="closeDataSourceDialog">Cancel</button>
+                                <button type="button" class="btn btn-primary">
+                                    Insert Data
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-backdrop fade show"></div>
+            </t>
+
+            <!-- Pivot Dialog -->
+            <t t-if="state.showPivotDialog">
+                <div class="modal d-block" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Create Pivot Table</h5>
+                                <button type="button" class="btn-close"
+                                        t-on-click="closePivotDialog"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-muted">
+                                    Configure pivot table with row groups, columns, and measures.
+                                </p>
+                                <!-- PivotDialog component would go here -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                        t-on-click="closePivotDialog">Cancel</button>
+                                <button type="button" class="btn btn-primary">
+                                    Create Pivot
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-backdrop fade show"></div>
+            </t>
+
+            <!-- Chart Dialog -->
+            <t t-if="state.showChartDialog">
+                <div class="modal d-block" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Create Chart</h5>
+                                <button type="button" class="btn-close"
+                                        t-on-click="closeChartDialog"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-muted">
+                                    Select chart type and configure data source.
+                                </p>
+                                <!-- ChartDialog component would go here -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                        t-on-click="closeChartDialog">Cancel</button>
+                                <button type="button" class="btn btn-primary">
+                                    Create Chart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-backdrop fade show"></div>
+            </t>
+        </div>
+    </t>
+
+    <!-- Univer Wrapper Template -->
+    <t t-name="loomworks_spreadsheet.UniverWrapper">
+        <div class="univer-container" t-ref="univerContainer">
+            <!-- Univer will mount here -->
+        </div>
+    </t>
+
+</templates>

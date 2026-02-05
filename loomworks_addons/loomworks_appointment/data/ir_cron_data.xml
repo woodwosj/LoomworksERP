@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Cron Job: Send Appointment Reminders -->
+    <record id="ir_cron_appointment_reminder" model="ir.cron">
+        <field name="name">Appointment: Send Reminders</field>
+        <field name="model_id" ref="model_appointment_booking"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_send_reminders()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Cron Job: Auto-complete Past Bookings -->
+    <record id="ir_cron_appointment_complete" model="ir.cron">
+        <field name="name">Appointment: Complete Past Bookings</field>
+        <field name="model_id" ref="model_appointment_booking"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_complete_past_bookings()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>

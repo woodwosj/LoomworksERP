@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Appointment Slot Tree View -->
+    <record id="appointment_slot_view_tree" model="ir.ui.view">
+        <field name="name">appointment.slot.tree</field>
+        <field name="model">appointment.slot</field>
+        <field name="arch" type="xml">
+            <tree string="Appointment Slots" editable="bottom">
+                <field name="appointment_type_id"/>
+                <field name="weekday"/>
+                <field name="start_hour" widget="float_time"/>
+                <field name="end_hour" widget="float_time"/>
+                <field name="resource_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Appointment Slot Form View -->
+    <record id="appointment_slot_view_form" model="ir.ui.view">
+        <field name="name">appointment.slot.form</field>
+        <field name="model">appointment.slot</field>
+        <field name="arch" type="xml">
+            <form string="Appointment Slot">
+                <group>
+                    <group>
+                        <field name="appointment_type_id"/>
+                        <field name="weekday"/>
+                    </group>
+                    <group>
+                        <field name="start_hour" widget="float_time"/>
+                        <field name="end_hour" widget="float_time"/>
+                    </group>
+                </group>
+                <group string="Resource Restrictions">
+                    <field name="resource_ids" widget="many2many_tags"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Appointment Slot Action -->
+    <record id="appointment_slot_action" model="ir.actions.act_window">
+        <field name="name">Availability Slots</field>
+        <field name="res_model">appointment.slot</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Appointment Slot Exception Tree View -->
+    <record id="appointment_slot_exception_view_tree" model="ir.ui.view">
+        <field name="name">appointment.slot.exception.tree</field>
+        <field name="model">appointment.slot.exception</field>
+        <field name="arch" type="xml">
+            <tree string="Slot Exceptions">
+                <field name="appointment_type_id"/>
+                <field name="date"/>
+                <field name="exception_type"/>
+                <field name="reason"/>
+                <field name="start_hour" widget="float_time" invisible="exception_type != 'custom'"/>
+                <field name="end_hour" widget="float_time" invisible="exception_type != 'custom'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Appointment Slot Exception Form View -->
+    <record id="appointment_slot_exception_view_form" model="ir.ui.view">
+        <field name="name">appointment.slot.exception.form</field>
+        <field name="model">appointment.slot.exception</field>
+        <field name="arch" type="xml">
+            <form string="Slot Exception">
+                <group>
+                    <group>
+                        <field name="appointment_type_id"/>
+                        <field name="date"/>
+                        <field name="exception_type"/>
+                        <field name="reason"/>
+                    </group>
+                    <group invisible="exception_type != 'custom'">
+                        <field name="start_hour" widget="float_time"/>
+                        <field name="end_hour" widget="float_time"/>
+                    </group>
+                </group>
+                <group string="Resource Restrictions">
+                    <field name="resource_ids" widget="many2many_tags"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Appointment Slot Exception Action -->
+    <record id="appointment_slot_exception_action" model="ir.actions.act_window">
+        <field name="name">Availability Exceptions</field>
+        <field name="res_model">appointment.slot.exception</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

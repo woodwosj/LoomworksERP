@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Structure Types -->
+
+        <!-- Monthly Salaried Employee -->
+        <record id="structure_type_monthly" model="hr.payroll.structure.type">
+            <field name="name">US Monthly Salaried</field>
+            <field name="wage_type">monthly</field>
+        </record>
+
+        <!-- Hourly Employee -->
+        <record id="structure_type_hourly" model="hr.payroll.structure.type">
+            <field name="name">US Hourly</field>
+            <field name="wage_type">hourly</field>
+        </record>
+
+        <!-- Payroll Structures -->
+
+        <!-- US Federal Salaried Structure -->
+        <record id="structure_us_salaried" model="hr.payroll.structure">
+            <field name="name">US Salaried Employee</field>
+            <field name="code">US_SALARY</field>
+            <field name="type_id" ref="structure_type_monthly"/>
+            <field name="schedule_pay">monthly</field>
+            <field name="note">Standard US salaried employee structure with federal taxes</field>
+        </record>
+
+        <!-- US Federal Hourly Structure -->
+        <record id="structure_us_hourly" model="hr.payroll.structure">
+            <field name="name">US Hourly Employee</field>
+            <field name="code">US_HOURLY</field>
+            <field name="type_id" ref="structure_type_hourly"/>
+            <field name="schedule_pay">bi-weekly</field>
+            <field name="note">Standard US hourly employee structure with federal taxes</field>
+        </record>
+
+        <!-- California Salaried Structure (inherits from US Salaried) -->
+        <record id="structure_ca_salaried" model="hr.payroll.structure">
+            <field name="name">California Salaried Employee</field>
+            <field name="code">CA_SALARY</field>
+            <field name="type_id" ref="structure_type_monthly"/>
+            <field name="parent_id" ref="structure_us_salaried"/>
+            <field name="schedule_pay">monthly</field>
+            <field name="note">California salaried employee - includes state taxes (PIT, SDI)</field>
+        </record>
+
+        <!-- California Hourly Structure (inherits from US Hourly) -->
+        <record id="structure_ca_hourly" model="hr.payroll.structure">
+            <field name="name">California Hourly Employee</field>
+            <field name="code">CA_HOURLY</field>
+            <field name="type_id" ref="structure_type_hourly"/>
+            <field name="parent_id" ref="structure_us_hourly"/>
+            <field name="schedule_pay">bi-weekly</field>
+            <field name="note">California hourly employee - includes state taxes (PIT, SDI)</field>
+        </record>
+
+        <!-- Input Types -->
+        <record id="input_type_bonus" model="hr.payslip.input.type">
+            <field name="name">Bonus</field>
+            <field name="code">BONUS</field>
+            <field name="description">Performance or discretionary bonus</field>
+        </record>
+
+        <record id="input_type_commission" model="hr.payslip.input.type">
+            <field name="name">Commission</field>
+            <field name="code">COMMISSION</field>
+            <field name="description">Sales commission</field>
+        </record>
+
+        <record id="input_type_reimburse" model="hr.payslip.input.type">
+            <field name="name">Expense Reimbursement</field>
+            <field name="code">REIMBURSE</field>
+            <field name="description">Business expense reimbursement (non-taxable)</field>
+        </record>
+
+        <record id="input_type_adjustment" model="hr.payslip.input.type">
+            <field name="name">Adjustment</field>
+            <field name="code">ADJUST</field>
+            <field name="description">Manual pay adjustment</field>
+        </record>
+    </data>
+</odoo>

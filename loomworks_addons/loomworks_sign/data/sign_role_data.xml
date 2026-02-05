@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Default Signer Roles -->
+    <record id="sign_role_customer" model="sign.role">
+        <field name="name">Customer</field>
+        <field name="sequence">10</field>
+        <field name="color">1</field>
+        <field name="auth_method">email</field>
+        <field name="is_default">True</field>
+    </record>
+
+    <record id="sign_role_vendor" model="sign.role">
+        <field name="name">Vendor</field>
+        <field name="sequence">20</field>
+        <field name="color">2</field>
+        <field name="auth_method">email</field>
+    </record>
+
+    <record id="sign_role_employee" model="sign.role">
+        <field name="name">Employee</field>
+        <field name="sequence">30</field>
+        <field name="color">3</field>
+        <field name="auth_method">email</field>
+    </record>
+
+    <record id="sign_role_manager" model="sign.role">
+        <field name="name">Manager</field>
+        <field name="sequence">40</field>
+        <field name="color">4</field>
+        <field name="auth_method">email</field>
+    </record>
+
+    <record id="sign_role_witness" model="sign.role">
+        <field name="name">Witness</field>
+        <field name="sequence">50</field>
+        <field name="color">5</field>
+        <field name="auth_method">email</field>
+    </record>
+
+    <record id="sign_role_notary" model="sign.role">
+        <field name="name">Notary</field>
+        <field name="sequence">60</field>
+        <field name="color">6</field>
+        <field name="auth_method">email_sms</field>
+    </record>
+
+</odoo>

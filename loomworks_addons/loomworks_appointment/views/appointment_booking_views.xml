@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Appointment Booking Tree View -->
+    <record id="appointment_booking_view_tree" model="ir.ui.view">
+        <field name="name">appointment.booking.tree</field>
+        <field name="model">appointment.booking</field>
+        <field name="arch" type="xml">
+            <tree string="Appointment Bookings" decoration-danger="state == 'canceled'" decoration-warning="state == 'no_show'" decoration-success="state == 'done'" decoration-muted="state == 'draft'">
+                <field name="name"/>
+                <field name="appointment_type_id"/>
+                <field name="partner_id"/>
+                <field name="start_datetime"/>
+                <field name="end_datetime"/>
+                <field name="resource_id"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-warning="state == 'pending'" decoration-primary="state == 'confirmed'" decoration-success="state == 'done'" decoration-danger="state in ('canceled', 'no_show')"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Appointment Booking Form View -->
+    <record id="appointment_booking_view_form" model="ir.ui.view">
+        <field name="name">appointment.booking.form</field>
+        <field name="model">appointment.booking</field>
+        <field name="arch" type="xml">
+            <form string="Appointment Booking">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm"
+                            class="btn-primary" invisible="state not in ('draft', 'pending')"/>
+                    <button name="action_complete" type="object" string="Mark as Done"
+                            class="btn-success" invisible="state != 'confirmed'"/>
+                    <button name="action_no_show" type="object" string="No Show"
+                            class="btn-warning" invisible="state != 'confirmed'"/>
+                    <button name="action_reschedule" type="object" string="Reschedule"
+                            class="btn-secondary" invisible="state not in ('pending', 'confirmed')"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            class="btn-secondary" invisible="state in ('done', 'canceled', 'no_show')"
+                            confirm="Are you sure you want to cancel this appointment?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,pending,confirmed,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" name="action_reschedule" class="oe_stat_button" icon="fa-calendar"
+                                invisible="state not in ('pending', 'confirmed')">
+                            <span>Reschedule</span>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Completed" bg_color="text-bg-success" invisible="state != 'done'"/>
+                    <widget name="web_ribbon" title="Canceled" bg_color="text-bg-danger" invisible="state != 'canceled'"/>
+                    <widget name="web_ribbon" title="No Show" bg_color="text-bg-warning" invisible="state != 'no_show'"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="appointment_type_id"/>
+                            <field name="resource_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="customer_email"/>
+                            <field name="customer_phone"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Schedule">
+                            <field name="start_datetime"/>
+                            <field name="end_datetime"/>
+                            <field name="duration" widget="float_time"/>
+                            <field name="all_day"/>
+                        </group>
+                        <group string="Location">
+                            <field name="location_type"/>
+                            <field name="location"/>
+                            <field name="meeting_url" widget="url"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes" name="notes">
+                            <group>
+                                <field name="customer_notes" placeholder="Notes from customer..."/>
+                            </group>
+                            <group>
+                                <field name="notes" placeholder="Internal notes..."/>
+                            </group>
+                        </page>
+                        <page string="Answers" name="answers" invisible="not answer_ids">
+                            <field name="answer_ids">
+                                <tree editable="bottom">
+                                    <field name="question_id"/>
+                                    <field name="value"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Cancellation" name="cancellation" invisible="state != 'canceled'">
+                            <group>
+                                <field name="canceled_date"/>
+                                <field name="cancel_reason"/>
+                            </group>
+                        </page>
+                        <page string="Technical" name="technical" groups="base.group_no_one">
+                            <group>
+                                <field name="access_token"/>
+                                <field name="booking_url" widget="url"/>
+                                <field name="calendar_event_id"/>
+                                <field name="reminder_sent"/>
+                                <field name="reminder_date"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Appointment Booking Calendar View -->
+    <record id="appointment_booking_view_calendar" model="ir.ui.view">
+        <field name="name">appointment.booking.calendar</field>
+        <field name="model">appointment.booking</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointments" date_start="start_datetime" date_stop="end_datetime"
+                      color="appointment_type_id" event_open_popup="true" quick_create="false">
+                <field name="partner_id"/>
+                <field name="appointment_type_id"/>
+                <field name="resource_id"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Appointment Booking Kanban View -->
+    <record id="appointment_booking_view_kanban" model="ir.ui.view">
+        <field name="name">appointment.booking.kanban</field>
+        <field name="model">appointment.booking</field>
+        <field name="arch" type="xml">
+            <kanban class="o_appointment_booking_kanban" default_group_by="state">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="appointment_type_id"/>
+                <field name="start_datetime"/>
+                <field name="state"/>
+                <field name="color"/>
+                <progressbar field="state" colors='{"draft": "secondary", "pending": "warning", "confirmed": "primary", "done": "success", "canceled": "danger", "no_show": "warning"}'/>
+                <templates>
+                    <t t-name="card">
+                        <field name="name" class="fw-bold"/>
+                        <field name="partner_id"/>
+                        <field name="appointment_type_id"/>
+                        <div class="text-muted">
+                            <field name="start_datetime" widget="datetime"/>
+                        </div>
+                        <footer class="pt-2">
+                            <field name="state" widget="label_selection" options="{'classes': {'draft': 'secondary', 'pending': 'warning', 'confirmed': 'primary', 'done': 'success', 'canceled': 'danger', 'no_show': 'warning'}}"/>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Appointment Booking Search View -->
+    <record id="appointment_booking_view_search" model="ir.ui.view">
+        <field name="name">appointment.booking.search</field>
+        <field name="model">appointment.booking</field>
+        <field name="arch" type="xml">
+            <search string="Search Bookings">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="appointment_type_id"/>
+                <field name="resource_id"/>
+                <separator/>
+                <filter string="Upcoming" name="filter_upcoming"
+                        domain="[('start_datetime', '&gt;=', context_today().strftime('%Y-%m-%d')), ('state', 'in', ['pending', 'confirmed'])]"/>
+                <filter string="Today" name="filter_today"
+                        domain="[('start_datetime', '&gt;=', context_today().strftime('%Y-%m-%d')), ('start_datetime', '&lt;', (context_today() + relativedelta(days=1)).strftime('%Y-%m-%d'))]"/>
+                <filter string="This Week" name="filter_week"
+                        domain="[('start_datetime', '&gt;=', (context_today() - relativedelta(weekday=0)).strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <filter string="Draft" name="filter_draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Pending" name="filter_pending" domain="[('state', '=', 'pending')]"/>
+                <filter string="Confirmed" name="filter_confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <filter string="Completed" name="filter_done" domain="[('state', '=', 'done')]"/>
+                <filter string="Canceled" name="filter_canceled" domain="[('state', '=', 'canceled')]"/>
+                <filter string="No Show" name="filter_no_show" domain="[('state', '=', 'no_show')]"/>
+                <separator/>
+                <filter string="My Bookings" name="filter_my" domain="[('create_uid', '=', uid)]"/>
+                <filter string="My Resource" name="filter_my_resource"
+                        domain="[('resource_id.employee_id.user_id', '=', uid)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Appointment Type" name="group_type" context="{'group_by': 'appointment_type_id'}"/>
+                    <filter string="Resource" name="group_resource" context="{'group_by': 'resource_id'}"/>
+                    <filter string="Customer" name="group_partner" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'start_datetime:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Appointment Booking Action -->
+    <record id="appointment_booking_action" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">appointment.booking</field>
+        <field name="view_mode">calendar,tree,kanban,form</field>
+        <field name="search_view_id" ref="appointment_booking_view_search"/>
+        <field name="context">{'search_default_filter_upcoming': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No appointments scheduled yet
+            </p>
+            <p>
+                Create appointment types and publish them to start receiving bookings.
+            </p>
+        </field>
+    </record>
+
+    <!-- Today's Appointments Action -->
+    <record id="appointment_booking_action_today" model="ir.actions.act_window">
+        <field name="name">Today's Appointments</field>
+        <field name="res_model">appointment.booking</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="search_view_id" ref="appointment_booking_view_search"/>
+        <field name="context">{'search_default_filter_today': 1}</field>
+    </record>
+
+</odoo>

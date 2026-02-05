@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Appointment Resource Tree View -->
+    <record id="appointment_resource_view_tree" model="ir.ui.view">
+        <field name="name">appointment.resource.tree</field>
+        <field name="model">appointment.resource</field>
+        <field name="arch" type="xml">
+            <tree string="Appointment Resources">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="resource_type"/>
+                <field name="employee_id"/>
+                <field name="email"/>
+                <field name="upcoming_count"/>
+                <field name="booking_count"/>
+                <field name="active" column_invisible="True"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Appointment Resource Form View -->
+    <record id="appointment_resource_view_form" model="ir.ui.view">
+        <field name="name">appointment.resource.form</field>
+        <field name="model">appointment.resource</field>
+        <field name="arch" type="xml">
+            <form string="Appointment Resource">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_bookings" type="object" class="oe_stat_button" icon="fa-calendar">
+                            <field name="booking_count" widget="statinfo" string="Bookings"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g., John Smith"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="resource_type"/>
+                            <field name="employee_id" invisible="resource_type != 'employee'"/>
+                            <field name="capacity" invisible="resource_type != 'room'"/>
+                            <field name="location"/>
+                        </group>
+                        <group>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="resource_calendar_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Appointment Types" name="appointment_types">
+                            <field name="appointment_type_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="duration" widget="float_time"/>
+                                    <field name="location"/>
+                                    <field name="is_published"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Limits" name="limits">
+                            <group>
+                                <field name="max_per_day"/>
+                                <field name="max_per_week"/>
+                            </group>
+                        </page>
+                        <page string="Description" name="description">
+                            <field name="short_description" placeholder="Brief description shown to customers..."/>
+                            <field name="description" placeholder="Full description..."/>
+                        </page>
+                        <page string="Settings" name="settings">
+                            <group>
+                                <group>
+                                    <field name="sequence"/>
+                                    <field name="color" widget="color_picker"/>
+                                </group>
+                                <group>
+                                    <field name="active"/>
+                                    <field name="company_id" groups="base.group_multi_company"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Appointment Resource Kanban View -->
+    <record id="appointment_resource_view_kanban" model="ir.ui.view">
+        <field name="name">appointment.resource.kanban</field>
+        <field name="model">appointment.resource</field>
+        <field name="arch" type="xml">
+            <kanban class="o_appointment_resource_kanban">
+                <field name="name"/>
+                <field name="resource_type"/>
+                <field name="email"/>
+                <field name="upcoming_count"/>
+                <field name="image"/>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <aside>
+                            <field name="image" widget="image" options="{'preview_image': 'image', 'size': [60, 60]}"/>
+                        </aside>
+                        <main>
+                            <field name="name" class="fw-bold"/>
+                            <field name="resource_type"/>
+                            <div class="text-muted"><field name="email"/></div>
+                            <div class="mt-2">
+                                <span class="badge bg-primary"><field name="upcoming_count"/> upcoming</span>
+                            </div>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Appointment Resource Search View -->
+    <record id="appointment_resource_view_search" model="ir.ui.view">
+        <field name="name">appointment.resource.search</field>
+        <field name="model">appointment.resource</field>
+        <field name="arch" type="xml">
+            <search string="Search Resources">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="email"/>
+                <separator/>
+                <filter string="Employees" name="filter_employees" domain="[('resource_type', '=', 'employee')]"/>
+                <filter string="Rooms" name="filter_rooms" domain="[('resource_type', '=', 'room')]"/>
+                <filter string="Equipment" name="filter_equipment" domain="[('resource_type', '=', 'equipment')]"/>
+                <separator/>
+                <filter string="Archived" name="filter_archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Type" name="group_type" context="{'group_by': 'resource_type'}"/>
+                    <filter string="Company" name="group_company" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Appointment Resource Action -->
+    <record id="appointment_resource_action" model="ir.actions.act_window">
+        <field name="name">Resources</field>
+        <field name="res_model">appointment.resource</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="appointment_resource_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first bookable resource
+            </p>
+            <p>
+                Resources can be employees, meeting rooms, or equipment
+                that customers can book appointments with.
+            </p>
+        </field>
+    </record>
+
+</odoo>

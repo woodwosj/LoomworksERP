@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sign Request Tree View -->
+    <record id="sign_request_view_tree" model="ir.ui.view">
+        <field name="name">sign.request.tree</field>
+        <field name="model">sign.request</field>
+        <field name="arch" type="xml">
+            <tree string="Signature Requests" decoration-danger="state == 'canceled'" decoration-success="state == 'done'" decoration-warning="expire_date and expire_date &lt; current_date and state in ('sent', 'signing')">
+                <field name="name"/>
+                <field name="template_id"/>
+                <field name="signer_ids" widget="many2many_tags"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-warning="state in ('sent', 'signing')" decoration-success="state == 'done'" decoration-danger="state == 'canceled'"/>
+                <field name="expire_date"/>
+                <field name="completion_date"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Sign Request Form View -->
+    <record id="sign_request_view_form" model="ir.ui.view">
+        <field name="name">sign.request.form</field>
+        <field name="model">sign.request</field>
+        <field name="arch" type="xml">
+            <form string="Signature Request">
+                <header>
+                    <button name="action_send" type="object" string="Send" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_resend" type="object" string="Resend" class="btn-secondary" invisible="state not in ('sent', 'signing')"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-secondary" invisible="state in ('done', 'canceled')" confirm="Are you sure you want to cancel this signature request?"/>
+                    <button name="action_reset_to_draft" type="object" string="Reset to Draft" class="btn-secondary" invisible="state != 'canceled'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,signing,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_download_document" type="object" class="oe_stat_button" icon="fa-download" invisible="state != 'done'">
+                            <span>Download</span>
+                        </button>
+                        <button name="action_view_audit_log" type="object" class="oe_stat_button" icon="fa-history">
+                            <field name="audit_log_count" widget="statinfo" string="Audit Log"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Completed" bg_color="text-bg-success" invisible="state != 'done'"/>
+                    <widget name="web_ribbon" title="Canceled" bg_color="text-bg-danger" invisible="state != 'canceled'"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="template_id" readonly="state != 'draft'"/>
+                            <field name="subject"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="expire_date"/>
+                            <field name="completion_date" invisible="state != 'done'"/>
+                            <field name="final_hash" invisible="state != 'done'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Signers" name="signers">
+                            <field name="signer_ids" readonly="state != 'draft'">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="partner_id"/>
+                                    <field name="role_id"/>
+                                    <field name="signer_email"/>
+                                    <field name="state" widget="badge" decoration-info="state == 'waiting'" decoration-warning="state == 'sent'" decoration-success="state == 'signed'" decoration-danger="state == 'refused'"/>
+                                    <field name="signed_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Message" name="message">
+                            <field name="message" placeholder="Add a personal message to include in the signature request email..."/>
+                        </page>
+                        <page string="Field Values" name="values" invisible="state == 'draft'">
+                            <field name="item_value_ids" readonly="1">
+                                <tree>
+                                    <field name="template_item_id"/>
+                                    <field name="signer_id"/>
+                                    <field name="value"/>
+                                    <field name="completed_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Sign Request Kanban View -->
+    <record id="sign_request_view_kanban" model="ir.ui.view">
+        <field name="name">sign.request.kanban</field>
+        <field name="model">sign.request</field>
+        <field name="arch" type="xml">
+            <kanban class="o_sign_request_kanban" default_group_by="state">
+                <field name="name"/>
+                <field name="template_id"/>
+                <field name="state"/>
+                <field name="signer_ids"/>
+                <field name="expire_date"/>
+                <field name="color"/>
+                <progressbar field="state" colors='{"draft": "secondary", "sent": "info", "signing": "warning", "done": "success", "canceled": "danger"}'/>
+                <templates>
+                    <t t-name="card">
+                        <field name="name" class="fw-bold"/>
+                        <field name="template_id"/>
+                        <div class="o_kanban_tags_section">
+                            <field name="signer_ids" widget="many2many_tags"/>
+                        </div>
+                        <div class="text-muted" t-if="record.expire_date.raw_value">
+                            <i class="fa fa-clock-o"/> Expires: <field name="expire_date"/>
+                        </div>
+                        <footer class="pt-2">
+                            <field name="state" widget="label_selection" options="{'classes': {'draft': 'secondary', 'sent': 'info', 'signing': 'warning', 'done': 'success', 'canceled': 'danger'}}"/>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Sign Request Search View -->
+    <record id="sign_request_view_search" model="ir.ui.view">
+        <field name="name">sign.request.search</field>
+        <field name="model">sign.request</field>
+        <field name="arch" type="xml">
+            <search string="Search Signature Requests">
+                <field name="name"/>
+                <field name="template_id"/>
+                <field name="signer_ids"/>
+                <separator/>
+                <filter string="Draft" name="filter_draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Sent" name="filter_sent" domain="[('state', '=', 'sent')]"/>
+                <filter string="In Progress" name="filter_signing" domain="[('state', '=', 'signing')]"/>
+                <filter string="Completed" name="filter_done" domain="[('state', '=', 'done')]"/>
+                <filter string="Canceled" name="filter_canceled" domain="[('state', '=', 'canceled')]"/>
+                <separator/>
+                <filter string="Expiring Soon" name="filter_expiring" domain="[('expire_date', '&lt;=', (context_today() + relativedelta(days=7)).strftime('%Y-%m-%d')), ('expire_date', '&gt;=', context_today().strftime('%Y-%m-%d')), ('state', 'in', ['sent', 'signing'])]"/>
+                <filter string="Expired" name="filter_expired" domain="[('expire_date', '&lt;', context_today().strftime('%Y-%m-%d')), ('state', 'in', ['sent', 'signing'])]"/>
+                <separator/>
+                <filter string="My Requests" name="filter_my" domain="[('create_uid', '=', uid)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Template" name="group_template" context="{'group_by': 'template_id'}"/>
+                    <filter string="Company" name="group_company" context="{'group_by': 'company_id'}"/>
+                    <filter string="Creation Date" name="group_create" context="{'group_by': 'create_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Sign Request Action -->
+    <record id="sign_request_action" model="ir.actions.act_window">
+        <field name="name">Signature Requests</field>
+        <field name="res_model">sign.request</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="sign_request_view_search"/>
+        <field name="context">{'search_default_filter_my': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Send your first document for signature
+            </p>
+            <p>
+                Create signature requests from templates and send them to multiple signers.
+                Track the signing progress in real-time.
+            </p>
+        </field>
+    </record>
+
+    <!-- Sign Request Signer Views -->
+    <record id="sign_request_signer_view_tree" model="ir.ui.view">
+        <field name="name">sign.request.signer.tree</field>
+        <field name="model">sign.request.signer</field>
+        <field name="arch" type="xml">
+            <tree string="Signers">
+                <field name="sequence" widget="handle"/>
+                <field name="request_id"/>
+                <field name="partner_id"/>
+                <field name="role_id"/>
+                <field name="signer_email"/>
+                <field name="state" widget="badge" decoration-info="state == 'waiting'" decoration-warning="state == 'sent'" decoration-success="state == 'signed'" decoration-danger="state == 'refused'"/>
+                <field name="signed_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Sign Audit Log Views -->
+    <record id="sign_audit_log_view_tree" model="ir.ui.view">
+        <field name="name">sign.audit.log.tree</field>
+        <field name="model">sign.audit.log</field>
+        <field name="arch" type="xml">
+            <tree string="Audit Log" create="false" delete="false" edit="false">
+                <field name="timestamp"/>
+                <field name="request_id"/>
+                <field name="action"/>
+                <field name="user_id"/>
+                <field name="signer_id"/>
+                <field name="ip_address"/>
+                <field name="hash_value" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sign_audit_log_view_form" model="ir.ui.view">
+        <field name="name">sign.audit.log.form</field>
+        <field name="model">sign.audit.log</field>
+        <field name="arch" type="xml">
+            <form string="Audit Log Entry" create="false" delete="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="request_id"/>
+                            <field name="timestamp"/>
+                            <field name="action"/>
+                        </group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="signer_id"/>
+                            <field name="ip_address"/>
+                            <field name="user_agent"/>
+                        </group>
+                    </group>
+                    <group string="Details">
+                        <field name="details"/>
+                    </group>
+                    <group string="Integrity">
+                        <field name="hash_value"/>
+                        <field name="previous_hash"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sign_audit_log_action" model="ir.actions.act_window">
+        <field name="name">Audit Log</field>
+        <field name="res_model">sign.audit.log</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

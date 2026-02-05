@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sign Template Tree View -->
+    <record id="sign_template_view_tree" model="ir.ui.view">
+        <field name="name">sign.template.tree</field>
+        <field name="model">sign.template</field>
+        <field name="arch" type="xml">
+            <tree string="Signature Templates">
+                <field name="name"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="page_count"/>
+                <field name="request_count"/>
+                <field name="active" column_invisible="True"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Sign Template Form View -->
+    <record id="sign_template_view_form" model="ir.ui.view">
+        <field name="name">sign.template.form</field>
+        <field name="model">sign.template</field>
+        <field name="arch" type="xml">
+            <form string="Signature Template">
+                <header>
+                    <button name="action_preview" type="object" string="Preview" class="btn-secondary"/>
+                    <button name="action_create_request" type="object" string="Send for Signature" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_requests" type="object" class="oe_stat_button" icon="fa-pencil">
+                            <field name="request_count" widget="statinfo" string="Requests"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <field name="attachment_id" widget="pdf_viewer" class="w-100" style="min-height: 600px;"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="page_count"/>
+                            <field name="document_hash" readonly="1"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Signature Fields" name="fields">
+                            <field name="item_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="type_id"/>
+                                    <field name="role_id"/>
+                                    <field name="page_number"/>
+                                    <field name="pos_x"/>
+                                    <field name="pos_y"/>
+                                    <field name="width"/>
+                                    <field name="height"/>
+                                    <field name="required"/>
+                                    <field name="placeholder"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Options" name="options">
+                            <group>
+                                <group string="Default Settings">
+                                    <field name="default_role_id"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Sign Template Kanban View -->
+    <record id="sign_template_view_kanban" model="ir.ui.view">
+        <field name="name">sign.template.kanban</field>
+        <field name="model">sign.template</field>
+        <field name="arch" type="xml">
+            <kanban class="o_sign_template_kanban">
+                <field name="name"/>
+                <field name="tag_ids"/>
+                <field name="page_count"/>
+                <field name="request_count"/>
+                <field name="attachment_id"/>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <aside class="o_kanban_aside_full">
+                            <field name="attachment_id" widget="image" options="{'preview_image': 'datas', 'size': [120, 160]}"/>
+                        </aside>
+                        <main>
+                            <field name="name" class="fw-bold fs-5"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <div class="text-muted">
+                                <span><field name="page_count"/> pages</span>
+                                <span class="ms-2"><field name="request_count"/> requests</span>
+                            </div>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Sign Template Search View -->
+    <record id="sign_template_view_search" model="ir.ui.view">
+        <field name="name">sign.template.search</field>
+        <field name="model">sign.template</field>
+        <field name="arch" type="xml">
+            <search string="Search Templates">
+                <field name="name"/>
+                <field name="tag_ids"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="My Templates" name="my_templates" domain="[('create_uid', '=', uid)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Tags" name="group_tags" context="{'group_by': 'tag_ids'}"/>
+                    <filter string="Company" name="group_company" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Sign Template Action -->
+    <record id="sign_template_action" model="ir.actions.act_window">
+        <field name="name">Templates</field>
+        <field name="res_model">sign.template</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="sign_template_view_search"/>
+        <field name="context">{'search_default_my_templates': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Upload your first document template
+            </p>
+            <p>
+                Create document templates that can be sent for signature.
+                Define signature fields, initials, dates, and text fields.
+            </p>
+        </field>
+    </record>
+
+    <!-- Sign Template Tag Views -->
+    <record id="sign_template_tag_view_tree" model="ir.ui.view">
+        <field name="name">sign.template.tag.tree</field>
+        <field name="model">sign.template.tag</field>
+        <field name="arch" type="xml">
+            <tree string="Template Tags" editable="bottom">
+                <field name="name"/>
+                <field name="color" widget="color_picker"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sign_template_tag_action" model="ir.actions.act_window">
+        <field name="name">Template Tags</field>
+        <field name="res_model">sign.template.tag</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Portal: My Appointments List -->
+    <template id="portal_my_appointments" name="My Appointments">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Appointments</t>
+            </t>
+
+            <t t-if="bookings">
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Reference</th>
+                                    <th>Type</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="bookings" t-as="booking">
+                                    <tr>
+                                        <td>
+                                            <a t-attf-href="/my/appointment/#{booking.access_token}">
+                                                <t t-out="booking.name"/>
+                                            </a>
+                                        </td>
+                                        <td><t t-out="booking.appointment_type_id.name"/></td>
+                                        <td><t t-out="booking.start_datetime.strftime('%b %d, %Y')"/></td>
+                                        <td><t t-out="booking.start_datetime.strftime('%I:%M %p')"/></td>
+                                        <td>
+                                            <span t-attf-class="badge bg-#{{'draft': 'secondary', 'pending': 'warning', 'confirmed': 'primary', 'done': 'success', 'canceled': 'danger', 'no_show': 'warning'}.get(booking.state, 'secondary')}">
+                                                <t t-out="booking.state.replace('_', ' ').title()"/>
+                                            </span>
+                                        </td>
+                                        <td class="text-end">
+                                            <a t-attf-href="/my/appointment/#{booking.access_token}"
+                                               class="btn btn-sm btn-outline-primary">View</a>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div t-if="pager" class="o_portal_pager text-center mt-3">
+                    <t t-call="portal.pager"/>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="alert alert-info" role="alert">
+                    <p class="mb-0">You don't have any appointments yet.</p>
+                    <a href="/appointment" class="alert-link">Book an appointment</a>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- Portal: Appointment Detail -->
+    <template id="portal_appointment_detail" name="Appointment Details">
+        <t t-call="portal.portal_layout">
+            <div class="container py-4">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0">
+                                    <t t-out="booking.name"/>
+                                </h4>
+                                <span t-attf-class="badge bg-#{{'draft': 'secondary', 'pending': 'warning', 'confirmed': 'primary', 'done': 'success', 'canceled': 'danger', 'no_show': 'warning'}.get(booking.state, 'secondary')}">
+                                    <t t-out="booking.state.replace('_', ' ').title()"/>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h5><t t-out="booking.appointment_type_id.name"/></h5>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><strong><i class="fa fa-calendar me-2"/>Date:</strong><br/>
+                                        <t t-out="booking.start_datetime.strftime('%A, %B %d, %Y')"/></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong><i class="fa fa-clock-o me-2"/>Time:</strong><br/>
+                                        <t t-out="booking.start_datetime.strftime('%I:%M %p')"/> - <t t-out="booking.end_datetime.strftime('%I:%M %p')"/></p>
+                                    </div>
+                                </div>
+                                <t t-if="booking.resource_id">
+                                    <p><strong><i class="fa fa-user me-2"/>With:</strong><br/>
+                                    <t t-out="booking.resource_id.name"/></p>
+                                </t>
+                                <t t-if="booking.location">
+                                    <p><strong><i class="fa fa-map-marker me-2"/>Location:</strong><br/>
+                                    <t t-out="booking.location"/></p>
+                                </t>
+                                <t t-if="booking.meeting_url">
+                                    <p><strong><i class="fa fa-video-camera me-2"/>Meeting Link:</strong><br/>
+                                    <a t-att-href="booking.meeting_url" target="_blank"><t t-out="booking.meeting_url"/></a></p>
+                                </t>
+                                <t t-if="booking.customer_notes">
+                                    <hr/>
+                                    <p><strong>Your Notes:</strong></p>
+                                    <p class="text-muted"><t t-out="booking.customer_notes"/></p>
+                                </t>
+                            </div>
+                            <div class="card-footer" t-if="booking.state in ('pending', 'confirmed')">
+                                <div class="d-flex gap-2">
+                                    <t t-if="booking.appointment_type_id.allow_reschedule">
+                                        <a t-attf-href="/my/appointment/#{booking.access_token}/reschedule"
+                                           class="btn btn-outline-primary">
+                                            <i class="fa fa-calendar me-1"/>Reschedule
+                                        </a>
+                                    </t>
+                                    <t t-if="booking.appointment_type_id.allow_cancel">
+                                        <button type="button" class="btn btn-outline-danger"
+                                                data-bs-toggle="modal" data-bs-target="#cancelModal">
+                                            <i class="fa fa-times me-1"/>Cancel
+                                        </button>
+                                    </t>
+                                    <a t-attf-href="/appointment/ical/#{booking.access_token}"
+                                       class="btn btn-outline-secondary">
+                                        <i class="fa fa-download me-1"/>Add to Calendar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">Need Help?</h6>
+                            </div>
+                            <div class="card-body">
+                                <p class="small text-muted">
+                                    If you need to make changes to your appointment or have questions,
+                                    please contact us.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cancel Modal -->
+            <div class="modal fade" id="cancelModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form t-attf-action="/my/appointment/#{booking.access_token}/cancel" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="modal-header">
+                                <h5 class="modal-title">Cancel Appointment</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to cancel this appointment?</p>
+                                <div class="mb-3">
+                                    <label for="reason" class="form-label">Reason (optional)</label>
+                                    <textarea name="reason" class="form-control" rows="3" placeholder="Let us know why you're canceling..."/>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keep Appointment</button>
+                                <button type="submit" class="btn btn-danger">Cancel Appointment</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Portal: Appointment Index (List of Types) -->
+    <template id="portal_appointment_index" name="Book an Appointment">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <h1 class="mb-4">Book an Appointment</h1>
+                <p class="lead text-muted mb-4">Select an appointment type to get started.</p>
+
+                <div class="row">
+                    <t t-foreach="appointment_types" t-as="apt_type">
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="rounded-circle bg-primary text-white p-3 me-3">
+                                            <i t-attf-class="fa #{apt_type.icon or 'fa-calendar'} fa-lg"/>
+                                        </div>
+                                        <h5 class="card-title mb-0"><t t-out="apt_type.name"/></h5>
+                                    </div>
+                                    <p class="card-text text-muted small">
+                                        <i class="fa fa-clock-o me-1"/>
+                                        <t t-out="int(apt_type.duration * 60)"/> minutes
+                                        <span class="mx-2">|</span>
+                                        <i class="fa fa-map-marker me-1"/>
+                                        <t t-out="apt_type.location.replace('_', ' ').title()"/>
+                                    </p>
+                                    <div t-if="apt_type.description" t-out="apt_type.description" class="card-text small"/>
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    <a t-attf-href="/appointment/#{apt_type.access_token}"
+                                       class="btn btn-primary w-100">
+                                        Book Now
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Portal: Appointment Booking Page -->
+    <template id="portal_appointment_book" name="Book Appointment">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h2><t t-out="appointment_type.name"/></h2>
+                        <p class="text-muted">
+                            <i class="fa fa-clock-o me-1"/>
+                            <t t-out="int(appointment_type.duration * 60)"/> minutes
+                            <span class="mx-2">|</span>
+                            <i class="fa fa-map-marker me-1"/>
+                            <t t-out="appointment_type.location.replace('_', ' ').title()"/>
+                        </p>
+
+                        <!-- Calendar Selection -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">1. Select a Date</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="appointment-calendar" class="o_appointment_calendar"
+                                     t-att-data-type-id="appointment_type.id"
+                                     t-att-data-access-token="appointment_type.access_token"/>
+                            </div>
+                        </div>
+
+                        <!-- Time Slots -->
+                        <div class="card mb-4" id="time-slots-card" style="display: none;">
+                            <div class="card-header">
+                                <h5 class="mb-0">2. Select a Time</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="time-slots" class="o_appointment_time_slots"/>
+                            </div>
+                        </div>
+
+                        <!-- Booking Form -->
+                        <div class="card mb-4" id="booking-form-card" style="display: none;">
+                            <div class="card-header">
+                                <h5 class="mb-0">3. Your Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="booking-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="customer_name" class="form-label">Name *</label>
+                                            <input type="text" class="form-control" id="customer_name" name="name" required="required"/>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="customer_email" class="form-label">Email *</label>
+                                            <input type="email" class="form-control" id="customer_email" name="email" required="required"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="customer_phone" class="form-label">Phone</label>
+                                        <input type="tel" class="form-control" id="customer_phone" name="phone"/>
+                                    </div>
+                                    <t t-foreach="appointment_type.question_ids" t-as="question">
+                                        <div class="mb-3">
+                                            <label t-attf-for="question_#{question.id}" class="form-label">
+                                                <t t-out="question.name"/>
+                                                <span t-if="question.required" class="text-danger">*</span>
+                                            </label>
+                                            <t t-if="question.question_type == 'text'">
+                                                <input type="text" class="form-control"
+                                                       t-attf-id="question_#{question.id}"
+                                                       t-attf-name="question_#{question.id}"
+                                                       t-att-placeholder="question.placeholder"
+                                                       t-att-required="question.required"/>
+                                            </t>
+                                            <t t-elif="question.question_type == 'textarea'">
+                                                <textarea class="form-control" rows="3"
+                                                          t-attf-id="question_#{question.id}"
+                                                          t-attf-name="question_#{question.id}"
+                                                          t-att-placeholder="question.placeholder"
+                                                          t-att-required="question.required"/>
+                                            </t>
+                                            <t t-elif="question.question_type in ('select', 'radio')">
+                                                <select class="form-select"
+                                                        t-attf-id="question_#{question.id}"
+                                                        t-attf-name="question_#{question.id}"
+                                                        t-att-required="question.required">
+                                                    <option value="">Select...</option>
+                                                    <t t-foreach="question.option_ids" t-as="option">
+                                                        <option t-att-value="option.name"><t t-out="option.name"/></option>
+                                                    </t>
+                                                </select>
+                                            </t>
+                                            <t t-elif="question.question_type == 'checkbox'">
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input"
+                                                           t-attf-id="question_#{question.id}"
+                                                           t-attf-name="question_#{question.id}"
+                                                           t-att-required="question.required"/>
+                                                    <label class="form-check-label" t-attf-for="question_#{question.id}">Yes</label>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </t>
+                                    <div class="mb-3">
+                                        <label for="customer_notes" class="form-label">Additional Notes</label>
+                                        <textarea class="form-control" id="customer_notes" name="notes" rows="3" placeholder="Any additional information..."/>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fa fa-check me-2"/>Confirm Booking
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card sticky-top" style="top: 20px;">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">Booking Summary</h5>
+                            </div>
+                            <div class="card-body">
+                                <p><strong><t t-out="appointment_type.name"/></strong></p>
+                                <p class="text-muted small" id="selected-datetime">
+                                    Please select a date and time
+                                </p>
+                                <hr/>
+                                <p class="small">
+                                    <i class="fa fa-clock-o me-2"/>Duration: <t t-out="int(appointment_type.duration * 60)"/> min
+                                </p>
+                                <t t-if="appointment_type.location_name">
+                                    <p class="small">
+                                        <i class="fa fa-map-marker me-2"/><t t-out="appointment_type.location_name"/>
+                                    </p>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Portal: Booking Confirmation -->
+    <template id="portal_appointment_confirm" name="Booking Confirmed">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card text-center">
+                            <div class="card-body py-5">
+                                <div class="mb-4">
+                                    <i class="fa fa-check-circle text-success" style="font-size: 64px;"/>
+                                </div>
+                                <h2 class="mb-3">Appointment Confirmed!</h2>
+                                <p class="lead text-muted">
+                                    Your appointment has been successfully booked.
+                                </p>
+
+                                <div class="bg-light rounded p-4 my-4 text-start">
+                                    <h5><t t-out="booking.appointment_type_id.name"/></h5>
+                                    <p class="mb-1">
+                                        <i class="fa fa-calendar me-2"/>
+                                        <t t-out="booking.start_datetime.strftime('%A, %B %d, %Y')"/>
+                                    </p>
+                                    <p class="mb-1">
+                                        <i class="fa fa-clock-o me-2"/>
+                                        <t t-out="booking.start_datetime.strftime('%I:%M %p')"/> - <t t-out="booking.end_datetime.strftime('%I:%M %p')"/>
+                                    </p>
+                                    <t t-if="booking.resource_id">
+                                        <p class="mb-1">
+                                            <i class="fa fa-user me-2"/>
+                                            <t t-out="booking.resource_id.name"/>
+                                        </p>
+                                    </t>
+                                    <p class="mb-0 mt-2">
+                                        <strong>Reference:</strong> <t t-out="booking.name"/>
+                                    </p>
+                                </div>
+
+                                <p class="text-muted">
+                                    A confirmation email has been sent to <strong t-out="booking.customer_email"/>.
+                                </p>
+
+                                <div class="mt-4">
+                                    <a t-attf-href="/my/appointment/#{booking.access_token}"
+                                       class="btn btn-primary me-2">
+                                        View Appointment
+                                    </a>
+                                    <a t-attf-href="/appointment/ical/#{booking.access_token}"
+                                       class="btn btn-outline-secondary">
+                                        <i class="fa fa-download me-1"/>Add to Calendar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

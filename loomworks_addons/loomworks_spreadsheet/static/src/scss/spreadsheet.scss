@@ -1,0 +1,460 @@
+// Loomworks Spreadsheet Styles
+// Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+
+// Variables
+$spreadsheet-header-bg: #f8f9fa;
+$spreadsheet-border-color: #dee2e6;
+$spreadsheet-cell-height: 24px;
+$spreadsheet-toolbar-height: 48px;
+
+// Spreadsheet Container
+.o_spreadsheet_container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+
+    // Toolbar
+    .o_spreadsheet_toolbar {
+        display: flex;
+        align-items: center;
+        padding: 8px 16px;
+        background: $spreadsheet-header-bg;
+        border-bottom: 1px solid $spreadsheet-border-color;
+        min-height: $spreadsheet-toolbar-height;
+
+        .o_toolbar_group {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 0 8px;
+            border-right: 1px solid $spreadsheet-border-color;
+
+            &:last-child {
+                border-right: none;
+            }
+        }
+
+        .o_toolbar_button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.15s;
+
+            &:hover {
+                background-color: darken($spreadsheet-header-bg, 8%);
+            }
+
+            &.active {
+                background-color: darken($spreadsheet-header-bg, 15%);
+            }
+
+            &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+        }
+
+        .o_toolbar_separator {
+            width: 1px;
+            height: 24px;
+            background: $spreadsheet-border-color;
+            margin: 0 4px;
+        }
+    }
+
+    // Formula Bar
+    .o_spreadsheet_formula_bar {
+        display: flex;
+        align-items: center;
+        padding: 4px 8px;
+        background: #fff;
+        border-bottom: 1px solid $spreadsheet-border-color;
+        min-height: 32px;
+
+        .o_cell_reference {
+            min-width: 60px;
+            padding: 4px 8px;
+            background: $spreadsheet-header-bg;
+            border: 1px solid $spreadsheet-border-color;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .o_formula_input {
+            flex: 1;
+            margin-left: 8px;
+            padding: 4px 8px;
+            border: 1px solid $spreadsheet-border-color;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+
+            &:focus {
+                outline: none;
+                border-color: #80bdff;
+                box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+            }
+        }
+    }
+
+    // Sheet Area (Univer Container)
+    .o_spreadsheet_sheet {
+        flex: 1;
+        overflow: hidden;
+        position: relative;
+
+        // Univer container fills this area
+        .univer-container {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    // Sheet Tabs
+    .o_spreadsheet_tabs {
+        display: flex;
+        align-items: center;
+        padding: 0 8px;
+        background: $spreadsheet-header-bg;
+        border-top: 1px solid $spreadsheet-border-color;
+        min-height: 36px;
+
+        .o_sheet_tab {
+            display: flex;
+            align-items: center;
+            padding: 6px 16px;
+            background: transparent;
+            border: none;
+            border-radius: 4px 4px 0 0;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background-color 0.15s;
+
+            &:hover {
+                background-color: darken($spreadsheet-header-bg, 5%);
+            }
+
+            &.active {
+                background: #fff;
+                border: 1px solid $spreadsheet-border-color;
+                border-bottom: 1px solid #fff;
+                margin-bottom: -1px;
+            }
+
+            .o_tab_name {
+                max-width: 120px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .o_tab_actions {
+                margin-left: 8px;
+                opacity: 0;
+                transition: opacity 0.15s;
+
+                .o_tab_action {
+                    padding: 2px;
+                    border: none;
+                    background: transparent;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: #007bff;
+                    }
+                }
+            }
+
+            &:hover .o_tab_actions {
+                opacity: 1;
+            }
+        }
+
+        .o_add_sheet {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            margin-left: 4px;
+            border: 1px dashed $spreadsheet-border-color;
+            background: transparent;
+            border-radius: 4px;
+            cursor: pointer;
+
+            &:hover {
+                border-color: #007bff;
+                color: #007bff;
+            }
+        }
+    }
+
+    // Status Bar
+    .o_spreadsheet_status {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4px 16px;
+        background: $spreadsheet-header-bg;
+        border-top: 1px solid $spreadsheet-border-color;
+        font-size: 12px;
+        color: #6c757d;
+
+        .o_status_info {
+            display: flex;
+            gap: 16px;
+        }
+
+        .o_status_actions {
+            display: flex;
+            gap: 8px;
+        }
+    }
+}
+
+// Data Source Dialog
+.o_data_source_dialog {
+    .o_data_source_form {
+        .o_field_selection {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid $spreadsheet-border-color;
+            border-radius: 4px;
+            padding: 8px;
+
+            .o_field_item {
+                display: flex;
+                align-items: center;
+                padding: 4px 8px;
+                cursor: pointer;
+                border-radius: 4px;
+
+                &:hover {
+                    background-color: $spreadsheet-header-bg;
+                }
+
+                input[type="checkbox"] {
+                    margin-right: 8px;
+                }
+
+                .o_field_type {
+                    margin-left: auto;
+                    font-size: 11px;
+                    color: #6c757d;
+                }
+            }
+        }
+
+        .o_preview_container {
+            margin-top: 16px;
+            max-height: 200px;
+            overflow: auto;
+
+            table {
+                width: 100%;
+                font-size: 12px;
+
+                th {
+                    background: $spreadsheet-header-bg;
+                    position: sticky;
+                    top: 0;
+                }
+
+                th, td {
+                    padding: 4px 8px;
+                    border: 1px solid $spreadsheet-border-color;
+                }
+            }
+        }
+    }
+}
+
+// Pivot Dialog
+.o_pivot_dialog {
+    .o_pivot_config {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+
+        .o_field_list {
+            min-height: 120px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid $spreadsheet-border-color;
+            border-radius: 4px;
+            padding: 8px;
+
+            &.o_drop_target {
+                border-style: dashed;
+                border-color: #007bff;
+            }
+
+            .o_field_chip {
+                display: inline-flex;
+                align-items: center;
+                padding: 4px 8px;
+                margin: 2px;
+                background: $spreadsheet-header-bg;
+                border: 1px solid $spreadsheet-border-color;
+                border-radius: 4px;
+                font-size: 12px;
+                cursor: move;
+
+                .o_remove_field {
+                    margin-left: 4px;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: #dc3545;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Chart Dialog
+.o_chart_dialog {
+    .o_chart_preview {
+        width: 100%;
+        height: 300px;
+        border: 1px solid $spreadsheet-border-color;
+        border-radius: 4px;
+        margin-top: 16px;
+    }
+
+    .o_chart_type_selector {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+
+        .o_chart_type_option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px 16px;
+            border: 2px solid $spreadsheet-border-color;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s;
+
+            &:hover {
+                border-color: #80bdff;
+            }
+
+            &.selected {
+                border-color: #007bff;
+                background-color: rgba(0, 123, 255, 0.1);
+            }
+
+            i {
+                font-size: 24px;
+                margin-bottom: 4px;
+            }
+
+            span {
+                font-size: 12px;
+            }
+        }
+    }
+}
+
+// Spreadsheet View (Odoo View Type)
+.o_spreadsheet_view {
+    height: 100%;
+
+    .o_spreadsheet_renderer {
+        height: 100%;
+    }
+}
+
+// Loading State
+.o_spreadsheet_loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: #fff;
+
+    .o_loading_content {
+        text-align: center;
+
+        .o_loading_spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid $spreadsheet-border-color;
+            border-top-color: #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .o_loading_text {
+            margin-top: 16px;
+            color: #6c757d;
+        }
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// Context Menu
+.o_spreadsheet_context_menu {
+    position: fixed;
+    z-index: 1000;
+    min-width: 180px;
+    padding: 8px 0;
+    background: #fff;
+    border: 1px solid $spreadsheet-border-color;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    .o_menu_item {
+        display: flex;
+        align-items: center;
+        padding: 8px 16px;
+        cursor: pointer;
+        transition: background-color 0.15s;
+
+        &:hover {
+            background-color: $spreadsheet-header-bg;
+        }
+
+        &.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        i {
+            width: 20px;
+            margin-right: 8px;
+            text-align: center;
+        }
+
+        .o_shortcut {
+            margin-left: auto;
+            font-size: 11px;
+            color: #6c757d;
+        }
+    }
+
+    .o_menu_separator {
+        height: 1px;
+        background: $spreadsheet-border-color;
+        margin: 4px 0;
+    }
+}

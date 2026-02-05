@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Main Planning Menu -->
+    <menuitem id="menu_planning_root"
+              name="Planning"
+              web_icon="loomworks_planning,static/description/icon.png"
+              groups="group_planning_user"
+              sequence="23"/>
+
+    <!-- Schedule Menu -->
+    <menuitem id="menu_planning_schedule"
+              name="Schedule"
+              parent="menu_planning_root"
+              sequence="10"/>
+
+    <menuitem id="menu_planning_all"
+              name="All Planning"
+              parent="menu_planning_schedule"
+              action="action_planning_slot"
+              sequence="10"/>
+
+    <menuitem id="menu_planning_my_schedule"
+              name="My Schedule"
+              parent="menu_planning_schedule"
+              action="action_planning_my_schedule"
+              sequence="20"/>
+
+    <menuitem id="menu_planning_conflicts"
+              name="Conflicts"
+              parent="menu_planning_schedule"
+              action="action_planning_conflicts"
+              groups="group_planning_manager"
+              sequence="30"/>
+
+    <!-- Quick Create Wizard Action -->
+    <record id="action_planning_quick_create" model="ir.actions.act_window">
+        <field name="name">Quick Create Shifts</field>
+        <field name="res_model">planning.slot.quick.create</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_planning_quick_create"
+              name="Quick Create"
+              parent="menu_planning_schedule"
+              action="action_planning_quick_create"
+              groups="group_planning_manager"
+              sequence="40"/>
+
+    <!-- Reporting Menu -->
+    <menuitem id="menu_planning_reporting"
+              name="Reporting"
+              parent="menu_planning_root"
+              groups="group_planning_manager"
+              sequence="80"/>
+
+    <!-- Planning Analysis Action -->
+    <record id="action_planning_analysis" model="ir.actions.act_window">
+        <field name="name">Planning Analysis</field>
+        <field name="res_model">planning.slot</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="context">{
+            'search_default_group_employee': 1,
+        }</field>
+    </record>
+
+    <menuitem id="menu_planning_analysis"
+              name="Planning Analysis"
+              parent="menu_planning_reporting"
+              action="action_planning_analysis"
+              sequence="10"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_planning_config"
+              name="Configuration"
+              parent="menu_planning_root"
+              groups="group_planning_admin"
+              sequence="90"/>
+
+    <menuitem id="menu_planning_roles"
+              name="Roles"
+              parent="menu_planning_config"
+              action="action_planning_role"
+              sequence="10"/>
+
+    <menuitem id="menu_planning_templates"
+              name="Shift Templates"
+              parent="menu_planning_config"
+              action="action_planning_slot_template"
+              sequence="20"/>
+</odoo>

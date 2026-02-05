@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Appointment Type Tree View -->
+    <record id="appointment_type_view_tree" model="ir.ui.view">
+        <field name="name">appointment.type.tree</field>
+        <field name="model">appointment.type</field>
+        <field name="arch" type="xml">
+            <tree string="Appointment Types">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="duration" widget="float_time"/>
+                <field name="location"/>
+                <field name="is_published" widget="boolean_toggle"/>
+                <field name="resource_count"/>
+                <field name="booking_count"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Appointment Type Form View -->
+    <record id="appointment_type_view_form" model="ir.ui.view">
+        <field name="name">appointment.type.form</field>
+        <field name="model">appointment.type</field>
+        <field name="arch" type="xml">
+            <form string="Appointment Type">
+                <header>
+                    <button name="action_publish" type="object" string="Publish"
+                            class="btn-primary" invisible="is_published"/>
+                    <button name="action_unpublish" type="object" string="Unpublish"
+                            class="btn-secondary" invisible="not is_published"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_bookings" type="object" class="oe_stat_button" icon="fa-calendar">
+                            <field name="booking_count" widget="statinfo" string="Bookings"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-users" type="object" name="action_view_bookings">
+                            <field name="resource_count" widget="statinfo" string="Resources"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Published" bg_color="text-bg-success" invisible="not is_published"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g., Consultation"/></h1>
+                    </div>
+                    <group>
+                        <group string="Scheduling">
+                            <field name="duration" widget="float_time"/>
+                            <field name="slot_duration" widget="float_time"/>
+                            <field name="buffer_before"/>
+                            <field name="buffer_after"/>
+                        </group>
+                        <group string="Availability">
+                            <field name="min_schedule_hours" widget="float_time"/>
+                            <field name="max_schedule_days"/>
+                            <field name="max_per_day"/>
+                            <field name="max_per_week"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="description">
+                            <field name="description" placeholder="Public description for customers..."/>
+                        </page>
+                        <page string="Resources" name="resources">
+                            <group>
+                                <field name="assign_method"/>
+                            </group>
+                            <field name="resource_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="resource_type"/>
+                                    <field name="email"/>
+                                    <field name="upcoming_count"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Location" name="location">
+                            <group>
+                                <group>
+                                    <field name="location"/>
+                                    <field name="location_name" invisible="location == 'online'"/>
+                                    <field name="location_address" invisible="location not in ('in_person', 'customer_location')"/>
+                                </group>
+                                <group>
+                                    <field name="online_meeting_provider" invisible="location != 'online'"/>
+                                    <field name="custom_meeting_url" invisible="online_meeting_provider != 'custom'"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Questions" name="questions">
+                            <field name="question_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="question_type"/>
+                                    <field name="required"/>
+                                    <field name="placeholder"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Booking Rules" name="rules">
+                            <group>
+                                <group>
+                                    <field name="requires_confirmation"/>
+                                    <field name="concurrent_limit"/>
+                                </group>
+                                <group>
+                                    <field name="allow_reschedule"/>
+                                    <field name="allow_cancel"/>
+                                    <field name="cancel_limit_hours" widget="float_time" invisible="not allow_cancel"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Online Booking" name="online">
+                            <group>
+                                <group>
+                                    <field name="is_published"/>
+                                    <field name="website_url" widget="url" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="access_token" readonly="1"/>
+                                    <button name="action_regenerate_token" type="object"
+                                            string="Regenerate Link" class="btn-link"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Settings" name="settings">
+                            <group>
+                                <group>
+                                    <field name="icon"/>
+                                    <field name="color" widget="color_picker"/>
+                                </group>
+                                <group>
+                                    <field name="active"/>
+                                    <field name="company_id" groups="base.group_multi_company"/>
+                                </group>
+                            </group>
+                            <field name="internal_note" placeholder="Internal notes (not visible to customers)..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Appointment Type Kanban View -->
+    <record id="appointment_type_view_kanban" model="ir.ui.view">
+        <field name="name">appointment.type.kanban</field>
+        <field name="model">appointment.type</field>
+        <field name="arch" type="xml">
+            <kanban class="o_appointment_type_kanban">
+                <field name="name"/>
+                <field name="duration"/>
+                <field name="location"/>
+                <field name="is_published"/>
+                <field name="booking_count"/>
+                <field name="upcoming_count"/>
+                <field name="color"/>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <aside class="o_kanban_aside_full">
+                            <field name="image" widget="image" options="{'preview_image': 'image', 'size': [80, 80]}"/>
+                        </aside>
+                        <main>
+                            <field name="name" class="fw-bold fs-5"/>
+                            <div class="text-muted">
+                                <span><field name="duration" widget="float_time"/> - <field name="location"/></span>
+                            </div>
+                            <div class="mt-2">
+                                <span class="badge bg-primary"><field name="upcoming_count"/> upcoming</span>
+                                <span class="badge bg-secondary ms-1"><field name="booking_count"/> total</span>
+                            </div>
+                            <div class="mt-2" t-if="record.is_published.raw_value">
+                                <span class="badge bg-success">Published</span>
+                            </div>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Appointment Type Search View -->
+    <record id="appointment_type_view_search" model="ir.ui.view">
+        <field name="name">appointment.type.search</field>
+        <field name="model">appointment.type</field>
+        <field name="arch" type="xml">
+            <search string="Search Appointment Types">
+                <field name="name"/>
+                <separator/>
+                <filter string="Published" name="filter_published" domain="[('is_published', '=', True)]"/>
+                <filter string="Archived" name="filter_archived" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="In Person" name="filter_in_person" domain="[('location', '=', 'in_person')]"/>
+                <filter string="Online" name="filter_online" domain="[('location', '=', 'online')]"/>
+                <filter string="Phone" name="filter_phone" domain="[('location', '=', 'phone')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Location" name="group_location" context="{'group_by': 'location'}"/>
+                    <filter string="Company" name="group_company" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Appointment Type Action -->
+    <record id="appointment_type_action" model="ir.actions.act_window">
+        <field name="name">Appointment Types</field>
+        <field name="res_model">appointment.type</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="appointment_type_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first appointment type
+            </p>
+            <p>
+                Define the types of appointments customers can book,
+                including duration, availability, and resources.
+            </p>
+        </field>
+    </record>
+
+</odoo>

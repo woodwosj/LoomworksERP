@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- ECO Types -->
+    <record id="plm_eco_type_design" model="plm.eco.type">
+        <field name="name">Design Change</field>
+        <field name="sequence">10</field>
+        <field name="description">Changes to product design or engineering specifications</field>
+        <field name="require_approval">True</field>
+        <field name="min_approvers">2</field>
+        <field name="stage_ids" eval="[(6, 0, [
+            ref('plm_eco_stage_draft'),
+            ref('plm_eco_stage_confirmed'),
+            ref('plm_eco_stage_review'),
+            ref('plm_eco_stage_approved'),
+            ref('plm_eco_stage_done'),
+            ref('plm_eco_stage_cancelled'),
+        ])]"/>
+        <field name="default_stage_id" ref="plm_eco_stage_draft"/>
+        <field name="color">1</field>
+    </record>
+
+    <record id="plm_eco_type_supplier" model="plm.eco.type">
+        <field name="name">Supplier Change</field>
+        <field name="sequence">20</field>
+        <field name="description">Component source or supplier modifications</field>
+        <field name="require_approval">True</field>
+        <field name="min_approvers">1</field>
+        <field name="stage_ids" eval="[(6, 0, [
+            ref('plm_eco_stage_draft'),
+            ref('plm_eco_stage_confirmed'),
+            ref('plm_eco_stage_review'),
+            ref('plm_eco_stage_approved'),
+            ref('plm_eco_stage_done'),
+            ref('plm_eco_stage_cancelled'),
+        ])]"/>
+        <field name="default_stage_id" ref="plm_eco_stage_draft"/>
+        <field name="color">2</field>
+    </record>
+
+    <record id="plm_eco_type_cost" model="plm.eco.type">
+        <field name="name">Cost Reduction</field>
+        <field name="sequence">30</field>
+        <field name="description">Changes aimed at reducing manufacturing cost</field>
+        <field name="require_approval">True</field>
+        <field name="min_approvers">1</field>
+        <field name="stage_ids" eval="[(6, 0, [
+            ref('plm_eco_stage_draft'),
+            ref('plm_eco_stage_confirmed'),
+            ref('plm_eco_stage_review'),
+            ref('plm_eco_stage_approved'),
+            ref('plm_eco_stage_done'),
+            ref('plm_eco_stage_cancelled'),
+        ])]"/>
+        <field name="default_stage_id" ref="plm_eco_stage_draft"/>
+        <field name="color">3</field>
+    </record>
+
+    <record id="plm_eco_type_quality" model="plm.eco.type">
+        <field name="name">Quality Improvement</field>
+        <field name="sequence">40</field>
+        <field name="description">Changes to improve product quality or reduce defects</field>
+        <field name="require_approval">True</field>
+        <field name="min_approvers">2</field>
+        <field name="stage_ids" eval="[(6, 0, [
+            ref('plm_eco_stage_draft'),
+            ref('plm_eco_stage_confirmed'),
+            ref('plm_eco_stage_review'),
+            ref('plm_eco_stage_approved'),
+            ref('plm_eco_stage_done'),
+            ref('plm_eco_stage_cancelled'),
+        ])]"/>
+        <field name="default_stage_id" ref="plm_eco_stage_draft"/>
+        <field name="color">4</field>
+    </record>
+
+    <record id="plm_eco_type_obsolescence" model="plm.eco.type">
+        <field name="name">Component Obsolescence</field>
+        <field name="sequence">50</field>
+        <field name="description">Replacement of end-of-life or discontinued components</field>
+        <field name="require_approval">True</field>
+        <field name="min_approvers">1</field>
+        <field name="stage_ids" eval="[(6, 0, [
+            ref('plm_eco_stage_draft'),
+            ref('plm_eco_stage_confirmed'),
+            ref('plm_eco_stage_review'),
+            ref('plm_eco_stage_approved'),
+            ref('plm_eco_stage_done'),
+            ref('plm_eco_stage_cancelled'),
+        ])]"/>
+        <field name="default_stage_id" ref="plm_eco_stage_draft"/>
+        <field name="color">5</field>
+    </record>
+
+</odoo>

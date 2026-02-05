@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Default Spreadsheet Templates -->
+
+    <!-- Blank Spreadsheet Template -->
+    <record id="spreadsheet_template_blank" model="spreadsheet.document">
+        <field name="name">Blank Spreadsheet</field>
+        <field name="description">A clean, empty spreadsheet to start from scratch.</field>
+        <field name="is_template">True</field>
+        <field name="is_published">True</field>
+    </record>
+
+    <!-- Sales Report Template -->
+    <record id="spreadsheet_template_sales" model="spreadsheet.document">
+        <field name="name">Sales Report Template</field>
+        <field name="description">Pre-configured template for sales analysis with pivot tables and charts.</field>
+        <field name="is_template">True</field>
+        <field name="is_published">True</field>
+        <field name="raw_data">{
+    "id": "sales_template",
+    "name": "Sales Report",
+    "sheets": [{
+        "id": "sheet1",
+        "name": "Sales Data",
+        "cellData": {
+            "0:0": {"v": "Sales Report", "s": {"b": 1, "fs": 14}},
+            "2:0": {"v": "Date"},
+            "2:1": {"v": "Customer"},
+            "2:2": {"v": "Product"},
+            "2:3": {"v": "Quantity"},
+            "2:4": {"v": "Unit Price"},
+            "2:5": {"v": "Total"}
+        }
+    }, {
+        "id": "sheet2",
+        "name": "Analysis",
+        "cellData": {
+            "0:0": {"v": "Sales Analysis", "s": {"b": 1, "fs": 14}},
+            "2:0": {"v": "Insert pivot table here..."}
+        }
+    }]
+}</field>
+    </record>
+
+    <!-- Inventory Tracking Template -->
+    <record id="spreadsheet_template_inventory" model="spreadsheet.document">
+        <field name="name">Inventory Tracking Template</field>
+        <field name="description">Track inventory levels, movements, and valuations.</field>
+        <field name="is_template">True</field>
+        <field name="is_published">True</field>
+        <field name="raw_data">{
+    "id": "inventory_template",
+    "name": "Inventory Tracker",
+    "sheets": [{
+        "id": "sheet1",
+        "name": "Inventory",
+        "cellData": {
+            "0:0": {"v": "Inventory Tracking", "s": {"b": 1, "fs": 14}},
+            "2:0": {"v": "Product Code"},
+            "2:1": {"v": "Product Name"},
+            "2:2": {"v": "Category"},
+            "2:3": {"v": "Location"},
+            "2:4": {"v": "Quantity"},
+            "2:5": {"v": "Unit Cost"},
+            "2:6": {"v": "Total Value"}
+        }
+    }]
+}</field>
+    </record>
+
+    <!-- Budget Planning Template -->
+    <record id="spreadsheet_template_budget" model="spreadsheet.document">
+        <field name="name">Budget Planning Template</field>
+        <field name="description">Plan and track budgets with monthly breakdowns.</field>
+        <field name="is_template">True</field>
+        <field name="is_published">True</field>
+        <field name="raw_data">{
+    "id": "budget_template",
+    "name": "Budget Planner",
+    "sheets": [{
+        "id": "sheet1",
+        "name": "Budget Overview",
+        "cellData": {
+            "0:0": {"v": "Annual Budget Plan", "s": {"b": 1, "fs": 14}},
+            "2:0": {"v": "Category"},
+            "2:1": {"v": "Jan"},
+            "2:2": {"v": "Feb"},
+            "2:3": {"v": "Mar"},
+            "2:4": {"v": "Apr"},
+            "2:5": {"v": "May"},
+            "2:6": {"v": "Jun"},
+            "2:7": {"v": "Jul"},
+            "2:8": {"v": "Aug"},
+            "2:9": {"v": "Sep"},
+            "2:10": {"v": "Oct"},
+            "2:11": {"v": "Nov"},
+            "2:12": {"v": "Dec"},
+            "2:13": {"v": "Total"}
+        }
+    }]
+}</field>
+    </record>
+
+    <!-- Server Action for Quick Create -->
+    <record id="action_spreadsheet_quick_create" model="ir.actions.server">
+        <field name="name">Create Spreadsheet</field>
+        <field name="model_id" ref="model_spreadsheet_document"/>
+        <field name="binding_model_id" ref="model_spreadsheet_document"/>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_open_spreadsheet()
+else:
+    doc = env['spreadsheet.document'].create({'name': 'New Spreadsheet'})
+    action = doc.action_open_spreadsheet()
+        </field>
+    </record>
+
+</odoo>

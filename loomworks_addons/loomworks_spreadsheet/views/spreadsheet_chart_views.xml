@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Spreadsheet Chart Views -->
+
+    <!-- Tree View -->
+    <record id="spreadsheet_chart_view_tree" model="ir.ui.view">
+        <field name="name">spreadsheet.chart.view.tree</field>
+        <field name="model">spreadsheet.chart</field>
+        <field name="arch" type="xml">
+            <tree string="Charts">
+                <field name="name"/>
+                <field name="document_id"/>
+                <field name="chart_type" widget="badge"
+                       decoration-info="chart_type == 'bar'"
+                       decoration-success="chart_type == 'line'"
+                       decoration-warning="chart_type == 'pie'"/>
+                <field name="source_type"/>
+                <field name="model_name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="spreadsheet_chart_view_form" model="ir.ui.view">
+        <field name="name">spreadsheet.chart.view.form</field>
+        <field name="model">spreadsheet.chart</field>
+        <field name="arch" type="xml">
+            <form string="Chart">
+                <header>
+                    <button name="action_preview" type="object"
+                            string="Preview Chart" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Chart Title"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Chart Configuration">
+                            <field name="document_id"/>
+                            <field name="chart_type"/>
+                            <field name="source_type"/>
+                        </group>
+                        <group string="Position">
+                            <field name="target_sheet"/>
+                            <field name="position_x"/>
+                            <field name="position_y"/>
+                            <field name="width"/>
+                            <field name="height"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Data Source" name="data_source">
+                            <!-- Cell Range Source -->
+                            <group invisible="source_type != 'range'">
+                                <group>
+                                    <field name="data_range"
+                                           placeholder="e.g., A1:D10"/>
+                                    <field name="label_range"
+                                           placeholder="e.g., A1:A10"/>
+                                </group>
+                            </group>
+                            <!-- Odoo Model Source -->
+                            <group invisible="source_type != 'model'">
+                                <group>
+                                    <field name="model_id"/>
+                                    <field name="model_name" invisible="1"/>
+                                    <field name="domain" widget="domain"
+                                           options="{'model': 'model_name'}"/>
+                                </group>
+                                <group>
+                                    <field name="groupby_field_id"
+                                           domain="[('model_id', '=', model_id)]"/>
+                                    <field name="measure_field_id"
+                                           domain="[('model_id', '=', model_id), ('ttype', 'in', ['integer', 'float', 'monetary'])]"/>
+                                    <field name="measure_aggregator"/>
+                                </group>
+                            </group>
+                            <!-- Pivot Source -->
+                            <group invisible="source_type != 'pivot'">
+                                <field name="pivot_id"
+                                       domain="[('document_id', '=', document_id)]"/>
+                            </group>
+                        </page>
+                        <page string="Styling" name="styling">
+                            <group>
+                                <group string="Title &amp; Legend">
+                                    <field name="show_title"/>
+                                    <field name="show_legend"/>
+                                    <field name="legend_position"
+                                           invisible="not show_legend"/>
+                                    <field name="show_data_labels"/>
+                                </group>
+                                <group string="Colors">
+                                    <field name="color_scheme"/>
+                                    <field name="custom_colors"
+                                           invisible="color_scheme != 'custom'"
+                                           placeholder="#FF6384, #36A2EB, #FFCE56"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Advanced" name="advanced" groups="base.group_no_one">
+                            <group>
+                                <field name="config_json" widget="ace"
+                                       options="{'mode': 'json'}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="spreadsheet_chart_view_search" model="ir.ui.view">
+        <field name="name">spreadsheet.chart.view.search</field>
+        <field name="model">spreadsheet.chart</field>
+        <field name="arch" type="xml">
+            <search string="Charts">
+                <field name="name"/>
+                <field name="document_id"/>
+                <field name="chart_type"/>
+                <filter name="bar_charts" string="Bar Charts"
+                        domain="[('chart_type', '=', 'bar')]"/>
+                <filter name="line_charts" string="Line Charts"
+                        domain="[('chart_type', '=', 'line')]"/>
+                <filter name="pie_charts" string="Pie Charts"
+                        domain="[('chart_type', 'in', ['pie', 'doughnut'])]"/>
+                <separator/>
+                <filter name="archived" string="Archived"
+                        domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_document" string="Document"
+                            context="{'group_by': 'document_id'}"/>
+                    <filter name="group_by_type" string="Chart Type"
+                            context="{'group_by': 'chart_type'}"/>
+                    <filter name="group_by_source" string="Source Type"
+                            context="{'group_by': 'source_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_spreadsheet_chart" model="ir.actions.act_window">
+        <field name="name">Charts</field>
+        <field name="res_model">spreadsheet.chart</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="spreadsheet_chart_view_search"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="loomworks_studio.FieldPalette">
+        <div class="o_studio_field_palette">
+            <!-- Header -->
+            <div class="o_palette_header d-flex justify-content-between align-items-center">
+                <h5>Add Field</h5>
+                <button t-if="props.onClose" class="btn-close" t-on-click="onClose"/>
+            </div>
+
+            <!-- Search -->
+            <div class="o_palette_search">
+                <input type="text"
+                       placeholder="Search fields..."
+                       t-att-value="state.searchQuery"
+                       t-on-input="onSearchInput"/>
+            </div>
+
+            <!-- Tabs -->
+            <div class="o_palette_tabs">
+                <div t-attf-class="o_palette_tab #{state.activeTab === 'new' ? 'active' : ''}"
+                     t-on-click="() => this.setActiveTab('new')">
+                    New Field
+                </div>
+                <div t-attf-class="o_palette_tab #{state.activeTab === 'existing' ? 'active' : ''}"
+                     t-on-click="() => this.setActiveTab('existing')">
+                    Existing (<t t-out="state.existingFields.length"/>)
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="o_palette_content">
+                <t t-if="state.loading">
+                    <div class="text-center py-4">
+                        <i class="fa fa-spinner fa-spin fa-2x"/>
+                    </div>
+                </t>
+
+                <t t-elif="state.activeTab === 'new'">
+                    <!-- New Field Types -->
+                    <t t-foreach="filteredFieldTypes" t-as="fieldType" t-key="fieldType.type">
+                        <div class="o_studio_field_type"
+                             draggable="true"
+                             t-on-dragstart="(ev) => this.onDragStart(ev, { type: fieldType.type, label: fieldType.label, isNew: true })"
+                             t-on-dragend="onDragEnd"
+                             t-on-click="() => this.onFieldTypeClick(fieldType)">
+                            <div class="o_field_icon">
+                                <i t-attf-class="fa #{fieldType.icon}"/>
+                            </div>
+                            <div class="o_field_info">
+                                <div class="o_field_label"><t t-out="fieldType.label"/></div>
+                                <div class="o_field_description"><t t-out="fieldType.description"/></div>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-if="filteredFieldTypes.length === 0">
+                        <div class="text-muted text-center py-4">
+                            No field types match your search
+                        </div>
+                    </t>
+                </t>
+
+                <t t-elif="state.activeTab === 'existing'">
+                    <!-- Existing Fields -->
+                    <t t-foreach="filteredExistingFields" t-as="field" t-key="field.id">
+                        <div class="o_studio_existing_field"
+                             draggable="true"
+                             t-on-dragstart="(ev) => this.onDragStart(ev, { existingFieldId: field.id, name: field.name, label: field.field_description, type: field.ttype, isNew: false })"
+                             t-on-dragend="onDragEnd"
+                             t-on-click="() => this.onExistingFieldClick(field)">
+                            <span class="o_field_name"><t t-out="field.field_description"/></span>
+                            <span class="o_field_technical text-muted ms-2">(<t t-out="field.name"/>)</span>
+                            <span class="o_field_type_badge"><t t-out="field.ttype"/></span>
+                        </div>
+                    </t>
+
+                    <t t-if="filteredExistingFields.length === 0">
+                        <div class="text-muted text-center py-4">
+                            <t t-if="state.searchQuery">
+                                No fields match your search
+                            </t>
+                            <t t-else="">
+                                No existing fields
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Spreadsheet Pivot Table Views -->
+
+    <!-- Tree View -->
+    <record id="spreadsheet_pivot_view_tree" model="ir.ui.view">
+        <field name="name">spreadsheet.pivot.view.tree</field>
+        <field name="model">spreadsheet.pivot</field>
+        <field name="arch" type="xml">
+            <tree string="Pivot Tables">
+                <field name="name"/>
+                <field name="document_id"/>
+                <field name="model_name"/>
+                <field name="target_cell"/>
+                <field name="show_totals" widget="boolean_toggle"/>
+                <field name="last_computed"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="spreadsheet_pivot_view_form" model="ir.ui.view">
+        <field name="name">spreadsheet.pivot.view.form</field>
+        <field name="model">spreadsheet.pivot</field>
+        <field name="arch" type="xml">
+            <form string="Pivot Table">
+                <header>
+                    <button name="action_refresh" type="object"
+                            string="Refresh Data" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Pivot Table Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Source">
+                            <field name="document_id"/>
+                            <field name="model_id"/>
+                            <field name="model_name" invisible="1"/>
+                            <field name="domain" widget="domain"
+                                   options="{'model': 'model_name'}"/>
+                        </group>
+                        <group string="Target">
+                            <field name="target_sheet"/>
+                            <field name="target_cell"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Row Grouping">
+                            <field name="row_field_ids" widget="many2many_tags"
+                                   domain="[('model_id', '=', model_id)]"
+                                   placeholder="Fields to group by in rows"/>
+                        </group>
+                        <group string="Column Grouping">
+                            <field name="column_field_ids" widget="many2many_tags"
+                                   domain="[('model_id', '=', model_id)]"
+                                   placeholder="Fields to group by in columns"/>
+                        </group>
+                    </group>
+                    <group string="Measures">
+                        <field name="measure_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="name"/>
+                                <field name="field_id"
+                                       domain="[('model_id', '=', parent.model_id), ('ttype', 'in', ['integer', 'float', 'monetary'])]"/>
+                                <field name="aggregator"/>
+                                <field name="format_type"/>
+                                <field name="decimal_places"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Display Options">
+                        <group>
+                            <field name="show_totals"/>
+                            <field name="show_empty"/>
+                            <field name="collapsed"/>
+                        </group>
+                        <group>
+                            <field name="last_computed" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Cached Data" groups="base.group_no_one">
+                        <field name="cached_data" widget="ace"
+                               options="{'mode': 'json'}" readonly="1"
+                               nolabel="1" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="spreadsheet_pivot_view_search" model="ir.ui.view">
+        <field name="name">spreadsheet.pivot.view.search</field>
+        <field name="model">spreadsheet.pivot</field>
+        <field name="arch" type="xml">
+            <search string="Pivot Tables">
+                <field name="name"/>
+                <field name="document_id"/>
+                <field name="model_name"/>
+                <filter name="archived" string="Archived"
+                        domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_document" string="Document"
+                            context="{'group_by': 'document_id'}"/>
+                    <filter name="group_by_model" string="Model"
+                            context="{'group_by': 'model_name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_spreadsheet_pivot" model="ir.actions.act_window">
+        <field name="name">Pivot Tables</field>
+        <field name="res_model">spreadsheet.pivot</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="spreadsheet_pivot_view_search"/>
+    </record>
+
+</odoo>

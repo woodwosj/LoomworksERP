@@ -1,0 +1,403 @@
+/**
+ * Loomworks Field Service Styles
+ * Mobile-optimized field service management
+ */
+
+// FSM Colors
+$fsm-primary: #714B67;
+$fsm-success: #28a745;
+$fsm-warning: #ffc107;
+$fsm-danger: #dc3545;
+$fsm-info: #17a2b8;
+
+// Mobile Kanban
+.o_fsm_kanban {
+    // Touch-friendly card sizing
+    .o_kanban_record {
+        padding: 12px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.2s ease;
+
+        &:active {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+    }
+
+    // FSM Task Card
+    .o_fsm_task_card {
+        .o_kanban_record_title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: $fsm-primary;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+        }
+
+        // Map button
+        .btn-outline-primary {
+            border-color: $fsm-primary;
+            color: $fsm-primary;
+
+            &:hover, &:active {
+                background-color: $fsm-primary;
+                color: white;
+            }
+        }
+    }
+
+    // Mobile-specific adjustments
+    &.o_kanban_mobile {
+        .o_kanban_group {
+            padding: 0 8px;
+        }
+
+        .o_kanban_record {
+            min-height: 100px;
+        }
+    }
+}
+
+// FSM Timer Widget
+.o_fsm_timer_widget {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, lighten($fsm-primary, 40%), lighten($fsm-primary, 45%));
+    border-radius: 8px;
+    font-family: 'Roboto Mono', monospace;
+
+    .o_fsm_timer_display {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $fsm-primary;
+        min-width: 80px;
+        text-align: center;
+    }
+
+    .o_fsm_timer_buttons {
+        display: flex;
+        gap: 4px;
+
+        .btn {
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+
+            &.btn-start {
+                background-color: $fsm-success;
+                border-color: $fsm-success;
+                color: white;
+
+                &:hover {
+                    background-color: darken($fsm-success, 10%);
+                }
+            }
+
+            &.btn-pause {
+                background-color: $fsm-warning;
+                border-color: $fsm-warning;
+                color: #333;
+
+                &:hover {
+                    background-color: darken($fsm-warning, 10%);
+                }
+            }
+
+            &.btn-stop {
+                background-color: $fsm-danger;
+                border-color: $fsm-danger;
+                color: white;
+
+                &:hover {
+                    background-color: darken($fsm-danger, 10%);
+                }
+            }
+        }
+    }
+
+    // Running state animation
+    &.is-running {
+        .o_fsm_timer_display {
+            animation: pulse 1s ease-in-out infinite;
+        }
+    }
+
+    // Paused state
+    &.is-paused {
+        .o_fsm_timer_display {
+            opacity: 0.7;
+        }
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+// Signature Pad Component
+.o_fsm_signature_pad {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background-color: #fafafa;
+    position: relative;
+    min-height: 200px;
+
+    canvas {
+        width: 100%;
+        height: 200px;
+        cursor: crosshair;
+        touch-action: none;
+    }
+
+    .o_signature_placeholder {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #999;
+        font-style: italic;
+        pointer-events: none;
+    }
+
+    .o_signature_actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        padding: 8px;
+        border-top: 1px solid #eee;
+
+        .btn-clear {
+            background: none;
+            border: 1px solid #ccc;
+            color: #666;
+
+            &:hover {
+                background-color: #f5f5f5;
+            }
+        }
+
+        .btn-save {
+            background-color: $fsm-success;
+            border-color: $fsm-success;
+            color: white;
+
+            &:hover {
+                background-color: darken($fsm-success, 10%);
+            }
+        }
+    }
+
+    // Signed state
+    &.is-signed {
+        border-style: solid;
+        border-color: $fsm-success;
+        background-color: lighten($fsm-success, 45%);
+
+        .o_signature_placeholder {
+            display: none;
+        }
+    }
+}
+
+// FSM Form Styles
+.o_form_view {
+    // Field Service tab styling
+    .o_notebook {
+        .nav-link {
+            &[name="fsm"] {
+                font-weight: 600;
+
+                &.active {
+                    color: $fsm-primary;
+                    border-bottom-color: $fsm-primary;
+                }
+            }
+        }
+    }
+
+    // Materials list
+    .o_field_one2many[name="material_line_ids"] {
+        .o_list_view {
+            .o_list_table {
+                th, td {
+                    padding: 8px;
+                }
+
+                // Subtotal column emphasis
+                [data-name="subtotal"] {
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    // Customer signature display
+    .o_field_image[name="customer_signature"] {
+        img {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            max-height: 150px;
+        }
+    }
+
+    // Check-in/out time display
+    .o_field_datetime[name="checkin_time"],
+    .o_field_datetime[name="checkout_time"] {
+        .o_input {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 500;
+        }
+    }
+}
+
+// FSM Header Buttons
+.o_form_view header {
+    .btn[name="action_fsm_checkin"] {
+        background-color: $fsm-primary;
+        border-color: $fsm-primary;
+
+        &:hover {
+            background-color: darken($fsm-primary, 10%);
+        }
+
+        i.fa-map-marker {
+            margin-right: 4px;
+        }
+    }
+
+    .btn[name="action_fsm_checkout"] {
+        i.fa-sign-out {
+            margin-right: 4px;
+        }
+    }
+
+    .btn[name="action_fsm_mark_done"] {
+        i.fa-check {
+            margin-right: 4px;
+        }
+    }
+}
+
+// Stat Buttons
+.oe_stat_button {
+    &[name="action_open_maps"],
+    &[name="action_view_worksheet"] {
+        .o_stat_text {
+            font-size: 0.85rem;
+        }
+    }
+}
+
+// Worksheet Form
+.o_fsm_worksheet_form {
+    .o_group {
+        // Section headers
+        .o_section_header {
+            background-color: lighten($fsm-primary, 40%);
+            padding: 8px 12px;
+            margin: 16px 0 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: $fsm-primary;
+        }
+    }
+
+    // Photo field
+    .o_field_image.o_fsm_photo {
+        .o_image_preview {
+            max-width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+    }
+}
+
+// Mobile Responsiveness
+@media (max-width: 768px) {
+    .o_fsm_kanban {
+        .o_kanban_record {
+            padding: 16px;
+        }
+
+        .o_fsm_task_card {
+            .o_kanban_record_title {
+                font-size: 1.2rem;
+            }
+
+            .btn {
+                padding: 10px 16px;
+                font-size: 1rem;
+            }
+        }
+    }
+
+    .o_fsm_timer_widget {
+        flex-direction: column;
+        padding: 12px;
+
+        .o_fsm_timer_display {
+            font-size: 2rem;
+        }
+
+        .o_fsm_timer_buttons {
+            width: 100%;
+            justify-content: center;
+
+            .btn {
+                flex: 1;
+                padding: 12px;
+            }
+        }
+    }
+
+    .o_fsm_signature_pad {
+        canvas {
+            height: 250px;
+        }
+    }
+}
+
+// Dark Mode Support
+@media (prefers-color-scheme: dark) {
+    .o_fsm_kanban {
+        .o_kanban_record {
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+        }
+
+        .o_fsm_task_card {
+            .o_kanban_record_title {
+                color: lighten($fsm-primary, 20%);
+            }
+        }
+    }
+
+    .o_fsm_timer_widget {
+        background: linear-gradient(135deg, darken($fsm-primary, 20%), darken($fsm-primary, 25%));
+
+        .o_fsm_timer_display {
+            color: lighten($fsm-primary, 30%);
+        }
+    }
+
+    .o_fsm_signature_pad {
+        background-color: #2d2d2d;
+        border-color: #444;
+
+        .o_signature_placeholder {
+            color: #777;
+        }
+    }
+}

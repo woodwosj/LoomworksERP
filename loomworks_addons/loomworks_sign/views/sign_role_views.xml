@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sign Role Tree View -->
+    <record id="sign_role_view_tree" model="ir.ui.view">
+        <field name="name">sign.role.tree</field>
+        <field name="model">sign.role</field>
+        <field name="arch" type="xml">
+            <tree string="Signer Roles">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="color" widget="color_picker"/>
+                <field name="auth_method"/>
+                <field name="is_default"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Sign Role Form View -->
+    <record id="sign_role_view_form" model="ir.ui.view">
+        <field name="name">sign.role.form</field>
+        <field name="model">sign.role</field>
+        <field name="arch" type="xml">
+            <form string="Signer Role">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                            <field name="color" widget="color_picker"/>
+                        </group>
+                        <group>
+                            <field name="auth_method"/>
+                            <field name="is_default"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Sign Role Action -->
+    <record id="sign_role_action" model="ir.actions.act_window">
+        <field name="name">Signer Roles</field>
+        <field name="res_model">sign.role</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first signer role
+            </p>
+            <p>
+                Roles define the type of signer (Customer, Vendor, Employee, etc.)
+                and the authentication method required.
+            </p>
+        </field>
+    </record>
+
+    <!-- Sign Item Type Tree View -->
+    <record id="sign_item_type_view_tree" model="ir.ui.view">
+        <field name="name">sign.item.type.tree</field>
+        <field name="model">sign.item.type</field>
+        <field name="arch" type="xml">
+            <tree string="Field Types">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="technical_name"/>
+                <field name="item_type"/>
+                <field name="icon"/>
+                <field name="auto_fill"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Sign Item Type Form View -->
+    <record id="sign_item_type_view_form" model="ir.ui.view">
+        <field name="name">sign.item.type.form</field>
+        <field name="model">sign.item.type</field>
+        <field name="arch" type="xml">
+            <form string="Field Type">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="technical_name"/>
+                            <field name="item_type"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="icon"/>
+                            <field name="default_width"/>
+                            <field name="default_height"/>
+                        </group>
+                    </group>
+                    <group string="Auto-fill Settings">
+                        <field name="auto_fill"/>
+                        <field name="auto_fill_field" invisible="not auto_fill"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Sign Item Type Action -->
+    <record id="sign_item_type_action" model="ir.actions.act_window">
+        <field name="name">Field Types</field>
+        <field name="res_model">sign.item.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

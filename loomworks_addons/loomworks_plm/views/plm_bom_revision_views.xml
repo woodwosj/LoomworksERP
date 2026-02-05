@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- BOM Revision Tree View -->
+    <record id="plm_bom_revision_view_tree" model="ir.ui.view">
+        <field name="name">plm.bom.revision.tree</field>
+        <field name="model">plm.bom.revision</field>
+        <field name="arch" type="xml">
+            <tree string="BOM Revisions" default_order="revision_date desc">
+                <field name="bom_id"/>
+                <field name="product_tmpl_id"/>
+                <field name="revision_code"/>
+                <field name="revision_date"/>
+                <field name="eco_id"/>
+                <field name="created_by_id" widget="many2one_avatar_user"/>
+                <field name="line_count"/>
+                <field name="is_released"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- BOM Revision Form View -->
+    <record id="plm_bom_revision_view_form" model="ir.ui.view">
+        <field name="name">plm.bom.revision.form</field>
+        <field name="model">plm.bom.revision</field>
+        <field name="arch" type="xml">
+            <form string="BOM Revision" create="false" edit="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="product_tmpl_id" readonly="1"/> - Rev <field name="revision_code" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="bom_id"/>
+                            <field name="revision_code"/>
+                            <field name="revision_date"/>
+                        </group>
+                        <group>
+                            <field name="eco_id"/>
+                            <field name="created_by_id"/>
+                            <field name="is_active"/>
+                            <field name="is_released"/>
+                        </group>
+                    </group>
+                    <separator string="Notes"/>
+                    <field name="notes"/>
+                    <separator string="Snapshot Summary"/>
+                    <field name="snapshot_summary" readonly="1"/>
+                    <group>
+                        <button name="action_view_snapshot" string="View Full Snapshot" type="object"
+                                class="btn-secondary" icon="fa-search"/>
+                        <button name="action_compare_with_current" string="Compare with Current" type="object"
+                                class="btn-secondary" icon="fa-exchange"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- BOM Revision Action -->
+    <record id="plm_bom_revision_action" model="ir.actions.act_window">
+        <field name="name">BOM Revision History</field>
+        <field name="res_model">plm.bom.revision</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No revision history yet
+            </p>
+            <p>
+                BOM revisions are created automatically when ECOs are implemented.
+            </p>
+        </field>
+    </record>
+
+</odoo>

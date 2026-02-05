@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Main FSM Menu -->
+    <menuitem id="menu_fsm_root"
+              name="Field Service"
+              web_icon="loomworks_fsm,static/description/icon.png"
+              groups="group_fsm_user"
+              sequence="22"/>
+
+    <!-- Planning Menu -->
+    <menuitem id="menu_fsm_planning"
+              name="Planning"
+              parent="menu_fsm_root"
+              sequence="10"/>
+
+    <menuitem id="menu_fsm_tasks"
+              name="All Tasks"
+              parent="menu_fsm_planning"
+              action="action_fsm_tasks"
+              sequence="10"/>
+
+    <menuitem id="menu_fsm_tasks_today"
+              name="Today's Tasks"
+              parent="menu_fsm_planning"
+              action="action_fsm_tasks_today"
+              sequence="20"/>
+
+    <menuitem id="menu_fsm_my_tasks"
+              name="My Tasks"
+              parent="menu_fsm_planning"
+              action="action_fsm_tasks"
+              sequence="30"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_fsm_config"
+              name="Configuration"
+              parent="menu_fsm_root"
+              groups="group_fsm_manager"
+              sequence="90"/>
+
+    <menuitem id="menu_fsm_worksheet_templates"
+              name="Worksheet Templates"
+              parent="menu_fsm_config"
+              action="action_fsm_worksheet_template"
+              sequence="10"/>
+
+    <!-- FSM Projects Action -->
+    <record id="action_fsm_projects" model="ir.actions.act_window">
+        <field name="name">FSM Projects</field>
+        <field name="res_model">project.project</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('is_fsm', '=', True)]</field>
+        <field name="context">{'default_is_fsm': True}</field>
+    </record>
+
+    <menuitem id="menu_fsm_projects"
+              name="FSM Projects"
+              parent="menu_fsm_config"
+              action="action_fsm_projects"
+              sequence="20"/>
+
+    <!-- Dashboard Action (link to main FSM view) -->
+    <record id="action_fsm_dashboard" model="ir.actions.act_window">
+        <field name="name">FSM Dashboard</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">kanban,list,form,calendar</field>
+        <field name="domain">[('is_fsm', '=', True)]</field>
+        <field name="context">{
+            'default_is_fsm': True,
+            'search_default_my_tasks': 1,
+            'search_default_today': 1,
+        }</field>
+        <field name="search_view_id" ref="project_task_view_search_fsm"/>
+    </record>
+
+    <!-- Mobile Quick Access Menu -->
+    <menuitem id="menu_fsm_mobile_root"
+              name="My Day"
+              parent="menu_fsm_root"
+              action="action_fsm_dashboard"
+              sequence="1"/>
+
+    <!-- Reports Menu -->
+    <menuitem id="menu_fsm_reports"
+              name="Reporting"
+              parent="menu_fsm_root"
+              groups="group_fsm_dispatcher"
+              sequence="80"/>
+
+    <!-- Task Analysis Action -->
+    <record id="action_fsm_task_analysis" model="ir.actions.act_window">
+        <field name="name">Task Analysis</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="domain">[('is_fsm', '=', True)]</field>
+        <field name="context">{
+            'search_default_group_technician': 1,
+        }</field>
+    </record>
+
+    <menuitem id="menu_fsm_task_analysis"
+              name="Task Analysis"
+              parent="menu_fsm_reports"
+              action="action_fsm_task_analysis"
+              sequence="10"/>
+</odoo>

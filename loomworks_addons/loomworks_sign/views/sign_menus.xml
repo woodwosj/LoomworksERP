@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Main Menu -->
+    <menuitem id="menu_sign_root"
+        name="Sign"
+        web_icon="loomworks_sign,static/description/icon.png"
+        sequence="60"/>
+
+    <!-- Signature Requests Menu -->
+    <menuitem id="menu_sign_requests"
+        name="Signature Requests"
+        parent="menu_sign_root"
+        sequence="10"/>
+
+    <menuitem id="menu_sign_request_all"
+        name="All Requests"
+        parent="menu_sign_requests"
+        action="sign_request_action"
+        sequence="10"/>
+
+    <menuitem id="menu_sign_request_my"
+        name="My Requests"
+        parent="menu_sign_requests"
+        action="sign_request_action"
+        sequence="20"/>
+
+    <!-- Templates Menu -->
+    <menuitem id="menu_sign_templates"
+        name="Templates"
+        parent="menu_sign_root"
+        sequence="20"/>
+
+    <menuitem id="menu_sign_template_all"
+        name="All Templates"
+        parent="menu_sign_templates"
+        action="sign_template_action"
+        sequence="10"/>
+
+    <menuitem id="menu_sign_template_tags"
+        name="Tags"
+        parent="menu_sign_templates"
+        action="sign_template_tag_action"
+        sequence="20"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_sign_config"
+        name="Configuration"
+        parent="menu_sign_root"
+        groups="loomworks_sign.group_sign_manager"
+        sequence="100"/>
+
+    <menuitem id="menu_sign_config_roles"
+        name="Signer Roles"
+        parent="menu_sign_config"
+        action="sign_role_action"
+        sequence="10"/>
+
+    <menuitem id="menu_sign_config_types"
+        name="Field Types"
+        parent="menu_sign_config"
+        action="sign_item_type_action"
+        sequence="20"/>
+
+    <menuitem id="menu_sign_config_audit"
+        name="Audit Log"
+        parent="menu_sign_config"
+        action="sign_audit_log_action"
+        sequence="30"/>
+
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Spreadsheet Menu Structure -->
+
+    <!-- Main Menu -->
+    <menuitem id="menu_spreadsheet_root"
+              name="Spreadsheets"
+              web_icon="loomworks_spreadsheet,static/description/icon.png"
+              sequence="45"/>
+
+    <!-- Spreadsheets -->
+    <menuitem id="menu_spreadsheet_documents"
+              name="My Spreadsheets"
+              parent="menu_spreadsheet_root"
+              action="action_spreadsheet_document"
+              sequence="10"/>
+
+    <!-- Templates -->
+    <menuitem id="menu_spreadsheet_templates"
+              name="Templates"
+              parent="menu_spreadsheet_root"
+              action="action_spreadsheet_templates"
+              groups="group_spreadsheet_manager"
+              sequence="20"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_spreadsheet_config"
+              name="Configuration"
+              parent="menu_spreadsheet_root"
+              groups="group_spreadsheet_manager"
+              sequence="100"/>
+
+    <!-- Data Sources -->
+    <menuitem id="menu_spreadsheet_data_sources"
+              name="Data Sources"
+              parent="menu_spreadsheet_config"
+              action="action_spreadsheet_data_source"
+              sequence="10"/>
+
+    <!-- Pivot Tables -->
+    <menuitem id="menu_spreadsheet_pivots"
+              name="Pivot Tables"
+              parent="menu_spreadsheet_config"
+              action="action_spreadsheet_pivot"
+              sequence="20"/>
+
+    <!-- Charts -->
+    <menuitem id="menu_spreadsheet_charts"
+              name="Charts"
+              parent="menu_spreadsheet_config"
+              action="action_spreadsheet_chart"
+              sequence="30"/>
+
+</odoo>

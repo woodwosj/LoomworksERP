@@ -1,0 +1,319 @@
+// Loomworks Sign - Backend Styles
+// Odoo 18 Compatible
+
+// Variables
+$sign-primary: #875A7B;
+$sign-success: #28a745;
+$sign-warning: #ffc107;
+$sign-danger: #dc3545;
+$sign-info: #17a2b8;
+
+// Template Kanban View
+.o_sign_template_kanban {
+    .o_kanban_record {
+        .o_kanban_aside_full {
+            width: 120px;
+            min-height: 160px;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid #dee2e6;
+
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+            }
+        }
+    }
+}
+
+// Request Kanban View
+.o_sign_request_kanban {
+    .o_kanban_record {
+        border-left: 3px solid transparent;
+
+        &[data-state="draft"] {
+            border-left-color: #6c757d;
+        }
+
+        &[data-state="sent"] {
+            border-left-color: $sign-info;
+        }
+
+        &[data-state="signing"] {
+            border-left-color: $sign-warning;
+        }
+
+        &[data-state="done"] {
+            border-left-color: $sign-success;
+        }
+
+        &[data-state="canceled"] {
+            border-left-color: $sign-danger;
+        }
+    }
+
+    .o_kanban_tags_section {
+        margin-top: 0.5rem;
+    }
+}
+
+// PDF Viewer in Template Form
+.o_sign_pdf_viewer {
+    min-height: 600px;
+    background-color: #525659;
+    border-radius: 4px;
+    overflow: hidden;
+
+    .o_sign_pdf_page {
+        background-color: white;
+        margin: 10px auto;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        position: relative;
+
+        img {
+            width: 100%;
+            display: block;
+        }
+    }
+}
+
+// Signature Field Overlays
+.o_sign_field_overlay {
+    position: absolute;
+    border: 2px dashed $sign-primary;
+    background-color: rgba($sign-primary, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: rgba($sign-primary, 0.2);
+        border-style: solid;
+    }
+
+    &.o_sign_field_required {
+        border-color: $sign-danger;
+        background-color: rgba($sign-danger, 0.1);
+
+        &:hover {
+            background-color: rgba($sign-danger, 0.2);
+        }
+    }
+
+    .o_sign_field_label {
+        position: absolute;
+        top: -20px;
+        left: 0;
+        font-size: 11px;
+        background-color: $sign-primary;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 2px;
+        white-space: nowrap;
+    }
+
+    .o_sign_field_handle {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: $sign-primary;
+        border: 1px solid white;
+        border-radius: 2px;
+        cursor: se-resize;
+        bottom: -5px;
+        right: -5px;
+    }
+}
+
+// Template Item List
+.o_sign_item_list {
+    .o_sign_item {
+        padding: 8px 12px;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        margin-bottom: 8px;
+        background-color: #fff;
+        cursor: grab;
+
+        &:hover {
+            background-color: #f8f9fa;
+        }
+
+        &.o_sign_item_dragging {
+            opacity: 0.5;
+        }
+
+        .o_sign_item_icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $sign-primary;
+            color: white;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        .o_sign_item_role {
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: auto;
+        }
+    }
+}
+
+// Signer Status Badges
+.o_sign_signer_status {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+
+    &.waiting {
+        background-color: #e9ecef;
+        color: #495057;
+    }
+
+    &.sent {
+        background-color: rgba($sign-info, 0.2);
+        color: darken($sign-info, 10%);
+    }
+
+    &.signed {
+        background-color: rgba($sign-success, 0.2);
+        color: darken($sign-success, 10%);
+    }
+
+    &.refused {
+        background-color: rgba($sign-danger, 0.2);
+        color: darken($sign-danger, 10%);
+    }
+
+    .fa {
+        margin-right: 4px;
+    }
+}
+
+// Audit Log Timeline
+.o_sign_audit_timeline {
+    position: relative;
+    padding-left: 30px;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 10px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background-color: #dee2e6;
+    }
+
+    .o_sign_audit_entry {
+        position: relative;
+        padding: 12px 0;
+        border-bottom: 1px solid #f1f1f1;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 16px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: $sign-primary;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px $sign-primary;
+        }
+
+        &.action_created::before {
+            background-color: $sign-info;
+            box-shadow: 0 0 0 2px $sign-info;
+        }
+
+        &.action_sent::before {
+            background-color: $sign-warning;
+            box-shadow: 0 0 0 2px $sign-warning;
+        }
+
+        &.action_signed::before {
+            background-color: $sign-success;
+            box-shadow: 0 0 0 2px $sign-success;
+        }
+
+        &.action_refused::before {
+            background-color: $sign-danger;
+            box-shadow: 0 0 0 2px $sign-danger;
+        }
+
+        .o_sign_audit_time {
+            font-size: 11px;
+            color: #6c757d;
+        }
+
+        .o_sign_audit_action {
+            font-weight: 500;
+        }
+
+        .o_sign_audit_details {
+            font-size: 13px;
+            color: #495057;
+        }
+    }
+}
+
+// Document Hash Display
+.o_sign_document_hash {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    background-color: #f8f9fa;
+    padding: 8px 12px;
+    border-radius: 4px;
+    word-break: break-all;
+    border: 1px solid #dee2e6;
+}
+
+// Progress Indicator
+.o_sign_progress {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .o_sign_progress_step {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        background-color: #e9ecef;
+        color: #6c757d;
+
+        &.completed {
+            background-color: $sign-success;
+            color: white;
+        }
+
+        &.current {
+            background-color: $sign-primary;
+            color: white;
+        }
+    }
+
+    .o_sign_progress_line {
+        flex: 1;
+        height: 2px;
+        background-color: #e9ecef;
+
+        &.completed {
+            background-color: $sign-success;
+        }
+    }
+}

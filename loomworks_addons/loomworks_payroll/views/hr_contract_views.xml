@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend Contract Form View for Payroll Fields -->
+    <record id="hr_contract_view_form_payroll" model="ir.ui.view">
+        <field name="name">hr.contract.form.payroll</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Add Payroll tab after salary information -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Payroll" name="payroll" groups="loomworks_payroll.group_payroll_user">
+                    <group>
+                        <group string="Tax Filing Status (US)">
+                            <field name="filing_status"/>
+                            <field name="federal_allowances"/>
+                            <field name="state_allowances"/>
+                        </group>
+                        <group string="Additional Withholding">
+                            <field name="additional_federal_withholding"/>
+                            <field name="additional_state_withholding"/>
+                        </group>
+                    </group>
+                    <group invisible="structure_type_id.wage_type != 'hourly'">
+                        <group string="Hourly Rate">
+                            <field name="hourly_wage"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+            <!-- Add Payslips button to button box -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_payslips" type="object"
+                        class="oe_stat_button" icon="fa-file-text-o"
+                        groups="loomworks_payroll.group_payroll_user">
+                    <field name="payslip_count" string="Payslips" widget="statinfo"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
