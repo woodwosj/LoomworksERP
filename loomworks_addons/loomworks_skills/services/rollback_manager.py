@@ -33,9 +33,29 @@ Usage:
 """
 
 import logging
+import re
 from uuid import uuid4
 
 _logger = logging.getLogger(__name__)
+
+
+def _sanitize_savepoint_name(name):
+    """Sanitize savepoint name to prevent SQL injection.
+
+    SAVEPOINT identifiers must be valid SQL identifiers. Since psycopg2's
+    sql.Identifier does not work with SAVEPOINT commands, we strip all
+    characters that are not alphanumeric or underscores.
+
+    Args:
+        name: Raw savepoint name string.
+
+    Returns:
+        Sanitized string safe for use as a PostgreSQL identifier (max 63 chars).
+    """
+    sanitized = re.sub(r'[^a-zA-Z0-9_]', '', str(name))
+    if not sanitized:
+        sanitized = 'sp_default'
+    return sanitized[:63]
 
 
 class RollbackManager:
@@ -115,7 +135,7 @@ class RollbackManager:
                 # Fall through to savepoint
 
         # Phase 5 not available or failed: use PostgreSQL savepoint
-        savepoint_id = f"skill_{name}_{uuid4().hex[:8]}"
+        savepoint_id = _sanitize_savepoint_name(f"skill_{name}_{uuid4().hex[:8]}")
         try:
             self.env.cr.execute(f"SAVEPOINT {savepoint_id}")
             self.savepoint_stack.append(savepoint_id)
@@ -154,7 +174,8 @@ class RollbackManager:
         elif isinstance(savepoint_ref, str):
             # PostgreSQL savepoint name
             try:
-                self.env.cr.execute(f"ROLLBACK TO SAVEPOINT {savepoint_ref}")
+                safe_ref = _sanitize_savepoint_name(savepoint_ref)
+                self.env.cr.execute(f"ROLLBACK TO SAVEPOINT {safe_ref}")
                 _logger.debug("Rolled back to savepoint: %s", savepoint_ref)
 
                 # Clear savepoints after this one from stack
@@ -188,7 +209,8 @@ class RollbackManager:
         elif isinstance(savepoint_ref, str):
             # PostgreSQL savepoint
             try:
-                self.env.cr.execute(f"RELEASE SAVEPOINT {savepoint_ref}")
+                safe_ref = _sanitize_savepoint_name(savepoint_ref)
+                self.env.cr.execute(f"RELEASE SAVEPOINT {safe_ref}")
                 if savepoint_ref in self.savepoint_stack:
                     self.savepoint_stack.remove(savepoint_ref)
                 _logger.debug("Released savepoint: %s", savepoint_ref)
@@ -204,7 +226,8 @@ class RollbackManager:
         # Release all PostgreSQL savepoints in reverse order
         for savepoint_id in reversed(self.savepoint_stack):
             try:
-                self.env.cr.execute(f"RELEASE SAVEPOINT {savepoint_id}")
+                safe_id = _sanitize_savepoint_name(savepoint_id)
+                self.env.cr.execute(f"RELEASE SAVEPOINT {safe_id}")
                 _logger.debug("Released savepoint on commit: %s", savepoint_id)
             except Exception as e:
                 _logger.warning("Failed to release savepoint %s: %s", savepoint_id, e)

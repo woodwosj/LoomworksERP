@@ -230,16 +230,18 @@ class AIController(http.Controller):
             _logger.error(f"Chat error: {e}")
             return {'error': str(e)}
 
-    @http.route('/loomworks/ai/chat/stream', type='http', auth='user', methods=['POST'], csrf=False)
-    def send_message_stream(self, **kwargs):
+    @http.route('/loomworks/ai/chat/stream', type='http', auth='user', methods=['GET'])
+    def send_message_stream(self, session_uuid=None, message=None, **kwargs):
         """
         Send a message and receive streaming response via Server-Sent Events.
 
-        Request body (JSON):
-            {
-                "session_uuid": "abc-123-...",
-                "message": "..."
-            }
+        Uses GET method since the browser EventSource API only supports GET.
+        auth='user' ensures authentication; GET requests do not need CSRF
+        protection because they are not subject to CSRF attacks by design.
+
+        Query parameters:
+            session_uuid: Session UUID string
+            message: Message text (URL-encoded)
 
         Response: SSE stream with events:
             - data: {"type": "text", "content": "..."}
@@ -247,9 +249,11 @@ class AIController(http.Controller):
             - data: {"type": "done"}
         """
         try:
-            data = json.loads(request.httprequest.data)
-            session_uuid = data.get('session_uuid')
-            message = data.get('message')
+            # Support both query params (GET) and body (POST fallback)
+            if not session_uuid or not message:
+                data = json.loads(request.httprequest.data or '{}')
+                session_uuid = session_uuid or data.get('session_uuid')
+                message = message or data.get('message')
         except json.JSONDecodeError:
             return Response(
                 json.dumps({'error': 'Invalid JSON'}),
@@ -529,12 +533,9 @@ class AIController(http.Controller):
         if not session:
             return {'error': 'Session not found'}
 
-        # Create feedback record
-        Feedback = request.env['loomworks.ai.feedback']
-
-        # Check if model exists (it might not be created yet)
-        if 'loomworks.ai.feedback' not in request.env:
-            # Log feedback to operation log instead
+        # The loomworks.ai.feedback model does not exist yet.
+        # Log feedback to the AI operation log as a structured record instead.
+        try:
             request.env['loomworks.ai.operation.log'].create_log(
                 session_id=session.id,
                 tool_name='user_feedback',
@@ -552,22 +553,8 @@ class AIController(http.Controller):
                 'feedback_id': None,
                 'note': 'Feedback logged to operation log'
             }
-
-        try:
-            feedback = Feedback.create({
-                'session_id': session.id,
-                'message_id': message_id,
-                'user_id': request.env.user.id,
-                'rating': rating,
-                'feedback_text': feedback_text,
-                'feedback_type': feedback_type,
-            })
-
-            return {
-                'success': True,
-                'feedback_id': feedback.id,
-            }
         except Exception as e:
+            _logger.error("Failed to log feedback: %s", e)
             return {'error': str(e)}
 
     # =========================================================================

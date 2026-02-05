@@ -142,7 +142,7 @@ class AIAgent(models.Model):
          'Technical name must be unique per company'),
     ]
 
-    @api.depends('technical_name')
+    @api.depends()
     def _compute_statistics(self):
         for agent in self:
             agent.session_count = self.env['loomworks.ai.session'].search_count([

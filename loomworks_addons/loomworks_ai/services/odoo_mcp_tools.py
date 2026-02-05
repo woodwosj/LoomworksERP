@@ -363,21 +363,23 @@ class OdooMCPTools:
             # Validate access
             self.sandbox.validate_model_access(model, 'write', self.agent)
 
-            # Security: only allow known safe actions
+            # Security: only allow explicitly whitelisted actions per model.
+            # Do NOT allow arbitrary action_* methods -- the whitelist must be
+            # the sole gate to prevent execution of dangerous methods.
             SAFE_ACTIONS = {
-                'sale.order': ['action_confirm', 'action_cancel', 'action_draft', 'action_quotation_send'],
-                'purchase.order': ['button_confirm', 'button_cancel', 'button_draft'],
-                'account.move': ['action_post', 'button_draft', 'button_cancel'],
-                'stock.picking': ['action_confirm', 'action_assign', 'button_validate'],
-                'mrp.production': ['action_confirm', 'action_assign', 'button_mark_done'],
-                'project.task': ['action_assign_to_me', 'action_open_task_form'],
+                'sale.order': {'action_confirm', 'action_cancel', 'action_draft', 'action_quotation_send'},
+                'purchase.order': {'button_confirm', 'button_cancel', 'button_draft'},
+                'account.move': {'action_post', 'button_draft', 'button_cancel'},
+                'stock.picking': {'action_confirm', 'action_assign', 'button_validate'},
+                'mrp.production': {'action_confirm', 'action_assign', 'button_mark_done'},
+                'project.task': {'action_assign_to_me', 'action_open_task_form'},
             }
 
-            allowed_actions = SAFE_ACTIONS.get(model, [])
-            if action not in allowed_actions and not action.startswith('action_'):
+            allowed_actions = SAFE_ACTIONS.get(model, set())
+            if action not in allowed_actions:
                 return {
                     'error': f"Action '{action}' is not in the allowed list for {model}",
-                    'allowed_actions': allowed_actions,
+                    'allowed_actions': sorted(allowed_actions),
                     'success': False
                 }
 

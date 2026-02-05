@@ -9,8 +9,28 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError
 import json
+import re
 import uuid
 from datetime import timedelta
+
+
+def _sanitize_savepoint_name(name):
+    """Sanitize savepoint name to prevent SQL injection.
+
+    SAVEPOINT identifiers must be valid SQL identifiers. Since psycopg2's
+    sql.Identifier does not work with SAVEPOINT commands, we strip all
+    characters that are not alphanumeric or underscores.
+
+    Args:
+        name: Raw savepoint name string.
+
+    Returns:
+        Sanitized string safe for use as a PostgreSQL identifier (max 63 chars).
+    """
+    sanitized = re.sub(r'[^a-zA-Z0-9_]', '', str(name))
+    if not sanitized:
+        sanitized = 'sp_default'
+    return sanitized[:63]
 
 
 class AISession(models.Model):
@@ -195,8 +215,10 @@ class AISession(models.Model):
         """Create a database savepoint for rollback capability."""
         self.ensure_one()
         timestamp = fields.Datetime.now().strftime('%Y%m%d%H%M%S')
-        savepoint_name = f"ai_session_{self.uuid.replace('-', '_')[:8]}_{timestamp}"
-        self.env.cr.execute(f'SAVEPOINT "{savepoint_name}"')
+        savepoint_name = _sanitize_savepoint_name(
+            f"ai_session_{self.uuid.replace('-', '_')[:8]}_{timestamp}"
+        )
+        self.env.cr.execute(f"SAVEPOINT {savepoint_name}")
         self.write({
             'savepoint_name': savepoint_name,
             'has_uncommitted_changes': True
@@ -209,7 +231,8 @@ class AISession(models.Model):
         if not self.savepoint_name:
             raise UserError('No savepoint available for rollback')
 
-        self.env.cr.execute(f'ROLLBACK TO SAVEPOINT "{self.savepoint_name}"')
+        safe_name = _sanitize_savepoint_name(self.savepoint_name)
+        self.env.cr.execute(f"ROLLBACK TO SAVEPOINT {safe_name}")
         self.write({
             'state': 'rolled_back',
             'has_uncommitted_changes': False,
@@ -226,7 +249,8 @@ class AISession(models.Model):
         """Release savepoint and commit changes."""
         self.ensure_one()
         if self.savepoint_name:
-            self.env.cr.execute(f'RELEASE SAVEPOINT "{self.savepoint_name}"')
+            safe_name = _sanitize_savepoint_name(self.savepoint_name)
+            self.env.cr.execute(f"RELEASE SAVEPOINT {safe_name}")
             self.write({
                 'savepoint_name': False,
                 'has_uncommitted_changes': False

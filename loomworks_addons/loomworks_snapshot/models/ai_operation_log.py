@@ -35,9 +35,29 @@ from odoo import models, fields, api
 from odoo.exceptions import UserError
 import json
 import logging
+import re
 from uuid import uuid4
 
 _logger = logging.getLogger(__name__)
+
+
+def _sanitize_savepoint_name(name):
+    """Sanitize savepoint name to prevent SQL injection.
+
+    SAVEPOINT identifiers must be valid SQL identifiers. Since psycopg2's
+    sql.Identifier does not work with SAVEPOINT commands, we strip all
+    characters that are not alphanumeric or underscores.
+
+    Args:
+        name: Raw savepoint name string.
+
+    Returns:
+        Sanitized string safe for use as a PostgreSQL identifier (max 63 chars).
+    """
+    sanitized = re.sub(r'[^a-zA-Z0-9_]', '', str(name))
+    if not sanitized:
+        sanitized = 'sp_default'
+    return sanitized[:63]
 
 
 class AIOperationLogSnapshotExtension(models.Model):
@@ -296,7 +316,8 @@ class AIOperationLogSnapshotExtension(models.Model):
             raise UserError("No savepoint available for this operation")
 
         try:
-            self.env.cr.execute(f"ROLLBACK TO SAVEPOINT {self.savepoint_id}")
+            safe_id = _sanitize_savepoint_name(self.savepoint_id)
+            self.env.cr.execute(f"ROLLBACK TO SAVEPOINT {safe_id}")
             self.write({
                 'undone': True,
                 'undone_at': fields.Datetime.now(),
@@ -358,7 +379,7 @@ class AIOperationLogSnapshotExtension(models.Model):
 
         # Create savepoint as fallback
         try:
-            savepoint_id = f"ai_op_{uuid4().hex[:8]}"
+            savepoint_id = _sanitize_savepoint_name(f"ai_op_{uuid4().hex[:8]}")
             self.env.cr.execute(f"SAVEPOINT {savepoint_id}")
         except Exception as e:
             _logger.warning("Could not create savepoint: %s", e)
