@@ -272,7 +272,11 @@ class StepExecutor:
         :return: Result dict with validation status
         """
         if step.validation_rules:
-            rules = json.loads(step.validation_rules)
+            try:
+                rules = json.loads(step.validation_rules)
+            except (json.JSONDecodeError, TypeError):
+                _logger.warning("Invalid JSON in validation_rules for step %s", step.id)
+                return {'success': False, 'errors': ['Invalid validation rules configuration']}
             errors = []
 
             for rule in rules:
@@ -363,7 +367,11 @@ class StepExecutor:
         # Map context if mapping provided
         subskill_context = dict(context)
         if step.subskill_context_mapping:
-            mapping = json.loads(step.subskill_context_mapping)
+            try:
+                mapping = json.loads(step.subskill_context_mapping)
+            except (json.JSONDecodeError, TypeError):
+                _logger.warning("Invalid JSON in subskill_context_mapping for step %s", step.id)
+                mapping = {}
             subskill_context = {}
             for target_key, source_expr in mapping.items():
                 if source_expr in context:
@@ -398,7 +406,11 @@ class StepExecutor:
         # Build action context
         action_context = dict(self.env.context)
         if step.action_context:
-            extra_context = json.loads(step.action_context)
+            try:
+                extra_context = json.loads(step.action_context)
+            except (json.JSONDecodeError, TypeError):
+                _logger.warning("Invalid JSON in action_context for step %s", step.id)
+                extra_context = {}
             # Resolve any template variables
             for key, value in extra_context.items():
                 if isinstance(value, str) and '{' in value:

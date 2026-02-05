@@ -253,7 +253,10 @@ class SkillCreationWizard(models.TransientModel):
             self.preview_steps = json.dumps(steps, indent=2)
 
         elif self.recording_data:
-            data = json.loads(self.recording_data)
+            try:
+                data = json.loads(self.recording_data)
+            except (json.JSONDecodeError, TypeError):
+                raise UserError("Invalid recording data format. Please re-record.")
             steps = self._convert_frames_to_steps(data.get('frames', []))
             self.preview_steps = json.dumps(steps, indent=2)
 
@@ -307,7 +310,10 @@ class SkillCreationWizard(models.TransientModel):
             )
         elif self.recording_data:
             # Parse JSON recording data
-            data = json.loads(self.recording_data)
+            try:
+                data = json.loads(self.recording_data)
+            except (json.JSONDecodeError, TypeError):
+                raise UserError("Invalid recording data format. Please re-record.")
             steps = self._convert_frames_to_steps(data.get('frames', []))
             triggers = self._infer_triggers_from_recording(data)
 

@@ -355,10 +355,15 @@ class DashboardWidget(models.Model):
         """Get inline data source configuration."""
         if not self.inline_model:
             return None
+        try:
+            domain = json.loads(self.inline_domain or '[]')
+        except (json.JSONDecodeError, TypeError):
+            _logger.warning("Invalid JSON in inline_domain for widget %s", self.id)
+            domain = []
         return {
             'type': 'model',
             'model': self.inline_model,
-            'domain': json.loads(self.inline_domain or '[]'),
+            'domain': domain,
             'groupBy': self.inline_group_by,
             'measureField': self.inline_measure_field,
             'aggregation': self.inline_aggregation,
@@ -366,7 +371,11 @@ class DashboardWidget(models.Model):
 
     def _get_widget_config(self):
         """Get widget-specific configuration."""
-        base_config = json.loads(self.config or '{}')
+        try:
+            base_config = json.loads(self.config or '{}')
+        except (json.JSONDecodeError, TypeError):
+            _logger.warning("Invalid JSON in config for widget %s", self.id)
+            base_config = {}
 
         if self.widget_type == 'kpi':
             base_config.update({
@@ -384,9 +393,14 @@ class DashboardWidget(models.Model):
                 'stacked': self.chart_stacked,
             })
         elif self.widget_type == 'table':
+            try:
+                columns = json.loads(self.table_columns or '[]')
+            except (json.JSONDecodeError, TypeError):
+                _logger.warning("Invalid JSON in table_columns for widget %s", self.id)
+                columns = []
             base_config.update({
                 'pageSize': self.table_page_size,
-                'columns': json.loads(self.table_columns or '[]'),
+                'columns': columns,
             })
         elif self.widget_type == 'filter':
             base_config.update({

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Public Dashboard View Template -->
+    <template id="public_dashboard" name="Public Dashboard">
+        <t t-call="web.frontend_layout">
+            <div class="container-fluid py-3">
+                <div class="lw-public-dashboard">
+                    <div class="lw-public-dashboard-header mb-3">
+                        <h2 t-field="dashboard.name"/>
+                        <p t-if="dashboard.description"
+                           t-field="dashboard.description"
+                           class="text-muted"/>
+                    </div>
+                    <div class="lw-public-dashboard-content">
+                        <div class="alert alert-info">
+                            <i class="fa fa-tachometer"/> Dashboard view is available in the full application.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Password Challenge Template -->
+    <template id="public_dashboard_password" name="Dashboard Password">
+        <t t-call="web.frontend_layout">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <i class="fa fa-lock fa-3x text-muted mb-3"/>
+                                <h4>Protected Dashboard</h4>
+                                <p class="text-muted">
+                                    This dashboard is password protected.
+                                    Please enter the password to continue.
+                                </p>
+                                <div t-if="error" class="alert alert-danger" role="alert">
+                                    Incorrect password. Please try again.
+                                </div>
+                                <form t-attf-action="/dashboard/public/#{token}" method="get">
+                                    <div class="mb-3">
+                                        <input type="password"
+                                               name="password"
+                                               class="form-control"
+                                               placeholder="Enter password"
+                                               required="required"
+                                               autofocus="autofocus"/>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fa fa-unlock-alt"/> Access Dashboard
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

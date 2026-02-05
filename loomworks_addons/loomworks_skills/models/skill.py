@@ -332,21 +332,30 @@ class LoomworksSkill(models.Model):
         """Return parsed trigger phrases list."""
         self.ensure_one()
         if self.trigger_phrases:
-            return json.loads(self.trigger_phrases)
+            try:
+                return json.loads(self.trigger_phrases)
+            except (json.JSONDecodeError, TypeError):
+                _logger.warning("Invalid JSON in trigger_phrases for skill %s", self.id)
         return []
 
     def get_context_schema(self):
         """Return parsed context schema dict."""
         self.ensure_one()
         if self.context_schema:
-            return json.loads(self.context_schema)
+            try:
+                return json.loads(self.context_schema)
+            except (json.JSONDecodeError, TypeError):
+                _logger.warning("Invalid JSON in context_schema for skill %s", self.id)
         return {}
 
     def get_required_context(self):
         """Return parsed required context list."""
         self.ensure_one()
         if self.required_context:
-            return json.loads(self.required_context)
+            try:
+                return json.loads(self.required_context)
+            except (json.JSONDecodeError, TypeError):
+                _logger.warning("Invalid JSON in required_context for skill %s", self.id)
         return []
 
     def get_allowed_tool_names(self):

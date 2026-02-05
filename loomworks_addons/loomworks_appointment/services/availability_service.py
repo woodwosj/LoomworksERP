@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 # Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
 
+import logging
 from datetime import datetime, timedelta, time
 from odoo import fields
 import pytz
+
+_logger = logging.getLogger(__name__)
 
 
 class AvailabilityService:
@@ -163,8 +166,22 @@ class AvailabilityService:
         """
         # Check resource calendar (working hours)
         if resource.resource_calendar_id:
-            # TODO: Check against resource calendar
-            pass
+            # Use the resource.calendar model to check if the slot falls
+            # within working hours. get_work_hours_count returns 0 if outside.
+            try:
+                work_hours = resource.resource_calendar_id.get_work_hours_count(
+                    start_dt, end_dt, compute_leaves=True
+                )
+                slot_hours = (end_dt - start_dt).total_seconds() / 3600.0
+                # If available work hours are significantly less than the slot,
+                # the resource is not available during this time.
+                if work_hours < slot_hours * 0.9:
+                    return False
+            except Exception:
+                # If calendar check fails, fall through to booking conflict check
+                _logger.debug(
+                    "Could not check resource calendar for resource %s", resource.id
+                )
 
         # Check for conflicting bookings (including buffer time)
         buffer_before = timedelta(minutes=appointment_type.buffer_before)

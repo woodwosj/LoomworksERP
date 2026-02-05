@@ -74,6 +74,7 @@ This is part of Loomworks ERP, a fork of Odoo Community v18 (LGPL v3).
         'views/dashboard_widget_views.xml',
         'views/dashboard_data_source_views.xml',
         'views/dashboard_menus.xml',
+        'views/dashboard_public_templates.xml',
     ],
     'assets': {
         'web.assets_backend': [

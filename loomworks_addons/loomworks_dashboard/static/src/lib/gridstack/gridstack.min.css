@@ -1,0 +1,29 @@
+/**
+ * GridStack.js v10.3.1 - CSS Stub
+ *
+ * This is a placeholder for the GridStack.js stylesheet.
+ * Download the production build from: https://github.com/gridstack/gridstack.js
+ *
+ * To install:
+ *   1. Download gridstack.min.css from the GridStack releases page
+ *   2. Replace this file with the production CSS
+ */
+
+/* Minimal layout rules so the dashboard doesn't break without the library */
+.grid-stack {
+    position: relative;
+    min-height: 200px;
+}
+
+.grid-stack-item {
+    position: absolute;
+    padding: 4px;
+}
+
+.grid-stack-item-content {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    overflow: auto;
+    height: 100%;
+}

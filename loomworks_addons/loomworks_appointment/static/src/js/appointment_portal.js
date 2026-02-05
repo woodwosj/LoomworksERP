@@ -211,7 +211,8 @@
             if (resources.length === 1) {
                 this.selectedResource = resources[0].id;
             } else if (resources.length > 1) {
-                // TODO: Show resource selection
+                // Future enhancement: show resource selection UI when
+                // multiple resources are available. For now, auto-select first.
                 this.selectedResource = resources[0].id;
             }
 

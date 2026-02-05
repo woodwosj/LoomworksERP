@@ -150,6 +150,18 @@ class DashboardFilter(models.Model):
         help='Widgets that are filtered by this filter',
     )
 
+    def _safe_json_loads(self, value, default=None):
+        """Safely parse a JSON string, returning default on failure."""
+        if not value:
+            return default
+        try:
+            return json.loads(value)
+        except (json.JSONDecodeError, TypeError):
+            _logger.warning(
+                "Invalid JSON in field for filter %s: %.100s", self.id, value
+            )
+            return default
+
     def get_filter_data(self):
         """
         Get filter data for React canvas.
@@ -173,7 +185,7 @@ class DashboardFilter(models.Model):
                 'step': self.range_step,
             } if self.filter_type in ('number_range',) else None,
             'datePresets': self._get_date_presets(),
-            'defaultValue': json.loads(self.default_value) if self.default_value else None,
+            'defaultValue': self._safe_json_loads(self.default_value) if self.default_value else None,
             'affectedWidgetIds': self.affected_widget_ids.ids,
         }
 
@@ -183,14 +195,14 @@ class DashboardFilter(models.Model):
             return []
 
         if self.options_source == 'static':
-            return json.loads(self.static_options or '[]')
+            return self._safe_json_loads(self.static_options, [])
 
         elif self.options_source == 'model':
             if not self.options_model_id:
                 return []
 
             Model = self.env[self.options_model_id.model]
-            domain = json.loads(self.options_domain or '[]')
+            domain = self._safe_json_loads(self.options_domain, [])
             display_field = self.options_display_field or 'name'
 
             records = Model.search_read(
@@ -221,7 +233,7 @@ class DashboardFilter(models.Model):
             return []
 
         if self.date_presets == 'custom':
-            return json.loads(self.custom_date_presets or '[]')
+            return self._safe_json_loads(self.custom_date_presets, [])
 
         # Standard presets
         from datetime import date, timedelta

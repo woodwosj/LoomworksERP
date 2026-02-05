@@ -418,7 +418,12 @@ class DashboardController(http.Controller):
             return request.not_found()
 
         if not share.check_access(password):
-            # TODO: Render password form or error page
+            if share.link_password:
+                # Dashboard is password-protected; show password form
+                return request.render('loomworks_dashboard.public_dashboard_password', {
+                    'token': token,
+                    'error': bool(password),  # Show error if password was submitted but wrong
+                })
             return request.not_found()
 
         share.record_view()

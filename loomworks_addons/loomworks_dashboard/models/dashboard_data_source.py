@@ -204,7 +204,10 @@ class DashboardDataSource(models.Model):
         if source.cache_duration > 0 and source.last_fetch and source.cached_data:
             cache_age = (datetime.now() - source.last_fetch).total_seconds()
             if cache_age < source.cache_duration:
-                return json.loads(source.cached_data)
+                try:
+                    return json.loads(source.cached_data)
+                except (json.JSONDecodeError, TypeError):
+                    _logger.warning("Invalid cached data for source %s, re-fetching", source.id)
 
         # Fetch based on source type
         if source.source_type == 'model':
@@ -239,7 +242,11 @@ class DashboardDataSource(models.Model):
             raise AccessError(f"No read access to model {self.model_name}")
 
         # Build domain
-        domain = json.loads(self.domain or '[]')
+        try:
+            domain = json.loads(self.domain or '[]')
+        except (json.JSONDecodeError, TypeError):
+            _logger.warning("Invalid JSON domain for data source %s", self.id)
+            domain = []
 
         # Apply global filters
         if filters:
@@ -419,13 +426,21 @@ class DashboardDataSource(models.Model):
 
         import requests
 
-        headers = json.loads(self.api_headers or '{}')
+        try:
+            headers = json.loads(self.api_headers or '{}')
+        except (json.JSONDecodeError, TypeError):
+            _logger.warning("Invalid JSON in api_headers for source %s", self.id)
+            headers = {}
 
         try:
             if self.api_method == 'GET':
                 response = requests.get(self.api_endpoint, headers=headers, timeout=30)
             else:
-                body = json.loads(self.api_body or '{}')
+                try:
+                    body = json.loads(self.api_body or '{}')
+                except (json.JSONDecodeError, TypeError):
+                    _logger.warning("Invalid JSON in api_body for source %s", self.id)
+                    body = {}
                 response = requests.post(
                     self.api_endpoint, headers=headers, json=body, timeout=30
                 )
@@ -438,15 +453,20 @@ class DashboardDataSource(models.Model):
                 'data': data,
             }
         except Exception as e:
-            _logger.error(f"API fetch failed: {e}")
+            _logger.error("API fetch failed for source %s: %s", self.id, e)
             raise UserError(f"Failed to fetch API data: {e}")
 
     def _fetch_static_data(self):
         """Return static data."""
         self.ensure_one()
+        try:
+            static = json.loads(self.static_data or '[]')
+        except (json.JSONDecodeError, TypeError):
+            _logger.warning("Invalid JSON in static_data for source %s", self.id)
+            static = []
         return {
             'type': 'static',
-            'data': json.loads(self.static_data or '[]'),
+            'data': static,
         }
 
     def clear_cache(self):
