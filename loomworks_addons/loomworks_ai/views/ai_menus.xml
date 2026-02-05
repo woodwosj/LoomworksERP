@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+    License: LGPL-3
+-->
+<odoo>
+
+    <!-- Main AI Menu -->
+    <menuitem id="menu_loomworks_ai_root"
+              name="AI Assistant"
+              web_icon="loomworks_ai,static/description/icon.png"
+              sequence="5"/>
+
+    <!-- Chat Menu -->
+    <menuitem id="menu_ai_chat"
+              name="Chat"
+              parent="menu_loomworks_ai_root"
+              sequence="1"/>
+
+    <menuitem id="menu_ai_sessions"
+              name="Chat Sessions"
+              parent="menu_ai_chat"
+              action="action_ai_session"
+              sequence="1"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_ai_config"
+              name="Configuration"
+              parent="menu_loomworks_ai_root"
+              groups="group_ai_manager"
+              sequence="10"/>
+
+    <menuitem id="menu_ai_agents"
+              name="AI Agents"
+              parent="menu_ai_config"
+              action="action_ai_agent"
+              sequence="1"/>
+
+    <menuitem id="menu_ai_tools"
+              name="AI Tools"
+              parent="menu_ai_config"
+              action="action_ai_tool"
+              sequence="2"/>
+
+    <!-- Audit Menu -->
+    <menuitem id="menu_ai_audit"
+              name="Audit"
+              parent="menu_loomworks_ai_root"
+              groups="group_ai_manager"
+              sequence="20"/>
+
+    <menuitem id="menu_ai_operation_logs"
+              name="Operation Logs"
+              parent="menu_ai_audit"
+              action="action_ai_operation_log"
+              sequence="1"/>
+
+</odoo>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+    License: LGPL-3
+-->
+<odoo>
+
+    <!-- AI Tool Form View -->
+    <record id="loomworks_ai_tool_view_form" model="ir.ui.view">
+        <field name="name">loomworks.ai.tool.form</field>
+        <field name="model">loomworks.ai.tool</field>
+        <field name="arch" type="xml">
+            <form string="AI Tool">
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <widget name="web_ribbon" title="Inactive" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Tool Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="technical_name"/>
+                            <field name="category"/>
+                            <field name="risk_level"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="sequence"/>
+                            <field name="requires_confirmation"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1" placeholder="Detailed description of what this tool does..."/>
+                    </group>
+                    <notebook>
+                        <page string="Parameters Schema" name="schema">
+                            <field name="parameters_schema" widget="ace" options="{'mode': 'json'}"/>
+                        </page>
+                        <page string="Returns" name="returns">
+                            <field name="returns_description"/>
+                        </page>
+                        <page string="Usage Statistics" name="stats">
+                            <group>
+                                <field name="usage_count" readonly="1"/>
+                                <field name="last_used" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- AI Tool Tree View -->
+    <record id="loomworks_ai_tool_view_tree" model="ir.ui.view">
+        <field name="name">loomworks.ai.tool.tree</field>
+        <field name="model">loomworks.ai.tool</field>
+        <field name="arch" type="xml">
+            <tree string="AI Tools">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="technical_name"/>
+                <field name="category"/>
+                <field name="risk_level" decoration-success="risk_level == 'safe'"
+                       decoration-warning="risk_level == 'moderate'"
+                       decoration-danger="risk_level in ('high', 'critical')"
+                       widget="badge"/>
+                <field name="requires_confirmation"/>
+                <field name="usage_count"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- AI Tool Search View -->
+    <record id="loomworks_ai_tool_view_search" model="ir.ui.view">
+        <field name="name">loomworks.ai.tool.search</field>
+        <field name="model">loomworks.ai.tool</field>
+        <field name="arch" type="xml">
+            <search string="AI Tools">
+                <field name="name"/>
+                <field name="technical_name"/>
+                <field name="description"/>
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="inactive" string="Inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter name="safe" string="Safe" domain="[('risk_level', '=', 'safe')]"/>
+                <filter name="moderate" string="Moderate Risk" domain="[('risk_level', '=', 'moderate')]"/>
+                <filter name="high_risk" string="High Risk" domain="[('risk_level', 'in', ('high', 'critical'))]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_category" string="Category" context="{'group_by': 'category'}"/>
+                    <filter name="group_risk" string="Risk Level" context="{'group_by': 'risk_level'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- AI Tool Action -->
+    <record id="action_ai_tool" model="ir.actions.act_window">
+        <field name="name">AI Tools</field>
+        <field name="res_model">loomworks.ai.tool</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define AI Tools
+            </p>
+            <p>
+                AI Tools define the capabilities available to Claude agents.
+                Each tool represents an operation the AI can perform on your ERP data.
+            </p>
+        </field>
+    </record>
+
+</odoo>

@@ -16,8 +16,7 @@ redis>=5.0.0
 # ===========================================
 # AI Integration (Phase 2)
 # ===========================================
-# anthropic>=0.18.0  # Claude API client
-# Uncomment when implementing AI features
+anthropic>=0.40.0  # Claude API client for AI chat features
 
 # ===========================================
 # Development Tools

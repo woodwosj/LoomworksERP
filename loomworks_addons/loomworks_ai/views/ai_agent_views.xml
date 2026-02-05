@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+    License: LGPL-3
+-->
+<odoo>
+
+    <!-- AI Agent Form View -->
+    <record id="loomworks_ai_agent_view_form" model="ir.ui.view">
+        <field name="name">loomworks.ai.agent.form</field>
+        <field name="model">loomworks.ai.agent</field>
+        <field name="arch" type="xml">
+            <form string="AI Agent">
+                <header>
+                    <field name="active" invisible="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_ai_session)d" type="action"
+                                class="oe_stat_button" icon="fa-comments"
+                                context="{'search_default_agent_id': active_id}">
+                            <field name="session_count" widget="statinfo" string="Sessions"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Agent Name"/></h1>
+                    </div>
+                    <group>
+                        <group name="basic">
+                            <field name="technical_name"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group name="claude">
+                            <field name="model_id"/>
+                            <field name="temperature" widget="float"/>
+                            <field name="max_tokens"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="System Prompt" name="prompt">
+                            <field name="system_prompt" placeholder="Custom instructions for the AI agent..."/>
+                        </page>
+                        <page string="Permissions" name="permissions">
+                            <group>
+                                <group string="Permission Mode">
+                                    <field name="permission_mode"/>
+                                </group>
+                                <group string="Operation Permissions">
+                                    <field name="can_create"/>
+                                    <field name="can_write"/>
+                                    <field name="can_unlink"/>
+                                    <field name="can_execute_actions"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Tools" name="tools">
+                            <field name="tool_ids">
+                                <tree>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="technical_name"/>
+                                    <field name="category"/>
+                                    <field name="risk_level"/>
+                                    <field name="usage_count"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Model Access" name="models">
+                            <group>
+                                <group string="Allowed Models">
+                                    <field name="allowed_model_ids" nolabel="1"
+                                           widget="many2many_tags"
+                                           options="{'no_create': True}"/>
+                                    <p class="text-muted small">
+                                        Leave empty to allow access to all models (subject to user permissions).
+                                    </p>
+                                </group>
+                                <group string="Blocked Models">
+                                    <field name="blocked_model_ids" nolabel="1"
+                                           widget="many2many_tags"
+                                           options="{'no_create': True}"/>
+                                    <p class="text-muted small">
+                                        Models the AI cannot access regardless of other settings.
+                                    </p>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Sandbox Settings" name="sandbox">
+                            <group>
+                                <group>
+                                    <field name="use_savepoints"/>
+                                    <field name="auto_rollback_on_error"/>
+                                    <field name="max_operations_per_turn"/>
+                                </group>
+                                <group>
+                                    <field name="operation_count" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- AI Agent Tree View -->
+    <record id="loomworks_ai_agent_view_tree" model="ir.ui.view">
+        <field name="name">loomworks.ai.agent.tree</field>
+        <field name="model">loomworks.ai.agent</field>
+        <field name="arch" type="xml">
+            <tree string="AI Agents">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="technical_name"/>
+                <field name="model_id"/>
+                <field name="permission_mode"/>
+                <field name="session_count"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- AI Agent Search View -->
+    <record id="loomworks_ai_agent_view_search" model="ir.ui.view">
+        <field name="name">loomworks.ai.agent.search</field>
+        <field name="model">loomworks.ai.agent</field>
+        <field name="arch" type="xml">
+            <search string="AI Agents">
+                <field name="name"/>
+                <field name="technical_name"/>
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter name="can_create" string="Can Create" domain="[('can_create', '=', True)]"/>
+                <filter name="can_delete" string="Can Delete" domain="[('can_unlink', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_model" string="Claude Model" context="{'group_by': 'model_id'}"/>
+                    <filter name="group_permission" string="Permission Mode" context="{'group_by': 'permission_mode'}"/>
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- AI Agent Action -->
+    <record id="action_ai_agent" model="ir.actions.act_window">
+        <field name="name">AI Agents</field>
+        <field name="res_model">loomworks.ai.agent</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure your first AI Agent
+            </p>
+            <p>
+                AI Agents are Claude-powered assistants that can interact with your ERP data.
+                Configure permissions, allowed tools, and behavior settings.
+            </p>
+        </field>
+    </record>
+
+</odoo>

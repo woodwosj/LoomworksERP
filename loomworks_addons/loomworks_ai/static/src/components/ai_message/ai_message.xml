@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+    License: LGPL-3
+-->
+<templates xml:space="preserve">
+
+    <t t-name="loomworks_ai.AIMessage">
+        <div t-att-class="messageClass">
+            <div class="message-header d-flex align-items-center gap-1 mb-1">
+                <i t-attf-class="fa {{roleIcon}} text-muted small"/>
+                <span class="role-label small text-muted" t-esc="roleLabel"/>
+                <span t-if="formattedTime" class="message-timestamp small text-muted ms-auto">
+                    <t t-esc="formattedTime"/>
+                </span>
+            </div>
+            <div class="message-content">
+                <t t-if="props.isToolCall">
+                    <div class="tool-indicator">
+                        <i class="fa fa-cog fa-spin me-2"/>
+                        <t t-esc="props.content"/>
+                    </div>
+                    <pre t-if="props.toolInput" class="tool-input mt-2 mb-0 small">
+                        <t t-esc="JSON.stringify(props.toolInput, null, 2)"/>
+                    </pre>
+                </t>
+                <t t-else="">
+                    <t t-esc="props.content"/>
+                </t>
+            </div>
+        </div>
+    </t>
+
+</templates>

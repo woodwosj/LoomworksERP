@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+    License: LGPL-3
+-->
+<templates xml:space="preserve">
+
+    <t t-name="loomworks_ai.AIChat">
+        <div class="loomworks-ai-chat d-flex flex-column h-100">
+            <!-- Header -->
+            <div class="ai-chat-header d-flex align-items-center justify-content-between p-3 border-bottom">
+                <div class="d-flex align-items-center">
+                    <i class="fa fa-robot me-2 text-primary"/>
+                    <span class="fw-bold" t-esc="state.agentName or 'AI Assistant'"/>
+                    <span t-if="state.isConnected" class="ms-2 badge bg-success">Connected</span>
+                    <span t-else="" class="ms-2 badge bg-secondary">Disconnected</span>
+                </div>
+                <div class="d-flex gap-2">
+                    <button t-if="state.hasUncommittedChanges"
+                            class="btn btn-sm btn-outline-warning"
+                            t-on-click="rollback"
+                            title="Rollback changes (Ctrl+Z)">
+                        <i class="fa fa-undo"/> Rollback
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary"
+                            t-on-click="closeSession"
+                            title="Close session (Esc)">
+                        <i class="fa fa-times"/>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Error Banner -->
+            <div t-if="state.error" class="alert alert-danger m-2 mb-0 d-flex align-items-center">
+                <i class="fa fa-exclamation-triangle me-2"/>
+                <span class="flex-grow-1" t-esc="state.error"/>
+                <button type="button" class="btn-close" t-on-click="() => this.state.error = null"/>
+            </div>
+
+            <!-- Messages -->
+            <div class="ai-chat-messages flex-grow-1 overflow-auto p-3" t-ref="messages">
+                <t t-foreach="state.messages" t-as="message" t-key="message.id">
+                    <AIMessage
+                        role="message.role"
+                        content="message.content"
+                        timestamp="message.timestamp"
+                        isToolCall="message.isToolCall"
+                        toolInput="message.toolInput"
+                    />
+                </t>
+
+                <!-- Streaming content -->
+                <t t-if="state.streamingContent">
+                    <AIMessage
+                        role="'assistant'"
+                        content="state.streamingContent"
+                        isStreaming="true"
+                    />
+                </t>
+
+                <!-- Loading indicator -->
+                <div t-if="state.isLoading and !state.streamingContent"
+                     class="ai-message ai-message-assistant">
+                    <div class="message-content">
+                        <div class="typing-indicator">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Operations Panel (collapsible) -->
+            <div t-if="state.operations.length" class="ai-operations-panel border-top">
+                <details>
+                    <summary class="p-2 cursor-pointer">
+                        <i class="fa fa-history me-2"/>
+                        Recent Operations (<t t-esc="state.operations.length"/>)
+                    </summary>
+                    <div class="operations-list p-2">
+                        <t t-foreach="formattedOperations" t-as="op" t-key="op.id">
+                            <div class="operation-item d-flex align-items-center gap-2 py-1">
+                                <i t-attf-class="fa {{op.icon}} text-muted"/>
+                                <span t-esc="op.label"/>
+                                <span t-attf-class="badge bg-{{op.state === 'success' ? 'success' : op.state === 'error' ? 'danger' : 'secondary'}} ms-auto">
+                                    <t t-esc="op.state"/>
+                                </span>
+                            </div>
+                        </t>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Input Area -->
+            <div class="ai-chat-input p-3 border-top">
+                <div class="input-group">
+                    <textarea
+                        t-ref="input"
+                        class="form-control"
+                        placeholder="Type a message... (Enter to send, Shift+Enter for new line)"
+                        t-att-value="state.inputText"
+                        t-on-input="onInputChange"
+                        t-on-keydown="onInputKeydown"
+                        rows="1"
+                        t-att-disabled="state.isLoading or !state.isConnected"
+                    />
+                    <button
+                        class="btn btn-primary"
+                        t-on-click="sendMessage"
+                        t-att-disabled="state.isLoading or !state.inputText.trim() or !state.isConnected">
+                        <i t-attf-class="fa {{state.isLoading ? 'fa-spinner fa-spin' : 'fa-paper-plane'}}"/>
+                    </button>
+                </div>
+                <small class="text-muted mt-1 d-block">
+                    Ctrl+Enter to send | Ctrl+Z to rollback | Esc to close
+                </small>
+            </div>
+        </div>
+    </t>
+
+</templates>

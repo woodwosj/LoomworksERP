@@ -1,0 +1,189 @@
+// Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+// License: LGPL-3
+
+// AI Chat Component Styles
+
+.loomworks-ai-chat {
+    background: var(--o-view-background-color, #fff);
+    min-height: 400px;
+    max-height: 80vh;
+
+    .ai-chat-header {
+        background: var(--o-webclient-color-scheme, #f8f9fa);
+    }
+
+    .ai-chat-messages {
+        background: var(--o-form-lightsecondary, #f8f9fa);
+    }
+
+    .ai-chat-input {
+        background: var(--o-view-background-color, #fff);
+
+        textarea {
+            resize: none;
+            max-height: 150px;
+            min-height: 38px;
+
+            &:focus {
+                border-color: var(--o-brand-primary, #714b67);
+                box-shadow: 0 0 0 0.2rem rgba(113, 75, 103, 0.25);
+            }
+        }
+    }
+
+    .typing-indicator {
+        display: flex;
+        gap: 4px;
+        padding: 8px;
+
+        span {
+            width: 8px;
+            height: 8px;
+            background: var(--o-brand-primary, #714b67);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+
+            &:nth-child(2) { animation-delay: 0.2s; }
+            &:nth-child(3) { animation-delay: 0.4s; }
+        }
+    }
+
+    @keyframes typing {
+        0%, 100% { opacity: 0.3; transform: scale(0.8); }
+        50% { opacity: 1; transform: scale(1); }
+    }
+
+    .ai-operations-panel {
+        background: var(--o-webclient-color-scheme, #f8f9fa);
+        max-height: 150px;
+        overflow-y: auto;
+
+        summary {
+            user-select: none;
+            cursor: pointer;
+
+            &:hover {
+                background: rgba(0, 0, 0, 0.05);
+            }
+        }
+
+        .operation-item {
+            font-size: 0.875rem;
+        }
+    }
+}
+
+// Message component styles
+.ai-message {
+    margin-bottom: 1rem;
+    max-width: 85%;
+
+    .message-header {
+        opacity: 0.7;
+    }
+
+    &.ai-message-user {
+        margin-left: auto;
+
+        .message-content {
+            background: var(--o-brand-primary, #714b67);
+            color: white;
+            border-radius: 1rem 1rem 0.25rem 1rem;
+        }
+
+        .message-header {
+            justify-content: flex-end;
+        }
+    }
+
+    &.ai-message-assistant {
+        margin-right: auto;
+
+        .message-content {
+            background: white;
+            border: 1px solid var(--o-gray-300, #dee2e6);
+            border-radius: 1rem 1rem 1rem 0.25rem;
+        }
+    }
+
+    &.ai-message-system {
+        margin: 0 auto;
+        max-width: 70%;
+        text-align: center;
+
+        .message-header {
+            justify-content: center;
+        }
+
+        .message-content {
+            background: var(--o-gray-200, #e9ecef);
+            color: var(--o-gray-700, #495057);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        &.tool-call {
+            .message-content {
+                background: var(--o-info-bg, #d1ecf1);
+                color: var(--o-info-dark, #0c5460);
+            }
+
+            .tool-indicator {
+                display: flex;
+                align-items: center;
+            }
+
+            .tool-input {
+                background: rgba(0, 0, 0, 0.05);
+                border-radius: 0.25rem;
+                padding: 0.5rem;
+                font-size: 0.75rem;
+                max-height: 100px;
+                overflow-y: auto;
+            }
+        }
+    }
+
+    .message-content {
+        padding: 0.75rem 1rem;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+    }
+
+    .message-timestamp {
+        font-size: 0.75rem;
+        color: var(--o-gray-500, #6c757d);
+    }
+
+    &.streaming .message-content::after {
+        content: '|';
+        animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+}
+
+// Systray button styles
+.o-mail-systray-item.ai-chat-systray {
+    .ai-chat-badge {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        font-size: 0.65rem;
+    }
+}
+
+// Dialog styles
+.o_dialog.ai-chat-dialog {
+    .modal-dialog {
+        max-width: 600px;
+    }
+
+    .modal-body {
+        padding: 0;
+        height: 60vh;
+    }
+}

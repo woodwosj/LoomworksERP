@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ai_agent_user,loomworks.ai.agent.user,model_loomworks_ai_agent,group_ai_user,1,0,0,0
+access_ai_agent_manager,loomworks.ai.agent.manager,model_loomworks_ai_agent,group_ai_manager,1,1,1,1
+access_ai_session_user,loomworks.ai.session.user,model_loomworks_ai_session,group_ai_user,1,1,1,0
+access_ai_session_manager,loomworks.ai.session.manager,model_loomworks_ai_session,group_ai_manager,1,1,1,1
+access_ai_message_user,loomworks.ai.message.user,model_loomworks_ai_message,group_ai_user,1,1,1,0
+access_ai_message_manager,loomworks.ai.message.manager,model_loomworks_ai_message,group_ai_manager,1,1,1,1
+access_ai_tool_user,loomworks.ai.tool.user,model_loomworks_ai_tool,group_ai_user,1,0,0,0
+access_ai_tool_manager,loomworks.ai.tool.manager,model_loomworks_ai_tool,group_ai_manager,1,1,1,1
+access_ai_operation_log_user,loomworks.ai.operation.log.user,model_loomworks_ai_operation_log,group_ai_user,1,0,1,0
+access_ai_operation_log_manager,loomworks.ai.operation.log.manager,model_loomworks_ai_operation_log,group_ai_manager,1,1,1,1

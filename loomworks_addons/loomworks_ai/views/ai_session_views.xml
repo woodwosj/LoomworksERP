@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+    License: LGPL-3
+-->
+<odoo>
+
+    <!-- AI Session Form View -->
+    <record id="loomworks_ai_session_view_form" model="ir.ui.view">
+        <field name="name">loomworks.ai.session.form</field>
+        <field name="model">loomworks.ai.session</field>
+        <field name="arch" type="xml">
+            <form string="AI Session">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="active,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group name="info">
+                            <field name="uuid" readonly="1"/>
+                            <field name="agent_id"/>
+                            <field name="user_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group name="stats">
+                            <field name="message_count"/>
+                            <field name="operation_count"/>
+                            <field name="duration_minutes" widget="float_time"/>
+                            <field name="has_uncommitted_changes"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="create_date"/>
+                            <field name="last_activity"/>
+                        </group>
+                        <group>
+                            <field name="last_model_context"/>
+                            <field name="savepoint_name" invisible="not has_uncommitted_changes"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Messages" name="messages">
+                            <field name="message_ids" readonly="1">
+                                <tree>
+                                    <field name="create_date"/>
+                                    <field name="role"/>
+                                    <field name="content" widget="text"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Operations" name="operations">
+                            <field name="operation_ids" readonly="1">
+                                <tree>
+                                    <field name="create_date"/>
+                                    <field name="tool_name"/>
+                                    <field name="operation_type"/>
+                                    <field name="model_name"/>
+                                    <field name="record_count"/>
+                                    <field name="state" decoration-success="state == 'success'"
+                                           decoration-danger="state == 'error'"
+                                           decoration-muted="state == 'rolled_back'"/>
+                                    <field name="execution_time_ms"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Context" name="context">
+                            <field name="context_data" readonly="1" widget="text"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- AI Session Tree View -->
+    <record id="loomworks_ai_session_view_tree" model="ir.ui.view">
+        <field name="name">loomworks.ai.session.tree</field>
+        <field name="model">loomworks.ai.session</field>
+        <field name="arch" type="xml">
+            <tree string="AI Sessions">
+                <field name="name"/>
+                <field name="agent_id"/>
+                <field name="user_id"/>
+                <field name="state" decoration-success="state == 'completed'"
+                       decoration-info="state == 'active'"
+                       decoration-danger="state == 'error'"
+                       widget="badge"/>
+                <field name="message_count"/>
+                <field name="operation_count"/>
+                <field name="create_date"/>
+                <field name="last_activity"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- AI Session Search View -->
+    <record id="loomworks_ai_session_view_search" model="ir.ui.view">
+        <field name="name">loomworks.ai.session.search</field>
+        <field name="model">loomworks.ai.session</field>
+        <field name="arch" type="xml">
+            <search string="AI Sessions">
+                <field name="name"/>
+                <field name="uuid"/>
+                <field name="user_id"/>
+                <field name="agent_id"/>
+                <filter name="active_sessions" string="Active" domain="[('state', '=', 'active')]"/>
+                <filter name="completed" string="Completed" domain="[('state', '=', 'completed')]"/>
+                <filter name="my_sessions" string="My Sessions" domain="[('user_id', '=', uid)]"/>
+                <separator/>
+                <filter name="today" string="Today" domain="[('create_date', '>=', datetime.datetime.combine(context_today(), datetime.time(0, 0, 0)))]"/>
+                <filter name="this_week" string="This Week" domain="[('create_date', '>=', (context_today() - relativedelta(weeks=1)).strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_agent" string="Agent" context="{'group_by': 'agent_id'}"/>
+                    <filter name="group_user" string="User" context="{'group_by': 'user_id'}"/>
+                    <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+                    <filter name="group_date" string="Date" context="{'group_by': 'create_date:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- AI Session Action -->
+    <record id="action_ai_session" model="ir.actions.act_window">
+        <field name="name">Chat Sessions</field>
+        <field name="res_model">loomworks.ai.session</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_my_sessions': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No chat sessions yet
+            </p>
+            <p>
+                Your AI chat sessions will appear here. Start a conversation
+                with the AI Assistant to see your session history.
+            </p>
+        </field>
+    </record>
+
+    <!-- AI Message Form View (read-only) -->
+    <record id="loomworks_ai_message_view_form" model="ir.ui.view">
+        <field name="name">loomworks.ai.message.form</field>
+        <field name="model">loomworks.ai.message</field>
+        <field name="arch" type="xml">
+            <form string="AI Message" create="0" edit="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="session_id"/>
+                            <field name="role"/>
+                            <field name="create_date"/>
+                        </group>
+                        <group>
+                            <field name="token_count"/>
+                            <field name="processing_time_ms"/>
+                        </group>
+                    </group>
+                    <group string="Content">
+                        <field name="content" nolabel="1" readonly="1"/>
+                    </group>
+                    <group string="Tool Data" invisible="not tool_calls_json and not tool_results_json">
+                        <field name="tool_calls_json" invisible="not tool_calls_json"/>
+                        <field name="tool_results_json" invisible="not tool_results_json"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

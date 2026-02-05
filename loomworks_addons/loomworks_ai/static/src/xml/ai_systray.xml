@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+    License: LGPL-3
+
+    Systray icon template for AI Chat access
+-->
+<templates xml:space="preserve">
+
+    <!-- This template can be used for systray integration in future -->
+    <t t-name="loomworks_ai.SystrayIcon">
+        <div class="o-mail-systray-item ai-chat-systray dropdown">
+            <a class="dropdown-toggle o-no-caret" data-bs-toggle="dropdown" href="#" role="button">
+                <i class="fa fa-robot"/>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end">
+                <a class="dropdown-item" href="#" t-on-click="openChat">
+                    <i class="fa fa-comment me-2"/>New Chat
+                </a>
+                <a class="dropdown-item" href="#" t-on-click="viewHistory">
+                    <i class="fa fa-history me-2"/>Chat History
+                </a>
+                <div class="dropdown-divider"/>
+                <a class="dropdown-item" href="/web#action=loomworks_ai.action_ai_session">
+                    <i class="fa fa-cog me-2"/>Settings
+                </a>
+            </div>
+        </div>
+    </t>
+
+</templates>

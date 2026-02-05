@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+    License: LGPL-3
+
+    Default MCP Tool Definitions
+-->
+<odoo>
+    <data noupdate="1">
+
+        <!-- Search Records Tool -->
+        <record id="tool_search_records" model="loomworks.ai.tool">
+            <field name="name">Search Records</field>
+            <field name="technical_name">search_records</field>
+            <field name="category">data</field>
+            <field name="risk_level">safe</field>
+            <field name="description">Search for records in any Odoo model.
+
+Use this tool to find existing records before creating new ones, to check if data exists, or to retrieve information for reports.
+
+Examples:
+- Find all draft sales orders: search_records(model='sale.order', domain=[['state', '=', 'draft']])
+- Get customer list: search_records(model='res.partner', domain=[['customer_rank', '>', 0]], fields=['name', 'email'])</field>
+            <field name="parameters_schema">{
+    "type": "object",
+    "properties": {
+        "model": {"type": "string", "description": "Odoo model name (e.g., sale.order, res.partner)"},
+        "domain": {"type": "array", "description": "Search domain as list of tuples"},
+        "fields": {"type": "array", "items": {"type": "string"}, "description": "Fields to return"},
+        "limit": {"type": "integer", "default": 80, "description": "Max records (max 500)"},
+        "offset": {"type": "integer", "default": 0, "description": "Skip records for pagination"},
+        "order": {"type": "string", "description": "Sort order (e.g., create_date desc)"}
+    },
+    "required": ["model"]
+}</field>
+            <field name="returns_description">Dictionary with 'count' (total matching), 'records' (list of dicts), 'model' name, and 'has_more' flag.</field>
+            <field name="requires_confirmation">False</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <!-- Create Record Tool -->
+        <record id="tool_create_record" model="loomworks.ai.tool">
+            <field name="name">Create Record</field>
+            <field name="technical_name">create_record</field>
+            <field name="category">data</field>
+            <field name="risk_level">moderate</field>
+            <field name="description">Create a new record in an Odoo model.
+
+Use this tool to create new business data like sales orders, invoices, products, contacts, etc.
+
+Examples:
+- Create contact: create_record(model='res.partner', values={'name': 'John Doe', 'email': 'john@example.com'})
+- Create product: create_record(model='product.product', values={'name': 'Widget', 'list_price': 99.99})</field>
+            <field name="parameters_schema">{
+    "type": "object",
+    "properties": {
+        "model": {"type": "string", "description": "Odoo model name"},
+        "values": {"type": "object", "description": "Field values for new record"},
+        "context": {"type": "object", "description": "Optional context overrides"}
+    },
+    "required": ["model", "values"]
+}</field>
+            <field name="returns_description">Dictionary with 'id' of created record, 'display_name', 'model', and 'created' status.</field>
+            <field name="requires_confirmation">False</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <!-- Update Record Tool -->
+        <record id="tool_update_record" model="loomworks.ai.tool">
+            <field name="name">Update Record</field>
+            <field name="technical_name">update_record</field>
+            <field name="category">data</field>
+            <field name="risk_level">moderate</field>
+            <field name="description">Update an existing record in an Odoo model.
+
+Always search for records first to confirm they exist before updating.
+
+Examples:
+- Update contact email: update_record(model='res.partner', record_id=42, values={'email': 'new@example.com'})
+- Mark order as sent: update_record(model='sale.order', record_id=15, values={'state': 'sent'})</field>
+            <field name="parameters_schema">{
+    "type": "object",
+    "properties": {
+        "model": {"type": "string", "description": "Odoo model name"},
+        "record_id": {"type": "integer", "description": "ID of record to update"},
+        "values": {"type": "object", "description": "Field values to change"},
+        "context": {"type": "object", "description": "Optional context overrides"}
+    },
+    "required": ["model", "record_id", "values"]
+}</field>
+            <field name="returns_description">Dictionary with 'id', 'display_name', 'model', and 'updated' status.</field>
+            <field name="requires_confirmation">False</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <!-- Delete Record Tool -->
+        <record id="tool_delete_record" model="loomworks.ai.tool">
+            <field name="name">Delete Record</field>
+            <field name="technical_name">delete_record</field>
+            <field name="category">data</field>
+            <field name="risk_level">high</field>
+            <field name="description">Delete a record from an Odoo model.
+
+WARNING: This is a destructive operation. The record will be permanently removed. Use with caution.
+
+Example:
+- Delete draft order: delete_record(model='sale.order', record_id=99, confirm=True)</field>
+            <field name="parameters_schema">{
+    "type": "object",
+    "properties": {
+        "model": {"type": "string", "description": "Odoo model name"},
+        "record_id": {"type": "integer", "description": "ID of record to delete"},
+        "confirm": {"type": "boolean", "default": false, "description": "Must be True to delete"}
+    },
+    "required": ["model", "record_id"]
+}</field>
+            <field name="returns_description">Dictionary with 'id', 'display_name', 'model', and 'deleted' status.</field>
+            <field name="requires_confirmation">True</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <!-- Execute Action Tool -->
+        <record id="tool_execute_action" model="loomworks.ai.tool">
+            <field name="name">Execute Action</field>
+            <field name="technical_name">execute_action</field>
+            <field name="category">action</field>
+            <field name="risk_level">moderate</field>
+            <field name="description">Execute a business action or workflow on records.
+
+Use this tool to trigger state transitions, confirmations, validations, and other business logic.
+
+Common actions by model:
+- sale.order: action_confirm, action_cancel, action_draft, action_quotation_send
+- purchase.order: button_confirm, button_cancel, button_draft
+- account.move: action_post, button_draft, button_cancel
+- stock.picking: action_confirm, action_assign, button_validate
+- mrp.production: action_confirm, action_assign, button_mark_done
+
+Example:
+- Confirm sale: execute_action(model='sale.order', record_ids=[15], action='action_confirm')</field>
+            <field name="parameters_schema">{
+    "type": "object",
+    "properties": {
+        "model": {"type": "string", "description": "Odoo model name"},
+        "record_ids": {"type": "array", "items": {"type": "integer"}, "description": "Record IDs to act on"},
+        "action": {"type": "string", "description": "Method name to call (e.g., action_confirm)"},
+        "parameters": {"type": "object", "description": "Optional action parameters"}
+    },
+    "required": ["model", "record_ids", "action"]
+}</field>
+            <field name="returns_description">Dictionary with 'model', 'record_ids', 'action', 'success' status, and optional 'result'.</field>
+            <field name="requires_confirmation">False</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <!-- Generate Report Tool -->
+        <record id="tool_generate_report" model="loomworks.ai.tool">
+            <field name="name">Generate Report</field>
+            <field name="technical_name">generate_report</field>
+            <field name="category">report</field>
+            <field name="risk_level">safe</field>
+            <field name="description">Generate business reports and analytics.
+
+Use this tool to create summaries, aggregations, and insights from business data.
+
+Report types:
+- summary: Simple counts and totals
+- trend: Time-based analysis with grouping
+- breakdown: Category-based analysis
+- comparison: Compare different periods or segments
+
+Examples:
+- Sales by month: generate_report(report_type='trend', model='sale.order', group_by=['create_date:month'], measures=['amount_total'])
+- Revenue by customer: generate_report(report_type='breakdown', model='account.move.line', group_by=['partner_id'], measures=['balance'])</field>
+            <field name="parameters_schema">{
+    "type": "object",
+    "properties": {
+        "report_type": {
+            "type": "string",
+            "enum": ["summary", "trend", "breakdown", "comparison"],
+            "description": "Type of report"
+        },
+        "model": {"type": "string", "description": "Odoo model to analyze"},
+        "domain": {"type": "array", "description": "Filter criteria"},
+        "date_from": {"type": "string", "format": "date", "description": "Start date YYYY-MM-DD"},
+        "date_to": {"type": "string", "format": "date", "description": "End date YYYY-MM-DD"},
+        "group_by": {"type": "array", "items": {"type": "string"}, "description": "Fields to group by"},
+        "measures": {"type": "array", "items": {"type": "string"}, "description": "Fields to aggregate"}
+    },
+    "required": ["report_type"]
+}</field>
+            <field name="returns_description">Dictionary with 'report_type', 'model', 'data' (aggregated results), and 'success' status.</field>
+            <field name="requires_confirmation">False</field>
+            <field name="sequence">6</field>
+        </record>
+
+        <!-- Default AI Agent -->
+        <record id="default_ai_agent" model="loomworks.ai.agent">
+            <field name="name">Loomworks Assistant</field>
+            <field name="technical_name">loomworks_assistant</field>
+            <field name="model_id">claude-sonnet-4-20250514</field>
+            <field name="permission_mode">accept_reads</field>
+            <field name="can_create">True</field>
+            <field name="can_write">True</field>
+            <field name="can_unlink">False</field>
+            <field name="can_execute_actions">True</field>
+            <field name="use_savepoints">True</field>
+            <field name="auto_rollback_on_error">True</field>
+            <field name="max_operations_per_turn">10</field>
+            <field name="max_tokens">4096</field>
+            <field name="temperature">0.7</field>
+            <field name="tool_ids" eval="[(6, 0, [
+                ref('tool_search_records'),
+                ref('tool_create_record'),
+                ref('tool_update_record'),
+                ref('tool_execute_action'),
+                ref('tool_generate_report'),
+            ])]"/>
+            <field name="system_prompt">You are Loomworks AI, an intelligent assistant for enterprise resource planning.
+
+Your role is to help users manage their business operations through natural conversation.
+You can search data, create records, update information, and execute business workflows.
+
+Guidelines:
+1. Always confirm understanding before making changes
+2. Explain what you're doing in simple terms
+3. Offer alternatives when requests are ambiguous
+4. Warn about potential impacts of destructive operations
+5. Suggest related actions that might be helpful
+
+Remember:
+- Use search_records before creating to avoid duplicates
+- Validate data before submitting
+- Operations are logged for audit compliance</field>
+        </record>
+
+    </data>
+</odoo>
