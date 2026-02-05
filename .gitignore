@@ -174,3 +174,23 @@ static/lib/
 # Claude Code
 # ===========================================
 .claude/
+
+# ===========================================
+# Odoo Fork (forked core, track selectively)
+# ===========================================
+# Keep the Odoo fork but ignore generated files
+odoo/**/*.pyc
+odoo/**/__pycache__/
+odoo/.git/
+odoo/*.egg-info/
+odoo/.eggs/
+
+# Ignore Odoo's own test artifacts
+odoo/.coverage*
+odoo/htmlcov/
+odoo/.pytest_cache/
+
+# ===========================================
+# Rebrand Reports (generated)
+# ===========================================
+reports/

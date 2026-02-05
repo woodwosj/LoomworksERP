@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" width="200" height="50">
+  <defs>
+    <linearGradient id="logoGradientDark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#5eead4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2dd4bf;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Logo mark: stylized "L" weave pattern -->
+  <g transform="translate(5, 5)">
+    <!-- Weave pattern representing "loom" -->
+    <rect x="0" y="0" width="8" height="40" fill="url(#logoGradientDark)" rx="2"/>
+    <rect x="12" y="20" width="20" height="8" fill="#ffffff" rx="2"/>
+    <rect x="12" y="32" width="20" height="8" fill="url(#logoGradientDark)" rx="2"/>
+    <rect x="24" y="8" width="8" height="20" fill="#ffffff" rx="2"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="50" y="35" font-family="Inter, Segoe UI, sans-serif" font-size="24" font-weight="600" fill="#ffffff">
+    Loomworks
+  </text>
+</svg>
