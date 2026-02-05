@@ -1,0 +1,13 @@
+# Loomworks ERP Kubernetes Namespace
+# Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+#
+# This file is part of Loomworks ERP, a fork of Odoo Community.
+# License: LGPL-3
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: loomworks
+  labels:
+    app.kubernetes.io/name: loomworks
+    app.kubernetes.io/component: namespace

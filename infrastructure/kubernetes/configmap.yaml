@@ -1,0 +1,85 @@
+# Loomworks ERP Kubernetes ConfigMap
+# Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+#
+# This file is part of Loomworks ERP, a fork of Odoo Community.
+# License: LGPL-3
+#
+# Contains non-sensitive configuration for Loomworks ERP
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: loomworks-config
+  namespace: loomworks
+  labels:
+    app.kubernetes.io/name: loomworks
+    app.kubernetes.io/component: config
+data:
+  # Database configuration
+  DB_HOST: "postgres"
+  DB_PORT: "5432"
+  DB_USER: "odoo"
+
+  # Application settings
+  PROXY_MODE: "True"
+  WORKERS: "4"
+  MAX_CRON_THREADS: "2"
+  LOG_LEVEL: "info"
+
+  # Memory limits
+  LIMIT_MEMORY_HARD: "2684354560"
+  LIMIT_MEMORY_SOFT: "2147483648"
+
+  # Time limits
+  LIMIT_TIME_CPU: "600"
+  LIMIT_TIME_REAL: "1200"
+
+---
+# PostgreSQL configuration for PITR
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: loomworks
+  labels:
+    app.kubernetes.io/name: loomworks
+    app.kubernetes.io/component: database
+data:
+  postgresql.conf: |
+    # Connection Settings
+    listen_addresses = '*'
+    port = 5432
+    max_connections = 200
+
+    # Memory Configuration
+    shared_buffers = 256MB
+    work_mem = 16MB
+    maintenance_work_mem = 128MB
+    effective_cache_size = 1GB
+
+    # WAL Configuration for PITR
+    wal_level = replica
+    archive_mode = on
+    archive_command = 'gzip < %p > /wal_archive/%f.gz && test -f /wal_archive/%f.gz'
+    archive_timeout = 300
+    max_wal_senders = 3
+    wal_keep_size = 1GB
+    max_wal_size = 2GB
+    min_wal_size = 80MB
+
+    # Checkpoint Configuration
+    checkpoint_timeout = 15min
+    checkpoint_completion_target = 0.9
+
+    # Logging
+    logging_collector = on
+    log_directory = 'pg_log'
+    log_min_duration_statement = 1000
+    log_checkpoints = on
+
+    # Autovacuum
+    autovacuum = on
+    autovacuum_max_workers = 3
+
+    # Security
+    password_encryption = scram-sha-256

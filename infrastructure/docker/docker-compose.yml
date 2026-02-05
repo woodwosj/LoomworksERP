@@ -1,0 +1,159 @@
+# Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+#
+# This file is part of Loomworks ERP, a fork of Odoo Community.
+# Original software copyright: Odoo S.A.
+# Loomworks modifications copyright: Loomworks
+# License: LGPL-3
+#
+# Docker Compose configuration for Loomworks ERP
+# Full stack with PostgreSQL (PITR enabled), Redis, and Nginx
+#
+# Usage:
+#   Development: docker compose up -d
+#   Production:  docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+# References:
+#   - Phase 5 Design: openspec/changes/phase5-infrastructure/design.md
+#   - PostgreSQL PITR: https://www.postgresql.org/docs/current/continuous-archiving.html
+
+services:
+  # ===========================================================================
+  # PostgreSQL Database with PITR support
+  # ===========================================================================
+  db:
+    image: postgres:15-bookworm
+    container_name: loomworks-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-odoo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-odoo}
+      POSTGRES_DB: postgres
+      # Enable WAL archiving for PITR
+      POSTGRES_INITDB_ARGS: "--data-checksums"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - wal_archive:/wal_archive
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf:ro
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
+    command: >
+      postgres
+      -c config_file=/etc/postgresql/postgresql.conf
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-odoo}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - loomworks
+
+  # ===========================================================================
+  # Loomworks ERP Application
+  # ===========================================================================
+  loomworks:
+    image: ghcr.io/loomworks/loomworks-erp:${LOOMWORKS_VERSION:-latest}
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile
+      args:
+        LOOMWORKS_VERSION: ${LOOMWORKS_VERSION:-1.0.0}
+    container_name: loomworks-web
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=${POSTGRES_USER:-odoo}
+      - DB_PASSWORD=${POSTGRES_PASSWORD:-odoo}
+      - DB_NAME=${DB_NAME:-}
+      - ADMIN_PASSWD=${ADMIN_PASSWD:-admin}
+      - PROXY_MODE=True
+      - WORKERS=${WORKERS:-4}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      # Redis for session storage (optional)
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - loomworks_data:/var/lib/loomworks
+      # Mount addons for development (uncomment for hot-reload)
+      # - ../../loomworks_addons:/opt/loomworks/addons:ro
+    ports:
+      - "${HTTP_PORT:-8069}:8069"
+      - "${LONGPOLLING_PORT:-8072}:8072"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8069/web/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+    restart: unless-stopped
+    networks:
+      - loomworks
+
+  # ===========================================================================
+  # Redis Cache/Session Store
+  # ===========================================================================
+  redis:
+    image: redis:7-bookworm
+    container_name: loomworks-redis
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - loomworks
+
+  # ===========================================================================
+  # Nginx Reverse Proxy (optional for development)
+  # ===========================================================================
+  nginx:
+    image: nginx:stable
+    container_name: loomworks-nginx
+    depends_on:
+      - loomworks
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/nginx/certs:ro
+      - nginx_logs:/var/log/nginx
+    ports:
+      - "${NGINX_HTTP_PORT:-80}:80"
+      - "${NGINX_HTTPS_PORT:-443}:443"
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - loomworks
+    profiles:
+      - proxy
+
+# ===========================================================================
+# Volumes
+# ===========================================================================
+volumes:
+  postgres_data:
+    driver: local
+  wal_archive:
+    driver: local
+  loomworks_data:
+    driver: local
+  redis_data:
+    driver: local
+  nginx_logs:
+    driver: local
+
+# ===========================================================================
+# Networks
+# ===========================================================================
+networks:
+  loomworks:
+    driver: bridge

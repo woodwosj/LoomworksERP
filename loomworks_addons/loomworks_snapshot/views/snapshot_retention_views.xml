@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+
+    This file is part of Loomworks ERP, a fork of Odoo Community.
+    Original software copyright: Odoo S.A.
+    Loomworks modifications copyright: Loomworks
+    License: LGPL-3
+-->
+<odoo>
+    <!-- Snapshot Retention Tree View -->
+    <record id="view_snapshot_retention_tree" model="ir.ui.view">
+        <field name="name">loomworks.snapshot.retention.tree</field>
+        <field name="model">loomworks.snapshot.retention</field>
+        <field name="arch" type="xml">
+            <tree string="Retention Policies" decoration-muted="not active">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="active" widget="boolean_toggle"/>
+                <field name="retention_type"/>
+                <field name="retention_days" invisible="retention_type != 'simple'"/>
+                <field name="keep_last_n" invisible="retention_type != 'count'"/>
+                <field name="apply_to_auto"/>
+                <field name="apply_to_manual"/>
+                <field name="apply_to_pre_ai"/>
+                <field name="schedule_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Snapshot Retention Form View -->
+    <record id="view_snapshot_retention_form" model="ir.ui.view">
+        <field name="name">loomworks.snapshot.retention.form</field>
+        <field name="model">loomworks.snapshot.retention</field>
+        <field name="arch" type="xml">
+            <form string="Retention Policy">
+                <header>
+                    <button name="apply_retention" string="Apply Now" type="object" class="btn-primary" confirm="This will expire snapshots according to this policy. Continue?"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Policy Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="type" string="Retention Type">
+                            <field name="active" widget="boolean_toggle"/>
+                            <field name="retention_type"/>
+                            <field name="tenant_id" groups="loomworks_snapshot.group_snapshot_admin"/>
+                        </group>
+                        <group name="applies_to" string="Applies To">
+                            <field name="apply_to_auto" widget="boolean_toggle"/>
+                            <field name="apply_to_manual" widget="boolean_toggle"/>
+                            <field name="apply_to_pre_ai" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Simple Retention" name="simple" invisible="retention_type != 'simple'">
+                            <group>
+                                <field name="retention_days"/>
+                            </group>
+                            <p class="text-muted">
+                                Snapshots older than the specified number of days will be expired.
+                            </p>
+                        </page>
+                        <page string="Count-Based Retention" name="count" invisible="retention_type != 'count'">
+                            <group>
+                                <field name="keep_last_n"/>
+                            </group>
+                            <p class="text-muted">
+                                Only the most recent N snapshots will be kept, older ones will be expired.
+                            </p>
+                        </page>
+                        <page string="Tiered Retention (GFS)" name="tiered" invisible="retention_type != 'tiered'">
+                            <group>
+                                <group>
+                                    <field name="hourly_retention_hours"/>
+                                    <field name="daily_retention_days"/>
+                                </group>
+                                <group>
+                                    <field name="weekly_retention_weeks"/>
+                                    <field name="monthly_retention_months"/>
+                                </group>
+                            </group>
+                            <p class="text-muted">
+                                Grandfather-Father-Son (GFS) retention strategy:
+                            </p>
+                            <ul class="text-muted">
+                                <li>Keep all snapshots within hourly retention period</li>
+                                <li>Keep one snapshot per day within daily retention period</li>
+                                <li>Keep one snapshot per week within weekly retention period</li>
+                                <li>Keep one snapshot per month within monthly retention period</li>
+                            </ul>
+                        </page>
+                        <page string="Storage Limits" name="storage">
+                            <group>
+                                <field name="max_storage_gb"/>
+                                <field name="cleanup_batch_size"/>
+                            </group>
+                        </page>
+                        <page string="Description" name="description">
+                            <field name="description" placeholder="Describe this retention policy..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Snapshot Retention Search View -->
+    <record id="view_snapshot_retention_search" model="ir.ui.view">
+        <field name="name">loomworks.snapshot.retention.search</field>
+        <field name="model">loomworks.snapshot.retention</field>
+        <field name="arch" type="xml">
+            <search string="Search Retention Policies">
+                <field name="name"/>
+                <field name="retention_type"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Inactive" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Type" name="group_type" context="{'group_by': 'retention_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Snapshot Retention Action -->
+    <record id="action_snapshot_retention" model="ir.actions.act_window">
+        <field name="name">Retention Policies</field>
+        <field name="res_model">loomworks.snapshot.retention</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_snapshot_retention_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first retention policy
+            </p>
+            <p>
+                Retention policies control how long snapshots are kept.
+                Choose from simple (days), count-based, or tiered (GFS) strategies.
+            </p>
+        </field>
+    </record>
+
+</odoo>

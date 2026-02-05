@@ -1,0 +1,74 @@
+# Loomworks ERP Kubernetes Services
+# Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+#
+# This file is part of Loomworks ERP, a fork of Odoo Community.
+# License: LGPL-3
+
+# Loomworks ClusterIP Service (internal)
+apiVersion: v1
+kind: Service
+metadata:
+  name: loomworks
+  namespace: loomworks
+  labels:
+    app.kubernetes.io/name: loomworks
+    app.kubernetes.io/component: web
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8069
+      targetPort: 8069
+      name: http
+    - port: 8072
+      targetPort: 8072
+      name: longpolling
+  selector:
+    app: loomworks
+
+---
+# Loomworks LoadBalancer Service (optional - for direct access without ingress)
+apiVersion: v1
+kind: Service
+metadata:
+  name: loomworks-lb
+  namespace: loomworks
+  labels:
+    app.kubernetes.io/name: loomworks
+    app.kubernetes.io/component: web
+  annotations:
+    # AWS Load Balancer annotations (uncomment if using AWS)
+    # service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    # service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+
+    # GCP Load Balancer annotations (uncomment if using GCP)
+    # cloud.google.com/load-balancer-type: "External"
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8069
+      name: http
+    - port: 8072
+      targetPort: 8072
+      name: longpolling
+  selector:
+    app: loomworks
+
+---
+# Redis Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: loomworks
+  labels:
+    app.kubernetes.io/name: loomworks
+    app.kubernetes.io/component: cache
+spec:
+  type: ClusterIP
+  ports:
+    - port: 6379
+      targetPort: 6379
+      name: redis
+  selector:
+    app: redis

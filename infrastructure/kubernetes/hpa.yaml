@@ -1,0 +1,90 @@
+# Loomworks ERP Kubernetes Horizontal Pod Autoscaler
+# Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+#
+# This file is part of Loomworks ERP, a fork of Odoo Community.
+# License: LGPL-3
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: loomworks-hpa
+  namespace: loomworks
+  labels:
+    app.kubernetes.io/name: loomworks
+    app.kubernetes.io/component: autoscaling
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: loomworks
+
+  minReplicas: 2
+  maxReplicas: 10
+
+  metrics:
+    # Scale based on CPU utilization
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
+    # Scale based on memory utilization
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+
+    # Custom metrics (requires metrics-server and prometheus adapter)
+    # - type: Pods
+    #   pods:
+    #     metric:
+    #       name: http_requests_per_second
+    #     target:
+    #       type: AverageValue
+    #       averageValue: "100"
+
+  behavior:
+    # Scale down behavior (conservative to avoid flapping)
+    scaleDown:
+      stabilizationWindowSeconds: 300  # 5 minutes
+      policies:
+        - type: Percent
+          value: 10
+          periodSeconds: 60
+        - type: Pods
+          value: 1
+          periodSeconds: 60
+      selectPolicy: Min
+
+    # Scale up behavior (aggressive to handle load spikes)
+    scaleUp:
+      stabilizationWindowSeconds: 0  # Scale up immediately
+      policies:
+        - type: Percent
+          value: 100
+          periodSeconds: 15
+        - type: Pods
+          value: 4
+          periodSeconds: 15
+      selectPolicy: Max
+
+---
+# Pod Disruption Budget
+# Ensures minimum availability during voluntary disruptions
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: loomworks-pdb
+  namespace: loomworks
+  labels:
+    app.kubernetes.io/name: loomworks
+    app.kubernetes.io/component: availability
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: loomworks

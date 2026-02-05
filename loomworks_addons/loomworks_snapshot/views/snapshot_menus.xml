@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+
+    This file is part of Loomworks ERP, a fork of Odoo Community.
+    Original software copyright: Odoo S.A.
+    Loomworks modifications copyright: Loomworks
+    License: LGPL-3
+-->
+<odoo>
+    <!-- Main Snapshot Menu (appears in app drawer) -->
+    <menuitem id="menu_snapshot_root"
+        name="Snapshots"
+        web_icon="loomworks_snapshot,static/description/icon.png"
+        groups="loomworks_snapshot.group_snapshot_user"
+        sequence="80"/>
+
+    <!-- Snapshot Management -->
+    <menuitem id="menu_snapshot_management"
+        name="Snapshot Management"
+        parent="menu_snapshot_root"
+        sequence="10"/>
+
+    <menuitem id="menu_snapshot_list"
+        name="Snapshots"
+        parent="menu_snapshot_management"
+        action="action_snapshot"
+        sequence="10"/>
+
+    <menuitem id="menu_snapshot_schedules"
+        name="Schedules"
+        parent="menu_snapshot_management"
+        action="action_snapshot_schedule"
+        groups="loomworks_snapshot.group_snapshot_manager"
+        sequence="20"/>
+
+    <menuitem id="menu_snapshot_retention"
+        name="Retention Policies"
+        parent="menu_snapshot_management"
+        action="action_snapshot_retention"
+        groups="loomworks_snapshot.group_snapshot_manager"
+        sequence="30"/>
+
+    <!-- Rollback Operations -->
+    <menuitem id="menu_rollback"
+        name="Rollback"
+        parent="menu_snapshot_root"
+        sequence="20"/>
+
+    <menuitem id="menu_rollback_operations"
+        name="Rollback Operations"
+        parent="menu_rollback"
+        action="action_rollback_operations"
+        sequence="10"/>
+
+    <!-- Multi-Tenant (Admin only) -->
+    <menuitem id="menu_tenant"
+        name="Multi-Tenant"
+        parent="menu_snapshot_root"
+        groups="loomworks_snapshot.group_snapshot_admin"
+        sequence="30"/>
+
+    <menuitem id="menu_tenant_list"
+        name="Tenants"
+        parent="menu_tenant"
+        action="action_tenant"
+        sequence="10"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_snapshot_config"
+        name="Configuration"
+        parent="menu_snapshot_root"
+        groups="loomworks_snapshot.group_snapshot_manager"
+        sequence="90"/>
+
+    <!-- Add to Settings if needed -->
+    <menuitem id="menu_snapshot_settings"
+        name="Snapshot Settings"
+        parent="menu_snapshot_config"
+        action="action_snapshot_retention"
+        sequence="10"/>
+
+</odoo>

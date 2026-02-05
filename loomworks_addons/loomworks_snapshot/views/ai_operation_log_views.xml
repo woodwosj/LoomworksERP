@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+
+    This file is part of Loomworks ERP, a fork of Odoo Community.
+    Original software copyright: Odoo S.A.
+    Loomworks modifications copyright: Loomworks
+    License: LGPL-3
+
+    Extended views for AI Operation Log with snapshot integration.
+    These views inherit from the base views defined in loomworks_ai.
+-->
+<odoo>
+    <!-- Extend AI Operation Log Tree View -->
+    <record id="view_ai_operation_log_tree_snapshot" model="ir.ui.view">
+        <field name="name">loomworks.ai.operation.log.tree.snapshot</field>
+        <field name="model">loomworks.ai.operation.log</field>
+        <field name="inherit_id" ref="loomworks_ai.view_ai_operation_log_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="can_rollback"/>
+                <field name="undone" widget="boolean"/>
+                <field name="snapshot_id" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Extend AI Operation Log Form View -->
+    <record id="view_ai_operation_log_form_snapshot" model="ir.ui.view">
+        <field name="name">loomworks.ai.operation.log.form.snapshot</field>
+        <field name="model">loomworks.ai.operation.log</field>
+        <field name="inherit_id" ref="loomworks_ai.view_ai_operation_log_form"/>
+        <field name="arch" type="xml">
+            <!-- Add rollback buttons to header -->
+            <xpath expr="//header" position="inside">
+                <button name="action_undo" string="Undo Operation" type="object" class="btn-warning" invisible="not can_rollback or undone" confirm="This will reverse the changes made by this operation. Continue?"/>
+                <button name="action_view_snapshot" string="View Snapshot" type="object" class="btn-secondary" invisible="not snapshot_id"/>
+            </xpath>
+
+            <!-- Add snapshot fields to the form -->
+            <xpath expr="//group[@name='execution']" position="after">
+                <group name="rollback" string="Rollback Information" invisible="operation_type in ('search', 'read', 'report')">
+                    <group>
+                        <field name="can_rollback" readonly="1"/>
+                        <field name="undone" readonly="1"/>
+                        <field name="undone_at" readonly="1"/>
+                        <field name="undone_by_id" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="snapshot_id" readonly="1"/>
+                        <field name="savepoint_id" readonly="1" groups="base.group_no_one"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Extend AI Operation Log Search View -->
+    <record id="view_ai_operation_log_search_snapshot" model="ir.ui.view">
+        <field name="name">loomworks.ai.operation.log.search.snapshot</field>
+        <field name="model">loomworks.ai.operation.log</field>
+        <field name="inherit_id" ref="loomworks_ai.view_ai_operation_log_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <separator/>
+                <filter string="Can Rollback" name="rollbackable" domain="[('can_rollback', '=', True), ('undone', '=', False)]"/>
+                <filter string="Undone" name="undone" domain="[('undone', '=', True)]"/>
+                <filter string="Has Snapshot" name="has_snapshot" domain="[('snapshot_id', '!=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Rollback Operations Action -->
+    <record id="action_rollback_operations" model="ir.actions.act_window">
+        <field name="name">Rollback Operations</field>
+        <field name="res_model">loomworks.ai.operation.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('operation_type', 'not in', ['search', 'read', 'report'])]</field>
+        <field name="context">{'search_default_rollbackable': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No operations to rollback
+            </p>
+            <p>
+                This view shows AI operations that can be undone.
+                Operations appear here when they modify data and have captured state.
+            </p>
+        </field>
+    </record>
+
+</odoo>

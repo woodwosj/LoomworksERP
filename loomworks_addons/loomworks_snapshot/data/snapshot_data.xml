@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+
+    This file is part of Loomworks ERP, a fork of Odoo Community.
+    Original software copyright: Odoo S.A.
+    Loomworks modifications copyright: Loomworks
+    License: LGPL-3
+-->
+<odoo>
+    <data noupdate="1">
+
+        <!-- Default Retention Policies -->
+
+        <!-- Simple 7-day retention for automatic snapshots -->
+        <record id="retention_policy_simple_7day" model="loomworks.snapshot.retention">
+            <field name="name">Standard (7 Days)</field>
+            <field name="retention_type">simple</field>
+            <field name="retention_days">7</field>
+            <field name="apply_to_auto">True</field>
+            <field name="apply_to_manual">False</field>
+            <field name="apply_to_pre_ai">True</field>
+            <field name="description">Keep snapshots for 7 days. Suitable for development and testing environments.</field>
+        </record>
+
+        <!-- 30-day retention for production -->
+        <record id="retention_policy_simple_30day" model="loomworks.snapshot.retention">
+            <field name="name">Extended (30 Days)</field>
+            <field name="retention_type">simple</field>
+            <field name="retention_days">30</field>
+            <field name="apply_to_auto">True</field>
+            <field name="apply_to_manual">True</field>
+            <field name="apply_to_pre_ai">True</field>
+            <field name="description">Keep snapshots for 30 days. Recommended for production environments.</field>
+        </record>
+
+        <!-- GFS tiered retention for enterprise -->
+        <record id="retention_policy_gfs" model="loomworks.snapshot.retention">
+            <field name="name">Enterprise (GFS Tiered)</field>
+            <field name="retention_type">tiered</field>
+            <field name="hourly_retention_hours">24</field>
+            <field name="daily_retention_days">7</field>
+            <field name="weekly_retention_weeks">4</field>
+            <field name="monthly_retention_months">12</field>
+            <field name="apply_to_auto">True</field>
+            <field name="apply_to_manual">True</field>
+            <field name="apply_to_pre_ai">True</field>
+            <field name="description">Grandfather-Father-Son (GFS) tiered retention:
+- All snapshots for last 24 hours
+- One per day for 7 days
+- One per week for 4 weeks
+- One per month for 12 months</field>
+        </record>
+
+        <!-- Default Snapshot Schedules -->
+
+        <!-- Daily automatic snapshot -->
+        <record id="schedule_daily_default" model="loomworks.snapshot.schedule">
+            <field name="name">Daily Backup</field>
+            <field name="active">True</field>
+            <field name="interval_type">daily</field>
+            <field name="interval_number">1</field>
+            <field name="execution_hour">2</field>
+            <field name="execution_minute">0</field>
+            <field name="retention_policy_id" ref="retention_policy_simple_7day"/>
+            <field name="max_snapshots">7</field>
+        </record>
+
+        <!-- Hourly snapshot for high-activity environments -->
+        <record id="schedule_hourly" model="loomworks.snapshot.schedule">
+            <field name="name">Hourly Backup</field>
+            <field name="active">False</field>
+            <field name="interval_type">hourly</field>
+            <field name="interval_number">1</field>
+            <field name="execution_minute">0</field>
+            <field name="retention_policy_id" ref="retention_policy_gfs"/>
+            <field name="max_snapshots">168</field>
+        </record>
+
+    </data>
+</odoo>

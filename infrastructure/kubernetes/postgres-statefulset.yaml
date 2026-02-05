@@ -1,0 +1,153 @@
+# Loomworks ERP PostgreSQL StatefulSet with PITR Support
+# Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+#
+# This file is part of Loomworks ERP, a fork of Odoo Community.
+# License: LGPL-3
+#
+# References:
+# - Phase 5 Design: openspec/changes/phase5-infrastructure/design.md
+# - PostgreSQL PITR: https://www.postgresql.org/docs/current/continuous-archiving.html
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: loomworks
+  labels:
+    app.kubernetes.io/name: loomworks
+    app.kubernetes.io/component: database
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+        app.kubernetes.io/name: loomworks
+        app.kubernetes.io/component: database
+    spec:
+      # Security context
+      securityContext:
+        fsGroup: 999  # postgres group
+
+      # Init container to set up WAL archive permissions
+      initContainers:
+        - name: init-wal-archive
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              mkdir -p /wal_archive
+              chown -R 999:999 /wal_archive
+              chmod 700 /wal_archive
+          volumeMounts:
+            - name: wal-archive
+              mountPath: /wal_archive
+
+      containers:
+        - name: postgres
+          image: postgres:15-bookworm
+          ports:
+            - containerPort: 5432
+              name: postgres
+          envFrom:
+            - secretRef:
+                name: postgres-credentials
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
+            - name: wal-archive
+              mountPath: /wal_archive
+            - name: postgres-config
+              mountPath: /etc/postgresql/postgresql.conf
+              subPath: postgresql.conf
+          args:
+            - postgres
+            - -c
+            - config_file=/etc/postgresql/postgresql.conf
+
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "2000m"
+              memory: "4Gi"
+
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - $(POSTGRES_USER)
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - $(POSTGRES_USER)
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+      volumes:
+        - name: postgres-config
+          configMap:
+            name: postgres-config
+
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-data
+        labels:
+          app.kubernetes.io/name: loomworks
+          app.kubernetes.io/component: database
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 100Gi
+
+    - metadata:
+        name: wal-archive
+        labels:
+          app.kubernetes.io/name: loomworks
+          app.kubernetes.io/component: database
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 50Gi
+
+---
+# PostgreSQL Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: loomworks
+  labels:
+    app.kubernetes.io/name: loomworks
+    app.kubernetes.io/component: database
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+      name: postgres
+  selector:
+    app: postgres

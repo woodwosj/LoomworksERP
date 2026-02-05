@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+
+    This file is part of Loomworks ERP, a fork of Odoo Community.
+    Original software copyright: Odoo S.A.
+    Loomworks modifications copyright: Loomworks
+    License: LGPL-3
+-->
+<odoo>
+    <!-- Security Groups for Snapshot Management -->
+
+    <!-- Module Category -->
+    <record id="module_category_snapshot" model="ir.module.category">
+        <field name="name">Snapshots</field>
+        <field name="description">Database snapshot and backup management</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <!-- User Group: Can view snapshots and trigger manual undo -->
+    <record id="group_snapshot_user" model="res.groups">
+        <field name="name">Snapshot User</field>
+        <field name="category_id" ref="module_category_snapshot"/>
+        <field name="comment">Can view snapshots and rollback their own AI operations</field>
+    </record>
+
+    <!-- Manager Group: Can create/manage snapshots and retention policies -->
+    <record id="group_snapshot_manager" model="res.groups">
+        <field name="name">Snapshot Manager</field>
+        <field name="category_id" ref="module_category_snapshot"/>
+        <field name="implied_ids" eval="[(4, ref('group_snapshot_user'))]"/>
+        <field name="comment">Can create snapshots, manage schedules, and configure retention policies</field>
+    </record>
+
+    <!-- Admin Group: Can restore snapshots and manage tenants -->
+    <record id="group_snapshot_admin" model="res.groups">
+        <field name="name">Snapshot Administrator</field>
+        <field name="category_id" ref="module_category_snapshot"/>
+        <field name="implied_ids" eval="[(4, ref('group_snapshot_manager'))]"/>
+        <field name="comment">Full access including restore operations and tenant management</field>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <!-- Record Rules -->
+
+    <!-- Snapshot: Users can see snapshots created by their operations -->
+    <record id="snapshot_rule_user" model="ir.rule">
+        <field name="name">Snapshot: User sees own operation snapshots</field>
+        <field name="model_id" ref="model_loomworks_snapshot"/>
+        <field name="domain_force">[
+            '|',
+            ('created_by_id', '=', user.id),
+            ('operation_log_ids.user_id', '=', user.id)
+        ]</field>
+        <field name="groups" eval="[(4, ref('group_snapshot_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- Snapshot: Managers see all snapshots -->
+    <record id="snapshot_rule_manager" model="ir.rule">
+        <field name="name">Snapshot: Manager sees all</field>
+        <field name="model_id" ref="model_loomworks_snapshot"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_snapshot_manager'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- Snapshot: Admin can do everything -->
+    <record id="snapshot_rule_admin" model="ir.rule">
+        <field name="name">Snapshot: Admin full access</field>
+        <field name="model_id" ref="model_loomworks_snapshot"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_snapshot_admin'))]"/>
+    </record>
+
+    <!-- AI Operation Log: Users can undo their own operations -->
+    <record id="ai_operation_log_rule_user" model="ir.rule">
+        <field name="name">AI Log: User can undo own operations</field>
+        <field name="model_id" ref="loomworks_ai.model_loomworks_ai_operation_log"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_snapshot_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- Tenant: Only admins can access -->
+    <record id="tenant_rule_admin" model="ir.rule">
+        <field name="name">Tenant: Admin only</field>
+        <field name="model_id" ref="model_loomworks_tenant"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_snapshot_admin'))]"/>
+    </record>
+
+</odoo>

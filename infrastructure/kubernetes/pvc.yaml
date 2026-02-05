@@ -1,0 +1,42 @@
+# Loomworks ERP Kubernetes Persistent Volume Claims
+# Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+#
+# This file is part of Loomworks ERP, a fork of Odoo Community.
+# License: LGPL-3
+
+# Loomworks filestore PVC (shared across pods)
+# Requires a storage class that supports ReadWriteMany (e.g., NFS, EFS)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: loomworks-filestore
+  namespace: loomworks
+  labels:
+    app.kubernetes.io/name: loomworks
+    app.kubernetes.io/component: storage
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi
+  # Uncomment and set your storage class
+  # storageClassName: nfs-client
+  # storageClassName: efs-sc
+
+---
+# Redis data PVC (optional, for persistence)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-data
+  namespace: loomworks
+  labels:
+    app.kubernetes.io/name: loomworks
+    app.kubernetes.io/component: cache
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

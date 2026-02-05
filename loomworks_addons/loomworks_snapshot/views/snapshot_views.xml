@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+
+    This file is part of Loomworks ERP, a fork of Odoo Community.
+    Original software copyright: Odoo S.A.
+    Loomworks modifications copyright: Loomworks
+    License: LGPL-3
+-->
+<odoo>
+    <!-- Snapshot Tree View -->
+    <record id="view_snapshot_tree" model="ir.ui.view">
+        <field name="name">loomworks.snapshot.tree</field>
+        <field name="model">loomworks.snapshot</field>
+        <field name="arch" type="xml">
+            <tree string="Snapshots" decoration-success="state == 'ready'" decoration-warning="state == 'restoring'" decoration-muted="state == 'expired'" decoration-danger="state == 'failed'">
+                <field name="display_name"/>
+                <field name="snapshot_type"/>
+                <field name="state" widget="badge" decoration-success="state == 'ready'" decoration-warning="state in ('creating', 'restoring')" decoration-danger="state == 'failed'" decoration-muted="state == 'expired'"/>
+                <field name="wal_position"/>
+                <field name="created_at"/>
+                <field name="expires_at"/>
+                <field name="operation_count"/>
+                <field name="created_by_id" widget="many2one_avatar_user"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Snapshot Form View -->
+    <record id="view_snapshot_form" model="ir.ui.view">
+        <field name="name">loomworks.snapshot.form</field>
+        <field name="model">loomworks.snapshot</field>
+        <field name="arch" type="xml">
+            <form string="Snapshot">
+                <header>
+                    <button name="action_create_snapshot" string="Create Snapshot" type="object" class="btn-primary" invisible="state != 'creating'"/>
+                    <button name="action_restore" string="Restore" type="object" class="btn-warning" invisible="state not in ('ready', 'restored')" confirm="This will restore the database to this snapshot point. All changes made after this snapshot will be LOST. Are you sure?"/>
+                    <button name="action_mark_expired" string="Mark Expired" type="object" invisible="state != 'ready'" groups="loomworks_snapshot.group_snapshot_admin"/>
+                    <field name="state" widget="statusbar" statusbar_visible="creating,ready,restored"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_snapshot_operations)d" type="action" class="oe_stat_button" icon="fa-history">
+                            <field name="operation_count" widget="statinfo" string="Operations"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Snapshot Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="main">
+                            <field name="snapshot_type"/>
+                            <field name="database_name"/>
+                            <field name="tenant_id" groups="loomworks_snapshot.group_snapshot_admin"/>
+                            <field name="schedule_id" readonly="1"/>
+                        </group>
+                        <group name="timestamps">
+                            <field name="created_at"/>
+                            <field name="expires_at"/>
+                            <field name="restored_at"/>
+                            <field name="created_by_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="PITR Information" name="pitr">
+                            <group>
+                                <group>
+                                    <field name="wal_position"/>
+                                    <field name="wal_file"/>
+                                </group>
+                                <group>
+                                    <field name="recovery_target_time"/>
+                                    <field name="base_backup_id"/>
+                                    <field name="database_size_bytes" widget="integer"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Description" name="description">
+                            <field name="description" placeholder="Additional notes about this snapshot..."/>
+                        </page>
+                        <page string="Error Details" name="error" invisible="not error_message">
+                            <field name="error_message" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Snapshot Search View -->
+    <record id="view_snapshot_search" model="ir.ui.view">
+        <field name="name">loomworks.snapshot.search</field>
+        <field name="model">loomworks.snapshot</field>
+        <field name="arch" type="xml">
+            <search string="Search Snapshots">
+                <field name="name"/>
+                <field name="snapshot_type"/>
+                <field name="state"/>
+                <field name="created_by_id"/>
+                <filter string="Ready" name="ready" domain="[('state', '=', 'ready')]"/>
+                <filter string="Failed" name="failed" domain="[('state', '=', 'failed')]"/>
+                <filter string="Expired" name="expired" domain="[('state', '=', 'expired')]"/>
+                <separator/>
+                <filter string="Manual" name="manual" domain="[('snapshot_type', '=', 'manual')]"/>
+                <filter string="Automatic" name="auto" domain="[('snapshot_type', '=', 'auto')]"/>
+                <filter string="Pre-AI" name="pre_ai" domain="[('snapshot_type', '=', 'pre_ai')]"/>
+                <separator/>
+                <filter string="My Snapshots" name="mine" domain="[('created_by_id', '=', uid)]"/>
+                <separator/>
+                <filter string="Created Today" name="today" domain="[('created_at', '>=', (context_today()).strftime('%Y-%m-%d'))]"/>
+                <filter string="Created This Week" name="week" domain="[('created_at', '>=', (context_today() - relativedelta(weeks=1)).strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Type" name="group_type" context="{'group_by': 'snapshot_type'}"/>
+                    <filter string="Created By" name="group_created_by" context="{'group_by': 'created_by_id'}"/>
+                    <filter string="Creation Date" name="group_date" context="{'group_by': 'created_at:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Snapshot Action -->
+    <record id="action_snapshot" model="ir.actions.act_window">
+        <field name="name">Database Snapshots</field>
+        <field name="res_model">loomworks.snapshot</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_snapshot_search"/>
+        <field name="context">{'search_default_ready': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first database snapshot
+            </p>
+            <p>
+                Snapshots capture the database state for backup and rollback purposes.
+                Use them before major changes or to recover from errors.
+            </p>
+        </field>
+    </record>
+
+    <!-- Action for related operations -->
+    <record id="action_snapshot_operations" model="ir.actions.act_window">
+        <field name="name">Related Operations</field>
+        <field name="res_model">loomworks.ai.operation.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('snapshot_id', '=', active_id)]</field>
+        <field name="context">{'default_snapshot_id': active_id}</field>
+    </record>
+
+</odoo>

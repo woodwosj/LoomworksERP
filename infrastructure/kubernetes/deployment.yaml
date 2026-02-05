@@ -1,0 +1,207 @@
+# Loomworks ERP Kubernetes Deployment
+# Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+#
+# This file is part of Loomworks ERP, a fork of Odoo Community.
+# License: LGPL-3
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loomworks
+  namespace: loomworks
+  labels:
+    app.kubernetes.io/name: loomworks
+    app.kubernetes.io/component: web
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: loomworks
+  template:
+    metadata:
+      labels:
+        app: loomworks
+        app.kubernetes.io/name: loomworks
+        app.kubernetes.io/component: web
+      annotations:
+        # Prometheus scraping (if using Prometheus)
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8069"
+        prometheus.io/path: "/web/metrics"
+    spec:
+      # Security context
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+
+      # Service account (create if needed for cloud provider integrations)
+      # serviceAccountName: loomworks
+
+      # Pod anti-affinity to spread across nodes
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - loomworks
+                topologyKey: kubernetes.io/hostname
+
+      containers:
+        - name: loomworks
+          image: ghcr.io/loomworks/loomworks-erp:latest
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8069
+              name: http
+            - containerPort: 8072
+              name: longpolling
+
+          envFrom:
+            - configMapRef:
+                name: loomworks-config
+            - secretRef:
+                name: loomworks-credentials
+
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: loomworks-credentials
+                  key: DB_PASSWORD
+            - name: ADMIN_PASSWD
+              valueFrom:
+                secretKeyRef:
+                  name: loomworks-credentials
+                  key: ADMIN_PASSWD
+
+          volumeMounts:
+            - name: filestore
+              mountPath: /var/lib/loomworks
+
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "2000m"
+              memory: "4Gi"
+
+          # Startup probe (long timeout for initial module loading)
+          startupProbe:
+            httpGet:
+              path: /web/health
+              port: 8069
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 30  # 5 minutes total
+
+          # Liveness probe
+          livenessProbe:
+            httpGet:
+              path: /web/health
+              port: 8069
+            initialDelaySeconds: 120
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
+
+          # Readiness probe
+          readinessProbe:
+            httpGet:
+              path: /web/health
+              port: 8069
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          # Container security context
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop:
+                - ALL
+
+      volumes:
+        - name: filestore
+          persistentVolumeClaim:
+            claimName: loomworks-filestore
+
+      # Graceful shutdown
+      terminationGracePeriodSeconds: 60
+
+---
+# Redis Deployment (for session storage)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: loomworks
+  labels:
+    app.kubernetes.io/name: loomworks
+    app.kubernetes.io/component: cache
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+        app.kubernetes.io/name: loomworks
+        app.kubernetes.io/component: cache
+    spec:
+      containers:
+        - name: redis
+          image: redis:7-bookworm
+          args:
+            - redis-server
+            - --appendonly
+            - "yes"
+          ports:
+            - containerPort: 6379
+              name: redis
+          volumeMounts:
+            - name: redis-data
+              mountPath: /data
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          livenessProbe:
+            exec:
+              command:
+                - redis-cli
+                - ping
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - redis-cli
+                - ping
+            initialDelaySeconds: 5
+            periodSeconds: 5
+
+      volumes:
+        - name: redis-data
+          persistentVolumeClaim:
+            claimName: redis-data

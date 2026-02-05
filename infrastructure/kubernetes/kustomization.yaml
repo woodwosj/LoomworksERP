@@ -1,0 +1,52 @@
+# Loomworks ERP Kubernetes Kustomization
+# Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+#
+# This file is part of Loomworks ERP, a fork of Odoo Community.
+# License: LGPL-3
+#
+# Usage:
+#   kubectl apply -k infrastructure/kubernetes/
+#
+# Or with overlays for different environments:
+#   kubectl apply -k infrastructure/kubernetes/overlays/production/
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: loomworks
+
+# Common labels applied to all resources
+commonLabels:
+  app.kubernetes.io/name: loomworks
+  app.kubernetes.io/managed-by: kustomize
+
+# Resources to include
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - secrets.yaml
+  - pvc.yaml
+  - postgres-statefulset.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+  - hpa.yaml
+
+# Image customization (update for your registry)
+images:
+  - name: ghcr.io/loomworks/loomworks-erp
+    newTag: latest
+
+# Config map generator (alternative to configmap.yaml)
+# configMapGenerator:
+#   - name: loomworks-config
+#     literals:
+#       - DB_HOST=postgres
+#       - PROXY_MODE=True
+
+# Secret generator (alternative to secrets.yaml - more secure)
+# secretGenerator:
+#   - name: loomworks-credentials
+#     literals:
+#       - DB_PASSWORD=change-me
+#       - ADMIN_PASSWD=change-me

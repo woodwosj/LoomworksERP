@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
+
+    This file is part of Loomworks ERP, a fork of Odoo Community.
+    Original software copyright: Odoo S.A.
+    Loomworks modifications copyright: Loomworks
+    License: LGPL-3
+-->
+<odoo>
+    <!-- Snapshot Schedule Tree View -->
+    <record id="view_snapshot_schedule_tree" model="ir.ui.view">
+        <field name="name">loomworks.snapshot.schedule.tree</field>
+        <field name="model">loomworks.snapshot.schedule</field>
+        <field name="arch" type="xml">
+            <tree string="Snapshot Schedules" decoration-muted="not active">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="active" widget="boolean_toggle"/>
+                <field name="interval_type"/>
+                <field name="interval_number"/>
+                <field name="retention_days"/>
+                <field name="last_run"/>
+                <field name="next_run"/>
+                <field name="run_count"/>
+                <field name="error_count" decoration-danger="error_count > 0"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Snapshot Schedule Form View -->
+    <record id="view_snapshot_schedule_form" model="ir.ui.view">
+        <field name="name">loomworks.snapshot.schedule.form</field>
+        <field name="model">loomworks.snapshot.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Snapshot Schedule">
+                <header>
+                    <button name="action_run_now" string="Run Now" type="object" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_schedule_snapshots)d" type="action" class="oe_stat_button" icon="fa-database">
+                            <field name="snapshot_count" widget="statinfo" string="Snapshots"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Schedule Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="schedule" string="Schedule Configuration">
+                            <field name="active" widget="boolean_toggle"/>
+                            <field name="interval_type"/>
+                            <field name="interval_number" invisible="interval_type == 'custom'"/>
+                            <field name="execution_hour" widget="integer" invisible="interval_type == 'hourly'"/>
+                            <field name="execution_minute" widget="integer"/>
+                            <field name="execution_weekday" invisible="interval_type not in ('weekly',)"/>
+                            <field name="execution_day" invisible="interval_type != 'monthly'"/>
+                            <field name="cron_expression" invisible="interval_type != 'custom'"/>
+                        </group>
+                        <group name="retention" string="Retention Configuration">
+                            <field name="retention_policy_id"/>
+                            <field name="retention_days" invisible="retention_policy_id"/>
+                            <field name="max_snapshots"/>
+                            <field name="tenant_id" groups="loomworks_snapshot.group_snapshot_admin"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group name="status" string="Status">
+                            <field name="last_run"/>
+                            <field name="next_run"/>
+                            <field name="last_snapshot_id"/>
+                        </group>
+                        <group name="statistics" string="Statistics">
+                            <field name="run_count"/>
+                            <field name="error_count"/>
+                        </group>
+                    </group>
+                    <group string="Last Error" invisible="not last_error">
+                        <field name="last_error" nolabel="1" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Snapshot Schedule Search View -->
+    <record id="view_snapshot_schedule_search" model="ir.ui.view">
+        <field name="name">loomworks.snapshot.schedule.search</field>
+        <field name="model">loomworks.snapshot.schedule</field>
+        <field name="arch" type="xml">
+            <search string="Search Schedules">
+                <field name="name"/>
+                <field name="interval_type"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Inactive" name="inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Has Errors" name="errors" domain="[('error_count', '>', 0)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Interval Type" name="group_interval" context="{'group_by': 'interval_type'}"/>
+                    <filter string="Active" name="group_active" context="{'group_by': 'active'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Snapshot Schedule Action -->
+    <record id="action_snapshot_schedule" model="ir.actions.act_window">
+        <field name="name">Snapshot Schedules</field>
+        <field name="res_model">loomworks.snapshot.schedule</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_snapshot_schedule_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first snapshot schedule
+            </p>
+            <p>
+                Schedules automatically create snapshots at regular intervals.
+                Configure hourly, daily, weekly, or monthly backups.
+            </p>
+        </field>
+    </record>
+
+    <!-- Action for schedule's snapshots -->
+    <record id="action_schedule_snapshots" model="ir.actions.act_window">
+        <field name="name">Snapshots from Schedule</field>
+        <field name="res_model">loomworks.snapshot</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('schedule_id', '=', active_id)]</field>
+    </record>
+
+</odoo>
