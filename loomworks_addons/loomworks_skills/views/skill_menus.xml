@@ -4,7 +4,7 @@
     <!-- Skills Root Menu (under AI menu from loomworks_ai) -->
     <menuitem id="menu_skills_root"
               name="Skills"
-              parent="loomworks_ai.menu_ai_root"
+              parent="loomworks_ai.menu_loomworks_ai_root"
               sequence="20"/>
 
     <!-- Skills Management -->
@@ -38,7 +38,7 @@
     <record id="action_builtin_skills" model="ir.actions.act_window">
         <field name="name">Built-in Skills</field>
         <field name="res_model">loomworks.skill</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[('is_builtin', '=', True)]</field>
     </record>
 

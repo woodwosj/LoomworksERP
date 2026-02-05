@@ -13,6 +13,13 @@ class ProjectProject(models.Model):
     """
     _inherit = 'project.project'
 
+    # FSM flag
+    is_fsm = fields.Boolean(
+        string='Field Service Project',
+        default=False,
+        help="Enable field service features for tasks in this project. "
+             "Tasks created in this project will have FSM capabilities.")
+
     # FSM task counts
     fsm_task_count = fields.Integer(
         string='FSM Tasks',

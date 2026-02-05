@@ -87,7 +87,8 @@ class StudioAutomation(models.Model):
         'ir.model.fields',
         string='Trigger Date Field',
         domain="[('model_id', '=', model_id), ('ttype', 'in', ['date', 'datetime'])]",
-        help="Date field to trigger on"
+        help="Date field to trigger on",
+        ondelete='cascade'
     )
     trg_date_range = fields.Integer(
         string='Delay',
@@ -126,7 +127,8 @@ class StudioAutomation(models.Model):
     create_model_id = fields.Many2one(
         'ir.model',
         string='Target Model',
-        help="Model to create record in"
+        help="Model to create record in",
+        ondelete='cascade'
     )
     create_field_ids = fields.One2many(
         'studio.automation.update',
@@ -159,7 +161,8 @@ class StudioAutomation(models.Model):
     activity_user_field_id = fields.Many2one(
         'ir.model.fields',
         string='Responsible Field',
-        domain="[('model_id', '=', model_id), ('ttype', '=', 'many2one'), ('relation', '=', 'res.users')]"
+        domain="[('model_id', '=', model_id), ('ttype', '=', 'many2one'), ('relation', '=', 'res.users')]",
+        ondelete='cascade'
     )
     activity_date_deadline_range = fields.Integer(
         string='Due Date Delay',

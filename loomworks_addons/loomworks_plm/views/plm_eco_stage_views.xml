@@ -6,7 +6,7 @@
         <field name="name">plm.eco.stage.tree</field>
         <field name="model">plm.eco.stage</field>
         <field name="arch" type="xml">
-            <tree string="ECO Stages">
+            <list string="ECO Stages">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="state"/>
@@ -14,7 +14,7 @@
                 <field name="require_approval"/>
                 <field name="fold"/>
                 <field name="eco_count"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -55,7 +55,7 @@
     <record id="plm_eco_stage_action" model="ir.actions.act_window">
         <field name="name">ECO Stages</field>
         <field name="res_model">plm.eco.stage</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create ECO Stages

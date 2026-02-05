@@ -6,7 +6,7 @@
         <field name="name">dashboard.widget.tree</field>
         <field name="model">dashboard.widget</field>
         <field name="arch" type="xml">
-            <tree string="Widgets">
+            <list string="Widgets">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="dashboard_id"/>
@@ -18,7 +18,7 @@
                 <field name="grid_height"/>
                 <field name="data_source_id"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -131,7 +131,7 @@
     <record id="action_dashboard_widget" model="ir.actions.act_window">
         <field name="name">Dashboard Widgets</field>
         <field name="res_model">dashboard.widget</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="context">{'search_default_active': 1}</field>
     </record>
 

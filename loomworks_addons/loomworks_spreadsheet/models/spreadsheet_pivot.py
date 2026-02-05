@@ -49,7 +49,8 @@ class SpreadsheetPivot(models.Model):
     model_id = fields.Many2one(
         'ir.model',
         string='Model',
-        required=True
+        required=True,
+        ondelete='cascade'
     )
     model_name = fields.Char(
         related='model_id.model',
@@ -348,7 +349,8 @@ class SpreadsheetPivotMeasure(models.Model):
         'ir.model.fields',
         string='Field',
         required=True,
-        domain="[('model_id', '=', parent.model_id), ('ttype', 'in', ['integer', 'float', 'monetary'])]"
+        domain="[('model_id', '=', parent.model_id), ('ttype', 'in', ['integer', 'float', 'monetary'])]",
+        ondelete='cascade'
     )
     aggregator = fields.Selection([
         ('sum', 'Sum'),

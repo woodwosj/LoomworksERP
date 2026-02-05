@@ -77,7 +77,8 @@ class SpreadsheetChart(models.Model):
     # Odoo Model Source
     model_id = fields.Many2one(
         'ir.model',
-        string='Model'
+        string='Model',
+        ondelete='cascade'
     )
     model_name = fields.Char(
         related='model_id.model'
@@ -88,11 +89,13 @@ class SpreadsheetChart(models.Model):
     )
     groupby_field_id = fields.Many2one(
         'ir.model.fields',
-        string='Group By'
+        string='Group By',
+        ondelete='cascade'
     )
     measure_field_id = fields.Many2one(
         'ir.model.fields',
-        string='Measure Field'
+        string='Measure Field',
+        ondelete='cascade'
     )
     measure_aggregator = fields.Selection([
         ('sum', 'Sum'),

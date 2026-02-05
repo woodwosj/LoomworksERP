@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 
 class HrContract(models.Model):
@@ -12,6 +12,30 @@ class HrContract(models.Model):
     wage computation.
     """
     _inherit = 'hr.contract'
+
+    # Tax Filing Status (US)
+    filing_status = fields.Selection([
+        ('single', 'Single'),
+        ('married_jointly', 'Married Filing Jointly'),
+        ('married_separately', 'Married Filing Separately'),
+        ('head_of_household', 'Head of Household'),
+    ], string='Filing Status', default='single',
+        help='Federal tax filing status for W-4 withholding')
+    federal_allowances = fields.Integer(
+        string='Federal Allowances', default=1,
+        help='Number of federal withholding allowances')
+    state_allowances = fields.Integer(
+        string='State Allowances', default=1,
+        help='Number of state withholding allowances')
+    additional_federal_withholding = fields.Float(
+        string='Additional Federal Withholding', default=0.0,
+        help='Additional amount to withhold for federal taxes per pay period')
+    additional_state_withholding = fields.Float(
+        string='Additional State Withholding', default=0.0,
+        help='Additional amount to withhold for state taxes per pay period')
+    hourly_wage = fields.Float(
+        string='Hourly Wage', default=0.0,
+        help='Hourly wage rate for hourly employees')
 
     # Payslips for this contract
     payslip_ids = fields.One2many(

@@ -65,6 +65,7 @@ class DashboardDataSource(models.Model):
         string='Model',
         help='Odoo model to fetch data from',
         domain=[('transient', '=', False)],
+        ondelete='cascade',
     )
     model_name = fields.Char(
         string='Model Name',
@@ -90,6 +91,7 @@ class DashboardDataSource(models.Model):
         'ir.model.fields',
         string='Group By Field',
         help='Field to group records by',
+        ondelete='cascade',
     )
     group_by_granularity = fields.Selection([
         ('day', 'Day'),
@@ -103,11 +105,13 @@ class DashboardDataSource(models.Model):
         'ir.model.fields',
         string='Secondary Group By',
         help='Secondary field for multi-dimensional grouping',
+        ondelete='cascade',
     )
     measure_field_id = fields.Many2one(
         'ir.model.fields',
         string='Measure Field',
         help='Field to aggregate',
+        ondelete='cascade',
     )
     aggregation = fields.Selection([
         ('sum', 'Sum'),

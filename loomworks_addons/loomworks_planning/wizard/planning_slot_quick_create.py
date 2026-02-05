@@ -196,6 +196,6 @@ class PlanningSlotQuickCreate(models.TransientModel):
             'name': message,
             'res_model': 'planning.slot',
             'domain': [('id', 'in', slots.ids)] if slots else [('id', '=', 0)],
-            'view_mode': 'gantt,list,form',
+            'view_mode': 'calendar,list,form',
             'context': {'create': False},
         }

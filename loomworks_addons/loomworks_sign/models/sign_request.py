@@ -58,7 +58,7 @@ class SignRequest(models.Model):
         ('sent', 'Sent'),
         ('signing', 'In Progress'),
         ('done', 'Completed'),
-        ('cancelled', 'Cancelled'),
+        ('canceled', 'Cancelled'),
         ('expired', 'Expired')
     ], default='draft', string='Status', tracking=True, index=True)
 
@@ -145,6 +145,16 @@ class SignRequest(models.Model):
     )
     res_id = fields.Integer(
         string='Related Record ID'
+    )
+
+    # Display color for kanban
+    color = fields.Integer(string='Color', default=0)
+
+    # Signed field values
+    item_value_ids = fields.One2many(
+        'sign.request.item.value',
+        'request_id',
+        string='Field Values'
     )
 
     # Document integrity
@@ -368,7 +378,7 @@ class SignRequest(models.Model):
     def action_cancel(self):
         """Cancel the signature request."""
         self.ensure_one()
-        self.write({'state': 'cancelled'})
+        self.write({'state': 'canceled'})
         self._log_audit('cancel', 'Signature request cancelled')
         return True
 
@@ -378,6 +388,24 @@ class SignRequest(models.Model):
         signers = signer or self.signer_ids.filtered(lambda s: s.state in ('waiting', 'sent'))
         for s in signers:
             self._send_signature_email(s)
+        return True
+
+    def action_reset_to_draft(self):
+        """Reset a cancelled request back to draft state."""
+        self.ensure_one()
+        self.write({'state': 'draft'})
+        self._log_audit('reset', 'Signature request reset to draft')
+        return True
+
+    def action_download_document(self):
+        """Download the completed signed document."""
+        self.ensure_one()
+        if self.signed_attachment_id:
+            return {
+                'type': 'ir.actions.act_url',
+                'url': '/web/content/%d?download=true' % self.signed_attachment_id.id,
+                'target': 'new',
+            }
         return True
 
     # ==================== Audit Logging ====================

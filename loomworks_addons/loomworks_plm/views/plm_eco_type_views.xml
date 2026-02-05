@@ -6,14 +6,14 @@
         <field name="name">plm.eco.type.tree</field>
         <field name="model">plm.eco.type</field>
         <field name="arch" type="xml">
-            <tree string="ECO Types">
+            <list string="ECO Types">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="description"/>
                 <field name="require_approval"/>
                 <field name="min_approvers"/>
                 <field name="eco_count"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -27,7 +27,7 @@
                     <div class="oe_button_box" name="button_box">
                         <button class="oe_stat_button" type="action" icon="fa-clipboard"
                                 name="%(plm_eco_action)d"
-                                context="{'search_default_type_id': active_id}">
+                                context="{'search_default_type_id': id}">
                             <field name="eco_count" string="ECOs" widget="statinfo"/>
                         </button>
                     </div>
@@ -79,7 +79,7 @@
     <record id="plm_eco_type_action" model="ir.actions.act_window">
         <field name="name">ECO Types</field>
         <field name="res_model">plm.eco.type</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create ECO Types

@@ -63,7 +63,7 @@
         <field name="name">loomworks.ai.operation.log.tree</field>
         <field name="model">loomworks.ai.operation.log</field>
         <field name="arch" type="xml">
-            <tree string="AI Operation Logs" create="0" edit="0">
+            <list string="AI Operation Logs" create="0" edit="0">
                 <field name="create_date"/>
                 <field name="session_id"/>
                 <field name="user_id"/>
@@ -76,7 +76,7 @@
                        decoration-muted="state in ('rolled_back', 'skipped')"
                        widget="badge"/>
                 <field name="execution_time_ms"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -118,7 +118,7 @@
     <record id="action_ai_operation_log" model="ir.actions.act_window">
         <field name="name">Operation Logs</field>
         <field name="res_model">loomworks.ai.operation.log</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="context">{'search_default_today': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

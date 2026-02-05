@@ -81,12 +81,12 @@
 
                         <page string="Operations" name="operations">
                             <field name="operation_log_ids">
-                                <tree>
+                                <list>
                                     <field name="create_date"/>
                                     <field name="tool_name"/>
                                     <field name="operation_type"/>
                                     <field name="state"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
 
@@ -111,7 +111,7 @@
         <field name="name">loomworks.skill.execution.tree</field>
         <field name="model">loomworks.skill.execution</field>
         <field name="arch" type="xml">
-            <tree string="Skill Executions" create="false"
+            <list string="Skill Executions" create="false"
                   decoration-success="state == 'completed'"
                   decoration-danger="state == 'failed'"
                   decoration-warning="state in ('waiting_input', 'rolled_back')"
@@ -127,7 +127,7 @@
                 <field name="duration_ms"/>
                 <field name="steps_completed"/>
                 <field name="operation_count"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -173,7 +173,7 @@
     <record id="action_skill_execution_list" model="ir.actions.act_window">
         <field name="name">Skill Executions</field>
         <field name="res_model">loomworks.skill.execution</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="view_skill_execution_search"/>
         <field name="context">{'search_default_mine': 1}</field>
         <field name="help" type="html">

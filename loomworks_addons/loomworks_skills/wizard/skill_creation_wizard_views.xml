@@ -24,12 +24,14 @@
                 <!-- Natural Language Method -->
                 <group invisible="creation_method != 'natural_language'">
                     <group string="Describe Your Skill">
-                        <field name="natural_language_description"
+                        <field name="skill_description"
                                widget="text"
                                placeholder="Describe what you want the skill to do in plain English. For example: 'Create a quotation for a customer with selected products and apply a 10% discount if the order total exceeds $1000'"/>
                     </group>
-                    <group string="AI Assistant" invisible="not ai_suggestions">
-                        <field name="ai_suggestions" readonly="1" nolabel="1"/>
+                    <group string="Example Phrases">
+                        <field name="example_phrases"
+                               widget="text"
+                               placeholder="Enter example trigger phrases, one per line"/>
                     </group>
                 </group>
 
@@ -56,16 +58,13 @@
                     </group>
                 </group>
 
-                <!-- Trigger Phrases -->
-                <group string="Trigger Phrases" invisible="creation_method == 'recording'">
-                    <field name="trigger_phrases" nolabel="1"
-                           widget="ace" options="{'mode': 'json'}"
-                           placeholder='["create a quote for", "make a quotation"]'/>
-                </group>
-
                 <!-- Preview Section -->
-                <group string="Preview" invisible="not preview_data">
-                    <field name="preview_data" nolabel="1" readonly="1"
+                <group string="Preview: Steps" invisible="not preview_steps">
+                    <field name="preview_steps" nolabel="1" readonly="1"
+                           widget="ace" options="{'mode': 'json'}"/>
+                </group>
+                <group string="Preview: Triggers" invisible="not preview_triggers">
+                    <field name="preview_triggers" nolabel="1" readonly="1"
                            widget="ace" options="{'mode': 'json'}"/>
                 </group>
 

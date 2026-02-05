@@ -46,7 +46,7 @@
                                                     <img t-attf-src="/sign/preview/#{request.access_token}/#{page_num}"
                                                          class="img-fluid w-100 border"/>
                                                     <!-- Signature fields overlay -->
-                                                    <t t-foreach="items.filtered(lambda i: i.page_number == page_num)" t-as="item">
+                                                    <t t-foreach="items.filtered(lambda i: i.page == page_num)" t-as="item">
                                                         <div class="o_sign_field position-absolute"
                                                              t-att-data-item-id="item.id"
                                                              t-att-data-type="item.type_id.technical_name"

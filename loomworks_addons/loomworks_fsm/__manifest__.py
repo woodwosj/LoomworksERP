@@ -58,6 +58,7 @@ This is part of Loomworks ERP, a fork of Odoo Community v18 (LGPL v3).
         'project',
         'hr_timesheet',
         'base_geolocalize',
+        'stock',
         'mail',
         'loomworks_core',
         'loomworks_ai',

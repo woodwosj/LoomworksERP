@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- App Models Action (for button box) - must be before form view -->
+    <record id="action_studio_app_models" model="ir.actions.act_window">
+        <field name="name">Models</field>
+        <field name="res_model">ir.model</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('studio_app_id', '=', active_id)]</field>
+        <field name="context">{'default_studio_app_id': active_id}</field>
+    </record>
+
+    <!-- App Automations Action (for button box) - must be before form view -->
+    <record id="action_studio_app_automations" model="ir.actions.act_window">
+        <field name="name">Automations</field>
+        <field name="res_model">studio.automation</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('app_id', '=', active_id)]</field>
+        <field name="context">{'default_app_id': active_id}</field>
+    </record>
+
     <!-- Studio App Form View -->
     <record id="studio_app_view_form" model="ir.ui.view">
         <field name="name">studio.app.form</field>
@@ -189,24 +207,6 @@
                 Create models, add fields, design views, and set up automations.
             </p>
         </field>
-    </record>
-
-    <!-- App Models Action (for button box) -->
-    <record id="action_studio_app_models" model="ir.actions.act_window">
-        <field name="name">Models</field>
-        <field name="res_model">ir.model</field>
-        <field name="view_mode">list,form</field>
-        <field name="domain">[('studio_app_id', '=', active_id)]</field>
-        <field name="context">{'default_studio_app_id': active_id}</field>
-    </record>
-
-    <!-- App Automations Action (for button box) -->
-    <record id="action_studio_app_automations" model="ir.actions.act_window">
-        <field name="name">Automations</field>
-        <field name="res_model">studio.automation</field>
-        <field name="view_mode">list,form</field>
-        <field name="domain">[('app_id', '=', active_id)]</field>
-        <field name="context">{'default_app_id': active_id}</field>
     </record>
 
 </odoo>

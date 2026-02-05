@@ -125,10 +125,12 @@
                     <span class="o_stat_text">FSM Tasks</span>
                 </button>
             </xpath>
-            <xpath expr="//group[@name='project_info']" position="after">
-                <group string="Field Service" invisible="not is_fsm">
-                    <field name="default_worksheet_template_id"/>
-                </group>
+            <xpath expr="//notebook" position="inside">
+                <page string="Field Service" name="fsm_settings" invisible="not is_fsm">
+                    <group>
+                        <field name="default_worksheet_template_id"/>
+                    </group>
+                </page>
             </xpath>
         </field>
     </record>

@@ -28,37 +28,14 @@
                     <group>
                         <field name="repeat_type"/>
                     </group>
-                    <group invisible="repeat_type != 'weekly'">
-                        <div class="d-flex flex-wrap gap-3">
-                            <label class="form-check">
-                                <field name="mon" class="form-check-input"/>
-                                <span class="form-check-label">Mon</span>
-                            </label>
-                            <label class="form-check">
-                                <field name="tue" class="form-check-input"/>
-                                <span class="form-check-label">Tue</span>
-                            </label>
-                            <label class="form-check">
-                                <field name="wed" class="form-check-input"/>
-                                <span class="form-check-label">Wed</span>
-                            </label>
-                            <label class="form-check">
-                                <field name="thu" class="form-check-input"/>
-                                <span class="form-check-label">Thu</span>
-                            </label>
-                            <label class="form-check">
-                                <field name="fri" class="form-check-input"/>
-                                <span class="form-check-label">Fri</span>
-                            </label>
-                            <label class="form-check">
-                                <field name="sat" class="form-check-input"/>
-                                <span class="form-check-label">Sat</span>
-                            </label>
-                            <label class="form-check">
-                                <field name="sun" class="form-check-input"/>
-                                <span class="form-check-label">Sun</span>
-                            </label>
-                        </div>
+                    <group string="Days of Week" invisible="repeat_type != 'weekly'">
+                        <field name="mon"/>
+                        <field name="tue"/>
+                        <field name="wed"/>
+                        <field name="thu"/>
+                        <field name="fri"/>
+                        <field name="sat"/>
+                        <field name="sun"/>
                     </group>
                 </group>
                 <group string="Options">

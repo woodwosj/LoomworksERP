@@ -74,6 +74,20 @@ class SignTemplate(models.Model):
         string='Tags'
     )
 
+    # Company
+    company_id = fields.Many2one(
+        'res.company',
+        string='Company',
+        default=lambda self: self.env.company
+    )
+
+    # Default role
+    default_role_id = fields.Many2one(
+        'sign.role',
+        string='Default Role',
+        help='Default signer role for this template'
+    )
+
     # Statistics
     request_count = fields.Integer(
         compute='_compute_request_count',
@@ -162,6 +176,16 @@ class SignTemplate(models.Model):
                     template.document_hash = False
             else:
                 template.document_hash = False
+
+    def action_preview(self):
+        """Preview the template document."""
+        self.ensure_one()
+        return {
+            'name': _('Preview: %s', self.name),
+            'type': 'ir.actions.act_url',
+            'url': '/web/content/%s?download=false' % self.attachment_id.id if self.attachment_id else '#',
+            'target': 'new',
+        }
 
     def action_view_requests(self):
         """View signature requests using this template."""

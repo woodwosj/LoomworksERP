@@ -47,12 +47,12 @@
                     <notebook>
                         <page string="Recorded Actions" name="actions">
                             <field name="action_ids">
-                                <tree>
+                                <list>
                                     <field name="timestamp"/>
                                     <field name="action_type"/>
                                     <field name="model_name"/>
                                     <field name="method_name"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
 
@@ -80,7 +80,7 @@
         <field name="name">loomworks.skill.recording.tree</field>
         <field name="model">loomworks.skill.recording</field>
         <field name="arch" type="xml">
-            <tree string="Skill Recordings"
+            <list string="Skill Recordings"
                   decoration-success="state == 'converted'"
                   decoration-warning="state == 'recording'"
                   decoration-danger="state == 'failed'">
@@ -94,7 +94,7 @@
                 <field name="duration_seconds"/>
                 <field name="action_count"/>
                 <field name="generated_skill_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -131,7 +131,7 @@
     <record id="action_skill_recording_list" model="ir.actions.act_window">
         <field name="name">Skill Recordings</field>
         <field name="res_model">loomworks.skill.recording</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="view_skill_recording_search"/>
         <field name="context">{'search_default_mine': 1}</field>
         <field name="help" type="html">

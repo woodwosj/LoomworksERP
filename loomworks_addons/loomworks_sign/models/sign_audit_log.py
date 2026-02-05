@@ -121,3 +121,20 @@ class SignAuditLog(models.Model):
         """Verify integrity of all logs for a specific request."""
         logs = self.search([('request_id', '=', request_id)], order='timestamp')
         return logs.verify_chain_integrity()
+
+    @api.model
+    def _cron_verify_integrity(self):
+        """Cron job to verify audit log chain integrity for recent requests."""
+        import logging
+        _logger = logging.getLogger(__name__)
+        # Check integrity of logs for recently active requests
+        recent_requests = self.env['sign.request'].search([
+            ('state', 'in', ['sent', 'signing', 'done']),
+        ], limit=100, order='write_date desc')
+        for req in recent_requests:
+            logs = self.search([('request_id', '=', req.id)], order='timestamp')
+            if logs and not logs.verify_chain_integrity():
+                _logger.warning(
+                    "Audit log integrity check FAILED for request %s (ID: %s)",
+                    req.name, req.id
+                )

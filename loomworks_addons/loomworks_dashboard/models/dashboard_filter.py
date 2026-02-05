@@ -90,6 +90,7 @@ class DashboardFilter(models.Model):
         'ir.model',
         string='Options Model',
         help='Model to fetch options from',
+        ondelete='cascade',
     )
     options_domain = fields.Text(
         string='Options Domain',

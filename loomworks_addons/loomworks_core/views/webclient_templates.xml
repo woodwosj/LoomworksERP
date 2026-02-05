@@ -10,35 +10,17 @@
 <odoo>
     <!-- Override favicon in web.layout -->
     <template id="loomworks_favicon" inherit_id="web.layout" name="Loomworks Favicon">
-        <xpath expr="//link[@rel='shortcut icon']" position="replace">
-            <link rel="shortcut icon" href="/loomworks_core/static/src/img/loomworks_favicon.ico" type="image/x-icon"/>
-        </xpath>
-        <xpath expr="//link[@sizes='192x192']" position="replace">
-            <link rel="icon" sizes="192x192" href="/loomworks_core/static/src/img/loomworks_favicon.png" type="image/png"/>
-        </xpath>
-    </template>
-
-    <!-- Override page title to use Loomworks ERP -->
-    <template id="loomworks_title" inherit_id="web.layout" name="Loomworks Page Title">
-        <xpath expr="//title" position="replace">
-            <title><t t-esc="title or 'Loomworks ERP'"/></title>
+        <xpath expr="//link[@type='image/x-icon']" position="attributes">
+            <attribute name="t-att-href">x_icon or '/loomworks_core/static/src/img/loomworks_favicon.ico'</attribute>
         </xpath>
     </template>
 
     <!-- Override login page branding -->
-    <template id="loomworks_login" inherit_id="web.login" name="Loomworks Login">
-        <xpath expr="//div[hasclass('text-center')]//img" position="replace">
-            <img src="/loomworks_core/static/src/img/loomworks_logo.png"
-                 alt="Loomworks ERP"
-                 class="img-fluid mb-4"
-                 style="max-height: 80px; width: auto;"/>
-        </xpath>
-    </template>
-
-    <!-- Override login page title -->
-    <template id="loomworks_login_title" inherit_id="web.login_layout" name="Loomworks Login Title">
-        <xpath expr="//title" position="replace">
-            <title>Login | Loomworks ERP</title>
+    <template id="loomworks_login" inherit_id="web.login_layout" name="Loomworks Login">
+        <xpath expr="//div[hasclass('text-center','pb-3')]/img" position="attributes">
+            <attribute name="t-attf-src">/loomworks_core/static/src/img/loomworks_logo.png{{ '?dbname='+db if db else '' }}</attribute>
+            <attribute name="alt">Loomworks ERP</attribute>
+            <attribute name="style">max-height: 80px; max-width: 100%; width: auto</attribute>
         </xpath>
     </template>
 </odoo>

@@ -15,7 +15,7 @@
     <record id="view_ai_operation_log_tree_snapshot" model="ir.ui.view">
         <field name="name">loomworks.ai.operation.log.tree.snapshot</field>
         <field name="model">loomworks.ai.operation.log</field>
-        <field name="inherit_id" ref="loomworks_ai.view_ai_operation_log_tree"/>
+        <field name="inherit_id" ref="loomworks_ai.loomworks_ai_operation_log_view_tree"/>
         <field name="arch" type="xml">
             <field name="state" position="after">
                 <field name="can_rollback"/>
@@ -29,7 +29,7 @@
     <record id="view_ai_operation_log_form_snapshot" model="ir.ui.view">
         <field name="name">loomworks.ai.operation.log.form.snapshot</field>
         <field name="model">loomworks.ai.operation.log</field>
-        <field name="inherit_id" ref="loomworks_ai.view_ai_operation_log_form"/>
+        <field name="inherit_id" ref="loomworks_ai.loomworks_ai_operation_log_view_form"/>
         <field name="arch" type="xml">
             <!-- Add rollback buttons to header -->
             <xpath expr="//header" position="inside">
@@ -38,7 +38,7 @@
             </xpath>
 
             <!-- Add snapshot fields to the form -->
-            <xpath expr="//group[@name='execution']" position="after">
+            <xpath expr="//notebook" position="before">
                 <group name="rollback" string="Rollback Information" invisible="operation_type in ('search', 'read', 'report')">
                     <group>
                         <field name="can_rollback" readonly="1"/>
@@ -59,7 +59,7 @@
     <record id="view_ai_operation_log_search_snapshot" model="ir.ui.view">
         <field name="name">loomworks.ai.operation.log.search.snapshot</field>
         <field name="model">loomworks.ai.operation.log</field>
-        <field name="inherit_id" ref="loomworks_ai.view_ai_operation_log_search"/>
+        <field name="inherit_id" ref="loomworks_ai.loomworks_ai_operation_log_view_search"/>
         <field name="arch" type="xml">
             <xpath expr="//search" position="inside">
                 <separator/>
@@ -74,7 +74,7 @@
     <record id="action_rollback_operations" model="ir.actions.act_window">
         <field name="name">Rollback Operations</field>
         <field name="res_model">loomworks.ai.operation.log</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[('operation_type', 'not in', ['search', 'read', 'report'])]</field>
         <field name="context">{'search_default_rollbackable': 1}</field>
         <field name="help" type="html">

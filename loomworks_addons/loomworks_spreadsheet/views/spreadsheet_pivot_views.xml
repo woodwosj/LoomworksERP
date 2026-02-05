@@ -7,14 +7,14 @@
         <field name="name">spreadsheet.pivot.view.tree</field>
         <field name="model">spreadsheet.pivot</field>
         <field name="arch" type="xml">
-            <tree string="Pivot Tables">
+            <list string="Pivot Tables">
                 <field name="name"/>
                 <field name="document_id"/>
                 <field name="model_name"/>
                 <field name="target_cell"/>
                 <field name="show_totals" widget="boolean_toggle"/>
                 <field name="last_computed"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -61,7 +61,7 @@
                     </group>
                     <group string="Measures">
                         <field name="measure_ids" nolabel="1">
-                            <tree editable="bottom">
+                            <list editable="bottom">
                                 <field name="sequence" widget="handle"/>
                                 <field name="name"/>
                                 <field name="field_id"
@@ -69,7 +69,7 @@
                                 <field name="aggregator"/>
                                 <field name="format_type"/>
                                 <field name="decimal_places"/>
-                            </tree>
+                            </list>
                         </field>
                     </group>
                     <group string="Display Options">
@@ -117,7 +117,7 @@
     <record id="action_spreadsheet_pivot" model="ir.actions.act_window">
         <field name="name">Pivot Tables</field>
         <field name="res_model">spreadsheet.pivot</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="spreadsheet_pivot_view_search"/>
     </record>
 

@@ -6,7 +6,7 @@
         <field name="name">dashboard.board.tree</field>
         <field name="model">dashboard.board</field>
         <field name="arch" type="xml">
-            <tree string="Dashboards">
+            <list string="Dashboards">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="user_id"/>
@@ -14,7 +14,7 @@
                 <field name="is_public" widget="boolean_toggle"/>
                 <field name="is_template" widget="boolean_toggle"/>
                 <field name="active" invisible="1"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -121,17 +121,17 @@
                         </page>
                         <page string="Tabs">
                             <field name="tab_ids">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="sequence" widget="handle"/>
                                     <field name="name"/>
                                     <field name="icon" placeholder="fa-chart-bar"/>
                                     <field name="active"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Widgets" name="widgets">
                             <field name="widget_ids" mode="tree">
-                                <tree>
+                                <list>
                                     <field name="sequence" widget="handle"/>
                                     <field name="name"/>
                                     <field name="widget_type"/>
@@ -140,23 +140,23 @@
                                     <field name="grid_y"/>
                                     <field name="grid_width"/>
                                     <field name="grid_height"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Filters" name="filters">
                             <field name="filter_ids">
-                                <tree>
+                                <list>
                                     <field name="sequence" widget="handle"/>
                                     <field name="name"/>
                                     <field name="field_name"/>
                                     <field name="filter_type"/>
                                     <field name="active"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Sharing" name="sharing">
                             <field name="share_ids">
-                                <tree>
+                                <list>
                                     <field name="share_type"/>
                                     <field name="user_id"/>
                                     <field name="can_edit"/>
@@ -164,7 +164,7 @@
                                     <field name="share_url" widget="url"/>
                                     <field name="link_views"/>
                                     <field name="active"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
@@ -209,7 +209,7 @@
     <record id="action_dashboard_board" model="ir.actions.act_window">
         <field name="name">Dashboards</field>
         <field name="res_model">dashboard.board</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="search_view_id" ref="view_dashboard_board_search"/>
         <field name="context">{'search_default_my_dashboards': 1}</field>
         <field name="help" type="html">

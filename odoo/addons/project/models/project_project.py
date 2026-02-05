@@ -190,17 +190,6 @@ class Project(models.Model):
     can_mark_milestone_as_done = fields.Boolean(compute='_compute_next_milestone_id', groups="project.group_project_milestone", export_string_translation=False)
     is_milestone_deadline_exceeded = fields.Boolean(compute='_compute_next_milestone_id', groups="project.group_project_milestone", export_string_translation=False)
 
-    # -------------------------------------------------------------------------
-    # Loomworks FSM Integration Fields (Phase 3.3)
-    # These fields enable field service management when loomworks_fsm is installed
-    # -------------------------------------------------------------------------
-
-    is_fsm = fields.Boolean(
-        string='Field Service Project',
-        default=False,
-        help="Enable field service features for tasks in this project. "
-             "Tasks created in this project will have FSM capabilities.")
-
     _sql_constraints = [
         ('project_date_greater', 'check(date >= date_start)', "The project's start date must be before its end date.")
     ]

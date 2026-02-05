@@ -7,7 +7,7 @@
         <field name="name">spreadsheet.document.view.tree</field>
         <field name="model">spreadsheet.document</field>
         <field name="arch" type="xml">
-            <tree string="Spreadsheets" default_order="write_date desc">
+            <list string="Spreadsheets" default_order="write_date desc">
                 <field name="name"/>
                 <field name="description" optional="show"/>
                 <field name="sheet_count"/>
@@ -18,7 +18,7 @@
                 <field name="is_published" widget="boolean_toggle"/>
                 <field name="create_uid" widget="many2one_avatar_user"/>
                 <field name="write_date"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -45,7 +45,7 @@
                         </button>
                         <button name="%(action_spreadsheet_data_source)d" type="action"
                                 class="oe_stat_button" icon="fa-database"
-                                context="{'default_document_id': active_id, 'search_default_document_id': active_id}">
+                                context="{'default_document_id': id, 'search_default_document_id': id}">
                             <div class="o_stat_info">
                                 <field name="data_source_count" class="o_stat_value"/>
                                 <span class="o_stat_text">Data Sources</span>
@@ -53,7 +53,7 @@
                         </button>
                         <button name="%(action_spreadsheet_pivot)d" type="action"
                                 class="oe_stat_button" icon="fa-th"
-                                context="{'default_document_id': active_id, 'search_default_document_id': active_id}">
+                                context="{'default_document_id': id, 'search_default_document_id': id}">
                             <div class="o_stat_info">
                                 <field name="pivot_count" class="o_stat_value"/>
                                 <span class="o_stat_text">Pivots</span>
@@ -61,7 +61,7 @@
                         </button>
                         <button name="%(action_spreadsheet_chart)d" type="action"
                                 class="oe_stat_button" icon="fa-bar-chart"
-                                context="{'default_document_id': active_id, 'search_default_document_id': active_id}">
+                                context="{'default_document_id': id, 'search_default_document_id': id}">
                             <div class="o_stat_info">
                                 <field name="chart_count" class="o_stat_value"/>
                                 <span class="o_stat_text">Charts</span>
@@ -90,34 +90,34 @@
                     <notebook>
                         <page string="Data Sources" name="data_sources">
                             <field name="data_source_ids" nolabel="1">
-                                <tree>
+                                <list>
                                     <field name="name"/>
                                     <field name="source_type"/>
                                     <field name="model_name"/>
                                     <field name="record_count"/>
                                     <field name="target_cell"/>
                                     <field name="last_refresh"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Pivot Tables" name="pivots">
                             <field name="pivot_ids" nolabel="1">
-                                <tree>
+                                <list>
                                     <field name="name"/>
                                     <field name="model_name"/>
                                     <field name="target_cell"/>
                                     <field name="last_computed"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Charts" name="charts">
                             <field name="chart_ids" nolabel="1">
-                                <tree>
+                                <list>
                                     <field name="name"/>
                                     <field name="chart_type"/>
                                     <field name="source_type"/>
                                     <field name="model_name"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Technical" name="technical" groups="base.group_no_one">
@@ -206,7 +206,7 @@
     <record id="action_spreadsheet_document" model="ir.actions.act_window">
         <field name="name">Spreadsheets</field>
         <field name="res_model">spreadsheet.document</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="search_view_id" ref="spreadsheet_document_view_search"/>
         <field name="context">{'search_default_my_spreadsheets': 1}</field>
         <field name="help" type="html">
@@ -224,7 +224,7 @@
     <record id="action_spreadsheet_templates" model="ir.actions.act_window">
         <field name="name">Spreadsheet Templates</field>
         <field name="res_model">spreadsheet.document</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="domain">[('is_template', '=', True)]</field>
         <field name="context">{'default_is_template': True}</field>
     </record>

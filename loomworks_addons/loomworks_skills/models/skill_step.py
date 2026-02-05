@@ -189,7 +189,8 @@ class LoomworksSkillStep(models.Model):
     input_model_id = fields.Many2one(
         'ir.model',
         string='Record Model',
-        help='Model for record selection input type'
+        help='Model for record selection input type',
+        ondelete='cascade'
     )
     input_domain = fields.Text(
         string='Record Domain',

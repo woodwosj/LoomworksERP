@@ -58,7 +58,8 @@ class SpreadsheetDataSource(models.Model):
     model_id = fields.Many2one(
         'ir.model',
         string='Model',
-        help="Odoo model to fetch data from"
+        help="Odoo model to fetch data from",
+        ondelete='cascade'
     )
     model_name = fields.Char(
         related='model_id.model',

@@ -9,8 +9,6 @@
         <field name="code">model._cron_send_reminders()</field>
         <field name="interval_number">1</field>
         <field name="interval_type">hours</field>
-        <field name="numbercall">-1</field>
-        <field name="doall" eval="False"/>
         <field name="active" eval="True"/>
     </record>
 
@@ -22,8 +20,6 @@
         <field name="code">model._cron_complete_past_bookings()</field>
         <field name="interval_number">1</field>
         <field name="interval_type">hours</field>
-        <field name="numbercall">-1</field>
-        <field name="doall" eval="False"/>
         <field name="active" eval="True"/>
     </record>
 

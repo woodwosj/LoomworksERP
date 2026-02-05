@@ -1,17 +1,12 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-# Planning Role
 access_planning_role_user,planning.role.user,model_planning_role,group_planning_user,1,0,0,0
 access_planning_role_manager,planning.role.manager,model_planning_role,group_planning_manager,1,1,1,0
 access_planning_role_admin,planning.role.admin,model_planning_role,group_planning_admin,1,1,1,1
-# Planning Slot
 access_planning_slot_user,planning.slot.user,model_planning_slot,group_planning_user,1,0,0,0
 access_planning_slot_manager,planning.slot.manager,model_planning_slot,group_planning_manager,1,1,1,1
-# Planning Slot Template
 access_planning_slot_template_user,planning.slot.template.user,model_planning_slot_template,group_planning_user,1,0,0,0
 access_planning_slot_template_manager,planning.slot.template.manager,model_planning_slot_template,group_planning_manager,1,1,1,0
 access_planning_slot_template_admin,planning.slot.template.admin,model_planning_slot_template,group_planning_admin,1,1,1,1
-# Planning Recurrence
 access_planning_recurrence_user,planning.recurrence.user,model_planning_recurrence,group_planning_user,1,0,0,0
 access_planning_recurrence_manager,planning.recurrence.manager,model_planning_recurrence,group_planning_manager,1,1,1,1
-# Quick Create Wizard (transient)
 access_planning_quick_create_manager,planning.slot.quick.create.manager,model_planning_slot_quick_create,group_planning_manager,1,1,1,0

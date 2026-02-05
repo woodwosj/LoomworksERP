@@ -372,6 +372,6 @@ class PlanningSlot(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('Copied Slots'),
             'res_model': 'planning.slot',
-            'view_mode': 'gantt,list,form',
+            'view_mode': 'calendar,list,form',
             'domain': [('id', 'in', new_slots.ids)],
         }

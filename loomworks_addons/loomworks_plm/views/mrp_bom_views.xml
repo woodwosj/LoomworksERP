@@ -65,23 +65,23 @@
                     </group>
                     <separator string="Engineering Change Orders"/>
                     <field name="eco_ids" readonly="1">
-                        <tree create="false">
+                        <list create="false">
                             <field name="name"/>
                             <field name="title"/>
                             <field name="state"/>
                             <field name="approval_state"/>
                             <field name="requester_id"/>
-                        </tree>
+                        </list>
                     </field>
                     <separator string="Revision History"/>
                     <field name="revision_ids" readonly="1">
-                        <tree create="false">
+                        <list create="false">
                             <field name="revision_code"/>
                             <field name="revision_date"/>
                             <field name="eco_id"/>
                             <field name="created_by_id"/>
                             <field name="line_count"/>
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>
@@ -109,7 +109,7 @@
         <field name="model">mrp.bom</field>
         <field name="inherit_id" ref="mrp.view_mrp_bom_filter"/>
         <field name="arch" type="xml">
-            <xpath expr="//filter[@name='archived']" position="before">
+            <xpath expr="//filter[@name='inactive']" position="before">
                 <separator/>
                 <filter string="Current Revision" name="current_revision"
                         domain="[('is_current_revision', '=', True)]"/>
@@ -118,7 +118,7 @@
                 <filter string="Obsolete" name="obsolete"
                         domain="[('lifecycle_state', '=', 'obsolete')]"/>
                 <filter string="Has Pending ECO" name="has_pending_eco"
-                        domain="[('pending_eco_count', '>', 0)]"/>
+                        domain="[('eco_ids.state', 'not in', ['done', 'cancelled'])]"/>
             </xpath>
             <xpath expr="//group" position="inside">
                 <filter string="Lifecycle State" name="group_lifecycle"

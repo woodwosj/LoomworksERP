@@ -6,7 +6,7 @@
         <field name="name">sign.request.tree</field>
         <field name="model">sign.request</field>
         <field name="arch" type="xml">
-            <tree string="Signature Requests" decoration-danger="state == 'canceled'" decoration-success="state == 'done'" decoration-warning="expire_date and expire_date &lt; current_date and state in ('sent', 'signing')">
+            <list string="Signature Requests" decoration-danger="state == 'canceled'" decoration-success="state == 'done'" decoration-warning="expire_date and expire_date &lt; current_date and state in ('sent', 'signing')">
                 <field name="name"/>
                 <field name="template_id"/>
                 <field name="signer_ids" widget="many2many_tags"/>
@@ -15,7 +15,7 @@
                 <field name="completion_date"/>
                 <field name="company_id" groups="base.group_multi_company"/>
                 <field name="create_date"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -59,14 +59,14 @@
                     <notebook>
                         <page string="Signers" name="signers">
                             <field name="signer_ids" readonly="state != 'draft'">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="sequence" widget="handle"/>
                                     <field name="partner_id"/>
                                     <field name="role_id"/>
-                                    <field name="signer_email"/>
-                                    <field name="state" widget="badge" decoration-info="state == 'waiting'" decoration-warning="state == 'sent'" decoration-success="state == 'signed'" decoration-danger="state == 'refused'"/>
+                                    <field name="email"/>
+                                    <field name="state" widget="badge" decoration-info="state == 'waiting'" decoration-warning="state == 'sent'" decoration-success="state == 'done'" decoration-danger="state == 'refused'"/>
                                     <field name="signed_date"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Message" name="message">
@@ -74,12 +74,12 @@
                         </page>
                         <page string="Field Values" name="values" invisible="state == 'draft'">
                             <field name="item_value_ids" readonly="1">
-                                <tree>
+                                <list>
                                     <field name="template_item_id"/>
                                     <field name="signer_id"/>
                                     <field name="value"/>
                                     <field name="completed_date"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
@@ -155,7 +155,7 @@
     <record id="sign_request_action" model="ir.actions.act_window">
         <field name="name">Signature Requests</field>
         <field name="res_model">sign.request</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="search_view_id" ref="sign_request_view_search"/>
         <field name="context">{'search_default_filter_my': 1}</field>
         <field name="help" type="html">
@@ -174,15 +174,15 @@
         <field name="name">sign.request.signer.tree</field>
         <field name="model">sign.request.signer</field>
         <field name="arch" type="xml">
-            <tree string="Signers">
+            <list string="Signers">
                 <field name="sequence" widget="handle"/>
                 <field name="request_id"/>
                 <field name="partner_id"/>
                 <field name="role_id"/>
-                <field name="signer_email"/>
-                <field name="state" widget="badge" decoration-info="state == 'waiting'" decoration-warning="state == 'sent'" decoration-success="state == 'signed'" decoration-danger="state == 'refused'"/>
+                <field name="email"/>
+                <field name="state" widget="badge" decoration-info="state == 'waiting'" decoration-warning="state == 'sent'" decoration-success="state == 'done'" decoration-danger="state == 'refused'"/>
                 <field name="signed_date"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -191,15 +191,14 @@
         <field name="name">sign.audit.log.tree</field>
         <field name="model">sign.audit.log</field>
         <field name="arch" type="xml">
-            <tree string="Audit Log" create="false" delete="false" edit="false">
+            <list string="Audit Log" create="false" delete="false" edit="false">
                 <field name="timestamp"/>
                 <field name="request_id"/>
                 <field name="action"/>
-                <field name="user_id"/>
                 <field name="signer_id"/>
                 <field name="ip_address"/>
                 <field name="hash_value" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -216,14 +215,13 @@
                             <field name="action"/>
                         </group>
                         <group>
-                            <field name="user_id"/>
                             <field name="signer_id"/>
                             <field name="ip_address"/>
                             <field name="user_agent"/>
                         </group>
                     </group>
                     <group string="Details">
-                        <field name="details"/>
+                        <field name="description"/>
                     </group>
                     <group string="Integrity">
                         <field name="hash_value"/>
@@ -237,7 +235,7 @@
     <record id="sign_audit_log_action" model="ir.actions.act_window">
         <field name="name">Audit Log</field>
         <field name="res_model">sign.audit.log</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
 </odoo>

@@ -7,7 +7,7 @@
         <field name="name">spreadsheet.data.source.view.tree</field>
         <field name="model">spreadsheet.data.source</field>
         <field name="arch" type="xml">
-            <tree string="Data Sources">
+            <list string="Data Sources">
                 <field name="name"/>
                 <field name="document_id"/>
                 <field name="source_type"/>
@@ -16,7 +16,7 @@
                 <field name="target_cell"/>
                 <field name="auto_refresh" widget="boolean_toggle"/>
                 <field name="last_refresh"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -110,7 +110,7 @@
     <record id="action_spreadsheet_data_source" model="ir.actions.act_window">
         <field name="name">Data Sources</field>
         <field name="res_model">spreadsheet.data.source</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="spreadsheet_data_source_view_search"/>
     </record>
 

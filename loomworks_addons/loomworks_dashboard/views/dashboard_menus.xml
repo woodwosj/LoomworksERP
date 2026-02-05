@@ -52,7 +52,7 @@
     <record id="action_dashboard_templates" model="ir.actions.act_window">
         <field name="name">Dashboard Templates</field>
         <field name="res_model">dashboard.board</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="domain">[('is_template', '=', True)]</field>
         <field name="context">{'default_is_template': True}</field>
         <field name="help" type="html">

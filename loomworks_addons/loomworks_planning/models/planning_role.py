@@ -65,7 +65,7 @@ class PlanningRole(models.Model):
             'type': 'ir.actions.act_window',
             'name': f'Slots - {self.name}',
             'res_model': 'planning.slot',
-            'view_mode': 'gantt,list,form',
+            'view_mode': 'calendar,list,form',
             'domain': [('role_id', '=', self.id)],
             'context': {'default_role_id': self.id},
         }

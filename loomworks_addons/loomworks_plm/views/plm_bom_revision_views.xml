@@ -6,7 +6,7 @@
         <field name="name">plm.bom.revision.tree</field>
         <field name="model">plm.bom.revision</field>
         <field name="arch" type="xml">
-            <tree string="BOM Revisions" default_order="revision_date desc">
+            <list string="BOM Revisions" default_order="revision_date desc">
                 <field name="bom_id"/>
                 <field name="product_tmpl_id"/>
                 <field name="revision_code"/>
@@ -15,7 +15,7 @@
                 <field name="created_by_id" widget="many2one_avatar_user"/>
                 <field name="line_count"/>
                 <field name="is_released"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -63,7 +63,7 @@
     <record id="plm_bom_revision_action" model="ir.actions.act_window">
         <field name="name">BOM Revision History</field>
         <field name="res_model">plm.bom.revision</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 No revision history yet

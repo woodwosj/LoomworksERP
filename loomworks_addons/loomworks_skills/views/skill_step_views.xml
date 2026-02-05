@@ -145,14 +145,14 @@
         <field name="name">loomworks.skill.step.tree</field>
         <field name="model">loomworks.skill.step</field>
         <field name="arch" type="xml">
-            <tree string="Skill Steps" editable="bottom">
+            <list string="Skill Steps" editable="bottom">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="step_type"/>
                 <field name="tool_name" optional="show"/>
                 <field name="is_critical"/>
                 <field name="output_variable" optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
 

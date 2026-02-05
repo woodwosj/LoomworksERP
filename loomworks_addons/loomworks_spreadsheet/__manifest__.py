@@ -69,11 +69,11 @@ This is part of Loomworks ERP, a fork of Odoo Community v18 (LGPL v3).
         'security/ir.model.access.csv',
         # Data
         'data/spreadsheet_data.xml',
-        # Views
-        'views/spreadsheet_document_views.xml',
+        # Views (data_source, pivot, chart before document - document form refs their actions)
         'views/spreadsheet_data_source_views.xml',
         'views/spreadsheet_pivot_views.xml',
         'views/spreadsheet_chart_views.xml',
+        'views/spreadsheet_document_views.xml',
         'views/spreadsheet_menus.xml',
     ],
     'assets': {

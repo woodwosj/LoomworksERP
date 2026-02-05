@@ -9,7 +9,7 @@ from odoo import api, fields, models, _
 class PlanningToolProvider(models.AbstractModel):
     """AI Tool Provider for Planning operations."""
     _name = 'planning.tool.provider'
-    _inherit = 'ai.tool.provider.mixin'
+    _inherit = 'loomworks.ai.tool.provider'
     _description = 'Planning AI Tool Provider'
 
     @api.model

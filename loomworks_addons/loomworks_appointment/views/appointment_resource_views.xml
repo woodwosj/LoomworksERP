@@ -6,7 +6,7 @@
         <field name="name">appointment.resource.tree</field>
         <field name="model">appointment.resource</field>
         <field name="arch" type="xml">
-            <tree string="Appointment Resources">
+            <list string="Appointment Resources">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="resource_type"/>
@@ -15,7 +15,7 @@
                 <field name="upcoming_count"/>
                 <field name="booking_count"/>
                 <field name="active" column_invisible="True"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -53,12 +53,12 @@
                     <notebook>
                         <page string="Appointment Types" name="appointment_types">
                             <field name="appointment_type_ids">
-                                <tree>
+                                <list>
                                     <field name="name"/>
                                     <field name="duration" widget="float_time"/>
                                     <field name="location"/>
                                     <field name="is_published"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Limits" name="limits">
@@ -147,7 +147,7 @@
     <record id="appointment_resource_action" model="ir.actions.act_window">
         <field name="name">Resources</field>
         <field name="res_model">appointment.resource</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="search_view_id" ref="appointment_resource_view_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

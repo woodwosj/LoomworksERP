@@ -6,7 +6,7 @@
         <field name="name">appointment.booking.tree</field>
         <field name="model">appointment.booking</field>
         <field name="arch" type="xml">
-            <tree string="Appointment Bookings" decoration-danger="state == 'canceled'" decoration-warning="state == 'no_show'" decoration-success="state == 'done'" decoration-muted="state == 'draft'">
+            <list string="Appointment Bookings" decoration-danger="state == 'canceled'" decoration-warning="state == 'no_show'" decoration-success="state == 'done'" decoration-muted="state == 'draft'">
                 <field name="name"/>
                 <field name="appointment_type_id"/>
                 <field name="partner_id"/>
@@ -15,7 +15,7 @@
                 <field name="resource_id"/>
                 <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-warning="state == 'pending'" decoration-primary="state == 'confirmed'" decoration-success="state == 'done'" decoration-danger="state in ('canceled', 'no_show')"/>
                 <field name="company_id" groups="base.group_multi_company"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -86,10 +86,10 @@
                         </page>
                         <page string="Answers" name="answers" invisible="not answer_ids">
                             <field name="answer_ids">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="question_id"/>
                                     <field name="value"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Cancellation" name="cancellation" invisible="state != 'canceled'">
@@ -202,7 +202,7 @@
     <record id="appointment_booking_action" model="ir.actions.act_window">
         <field name="name">Appointments</field>
         <field name="res_model">appointment.booking</field>
-        <field name="view_mode">calendar,tree,kanban,form</field>
+        <field name="view_mode">calendar,list,kanban,form</field>
         <field name="search_view_id" ref="appointment_booking_view_search"/>
         <field name="context">{'search_default_filter_upcoming': 1}</field>
         <field name="help" type="html">
@@ -219,7 +219,7 @@
     <record id="appointment_booking_action_today" model="ir.actions.act_window">
         <field name="name">Today's Appointments</field>
         <field name="res_model">appointment.booking</field>
-        <field name="view_mode">tree,form,calendar</field>
+        <field name="view_mode">list,form,calendar</field>
         <field name="search_view_id" ref="appointment_booking_view_search"/>
         <field name="context">{'search_default_filter_today': 1}</field>
     </record>

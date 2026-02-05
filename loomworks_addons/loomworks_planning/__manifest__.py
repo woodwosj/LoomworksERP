@@ -59,6 +59,7 @@ This is part of Loomworks ERP, a fork of Odoo Community v18 (LGPL v3).
     'license': 'LGPL-3',
     'depends': [
         'hr',
+        'hr_skills',
         'resource',
         'project',
         'hr_holidays',
@@ -84,8 +85,6 @@ This is part of Loomworks ERP, a fork of Odoo Community v18 (LGPL v3).
     'assets': {
         'web.assets_backend': [
             'loomworks_planning/static/src/scss/planning.scss',
-            'loomworks_planning/static/src/js/planning_gantt.js',
-            'loomworks_planning/static/src/xml/planning_gantt.xml',
         ],
     },
     'images': ['static/description/icon.png'],

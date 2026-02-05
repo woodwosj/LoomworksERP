@@ -8,12 +8,20 @@
     License: LGPL-3
 -->
 <odoo>
+    <!-- Action for tenant's snapshots (must be defined before form view that references it) -->
+    <record id="action_tenant_snapshots" model="ir.actions.act_window">
+        <field name="name">Tenant Snapshots</field>
+        <field name="res_model">loomworks.snapshot</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('tenant_id', '=', active_id)]</field>
+    </record>
+
     <!-- Tenant Tree View -->
     <record id="view_tenant_tree" model="ir.ui.view">
         <field name="name">loomworks.tenant.tree</field>
         <field name="model">loomworks.tenant</field>
         <field name="arch" type="xml">
-            <tree string="Tenants" decoration-success="state == 'active'" decoration-warning="state == 'suspended'" decoration-muted="state == 'archived'">
+            <list string="Tenants" decoration-success="state == 'active'" decoration-warning="state == 'suspended'" decoration-muted="state == 'archived'">
                 <field name="name"/>
                 <field name="subdomain"/>
                 <field name="database_name"/>
@@ -23,7 +31,7 @@
                 <field name="current_users"/>
                 <field name="subscription_expires"/>
                 <field name="snapshot_count"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -140,7 +148,7 @@
     <record id="action_tenant" model="ir.actions.act_window">
         <field name="name">Tenants</field>
         <field name="res_model">loomworks.tenant</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="view_tenant_search"/>
         <field name="context">{'search_default_active': 1}</field>
         <field name="help" type="html">
@@ -154,12 +162,5 @@
         </field>
     </record>
 
-    <!-- Action for tenant's snapshots -->
-    <record id="action_tenant_snapshots" model="ir.actions.act_window">
-        <field name="name">Tenant Snapshots</field>
-        <field name="res_model">loomworks.snapshot</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('tenant_id', '=', active_id)]</field>
-    </record>
 
 </odoo>

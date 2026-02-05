@@ -49,13 +49,13 @@
         <field name="name">loomworks.ai.user.settings.tree</field>
         <field name="model">loomworks.ai.user.settings</field>
         <field name="arch" type="xml">
-            <tree string="AI User Settings">
+            <list string="AI User Settings">
                 <field name="user_id"/>
                 <field name="company_id" groups="base.group_multi_company"/>
                 <field name="enable_suggestions"/>
                 <field name="suggestion_frequency"/>
                 <field name="notification_style"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -84,7 +84,7 @@
     <record id="action_ai_user_settings" model="ir.actions.act_window">
         <field name="name">AI User Settings</field>
         <field name="res_model">loomworks.ai.user.settings</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Configure AI assistant preferences for users

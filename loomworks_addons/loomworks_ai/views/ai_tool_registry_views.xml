@@ -45,12 +45,12 @@
         <field name="name">loomworks.ai.tool.registry.tree</field>
         <field name="model">loomworks.ai.tool.registry</field>
         <field name="arch" type="xml">
-            <tree string="AI Tool Registries">
+            <list string="AI Tool Registries">
                 <field name="name"/>
                 <field name="provider_count"/>
                 <field name="tool_count"/>
                 <field name="last_refresh"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -58,7 +58,7 @@
     <record id="action_ai_tool_registry" model="ir.actions.act_window">
         <field name="name">Tool Registry</field>
         <field name="res_model">loomworks.ai.tool.registry</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 AI Tool Registry

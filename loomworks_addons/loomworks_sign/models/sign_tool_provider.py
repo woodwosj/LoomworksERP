@@ -244,8 +244,9 @@ Use this tool when:
             }))
 
         # Create request
-        expire_date = fields.Date.today() + timedelta(days=expire_days) if expire_days else False
         from datetime import timedelta
+        from odoo import fields
+        expire_date = fields.Date.today() + timedelta(days=expire_days) if expire_days else False
 
         request = self.env['sign.request'].create({
             'template_id': template.id,

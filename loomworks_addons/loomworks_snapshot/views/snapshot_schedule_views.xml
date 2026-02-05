@@ -8,12 +8,20 @@
     License: LGPL-3
 -->
 <odoo>
+    <!-- Action for schedule's snapshots (must be defined before form view that references it) -->
+    <record id="action_schedule_snapshots" model="ir.actions.act_window">
+        <field name="name">Snapshots from Schedule</field>
+        <field name="res_model">loomworks.snapshot</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('schedule_id', '=', active_id)]</field>
+    </record>
+
     <!-- Snapshot Schedule Tree View -->
     <record id="view_snapshot_schedule_tree" model="ir.ui.view">
         <field name="name">loomworks.snapshot.schedule.tree</field>
         <field name="model">loomworks.snapshot.schedule</field>
         <field name="arch" type="xml">
-            <tree string="Snapshot Schedules" decoration-muted="not active">
+            <list string="Snapshot Schedules" decoration-muted="not active">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="active" widget="boolean_toggle"/>
@@ -24,7 +32,7 @@
                 <field name="next_run"/>
                 <field name="run_count"/>
                 <field name="error_count" decoration-danger="error_count > 0"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -110,7 +118,7 @@
     <record id="action_snapshot_schedule" model="ir.actions.act_window">
         <field name="name">Snapshot Schedules</field>
         <field name="res_model">loomworks.snapshot.schedule</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="view_snapshot_schedule_search"/>
         <field name="context">{'search_default_active': 1}</field>
         <field name="help" type="html">
@@ -124,12 +132,5 @@
         </field>
     </record>
 
-    <!-- Action for schedule's snapshots -->
-    <record id="action_schedule_snapshots" model="ir.actions.act_window">
-        <field name="name">Snapshots from Schedule</field>
-        <field name="res_model">loomworks.snapshot</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('schedule_id', '=', active_id)]</field>
-    </record>
 
 </odoo>

@@ -1,20 +1,14 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-# Skill Model
 access_skill_user,loomworks.skill.user,model_loomworks_skill,group_skills_user,1,0,0,0
 access_skill_creator,loomworks.skill.creator,model_loomworks_skill,group_skills_creator,1,1,1,1
 access_skill_manager,loomworks.skill.manager,model_loomworks_skill,group_skills_manager,1,1,1,1
-# Skill Step Model
 access_skill_step_user,loomworks.skill.step.user,model_loomworks_skill_step,group_skills_user,1,0,0,0
 access_skill_step_creator,loomworks.skill.step.creator,model_loomworks_skill_step,group_skills_creator,1,1,1,1
 access_skill_step_manager,loomworks.skill.step.manager,model_loomworks_skill_step,group_skills_manager,1,1,1,1
-# Skill Execution Model
 access_execution_user,loomworks.skill.execution.user,model_loomworks_skill_execution,group_skills_user,1,1,1,0
 access_execution_manager,loomworks.skill.execution.manager,model_loomworks_skill_execution,group_skills_manager,1,1,1,1
-# Skill Recording Model
 access_recording_user,loomworks.skill.recording.user,model_loomworks_skill_recording,group_skills_user,1,1,1,1
 access_recording_manager,loomworks.skill.recording.manager,model_loomworks_skill_recording,group_skills_manager,1,1,1,1
-# Skill Recording Action Model
 access_recording_action_user,loomworks.skill.recording.action.user,model_loomworks_skill_recording_action,group_skills_user,1,1,1,0
 access_recording_action_manager,loomworks.skill.recording.action.manager,model_loomworks_skill_recording_action,group_skills_manager,1,1,1,1
-# Skill Creation Wizard
 access_wizard_user,loomworks.skill.creation.wizard.user,model_loomworks_skill_creation_wizard,group_skills_user,1,1,1,1

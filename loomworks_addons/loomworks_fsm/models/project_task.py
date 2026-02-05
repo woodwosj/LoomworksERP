@@ -20,6 +20,52 @@ class ProjectTaskFSM(models.Model):
     """
     _inherit = 'project.task'
 
+    # FSM flag - enables FSM features on this task
+    is_fsm = fields.Boolean(
+        string='Field Service Task',
+        default=False,
+        help="Enable field service features for this task (timer, signature, geolocation)")
+
+    # Geolocation fields (for customer location)
+    partner_latitude = fields.Float(
+        related='partner_id.partner_latitude',
+        string='Latitude',
+        readonly=False,
+        store=True)
+    partner_longitude = fields.Float(
+        related='partner_id.partner_longitude',
+        string='Longitude',
+        readonly=False,
+        store=True)
+
+    # Scheduling fields for FSM
+    planned_date_start = fields.Datetime(
+        string='Planned Start',
+        help="Planned start date/time for field service work")
+    planned_date_end = fields.Datetime(
+        string='Planned End',
+        help="Planned end date/time for field service work")
+
+    # Timer infrastructure for time tracking
+    timer_start = fields.Datetime(
+        string='Timer Started',
+        help="When the work timer was started")
+    timer_pause = fields.Datetime(
+        string='Timer Paused',
+        help="When the work timer was paused")
+
+    # Customer signature capture
+    customer_signature = fields.Binary(
+        string='Customer Signature',
+        attachment=False,
+        help="Customer signature confirming work completion")
+    customer_signed_by = fields.Char(
+        string='Signed By',
+        help="Name of person who signed")
+    customer_signed_on = fields.Datetime(
+        string='Signed On',
+        help="Date/time when signature was captured")
+
     # FSM User (technician assigned)
     fsm_user_id = fields.Many2one(
         'res.users',
@@ -101,6 +147,48 @@ class ProjectTaskFSM(models.Model):
             self.is_fsm = True
             if self.project_id.default_worksheet_template_id:
                 self.worksheet_template_id = self.project_id.default_worksheet_template_id
+
+    def action_timer_start(self):
+        """Start the work timer for FSM task."""
+        self.ensure_one()
+        if not self.timer_start:
+            self.timer_start = fields.Datetime.now()
+        return True
+
+    def action_timer_pause(self):
+        """Pause the work timer for FSM task."""
+        self.ensure_one()
+        if self.timer_start and not self.timer_pause:
+            self.timer_pause = fields.Datetime.now()
+        return True
+
+    def action_timer_resume(self):
+        """Resume the work timer for FSM task."""
+        self.ensure_one()
+        if self.timer_pause:
+            # Adjust timer_start to account for paused time
+            pause_duration = fields.Datetime.now() - self.timer_pause
+            self.timer_start = self.timer_start + pause_duration
+            self.timer_pause = False
+        return True
+
+    def action_timer_stop(self):
+        """Stop the work timer and return hours elapsed."""
+        self.ensure_one()
+        if not self.timer_start:
+            return 0.0
+
+        end_time = fields.Datetime.now()
+        if self.timer_pause:
+            end_time = self.timer_pause
+
+        hours = (end_time - self.timer_start).total_seconds() / 3600
+
+        self.write({
+            'timer_start': False,
+            'timer_pause': False,
+        })
+        return hours
 
     def action_fsm_checkin(self, latitude=None, longitude=None, address=None):
         """

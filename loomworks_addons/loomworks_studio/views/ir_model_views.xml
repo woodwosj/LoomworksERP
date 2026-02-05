@@ -7,7 +7,7 @@
         <field name="model">ir.model</field>
         <field name="inherit_id" ref="base.view_model_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//sheet" position="inside">
+            <xpath expr="//notebook" position="before">
                 <group string="Studio Settings" groups="loomworks_studio.group_studio_user"
                        invisible="studio_origin == 'odoo'">
                     <group>
@@ -21,12 +21,6 @@
                     <field name="studio_description" colspan="2"/>
                 </group>
             </xpath>
-            <xpath expr="//div[@class='oe_button_box']" position="inside">
-                <button name="action_open_studio" type="object" class="oe_stat_button"
-                        icon="fa-magic" string="Open in Studio"
-                        groups="loomworks_studio.group_studio_user"
-                        invisible="studio_origin == 'odoo'"/>
-            </xpath>
         </field>
     </record>
 
@@ -36,7 +30,7 @@
         <field name="model">ir.model</field>
         <field name="inherit_id" ref="base.view_model_tree"/>
         <field name="arch" type="xml">
-            <xpath expr="//list" position="inside">
+            <xpath expr="//field[@name='transient']" position="after">
                 <field name="studio_origin" optional="hide"/>
                 <field name="studio_app_id" optional="hide"/>
             </xpath>

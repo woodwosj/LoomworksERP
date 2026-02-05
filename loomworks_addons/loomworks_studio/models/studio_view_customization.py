@@ -50,7 +50,8 @@ class StudioViewCustomization(models.Model):
         'ir.model',
         string='Model Reference',
         compute='_compute_model_id',
-        store=True
+        store=True,
+        ondelete='cascade'
     )
     view_type = fields.Selection([
         ('form', 'Form'),

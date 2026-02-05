@@ -65,13 +65,13 @@ This is part of Loomworks ERP, a fork of Odoo Community v18 (LGPL v3).
         'security/ir.model.access.csv',
         # Data
         'data/ai_tool_data.xml',
-        # Views
-        'views/ai_agent_views.xml',
+        # Views (session before agent - agent references session actions)
         'views/ai_session_views.xml',
         'views/ai_tool_views.xml',
         'views/ai_operation_log_views.xml',
         'views/ai_user_settings_views.xml',
         'views/ai_tool_registry_views.xml',
+        'views/ai_agent_views.xml',
         'views/ai_menus.xml',
     ],
     'assets': {

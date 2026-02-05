@@ -8,12 +8,21 @@
     License: LGPL-3
 -->
 <odoo>
+    <!-- Action for related operations (must be defined before form view that references it) -->
+    <record id="action_snapshot_operations" model="ir.actions.act_window">
+        <field name="name">Related Operations</field>
+        <field name="res_model">loomworks.ai.operation.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('snapshot_id', '=', active_id)]</field>
+        <field name="context">{'default_snapshot_id': active_id}</field>
+    </record>
+
     <!-- Snapshot Tree View -->
     <record id="view_snapshot_tree" model="ir.ui.view">
         <field name="name">loomworks.snapshot.tree</field>
         <field name="model">loomworks.snapshot</field>
         <field name="arch" type="xml">
-            <tree string="Snapshots" decoration-success="state == 'ready'" decoration-warning="state == 'restoring'" decoration-muted="state == 'expired'" decoration-danger="state == 'failed'">
+            <list string="Snapshots" decoration-success="state == 'ready'" decoration-warning="state == 'restoring'" decoration-muted="state == 'expired'" decoration-danger="state == 'failed'">
                 <field name="display_name"/>
                 <field name="snapshot_type"/>
                 <field name="state" widget="badge" decoration-success="state == 'ready'" decoration-warning="state in ('creating', 'restoring')" decoration-danger="state == 'failed'" decoration-muted="state == 'expired'"/>
@@ -22,7 +31,7 @@
                 <field name="expires_at"/>
                 <field name="operation_count"/>
                 <field name="created_by_id" widget="many2one_avatar_user"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -126,7 +135,7 @@
     <record id="action_snapshot" model="ir.actions.act_window">
         <field name="name">Database Snapshots</field>
         <field name="res_model">loomworks.snapshot</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="view_snapshot_search"/>
         <field name="context">{'search_default_ready': 1}</field>
         <field name="help" type="html">
@@ -140,13 +149,5 @@
         </field>
     </record>
 
-    <!-- Action for related operations -->
-    <record id="action_snapshot_operations" model="ir.actions.act_window">
-        <field name="name">Related Operations</field>
-        <field name="res_model">loomworks.ai.operation.log</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('snapshot_id', '=', active_id)]</field>
-        <field name="context">{'default_snapshot_id': active_id}</field>
-    </record>
 
 </odoo>

@@ -78,11 +78,11 @@ This is part of Loomworks ERP, a fork of Odoo Community v18 (LGPL v3).
         'security/ir.model.access.csv',
         # Data
         'data/skill_data.xml',
-        # Views
-        'views/skill_views.xml',
+        # Views (execution views loaded first - referenced by skill_views.xml)
         'views/skill_step_views.xml',
         'views/skill_execution_views.xml',
         'views/skill_recording_views.xml',
+        'views/skill_views.xml',
         'views/skill_menus.xml',
         # Wizards
         'wizard/skill_creation_wizard_views.xml',

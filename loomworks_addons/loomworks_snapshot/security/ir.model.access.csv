@@ -1,18 +1,14 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-# Snapshot Model
 access_snapshot_user,loomworks.snapshot.user,model_loomworks_snapshot,group_snapshot_user,1,0,0,0
 access_snapshot_manager,loomworks.snapshot.manager,model_loomworks_snapshot,group_snapshot_manager,1,1,1,0
 access_snapshot_admin,loomworks.snapshot.admin,model_loomworks_snapshot,group_snapshot_admin,1,1,1,1
 
-# Snapshot Schedule Model
 access_schedule_user,loomworks.snapshot.schedule.user,model_loomworks_snapshot_schedule,group_snapshot_user,1,0,0,0
 access_schedule_manager,loomworks.snapshot.schedule.manager,model_loomworks_snapshot_schedule,group_snapshot_manager,1,1,1,0
 access_schedule_admin,loomworks.snapshot.schedule.admin,model_loomworks_snapshot_schedule,group_snapshot_admin,1,1,1,1
 
-# Snapshot Retention Model
 access_retention_user,loomworks.snapshot.retention.user,model_loomworks_snapshot_retention,group_snapshot_user,1,0,0,0
 access_retention_manager,loomworks.snapshot.retention.manager,model_loomworks_snapshot_retention,group_snapshot_manager,1,1,1,0
 access_retention_admin,loomworks.snapshot.retention.admin,model_loomworks_snapshot_retention,group_snapshot_admin,1,1,1,1
 
-# Tenant Model (Admin only)
 access_tenant_admin,loomworks.tenant.admin,model_loomworks_tenant,group_snapshot_admin,1,1,1,1

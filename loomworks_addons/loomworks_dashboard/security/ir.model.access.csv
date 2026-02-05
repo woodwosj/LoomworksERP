@@ -1,22 +1,15 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-# Dashboard Board
 access_dashboard_board_user,dashboard.board.user,model_dashboard_board,group_dashboard_user,1,0,0,0
 access_dashboard_board_manager,dashboard.board.manager,model_dashboard_board,group_dashboard_manager,1,1,1,1
-# Dashboard Tab
 access_dashboard_tab_user,dashboard.tab.user,model_dashboard_tab,group_dashboard_user,1,0,0,0
 access_dashboard_tab_manager,dashboard.tab.manager,model_dashboard_tab,group_dashboard_manager,1,1,1,1
-# Dashboard Widget
 access_dashboard_widget_user,dashboard.widget.user,model_dashboard_widget,group_dashboard_user,1,0,0,0
 access_dashboard_widget_manager,dashboard.widget.manager,model_dashboard_widget,group_dashboard_manager,1,1,1,1
-# Dashboard Widget Type
 access_dashboard_widget_type_user,dashboard.widget.type.user,model_dashboard_widget_type,group_dashboard_user,1,0,0,0
 access_dashboard_widget_type_admin,dashboard.widget.type.admin,model_dashboard_widget_type,group_dashboard_admin,1,1,1,1
-# Dashboard Data Source
 access_dashboard_data_source_user,dashboard.data.source.user,model_dashboard_data_source,group_dashboard_user,1,0,0,0
 access_dashboard_data_source_manager,dashboard.data.source.manager,model_dashboard_data_source,group_dashboard_manager,1,1,1,1
-# Dashboard Filter
 access_dashboard_filter_user,dashboard.filter.user,model_dashboard_filter,group_dashboard_user,1,0,0,0
 access_dashboard_filter_manager,dashboard.filter.manager,model_dashboard_filter,group_dashboard_manager,1,1,1,1
-# Dashboard Share
 access_dashboard_share_user,dashboard.share.user,model_dashboard_share,group_dashboard_user,1,0,0,0
 access_dashboard_share_manager,dashboard.share.manager,model_dashboard_share,group_dashboard_manager,1,1,1,1

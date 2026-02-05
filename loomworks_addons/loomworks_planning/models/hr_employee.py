@@ -150,7 +150,7 @@ class HrEmployeePlanning(models.Model):
             'type': 'ir.actions.act_window',
             'name': f'Planning - {self.name}',
             'res_model': 'planning.slot',
-            'view_mode': 'gantt,list,form,calendar',
+            'view_mode': 'calendar,list,form',
             'domain': [('employee_id', '=', self.id)],
             'context': {
                 'default_employee_id': self.id,
@@ -169,7 +169,7 @@ class HrEmployeePlanning(models.Model):
             'type': 'ir.actions.act_window',
             'name': f'This Week - {self.name}',
             'res_model': 'planning.slot',
-            'view_mode': 'gantt,list,form',
+            'view_mode': 'calendar,list,form',
             'domain': [
                 ('employee_id', '=', self.id),
                 ('start_datetime', '>=', datetime.combine(week_start, datetime.min.time())),

@@ -61,7 +61,7 @@
         <field name="name">plm.eco.tree</field>
         <field name="model">plm.eco</field>
         <field name="arch" type="xml">
-            <tree string="Engineering Change Orders" decoration-muted="state == 'cancelled'" decoration-success="state == 'done'">
+            <list string="Engineering Change Orders" decoration-muted="state == 'cancelled'" decoration-success="state == 'done'">
                 <field name="name"/>
                 <field name="title"/>
                 <field name="type_id"/>
@@ -78,7 +78,7 @@
                 <field name="state" invisible="1"/>
                 <field name="request_date" optional="hide"/>
                 <field name="target_date" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -159,7 +159,7 @@
                                 </group>
                             </group>
                             <field name="change_line_ids">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="sequence" widget="handle"/>
                                     <field name="change_type"/>
                                     <field name="old_component_id" optional="show"/>
@@ -168,7 +168,7 @@
                                     <field name="new_quantity" optional="show"/>
                                     <field name="cost_impact" sum="Total Impact" optional="show"/>
                                     <field name="notes" optional="hide"/>
-                                </tree>
+                                </list>
                             </field>
                             <group string="Actions" invisible="state != 'done'">
                                 <button name="action_compare_bom" string="Compare BOMs" type="object"
@@ -199,7 +199,7 @@
                                        decoration-danger="approval_state == 'rejected'"/>
                             </group>
                             <field name="approval_ids" readonly="1">
-                                <tree create="false" delete="false">
+                                <list create="false" delete="false">
                                     <field name="user_id" widget="many2one_avatar_user"/>
                                     <field name="status" widget="badge"
                                            decoration-success="status == 'approved'"
@@ -209,7 +209,7 @@
                                     <field name="comments"/>
                                     <button name="action_send_reminder" string="Send Reminder" type="object"
                                             icon="fa-bell" invisible="status != 'pending'"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Description" name="description">
@@ -283,7 +283,7 @@
     <record id="plm_eco_action" model="ir.actions.act_window">
         <field name="name">Engineering Change Orders</field>
         <field name="res_model">plm.eco</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="search_view_id" ref="plm_eco_view_search"/>
         <field name="context">{'search_default_my_pending': 1}</field>
         <field name="help" type="html">

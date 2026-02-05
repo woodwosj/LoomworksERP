@@ -33,7 +33,7 @@ class SignPortal(http.Controller):
                 'error': 'Invalid or expired signature request.'
             })
 
-        if sign_request.state in ('done', 'cancelled', 'expired'):
+        if sign_request.state in ('done', 'canceled', 'expired'):
             return request.render('loomworks_sign.sign_completed', {
                 'sign_request': sign_request,
                 'state': sign_request.state,
