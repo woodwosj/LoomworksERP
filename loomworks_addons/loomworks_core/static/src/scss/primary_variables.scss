@@ -8,35 +8,67 @@
 
 // ============================================
 // LOOMWORKS COLOR PALETTE
+// Matching loomworks.solutions theme
+// Modern dark mode with cyan-blue-purple gradients
 // ============================================
 
-// Primary brand color (deep blue - trust, professionalism)
-$lw-primary: #1e3a5f;
-$lw-primary-light: #2d5a8a;
-$lw-primary-dark: #0f2840;
+// Primary gradient colors (cyan to blue)
+$lw-cyan-400: #22d3ee;
+$lw-cyan-500: #06b6d4;
+$lw-cyan-600: #0891b2;
 
-// Secondary/accent color (teal - innovation, growth)
-$lw-secondary: #2dd4bf;
-$lw-secondary-light: #5eead4;
-$lw-secondary-dark: #14b8a6;
+$lw-blue-400: #60a5fa;
+$lw-blue-500: #3b82f6;
+$lw-blue-600: #2563eb;
 
-// Neutral palette
-$lw-gray-50: #f8fafc;
-$lw-gray-100: #f1f5f9;
-$lw-gray-200: #e2e8f0;
-$lw-gray-300: #cbd5e1;
-$lw-gray-400: #94a3b8;
-$lw-gray-500: #64748b;
-$lw-gray-600: #475569;
-$lw-gray-700: #334155;
-$lw-gray-800: #1e293b;
-$lw-gray-900: #0f172a;
+$lw-purple-500: #a855f7;
+$lw-purple-600: #9333ea;
+
+// Primary brand color (cyan - innovation, technology)
+$lw-primary: $lw-cyan-500;
+$lw-primary-light: $lw-cyan-400;
+$lw-primary-dark: $lw-cyan-600;
+
+// Secondary/accent color (blue - trust, professionalism)
+$lw-secondary: $lw-blue-500;
+$lw-secondary-light: $lw-blue-400;
+$lw-secondary-dark: $lw-blue-600;
+
+// Tertiary/accent color (purple - creativity, premium)
+$lw-tertiary: $lw-purple-600;
+$lw-tertiary-light: $lw-purple-500;
+
+// Dark mode backgrounds (gray-900 spectrum)
+$lw-gray-50: #f9fafb;
+$lw-gray-100: #f3f4f6;
+$lw-gray-200: #e5e7eb;
+$lw-gray-300: #d1d5db;
+$lw-gray-400: #9ca3af;
+$lw-gray-500: #6b7280;
+$lw-gray-600: #4b5563;
+$lw-gray-700: #374151;
+$lw-gray-800: #1f2937;
+$lw-gray-900: #111827;
+$lw-gray-950: #030712;
 
 // Semantic colors
 $lw-success: #22c55e;
 $lw-warning: #f59e0b;
 $lw-danger: #ef4444;
-$lw-info: #3b82f6;
+$lw-info: $lw-blue-500;
+
+// ============================================
+// GRADIENT DEFINITIONS
+// ============================================
+
+// Primary gradient (cyan to blue) - for buttons, accents
+$lw-gradient-primary: linear-gradient(135deg, $lw-cyan-500 0%, $lw-blue-500 100%);
+
+// Accent gradient (cyan → blue → purple) - for highlights
+$lw-gradient-accent: linear-gradient(135deg, $lw-cyan-400 0%, $lw-blue-500 50%, $lw-purple-600 100%);
+
+// Background gradient (dark mode)
+$lw-gradient-bg: linear-gradient(180deg, $lw-gray-900 0%, $lw-gray-800 50%, $lw-gray-900 100%);
 
 // ============================================
 // ODOO VARIABLE OVERRIDES
@@ -47,11 +79,11 @@ $o-brand-odoo: $lw-primary !default;
 $o-brand-primary: $lw-primary !default;
 $o-brand-secondary: $lw-secondary !default;
 
-// Navbar colors
-$o-navbar-inverse-bg: $lw-primary !default;
+// Navbar colors (dark theme)
+$o-navbar-inverse-bg: $lw-gray-900 !default;
 $o-navbar-inverse-color: #ffffff !default;
 $o-navbar-inverse-link-color: rgba(255, 255, 255, 0.85) !default;
-$o-navbar-inverse-link-hover-color: #ffffff !default;
+$o-navbar-inverse-link-hover-color: $lw-cyan-400 !default;
 
 // Form and input styling
 $o-form-lightsecondary: $lw-gray-100 !default;
@@ -67,8 +99,9 @@ $info: $lw-info !default;
 $warning: $lw-warning !default;
 $danger: $lw-danger !default;
 
+// Light mode defaults (dark mode handled separately)
 $body-bg: $lw-gray-50 !default;
 $body-color: $lw-gray-800 !default;
 
 $link-color: $lw-primary !default;
-$link-hover-color: $lw-primary-dark !default;
+$link-hover-color: $lw-primary-light !default;

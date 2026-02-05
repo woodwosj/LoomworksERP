@@ -8,21 +8,55 @@
 
 // ============================================
 // LOOMWORKS BACKEND STYLES
+// Modern dark mode theme matching loomworks.solutions
 // ============================================
 
-// Custom styles for the Loomworks ERP backend interface.
-// These styles complement the primary variables to provide
-// a cohesive branded experience.
+// ============================================
+// NAVBAR STYLING
+// ============================================
 
-// Navbar branding adjustments
 .o_main_navbar {
+    background: $lw-gradient-bg;
+    border-bottom: 1px solid $lw-gray-700;
+
     .o_menu_brand_icon {
-        height: 30px;
+        height: 32px;
         width: auto;
+    }
+
+    // Navbar links with cyan hover
+    .o_menu_sections > li > a,
+    .o_menu_systray > li > a {
+        color: rgba(255, 255, 255, 0.85);
+        transition: color 0.2s ease;
+
+        &:hover,
+        &:focus {
+            color: $lw-cyan-400;
+        }
+    }
+
+    // Active menu item with gradient underline
+    .o_menu_sections > li.active > a {
+        color: #ffffff;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: $lw-gradient-primary;
+        }
     }
 }
 
-// Login page enhancements
+// ============================================
+// LOGIN PAGE
+// ============================================
+
 .oe_login_form {
     .oe_login_logo {
         max-height: 80px;
@@ -30,80 +64,250 @@
     }
 }
 
-// Button hover states with secondary color accent
-.btn-primary:hover,
-.btn-primary:focus {
-    background-color: $lw-primary-light;
-    border-color: $lw-primary-light;
+// Dark login background option
+body.lw-dark-login {
+    background: $lw-gradient-bg;
+
+    .card {
+        background: rgba($lw-gray-800, 0.9);
+        border: 1px solid $lw-gray-700;
+        backdrop-filter: blur(10px);
+
+        .card-header,
+        .card-body {
+            color: #ffffff;
+        }
+    }
 }
 
-// Secondary button styling
-.btn-secondary {
-    background-color: $lw-secondary;
-    border-color: $lw-secondary;
-    color: $lw-gray-900;
+// ============================================
+// GRADIENT BUTTONS
+// ============================================
+
+// Primary button with gradient
+.btn-primary {
+    background: $lw-gradient-primary;
+    border: none;
+    color: #ffffff;
+    transition: all 0.3s ease;
 
     &:hover,
     &:focus {
-        background-color: $lw-secondary-dark;
-        border-color: $lw-secondary-dark;
-        color: white;
+        background: linear-gradient(135deg, $lw-cyan-400 0%, $lw-blue-400 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba($lw-cyan-500, 0.4);
+    }
+
+    &:active {
+        transform: translateY(0);
     }
 }
 
-// Kanban card accent
+// Secondary button
+.btn-secondary {
+    background-color: transparent;
+    border: 1px solid $lw-gray-600;
+    color: $lw-gray-300;
+    transition: all 0.3s ease;
+
+    &:hover,
+    &:focus {
+        background-color: rgba($lw-gray-700, 0.5);
+        border-color: $lw-cyan-500;
+        color: $lw-cyan-400;
+    }
+}
+
+// Outline button with gradient border effect
+.btn-outline-primary {
+    background: transparent;
+    border: 1px solid $lw-cyan-500;
+    color: $lw-cyan-500;
+
+    &:hover,
+    &:focus {
+        background: $lw-gradient-primary;
+        border-color: transparent;
+        color: #ffffff;
+    }
+}
+
+// ============================================
+// KANBAN CARDS
+// ============================================
+
 .o_kanban_record {
     border-left: 3px solid transparent;
+    transition: all 0.2s ease;
 
     &:hover {
-        border-left-color: $lw-secondary;
+        border-left-color: $lw-cyan-500;
+        box-shadow: 0 2px 8px rgba($lw-cyan-500, 0.15);
     }
 }
 
-// Form view section headers
-.o_form_view .o_inner_group .o_td_label {
-    color: $lw-primary;
+// Kanban column headers with gradient
+.o_kanban_group_header {
+    .o_kanban_header_title {
+        .o_column_title {
+            font-weight: 600;
+        }
+    }
 }
 
-// Breadcrumb styling
+// ============================================
+// FORM VIEWS
+// ============================================
+
+.o_form_view {
+    .o_inner_group .o_td_label {
+        color: $lw-primary;
+        font-weight: 500;
+    }
+
+    // Sheet styling
+    .o_form_sheet {
+        border-radius: 8px;
+    }
+}
+
+// ============================================
+// BREADCRUMBS
+// ============================================
+
 .breadcrumb {
     background-color: transparent;
 
     .breadcrumb-item {
         &.active {
-            color: $lw-primary;
+            color: $lw-cyan-500;
         }
 
         a {
-            color: $lw-primary;
+            color: $lw-blue-500;
+            transition: color 0.2s ease;
 
             &:hover {
-                color: $lw-primary-dark;
+                color: $lw-cyan-400;
             }
         }
     }
 }
 
-// Statusbar customization
+// ============================================
+// STATUSBAR
+// ============================================
+
 .o_statusbar_status {
     .btn-secondary {
         &.disabled,
         &:disabled {
             background-color: $lw-gray-200;
             border-color: $lw-gray-300;
-            color: $lw-gray-600;
+            color: $lw-gray-500;
+        }
+
+        &.btn-primary:not(.disabled) {
+            background: $lw-gradient-primary;
         }
     }
 }
 
-// App menu icons
-.o_app_icon {
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+// ============================================
+// APP MENU
+// ============================================
+
+.o_apps {
+    .o_app {
+        transition: transform 0.2s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+
+            .o_app_icon {
+                box-shadow: 0 8px 16px rgba($lw-cyan-500, 0.3);
+            }
+        }
+    }
 }
 
-// Selection highlight
+.o_app_icon {
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.2s ease;
+}
+
+// ============================================
+// SELECTION & FOCUS
+// ============================================
+
 ::selection {
-    background-color: $lw-secondary-light;
-    color: $lw-gray-900;
+    background-color: rgba($lw-cyan-500, 0.3);
+    color: inherit;
+}
+
+// Focus rings with brand color
+*:focus-visible {
+    outline: 2px solid $lw-cyan-500;
+    outline-offset: 2px;
+}
+
+// ============================================
+// SCROLLBARS (Webkit)
+// ============================================
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: $lw-gray-200;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, $lw-cyan-500 0%, $lw-blue-500 100%);
+    border-radius: 4px;
+
+    &:hover {
+        background: linear-gradient(180deg, $lw-cyan-400 0%, $lw-blue-400 100%);
+    }
+}
+
+// ============================================
+// LOADING INDICATOR
+// ============================================
+
+.o_loading_indicator {
+    background: $lw-gradient-primary;
+}
+
+// ============================================
+// CHATTER
+// ============================================
+
+.o_chatter {
+    .o_chatter_header_container {
+        border-bottom: 1px solid $lw-gray-200;
+    }
+
+    .o_Message {
+        &:hover {
+            background-color: rgba($lw-cyan-500, 0.05);
+        }
+    }
+}
+
+// ============================================
+// DARK MODE SUPPORT
+// ============================================
+
+@media (prefers-color-scheme: dark) {
+    .o_web_client {
+        --lw-bg-primary: #{$lw-gray-900};
+        --lw-bg-secondary: #{$lw-gray-800};
+        --lw-text-primary: #ffffff;
+        --lw-text-secondary: #{$lw-gray-300};
+        --lw-border: #{$lw-gray-700};
+    }
 }
