@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Skill Creation Wizard Form View -->
+    <record id="view_skill_creation_wizard_form" model="ir.ui.view">
+        <field name="name">loomworks.skill.creation.wizard.form</field>
+        <field name="model">loomworks.skill.creation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create New Skill">
+                <group>
+                    <field name="creation_method" widget="radio"
+                           options="{'horizontal': true}"/>
+                </group>
+
+                <!-- From Recording Method -->
+                <group invisible="creation_method != 'recording'">
+                    <group string="Select Recording">
+                        <field name="recording_id"
+                               domain="[('state', '=', 'stopped')]"
+                               options="{'no_create': True}"/>
+                    </group>
+                </group>
+
+                <!-- Natural Language Method -->
+                <group invisible="creation_method != 'natural_language'">
+                    <group string="Describe Your Skill">
+                        <field name="natural_language_description"
+                               widget="text"
+                               placeholder="Describe what you want the skill to do in plain English. For example: 'Create a quotation for a customer with selected products and apply a 10% discount if the order total exceeds $1000'"/>
+                    </group>
+                    <group string="AI Assistant" invisible="not ai_suggestions">
+                        <field name="ai_suggestions" readonly="1" nolabel="1"/>
+                    </group>
+                </group>
+
+                <!-- Manual Method -->
+                <group invisible="creation_method != 'manual'">
+                    <p class="text-muted">
+                        Create a skill manually by defining all fields yourself.
+                        This gives you full control over the skill configuration.
+                    </p>
+                </group>
+
+                <!-- Common Fields (shown for all methods) -->
+                <group string="Skill Details">
+                    <group>
+                        <field name="name" required="1"
+                               placeholder="e.g., Create Sales Quotation"/>
+                        <field name="technical_name"
+                               placeholder="e.g., create_sales_quotation"/>
+                        <field name="category"/>
+                    </group>
+                    <group>
+                        <field name="description"
+                               placeholder="Brief description of what this skill does..."/>
+                    </group>
+                </group>
+
+                <!-- Trigger Phrases -->
+                <group string="Trigger Phrases" invisible="creation_method == 'recording'">
+                    <field name="trigger_phrases" nolabel="1"
+                           widget="ace" options="{'mode': 'json'}"
+                           placeholder='["create a quote for", "make a quotation"]'/>
+                </group>
+
+                <!-- Preview Section -->
+                <group string="Preview" invisible="not preview_data">
+                    <field name="preview_data" nolabel="1" readonly="1"
+                           widget="ace" options="{'mode': 'json'}"/>
+                </group>
+
+                <footer>
+                    <button name="action_generate_preview" type="object"
+                            string="Generate Preview" class="btn-secondary"
+                            invisible="creation_method != 'natural_language'"/>
+                    <button name="action_create_skill" type="object"
+                            string="Create Skill" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Skill Execution Form View -->
+    <record id="view_skill_execution_form" model="ir.ui.view">
+        <field name="name">loomworks.skill.execution.form</field>
+        <field name="model">loomworks.skill.execution</field>
+        <field name="arch" type="xml">
+            <form string="Skill Execution" create="false">
+                <header>
+                    <button name="action_rollback" type="object"
+                            string="Rollback" class="btn-warning"
+                            invisible="state not in ('completed', 'failed')"
+                            confirm="Are you sure you want to rollback this execution?"/>
+                    <button name="cancel_execution" type="object"
+                            string="Cancel" class="btn-secondary"
+                            invisible="state not in ('running', 'waiting_input')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="pending,running,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="skill_name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="skill_id"/>
+                            <field name="user_id"/>
+                            <field name="session_id"/>
+                        </group>
+                        <group>
+                            <field name="started_at"/>
+                            <field name="completed_at"/>
+                            <field name="duration_ms"/>
+                        </group>
+                    </group>
+                    <group string="Progress">
+                        <field name="steps_completed"/>
+                        <field name="steps_total"/>
+                        <field name="current_step_id"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Input/Output">
+                            <group string="Trigger Text">
+                                <field name="trigger_text" nolabel="1"/>
+                            </group>
+                            <group string="Input Data">
+                                <field name="input_data" nolabel="1"
+                                       widget="ace" options="{'mode': 'json'}"/>
+                            </group>
+                            <group string="Output Data">
+                                <field name="output_data" nolabel="1"
+                                       widget="ace" options="{'mode': 'json'}"/>
+                            </group>
+                            <group string="Result Summary">
+                                <field name="result_summary" nolabel="1"/>
+                            </group>
+                        </page>
+
+                        <page string="Pending Input"
+                              invisible="state != 'waiting_input'">
+                            <group>
+                                <field name="pending_input_prompt"/>
+                                <field name="pending_input_type"/>
+                                <field name="pending_input_options"/>
+                                <field name="pending_input_variable"/>
+                            </group>
+                        </page>
+
+                        <page string="Rollback" name="rollback">
+                            <group>
+                                <field name="can_rollback"/>
+                                <field name="rollback_mode"/>
+                                <field name="snapshot_id"/>
+                                <field name="savepoint_name"/>
+                            </group>
+                        </page>
+
+                        <page string="Operations" name="operations">
+                            <field name="operation_log_ids">
+                                <tree>
+                                    <field name="create_date"/>
+                                    <field name="tool_name"/>
+                                    <field name="operation_type"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Error" invisible="state != 'failed'">
+                            <group>
+                                <field name="error_message" nolabel="1"/>
+                                <field name="error_step_id"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Skill Execution Tree View -->
+    <record id="view_skill_execution_tree" model="ir.ui.view">
+        <field name="name">loomworks.skill.execution.tree</field>
+        <field name="model">loomworks.skill.execution</field>
+        <field name="arch" type="xml">
+            <tree string="Skill Executions" create="false"
+                  decoration-success="state == 'completed'"
+                  decoration-danger="state == 'failed'"
+                  decoration-warning="state in ('waiting_input', 'rolled_back')"
+                  decoration-muted="state == 'cancelled'">
+                <field name="skill_name"/>
+                <field name="user_id"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'completed'"
+                       decoration-danger="state == 'failed'"
+                       decoration-warning="state == 'waiting_input'"
+                       decoration-info="state == 'running'"/>
+                <field name="started_at"/>
+                <field name="duration_ms"/>
+                <field name="steps_completed"/>
+                <field name="operation_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Skill Execution Search View -->
+    <record id="view_skill_execution_search" model="ir.ui.view">
+        <field name="name">loomworks.skill.execution.search</field>
+        <field name="model">loomworks.skill.execution</field>
+        <field name="arch" type="xml">
+            <search string="Executions">
+                <field name="skill_name"/>
+                <field name="user_id"/>
+                <field name="trigger_text"/>
+                <separator/>
+                <filter string="Completed" name="completed"
+                        domain="[('state', '=', 'completed')]"/>
+                <filter string="Failed" name="failed"
+                        domain="[('state', '=', 'failed')]"/>
+                <filter string="Running" name="running"
+                        domain="[('state', '=', 'running')]"/>
+                <filter string="Waiting Input" name="waiting"
+                        domain="[('state', '=', 'waiting_input')]"/>
+                <separator/>
+                <filter string="My Executions" name="mine"
+                        domain="[('user_id', '=', uid)]"/>
+                <filter string="Today" name="today"
+                        domain="[('started_at', '>=', context_today().strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Skill" name="group_skill"
+                            context="{'group_by': 'skill_id'}"/>
+                    <filter string="State" name="group_state"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="User" name="group_user"
+                            context="{'group_by': 'user_id'}"/>
+                    <filter string="Date" name="group_date"
+                            context="{'group_by': 'started_at:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Skill Execution Action -->
+    <record id="action_skill_execution_list" model="ir.actions.act_window">
+        <field name="name">Skill Executions</field>
+        <field name="res_model">loomworks.skill.execution</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_skill_execution_search"/>
+        <field name="context">{'search_default_mine': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No skill executions yet
+            </p>
+            <p>
+                Execute a skill to see its history here.
+            </p>
+        </field>
+    </record>
+
+</odoo>

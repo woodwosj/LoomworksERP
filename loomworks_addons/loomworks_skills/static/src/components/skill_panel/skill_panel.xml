@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="loomworks_skills.SkillPanel">
+        <div class="o_skill_panel" t-att-class="{'o_skill_panel_compact': props.compact}">
+            <!-- Header -->
+            <div class="o_skill_panel_header">
+                <h5 class="mb-0">
+                    <i class="fa fa-magic me-2"/>Skills
+                </h5>
+            </div>
+
+            <!-- Search and Filter -->
+            <div class="o_skill_panel_filters p-2">
+                <div class="input-group input-group-sm mb-2">
+                    <span class="input-group-text">
+                        <i class="fa fa-search"/>
+                    </span>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Search skills..."
+                           t-on-input="onSearchInput"
+                           t-att-value="state.searchQuery"/>
+                </div>
+
+                <select class="form-select form-select-sm"
+                        t-on-change="onCategoryChange">
+                    <t t-foreach="categories" t-as="cat" t-key="cat.value">
+                        <option t-att-value="cat.value"
+                                t-att-selected="state.selectedCategory === cat.value">
+                            <t t-esc="cat.label"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+
+            <!-- Skills List -->
+            <div class="o_skill_panel_list">
+                <t t-if="state.loading">
+                    <div class="text-center text-muted py-4">
+                        <i class="fa fa-spinner fa-spin fa-2x"/>
+                        <p class="mt-2">Loading skills...</p>
+                    </div>
+                </t>
+
+                <t t-elif="filteredSkills.length === 0">
+                    <div class="text-center text-muted py-4">
+                        <i class="fa fa-inbox fa-2x"/>
+                        <p class="mt-2">No skills found</p>
+                    </div>
+                </t>
+
+                <t t-else="">
+                    <t t-foreach="filteredSkills" t-as="skill" t-key="skill.id">
+                        <div class="o_skill_item"
+                             t-att-class="{'expanded': state.expandedSkillId === skill.id}">
+                            <div class="o_skill_item_header"
+                                 t-on-click="() => this.toggleSkillExpanded(skill.id)">
+                                <div class="o_skill_icon">
+                                    <i t-attf-class="fa #{getCategoryIcon(skill.category)}"/>
+                                </div>
+                                <div class="o_skill_info">
+                                    <div class="o_skill_name">
+                                        <t t-esc="skill.name"/>
+                                        <span t-if="skill.is_builtin"
+                                              class="badge bg-secondary ms-1"
+                                              title="Built-in skill">
+                                            Built-in
+                                        </span>
+                                    </div>
+                                    <div class="o_skill_meta text-muted small">
+                                        <span class="text-capitalize">
+                                            <t t-esc="skill.category"/>
+                                        </span>
+                                        <t t-if="skill.execution_count > 0">
+                                            <span class="mx-1">|</span>
+                                            <span t-esc="formatSuccessRate(skill.success_rate)"/>
+                                            success
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class="o_skill_actions">
+                                    <button class="btn btn-sm btn-primary"
+                                            t-on-click.stop="() => this.onSkillClick(skill)"
+                                            title="Execute skill">
+                                        <i class="fa fa-play"/>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <t t-if="state.expandedSkillId === skill.id">
+                                <div class="o_skill_item_details">
+                                    <p t-if="skill.description" class="mb-2">
+                                        <t t-esc="skill.description"/>
+                                    </p>
+                                    <div class="o_skill_stats small text-muted">
+                                        <span>
+                                            <i class="fa fa-play-circle me-1"/>
+                                            <t t-esc="skill.execution_count"/> executions
+                                        </span>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </div>
+    </t>
+
+</templates>

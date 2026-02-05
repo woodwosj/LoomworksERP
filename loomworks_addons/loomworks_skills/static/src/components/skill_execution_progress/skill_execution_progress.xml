@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="loomworks_skills.SkillExecutionProgress">
+        <div class="o_skill_execution_progress">
+            <t t-if="state.loading">
+                <div class="text-center py-4">
+                    <i class="fa fa-spinner fa-spin fa-2x"/>
+                    <p class="mt-2 text-muted">Loading...</p>
+                </div>
+            </t>
+
+            <t t-elif="state.error">
+                <div class="alert alert-danger">
+                    <i class="fa fa-exclamation-triangle me-2"/>
+                    <t t-esc="state.error"/>
+                </div>
+            </t>
+
+            <t t-elif="state.execution">
+                <!-- Header -->
+                <div class="o_execution_header mb-3">
+                    <h6 class="mb-1">
+                        <i class="fa fa-magic me-2"/>
+                        <t t-esc="state.execution.skill_name"/>
+                    </h6>
+                    <div t-att-class="'o_execution_state ' + stateClass">
+                        <i t-attf-class="fa #{stateIcon} me-1"/>
+                        <span class="text-capitalize">
+                            <t t-esc="state.execution.state.replace('_', ' ')"/>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="o_execution_progress mb-3">
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar"
+                             role="progressbar"
+                             t-att-style="'width: ' + progressPercent + '%'"
+                             t-att-aria-valuenow="progressPercent"
+                             aria-valuemin="0"
+                             aria-valuemax="100">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between small text-muted mt-1">
+                        <span>
+                            Step <t t-esc="state.execution.steps_completed"/> of <t t-esc="state.execution.steps_total"/>
+                        </span>
+                        <span>
+                            <t t-esc="progressPercent"/>%
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Waiting for Input -->
+                <t t-if="isWaitingInput">
+                    <div class="o_execution_input card">
+                        <div class="card-body">
+                            <p class="card-text mb-3">
+                                <i class="fa fa-question-circle text-warning me-2"/>
+                                <t t-esc="state.execution.pending_input_prompt"/>
+                            </p>
+
+                            <!-- Selection options -->
+                            <t t-if="state.execution.pending_input_type === 'selection' and inputOptions.length > 0">
+                                <div class="d-flex flex-wrap gap-2">
+                                    <t t-foreach="inputOptions" t-as="option" t-key="option_index">
+                                        <button class="btn btn-outline-primary btn-sm"
+                                                t-on-click="() => this.onOptionSelect(option)">
+                                            <t t-esc="option"/>
+                                        </button>
+                                    </t>
+                                </div>
+                            </t>
+
+                            <!-- Boolean (Yes/No) -->
+                            <t t-elif="state.execution.pending_input_type === 'boolean'">
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-success"
+                                            t-on-click="() => { this.state.userInput = true; this.submitInput(); }">
+                                        <i class="fa fa-check me-1"/> Yes
+                                    </button>
+                                    <button class="btn btn-danger"
+                                            t-on-click="() => { this.state.userInput = false; this.submitInput(); }">
+                                        <i class="fa fa-times me-1"/> No
+                                    </button>
+                                </div>
+                            </t>
+
+                            <!-- Text/Number input -->
+                            <t t-else="">
+                                <div class="input-group">
+                                    <input t-att-type="state.execution.pending_input_type === 'number' ? 'number' : 'text'"
+                                           class="form-control"
+                                           placeholder="Enter your response..."
+                                           t-att-value="state.userInput"
+                                           t-on-input="onInputChange"
+                                           t-on-keyup.enter="submitInput"/>
+                                    <button class="btn btn-primary"
+                                            t-on-click="submitInput">
+                                        <i class="fa fa-paper-plane"/>
+                                    </button>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+
+                <!-- Completed State -->
+                <t t-if="state.execution.state === 'completed'">
+                    <div class="alert alert-success">
+                        <i class="fa fa-check-circle me-2"/>
+                        <strong>Completed</strong>
+                        <t t-if="state.execution.result_summary">
+                            <p class="mb-0 mt-2">
+                                <t t-esc="state.execution.result_summary"/>
+                            </p>
+                        </t>
+                    </div>
+                </t>
+
+                <!-- Failed State -->
+                <t t-if="state.execution.state === 'failed'">
+                    <div class="alert alert-danger">
+                        <i class="fa fa-times-circle me-2"/>
+                        <strong>Failed</strong>
+                        <t t-if="state.execution.error_message">
+                            <p class="mb-0 mt-2">
+                                <t t-esc="state.execution.error_message"/>
+                            </p>
+                        </t>
+                    </div>
+                </t>
+
+                <!-- Duration -->
+                <t t-if="state.execution.duration_ms > 0">
+                    <div class="text-muted small mt-2">
+                        <i class="fa fa-clock-o me-1"/>
+                        Duration: <t t-esc="formatDuration(state.execution.duration_ms)"/>
+                    </div>
+                </t>
+
+                <!-- Cancel Button -->
+                <t t-if="!isCompleted">
+                    <div class="mt-3">
+                        <button class="btn btn-sm btn-outline-secondary"
+                                t-on-click="cancelExecution">
+                            <i class="fa fa-times me-1"/> Cancel
+                        </button>
+                    </div>
+                </t>
+            </t>
+        </div>
+    </t>
+
+</templates>

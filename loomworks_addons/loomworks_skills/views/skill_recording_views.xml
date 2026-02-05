@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Skill Recording Form View -->
+    <record id="view_skill_recording_form" model="ir.ui.view">
+        <field name="name">loomworks.skill.recording.form</field>
+        <field name="model">loomworks.skill.recording</field>
+        <field name="arch" type="xml">
+            <form string="Skill Recording">
+                <header>
+                    <button name="stop_recording" type="object"
+                            string="Stop Recording" class="btn-primary"
+                            invisible="state != 'recording'"/>
+                    <button name="convert_to_skill" type="object"
+                            string="Convert to Skill" class="btn-primary"
+                            invisible="state != 'stopped'"/>
+                    <button name="action_view_skill" type="object"
+                            string="View Skill" class="btn-secondary"
+                            invisible="not generated_skill_id"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="recording,stopped,converted"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="started_at"/>
+                            <field name="stopped_at"/>
+                            <field name="duration_seconds"/>
+                        </group>
+                        <group>
+                            <field name="action_count"/>
+                            <field name="start_model"/>
+                            <field name="generated_skill_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="capture_field_changes"/>
+                        <field name="capture_searches"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Recorded Actions" name="actions">
+                            <field name="action_ids">
+                                <tree>
+                                    <field name="timestamp"/>
+                                    <field name="action_type"/>
+                                    <field name="model_name"/>
+                                    <field name="method_name"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="User Inputs" name="inputs"
+                              invisible="not user_inputs">
+                            <field name="user_inputs"
+                                   widget="ace" options="{'mode': 'json'}"/>
+                        </page>
+
+                        <page string="Error" invisible="state != 'failed'">
+                            <field name="error_message" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Skill Recording Tree View -->
+    <record id="view_skill_recording_tree" model="ir.ui.view">
+        <field name="name">loomworks.skill.recording.tree</field>
+        <field name="model">loomworks.skill.recording</field>
+        <field name="arch" type="xml">
+            <tree string="Skill Recordings"
+                  decoration-success="state == 'converted'"
+                  decoration-warning="state == 'recording'"
+                  decoration-danger="state == 'failed'">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'converted'"
+                       decoration-info="state == 'stopped'"
+                       decoration-warning="state == 'recording'"/>
+                <field name="started_at"/>
+                <field name="duration_seconds"/>
+                <field name="action_count"/>
+                <field name="generated_skill_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Skill Recording Search View -->
+    <record id="view_skill_recording_search" model="ir.ui.view">
+        <field name="name">loomworks.skill.recording.search</field>
+        <field name="model">loomworks.skill.recording</field>
+        <field name="arch" type="xml">
+            <search string="Recordings">
+                <field name="name"/>
+                <field name="user_id"/>
+                <separator/>
+                <filter string="Recording" name="recording"
+                        domain="[('state', '=', 'recording')]"/>
+                <filter string="Stopped" name="stopped"
+                        domain="[('state', '=', 'stopped')]"/>
+                <filter string="Converted" name="converted"
+                        domain="[('state', '=', 'converted')]"/>
+                <separator/>
+                <filter string="My Recordings" name="mine"
+                        domain="[('user_id', '=', uid)]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="State" name="group_state"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="User" name="group_user"
+                            context="{'group_by': 'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Skill Recording Action -->
+    <record id="action_skill_recording_list" model="ir.actions.act_window">
+        <field name="name">Skill Recordings</field>
+        <field name="res_model">loomworks.skill.recording</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_skill_recording_search"/>
+        <field name="context">{'search_default_mine': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No recordings yet
+            </p>
+            <p>
+                Start recording your actions to create a reusable skill.
+            </p>
+        </field>
+    </record>
+
+</odoo>

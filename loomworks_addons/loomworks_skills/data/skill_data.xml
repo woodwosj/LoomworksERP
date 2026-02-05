@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- =====================================================
+             Built-in Skills for Loomworks ERP
+             ===================================================== -->
+
+        <!-- Create Sales Quote Skill -->
+        <record id="skill_create_sales_quote" model="loomworks.skill">
+            <field name="name">Create Sales Quote</field>
+            <field name="technical_name">create-sales-quote</field>
+            <field name="category">sales</field>
+            <field name="is_builtin">True</field>
+            <field name="state">active</field>
+            <field name="description">Create a sales quotation for a customer with specified products and quantities.</field>
+            <field name="trigger_phrases">[
+    "create a quote for",
+    "make a quotation for",
+    "prepare quote",
+    "new quote for {customer_name}",
+    "quote {quantity} {product} for {customer_name}",
+    "create sales order for",
+    "prepare quotation",
+    "i need a quote for"
+]</field>
+            <field name="context_schema">{
+    "type": "object",
+    "properties": {
+        "customer_name": {
+            "type": "string",
+            "description": "Customer or company name",
+            "extraction_hints": ["for", "to", "customer", "client"]
+        },
+        "products": {
+            "type": "array",
+            "description": "Products to quote with quantities",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "quantity": {"type": "number"}
+                }
+            }
+        },
+        "delivery_date": {
+            "type": "string",
+            "format": "date",
+            "extraction_hints": ["by", "before", "deliver", "delivery"]
+        }
+    },
+    "required": ["customer_name"]
+}</field>
+            <field name="required_context">["customer_name"]</field>
+            <field name="system_prompt">You are creating a sales quotation in Odoo.
+
+Steps to follow:
+1. Search for the customer by name using search_records on res.partner
+2. If customer not found, ask if you should create a new customer
+3. Create a sale.order with the partner_id
+4. For each product requested, search product.product and add order lines
+5. If products not specified, ask what products to include
+6. Confirm the final quote details before completing
+
+Always confirm the customer and products before creating the quotation.</field>
+            <field name="allowed_tools">["search_records", "create_record", "update_record"]</field>
+            <field name="requires_confirmation">True</field>
+            <field name="auto_snapshot">True</field>
+            <field name="max_operations">15</field>
+        </record>
+
+        <!-- Check Inventory Skill -->
+        <record id="skill_check_inventory" model="loomworks.skill">
+            <field name="name">Check Inventory Levels</field>
+            <field name="technical_name">check-inventory-levels</field>
+            <field name="category">inventory</field>
+            <field name="is_builtin">True</field>
+            <field name="state">active</field>
+            <field name="description">Check current inventory levels for a product across warehouses.</field>
+            <field name="trigger_phrases">[
+    "do we have",
+    "check stock of",
+    "inventory level for",
+    "how many {product_name} in stock",
+    "what's the inventory of",
+    "check availability of",
+    "stock check for",
+    "is {product_name} available"
+]</field>
+            <field name="context_schema">{
+    "type": "object",
+    "properties": {
+        "product_name": {
+            "type": "string",
+            "description": "Product name to check",
+            "extraction_hints": ["of", "for", "product", "item"]
+        },
+        "warehouse_name": {
+            "type": "string",
+            "description": "Specific warehouse to check",
+            "extraction_hints": ["in", "at", "warehouse", "location"]
+        }
+    },
+    "required": ["product_name"]
+}</field>
+            <field name="required_context">["product_name"]</field>
+            <field name="system_prompt">Check inventory levels for the specified product.
+
+Steps:
+1. Search product.product for the product by name
+2. Get stock.quant records for the product to see quantities
+3. If warehouse specified, filter by location
+4. Report: available quantity, reserved quantity, total on hand
+5. Include warehouse breakdown if multiple locations exist
+
+Present results in a clear, tabular format.</field>
+            <field name="allowed_tools">["search_records"]</field>
+            <field name="requires_confirmation">False</field>
+            <field name="auto_snapshot">False</field>
+            <field name="max_operations">5</field>
+        </record>
+
+        <!-- Create Customer Skill -->
+        <record id="skill_create_customer" model="loomworks.skill">
+            <field name="name">Create New Customer</field>
+            <field name="technical_name">create-new-customer</field>
+            <field name="category">sales</field>
+            <field name="is_builtin">True</field>
+            <field name="state">active</field>
+            <field name="description">Create a new customer/contact in the system with their details.</field>
+            <field name="trigger_phrases">[
+    "add new customer",
+    "create customer",
+    "new client {customer_name}",
+    "register customer",
+    "add customer {customer_name}",
+    "create contact for",
+    "add new contact",
+    "new customer named"
+]</field>
+            <field name="context_schema">{
+    "type": "object",
+    "properties": {
+        "customer_name": {
+            "type": "string",
+            "description": "Customer/company name",
+            "extraction_hints": ["named", "called", "customer", "name"]
+        },
+        "email": {
+            "type": "string",
+            "format": "email",
+            "extraction_hints": ["email", "mail", "contact at"]
+        },
+        "phone": {
+            "type": "string",
+            "extraction_hints": ["phone", "tel", "call", "number"]
+        },
+        "is_company": {
+            "type": "boolean",
+            "default": false,
+            "extraction_hints": ["company", "business", "organization"]
+        },
+        "street": {
+            "type": "string",
+            "extraction_hints": ["address", "street", "located at"]
+        },
+        "city": {
+            "type": "string",
+            "extraction_hints": ["city", "in"]
+        }
+    },
+    "required": ["customer_name"]
+}</field>
+            <field name="required_context">["customer_name"]</field>
+            <field name="system_prompt">Create a new customer (res.partner) record.
+
+Steps:
+1. First check if a customer with similar name exists to prevent duplicates
+2. If duplicate found, ask user if they want to proceed or use existing
+3. Create res.partner with:
+   - name: customer_name
+   - customer_rank: 1 (marks as customer)
+   - is_company: true if business name detected
+   - email, phone, street, city if provided
+4. Confirm creation with the new customer details
+
+Always check for duplicates before creating.</field>
+            <field name="allowed_tools">["search_records", "create_record"]</field>
+            <field name="requires_confirmation">True</field>
+            <field name="auto_snapshot">True</field>
+            <field name="max_operations">5</field>
+        </record>
+
+        <!-- Generate Invoice Skill -->
+        <record id="skill_generate_invoice" model="loomworks.skill">
+            <field name="name">Generate Customer Invoice</field>
+            <field name="technical_name">generate-customer-invoice</field>
+            <field name="category">accounting</field>
+            <field name="is_builtin">True</field>
+            <field name="state">active</field>
+            <field name="description">Generate and optionally post a customer invoice from a sales order.</field>
+            <field name="trigger_phrases">[
+    "bill the customer",
+    "create invoice for",
+    "generate invoice from SO",
+    "invoice {customer_name}",
+    "make invoice for order",
+    "invoice order {order_reference}",
+    "create invoice from",
+    "bill for"
+]</field>
+            <field name="context_schema">{
+    "type": "object",
+    "properties": {
+        "customer_name": {
+            "type": "string",
+            "description": "Customer to invoice",
+            "extraction_hints": ["for", "customer", "client", "bill"]
+        },
+        "order_reference": {
+            "type": "string",
+            "description": "Sales order reference (e.g., SO001)",
+            "extraction_hints": ["SO", "order", "from", "reference"],
+            "extraction_patterns": ["SO\\d+", "S\\d+"]
+        },
+        "post_invoice": {
+            "type": "boolean",
+            "default": false,
+            "extraction_hints": ["post", "confirm", "validate"]
+        }
+    }
+}</field>
+            <field name="system_prompt">Generate a customer invoice from a sales order.
+
+Steps:
+1. If order_reference provided, find the sale.order by name
+2. If customer_name provided instead, find recent uninvoiced orders for that customer
+3. Check order state is 'sale' (confirmed)
+4. Use the order's action_create_invoices() method via execute_action
+5. If post_invoice is true, post the invoice
+6. Return invoice reference and amount
+
+Always confirm with user before posting the invoice.</field>
+            <field name="allowed_tools">["search_records", "create_record", "execute_action"]</field>
+            <field name="requires_confirmation">True</field>
+            <field name="auto_snapshot">True</field>
+            <field name="max_operations">10</field>
+        </record>
+
+        <!-- Create Purchase Order Skill -->
+        <record id="skill_create_purchase_order" model="loomworks.skill">
+            <field name="name">Create Purchase Order</field>
+            <field name="technical_name">create-purchase-order</field>
+            <field name="category">purchase</field>
+            <field name="is_builtin">True</field>
+            <field name="state">active</field>
+            <field name="description">Create a purchase order to order products from a vendor.</field>
+            <field name="trigger_phrases">[
+    "order from supplier",
+    "create PO for",
+    "purchase {products} from {vendor_name}",
+    "reorder {product_name}",
+    "new purchase order",
+    "order from {vendor_name}",
+    "buy from",
+    "purchase order for"
+]</field>
+            <field name="context_schema">{
+    "type": "object",
+    "properties": {
+        "vendor_name": {
+            "type": "string",
+            "description": "Vendor/supplier name",
+            "extraction_hints": ["from", "supplier", "vendor", "buy from"]
+        },
+        "products": {
+            "type": "array",
+            "description": "Products to order with quantities",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "quantity": {"type": "number"}
+                }
+            }
+        },
+        "delivery_date": {
+            "type": "string",
+            "format": "date",
+            "extraction_hints": ["by", "need by", "deliver"]
+        }
+    },
+    "required": ["vendor_name"]
+}</field>
+            <field name="required_context">["vendor_name"]</field>
+            <field name="system_prompt">Create a purchase order from a vendor.
+
+Steps:
+1. Search res.partner for the vendor (supplier_rank > 0)
+2. Create purchase.order with partner_id
+3. For each product, search product.product and add purchase.order.line
+4. Use vendor's default pricelist for pricing if available
+5. Set scheduled date if delivery_date provided
+6. Confirm quantities with user before finalizing
+
+Report the PO reference number when complete.</field>
+            <field name="allowed_tools">["search_records", "create_record", "update_record"]</field>
+            <field name="requires_confirmation">True</field>
+            <field name="auto_snapshot">True</field>
+            <field name="max_operations">15</field>
+        </record>
+
+        <!-- Approve Purchase Order Skill -->
+        <record id="skill_approve_purchase_order" model="loomworks.skill">
+            <field name="name">Approve Purchase Order</field>
+            <field name="technical_name">approve-purchase-order</field>
+            <field name="category">purchase</field>
+            <field name="is_builtin">True</field>
+            <field name="state">active</field>
+            <field name="description">Approve and confirm a purchase order by reference.</field>
+            <field name="trigger_phrases">[
+    "approve purchase",
+    "confirm PO",
+    "approve PO {po_reference}",
+    "authorize purchase",
+    "confirm purchase order",
+    "approve {po_reference}"
+]</field>
+            <field name="context_schema">{
+    "type": "object",
+    "properties": {
+        "po_reference": {
+            "type": "string",
+            "description": "Purchase order reference (e.g., PO001)",
+            "extraction_hints": ["PO", "purchase", "order"],
+            "extraction_patterns": ["PO\\d+", "P\\d+"]
+        },
+        "approval_note": {
+            "type": "string",
+            "description": "Optional approval note"
+        }
+    },
+    "required": ["po_reference"]
+}</field>
+            <field name="required_context">["po_reference"]</field>
+            <field name="system_prompt">Approve a purchase order by reference.
+
+Steps:
+1. Find the purchase.order by name (po_reference)
+2. Verify order state is 'draft' or requires approval
+3. Show order summary: vendor, products, total amount
+4. Ask for confirmation before approving
+5. Call button_confirm() to confirm the PO
+6. Return confirmation with PO details
+
+Only proceed if user confirms the approval.</field>
+            <field name="allowed_tools">["search_records", "execute_action", "update_record"]</field>
+            <field name="requires_confirmation">True</field>
+            <field name="auto_snapshot">True</field>
+            <field name="max_operations">5</field>
+        </record>
+
+        <!-- Schedule Meeting Skill -->
+        <record id="skill_schedule_meeting" model="loomworks.skill">
+            <field name="name">Schedule Meeting</field>
+            <field name="technical_name">schedule-meeting</field>
+            <field name="category">crm</field>
+            <field name="is_builtin">True</field>
+            <field name="state">active</field>
+            <field name="description">Schedule a meeting or calendar event with attendees.</field>
+            <field name="trigger_phrases">[
+    "set up meeting",
+    "schedule call",
+    "book meeting with",
+    "create appointment",
+    "schedule meeting with {attendees}",
+    "set up call with",
+    "arrange meeting"
+]</field>
+            <field name="context_schema">{
+    "type": "object",
+    "properties": {
+        "subject": {
+            "type": "string",
+            "description": "Meeting subject/title",
+            "extraction_hints": ["about", "for", "regarding", "titled"]
+        },
+        "attendees": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Names of attendees",
+            "extraction_hints": ["with", "attendees", "participants"]
+        },
+        "datetime": {
+            "type": "string",
+            "description": "Meeting date and time",
+            "extraction_hints": ["at", "on", "tomorrow", "next"]
+        },
+        "duration_hours": {
+            "type": "number",
+            "default": 1,
+            "extraction_hints": ["for", "hours", "minutes"]
+        }
+    },
+    "required": ["subject"]
+}</field>
+            <field name="required_context">["subject"]</field>
+            <field name="system_prompt">Schedule a meeting in the calendar.
+
+Steps:
+1. Parse the datetime from user input (handle relative dates like "tomorrow")
+2. Search res.partner for attendees by name
+3. Check calendar availability if possible
+4. Create calendar.event with:
+   - name: subject
+   - start/stop based on datetime and duration
+   - partner_ids: attendee partner records
+5. Send invitations if requested
+6. Confirm meeting details
+
+If datetime not specified, ask when to schedule.</field>
+            <field name="allowed_tools">["search_records", "create_record"]</field>
+            <field name="requires_confirmation">True</field>
+            <field name="auto_snapshot">False</field>
+            <field name="max_operations">10</field>
+        </record>
+
+        <!-- Process Return Skill -->
+        <record id="skill_process_return" model="loomworks.skill">
+            <field name="name">Process Customer Return</field>
+            <field name="technical_name">process-customer-return</field>
+            <field name="category">inventory</field>
+            <field name="is_builtin">True</field>
+            <field name="state">active</field>
+            <field name="description">Process a customer return/RMA for products.</field>
+            <field name="trigger_phrases">[
+    "process return",
+    "customer return for",
+    "RMA for",
+    "return {product_name}",
+    "accept return from",
+    "create return for"
+]</field>
+            <field name="context_schema">{
+    "type": "object",
+    "properties": {
+        "order_reference": {
+            "type": "string",
+            "description": "Original order or delivery reference",
+            "extraction_hints": ["SO", "order", "from", "delivery"],
+            "extraction_patterns": ["SO\\d+", "WH/OUT/\\d+"]
+        },
+        "return_reason": {
+            "type": "string",
+            "description": "Reason for return",
+            "extraction_hints": ["because", "reason", "due to"]
+        },
+        "products_to_return": {
+            "type": "array",
+            "description": "Products being returned",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "quantity": {"type": "number"}
+                }
+            }
+        }
+    }
+}</field>
+            <field name="system_prompt">Process a customer return/RMA.
+
+Steps:
+1. Find the original order or delivery by reference
+2. Identify products that were delivered
+3. Create a return picking using the wizard or reverse transfer
+4. Record return reason in notes
+5. Process the return receipt
+6. If refund needed, suggest creating credit note
+
+Document the return reason for records.</field>
+            <field name="allowed_tools">["search_records", "create_record", "execute_action"]</field>
+            <field name="requires_confirmation">True</field>
+            <field name="auto_snapshot">True</field>
+            <field name="max_operations">10</field>
+        </record>
+
+    </data>
+</odoo>

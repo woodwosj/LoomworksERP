@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Skills Root Menu (under AI menu from loomworks_ai) -->
+    <menuitem id="menu_skills_root"
+              name="Skills"
+              parent="loomworks_ai.menu_ai_root"
+              sequence="20"/>
+
+    <!-- Skills Management -->
+    <menuitem id="menu_skill_list"
+              name="All Skills"
+              parent="menu_skills_root"
+              action="action_skill_list"
+              sequence="10"/>
+
+    <!-- Skill Execution History -->
+    <menuitem id="menu_skill_executions"
+              name="Execution History"
+              parent="menu_skills_root"
+              action="action_skill_execution_list"
+              sequence="20"/>
+
+    <!-- Skill Recordings -->
+    <menuitem id="menu_skill_recordings"
+              name="Recordings"
+              parent="menu_skills_root"
+              action="action_skill_recording_list"
+              sequence="30"/>
+
+    <!-- Skills Configuration (under AI Configuration) -->
+    <menuitem id="menu_skills_config"
+              name="Skills Configuration"
+              parent="loomworks_ai.menu_ai_config"
+              sequence="30"/>
+
+    <!-- Built-in Skills submenu -->
+    <record id="action_builtin_skills" model="ir.actions.act_window">
+        <field name="name">Built-in Skills</field>
+        <field name="res_model">loomworks.skill</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_builtin', '=', True)]</field>
+    </record>
+
+    <menuitem id="menu_builtin_skills"
+              name="Built-in Skills"
+              parent="menu_skills_config"
+              action="action_builtin_skills"
+              groups="group_skills_manager"
+              sequence="10"/>
+
+    <!-- Create Skill Wizard Action -->
+    <record id="action_skill_creation_wizard" model="ir.actions.act_window">
+        <field name="name">Create New Skill</field>
+        <field name="res_model">loomworks.skill.creation.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_creation_method': 'natural_language'}</field>
+    </record>
+
+    <menuitem id="menu_create_skill_wizard"
+              name="Create Skill"
+              parent="menu_skills_config"
+              action="action_skill_creation_wizard"
+              groups="group_skills_creator"
+              sequence="5"/>
+
+</odoo>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Skill Step Form View -->
+    <record id="view_skill_step_form" model="ir.ui.view">
+        <field name="name">loomworks.skill.step.form</field>
+        <field name="model">loomworks.skill.step</field>
+        <field name="arch" type="xml">
+            <form string="Skill Step">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="skill_id"/>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                            <field name="step_type"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="is_critical"/>
+                            <field name="retry_count"/>
+                            <field name="retry_delay_seconds"
+                                   invisible="retry_count == 0"/>
+                            <field name="rollback_on_failure"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <!-- Tool Call Configuration -->
+                        <page string="Tool Call"
+                              invisible="step_type != 'tool_call'">
+                            <group>
+                                <field name="tool_id"/>
+                                <field name="tool_name"/>
+                            </group>
+                            <group string="Parameters Template">
+                                <field name="tool_parameters" nolabel="1"
+                                       widget="ace" options="{'mode': 'json'}"
+                                       placeholder='{"model": "sale.order", "values": {"partner_id": {partner_id}}}'/>
+                            </group>
+                        </page>
+
+                        <!-- User Input Configuration -->
+                        <page string="User Input"
+                              invisible="step_type not in ('user_input', 'confirmation')">
+                            <group>
+                                <field name="input_prompt"/>
+                                <field name="input_type"
+                                       invisible="step_type == 'confirmation'"/>
+                                <field name="input_required"/>
+                                <field name="input_default"/>
+                            </group>
+                            <group invisible="input_type != 'selection'">
+                                <field name="input_options"
+                                       widget="ace" options="{'mode': 'json'}"
+                                       placeholder='["Option 1", "Option 2", "Option 3"]'/>
+                            </group>
+                            <group invisible="input_type != 'record'">
+                                <field name="input_model_id"/>
+                                <field name="input_domain"/>
+                            </group>
+                        </page>
+
+                        <!-- Condition Configuration -->
+                        <page string="Condition"
+                              invisible="step_type not in ('condition', 'validation')">
+                            <group string="Expression">
+                                <field name="condition_expression" nolabel="1"
+                                       widget="ace" options="{'mode': 'python'}"
+                                       placeholder="quantity > 0 and customer_name"/>
+                            </group>
+                            <group invisible="step_type != 'condition'">
+                                <field name="on_success_step_id"/>
+                                <field name="on_failure_step_id"/>
+                            </group>
+                            <group string="Validation Rules"
+                                   invisible="step_type != 'validation'">
+                                <field name="validation_rules" nolabel="1"
+                                       widget="ace" options="{'mode': 'json'}"/>
+                            </group>
+                        </page>
+
+                        <!-- Loop Configuration -->
+                        <page string="Loop" invisible="step_type != 'loop'">
+                            <group>
+                                <field name="loop_collection_expr"
+                                       placeholder="products or context.get('items', [])"/>
+                                <field name="loop_variable_name"/>
+                            </group>
+                            <group string="Loop Body Steps">
+                                <field name="loop_body_step_ids" nolabel="1"/>
+                            </group>
+                        </page>
+
+                        <!-- Subskill Configuration -->
+                        <page string="Sub-Skill" invisible="step_type != 'subskill'">
+                            <group>
+                                <field name="subskill_id"/>
+                            </group>
+                            <group string="Context Mapping">
+                                <field name="subskill_context_mapping" nolabel="1"
+                                       widget="ace" options="{'mode': 'json'}"
+                                       placeholder='{"target_param": "source_param"}'/>
+                            </group>
+                        </page>
+
+                        <!-- Action Configuration -->
+                        <page string="Odoo Action" invisible="step_type != 'action'">
+                            <group>
+                                <field name="action_id"/>
+                            </group>
+                            <group string="Action Context">
+                                <field name="action_context" nolabel="1"
+                                       widget="ace" options="{'mode': 'json'}"/>
+                            </group>
+                        </page>
+
+                        <!-- Instructions / AI Decision -->
+                        <page string="Instructions">
+                            <field name="instructions" nolabel="1"
+                                   placeholder="Instructions for this step..."/>
+                        </page>
+
+                        <!-- Output Configuration -->
+                        <page string="Output">
+                            <group>
+                                <field name="output_variable"
+                                       placeholder="result"/>
+                                <field name="output_transform"
+                                       placeholder="output.get('id')"/>
+                            </group>
+                            <group string="Error Handling">
+                                <field name="error_message_template"
+                                       placeholder="Failed to {step_name}: {error}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Skill Step Tree View -->
+    <record id="view_skill_step_tree" model="ir.ui.view">
+        <field name="name">loomworks.skill.step.tree</field>
+        <field name="model">loomworks.skill.step</field>
+        <field name="arch" type="xml">
+            <tree string="Skill Steps" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="step_type"/>
+                <field name="tool_name" optional="show"/>
+                <field name="is_critical"/>
+                <field name="output_variable" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

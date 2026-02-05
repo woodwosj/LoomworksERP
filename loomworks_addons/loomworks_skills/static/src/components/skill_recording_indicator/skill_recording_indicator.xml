@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="loomworks_skills.SkillRecordingIndicator">
+        <div class="o_skill_recording_indicator">
+            <!-- Recording Active -->
+            <t t-if="state.recording">
+                <div class="o_recording_active d-flex align-items-center">
+                    <span class="o_recording_dot me-2" title="Recording in progress"></span>
+                    <span class="o_recording_info me-2">
+                        <span class="o_recording_count">
+                            <t t-esc="state.frameCount"/> actions
+                        </span>
+                        <span class="o_recording_duration text-muted ms-1">
+                            (<t t-esc="formatDuration(state.duration)"/>)
+                        </span>
+                    </span>
+                    <button class="btn btn-sm btn-danger o_recording_stop"
+                            t-on-click="onStopClick"
+                            title="Stop recording and create skill">
+                        <i class="fa fa-stop me-1"/>Stop
+                    </button>
+                </div>
+            </t>
+
+            <!-- Recording Inactive - Show start button -->
+            <t t-else="">
+                <div class="o_recording_inactive dropdown">
+                    <button class="btn btn-sm btn-link o_recording_start"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            title="Skill Recording">
+                        <i class="fa fa-circle-o text-muted"/>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="#"
+                               t-on-click.prevent="onStartClick">
+                                <i class="fa fa-circle text-danger me-2"/>
+                                Start Recording
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"/></li>
+                        <li>
+                            <span class="dropdown-item-text text-muted small">
+                                Record your actions to create a reusable skill
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>

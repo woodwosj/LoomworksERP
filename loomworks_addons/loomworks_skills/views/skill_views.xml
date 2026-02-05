@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Skill Form View -->
+    <record id="view_skill_form" model="ir.ui.view">
+        <field name="name">loomworks.skill.form</field>
+        <field name="model">loomworks.skill</field>
+        <field name="arch" type="xml">
+            <form string="Skill">
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate" class="btn-primary"
+                            invisible="state not in ('draft', 'testing')"/>
+                    <button name="action_test" type="object"
+                            string="Test" class="btn-secondary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_deactivate" type="object"
+                            string="Deprecate" class="btn-secondary"
+                            invisible="state != 'active'"
+                            confirm="Are you sure you want to deprecate this skill?"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,testing,active"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_skill_execution_list)d" type="action"
+                                class="oe_stat_button" icon="fa-play-circle">
+                            <field name="execution_count" widget="statinfo"
+                                   string="Executions"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Built-in"
+                            bg_color="text-bg-info"
+                            invisible="not is_builtin"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Skill Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="technical_name"/>
+                            <field name="category"/>
+                            <field name="version"/>
+                            <field name="is_builtin" invisible="1"/>
+                            <field name="is_published"/>
+                            <field name="owner_id"/>
+                        </group>
+                        <group>
+                            <field name="requires_confirmation"/>
+                            <field name="auto_snapshot"/>
+                            <field name="rollback_on_failure"/>
+                            <field name="max_operations"/>
+                            <field name="timeout_seconds"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Definition" name="definition">
+                            <group string="Description">
+                                <field name="description" nolabel="1"
+                                       placeholder="Describe what this skill does..."/>
+                            </group>
+                            <group string="Trigger Phrases">
+                                <field name="trigger_phrases" nolabel="1"
+                                       widget="ace" options="{'mode': 'json'}"
+                                       placeholder='["make a quote for", "create quotation"]'/>
+                            </group>
+                            <group string="AI Instructions">
+                                <field name="system_prompt" nolabel="1"
+                                       placeholder="Instructions for Claude when executing this skill..."/>
+                            </group>
+                        </page>
+                        <page string="Parameters" name="parameters">
+                            <group string="Context Schema (JSON)">
+                                <field name="context_schema" nolabel="1"
+                                       widget="ace" options="{'mode': 'json'}"/>
+                            </group>
+                            <group string="Required Parameters">
+                                <field name="required_context"
+                                       widget="ace" options="{'mode': 'json'}"
+                                       placeholder='["customer_name", "product_name"]'/>
+                            </group>
+                            <field name="trigger_confidence_threshold"
+                                   widget="float_range"
+                                   options="{'min': 0, 'max': 1, 'step': 0.05}"/>
+                        </page>
+                        <page string="Workflow Steps" name="steps">
+                            <field name="step_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="step_type"/>
+                                    <field name="tool_name"/>
+                                    <field name="is_critical"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Tools" name="tools">
+                            <group>
+                                <field name="tool_ids" widget="many2many_tags"/>
+                                <field name="allowed_tools"
+                                       widget="ace" options="{'mode': 'json'}"
+                                       placeholder='["search_records", "create_record"]'/>
+                            </group>
+                            <group string="Target Models">
+                                <field name="model_id"/>
+                                <field name="trigger_model_ids" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                        <page string="Statistics" name="statistics">
+                            <group>
+                                <group>
+                                    <field name="execution_count"/>
+                                    <field name="success_count"/>
+                                    <field name="success_rate" widget="progressbar"/>
+                                </group>
+                                <group>
+                                    <field name="avg_duration_ms"/>
+                                    <field name="last_executed"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                    <field name="activity_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Skill Tree View -->
+    <record id="view_skill_tree" model="ir.ui.view">
+        <field name="name">loomworks.skill.tree</field>
+        <field name="model">loomworks.skill</field>
+        <field name="arch" type="xml">
+            <tree string="Skills" decoration-muted="state == 'deprecated'"
+                  decoration-info="state == 'draft'">
+                <field name="name"/>
+                <field name="technical_name"/>
+                <field name="category"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'testing'"
+                       decoration-muted="state == 'deprecated'"/>
+                <field name="is_builtin" optional="hide"/>
+                <field name="execution_count"/>
+                <field name="success_rate" widget="progressbar"/>
+                <field name="owner_id" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Skill Kanban View -->
+    <record id="view_skill_kanban" model="ir.ui.view">
+        <field name="name">loomworks.skill.kanban</field>
+        <field name="model">loomworks.skill</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="category" quick_create="false">
+                <field name="name"/>
+                <field name="technical_name"/>
+                <field name="category"/>
+                <field name="state"/>
+                <field name="description"/>
+                <field name="is_builtin"/>
+                <field name="execution_count"/>
+                <field name="success_rate"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top mb-2">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                    <span t-if="record.is_builtin.raw_value"
+                                          class="badge bg-info">Built-in</span>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <field name="description" class="text-muted"/>
+                                </div>
+                                <div class="o_kanban_record_bottom mt-2">
+                                    <div class="oe_kanban_bottom_left">
+                                        <span class="badge"
+                                              t-att-class="record.state.raw_value == 'active' ? 'bg-success' : 'bg-secondary'">
+                                            <field name="state"/>
+                                        </span>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <span class="text-muted">
+                                            <i class="fa fa-play-circle me-1"/>
+                                            <field name="execution_count"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Skill Search View -->
+    <record id="view_skill_search" model="ir.ui.view">
+        <field name="name">loomworks.skill.search</field>
+        <field name="model">loomworks.skill</field>
+        <field name="arch" type="xml">
+            <search string="Skills">
+                <field name="name"/>
+                <field name="technical_name"/>
+                <field name="description"/>
+                <field name="trigger_phrases"/>
+                <separator/>
+                <filter string="Active" name="active"
+                        domain="[('state', '=', 'active')]"/>
+                <filter string="Draft" name="draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Built-in" name="builtin"
+                        domain="[('is_builtin', '=', True)]"/>
+                <filter string="Custom" name="custom"
+                        domain="[('is_builtin', '=', False)]"/>
+                <separator/>
+                <filter string="My Skills" name="my_skills"
+                        domain="[('owner_id', '=', uid)]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Category" name="group_category"
+                            context="{'group_by': 'category'}"/>
+                    <filter string="State" name="group_state"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Owner" name="group_owner"
+                            context="{'group_by': 'owner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Skill Action -->
+    <record id="action_skill_list" model="ir.actions.act_window">
+        <field name="name">Skills</field>
+        <field name="res_model">loomworks.skill</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_skill_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first AI skill
+            </p>
+            <p>
+                Skills are reusable workflows that can be triggered by natural language.
+                Create a skill to automate common tasks.
+            </p>
+        </field>
+    </record>
+
+</odoo>
