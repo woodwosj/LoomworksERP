@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Main Dashboard Action Template -->
+    <t t-name="loomworks_dashboard.DashboardAction">
+        <div class="lw-dashboard-action o_action">
+            <!-- Loading State -->
+            <t t-if="state.isLoading">
+                <div class="lw-dashboard-loading">
+                    <div class="lw-loading-spinner">
+                        <i class="fa fa-spinner fa-spin fa-3x"/>
+                    </div>
+                    <p>Loading dashboard...</p>
+                </div>
+            </t>
+
+            <!-- Error State -->
+            <t t-elif="state.error">
+                <div class="lw-dashboard-error">
+                    <div class="lw-error-content">
+                        <i class="fa fa-exclamation-circle fa-4x text-danger mb-3"/>
+                        <h3>Unable to Load Dashboard</h3>
+                        <p class="text-muted" t-esc="state.error"/>
+                        <button class="btn btn-primary mt-3" t-on-click="refreshDashboard">
+                            <i class="fa fa-refresh"/> Try Again
+                        </button>
+                    </div>
+                </div>
+            </t>
+
+            <!-- No Dashboard Selected -->
+            <t t-elif="!state.dashboardId">
+                <div class="lw-dashboard-selector">
+                    <div class="lw-selector-content">
+                        <i class="fa fa-tachometer fa-4x text-primary mb-4"/>
+                        <h2>Loomworks Dashboard</h2>
+                        <p class="text-muted mb-4">
+                            Create visual, interactive dashboards to monitor KPIs,
+                            trends, and operational metrics.
+                        </p>
+
+                        <div class="lw-selector-actions">
+                            <button class="btn btn-primary btn-lg" t-on-click="createDashboard">
+                                <i class="fa fa-plus"/> New Dashboard
+                            </button>
+
+                            <div class="lw-ai-generate mt-4">
+                                <h5>Or generate with AI</h5>
+                                <div class="input-group">
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="Describe your dashboard (e.g., 'Sales performance with revenue trends')"
+                                           t-ref="aiPromptInput"/>
+                                    <button class="btn btn-secondary" t-on-click="() => this.generateFromPrompt(this.__owl__.refs.aiPromptInput.el.value)">
+                                        <i class="fa fa-magic"/> Generate
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lw-template-list mt-5">
+                            <h5>Start from template:</h5>
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <div class="lw-template-card" t-on-click="() => this.generateFromPrompt('Create a sales dashboard with revenue, orders, and customer metrics')">
+                                        <i class="fa fa-shopping-cart fa-2x text-success"/>
+                                        <h6>Sales</h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="lw-template-card" t-on-click="() => this.generateFromPrompt('Create an inventory dashboard with stock levels and transfers')">
+                                        <i class="fa fa-cubes fa-2x text-warning"/>
+                                        <h6>Inventory</h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="lw-template-card" t-on-click="() => this.generateFromPrompt('Create a CRM dashboard with leads, opportunities, and pipeline')">
+                                        <i class="fa fa-users fa-2x text-info"/>
+                                        <h6>CRM</h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="lw-template-card" t-on-click="() => this.generateFromPrompt('Create an HR dashboard with employees and departments')">
+                                        <i class="fa fa-user-circle fa-2x text-purple"/>
+                                        <h6>HR</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+
+            <!-- Dashboard Loaded -->
+            <t t-else="">
+                <!-- Toolbar -->
+                <div class="lw-dashboard-toolbar">
+                    <div class="lw-toolbar-left">
+                        <h4 class="lw-dashboard-title" t-esc="state.dashboardData?.name || 'Dashboard'"/>
+                        <span class="badge bg-secondary ms-2" t-if="state.isEditing">
+                            Editing
+                        </span>
+                    </div>
+                    <div class="lw-toolbar-right">
+                        <button class="btn btn-outline-secondary btn-sm" t-on-click="refreshDashboard" title="Refresh">
+                            <i class="fa fa-refresh"/>
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm" t-on-click="toggleEditMode"
+                                t-att-class="{'btn-primary': state.isEditing}">
+                            <i t-att-class="state.isEditing ? 'fa fa-eye' : 'fa fa-edit'"/>
+                            <span t-esc="state.isEditing ? 'View' : 'Edit'"/>
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm" t-on-click="openSettings" title="Settings">
+                            <i class="fa fa-cog"/>
+                        </button>
+                        <div class="dropdown d-inline-block">
+                            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fa fa-ellipsis-v"/>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="#" t-on-click.prevent="() => this.exportDashboard('png')">
+                                        <i class="fa fa-image me-2"/> Export as PNG
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#" t-on-click.prevent="() => this.exportDashboard('pdf')">
+                                        <i class="fa fa-file-pdf-o me-2"/> Export as PDF
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"/></li>
+                                <li>
+                                    <a class="dropdown-item" href="#" t-on-click.prevent="openSettings">
+                                        <i class="fa fa-share-alt me-2"/> Share Dashboard
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- React Dashboard Container -->
+                <div class="lw-dashboard-canvas-container" t-ref="dashboardContainer">
+                    <!-- React app mounts here -->
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>

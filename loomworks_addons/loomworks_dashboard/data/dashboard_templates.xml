@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ========================================== -->
+        <!-- Sales Dashboard Template -->
+        <!-- ========================================== -->
+        <record id="template_sales_dashboard" model="dashboard.board">
+            <field name="name">Sales Overview</field>
+            <field name="description">Comprehensive sales performance dashboard with revenue tracking, pipeline analysis, and team performance metrics.</field>
+            <field name="is_template">True</field>
+            <field name="is_public">True</field>
+            <field name="layout_columns">12</field>
+            <field name="theme">light</field>
+            <field name="auto_refresh">300</field>
+        </record>
+
+        <!-- Sales Dashboard Tab -->
+        <record id="template_sales_tab_overview" model="dashboard.tab">
+            <field name="name">Overview</field>
+            <field name="dashboard_id" ref="template_sales_dashboard"/>
+            <field name="sequence">1</field>
+            <field name="icon">fa-chart-line</field>
+        </record>
+
+        <!-- Sales KPI: Total Revenue -->
+        <record id="template_sales_kpi_revenue" model="dashboard.widget">
+            <field name="name">Total Revenue</field>
+            <field name="dashboard_id" ref="template_sales_dashboard"/>
+            <field name="tab_id" ref="template_sales_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">0</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">sale.order</field>
+            <field name="inline_domain">[('state', 'in', ['sale', 'done'])]</field>
+            <field name="inline_measure_field">amount_total</field>
+            <field name="inline_aggregation">sum</field>
+            <field name="kpi_format">currency</field>
+            <field name="kpi_trend_enabled">True</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <!-- Sales KPI: Order Count -->
+        <record id="template_sales_kpi_orders" model="dashboard.widget">
+            <field name="name">Orders</field>
+            <field name="dashboard_id" ref="template_sales_dashboard"/>
+            <field name="tab_id" ref="template_sales_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">3</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">sale.order</field>
+            <field name="inline_domain">[('state', 'in', ['sale', 'done'])]</field>
+            <field name="inline_aggregation">count</field>
+            <field name="kpi_format">number</field>
+            <field name="kpi_trend_enabled">True</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <!-- Sales KPI: Average Order Value -->
+        <record id="template_sales_kpi_avg" model="dashboard.widget">
+            <field name="name">Avg Order Value</field>
+            <field name="dashboard_id" ref="template_sales_dashboard"/>
+            <field name="tab_id" ref="template_sales_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">6</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">sale.order</field>
+            <field name="inline_domain">[('state', 'in', ['sale', 'done'])]</field>
+            <field name="inline_measure_field">amount_total</field>
+            <field name="inline_aggregation">avg</field>
+            <field name="kpi_format">currency</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <!-- Sales KPI: Quotations -->
+        <record id="template_sales_kpi_quotes" model="dashboard.widget">
+            <field name="name">Open Quotations</field>
+            <field name="dashboard_id" ref="template_sales_dashboard"/>
+            <field name="tab_id" ref="template_sales_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">9</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">sale.order</field>
+            <field name="inline_domain">[('state', '=', 'draft')]</field>
+            <field name="inline_aggregation">count</field>
+            <field name="kpi_format">number</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <!-- Sales Chart: Revenue by Month -->
+        <record id="template_sales_chart_revenue" model="dashboard.widget">
+            <field name="name">Revenue Trend</field>
+            <field name="dashboard_id" ref="template_sales_dashboard"/>
+            <field name="tab_id" ref="template_sales_tab_overview"/>
+            <field name="widget_type">chart_line</field>
+            <field name="grid_x">0</field>
+            <field name="grid_y">2</field>
+            <field name="grid_width">8</field>
+            <field name="grid_height">4</field>
+            <field name="inline_model">sale.order</field>
+            <field name="inline_domain">[('state', 'in', ['sale', 'done'])]</field>
+            <field name="inline_group_by">date_order:month</field>
+            <field name="inline_measure_field">amount_total</field>
+            <field name="inline_aggregation">sum</field>
+            <field name="chart_show_grid">True</field>
+            <field name="chart_show_legend">True</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <!-- Sales Chart: Top Products -->
+        <record id="template_sales_chart_products" model="dashboard.widget">
+            <field name="name">Top Products</field>
+            <field name="dashboard_id" ref="template_sales_dashboard"/>
+            <field name="tab_id" ref="template_sales_tab_overview"/>
+            <field name="widget_type">chart_bar</field>
+            <field name="grid_x">8</field>
+            <field name="grid_y">2</field>
+            <field name="grid_width">4</field>
+            <field name="grid_height">4</field>
+            <field name="inline_model">sale.order.line</field>
+            <field name="inline_domain">[('order_id.state', 'in', ['sale', 'done'])]</field>
+            <field name="inline_group_by">product_id</field>
+            <field name="inline_measure_field">price_subtotal</field>
+            <field name="inline_aggregation">sum</field>
+            <field name="chart_show_legend">False</field>
+            <field name="sequence">6</field>
+        </record>
+
+        <!-- ========================================== -->
+        <!-- Inventory Dashboard Template -->
+        <!-- ========================================== -->
+        <record id="template_inventory_dashboard" model="dashboard.board">
+            <field name="name">Inventory Overview</field>
+            <field name="description">Real-time inventory tracking with stock levels, valuation, and movement analysis.</field>
+            <field name="is_template">True</field>
+            <field name="is_public">True</field>
+            <field name="layout_columns">12</field>
+            <field name="theme">light</field>
+            <field name="auto_refresh">60</field>
+        </record>
+
+        <!-- Inventory Dashboard Tab -->
+        <record id="template_inventory_tab_overview" model="dashboard.tab">
+            <field name="name">Stock Overview</field>
+            <field name="dashboard_id" ref="template_inventory_dashboard"/>
+            <field name="sequence">1</field>
+            <field name="icon">fa-boxes</field>
+        </record>
+
+        <!-- Inventory KPI: Total Products -->
+        <record id="template_inventory_kpi_products" model="dashboard.widget">
+            <field name="name">Total Products</field>
+            <field name="dashboard_id" ref="template_inventory_dashboard"/>
+            <field name="tab_id" ref="template_inventory_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">0</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">product.product</field>
+            <field name="inline_domain">[('type', '=', 'product')]</field>
+            <field name="inline_aggregation">count</field>
+            <field name="kpi_format">number</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <!-- Inventory KPI: Low Stock -->
+        <record id="template_inventory_kpi_low_stock" model="dashboard.widget">
+            <field name="name">Low Stock Items</field>
+            <field name="dashboard_id" ref="template_inventory_dashboard"/>
+            <field name="tab_id" ref="template_inventory_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">3</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">product.product</field>
+            <field name="inline_domain">[('type', '=', 'product'), ('qty_available', '&lt;', 10)]</field>
+            <field name="inline_aggregation">count</field>
+            <field name="kpi_format">number</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <!-- Inventory KPI: Stock Value -->
+        <record id="template_inventory_kpi_value" model="dashboard.widget">
+            <field name="name">Stock Valuation</field>
+            <field name="dashboard_id" ref="template_inventory_dashboard"/>
+            <field name="tab_id" ref="template_inventory_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">6</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">stock.valuation.layer</field>
+            <field name="inline_domain">[]</field>
+            <field name="inline_measure_field">value</field>
+            <field name="inline_aggregation">sum</field>
+            <field name="kpi_format">currency</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <!-- Inventory KPI: Pending Transfers -->
+        <record id="template_inventory_kpi_transfers" model="dashboard.widget">
+            <field name="name">Pending Transfers</field>
+            <field name="dashboard_id" ref="template_inventory_dashboard"/>
+            <field name="tab_id" ref="template_inventory_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">9</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">stock.picking</field>
+            <field name="inline_domain">[('state', 'in', ['assigned', 'waiting', 'confirmed'])]</field>
+            <field name="inline_aggregation">count</field>
+            <field name="kpi_format">number</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <!-- Inventory Chart: Stock by Category -->
+        <record id="template_inventory_chart_category" model="dashboard.widget">
+            <field name="name">Stock by Category</field>
+            <field name="dashboard_id" ref="template_inventory_dashboard"/>
+            <field name="tab_id" ref="template_inventory_tab_overview"/>
+            <field name="widget_type">chart_pie</field>
+            <field name="grid_x">0</field>
+            <field name="grid_y">2</field>
+            <field name="grid_width">4</field>
+            <field name="grid_height">4</field>
+            <field name="inline_model">product.product</field>
+            <field name="inline_domain">[('type', '=', 'product')]</field>
+            <field name="inline_group_by">categ_id</field>
+            <field name="inline_measure_field">qty_available</field>
+            <field name="inline_aggregation">sum</field>
+            <field name="chart_show_legend">True</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <!-- Inventory Chart: Stock Movement -->
+        <record id="template_inventory_chart_movement" model="dashboard.widget">
+            <field name="name">Stock Movements</field>
+            <field name="dashboard_id" ref="template_inventory_dashboard"/>
+            <field name="tab_id" ref="template_inventory_tab_overview"/>
+            <field name="widget_type">chart_bar</field>
+            <field name="grid_x">4</field>
+            <field name="grid_y">2</field>
+            <field name="grid_width">8</field>
+            <field name="grid_height">4</field>
+            <field name="inline_model">stock.move</field>
+            <field name="inline_domain">[('state', '=', 'done')]</field>
+            <field name="inline_group_by">date:month</field>
+            <field name="inline_measure_field">product_uom_qty</field>
+            <field name="inline_aggregation">sum</field>
+            <field name="chart_show_grid">True</field>
+            <field name="sequence">6</field>
+        </record>
+
+        <!-- ========================================== -->
+        <!-- HR Dashboard Template -->
+        <!-- ========================================== -->
+        <record id="template_hr_dashboard" model="dashboard.board">
+            <field name="name">HR Overview</field>
+            <field name="description">Employee management dashboard with headcount, attendance, and leave tracking.</field>
+            <field name="is_template">True</field>
+            <field name="is_public">True</field>
+            <field name="layout_columns">12</field>
+            <field name="theme">light</field>
+            <field name="auto_refresh">600</field>
+        </record>
+
+        <!-- HR Dashboard Tab -->
+        <record id="template_hr_tab_overview" model="dashboard.tab">
+            <field name="name">Overview</field>
+            <field name="dashboard_id" ref="template_hr_dashboard"/>
+            <field name="sequence">1</field>
+            <field name="icon">fa-users</field>
+        </record>
+
+        <!-- HR KPI: Total Employees -->
+        <record id="template_hr_kpi_employees" model="dashboard.widget">
+            <field name="name">Total Employees</field>
+            <field name="dashboard_id" ref="template_hr_dashboard"/>
+            <field name="tab_id" ref="template_hr_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">0</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">hr.employee</field>
+            <field name="inline_domain">[('active', '=', True)]</field>
+            <field name="inline_aggregation">count</field>
+            <field name="kpi_format">number</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <!-- HR KPI: New Hires -->
+        <record id="template_hr_kpi_new_hires" model="dashboard.widget">
+            <field name="name">New Hires (30d)</field>
+            <field name="dashboard_id" ref="template_hr_dashboard"/>
+            <field name="tab_id" ref="template_hr_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">3</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">hr.employee</field>
+            <field name="inline_domain">[('create_date', '>=', (context_today() - relativedelta(days=30)).strftime('%Y-%m-%d'))]</field>
+            <field name="inline_aggregation">count</field>
+            <field name="kpi_format">number</field>
+            <field name="kpi_trend_enabled">True</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <!-- HR KPI: Open Positions -->
+        <record id="template_hr_kpi_positions" model="dashboard.widget">
+            <field name="name">Open Positions</field>
+            <field name="dashboard_id" ref="template_hr_dashboard"/>
+            <field name="tab_id" ref="template_hr_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">6</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">hr.job</field>
+            <field name="inline_domain">[('state', '=', 'recruit')]</field>
+            <field name="inline_measure_field">no_of_recruitment</field>
+            <field name="inline_aggregation">sum</field>
+            <field name="kpi_format">number</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <!-- HR KPI: Departments -->
+        <record id="template_hr_kpi_departments" model="dashboard.widget">
+            <field name="name">Departments</field>
+            <field name="dashboard_id" ref="template_hr_dashboard"/>
+            <field name="tab_id" ref="template_hr_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">9</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">hr.department</field>
+            <field name="inline_domain">[('active', '=', True)]</field>
+            <field name="inline_aggregation">count</field>
+            <field name="kpi_format">number</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <!-- HR Chart: Employees by Department -->
+        <record id="template_hr_chart_department" model="dashboard.widget">
+            <field name="name">Employees by Department</field>
+            <field name="dashboard_id" ref="template_hr_dashboard"/>
+            <field name="tab_id" ref="template_hr_tab_overview"/>
+            <field name="widget_type">chart_pie</field>
+            <field name="grid_x">0</field>
+            <field name="grid_y">2</field>
+            <field name="grid_width">6</field>
+            <field name="grid_height">4</field>
+            <field name="inline_model">hr.employee</field>
+            <field name="inline_domain">[('active', '=', True)]</field>
+            <field name="inline_group_by">department_id</field>
+            <field name="inline_aggregation">count</field>
+            <field name="chart_show_legend">True</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <!-- HR Chart: Headcount Trend -->
+        <record id="template_hr_chart_headcount" model="dashboard.widget">
+            <field name="name">Headcount Trend</field>
+            <field name="dashboard_id" ref="template_hr_dashboard"/>
+            <field name="tab_id" ref="template_hr_tab_overview"/>
+            <field name="widget_type">chart_area</field>
+            <field name="grid_x">6</field>
+            <field name="grid_y">2</field>
+            <field name="grid_width">6</field>
+            <field name="grid_height">4</field>
+            <field name="inline_model">hr.employee</field>
+            <field name="inline_domain">[('active', '=', True)]</field>
+            <field name="inline_group_by">create_date:month</field>
+            <field name="inline_aggregation">count</field>
+            <field name="chart_show_grid">True</field>
+            <field name="sequence">6</field>
+        </record>
+
+        <!-- ========================================== -->
+        <!-- CRM Dashboard Template -->
+        <!-- ========================================== -->
+        <record id="template_crm_dashboard" model="dashboard.board">
+            <field name="name">CRM Pipeline</field>
+            <field name="description">Sales pipeline dashboard with lead tracking, conversion rates, and opportunity analysis.</field>
+            <field name="is_template">True</field>
+            <field name="is_public">True</field>
+            <field name="layout_columns">12</field>
+            <field name="theme">light</field>
+            <field name="auto_refresh">300</field>
+        </record>
+
+        <!-- CRM Dashboard Tab -->
+        <record id="template_crm_tab_pipeline" model="dashboard.tab">
+            <field name="name">Pipeline</field>
+            <field name="dashboard_id" ref="template_crm_dashboard"/>
+            <field name="sequence">1</field>
+            <field name="icon">fa-funnel-dollar</field>
+        </record>
+
+        <!-- CRM KPI: Total Leads -->
+        <record id="template_crm_kpi_leads" model="dashboard.widget">
+            <field name="name">Total Leads</field>
+            <field name="dashboard_id" ref="template_crm_dashboard"/>
+            <field name="tab_id" ref="template_crm_tab_pipeline"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">0</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">crm.lead</field>
+            <field name="inline_domain">[('type', '=', 'lead')]</field>
+            <field name="inline_aggregation">count</field>
+            <field name="kpi_format">number</field>
+            <field name="kpi_trend_enabled">True</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <!-- CRM KPI: Open Opportunities -->
+        <record id="template_crm_kpi_opportunities" model="dashboard.widget">
+            <field name="name">Open Opportunities</field>
+            <field name="dashboard_id" ref="template_crm_dashboard"/>
+            <field name="tab_id" ref="template_crm_tab_pipeline"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">3</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">crm.lead</field>
+            <field name="inline_domain">[('type', '=', 'opportunity'), ('probability', '&gt;', 0), ('probability', '&lt;', 100)]</field>
+            <field name="inline_aggregation">count</field>
+            <field name="kpi_format">number</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <!-- CRM KPI: Pipeline Value -->
+        <record id="template_crm_kpi_pipeline_value" model="dashboard.widget">
+            <field name="name">Pipeline Value</field>
+            <field name="dashboard_id" ref="template_crm_dashboard"/>
+            <field name="tab_id" ref="template_crm_tab_pipeline"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">6</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">crm.lead</field>
+            <field name="inline_domain">[('type', '=', 'opportunity'), ('probability', '&gt;', 0), ('probability', '&lt;', 100)]</field>
+            <field name="inline_measure_field">expected_revenue</field>
+            <field name="inline_aggregation">sum</field>
+            <field name="kpi_format">currency</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <!-- CRM KPI: Won This Month -->
+        <record id="template_crm_kpi_won" model="dashboard.widget">
+            <field name="name">Won This Month</field>
+            <field name="dashboard_id" ref="template_crm_dashboard"/>
+            <field name="tab_id" ref="template_crm_tab_pipeline"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">9</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">crm.lead</field>
+            <field name="inline_domain">[('probability', '=', 100), ('date_closed', '>=', (context_today().replace(day=1)).strftime('%Y-%m-%d'))]</field>
+            <field name="inline_measure_field">expected_revenue</field>
+            <field name="inline_aggregation">sum</field>
+            <field name="kpi_format">currency</field>
+            <field name="kpi_trend_enabled">True</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <!-- CRM Chart: Pipeline by Stage -->
+        <record id="template_crm_chart_stages" model="dashboard.widget">
+            <field name="name">Pipeline by Stage</field>
+            <field name="dashboard_id" ref="template_crm_dashboard"/>
+            <field name="tab_id" ref="template_crm_tab_pipeline"/>
+            <field name="widget_type">chart_bar</field>
+            <field name="grid_x">0</field>
+            <field name="grid_y">2</field>
+            <field name="grid_width">6</field>
+            <field name="grid_height">4</field>
+            <field name="inline_model">crm.lead</field>
+            <field name="inline_domain">[('type', '=', 'opportunity')]</field>
+            <field name="inline_group_by">stage_id</field>
+            <field name="inline_measure_field">expected_revenue</field>
+            <field name="inline_aggregation">sum</field>
+            <field name="chart_show_grid">True</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <!-- CRM Chart: Leads by Source -->
+        <record id="template_crm_chart_source" model="dashboard.widget">
+            <field name="name">Leads by Source</field>
+            <field name="dashboard_id" ref="template_crm_dashboard"/>
+            <field name="tab_id" ref="template_crm_tab_pipeline"/>
+            <field name="widget_type">chart_pie</field>
+            <field name="grid_x">6</field>
+            <field name="grid_y">2</field>
+            <field name="grid_width">6</field>
+            <field name="grid_height">4</field>
+            <field name="inline_model">crm.lead</field>
+            <field name="inline_domain">[]</field>
+            <field name="inline_group_by">source_id</field>
+            <field name="inline_aggregation">count</field>
+            <field name="chart_show_legend">True</field>
+            <field name="sequence">6</field>
+        </record>
+
+        <!-- ========================================== -->
+        <!-- Purchase Dashboard Template -->
+        <!-- ========================================== -->
+        <record id="template_purchase_dashboard" model="dashboard.board">
+            <field name="name">Purchase Overview</field>
+            <field name="description">Procurement dashboard with vendor analysis, purchase orders, and spending tracking.</field>
+            <field name="is_template">True</field>
+            <field name="is_public">True</field>
+            <field name="layout_columns">12</field>
+            <field name="theme">light</field>
+            <field name="auto_refresh">300</field>
+        </record>
+
+        <!-- Purchase Dashboard Tab -->
+        <record id="template_purchase_tab_overview" model="dashboard.tab">
+            <field name="name">Overview</field>
+            <field name="dashboard_id" ref="template_purchase_dashboard"/>
+            <field name="sequence">1</field>
+            <field name="icon">fa-shopping-cart</field>
+        </record>
+
+        <!-- Purchase KPI: Total Spend -->
+        <record id="template_purchase_kpi_spend" model="dashboard.widget">
+            <field name="name">Total Spend</field>
+            <field name="dashboard_id" ref="template_purchase_dashboard"/>
+            <field name="tab_id" ref="template_purchase_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">0</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">purchase.order</field>
+            <field name="inline_domain">[('state', 'in', ['purchase', 'done'])]</field>
+            <field name="inline_measure_field">amount_total</field>
+            <field name="inline_aggregation">sum</field>
+            <field name="kpi_format">currency</field>
+            <field name="kpi_trend_enabled">True</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <!-- Purchase KPI: Orders -->
+        <record id="template_purchase_kpi_orders" model="dashboard.widget">
+            <field name="name">Purchase Orders</field>
+            <field name="dashboard_id" ref="template_purchase_dashboard"/>
+            <field name="tab_id" ref="template_purchase_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">3</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">purchase.order</field>
+            <field name="inline_domain">[('state', 'in', ['purchase', 'done'])]</field>
+            <field name="inline_aggregation">count</field>
+            <field name="kpi_format">number</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <!-- Purchase KPI: Vendors -->
+        <record id="template_purchase_kpi_vendors" model="dashboard.widget">
+            <field name="name">Active Vendors</field>
+            <field name="dashboard_id" ref="template_purchase_dashboard"/>
+            <field name="tab_id" ref="template_purchase_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">6</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">res.partner</field>
+            <field name="inline_domain">[('supplier_rank', '&gt;', 0)]</field>
+            <field name="inline_aggregation">count</field>
+            <field name="kpi_format">number</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <!-- Purchase KPI: Pending RFQs -->
+        <record id="template_purchase_kpi_rfq" model="dashboard.widget">
+            <field name="name">Pending RFQs</field>
+            <field name="dashboard_id" ref="template_purchase_dashboard"/>
+            <field name="tab_id" ref="template_purchase_tab_overview"/>
+            <field name="widget_type">kpi</field>
+            <field name="grid_x">9</field>
+            <field name="grid_y">0</field>
+            <field name="grid_width">3</field>
+            <field name="grid_height">2</field>
+            <field name="inline_model">purchase.order</field>
+            <field name="inline_domain">[('state', 'in', ['draft', 'sent'])]</field>
+            <field name="inline_aggregation">count</field>
+            <field name="kpi_format">number</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <!-- Purchase Chart: Spend by Month -->
+        <record id="template_purchase_chart_spend" model="dashboard.widget">
+            <field name="name">Spend Trend</field>
+            <field name="dashboard_id" ref="template_purchase_dashboard"/>
+            <field name="tab_id" ref="template_purchase_tab_overview"/>
+            <field name="widget_type">chart_line</field>
+            <field name="grid_x">0</field>
+            <field name="grid_y">2</field>
+            <field name="grid_width">8</field>
+            <field name="grid_height">4</field>
+            <field name="inline_model">purchase.order</field>
+            <field name="inline_domain">[('state', 'in', ['purchase', 'done'])]</field>
+            <field name="inline_group_by">date_order:month</field>
+            <field name="inline_measure_field">amount_total</field>
+            <field name="inline_aggregation">sum</field>
+            <field name="chart_show_grid">True</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <!-- Purchase Chart: Top Vendors -->
+        <record id="template_purchase_chart_vendors" model="dashboard.widget">
+            <field name="name">Top Vendors</field>
+            <field name="dashboard_id" ref="template_purchase_dashboard"/>
+            <field name="tab_id" ref="template_purchase_tab_overview"/>
+            <field name="widget_type">chart_bar</field>
+            <field name="grid_x">8</field>
+            <field name="grid_y">2</field>
+            <field name="grid_width">4</field>
+            <field name="grid_height">4</field>
+            <field name="inline_model">purchase.order</field>
+            <field name="inline_domain">[('state', 'in', ['purchase', 'done'])]</field>
+            <field name="inline_group_by">partner_id</field>
+            <field name="inline_measure_field">amount_total</field>
+            <field name="inline_aggregation">sum</field>
+            <field name="chart_show_legend">False</field>
+            <field name="sequence">6</field>
+        </record>
+
+    </data>
+</odoo>

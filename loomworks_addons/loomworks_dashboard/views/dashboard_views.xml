@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Dashboard Board Tree View -->
+    <record id="view_dashboard_board_tree" model="ir.ui.view">
+        <field name="name">dashboard.board.tree</field>
+        <field name="model">dashboard.board</field>
+        <field name="arch" type="xml">
+            <tree string="Dashboards">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="widget_count"/>
+                <field name="is_public" widget="boolean_toggle"/>
+                <field name="is_template" widget="boolean_toggle"/>
+                <field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Dashboard Board Kanban View -->
+    <record id="view_dashboard_board_kanban" model="ir.ui.view">
+        <field name="name">dashboard.board.kanban</field>
+        <field name="model">dashboard.board</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_dashboard">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="user_id"/>
+                <field name="widget_count"/>
+                <field name="is_public"/>
+                <field name="is_template"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_card_content">
+                                <div class="o_kanban_primary_left">
+                                    <div class="o_primary">
+                                        <span t-if="record.is_template.raw_value" class="badge bg-info me-2">Template</span>
+                                        <strong><field name="name"/></strong>
+                                    </div>
+                                    <div class="text-muted small">
+                                        <field name="description"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_kanban_card_footer">
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <span class="badge bg-secondary">
+                                            <i class="fa fa-th-large"/> <field name="widget_count"/> widgets
+                                        </span>
+                                        <span t-if="record.is_public.raw_value" class="badge bg-success ms-1">
+                                            <i class="fa fa-globe"/> Public
+                                        </span>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="user_id" widget="many2one_avatar_user"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Dashboard Board Form View -->
+    <record id="view_dashboard_board_form" model="ir.ui.view">
+        <field name="name">dashboard.board.form</field>
+        <field name="model">dashboard.board</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard">
+                <header>
+                    <button name="action_open_dashboard" type="object"
+                            string="Open Dashboard" class="btn-primary"/>
+                    <button name="action_duplicate_as_template" type="object"
+                            string="Save as Template" class="btn-secondary"
+                            invisible="is_template"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(loomworks_dashboard.action_dashboard_widget)d" type="action"
+                                class="oe_stat_button" icon="fa-th-large">
+                            <field name="widget_count" widget="statinfo" string="Widgets"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Template" bg_color="text-bg-info"
+                            invisible="not is_template"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Dashboard Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="is_public"/>
+                            <field name="is_template"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Layout Settings">
+                        <group>
+                            <field name="layout_columns"/>
+                            <field name="auto_refresh" widget="integer"
+                                   help="Auto-refresh interval in seconds (0 to disable)"/>
+                        </group>
+                        <group>
+                            <field name="theme"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description" placeholder="Describe what this dashboard shows..."/>
+                        </page>
+                        <page string="Tabs">
+                            <field name="tab_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="icon" placeholder="fa-chart-bar"/>
+                                    <field name="active"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Widgets" name="widgets">
+                            <field name="widget_ids" mode="tree">
+                                <tree>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="widget_type"/>
+                                    <field name="tab_id"/>
+                                    <field name="grid_x"/>
+                                    <field name="grid_y"/>
+                                    <field name="grid_width"/>
+                                    <field name="grid_height"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Filters" name="filters">
+                            <field name="filter_ids">
+                                <tree>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="field_name"/>
+                                    <field name="filter_type"/>
+                                    <field name="active"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Sharing" name="sharing">
+                            <field name="share_ids">
+                                <tree>
+                                    <field name="share_type"/>
+                                    <field name="user_id"/>
+                                    <field name="can_edit"/>
+                                    <field name="can_share"/>
+                                    <field name="share_url" widget="url"/>
+                                    <field name="link_views"/>
+                                    <field name="active"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Dashboard Board Search View -->
+    <record id="view_dashboard_board_search" model="ir.ui.view">
+        <field name="name">dashboard.board.search</field>
+        <field name="model">dashboard.board</field>
+        <field name="arch" type="xml">
+            <search string="Search Dashboards">
+                <field name="name"/>
+                <field name="user_id"/>
+                <filter string="My Dashboards" name="my_dashboards"
+                        domain="[('user_id', '=', uid)]"/>
+                <filter string="Public" name="public"
+                        domain="[('is_public', '=', True)]"/>
+                <filter string="Templates" name="templates"
+                        domain="[('is_template', '=', True)]"/>
+                <separator/>
+                <filter string="Archived" name="inactive"
+                        domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Owner" name="group_owner"
+                            context="{'group_by': 'user_id'}"/>
+                    <filter string="Theme" name="group_theme"
+                            context="{'group_by': 'theme'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Dashboard Action -->
+    <record id="action_dashboard_board" model="ir.actions.act_window">
+        <field name="name">Dashboards</field>
+        <field name="res_model">dashboard.board</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_dashboard_board_search"/>
+        <field name="context">{'search_default_my_dashboards': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first dashboard
+            </p>
+            <p>
+                Build visual dashboards to monitor KPIs, trends, and metrics.
+                Use drag-drop widgets or generate with AI.
+            </p>
+        </field>
+    </record>
+
+    <!-- Dashboard Client Action (React Canvas) -->
+    <record id="action_dashboard_canvas" model="ir.actions.client">
+        <field name="name">Dashboard Canvas</field>
+        <field name="tag">loomworks_dashboard_action</field>
+    </record>
+
+</odoo>

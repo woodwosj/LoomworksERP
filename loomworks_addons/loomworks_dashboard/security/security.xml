@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Dashboard Module Category -->
+        <record id="module_category_dashboard" model="ir.module.category">
+            <field name="name">Dashboard</field>
+            <field name="description">Loomworks Dashboard System</field>
+            <field name="sequence">15</field>
+        </record>
+
+        <!-- Dashboard User Group -->
+        <record id="group_dashboard_user" model="res.groups">
+            <field name="name">Dashboard User</field>
+            <field name="category_id" ref="module_category_dashboard"/>
+            <field name="comment">Can view dashboards and create personal dashboards</field>
+        </record>
+
+        <!-- Dashboard Manager Group -->
+        <record id="group_dashboard_manager" model="res.groups">
+            <field name="name">Dashboard Manager</field>
+            <field name="category_id" ref="module_category_dashboard"/>
+            <field name="implied_ids" eval="[(4, ref('group_dashboard_user'))]"/>
+            <field name="comment">Can create, edit, and manage all dashboards</field>
+        </record>
+
+        <!-- Dashboard Admin Group -->
+        <record id="group_dashboard_admin" model="res.groups">
+            <field name="name">Dashboard Administrator</field>
+            <field name="category_id" ref="module_category_dashboard"/>
+            <field name="implied_ids" eval="[(4, ref('group_dashboard_manager'))]"/>
+            <field name="comment">Full administrative access to dashboard system</field>
+        </record>
+
+        <!-- Record Rules -->
+
+        <!-- Users can see their own dashboards and public dashboards -->
+        <record id="rule_dashboard_user_read" model="ir.rule">
+            <field name="name">Dashboard: User Read Own/Public</field>
+            <field name="model_id" ref="model_dashboard_board"/>
+            <field name="domain_force">[
+                '|',
+                ('user_id', '=', user.id),
+                ('is_public', '=', True)
+            ]</field>
+            <field name="groups" eval="[(4, ref('group_dashboard_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- Users can edit their own dashboards -->
+        <record id="rule_dashboard_user_write" model="ir.rule">
+            <field name="name">Dashboard: User Write Own</field>
+            <field name="model_id" ref="model_dashboard_board"/>
+            <field name="domain_force">[('user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_dashboard_user'))]"/>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <!-- Managers can see all dashboards in their company -->
+        <record id="rule_dashboard_manager_read" model="ir.rule">
+            <field name="name">Dashboard: Manager Read All in Company</field>
+            <field name="model_id" ref="model_dashboard_board"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('group_dashboard_manager'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <!-- Widget rules follow dashboard access -->
+        <record id="rule_widget_user" model="ir.rule">
+            <field name="name">Widget: Access via Dashboard</field>
+            <field name="model_id" ref="model_dashboard_widget"/>
+            <field name="domain_force">[
+                '|',
+                ('dashboard_id.user_id', '=', user.id),
+                ('dashboard_id.is_public', '=', True)
+            ]</field>
+            <field name="groups" eval="[(4, ref('group_dashboard_user'))]"/>
+        </record>
+
+        <!-- Data Source rules -->
+        <record id="rule_data_source_user" model="ir.rule">
+            <field name="name">Data Source: Read All Active</field>
+            <field name="model_id" ref="model_dashboard_data_source"/>
+            <field name="domain_force">[('active', '=', True)]</field>
+            <field name="groups" eval="[(4, ref('group_dashboard_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

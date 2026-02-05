@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Dashboard Data Source Tree View -->
+    <record id="view_dashboard_data_source_tree" model="ir.ui.view">
+        <field name="name">dashboard.data.source.tree</field>
+        <field name="model">dashboard.data.source</field>
+        <field name="arch" type="xml">
+            <tree string="Data Sources">
+                <field name="name"/>
+                <field name="source_type"/>
+                <field name="model_name"/>
+                <field name="aggregation"/>
+                <field name="cache_duration"/>
+                <field name="last_fetch"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Dashboard Data Source Form View -->
+    <record id="view_dashboard_data_source_form" model="ir.ui.view">
+        <field name="name">dashboard.data.source.form</field>
+        <field name="model">dashboard.data.source</field>
+        <field name="arch" type="xml">
+            <form string="Data Source">
+                <header>
+                    <button name="action_test_fetch" type="object"
+                            string="Test Fetch" class="btn-primary"/>
+                    <button name="clear_cache" type="object"
+                            string="Clear Cache" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Data Source Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="source_type"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="cache_duration"/>
+                            <field name="last_fetch" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Model Configuration" invisible="source_type != 'model'">
+                            <group>
+                                <group>
+                                    <field name="model_id"/>
+                                    <field name="model_name" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="limit"/>
+                                    <field name="sort_field"/>
+                                    <field name="sort_direction"/>
+                                </group>
+                            </group>
+                            <group string="Filter">
+                                <field name="domain" widget="domain"
+                                       options="{'model': 'model_name'}"/>
+                            </group>
+                            <group string="Fields">
+                                <field name="field_ids" widget="many2many_tags"
+                                       domain="[('model_id', '=', model_id)]"/>
+                            </group>
+                            <group string="Grouping">
+                                <group>
+                                    <field name="group_by_field_id"
+                                           domain="[('model_id', '=', model_id)]"/>
+                                    <field name="group_by_granularity"
+                                           invisible="not group_by_field_id"/>
+                                </group>
+                                <group>
+                                    <field name="secondary_group_by_field_id"
+                                           domain="[('model_id', '=', model_id)]"/>
+                                </group>
+                            </group>
+                            <group string="Aggregation">
+                                <group>
+                                    <field name="measure_field_id"
+                                           domain="[('model_id', '=', model_id), ('ttype', 'in', ['integer', 'float', 'monetary'])]"/>
+                                    <field name="aggregation"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="SQL Configuration" invisible="source_type != 'sql'">
+                            <field name="sql_query" widget="ace"
+                                   options="{'mode': 'sql'}"
+                                   placeholder="SELECT ... FROM ..."/>
+                        </page>
+                        <page string="API Configuration" invisible="source_type != 'api'">
+                            <group>
+                                <field name="api_endpoint" placeholder="https://api.example.com/data"/>
+                                <field name="api_method"/>
+                            </group>
+                            <group string="Headers">
+                                <field name="api_headers" widget="ace"
+                                       options="{'mode': 'json'}"
+                                       placeholder='{"Authorization": "Bearer TOKEN"}'/>
+                            </group>
+                            <group string="Request Body" invisible="api_method != 'POST'">
+                                <field name="api_body" widget="ace"
+                                       options="{'mode': 'json'}"/>
+                            </group>
+                        </page>
+                        <page string="Static Data" invisible="source_type != 'static'">
+                            <field name="static_data" widget="ace"
+                                   options="{'mode': 'json'}"
+                                   placeholder='[{"name": "Item 1", "value": 100}]'/>
+                        </page>
+                        <page string="Linked Widgets">
+                            <field name="widget_ids" readonly="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="dashboard_id"/>
+                                    <field name="widget_type"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Description">
+                            <field name="description" placeholder="Describe this data source..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Dashboard Data Source Action -->
+    <record id="action_dashboard_data_source" model="ir.actions.act_window">
+        <field name="name">Data Sources</field>
+        <field name="res_model">dashboard.data.source</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+    </record>
+
+</odoo>

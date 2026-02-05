@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Main Dashboard Menu (Top Level) -->
+    <menuitem id="menu_dashboard_root"
+              name="Dashboards"
+              web_icon="loomworks_dashboard,static/description/icon.png"
+              sequence="5"/>
+
+    <!-- My Dashboards Submenu -->
+    <menuitem id="menu_dashboard_my"
+              name="My Dashboards"
+              parent="menu_dashboard_root"
+              action="action_dashboard_board"
+              sequence="10"/>
+
+    <!-- Dashboard Canvas (React View) -->
+    <menuitem id="menu_dashboard_canvas"
+              name="Dashboard Canvas"
+              parent="menu_dashboard_root"
+              action="action_dashboard_canvas"
+              sequence="15"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_dashboard_config"
+              name="Configuration"
+              parent="menu_dashboard_root"
+              groups="group_dashboard_manager"
+              sequence="100"/>
+
+    <!-- Data Sources -->
+    <menuitem id="menu_dashboard_data_sources"
+              name="Data Sources"
+              parent="menu_dashboard_config"
+              action="action_dashboard_data_source"
+              sequence="10"/>
+
+    <!-- Widget Types -->
+    <menuitem id="menu_dashboard_widget_types"
+              name="Widget Types"
+              parent="menu_dashboard_config"
+              action="action_dashboard_widget"
+              sequence="20"/>
+
+    <!-- Templates -->
+    <menuitem id="menu_dashboard_templates"
+              name="Templates"
+              parent="menu_dashboard_config"
+              sequence="30"/>
+
+    <!-- Template Dashboard Action -->
+    <record id="action_dashboard_templates" model="ir.actions.act_window">
+        <field name="name">Dashboard Templates</field>
+        <field name="res_model">dashboard.board</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('is_template', '=', True)]</field>
+        <field name="context">{'default_is_template': True}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first dashboard template
+            </p>
+            <p>
+                Templates can be used as starting points for new dashboards.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_dashboard_templates_action"
+              name="Dashboard Templates"
+              parent="menu_dashboard_templates"
+              action="action_dashboard_templates"
+              sequence="10"/>
+
+</odoo>
