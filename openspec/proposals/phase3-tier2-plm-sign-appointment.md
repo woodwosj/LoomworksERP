@@ -6,16 +6,1269 @@ Loomworks ERP needs enterprise-grade features for manufacturing lifecycle manage
 
 ## What Changes
 
-- **NEW**: `loomworks_plm` module for Product Lifecycle Management with Engineering Change Orders
-- **NEW**: `loomworks_sign` module for electronic signature workflows
-- **NEW**: `loomworks_appointment` module for online booking and calendar synchronization
-- Integrations with existing `mrp.bom`, `calendar.event`, and `mail.template` models
+- **CORE MODIFICATION**: Add signature field type to `odoo/odoo/fields.py`
+- **CORE MODIFICATION**: Extend `odoo/addons/mrp/` with PLM versioning hooks
+- **CORE MODIFICATION**: Add booking routes to `odoo/addons/calendar/` and `odoo/addons/portal/`
+- **CORE MODIFICATION**: New activity types in `odoo/addons/mail/`
+- **CORE SERVICE**: PDF manipulation service in `odoo/odoo/tools/pdf.py`
+- **CORE WIDGET**: Signature widget in `odoo/addons/web/static/src/views/fields/`
+- **NEW ADDON**: `loomworks_plm` module for Product Lifecycle Management with Engineering Change Orders
+- **NEW ADDON**: `loomworks_sign` module for electronic signature workflows
+- **NEW ADDON**: `loomworks_appointment` module for online booking and calendar synchronization
 
 ## Impact
 
 - Affected specs: None (new capabilities)
-- Affected code: `loomworks_addons/` directory (3 new modules)
-- Dependencies: `mrp`, `calendar`, `mail`, `portal`, `website` Odoo Community modules
+- Affected code:
+  - **Forked Core**: `odoo/odoo/fields.py`, `odoo/odoo/tools/pdf.py`
+  - **Forked Addons**: `odoo/addons/mrp/`, `odoo/addons/calendar/`, `odoo/addons/portal/`, `odoo/addons/mail/`, `odoo/addons/web/`
+  - **New Modules**: `loomworks_addons/loomworks_plm/`, `loomworks_addons/loomworks_sign/`, `loomworks_addons/loomworks_appointment/`
+- Dependencies on modified core: `mrp`, `calendar`, `mail`, `portal`, `website`, `web`
+
+---
+
+# Forked Core Modifications
+
+This section details modifications to the forked Odoo core that provide foundational capabilities for PLM, Sign, and Appointment features. Since Loomworks owns the full fork, these changes are made directly in core rather than through inheritance-only addons.
+
+## 1. PLM Core Integration (odoo/addons/mrp/)
+
+### Location: `odoo/addons/mrp/`
+
+The MRP module in Odoo 18 Community provides Bill of Materials (BOM) management via the `mrp.bom` model. For PLM support, we modify the core MRP module to add native versioning capabilities.
+
+### Core Files Modified
+
+#### `odoo/addons/mrp/models/mrp_bom.py`
+
+Add versioning fields directly to the core `mrp.bom` model:
+
+```python
+# LOOMWORKS CORE MODIFICATION: PLM versioning support
+# Added to MrpBom class in mrp_bom.py
+
+class MrpBom(models.Model):
+    _inherit = 'mrp.bom'  # Self-inherit for modification tracking
+
+    # === PLM Versioning Fields (Core) ===
+    revision_code = fields.Char(
+        string='Revision',
+        default='A',
+        tracking=True,
+        index=True,
+        help='BOM revision identifier (e.g., A, B, C or 1.0, 2.0)'
+    )
+    lifecycle_state = fields.Selection([
+        ('draft', 'Draft'),
+        ('review', 'Under Review'),
+        ('released', 'Released'),
+        ('obsolete', 'Obsolete')
+    ], default='draft', string='Lifecycle State', tracking=True, index=True)
+
+    previous_bom_id = fields.Many2one(
+        'mrp.bom',
+        string='Previous Version',
+        ondelete='set null',
+        help='Link to the previous revision of this BOM'
+    )
+    is_current_revision = fields.Boolean(
+        string='Current Revision',
+        default=True,
+        help='Indicates if this is the active revision for production'
+    )
+
+    # Computed field for revision chain
+    revision_count = fields.Integer(
+        compute='_compute_revision_count',
+        string='Revision Count'
+    )
+
+    @api.depends('previous_bom_id')
+    def _compute_revision_count(self):
+        for bom in self:
+            count = 0
+            current = bom.previous_bom_id
+            while current:
+                count += 1
+                current = current.previous_bom_id
+            bom.revision_count = count
+
+    def _get_next_revision_code(self):
+        """Generate next revision code (A->B->C or 1.0->1.1->2.0)"""
+        current = self.revision_code or 'A'
+        if current.isalpha() and len(current) == 1:
+            # Letter-based: A -> B -> ... -> Z -> AA
+            if current == 'Z':
+                return 'AA'
+            return chr(ord(current) + 1)
+        elif '.' in current:
+            # Semantic versioning: 1.0 -> 1.1
+            parts = current.split('.')
+            parts[-1] = str(int(parts[-1]) + 1)
+            return '.'.join(parts)
+        return current + '.1'
+```
+
+#### `odoo/addons/mrp/views/mrp_bom_views.xml`
+
+Extend the BOM form view to show versioning information:
+
+```xml
+<!-- LOOMWORKS CORE MODIFICATION: PLM versioning UI -->
+<record id="mrp_bom_form_view_plm_inherit" model="ir.ui.view">
+    <field name="name">mrp.bom.form.plm.core</field>
+    <field name="model">mrp.bom</field>
+    <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+    <field name="arch" type="xml">
+        <!-- Add revision info to header -->
+        <xpath expr="//sheet" position="before">
+            <div class="alert alert-warning" role="alert"
+                 invisible="is_current_revision or lifecycle_state == 'draft'">
+                This is not the current active revision.
+            </div>
+        </xpath>
+
+        <!-- Add versioning fields -->
+        <xpath expr="//field[@name='type']" position="after">
+            <field name="revision_code"/>
+            <field name="lifecycle_state" widget="badge"
+                   decoration-info="lifecycle_state == 'draft'"
+                   decoration-warning="lifecycle_state == 'review'"
+                   decoration-success="lifecycle_state == 'released'"
+                   decoration-muted="lifecycle_state == 'obsolete'"/>
+        </xpath>
+
+        <!-- Add revision navigation button -->
+        <xpath expr="//div[@name='button_box']" position="inside">
+            <button class="oe_stat_button" type="object" name="action_view_revisions"
+                    icon="fa-history" invisible="revision_count == 0">
+                <field name="revision_count" string="Revisions" widget="statinfo"/>
+            </button>
+        </xpath>
+    </field>
+</record>
+```
+
+#### `odoo/addons/mrp/__manifest__.py`
+
+Update manifest to reflect PLM capabilities:
+
+```python
+# LOOMWORKS: Added PLM dependencies
+'depends': ['base', 'product', 'stock', 'resource', 'mail'],  # mail for tracking
+```
+
+### Rationale for Core vs Addon
+
+**Why modify core**: BOM versioning is fundamental to manufacturing. By adding `revision_code` and `lifecycle_state` directly to `mrp.bom`, we:
+1. Ensure all BOMs inherently support versioning without addon dependency
+2. Enable database-level indexing for version queries
+3. Allow other addons to build on versioning without inheriting from a custom model
+4. Provide consistent revision tracking across the entire system
+
+**Addon role**: The `loomworks_plm` addon provides the ECO workflow, approval system, and change management UI. It uses the core versioning fields but does not define them.
+
+---
+
+## 2. Sign as Core Document Feature
+
+### 2.1 Signature Field Type (odoo/odoo/fields.py)
+
+Add a native signature field type to the ORM for capturing drawn, typed, or uploaded signatures.
+
+#### `odoo/odoo/fields.py`
+
+```python
+# LOOMWORKS CORE MODIFICATION: Signature field type
+# Add after Binary field class definition
+
+class Signature(Field):
+    """
+    Encapsulates a signature capture with metadata.
+
+    Stores signature data as base64 with associated metadata:
+    - signature_data: Base64-encoded PNG image
+    - signature_type: 'draw', 'type', or 'upload'
+    - signer_name: Name of the person signing
+    - signed_at: Timestamp of signature
+    - ip_address: IP address at time of signing (optional)
+
+    :param str signer_field: Field name containing signer partner_id (optional)
+    :param bool require_draw: If True, only drawn signatures allowed
+    """
+    type = 'signature'
+    column_type = ('jsonb', 'jsonb')  # PostgreSQL JSONB for structured data
+
+    signer_field = None
+    require_draw = False
+
+    _slots = {
+        'signer_field': None,
+        'require_draw': False,
+    }
+
+    def convert_to_column(self, value, record, values=None, validate=True):
+        """Convert signature dict to JSONB storage"""
+        if not value:
+            return None
+        if isinstance(value, str):
+            # Assume base64 image data only
+            return json.dumps({
+                'signature_data': value,
+                'signature_type': 'unknown',
+                'signed_at': fields.Datetime.now().isoformat(),
+            })
+        if isinstance(value, dict):
+            return json.dumps(value)
+        return None
+
+    def convert_to_record(self, value, record):
+        """Convert JSONB to signature dict"""
+        if not value:
+            return {}
+        if isinstance(value, str):
+            return json.loads(value)
+        return value
+
+    def convert_to_read(self, value, record, use_display_name=True):
+        """Return signature dict for reading"""
+        return self.convert_to_record(value, record)
+
+    def convert_to_write(self, value, record):
+        """Validate and convert value for writing"""
+        if not value:
+            return None
+        if isinstance(value, dict):
+            # Validate required fields
+            if 'signature_data' not in value:
+                raise ValueError("Signature must include signature_data")
+            if self.require_draw and value.get('signature_type') != 'draw':
+                raise ValueError("Only drawn signatures are allowed")
+            # Add timestamp if not present
+            if 'signed_at' not in value:
+                value['signed_at'] = fields.Datetime.now().isoformat()
+            return value
+        if isinstance(value, str):
+            # Assume raw base64 data
+            return {
+                'signature_data': value,
+                'signature_type': 'draw',
+                'signed_at': fields.Datetime.now().isoformat(),
+            }
+        return None
+```
+
+### 2.2 Signature Widget (odoo/addons/web/static/src/views/fields/)
+
+#### `odoo/addons/web/static/src/views/fields/signature/signature_field.js`
+
+```javascript
+/** @odoo-module **/
+// LOOMWORKS CORE: Signature field widget
+
+import { Component, useState, useRef, onMounted, onWillUnmount } from "@odoo/owl";
+import { registry } from "@web/core/registry";
+import { standardFieldProps } from "@web/views/fields/standard_field_props";
+import { useService } from "@web/core/utils/hooks";
+
+export class SignatureField extends Component {
+    static template = "web.SignatureField";
+    static props = {
+        ...standardFieldProps,
+        requireDraw: { type: Boolean, optional: true },
+        height: { type: Number, optional: true },
+        width: { type: Number, optional: true },
+    };
+    static defaultProps = {
+        requireDraw: false,
+        height: 150,
+        width: 400,
+    };
+
+    setup() {
+        this.canvasRef = useRef("canvas");
+        this.state = useState({
+            isDrawing: false,
+            isEmpty: true,
+            signatureType: null,
+            showModal: false,
+        });
+        this.notification = useService("notification");
+
+        onMounted(() => this.initCanvas());
+        onWillUnmount(() => this.cleanup());
+    }
+
+    get value() {
+        return this.props.record.data[this.props.name] || {};
+    }
+
+    get hasSignature() {
+        return !!this.value.signature_data;
+    }
+
+    get signatureImage() {
+        if (this.value.signature_data) {
+            return `data:image/png;base64,${this.value.signature_data}`;
+        }
+        return null;
+    }
+
+    initCanvas() {
+        const canvas = this.canvasRef.el;
+        if (!canvas) return;
+
+        this.ctx = canvas.getContext("2d");
+        this.ctx.lineWidth = 2;
+        this.ctx.lineCap = "round";
+        this.ctx.strokeStyle = "#000000";
+
+        // Event listeners
+        canvas.addEventListener("mousedown", this.startDrawing.bind(this));
+        canvas.addEventListener("mousemove", this.draw.bind(this));
+        canvas.addEventListener("mouseup", this.stopDrawing.bind(this));
+        canvas.addEventListener("mouseout", this.stopDrawing.bind(this));
+
+        // Touch support
+        canvas.addEventListener("touchstart", this.handleTouchStart.bind(this));
+        canvas.addEventListener("touchmove", this.handleTouchMove.bind(this));
+        canvas.addEventListener("touchend", this.stopDrawing.bind(this));
+    }
+
+    cleanup() {
+        const canvas = this.canvasRef.el;
+        if (canvas) {
+            canvas.removeEventListener("mousedown", this.startDrawing);
+            canvas.removeEventListener("mousemove", this.draw);
+            canvas.removeEventListener("mouseup", this.stopDrawing);
+            canvas.removeEventListener("mouseout", this.stopDrawing);
+        }
+    }
+
+    startDrawing(e) {
+        this.state.isDrawing = true;
+        this.state.isEmpty = false;
+        this.ctx.beginPath();
+        this.ctx.moveTo(e.offsetX, e.offsetY);
+    }
+
+    draw(e) {
+        if (!this.state.isDrawing) return;
+        this.ctx.lineTo(e.offsetX, e.offsetY);
+        this.ctx.stroke();
+    }
+
+    stopDrawing() {
+        this.state.isDrawing = false;
+    }
+
+    handleTouchStart(e) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const rect = this.canvasRef.el.getBoundingClientRect();
+        this.startDrawing({
+            offsetX: touch.clientX - rect.left,
+            offsetY: touch.clientY - rect.top,
+        });
+    }
+
+    handleTouchMove(e) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const rect = this.canvasRef.el.getBoundingClientRect();
+        this.draw({
+            offsetX: touch.clientX - rect.left,
+            offsetY: touch.clientY - rect.top,
+        });
+    }
+
+    clearCanvas() {
+        const canvas = this.canvasRef.el;
+        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.state.isEmpty = true;
+    }
+
+    async saveSignature() {
+        if (this.state.isEmpty) {
+            this.notification.add("Please draw your signature first", { type: "warning" });
+            return;
+        }
+
+        const canvas = this.canvasRef.el;
+        const dataUrl = canvas.toDataURL("image/png");
+        const base64Data = dataUrl.split(",")[1];
+
+        const signatureValue = {
+            signature_data: base64Data,
+            signature_type: "draw",
+            signed_at: new Date().toISOString(),
+        };
+
+        await this.props.record.update({ [this.props.name]: signatureValue });
+        this.state.showModal = false;
+    }
+
+    async clearSignature() {
+        await this.props.record.update({ [this.props.name]: null });
+    }
+
+    openSignModal() {
+        this.state.showModal = true;
+    }
+
+    closeSignModal() {
+        this.state.showModal = false;
+        this.clearCanvas();
+    }
+}
+
+SignatureField.supportedTypes = ["signature"];
+
+registry.category("fields").add("signature", {
+    component: SignatureField,
+    supportedTypes: ["signature"],
+    extractProps: ({ attrs }) => ({
+        requireDraw: attrs.options?.require_draw || false,
+        height: attrs.options?.height || 150,
+        width: attrs.options?.width || 400,
+    }),
+});
+```
+
+#### `odoo/addons/web/static/src/views/fields/signature/signature_field.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- LOOMWORKS CORE: Signature field template -->
+<templates xml:space="preserve">
+    <t t-name="web.SignatureField">
+        <div class="o_signature_field">
+            <!-- Display existing signature -->
+            <t t-if="hasSignature and !props.readonly">
+                <div class="o_signature_display">
+                    <img t-att-src="signatureImage" alt="Signature" class="img-fluid"/>
+                    <div class="o_signature_info text-muted small mt-1">
+                        <t t-if="value.signed_at">
+                            Signed: <t t-esc="value.signed_at"/>
+                        </t>
+                    </div>
+                    <button class="btn btn-sm btn-outline-danger mt-2"
+                            t-on-click="clearSignature">
+                        <i class="fa fa-trash"/> Clear
+                    </button>
+                </div>
+            </t>
+            <t t-elif="hasSignature and props.readonly">
+                <div class="o_signature_display">
+                    <img t-att-src="signatureImage" alt="Signature" class="img-fluid"/>
+                </div>
+            </t>
+
+            <!-- Sign button when no signature -->
+            <t t-else="">
+                <button class="btn btn-primary" t-on-click="openSignModal"
+                        t-att-disabled="props.readonly">
+                    <i class="fa fa-pencil"/> Sign Here
+                </button>
+            </t>
+
+            <!-- Signature modal -->
+            <t t-if="state.showModal">
+                <div class="modal d-block" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Draw Your Signature</h5>
+                                <button type="button" class="btn-close"
+                                        t-on-click="closeSignModal"/>
+                            </div>
+                            <div class="modal-body text-center">
+                                <canvas t-ref="canvas"
+                                        t-att-width="props.width"
+                                        t-att-height="props.height"
+                                        class="border rounded bg-white"
+                                        style="touch-action: none;"/>
+                                <p class="text-muted mt-2">
+                                    Draw your signature above using mouse or touch
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-outline-secondary"
+                                        t-on-click="clearCanvas">
+                                    <i class="fa fa-eraser"/> Clear
+                                </button>
+                                <button class="btn btn-outline-secondary"
+                                        t-on-click="closeSignModal">
+                                    Cancel
+                                </button>
+                                <button class="btn btn-primary"
+                                        t-on-click="saveSignature">
+                                    <i class="fa fa-check"/> Accept Signature
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-backdrop show"/>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>
+```
+
+### 2.3 PDF Manipulation Service (odoo/odoo/tools/pdf.py)
+
+Create a core PDF service for signature embedding and document manipulation.
+
+#### `odoo/odoo/tools/pdf.py`
+
+```python
+# -*- coding: utf-8 -*-
+# LOOMWORKS CORE: PDF manipulation service
+
+"""
+PDF manipulation utilities for Odoo.
+
+Provides core functionality for:
+- Embedding signatures into PDF documents
+- Adding fields and annotations
+- Generating document hashes for integrity verification
+- Extracting text and metadata
+"""
+
+import base64
+import hashlib
+import logging
+from io import BytesIO
+
+_logger = logging.getLogger(__name__)
+
+# Optional imports - graceful degradation if not installed
+try:
+    import fitz  # PyMuPDF
+    HAS_PYMUPDF = True
+except ImportError:
+    HAS_PYMUPDF = False
+    _logger.warning("PyMuPDF not installed. PDF signature embedding disabled.")
+
+try:
+    from pyhanko.sign import signers
+    from pyhanko.pdf_utils.incremental_writer import IncrementalPdfFileWriter
+    HAS_PYHANKO = True
+except ImportError:
+    HAS_PYHANKO = False
+    _logger.info("pyHanko not installed. Digital signature (PAdES) disabled.")
+
+
+class PDFService:
+    """Core PDF manipulation service."""
+
+    @staticmethod
+    def check_dependencies():
+        """Check if PDF dependencies are available."""
+        return {
+            'pymupdf': HAS_PYMUPDF,
+            'pyhanko': HAS_PYHANKO,
+        }
+
+    @staticmethod
+    def get_document_hash(pdf_content):
+        """
+        Generate SHA-256 hash of PDF content.
+
+        :param pdf_content: bytes or base64 string
+        :return: hex string of SHA-256 hash
+        """
+        if isinstance(pdf_content, str):
+            pdf_content = base64.b64decode(pdf_content)
+        return hashlib.sha256(pdf_content).hexdigest()
+
+    @staticmethod
+    def get_page_count(pdf_content):
+        """
+        Get number of pages in PDF.
+
+        :param pdf_content: bytes or base64 string
+        :return: int page count
+        """
+        if not HAS_PYMUPDF:
+            raise ImportError("PyMuPDF required for PDF operations")
+
+        if isinstance(pdf_content, str):
+            pdf_content = base64.b64decode(pdf_content)
+
+        doc = fitz.open(stream=pdf_content, filetype='pdf')
+        count = len(doc)
+        doc.close()
+        return count
+
+    @staticmethod
+    def generate_preview(pdf_content, page=0, dpi=72):
+        """
+        Generate PNG preview of a PDF page.
+
+        :param pdf_content: bytes or base64 string
+        :param page: page number (0-indexed)
+        :param dpi: resolution for rendering
+        :return: base64 encoded PNG
+        """
+        if not HAS_PYMUPDF:
+            raise ImportError("PyMuPDF required for PDF operations")
+
+        if isinstance(pdf_content, str):
+            pdf_content = base64.b64decode(pdf_content)
+
+        doc = fitz.open(stream=pdf_content, filetype='pdf')
+        if page >= len(doc):
+            doc.close()
+            raise ValueError(f"Page {page} does not exist")
+
+        page_obj = doc[page]
+        mat = fitz.Matrix(dpi / 72, dpi / 72)
+        pix = page_obj.get_pixmap(matrix=mat)
+
+        output = BytesIO()
+        pix.save(output, 'png')
+        doc.close()
+
+        return base64.b64encode(output.getvalue()).decode()
+
+    @staticmethod
+    def embed_image(pdf_content, image_data, page, rect, preserve_aspect=True):
+        """
+        Embed an image (e.g., signature) into a PDF at specified position.
+
+        :param pdf_content: bytes or base64 string of source PDF
+        :param image_data: bytes or base64 string of image to embed
+        :param page: page number (0-indexed)
+        :param rect: dict with keys 'x', 'y', 'width', 'height' (in points)
+                     OR percentage-based with 'x_pct', 'y_pct', 'w_pct', 'h_pct'
+        :param preserve_aspect: maintain image aspect ratio
+        :return: base64 encoded modified PDF
+        """
+        if not HAS_PYMUPDF:
+            raise ImportError("PyMuPDF required for PDF operations")
+
+        if isinstance(pdf_content, str):
+            pdf_content = base64.b64decode(pdf_content)
+        if isinstance(image_data, str):
+            image_data = base64.b64decode(image_data)
+
+        doc = fitz.open(stream=pdf_content, filetype='pdf')
+
+        if page >= len(doc):
+            doc.close()
+            raise ValueError(f"Page {page} does not exist")
+
+        page_obj = doc[page]
+        page_rect = page_obj.rect
+
+        # Calculate rectangle
+        if 'x_pct' in rect:
+            # Percentage-based positioning
+            x = page_rect.width * (rect['x_pct'] / 100)
+            y = page_rect.height * (rect['y_pct'] / 100)
+            w = page_rect.width * (rect['w_pct'] / 100)
+            h = page_rect.height * (rect['h_pct'] / 100)
+        else:
+            # Absolute positioning
+            x = rect['x']
+            y = rect['y']
+            w = rect['width']
+            h = rect['height']
+
+        image_rect = fitz.Rect(x, y, x + w, y + h)
+
+        # Insert image
+        page_obj.insert_image(image_rect, stream=image_data, keep_proportion=preserve_aspect)
+
+        # Save to bytes
+        output = BytesIO()
+        doc.save(output)
+        doc.close()
+
+        return base64.b64encode(output.getvalue()).decode()
+
+    @staticmethod
+    def embed_text(pdf_content, text, page, position, font_size=12, color=(0, 0, 0)):
+        """
+        Embed text into a PDF at specified position.
+
+        :param pdf_content: bytes or base64 string
+        :param text: string to embed
+        :param page: page number (0-indexed)
+        :param position: dict with 'x', 'y' in points or 'x_pct', 'y_pct' in percentage
+        :param font_size: font size in points
+        :param color: RGB tuple (0-1 range)
+        :return: base64 encoded modified PDF
+        """
+        if not HAS_PYMUPDF:
+            raise ImportError("PyMuPDF required for PDF operations")
+
+        if isinstance(pdf_content, str):
+            pdf_content = base64.b64decode(pdf_content)
+
+        doc = fitz.open(stream=pdf_content, filetype='pdf')
+
+        if page >= len(doc):
+            doc.close()
+            raise ValueError(f"Page {page} does not exist")
+
+        page_obj = doc[page]
+        page_rect = page_obj.rect
+
+        # Calculate position
+        if 'x_pct' in position:
+            x = page_rect.width * (position['x_pct'] / 100)
+            y = page_rect.height * (position['y_pct'] / 100)
+        else:
+            x = position['x']
+            y = position['y']
+
+        # Insert text
+        page_obj.insert_text(
+            fitz.Point(x, y),
+            text,
+            fontsize=font_size,
+            color=color
+        )
+
+        output = BytesIO()
+        doc.save(output)
+        doc.close()
+
+        return base64.b64encode(output.getvalue()).decode()
+
+    @staticmethod
+    def add_placeholder_rect(pdf_content, page, rect, label=None, color=(0.8, 0.8, 0.8)):
+        """
+        Add a placeholder rectangle (e.g., for signature field).
+
+        :param pdf_content: bytes or base64 string
+        :param page: page number (0-indexed)
+        :param rect: positioning dict
+        :param label: optional label text
+        :param color: RGB fill color tuple
+        :return: base64 encoded modified PDF
+        """
+        if not HAS_PYMUPDF:
+            raise ImportError("PyMuPDF required for PDF operations")
+
+        if isinstance(pdf_content, str):
+            pdf_content = base64.b64decode(pdf_content)
+
+        doc = fitz.open(stream=pdf_content, filetype='pdf')
+        page_obj = doc[page]
+        page_rect = page_obj.rect
+
+        # Calculate rectangle
+        if 'x_pct' in rect:
+            x = page_rect.width * (rect['x_pct'] / 100)
+            y = page_rect.height * (rect['y_pct'] / 100)
+            w = page_rect.width * (rect['w_pct'] / 100)
+            h = page_rect.height * (rect['h_pct'] / 100)
+        else:
+            x = rect['x']
+            y = rect['y']
+            w = rect['width']
+            h = rect['height']
+
+        draw_rect = fitz.Rect(x, y, x + w, y + h)
+
+        # Draw rectangle
+        page_obj.draw_rect(draw_rect, color=color, fill=color, width=0.5)
+
+        # Add label if provided
+        if label:
+            page_obj.insert_text(
+                draw_rect.tl + fitz.Point(5, 15),
+                label,
+                fontsize=10,
+                color=(0.5, 0.5, 0.5)
+            )
+
+        output = BytesIO()
+        doc.save(output)
+        doc.close()
+
+        return base64.b64encode(output.getvalue()).decode()
+
+    @staticmethod
+    def finalize_with_digital_signature(pdf_content, certificate_path=None,
+                                         reason=None, location=None):
+        """
+        Add PAdES-compliant digital signature to PDF.
+
+        Requires pyHanko and a signing certificate.
+
+        :param pdf_content: bytes or base64 string
+        :param certificate_path: path to PKCS#12 certificate file
+        :param reason: signing reason
+        :param location: signing location
+        :return: base64 encoded signed PDF
+        """
+        if not HAS_PYHANKO:
+            _logger.warning("pyHanko not available, skipping digital signature")
+            if isinstance(pdf_content, str):
+                return pdf_content
+            return base64.b64encode(pdf_content).decode()
+
+        # Implementation would use pyHanko for PAdES signing
+        # This is a placeholder for the full implementation
+        _logger.info("Digital signature would be applied here with pyHanko")
+
+        if isinstance(pdf_content, str):
+            return pdf_content
+        return base64.b64encode(pdf_content).decode()
+
+
+# Convenience functions for Odoo model methods
+def pdf_embed_signature(pdf_b64, signature_b64, page, rect):
+    """Embed signature into PDF. Wrapper for model methods."""
+    return PDFService.embed_image(pdf_b64, signature_b64, page, rect)
+
+def pdf_get_hash(pdf_b64):
+    """Get document hash. Wrapper for model methods."""
+    return PDFService.get_document_hash(pdf_b64)
+
+def pdf_get_preview(pdf_b64, page=0):
+    """Get page preview. Wrapper for model methods."""
+    return PDFService.generate_preview(pdf_b64, page)
+```
+
+---
+
+## 3. Appointment in Calendar Core (odoo/addons/calendar/)
+
+### Location: `odoo/addons/calendar/`
+
+Extend the calendar module to support public booking functionality.
+
+### Core Files Modified
+
+#### `odoo/addons/calendar/models/calendar_event.py`
+
+Add appointment-related fields to calendar events:
+
+```python
+# LOOMWORKS CORE MODIFICATION: Appointment support
+# Add to Meeting class (calendar.event)
+
+class Meeting(models.Model):
+    _inherit = 'calendar.event'
+
+    # === Appointment Fields (Core) ===
+    is_appointment = fields.Boolean(
+        string='Is Appointment',
+        default=False,
+        help='This event was created from an appointment booking'
+    )
+    appointment_type_id = fields.Many2one(
+        'appointment.type',
+        string='Appointment Type',
+        ondelete='set null'
+    )
+    booking_partner_id = fields.Many2one(
+        'res.partner',
+        string='Booked By',
+        help='The customer who booked this appointment'
+    )
+    booking_token = fields.Char(
+        string='Booking Token',
+        copy=False,
+        index=True,
+        help='Token for public access to booking details'
+    )
+
+    @api.model
+    def _generate_booking_token(self):
+        """Generate unique booking token."""
+        import secrets
+        return secrets.token_urlsafe(32)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('is_appointment') and not vals.get('booking_token'):
+                vals['booking_token'] = self._generate_booking_token()
+        return super().create(vals_list)
+```
+
+#### `odoo/addons/calendar/models/__init__.py`
+
+Ensure appointment model is imported when addon provides it:
+
+```python
+# LOOMWORKS: Allow appointment type reference
+# The appointment.type model is provided by loomworks_appointment addon
+# Core calendar just references it with ondelete='set null'
+```
+
+### 3.2 Portal Booking Routes (odoo/addons/portal/)
+
+#### `odoo/addons/portal/controllers/portal.py`
+
+Add base routes for appointment booking:
+
+```python
+# LOOMWORKS CORE MODIFICATION: Appointment booking routes
+# Add to CustomerPortal class
+
+class CustomerPortal(Controller):
+    # ... existing portal routes ...
+
+    # === Appointment Routes (Core) ===
+    @route(['/my/appointments'], type='http', auth='user', website=True)
+    def portal_my_appointments(self, page=1, sortby=None, **kw):
+        """List user's appointments."""
+        values = self._prepare_portal_layout_values()
+
+        Appointment = request.env['calendar.event'].sudo()
+        domain = [
+            ('is_appointment', '=', True),
+            ('partner_ids', 'in', request.env.user.partner_id.id),
+        ]
+
+        appointments = Appointment.search(domain, order='start desc')
+
+        values.update({
+            'appointments': appointments,
+            'page_name': 'appointments',
+        })
+
+        return request.render('portal.portal_my_appointments', values)
+
+    @route(['/appointment/view/<string:token>'], type='http', auth='public', website=True)
+    def portal_appointment_view(self, token, **kw):
+        """Public view of appointment by token."""
+        event = request.env['calendar.event'].sudo().search([
+            ('booking_token', '=', token),
+            ('is_appointment', '=', True),
+        ], limit=1)
+
+        if not event:
+            return request.redirect('/my')
+
+        return request.render('portal.portal_appointment_page', {
+            'event': event,
+            'token': token,
+        })
+```
+
+#### `odoo/addons/portal/views/portal_templates.xml`
+
+Add appointment templates:
+
+```xml
+<!-- LOOMWORKS CORE: Appointment portal templates -->
+<template id="portal_my_appointments" name="My Appointments">
+    <t t-call="portal.portal_layout">
+        <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+        <t t-call="portal.portal_searchbar">
+            <t t-set="title">Appointments</t>
+        </t>
+
+        <div class="o_portal_appointments">
+            <t t-if="appointments">
+                <div class="row">
+                    <t t-foreach="appointments" t-as="apt">
+                        <div class="col-md-6 col-lg-4 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title" t-esc="apt.name"/>
+                                    <p class="card-text">
+                                        <i class="fa fa-calendar"/>
+                                        <t t-esc="apt.start" t-options="{'widget': 'datetime'}"/>
+                                    </p>
+                                    <p class="card-text text-muted" t-if="apt.location">
+                                        <i class="fa fa-map-marker"/>
+                                        <t t-esc="apt.location"/>
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <a t-attf-href="/appointment/view/#{apt.booking_token}"
+                                       class="btn btn-sm btn-primary">
+                                        View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="alert alert-info">
+                    You don't have any appointments yet.
+                </div>
+            </t>
+        </div>
+    </t>
+</template>
+
+<template id="portal_appointment_page" name="Appointment Details">
+    <t t-call="portal.portal_layout">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 t-esc="event.name"/>
+                        </div>
+                        <div class="card-body">
+                            <dl class="row">
+                                <dt class="col-sm-4">Date &amp; Time</dt>
+                                <dd class="col-sm-8" t-esc="event.start"
+                                    t-options="{'widget': 'datetime'}"/>
+
+                                <dt class="col-sm-4">Duration</dt>
+                                <dd class="col-sm-8">
+                                    <t t-esc="event.duration"/> hours
+                                </dd>
+
+                                <dt class="col-sm-4" t-if="event.location">Location</dt>
+                                <dd class="col-sm-8" t-if="event.location"
+                                    t-esc="event.location"/>
+
+                                <dt class="col-sm-4" t-if="event.videocall_location">
+                                    Meeting Link
+                                </dt>
+                                <dd class="col-sm-8" t-if="event.videocall_location">
+                                    <a t-att-href="event.videocall_location"
+                                       target="_blank" class="btn btn-success btn-sm">
+                                        <i class="fa fa-video-camera"/> Join Meeting
+                                    </a>
+                                </dd>
+                            </dl>
+
+                            <div t-if="event.description" class="mt-3">
+                                <h6>Description</h6>
+                                <t t-out="event.description"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</template>
+```
+
+---
+
+## 4. Mail Module Extensions (odoo/addons/mail/)
+
+### Location: `odoo/addons/mail/`
+
+Add activity types for PLM, Sign, and Appointment workflows.
+
+#### `odoo/addons/mail/data/mail_activity_type_data.xml`
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<!-- LOOMWORKS CORE: Activity types for PLM/Sign/Appointment -->
+<odoo noupdate="1">
+
+    <!-- PLM Activity Types -->
+    <record id="mail_activity_type_eco_review" model="mail.activity.type">
+        <field name="name">ECO Review Required</field>
+        <field name="summary">Engineering Change Order needs your review</field>
+        <field name="icon">fa-cogs</field>
+        <field name="delay_count">3</field>
+        <field name="delay_unit">days</field>
+        <field name="category">default</field>
+    </record>
+
+    <record id="mail_activity_type_eco_approval" model="mail.activity.type">
+        <field name="name">ECO Approval Required</field>
+        <field name="summary">Engineering Change Order awaiting your approval</field>
+        <field name="icon">fa-check-circle</field>
+        <field name="delay_count">5</field>
+        <field name="delay_unit">days</field>
+        <field name="category">default</field>
+    </record>
+
+    <record id="mail_activity_type_bom_release" model="mail.activity.type">
+        <field name="name">BOM Release</field>
+        <field name="summary">Bill of Materials ready for release</field>
+        <field name="icon">fa-list-alt</field>
+        <field name="delay_count">1</field>
+        <field name="delay_unit">days</field>
+        <field name="category">default</field>
+    </record>
+
+    <!-- Sign Activity Types -->
+    <record id="mail_activity_type_signature_required" model="mail.activity.type">
+        <field name="name">Signature Required</field>
+        <field name="summary">Document requires your signature</field>
+        <field name="icon">fa-pencil-square-o</field>
+        <field name="delay_count">7</field>
+        <field name="delay_unit">days</field>
+        <field name="category">default</field>
+    </record>
+
+    <record id="mail_activity_type_signature_reminder" model="mail.activity.type">
+        <field name="name">Signature Reminder</field>
+        <field name="summary">Reminder: Document still awaiting signature</field>
+        <field name="icon">fa-bell</field>
+        <field name="delay_count">3</field>
+        <field name="delay_unit">days</field>
+        <field name="category">reminder</field>
+    </record>
+
+    <!-- Appointment Activity Types -->
+    <record id="mail_activity_type_appointment_confirmation" model="mail.activity.type">
+        <field name="name">Confirm Appointment</field>
+        <field name="summary">Appointment needs confirmation</field>
+        <field name="icon">fa-calendar-check-o</field>
+        <field name="delay_count">1</field>
+        <field name="delay_unit">days</field>
+        <field name="category">default</field>
+    </record>
+
+    <record id="mail_activity_type_appointment_reminder" model="mail.activity.type">
+        <field name="name">Appointment Reminder</field>
+        <field name="summary">Upcoming appointment reminder</field>
+        <field name="icon">fa-clock-o</field>
+        <field name="delay_count">1</field>
+        <field name="delay_unit">days</field>
+        <field name="category">reminder</field>
+    </record>
+
+    <record id="mail_activity_type_appointment_followup" model="mail.activity.type">
+        <field name="name">Appointment Follow-up</field>
+        <field name="summary">Follow up after appointment</field>
+        <field name="icon">fa-comments</field>
+        <field name="delay_count">1</field>
+        <field name="delay_unit">days</field>
+        <field name="delay_from">previous_activity</field>
+        <field name="category">default</field>
+    </record>
+
+</odoo>
+```
+
+#### `odoo/addons/mail/data/mail_template_data.xml`
+
+Add core email templates:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<!-- LOOMWORKS CORE: Email templates for PLM/Sign/Appointment -->
+<odoo noupdate="1">
+
+    <!-- ECO Notification Template -->
+    <record id="mail_template_eco_notification" model="mail.template">
+        <field name="name">ECO: Review Request</field>
+        <field name="model_id" ref="mrp.model_mrp_bom"/>
+        <field name="subject">Engineering Change Order Review Required: {{ object.name }}</field>
+        <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p>Hello,</p>
+    <p>An Engineering Change Order requires your review:</p>
+    <ul>
+        <li><strong>BOM:</strong> {{ object.product_tmpl_id.name }}</li>
+        <li><strong>Current Revision:</strong> {{ object.revision_code }}</li>
+        <li><strong>Status:</strong> {{ object.lifecycle_state }}</li>
+    </ul>
+    <p>Please review and provide your feedback.</p>
+</div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <!-- Signature Request Template -->
+    <record id="mail_template_signature_request" model="mail.template">
+        <field name="name">Sign: Signature Request</field>
+        <field name="subject">Signature Requested: {{ object.name }}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p>Hello {{ ctx.get('signer_name', 'there') }},</p>
+    <p>You have been requested to sign a document.</p>
+    <p>
+        <a href="{{ ctx.get('signing_url', '#') }}"
+           style="display: inline-block; padding: 10px 20px; background-color: #875A7B;
+                  color: white; text-decoration: none; border-radius: 5px;">
+            Review &amp; Sign Document
+        </a>
+    </p>
+    <p>If you have any questions, please contact the sender.</p>
+</div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+
+    <!-- Appointment Confirmation Template -->
+    <record id="mail_template_appointment_confirmation" model="mail.template">
+        <field name="name">Appointment: Confirmation</field>
+        <field name="model_id" ref="calendar.model_calendar_event"/>
+        <field name="subject">Appointment Confirmed: {{ object.name }}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p>Hello,</p>
+    <p>Your appointment has been confirmed:</p>
+    <ul>
+        <li><strong>What:</strong> {{ object.name }}</li>
+        <li><strong>When:</strong> {{ object.start }}</li>
+        <li><strong>Duration:</strong> {{ object.duration }} hours</li>
+        <li t-if="object.location"><strong>Where:</strong> {{ object.location }}</li>
+    </ul>
+    <p t-if="object.videocall_location">
+        <a href="{{ object.videocall_location }}">Join Online Meeting</a>
+    </p>
+    <p>
+        <a href="/appointment/view/{{ object.booking_token }}">
+            View or manage your appointment
+        </a>
+    </p>
+</div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+
+    <!-- Appointment Reminder Template -->
+    <record id="mail_template_appointment_reminder" model="mail.template">
+        <field name="name">Appointment: Reminder</field>
+        <field name="model_id" ref="calendar.model_calendar_event"/>
+        <field name="subject">Reminder: {{ object.name }} tomorrow</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p>Hello,</p>
+    <p>This is a reminder about your upcoming appointment:</p>
+    <ul>
+        <li><strong>What:</strong> {{ object.name }}</li>
+        <li><strong>When:</strong> {{ object.start }}</li>
+    </ul>
+    <p t-if="object.videocall_location">
+        <a href="{{ object.videocall_location }}"
+           style="display: inline-block; padding: 10px 20px; background-color: #28a745;
+                  color: white; text-decoration: none; border-radius: 5px;">
+            Join Meeting
+        </a>
+    </p>
+</div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+</odoo>
+```
+
+---
+
+## Summary: Core vs Addon Responsibility
+
+| Feature | Core Location | Addon Location |
+|---------|--------------|----------------|
+| **PLM Versioning** | `odoo/addons/mrp/models/mrp_bom.py` - revision fields | `loomworks_plm` - ECO workflow, approval |
+| **Signature Field** | `odoo/odoo/fields.py` - Signature field class | `loomworks_sign` - request workflow |
+| **Signature Widget** | `odoo/addons/web/static/src/views/fields/signature/` | `loomworks_sign` - template editor |
+| **PDF Service** | `odoo/odoo/tools/pdf.py` - embedding, hashing | `loomworks_sign` - workflow integration |
+| **Calendar Booking** | `odoo/addons/calendar/` - appointment fields | `loomworks_appointment` - booking logic |
+| **Portal Routes** | `odoo/addons/portal/` - base appointment routes | `loomworks_appointment` - full portal |
+| **Activity Types** | `odoo/addons/mail/data/` - PLM/Sign/Appt types | Addons reference core types |
+| **Email Templates** | `odoo/addons/mail/data/` - base templates | Addons can override/extend |
 
 ---
 
@@ -3016,118 +4269,354 @@ access_appointment_answer,appointment.answer,model_appointment_answer,base.group
 
 # Implementation Tasks
 
-## 1. loomworks_plm Module
+## Phase A: Forked Core Modifications (Prerequisites)
 
-- [ ] 1.1 Create module structure and manifest
-- [ ] 1.2 Implement `plm.eco` model with all fields
-- [ ] 1.3 Implement `plm.eco.type` and `plm.eco.stage` models
-- [ ] 1.4 Implement `plm.eco.change.line` model
-- [ ] 1.5 Implement `plm.eco.approval` model
-- [ ] 1.6 Implement `plm.bom.revision` model
-- [ ] 1.7 Extend `mrp.bom` with versioning fields
-- [ ] 1.8 Implement ECO workflow methods (confirm, approve, implement)
-- [ ] 1.9 Implement BOM versioning and comparison logic
-- [ ] 1.10 Create ECO kanban, form, and tree views
-- [ ] 1.11 Create BOM revision views
-- [ ] 1.12 Define security groups and access rights
-- [ ] 1.13 Create demo data
-- [ ] 1.14 Create mail templates for notifications
-- [ ] 1.15 Write unit tests
+These tasks modify the forked Odoo core and MUST be completed before addon development.
 
-## 2. loomworks_sign Module
+### A.1 ORM Core (odoo/odoo/)
 
-- [ ] 2.1 Create module structure and manifest
-- [ ] 2.2 Implement `sign.request` model with all fields
-- [ ] 2.3 Implement `sign.request.signer` model
-- [ ] 2.4 Implement `sign.template` and `sign.template.item` models
-- [ ] 2.5 Implement `sign.item.type` and `sign.role` models
-- [ ] 2.6 Implement `sign.audit.log` model with hash chain
-- [ ] 2.7 Implement `sign.request.item.value` model
-- [ ] 2.8 Create PDF service for document manipulation
-- [ ] 2.9 Implement signature embedding with PyMuPDF
-- [ ] 2.10 Implement signing workflow methods
-- [ ] 2.11 Create portal controller for public signing
-- [ ] 2.12 Create signing page templates (QWeb)
-- [ ] 2.13 Create template and request views
-- [ ] 2.14 Implement visual field editor (Owl component)
-- [ ] 2.15 Define security groups and access rights
-- [ ] 2.16 Create mail templates
-- [ ] 2.17 Add cron for expiration checking
-- [ ] 2.18 Write unit tests
+- [ ] A.1.1 Add `Signature` field class to `odoo/odoo/fields.py`
+- [ ] A.1.2 Create `odoo/odoo/tools/pdf.py` PDF manipulation service
+- [ ] A.1.3 Add PDF service to `odoo/odoo/tools/__init__.py`
+- [ ] A.1.4 Write unit tests for Signature field type
+- [ ] A.1.5 Write unit tests for PDF service
 
-## 3. loomworks_appointment Module
+### A.2 MRP Core Modifications (odoo/addons/mrp/)
 
-- [ ] 3.1 Create module structure and manifest
-- [ ] 3.2 Implement `appointment.type` model
-- [ ] 3.3 Implement `appointment.slot` model
-- [ ] 3.4 Implement `appointment.booking` model
-- [ ] 3.5 Implement `appointment.reminder` model
-- [ ] 3.6 Implement `appointment.question` and `appointment.answer` models
-- [ ] 3.7 Create calendar sync service (Odoo calendar)
-- [ ] 3.8 Implement Google Calendar integration
-- [ ] 3.9 Implement iCal export
-- [ ] 3.10 Create availability calculation service
-- [ ] 3.11 Implement staff assignment logic
-- [ ] 3.12 Create portal controller for public booking
-- [ ] 3.13 Create booking portal templates
-- [ ] 3.14 Create appointment type and booking views
-- [ ] 3.15 Create calendar view for bookings
-- [ ] 3.16 Define security groups and access rights
-- [ ] 3.17 Create mail templates for confirmations/reminders
-- [ ] 3.18 Add cron for sending reminders
-- [ ] 3.19 Write unit tests
+- [ ] A.2.1 Add PLM versioning fields to `mrp_bom.py` (revision_code, lifecycle_state, etc.)
+- [ ] A.2.2 Add `_get_next_revision_code()` method
+- [ ] A.2.3 Update `mrp_bom_views.xml` with versioning UI
+- [ ] A.2.4 Update MRP manifest for mail dependency
+- [ ] A.2.5 Write unit tests for BOM versioning
+
+### A.3 Web Core Modifications (odoo/addons/web/)
+
+- [ ] A.3.1 Create `signature_field.js` widget component
+- [ ] A.3.2 Create `signature_field.xml` Owl template
+- [ ] A.3.3 Create `signature_field.scss` styles
+- [ ] A.3.4 Register signature widget in fields registry
+- [ ] A.3.5 Add widget to web module assets
+- [ ] A.3.6 Write widget tests
+
+### A.4 Calendar Core Modifications (odoo/addons/calendar/)
+
+- [ ] A.4.1 Add appointment fields to `calendar_event.py` (is_appointment, booking_token, etc.)
+- [ ] A.4.2 Add `_generate_booking_token()` method
+- [ ] A.4.3 Update calendar event create method
+- [ ] A.4.4 Write unit tests for calendar appointment fields
+
+### A.5 Portal Core Modifications (odoo/addons/portal/)
+
+- [ ] A.5.1 Add appointment routes to `controllers/portal.py`
+- [ ] A.5.2 Create `portal_my_appointments` template
+- [ ] A.5.3 Create `portal_appointment_page` template
+- [ ] A.5.4 Update portal manifest
+
+### A.6 Mail Core Modifications (odoo/addons/mail/)
+
+- [ ] A.6.1 Add PLM activity types to `mail_activity_type_data.xml`
+- [ ] A.6.2 Add Sign activity types
+- [ ] A.6.3 Add Appointment activity types
+- [ ] A.6.4 Create core email templates for ECO, Signature, Appointment
+- [ ] A.6.5 Update mail manifest for new data files
+
+---
+
+## Phase B: Loomworks Addon Development
+
+These tasks create the Loomworks addon modules that build on the core modifications.
+
+### B.1 loomworks_plm Module (depends on A.2, A.6)
+
+- [ ] B.1.1 Create module structure and manifest
+- [ ] B.1.2 Implement `plm.eco` model with all fields
+- [ ] B.1.3 Implement `plm.eco.type` and `plm.eco.stage` models
+- [ ] B.1.4 Implement `plm.eco.change.line` model
+- [ ] B.1.5 Implement `plm.eco.approval` model
+- [ ] B.1.6 Implement `plm.bom.revision` model (uses core versioning fields)
+- [ ] B.1.7 Implement ECO workflow methods (confirm, approve, implement)
+- [ ] B.1.8 Implement BOM snapshot and comparison logic
+- [ ] B.1.9 Create ECO kanban, form, and tree views
+- [ ] B.1.10 Create BOM revision history views
+- [ ] B.1.11 Define security groups and access rights
+- [ ] B.1.12 Create demo data
+- [ ] B.1.13 Extend core mail templates for ECO notifications
+- [ ] B.1.14 Write unit tests
+- [ ] B.1.15 Write integration tests for ECO workflow
+
+### B.2 loomworks_sign Module (depends on A.1, A.3, A.6)
+
+- [ ] B.2.1 Create module structure and manifest
+- [ ] B.2.2 Implement `sign.request` model with all fields
+- [ ] B.2.3 Implement `sign.request.signer` model
+- [ ] B.2.4 Implement `sign.template` model
+- [ ] B.2.5 Implement `sign.template.item` model (uses core Signature field)
+- [ ] B.2.6 Implement `sign.item.type` and `sign.role` models
+- [ ] B.2.7 Implement `sign.audit.log` model with hash chain
+- [ ] B.2.8 Implement `sign.request.item.value` model
+- [ ] B.2.9 Create sign service (wraps core PDF service)
+- [ ] B.2.10 Implement signing workflow methods
+- [ ] B.2.11 Create portal controller for public signing
+- [ ] B.2.12 Create signing page templates (QWeb)
+- [ ] B.2.13 Create visual template editor (Owl component using core signature widget)
+- [ ] B.2.14 Create template and request backend views
+- [ ] B.2.15 Define security groups and access rights
+- [ ] B.2.16 Extend core mail templates for signature requests
+- [ ] B.2.17 Add cron for expiration checking
+- [ ] B.2.18 Write unit tests
+- [ ] B.2.19 Write integration tests for signing workflow
+- [ ] B.2.20 Write audit log integrity tests
+
+### B.3 loomworks_appointment Module (depends on A.4, A.5, A.6)
+
+- [ ] B.3.1 Create module structure and manifest
+- [ ] B.3.2 Implement `appointment.type` model
+- [ ] B.3.3 Implement `appointment.slot` model
+- [ ] B.3.4 Implement `appointment.booking` model (uses core calendar.event fields)
+- [ ] B.3.5 Implement `appointment.reminder` model
+- [ ] B.3.6 Implement `appointment.question` and `appointment.answer` models
+- [ ] B.3.7 Create calendar sync service (extends core calendar)
+- [ ] B.3.8 Implement Google Calendar integration
+- [ ] B.3.9 Implement iCal export
+- [ ] B.3.10 Create availability calculation service
+- [ ] B.3.11 Implement staff assignment logic
+- [ ] B.3.12 Create extended portal controller (builds on core routes)
+- [ ] B.3.13 Create public booking portal templates
+- [ ] B.3.14 Create appointment type and booking backend views
+- [ ] B.3.15 Create calendar view for bookings
+- [ ] B.3.16 Define security groups and access rights
+- [ ] B.3.17 Extend core mail templates for confirmations/reminders
+- [ ] B.3.18 Add cron for sending reminders
+- [ ] B.3.19 Write unit tests
+- [ ] B.3.20 Write integration tests for booking flow
 
 ---
 
 # Dependencies
 
+## Core Modification Dependencies
+
+The forked core modifications have these dependency chains:
+
+```
+A.1 (ORM Signature Field) ──────────────────────────────┐
+                                                        │
+A.3 (Web Signature Widget) ─────────────────────────────┼──> B.2 (loomworks_sign)
+                                                        │
+A.6 (Mail Activity Types) ─────────────────────────────┼──┘
+                                                        │
+A.2 (MRP PLM Fields) ───────────────────────────────────┼──> B.1 (loomworks_plm)
+                                                        │
+A.4 (Calendar Appointment Fields) ──────────────────────┼──> B.3 (loomworks_appointment)
+                                                        │
+A.5 (Portal Booking Routes) ────────────────────────────┘
+```
+
 ## Python Packages
 
 ```
-PyMuPDF>=1.23.0       # PDF manipulation
-pyHanko>=0.20.0       # Digital signatures (optional, for PAdES)
-icalendar>=5.0.0      # iCal generation
-pytz>=2024.1          # Timezone handling
+# Required for Core
+PyMuPDF>=1.23.0       # PDF manipulation (odoo/odoo/tools/pdf.py)
+pytz>=2024.1          # Timezone handling (already in Odoo core)
+
+# Optional for Enhanced Features
+pyHanko>=0.20.0       # Digital signatures (PAdES compliance)
+icalendar>=5.0.0      # iCal generation (loomworks_appointment)
 google-api-python-client>=2.0.0  # Google Calendar (optional)
-google-auth>=2.0.0    # Google OAuth
+google-auth>=2.0.0    # Google OAuth (optional)
 ```
 
 ## Odoo Module Dependencies
 
 ```python
+# Forked Core Modules (Modified)
+# These are modified in place, not inherited
+
+# odoo/addons/mrp - PLM versioning fields added
+# odoo/addons/calendar - Appointment fields added
+# odoo/addons/portal - Booking routes added
+# odoo/addons/mail - Activity types and templates added
+# odoo/addons/web - Signature widget added
+
 # loomworks_plm
-'depends': ['mrp', 'mail', 'product'],
+'depends': ['mrp', 'mail', 'product'],  # mrp is modified core
 
 # loomworks_sign
-'depends': ['mail', 'portal', 'web'],
+'depends': ['mail', 'portal', 'web'],  # web is modified core
 
 # loomworks_appointment
-'depends': ['calendar', 'mail', 'portal', 'website'],
+'depends': ['calendar', 'mail', 'portal', 'website'],  # calendar, portal modified
 ```
 
 ---
 
 # Testing Strategy
 
-## Unit Tests
+## Phase A: Core Modification Tests
 
-Each module should include tests for:
+Core modifications require their own test suites before addon development begins.
+
+### A.1 ORM Core Tests (`odoo/odoo/tests/`)
+
+```python
+# test_signature_field.py
+class TestSignatureField(TransactionCase):
+    """Tests for the Signature field type."""
+
+    def test_signature_field_creation(self):
+        """Test creating a model with Signature field."""
+        pass
+
+    def test_signature_field_validation(self):
+        """Test signature data validation."""
+        pass
+
+    def test_signature_field_storage(self):
+        """Test JSONB storage and retrieval."""
+        pass
+
+    def test_signature_require_draw(self):
+        """Test require_draw constraint."""
+        pass
+```
+
+### A.2 PDF Service Tests (`odoo/odoo/tests/`)
+
+```python
+# test_pdf_service.py
+class TestPDFService(TransactionCase):
+    """Tests for PDF manipulation service."""
+
+    def test_embed_image(self):
+        """Test embedding image into PDF."""
+        pass
+
+    def test_embed_text(self):
+        """Test embedding text into PDF."""
+        pass
+
+    def test_document_hash(self):
+        """Test SHA-256 hash generation."""
+        pass
+
+    def test_page_count(self):
+        """Test PDF page counting."""
+        pass
+
+    def test_generate_preview(self):
+        """Test PDF page preview generation."""
+        pass
+```
+
+### A.3 MRP Core Tests (`odoo/addons/mrp/tests/`)
+
+```python
+# test_bom_versioning.py
+class TestBOMVersioning(TransactionCase):
+    """Tests for BOM PLM versioning fields."""
+
+    def test_revision_code_default(self):
+        """Test default revision code is 'A'."""
+        pass
+
+    def test_lifecycle_state_transitions(self):
+        """Test valid lifecycle state transitions."""
+        pass
+
+    def test_next_revision_code_letter(self):
+        """Test A->B->C revision progression."""
+        pass
+
+    def test_next_revision_code_semantic(self):
+        """Test 1.0->1.1->2.0 revision progression."""
+        pass
+
+    def test_previous_bom_chain(self):
+        """Test revision chain navigation."""
+        pass
+```
+
+### A.4 Calendar Core Tests (`odoo/addons/calendar/tests/`)
+
+```python
+# test_calendar_appointment.py
+class TestCalendarAppointment(TransactionCase):
+    """Tests for calendar appointment fields."""
+
+    def test_booking_token_generation(self):
+        """Test unique token generation for appointments."""
+        pass
+
+    def test_is_appointment_flag(self):
+        """Test appointment flag on calendar events."""
+        pass
+```
+
+## Phase B: Addon Tests
+
+Each addon module should include tests for:
+
+### Unit Tests
 - Model CRUD operations
 - Workflow state transitions
 - Computed field calculations
 - Security access rules
+- Field validations
 
-## Integration Tests
+### Integration Tests
+- **PLM**: ECO approval workflow end-to-end, BOM versioning with snapshots
+- **Sign**: Complete signing workflow, PDF embedding, audit log integrity verification
+- **Appointment**: Public booking flow, availability calculation, calendar sync
 
-- **PLM**: ECO approval workflow end-to-end, BOM versioning
-- **Sign**: Complete signing workflow, audit log integrity
-- **Appointment**: Booking flow, availability calculation, calendar sync
+### Portal Tests
+- Public route access control
+- Token-based authentication
+- Form submission handling
 
 ## Performance Benchmarks
 
-- BOM comparison: < 2 seconds for BOMs with 100+ lines
-- Availability calculation: < 1 second for 30-day range
-- PDF signature embedding: < 3 seconds per document
+| Operation | Target | Notes |
+|-----------|--------|-------|
+| BOM comparison (100+ lines) | < 2 seconds | Uses JSON diff on snapshots |
+| BOM revision creation | < 1 second | Including snapshot serialization |
+| Availability calculation (30 days) | < 1 second | With 50+ existing bookings |
+| PDF signature embedding | < 3 seconds | Single signature, any page |
+| PDF multi-signature (5 fields) | < 10 seconds | Full document completion |
+| Audit log hash verification | < 100ms | Per log entry |
+| Calendar sync (Google) | < 5 seconds | Network-dependent |
+
+---
+
+# Migration Considerations
+
+## Upgrading Existing Odoo Installations
+
+When upgrading from standard Odoo Community to Loomworks fork:
+
+### Database Migration
+
+1. **MRP/BOM**: Add new columns via migration script
+   ```sql
+   ALTER TABLE mrp_bom ADD COLUMN revision_code VARCHAR DEFAULT 'A';
+   ALTER TABLE mrp_bom ADD COLUMN lifecycle_state VARCHAR DEFAULT 'draft';
+   ALTER TABLE mrp_bom ADD COLUMN previous_bom_id INTEGER REFERENCES mrp_bom(id);
+   ALTER TABLE mrp_bom ADD COLUMN is_current_revision BOOLEAN DEFAULT TRUE;
+   ```
+
+2. **Calendar**: Add appointment fields
+   ```sql
+   ALTER TABLE calendar_event ADD COLUMN is_appointment BOOLEAN DEFAULT FALSE;
+   ALTER TABLE calendar_event ADD COLUMN appointment_type_id INTEGER;
+   ALTER TABLE calendar_event ADD COLUMN booking_partner_id INTEGER;
+   ALTER TABLE calendar_event ADD COLUMN booking_token VARCHAR;
+   CREATE INDEX idx_calendar_event_booking_token ON calendar_event(booking_token);
+   ```
+
+### Data Preservation
+
+- Existing BOMs retain their data, default to revision 'A' and 'draft' state
+- Existing calendar events marked as `is_appointment = False`
+- No data loss during migration
 
 ---
 
@@ -3149,6 +4638,8 @@ Each module should include tests for:
 - [PyMuPDF GitHub](https://github.com/pymupdf/PyMuPDF)
 - [pyHanko Documentation](https://docs.pyhanko.eu/en/latest/)
 - [Real Python - Create and Modify PDFs](https://realpython.com/creating-modifying-pdf/)
+- [Odoo PDF Reports Tutorial](https://www.odoo.com/documentation/18.0/developer/tutorials/pdf_reports.html)
+- [Cybrosys - PDF Report in Odoo 18](https://www.cybrosys.com/blog/how-to-create-a-pdf-report-in-odoo-18)
 
 ## Calendar Integration
 - [Google Calendar API Overview](https://developers.google.com/calendar/api/guides/overview)
@@ -3157,3 +4648,13 @@ Each module should include tests for:
 ## Odoo Documentation
 - [Odoo 18 Developer Docs](https://www.odoo.com/documentation/18.0/developer.html)
 - [Odoo ORM Reference](https://www.odoo.com/documentation/18.0/developer/reference/backend/orm.html)
+- [Odoo Fields Documentation](https://www.odoo.com/documentation/18.0/developer/tutorials/server_framework_101/03_basicmodel.html)
+- [Odoo Custom Field Component (Braincuber)](https://www.braincuber.com/tutorial/custom-field-component-odoo-18)
+- [Creating Custom Fields in Odoo 18](https://houstonstevenson.com/2025/01/23/how-to-create-custom-field-type-in-odoo-18/)
+
+## Odoo Core Module Reference (Context7)
+- Odoo 18 Addons Source: `/alexmalab/odoo_addons/__branch__18.0`
+- MRP BOM Model structure with extension patterns
+- Calendar Event model with meeting/scheduling fields
+- Mail Activity Types for workflow notifications
+- Portal Controller patterns for public routes

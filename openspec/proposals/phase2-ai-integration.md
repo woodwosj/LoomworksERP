@@ -68,20 +68,42 @@ By making Claude AI the primary interface, we:
 
 ## What Changes
 
+### Approach: AI as Core Feature (Forked Odoo)
+
+Since Loomworks ERP is a **fully forked** version of Odoo Community v18 (not just addons), AI is implemented as a **native core feature** rather than a bolt-on module. This enables:
+
+- AI button directly in the navbar (not just systray)
+- Command palette (Ctrl+K) with native AI commands
+- AI hooks in the ORM layer (`models.py`, `api.py`)
+- MCP server starting alongside Odoo HTTP server
+- Every view has native "Ask AI" capability
+
 ### New Module: `loomworks_ai`
 
-A complete Odoo module implementing AI agent integration:
+Business logic and data models in a dedicated module:
 
 - **BREAKING**: Introduces new security model for AI operations
 - Adds conversation tracking and history
 - Implements MCP (Model Context Protocol) server for tool access
-- Creates Owl-based chat interface
+- Creates Owl-based chat interface components
 - Establishes operation sandbox with rollback
+
+### Core Modifications (Forked Files)
+
+Direct modifications to Odoo core for native AI integration:
+
+- `odoo/odoo/models.py` - AI operation hooks in BaseModel
+- `odoo/odoo/api.py` - AI context manager and decorators
+- `odoo/odoo/service/server.py` - MCP server startup
+- `odoo/addons/web/static/src/webclient/` - AI-enhanced web client
+- `odoo/addons/web/static/src/core/ai/` - AI service and commands
+- `odoo/addons/web/static/src/views/` - AI actions in form/list controllers
 
 ### Affected Systems
 
-- `web` (frontend) - New chat component integration
-- `base` - Security rules for AI access
+- `web` (frontend) - Native AI integration in webclient, navbar, command palette
+- `base` (ORM) - AI hooks and context managers
+- `server` - MCP server as core service
 - Database - New tables for sessions, tools, operations
 
 ---
@@ -90,10 +112,13 @@ A complete Odoo module implementing AI agent integration:
 
 - **Affected specs**: None (new capability)
 - **Affected code**:
-  - New module: `loomworks_addons/loomworks_ai/`
-  - Frontend assets in Odoo web client
+  - **Core modifications**: `odoo/odoo/models.py`, `odoo/odoo/api.py`, `odoo/odoo/service/server.py`
+  - **Web client modifications**: `odoo/addons/web/static/src/webclient/`, `odoo/addons/web/static/src/views/`
+  - **New AI module**: `loomworks_addons/loomworks_ai/`
+  - **New AI core service**: `odoo/addons/web/static/src/core/ai/`
   - Database schema additions
 - **Migration**: Fresh install only for Phase 2; no migration from previous versions
+- **Fork maintenance**: All core modifications are marked with `LOOMWORKS-AI` comments for tracking
 
 ---
 
@@ -811,6 +836,403 @@ class AITool(models.Model):
             ('active', '=', True),
             ('risk_level', 'in', ['safe', 'moderate'])
         ])
+```
+
+### 2.2.3.1 AI Tool Registration Pattern (M4 Resolution)
+
+To enable modules across all phases to register AI tools dynamically, Phase 2 provides a **ToolProvider mixin pattern**. This follows Odoo's registry pattern and allows any module to contribute tools without modifying the core `loomworks_ai` module.
+
+#### Design Rationale
+
+**Problem**: Phase 3+ modules (Studio, Spreadsheet, PLM, FSM, etc.) need to register AI tools (e.g., `studio_create_app`, `spreadsheet_create_pivot`) but there's no standard pattern for doing so.
+
+**Solution**: Implement a `ToolProvider` abstract model that modules inherit. On module installation, tools are automatically registered via Odoo's model inheritance mechanism.
+
+**Research Sources**:
+- [Odoo 18 Registries Documentation](https://www.odoo.com/documentation/18.0/developer/reference/frontend/registries.html)
+- [A Guide to Registries in Odoo 18](https://bassaminfotech.com/odoo18-registries/)
+- [Dynamic Tool Updates in MCP](https://spring.io/blog/2025/05/04/spring-ai-dynamic-tool-updates-with-mcp/)
+
+#### ToolProvider Abstract Model
+
+**File**: `loomworks_ai/models/ai_tool_provider.py`
+
+```python
+# -*- coding: utf-8 -*-
+"""
+AI Tool Provider Mixin - Enables any module to register AI tools dynamically.
+
+Modules inherit from this mixin and implement _register_ai_tools() to define
+their tools. Tools are automatically discovered and registered on module load.
+"""
+from odoo import api, models, fields
+import logging
+
+_logger = logging.getLogger(__name__)
+
+
+class AIToolProvider(models.AbstractModel):
+    """
+    Abstract mixin for modules that provide AI tools.
+
+    To register AI tools from your module:
+
+    1. Create a model that inherits from 'loomworks.ai.tool.provider'
+    2. Implement _get_tool_definitions() returning a list of tool dicts
+    3. Tools are auto-registered on module installation
+
+    Example:
+        class StudioToolProvider(models.AbstractModel):
+            _name = 'studio.tool.provider'
+            _inherit = 'loomworks.ai.tool.provider'
+
+            @api.model
+            def _get_tool_definitions(self):
+                return [
+                    {
+                        'name': 'Create Studio App',
+                        'technical_name': 'studio_create_app',
+                        'category': 'action',
+                        'description': 'Create a new custom application via Studio',
+                        'parameters_schema': {...},
+                        'implementation_method': 'loomworks_studio.tools.create_app',
+                        'risk_level': 'moderate',
+                    },
+                ]
+    """
+    _name = 'loomworks.ai.tool.provider'
+    _description = 'AI Tool Provider Mixin'
+
+    @api.model
+    def _get_tool_definitions(self):
+        """
+        Override in inheriting models to return tool definitions.
+
+        Returns:
+            list: List of dicts, each defining an AI tool with keys:
+                - name (str): Display name
+                - technical_name (str): Unique snake_case identifier
+                - category (str): 'data', 'action', 'report', or 'system'
+                - description (str): Detailed description for AI
+                - parameters_schema (dict): JSON Schema for parameters
+                - implementation_method (str): Python method path
+                - risk_level (str): 'safe', 'moderate', 'high', or 'critical'
+                - requires_confirmation (bool, optional): Default False
+        """
+        return []
+
+    @api.model
+    def _register_tools(self):
+        """
+        Register all tools from this provider.
+        Called automatically on module installation.
+        """
+        AITool = self.env['loomworks.ai.tool']
+        definitions = self._get_tool_definitions()
+
+        for tool_def in definitions:
+            technical_name = tool_def.get('technical_name')
+            if not technical_name:
+                _logger.warning("Tool definition missing technical_name: %s", tool_def)
+                continue
+
+            # Check if tool already exists
+            existing = AITool.search([
+                ('technical_name', '=', technical_name)
+            ], limit=1)
+
+            tool_vals = {
+                'name': tool_def.get('name', technical_name),
+                'technical_name': technical_name,
+                'category': tool_def.get('category', 'data'),
+                'description': tool_def.get('description', ''),
+                'parameters_schema': json.dumps(tool_def.get('parameters_schema', {
+                    'type': 'object',
+                    'properties': {},
+                    'required': []
+                })),
+                'implementation_method': tool_def.get('implementation_method', ''),
+                'risk_level': tool_def.get('risk_level', 'safe'),
+                'requires_confirmation': tool_def.get('requires_confirmation', False),
+                'active': True,
+            }
+
+            if existing:
+                existing.write(tool_vals)
+                _logger.info("Updated AI tool: %s", technical_name)
+            else:
+                AITool.create(tool_vals)
+                _logger.info("Registered AI tool: %s", technical_name)
+
+    @api.model
+    def _unregister_tools(self):
+        """
+        Unregister all tools from this provider.
+        Called on module uninstallation.
+        """
+        AITool = self.env['loomworks.ai.tool']
+        definitions = self._get_tool_definitions()
+
+        for tool_def in definitions:
+            technical_name = tool_def.get('technical_name')
+            if technical_name:
+                AITool.search([
+                    ('technical_name', '=', technical_name)
+                ]).unlink()
+                _logger.info("Unregistered AI tool: %s", technical_name)
+
+
+class AIToolRegistry(models.Model):
+    """
+    Registry for discovering all tool providers across installed modules.
+
+    This model maintains a central registry of all ToolProvider implementations
+    and orchestrates tool registration/unregistration.
+    """
+    _name = 'loomworks.ai.tool.registry'
+    _description = 'AI Tool Registry'
+
+    @api.model
+    def discover_and_register_all_tools(self):
+        """
+        Discover all ToolProvider implementations and register their tools.
+        Called on loomworks_ai module post_init_hook.
+        """
+        # Find all models that inherit from loomworks.ai.tool.provider
+        provider_models = []
+        for model_name, model_class in self.env.registry.items():
+            if model_name == 'loomworks.ai.tool.provider':
+                continue
+            parents = getattr(model_class, '_inherit', [])
+            if isinstance(parents, str):
+                parents = [parents]
+            if 'loomworks.ai.tool.provider' in parents:
+                provider_models.append(model_name)
+
+        _logger.info("Discovered %d AI tool providers: %s", len(provider_models), provider_models)
+
+        for model_name in provider_models:
+            try:
+                provider = self.env[model_name]
+                provider._register_tools()
+            except Exception as e:
+                _logger.exception("Failed to register tools from %s: %s", model_name, e)
+
+    @api.model
+    def refresh_tools(self):
+        """
+        Refresh all tool registrations. Useful after module updates.
+        """
+        self.discover_and_register_all_tools()
+```
+
+#### Example: Studio Tool Provider (Phase 3.1)
+
+```python
+# loomworks_studio/models/studio_tool_provider.py
+from odoo import api, models
+
+class StudioToolProvider(models.AbstractModel):
+    _name = 'studio.tool.provider'
+    _inherit = 'loomworks.ai.tool.provider'
+
+    @api.model
+    def _get_tool_definitions(self):
+        return [
+            {
+                'name': 'Create Studio App',
+                'technical_name': 'studio_create_app',
+                'category': 'action',
+                'description': '''Create a new custom application using Studio.
+                    Parameters:
+                    - app_name: Name for the new application
+                    - app_description: Optional description
+                    - icon: Font Awesome icon class (e.g., "fa-building")
+                    - color: Color index (0-11)
+
+                    This creates a new Studio app with a root menu and initial model.
+                ''',
+                'parameters_schema': {
+                    'type': 'object',
+                    'properties': {
+                        'app_name': {'type': 'string', 'description': 'Application name'},
+                        'app_description': {'type': 'string', 'description': 'Description'},
+                        'icon': {'type': 'string', 'default': 'fa-cube'},
+                        'color': {'type': 'integer', 'minimum': 0, 'maximum': 11}
+                    },
+                    'required': ['app_name']
+                },
+                'implementation_method': 'loomworks_studio.services.tools.create_studio_app',
+                'risk_level': 'moderate',
+                'requires_confirmation': True,
+            },
+            {
+                'name': 'Add Field to Model',
+                'technical_name': 'studio_add_field',
+                'category': 'action',
+                'description': '''Add a new field to an existing model via Studio.
+                    Supports all standard field types: char, text, integer, float,
+                    boolean, date, datetime, selection, many2one, one2many, many2many.
+                ''',
+                'parameters_schema': {
+                    'type': 'object',
+                    'properties': {
+                        'model_name': {'type': 'string', 'description': 'Target model technical name'},
+                        'field_name': {'type': 'string', 'description': 'Field technical name'},
+                        'field_label': {'type': 'string', 'description': 'Field display label'},
+                        'field_type': {
+                            'type': 'string',
+                            'enum': ['char', 'text', 'integer', 'float', 'boolean',
+                                    'date', 'datetime', 'selection', 'many2one',
+                                    'one2many', 'many2many', 'binary', 'html']
+                        },
+                        'required': {'type': 'boolean', 'default': False},
+                    },
+                    'required': ['model_name', 'field_name', 'field_type']
+                },
+                'implementation_method': 'loomworks_studio.services.tools.add_field_to_model',
+                'risk_level': 'moderate',
+            },
+            {
+                'name': 'Customize View',
+                'technical_name': 'studio_customize_view',
+                'category': 'action',
+                'description': 'Modify a view using Studio customization capabilities.',
+                'parameters_schema': {
+                    'type': 'object',
+                    'properties': {
+                        'model_name': {'type': 'string'},
+                        'view_type': {'type': 'string', 'enum': ['form', 'list', 'kanban']},
+                        'changes': {'type': 'array', 'items': {'type': 'object'}}
+                    },
+                    'required': ['model_name', 'view_type', 'changes']
+                },
+                'implementation_method': 'loomworks_studio.services.tools.customize_view',
+                'risk_level': 'moderate',
+            },
+        ]
+```
+
+#### Example: FSM Tool Provider (Phase 3.3)
+
+```python
+# loomworks_fsm/models/fsm_tool_provider.py
+from odoo import api, models
+
+class FSMToolProvider(models.AbstractModel):
+    _name = 'fsm.tool.provider'
+    _inherit = 'loomworks.ai.tool.provider'
+
+    @api.model
+    def _get_tool_definitions(self):
+        return [
+            {
+                'name': 'Dispatch Technician',
+                'technical_name': 'fsm_dispatch_technician',
+                'category': 'action',
+                'description': '''Assign a field service task to a technician.
+                    Considers technician availability, location, and skills.
+                ''',
+                'parameters_schema': {
+                    'type': 'object',
+                    'properties': {
+                        'task_id': {'type': 'integer', 'description': 'FSM task ID'},
+                        'technician_id': {'type': 'integer', 'description': 'Employee ID'},
+                        'scheduled_date': {'type': 'string', 'format': 'date'},
+                    },
+                    'required': ['task_id']
+                },
+                'implementation_method': 'loomworks_fsm.services.tools.dispatch_technician',
+                'risk_level': 'moderate',
+            },
+            {
+                'name': 'Complete FSM Task',
+                'technical_name': 'fsm_complete_task',
+                'category': 'action',
+                'description': 'Mark a field service task as completed with signature.',
+                'parameters_schema': {
+                    'type': 'object',
+                    'properties': {
+                        'task_id': {'type': 'integer'},
+                        'completion_notes': {'type': 'string'},
+                        'materials_used': {'type': 'array', 'items': {'type': 'object'}},
+                    },
+                    'required': ['task_id']
+                },
+                'implementation_method': 'loomworks_fsm.services.tools.complete_task',
+                'risk_level': 'moderate',
+            },
+        ]
+```
+
+#### Module Hook for Auto-Registration
+
+Each module using the ToolProvider pattern adds a post_init_hook:
+
+```python
+# loomworks_studio/__manifest__.py
+{
+    'name': 'Loomworks Studio',
+    ...
+    'depends': ['loomworks_ai', ...],
+    'post_init_hook': '_register_studio_tools',
+    'uninstall_hook': '_unregister_studio_tools',
+}
+
+# loomworks_studio/__init__.py
+def _register_studio_tools(env):
+    env['studio.tool.provider']._register_tools()
+
+def _unregister_studio_tools(env):
+    env['studio.tool.provider']._unregister_tools()
+```
+
+#### JavaScript Registry for Frontend Tools
+
+For frontend-only tools (e.g., UI actions), a JavaScript registry complements the Python pattern:
+
+```javascript
+// odoo/addons/web/static/src/core/ai/ai_tool_registry.js
+/** @odoo-module **/
+
+import { registry } from "@web/core/registry";
+
+/**
+ * AI Tool Registry for frontend-defined tools.
+ *
+ * Modules can register frontend tools that the AI can invoke:
+ *
+ * registry.category("ai_tools").add("open_studio_editor", {
+ *     name: "Open Studio Editor",
+ *     description: "Opens the Studio view editor for the current view",
+ *     execute: async (env, params) => {
+ *         await env.services.studio.enterEditMode();
+ *     },
+ * });
+ */
+export const aiToolRegistry = registry.category("ai_tools");
+
+// Core tools registered by default
+aiToolRegistry.add("navigate_to_view", {
+    name: "Navigate to View",
+    description: "Navigate to a specific view or action",
+    execute: async (env, { actionId, viewType }) => {
+        await env.services.action.doAction(actionId, { viewType });
+    },
+});
+
+aiToolRegistry.add("open_record", {
+    name: "Open Record",
+    description: "Open a specific record in form view",
+    execute: async (env, { model, resId }) => {
+        await env.services.action.doAction({
+            type: 'ir.actions.act_window',
+            res_model: model,
+            res_id: resId,
+            views: [[false, 'form']],
+        });
+    },
+});
 ```
 
 #### 2.2.4 `ai_operation_log.py` - Audit Trail
@@ -3514,6 +3936,941 @@ claude-agent-sdk>=1.0.0    # Official Agent SDK
 
 ---
 
+## Core Modifications (Forked Odoo Architecture)
+
+Since Loomworks ERP is a fully forked version of Odoo Community v18, we have the unique opportunity to embed AI as a first-class citizen directly in the core codebase rather than bolting it on as an addon. This section documents the specific core files to modify and the architectural approach for native AI integration.
+
+### Architecture Philosophy: AI as Core vs Addon
+
+```
+Traditional Addon Approach (NOT our approach):
+┌─────────────────────────────────────────────────┐
+│                 Odoo Core                        │
+│  ┌─────────────────────────────────────────┐    │
+│  │            Web Client                    │    │
+│  │  NavBar → ActionContainer → Views        │    │
+│  └─────────────────────────────────────────┘    │
+│                      │                           │
+│           (addon hooks via registry)             │
+│                      ▼                           │
+│  ┌─────────────────────────────────────────┐    │
+│  │          loomworks_ai addon              │    │
+│  │  (systray item, sidebar, patched comps) │    │
+│  └─────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────┘
+
+Native Forked Approach (OUR approach):
+┌─────────────────────────────────────────────────┐
+│              Loomworks ERP Core                  │
+│  ┌─────────────────────────────────────────┐    │
+│  │       AI-Enhanced Web Client             │    │
+│  │  NavBar + AIButton → ActionContainer     │    │
+│  │        → Views + AIContextPanel          │    │
+│  │                                          │    │
+│  │  CommandPalette (Ctrl+K) → AI Commands   │    │
+│  │  AIStatusIndicator → System Tray         │    │
+│  └─────────────────────────────────────────┘    │
+│                      │                           │
+│  ┌─────────────────────────────────────────┐    │
+│  │       AI-Enhanced ORM Layer              │    │
+│  │  models.py → ai_operation_hooks          │    │
+│  │  api.py → ai_context_manager             │    │
+│  └─────────────────────────────────────────┘    │
+│                      │                           │
+│  ┌─────────────────────────────────────────┐    │
+│  │       MCP Server (Core Service)          │    │
+│  │  Started alongside Odoo HTTP server      │    │
+│  └─────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────┘
+```
+
+### 3.1 Core Web Client Modifications
+
+#### 3.1.1 Files to Modify in `odoo/addons/web/`
+
+| File | Modification Type | Purpose |
+|------|------------------|---------|
+| `static/src/webclient/webclient.js` | Extend | Add AI service initialization, AI status indicator |
+| `static/src/webclient/webclient.xml` | Extend | Add AIAssistant component to WebClient template |
+| `static/src/webclient/navbar/navbar.js` | Extend | Add AI button to navbar |
+| `static/src/webclient/navbar/navbar.xml` | Extend | AI button markup in navbar template |
+| `static/src/core/commands/command_service.js` | Extend | Add AI commands to command palette |
+| `static/src/core/commands/command_palette.js` | Extend | AI-specific command palette behaviors |
+| `views/webclient_templates.xml` | Extend | Add AI assets to web client bundle |
+
+#### 3.1.2 WebClient AI Integration
+
+**File: `odoo/addons/web/static/src/webclient/webclient.js`**
+
+```javascript
+/** @odoo-module **/
+
+import { Component, useState, onMounted } from "@odoo/owl";
+import { useService } from "@web/core/utils/hooks";
+import { registry } from "@web/core/registry";
+
+// Import core webclient
+import { WebClient as OriginalWebClient } from "./webclient_original";
+
+// Import AI components
+import { AIAssistant } from "@web/ai/ai_assistant/ai_assistant";
+import { AIStatusIndicator } from "@web/ai/ai_status/ai_status_indicator";
+
+/**
+ * AI-Enhanced WebClient
+ *
+ * Extends the standard Odoo WebClient with native AI capabilities:
+ * - AI Assistant sidebar (toggleable)
+ * - AI status indicator in system tray
+ * - AI context awareness for current view
+ * - Global AI keyboard shortcuts
+ */
+export class WebClient extends OriginalWebClient {
+    static template = "web.WebClient";
+    static components = {
+        ...OriginalWebClient.components,
+        AIAssistant,
+        AIStatusIndicator,
+    };
+
+    setup() {
+        super.setup();
+
+        // AI-specific state
+        this.aiState = useState({
+            isAssistantOpen: false,
+            currentContext: null,
+            sessionUuid: null,
+            isConnected: false,
+        });
+
+        // AI Service
+        this.aiService = useService("ai");
+        this.hotkeyService = useService("hotkey");
+
+        onMounted(() => {
+            this.setupAIHotkeys();
+            this.initializeAIContext();
+        });
+    }
+
+    setupAIHotkeys() {
+        // Ctrl+Shift+A: Toggle AI Assistant
+        this.hotkeyService.add("control+shift+a", () => {
+            this.toggleAIAssistant();
+        }, { global: true });
+
+        // Alt+A: Quick AI query (opens assistant with focus on input)
+        this.hotkeyService.add("alt+a", () => {
+            this.openAIAssistant({ focusInput: true });
+        }, { global: true });
+    }
+
+    initializeAIContext() {
+        // Subscribe to route changes to update AI context
+        this.env.bus.addEventListener("ACTION_MANAGER:UI-UPDATED", ({ detail }) => {
+            this.updateAIContext(detail);
+        });
+    }
+
+    updateAIContext(actionInfo) {
+        // Provide AI with context about current view
+        const context = {
+            actionId: actionInfo.actionId,
+            model: actionInfo.resModel,
+            viewType: actionInfo.viewType,
+            activeIds: actionInfo.resIds || [],
+            breadcrumbs: this.actionService.currentController?.props?.breadcrumbs || [],
+        };
+        this.aiState.currentContext = context;
+
+        if (this.aiService) {
+            this.aiService.updateContext(context);
+        }
+    }
+
+    toggleAIAssistant() {
+        this.aiState.isAssistantOpen = !this.aiState.isAssistantOpen;
+    }
+
+    openAIAssistant(options = {}) {
+        this.aiState.isAssistantOpen = true;
+        if (options.focusInput) {
+            // Will be handled by AIAssistant component
+            this.env.bus.trigger("AI:FOCUS_INPUT");
+        }
+    }
+
+    closeAIAssistant() {
+        this.aiState.isAssistantOpen = false;
+    }
+
+    async onAIAction(action) {
+        // Handle AI-initiated actions
+        if (action.type === "navigate") {
+            await this.actionService.doAction(action.payload);
+        } else if (action.type === "refresh") {
+            this.env.bus.trigger("CLEAR-CACHES");
+        }
+    }
+}
+
+// Re-export for registry
+registry.category("actions").add("web_client", WebClient, { force: true });
+```
+
+**File: `odoo/addons/web/static/src/webclient/webclient.xml`**
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- AI-Enhanced WebClient Template -->
+    <t t-name="web.WebClient">
+        <body class="o_web_client" t-att-class="{ 'o_ai_assistant_open': aiState.isAssistantOpen }">
+            <NavBar/>
+            <ActionContainer/>
+            <MainComponentsContainer/>
+
+            <!-- AI Status Indicator (always visible in system tray area) -->
+            <AIStatusIndicator
+                isConnected="aiState.isConnected"
+                onToggle="() => this.toggleAIAssistant()"
+            />
+
+            <!-- AI Assistant Sidebar -->
+            <t t-if="aiState.isAssistantOpen">
+                <AIAssistant
+                    context="aiState.currentContext"
+                    sessionUuid="aiState.sessionUuid"
+                    onClose="() => this.closeAIAssistant()"
+                    onAction="(action) => this.onAIAction(action)"
+                />
+            </t>
+        </body>
+    </t>
+
+</templates>
+```
+
+#### 3.1.3 Navbar AI Button
+
+**File: `odoo/addons/web/static/src/webclient/navbar/navbar.xml`** (modification)
+
+```xml
+<!-- Add AI button to navbar systray area -->
+<t t-inherit="web.NavBar" t-inherit-mode="extension">
+    <xpath expr="//div[hasclass('o_menu_systray')]" position="inside">
+        <div class="o_nav_entry o_ai_nav_button" t-on-click="onAIButtonClick">
+            <button class="btn btn-link" title="AI Assistant (Ctrl+Shift+A)">
+                <i class="fa fa-robot"/>
+                <span class="d-none d-md-inline ms-1">AI</span>
+                <t t-if="aiState.hasUnreadSuggestions">
+                    <span class="badge bg-primary rounded-pill ms-1">
+                        <t t-esc="aiState.unreadCount"/>
+                    </span>
+                </t>
+            </button>
+        </div>
+    </xpath>
+</t>
+```
+
+#### 3.1.4 Command Palette AI Integration
+
+**File: `odoo/addons/web/static/src/core/ai/ai_command_provider.js`** (new file)
+
+```javascript
+/** @odoo-module **/
+
+import { registry } from "@web/core/registry";
+import { _t } from "@web/core/l10n/translation";
+
+/**
+ * AI Command Provider for Command Palette
+ *
+ * Provides AI-specific commands when user opens command palette (Ctrl+K).
+ * Commands are context-aware based on current view and model.
+ */
+export const aiCommandProvider = {
+    name: "ai",
+    provide: (env, options) => {
+        const aiService = env.services.ai;
+        if (!aiService) return [];
+
+        const commands = [];
+        const currentContext = aiService.getCurrentContext();
+
+        // Always available AI commands
+        commands.push({
+            name: _t("Ask AI..."),
+            category: "ai",
+            description: _t("Open AI assistant and ask a question"),
+            shortcut: "Alt+A",
+            action: () => {
+                env.bus.trigger("AI:OPEN", { focusInput: true });
+            },
+        });
+
+        commands.push({
+            name: _t("AI: Explain this page"),
+            category: "ai",
+            description: _t("Get AI explanation of current view"),
+            action: async () => {
+                await aiService.explainCurrentView();
+            },
+        });
+
+        // Context-specific commands
+        if (currentContext?.model) {
+            commands.push({
+                name: _t("AI: Search %s", currentContext.model),
+                category: "ai",
+                description: _t("Use AI to search records"),
+                action: async () => {
+                    env.bus.trigger("AI:OPEN", {
+                        focusInput: true,
+                        prefill: `Search for ${currentContext.model} where `,
+                    });
+                },
+            });
+
+            commands.push({
+                name: _t("AI: Create %s", currentContext.model),
+                category: "ai",
+                description: _t("Use AI to create a new record"),
+                action: async () => {
+                    env.bus.trigger("AI:OPEN", {
+                        focusInput: true,
+                        prefill: `Create a new ${currentContext.model} with `,
+                    });
+                },
+            });
+        }
+
+        // Commands for form views with active record
+        if (currentContext?.viewType === "form" && currentContext?.activeIds?.length) {
+            commands.push({
+                name: _t("AI: Analyze this record"),
+                category: "ai",
+                description: _t("Get AI analysis of current record"),
+                action: async () => {
+                    await aiService.analyzeRecord(
+                        currentContext.model,
+                        currentContext.activeIds[0]
+                    );
+                },
+            });
+
+            commands.push({
+                name: _t("AI: Suggest improvements"),
+                category: "ai",
+                description: _t("Get AI suggestions for this record"),
+                action: async () => {
+                    await aiService.suggestImprovements(
+                        currentContext.model,
+                        currentContext.activeIds[0]
+                    );
+                },
+            });
+        }
+
+        // Commands for list views
+        if (currentContext?.viewType === "list") {
+            commands.push({
+                name: _t("AI: Summarize selected"),
+                category: "ai",
+                description: _t("Get AI summary of selected records"),
+                action: async () => {
+                    await aiService.summarizeRecords(
+                        currentContext.model,
+                        currentContext.selectedIds
+                    );
+                },
+            });
+        }
+
+        return commands;
+    },
+};
+
+// Register the AI command category
+registry.category("command_categories").add("ai", {
+    name: _t("AI Assistant"),
+    order: 5, // Appear early in the command palette
+});
+
+// Register the AI command provider
+registry.category("command_provider").add("ai", aiCommandProvider);
+```
+
+### 3.2 Deep ORM Integration
+
+#### 3.2.1 Files to Modify in `odoo/odoo/`
+
+| File | Modification Type | Purpose |
+|------|------------------|---------|
+| `models.py` | Extend | Add AI operation hooks to BaseModel |
+| `api.py` | Extend | Add AI context manager decorator |
+| `service/server.py` | Extend | Start MCP server alongside HTTP server |
+
+#### 3.2.2 AI Operation Hooks in ORM
+
+**File: `odoo/odoo/models.py`** (modifications to BaseModel)
+
+```python
+# Add to BaseModel class
+
+class BaseModel(metaclass=MetaModel):
+    # ... existing code ...
+
+    # =========================================================================
+    # AI OPERATION HOOKS
+    # =========================================================================
+
+    _ai_observable = True  # Set to False to exclude from AI operations
+    _ai_description = None  # Human-readable description for AI context
+
+    @api.model
+    def _ai_get_model_info(self):
+        """
+        Return model information for AI context.
+        Called by MCP server to understand model capabilities.
+        """
+        return {
+            'model': self._name,
+            'description': self._ai_description or self._description,
+            'fields': self._ai_get_field_info(),
+            'actions': self._ai_get_available_actions(),
+            'observable': self._ai_observable,
+        }
+
+    @api.model
+    def _ai_get_field_info(self):
+        """
+        Return field information suitable for AI consumption.
+        Filters sensitive fields and includes help text.
+        """
+        AI_HIDDEN_FIELDS = {'password', 'password_crypt', 'api_key', 'token', 'secret'}
+
+        field_info = {}
+        for name, field in self._fields.items():
+            if name in AI_HIDDEN_FIELDS:
+                continue
+            if name.startswith('_'):
+                continue
+
+            field_info[name] = {
+                'type': field.type,
+                'string': field.string,
+                'help': field.help or '',
+                'required': field.required,
+                'readonly': field.readonly,
+                'stored': field.store,
+            }
+
+            # Include selection options for selection fields
+            if field.type == 'selection':
+                selection = field.selection
+                if callable(selection):
+                    try:
+                        selection = selection(self)
+                    except Exception:
+                        selection = []
+                field_info[name]['selection'] = selection
+
+            # Include relation info for relational fields
+            if field.type in ('many2one', 'one2many', 'many2many'):
+                field_info[name]['relation'] = field.comodel_name
+
+        return field_info
+
+    @api.model
+    def _ai_get_available_actions(self):
+        """
+        Return list of actions AI can execute on this model.
+        """
+        actions = []
+
+        # Find methods that start with 'action_' or 'button_'
+        for attr_name in dir(self):
+            if attr_name.startswith(('action_', 'button_')):
+                method = getattr(self, attr_name, None)
+                if callable(method):
+                    actions.append({
+                        'name': attr_name,
+                        'doc': method.__doc__ or '',
+                    })
+
+        return actions
+
+    def _ai_pre_write_hook(self, vals):
+        """
+        Hook called before AI-initiated write operations.
+        Override to add custom validation or transformation.
+
+        Returns:
+            dict: Modified vals (or original if no changes needed)
+        """
+        return vals
+
+    def _ai_post_write_hook(self, vals):
+        """
+        Hook called after AI-initiated write operations.
+        Override to add custom post-processing.
+        """
+        pass
+
+    @api.model
+    def _ai_pre_create_hook(self, vals_list):
+        """
+        Hook called before AI-initiated create operations.
+
+        Returns:
+            list: Modified vals_list
+        """
+        return vals_list
+
+    @api.model
+    def _ai_post_create_hook(self, records):
+        """
+        Hook called after AI-initiated create operations.
+        """
+        pass
+
+    def _ai_pre_unlink_hook(self):
+        """
+        Hook called before AI-initiated unlink operations.
+        Can raise exception to prevent deletion.
+        """
+        pass
+
+    def _ai_search_context(self):
+        """
+        Return additional context hints for AI search operations.
+        Override to provide model-specific search guidance.
+        """
+        return {
+            'suggested_filters': [],
+            'common_searches': [],
+            'search_tips': [],
+        }
+```
+
+#### 3.2.3 AI Context Manager
+
+**File: `odoo/odoo/api.py`** (additions)
+
+```python
+# Add to api.py
+
+import functools
+import logging
+from contextlib import contextmanager
+
+_ai_logger = logging.getLogger('odoo.ai')
+
+
+def ai_operation(operation_type='other', require_confirmation=False):
+    """
+    Decorator for methods that can be invoked by AI.
+
+    Provides:
+    - Automatic logging of AI operations
+    - Permission checking
+    - Savepoint management
+    - Before/after state capture
+
+    Args:
+        operation_type: Type of operation (read, write, create, unlink, action)
+        require_confirmation: If True, AI must get user confirmation first
+
+    Usage:
+        @api.ai_operation('write')
+        def action_confirm(self):
+            ...
+    """
+    def decorator(method):
+        @functools.wraps(method)
+        def wrapper(self, *args, **kwargs):
+            env = self.env
+            ai_context = env.context.get('ai_context', {})
+
+            if not ai_context:
+                # Not an AI-initiated call, execute normally
+                return method(self, *args, **kwargs)
+
+            session_id = ai_context.get('session_id')
+            agent_id = ai_context.get('agent_id')
+
+            # Log operation start
+            _ai_logger.info(
+                f"AI Operation: {operation_type} on {self._name} "
+                f"(session={session_id}, agent={agent_id})"
+            )
+
+            # Check confirmation requirement
+            if require_confirmation and not ai_context.get('user_confirmed'):
+                raise UserError(
+                    f"This operation requires user confirmation. "
+                    f"Please confirm before proceeding."
+                )
+
+            # Capture state before (for write/unlink)
+            state_before = None
+            if operation_type in ('write', 'unlink') and self.ids:
+                state_before = self._ai_capture_state()
+
+            try:
+                result = method(self, *args, **kwargs)
+
+                # Log success
+                if session_id:
+                    env['loomworks.ai.operation.log'].sudo().create({
+                        'session_id': session_id,
+                        'tool_name': method.__name__,
+                        'operation_type': operation_type,
+                        'model_name': self._name,
+                        'record_ids': str(self.ids),
+                        'state': 'success',
+                    })
+
+                return result
+
+            except Exception as e:
+                _ai_logger.error(f"AI Operation failed: {e}")
+                if session_id:
+                    env['loomworks.ai.operation.log'].sudo().create({
+                        'session_id': session_id,
+                        'tool_name': method.__name__,
+                        'operation_type': operation_type,
+                        'model_name': self._name,
+                        'record_ids': str(self.ids),
+                        'state': 'error',
+                        'error_message': str(e),
+                    })
+                raise
+
+        wrapper._ai_operation = True
+        wrapper._ai_operation_type = operation_type
+        wrapper._ai_require_confirmation = require_confirmation
+        return wrapper
+
+    return decorator
+
+
+@contextmanager
+def ai_context(env, session, agent):
+    """
+    Context manager for AI-initiated operations.
+
+    Provides:
+    - Automatic context injection
+    - Transaction savepoint management
+    - Operation counting and limits
+
+    Usage:
+        with api.ai_context(env, session, agent) as ctx:
+            records = env['sale.order'].search([...])
+            records.action_confirm()
+    """
+    ctx = {
+        'ai_context': {
+            'session_id': session.id,
+            'agent_id': agent.id,
+            'operation_count': 0,
+            'max_operations': agent.max_operations_per_turn,
+        }
+    }
+
+    # Create savepoint if agent settings require it
+    savepoint_name = None
+    if agent.use_savepoints:
+        savepoint_name = f"ai_ctx_{session.uuid.replace('-', '_')}"
+        env.cr.execute(f'SAVEPOINT {savepoint_name}')
+
+    try:
+        # Yield environment with AI context
+        yield env.with_context(**ctx)
+
+        # Success - release savepoint
+        if savepoint_name:
+            env.cr.execute(f'RELEASE SAVEPOINT {savepoint_name}')
+
+    except Exception as e:
+        # Error - rollback to savepoint
+        if savepoint_name:
+            env.cr.execute(f'ROLLBACK TO SAVEPOINT {savepoint_name}')
+        raise
+```
+
+### 3.3 MCP Server as Core Service
+
+#### 3.3.1 Service Architecture
+
+The MCP server should start alongside the Odoo HTTP server as a core service, not as a separate daemon.
+
+**File: `odoo/odoo/service/server.py`** (modifications)
+
+```python
+# Add to server.py
+
+import threading
+from odoo.addons.loomworks_ai.services.odoo_mcp_server import start_mcp_server
+
+class ThreadedServer:
+    # ... existing code ...
+
+    def __init__(self, app):
+        # ... existing init ...
+        self.mcp_server = None
+        self.mcp_thread = None
+
+    def start(self, stop=False, log_level=None):
+        # ... existing start code ...
+
+        # Start MCP server if AI is enabled
+        if config.get('ai_enabled', True):
+            self._start_mcp_server()
+
+    def _start_mcp_server(self):
+        """Start MCP server in a separate thread."""
+        try:
+            mcp_port = config.get('mcp_port', 3100)
+
+            def run_mcp():
+                start_mcp_server(
+                    host='127.0.0.1',
+                    port=mcp_port,
+                    db_name=config.get('db_name'),
+                )
+
+            self.mcp_thread = threading.Thread(
+                target=run_mcp,
+                name='odoo.mcp.server',
+                daemon=True
+            )
+            self.mcp_thread.start()
+            _logger.info(f"MCP server started on port {mcp_port}")
+
+        except Exception as e:
+            _logger.warning(f"Failed to start MCP server: {e}")
+
+    def stop(self):
+        # ... existing stop code ...
+
+        # Stop MCP server
+        if self.mcp_server:
+            self.mcp_server.shutdown()
+            self.mcp_thread.join(timeout=5)
+```
+
+#### 3.3.2 Configuration Options
+
+**File: `odoo/odoo/tools/config.py`** (additions)
+
+```python
+# Add to config options
+
+# AI Configuration
+'ai_enabled': True,
+'ai_api_key': '',  # Claude API key (or from environment)
+'mcp_port': 3100,
+'ai_default_model': 'claude-sonnet-4-20250514',
+'ai_max_operations_per_turn': 10,
+'ai_auto_rollback': True,
+```
+
+### 3.4 AI as First-Class Citizen: View Integration
+
+#### 3.4.1 Form View AI Integration
+
+Every form view should have an "Ask AI" option. This is achieved by modifying the form controller.
+
+**File: `odoo/addons/web/static/src/views/form/form_controller.js`** (modifications)
+
+```javascript
+/** @odoo-module **/
+
+import { FormController as OriginalFormController } from "./form_controller_original";
+import { useService } from "@web/core/utils/hooks";
+
+export class FormController extends OriginalFormController {
+    setup() {
+        super.setup();
+        this.aiService = useService("ai");
+    }
+
+    /**
+     * Get AI-specific actions for the control panel
+     */
+    getAIActions() {
+        return [
+            {
+                type: "button",
+                icon: "fa-robot",
+                title: this.env._t("Ask AI about this record"),
+                onClick: () => this.askAIAboutRecord(),
+            },
+            {
+                type: "button",
+                icon: "fa-magic",
+                title: this.env._t("AI Suggestions"),
+                onClick: () => this.getAISuggestions(),
+            },
+        ];
+    }
+
+    async askAIAboutRecord() {
+        const record = this.model.root;
+        await this.aiService.openWithContext({
+            model: this.props.resModel,
+            recordId: record.resId,
+            recordData: record.data,
+            prefill: `Tell me about this ${this.props.resModel} record: `,
+        });
+    }
+
+    async getAISuggestions() {
+        const record = this.model.root;
+        await this.aiService.suggestImprovements(
+            this.props.resModel,
+            record.resId
+        );
+    }
+}
+```
+
+#### 3.4.2 List View AI Integration
+
+**File: `odoo/addons/web/static/src/views/list/list_controller.js`** (modifications)
+
+```javascript
+// Add AI bulk actions to list views
+
+getAIActions() {
+    const selectedRecords = this.model.root.selection;
+
+    if (selectedRecords.length === 0) {
+        return [{
+            type: "button",
+            icon: "fa-robot",
+            title: this.env._t("Ask AI"),
+            onClick: () => this.openAIForModel(),
+        }];
+    }
+
+    return [
+        {
+            type: "button",
+            icon: "fa-robot",
+            title: this.env._t(`Ask AI about ${selectedRecords.length} records`),
+            onClick: () => this.askAIAboutSelection(),
+        },
+        {
+            type: "button",
+            icon: "fa-list-check",
+            title: this.env._t("AI: Bulk action"),
+            onClick: () => this.aiBulkAction(),
+        },
+    ];
+}
+
+async askAIAboutSelection() {
+    const selectedIds = this.model.root.selection.map(r => r.resId);
+    await this.aiService.openWithContext({
+        model: this.props.resModel,
+        recordIds: selectedIds,
+        prefill: `Analyze these ${selectedIds.length} ${this.props.resModel} records: `,
+    });
+}
+
+async aiBulkAction() {
+    const selectedIds = this.model.root.selection.map(r => r.resId);
+    await this.aiService.openWithContext({
+        model: this.props.resModel,
+        recordIds: selectedIds,
+        prefill: `For these ${selectedIds.length} records, I want to: `,
+        suggestedActions: ['update', 'export', 'analyze', 'delete'],
+    });
+}
+```
+
+### 3.5 Implementation Phases for Core Modifications
+
+#### Phase 2.0: Core Infrastructure (Week 4-5)
+
+- [ ] 2.0.1 Fork Odoo Community v18 to Loomworks repository
+- [ ] 2.0.2 Set up development environment with forked core
+- [ ] 2.0.3 Create AI service in `odoo/addons/web/static/src/core/ai/`
+- [ ] 2.0.4 Modify `config.py` for AI configuration options
+- [ ] 2.0.5 Add AI hooks to `models.py` (BaseModel extensions)
+- [ ] 2.0.6 Add `ai_context` and `ai_operation` decorators to `api.py`
+
+#### Phase 2.1: Core Models (Week 5-6)
+
+(Existing tasks - unchanged)
+
+#### Phase 2.2: MCP Server Integration (Week 6-7)
+
+- [ ] 2.2.0 Modify `server.py` to start MCP server alongside HTTP
+- [ ] 2.2.1 Implement `odoo_mcp_server.py` with FastMCP
+- [ ] ... (remaining existing tasks)
+
+#### Phase 2.3-2.4: (Unchanged)
+
+#### Phase 2.5: Core Web Client (Week 9-10)
+
+- [ ] 2.5.0 Modify `webclient.js` for AI integration
+- [ ] 2.5.1 Modify `webclient.xml` to include AI components
+- [ ] 2.5.2 Add AI button to `navbar.xml`
+- [ ] 2.5.3 Create AI command provider for command palette
+- [ ] 2.5.4 Modify `form_controller.js` for AI actions
+- [ ] 2.5.5 Modify `list_controller.js` for AI bulk actions
+- [ ] 2.5.6 Implement AIAssistant sidebar component
+- [ ] 2.5.7 Implement AIStatusIndicator component
+- [ ] 2.5.8 Create AI-specific SCSS styles
+
+### 3.6 File Summary: Core Modifications
+
+| Category | File Path | Action | Purpose |
+|----------|-----------|--------|---------|
+| **Config** | `odoo/odoo/tools/config.py` | Modify | Add AI config options |
+| **ORM** | `odoo/odoo/models.py` | Modify | Add AI hooks to BaseModel |
+| **API** | `odoo/odoo/api.py` | Modify | Add ai_context, ai_operation |
+| **Server** | `odoo/odoo/service/server.py` | Modify | Start MCP server |
+| **WebClient** | `odoo/addons/web/static/src/webclient/webclient.js` | Modify | AI integration |
+| **WebClient** | `odoo/addons/web/static/src/webclient/webclient.xml` | Modify | AI components |
+| **Navbar** | `odoo/addons/web/static/src/webclient/navbar/navbar.xml` | Modify | AI button |
+| **Commands** | `odoo/addons/web/static/src/core/ai/ai_command_provider.js` | Create | Command palette |
+| **Form** | `odoo/addons/web/static/src/views/form/form_controller.js` | Modify | AI actions |
+| **List** | `odoo/addons/web/static/src/views/list/list_controller.js` | Modify | AI bulk actions |
+| **AI Core** | `odoo/addons/web/static/src/core/ai/` | Create | AI service directory |
+| **Assets** | `odoo/addons/web/views/webclient_templates.xml` | Modify | AI asset bundles |
+
+### 3.7 Maintaining Upgrade Compatibility
+
+Even though we own the fork, we should maintain a clean separation to facilitate merging upstream Odoo updates:
+
+1. **Modification Comments**: All core modifications should include a comment block:
+   ```python
+   # LOOMWORKS-AI: Begin modification
+   # ... modified code ...
+   # LOOMWORKS-AI: End modification
+   ```
+
+2. **Minimal Core Changes**: Where possible, use Odoo's extension mechanisms (registries, inheritance) instead of direct modification.
+
+3. **Feature Flags**: All AI features should be toggleable via config:
+   ```python
+   if config.get('ai_enabled', True):
+       # AI-specific code
+   ```
+
+4. **Upstream Tracking**: Maintain a branch tracking upstream Odoo 18 for periodic rebasing.
+
+---
+
 ## Risk Assessment
 
 | Risk | Likelihood | Impact | Mitigation |
@@ -3523,14 +4880,33 @@ claude-agent-sdk>=1.0.0    # Official Agent SDK
 | User data exposure | Low | Critical | Strict model blocklist, permission inheritance |
 | Performance bottlenecks | Medium | Medium | Async processing, response streaming |
 | Claude Agent SDK API changes | Medium | Medium | Abstraction layer, version pinning |
+| Fork maintenance burden | High | Medium | Upstream tracking branch, marked modifications, feature flags |
+| Core modification conflicts | Medium | High | Minimal invasive changes, use registries where possible |
 
 ---
 
 ## References
 
+### Claude and MCP
 - [Claude Agent SDK Documentation](https://platform.claude.com/docs/en/agent-sdk/overview)
 - [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
+
+### Odoo Core Documentation
 - [Odoo 18 Web Controllers](https://www.odoo.com/documentation/18.0/developer/reference/backend/http.html)
+- [Odoo 18 ORM API](https://www.odoo.com/documentation/18.0/developer/reference/backend/orm.html)
 - [Odoo Owl Components](https://www.odoo.com/documentation/18.0/developer/reference/frontend/owl_components.html)
+- [Odoo 18 Registries](https://www.odoo.com/documentation/18.0/developer/reference/frontend/registries.html)
+- [Odoo 18 Patching Code](https://www.odoo.com/documentation/18.0/developer/reference/frontend/patching_code.html)
+- [Odoo 18 JavaScript Reference](https://www.odoo.com/documentation/18.0/developer/reference/frontend/javascript_reference.html)
+- [Odoo 18 Framework Overview](https://www.odoo.com/documentation/18.0/developer/reference/frontend/framework_overview.html)
+- [Odoo 18 Services](https://www.odoo.com/documentation/19.0/developer/reference/frontend/services.html)
+- [Customizing the Web Client](https://www.odoo.com/documentation/18.0/developer/tutorials/web.html)
+
+### Core Architecture
+- [Odoo 18 Architecture Overview](https://www.odoo.com/documentation/18.0/developer/tutorials/server_framework_101/01_architecture.html)
+- [Odoo webclient_templates.xml (GitHub)](https://github.com/odoo/odoo/blob/master/addons/web/views/webclient_templates.xml)
+- [Odoo 18 Keyboard Shortcuts](https://www.odoo.com/documentation/18.0/applications/essentials/keyboard_shortcuts.html)
+
+### Database and Transactions
 - [PostgreSQL Savepoints](https://www.postgresql.org/docs/current/sql-savepoint.html)
 - [AI Rollback Best Practices](https://www.sandgarden.com/learn/rollback)

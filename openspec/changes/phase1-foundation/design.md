@@ -2,23 +2,27 @@
 
 ## Context
 
-Loomworks ERP is a fork of Odoo Community v18 licensed under LGPL v3. The branding module must:
-- Replace all visible Odoo branding with Loomworks identity
-- Maintain full LGPL v3 compliance
-- Work with Odoo's asset bundling system
-- Not modify core Odoo files (use inheritance/override patterns)
+Loomworks ERP is a **complete fork** of Odoo Community v18 licensed under LGPL v3. This phase establishes:
+- Full repository fork with complete branding removal
+- Automated rebranding infrastructure for ongoing maintenance
+- `loomworks_core` module for runtime branding overrides
+- LGPL v3 compliance with proper attribution
 
 ### Stakeholders
 - End users (see Loomworks branding throughout UI)
 - Developers (clean module structure to build upon)
-- Legal (LGPL v3 compliance)
+- Legal (LGPL v3 compliance with Odoo S.A. attribution)
+- DevOps (automated rebrand tooling for updates)
 
 ## Goals / Non-Goals
 
 ### Goals
+- Fork Odoo Community v18 as a full copy (not submodule) into `/odoo/`
+- Perform complete branding scrub of all Odoo references
+- Create automated rebrand script for future Odoo updates
 - Create reusable `loomworks_core` module as foundation for all other modules
 - Establish Loomworks visual identity (colors, logos, typography)
-- Provide clean separation between Odoo core and Loomworks customizations
+- Maintain LGPL v3 compliance with proper Odoo S.A. attribution
 - Document patterns for future module development
 
 ### Non-Goals
@@ -26,8 +30,315 @@ Loomworks ERP is a fork of Odoo Community v18 licensed under LGPL v3. The brandi
 - Multi-tenant configuration (Phase 5)
 - AI integration (Phase 2)
 - Website/e-commerce theming (separate module if needed)
+- Odoo Enterprise features (must be independently developed)
 
 ## Technical Decisions
+
+### Decision 0: Fork Strategy (CRITICAL - Do First)
+
+**Approach:** Full repository copy, NOT a git submodule.
+
+**Rationale:**
+- Submodules create complexity with tracking modifications
+- Full copy allows direct file modifications for branding
+- Enables clear separation of upstream vs. our changes
+- Simplifies CI/CD and deployment
+
+**Fork Source:**
+```bash
+# Clone Odoo Community v18
+git clone --branch 18.0 --depth 1 https://github.com/odoo/odoo.git odoo
+
+# Remove .git to make it a plain directory (not submodule)
+rm -rf odoo/.git
+
+# Initialize as part of our repository
+git add odoo/
+```
+
+**Directory Structure After Fork:**
+```
+LoomworksERP/
+├── odoo/                           # FORKED Odoo core (modified)
+│   ├── odoo/                       # Core framework
+│   │   ├── addons/
+│   │   │   └── base/               # Base addon (in core)
+│   │   ├── release.py              # Version info (MODIFY)
+│   │   └── ...
+│   └── addons/                     # Community addons (modified branding)
+│       ├── web/                    # Web client (HEAVY MODIFICATION)
+│       ├── mail/                   # Email templates (MODIFY)
+│       ├── website/                # Website addon (MODIFY)
+│       └── ...
+├── loomworks_addons/               # Our custom modules (NEW)
+│   └── loomworks_core/             # Branding module
+├── scripts/
+│   └── rebrand.py                  # Automated rebranding script
+├── docs/
+├── infrastructure/
+├── LICENSE                         # LGPL v3
+└── README.md
+```
+
+**Upstream Update Strategy:**
+1. Create `upstream-18.0` branch tracking original Odoo
+2. Periodically fetch upstream changes
+3. Run rebrand script on new files
+4. Merge into main with conflict resolution
+5. Re-test branding completeness
+
+### Decision 0.1: Complete Branding Scrub Checklist
+
+Based on research of Odoo v18 repository structure, the following files contain branding that MUST be modified:
+
+#### Core Framework (`odoo/odoo/`)
+
+| File | Branding Elements | Action |
+|------|-------------------|--------|
+| `release.py` | Product name "Odoo", description "Odoo Server", author "OpenERP S.A.", URL "odoo.com" | Replace with Loomworks |
+| `service/server.py` | Log messages with "Odoo" | Replace strings |
+| `http.py` | Error pages mentioning Odoo | Replace strings |
+| `cli/command.py` | CLI help text | Replace strings |
+
+#### Web Addon (`odoo/addons/web/`)
+
+**Static Images (`static/img/`)** - Replace entirely:
+| File | Purpose | Loomworks Replacement |
+|------|---------|----------------------|
+| `favicon.ico` | Browser tab icon | `loomworks_favicon.ico` |
+| `logo.png` | Primary logo | `loomworks_logo.png` |
+| `logo2.png` | Secondary logo | `loomworks_logo_alt.png` |
+| `logo_inverse_white_206px.png` | White logo | `loomworks_logo_white.png` |
+| `odoo-icon-192x192.png` | PWA icon 192px | `loomworks_icon_192.png` |
+| `odoo-icon-512x512.png` | PWA icon 512px | `loomworks_icon_512.png` |
+| `odoo-icon-ios.png` | iOS icon | `loomworks_icon_ios.png` |
+| `odoo-icon.svg` | SVG icon | `loomworks_icon.svg` |
+| `odoo_logo.svg` | SVG logo | `loomworks_logo.svg` |
+| `odoo_logo_dark.svg` | Dark mode logo | `loomworks_logo_dark.svg` |
+| `odoo_logo_tiny.png` | Tiny logo (62x20) | `loomworks_logo_tiny.png` |
+| `nologo.png` | Placeholder | Keep or replace |
+| `enterprise_upgrade.jpg` | Enterprise upsell | REMOVE (delete file) |
+
+**Views (`views/`):**
+| File | Branding Elements |
+|------|-------------------|
+| `webclient_templates.xml` | Page titles "Odoo", favicon paths, logo paths, "Powered by Odoo" links, odoo.com URLs, theme color `#71639e` |
+
+**SCSS (`static/src/scss/`):**
+| File | Branding Elements |
+|------|-------------------|
+| `primary_variables.scss` | `$o-brand-odoo` color variable |
+| Various component SCSS | References to brand colors |
+
+**JavaScript (`static/src/`):**
+| Pattern | Files | Action |
+|---------|-------|--------|
+| `odoo.com` URLs | Multiple JS files | Replace with loomworks.app |
+| "Odoo" string literals | user_menu, navbar | Replace with "Loomworks" |
+| Enterprise upgrade prompts | Multiple locations | Remove or replace |
+
+#### Mail Addon (`odoo/addons/mail/`)
+
+| File | Branding Elements |
+|------|-------------------|
+| `data/mail_templates_email_layouts.xml` | Email footer branding, "Powered by Odoo" |
+| `data/mail_templates_chatter.xml` | Notification templates |
+| `static/src/` | Discuss branding elements |
+
+#### Base Addon (`odoo/odoo/addons/base/`)
+
+| File | Branding Elements |
+|------|-------------------|
+| `data/res_company_data.xml` | Default company name/data |
+| `data/res_partner_data.xml` | Default partner data |
+| Various Python files | Docstrings mentioning Odoo |
+
+#### Website Addon (`odoo/addons/website/`)
+
+| File | Branding Elements |
+|------|-------------------|
+| `static/` | Website builder assets |
+| `views/` | Public website templates |
+| `data/` | Default website content |
+
+#### Other Addons with Branding
+
+| Addon | Files | Elements |
+|-------|-------|----------|
+| `account/static/src/img/` | `Odoo_logo_O.svg` | Odoo logo in accounting |
+| `portal/` | Templates | "Powered by Odoo" in portal |
+| `im_livechat/` | Templates | Live chat branding |
+
+### Decision 0.2: LGPL v3 Attribution Requirements
+
+**Research Sources:**
+- [GNU LGPL v3 Full Text](https://www.gnu.org/licenses/lgpl-3.0.en.html)
+- [FOSSA LGPL Guide](https://fossa.com/blog/open-source-software-licenses-101-lgpl-license/)
+- [TLDRLegal LGPL Summary](https://www.tldrlegal.com/license/gnu-lesser-general-public-license-v3-lgpl-3)
+
+**MUST Retain:**
+1. **Original Copyright Notices** - Cannot remove Odoo S.A. copyright from modified files
+2. **License References** - Must include LGPL v3 license text
+3. **Source Availability** - Must provide source code or offer to provide it
+4. **Modification Notices** - Must clearly indicate files that were modified
+
+**CAN Change:**
+1. **Product Name** - "Odoo" -> "Loomworks ERP" in UI
+2. **Logos and Visual Assets** - Full replacement allowed
+3. **URLs** - odoo.com -> loomworks.app
+4. **Default Data** - Company names, email domains
+
+**Required Attribution Format:**
+
+In modified source files:
+```python
+# -*- coding: utf-8 -*-
+# Loomworks ERP - An AI-first ERP system
+# Copyright (C) 2024 Loomworks
+#
+# This program is based on Odoo Community Edition
+# Copyright (C) 2004-2024 Odoo S.A. <https://www.odoo.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+```
+
+In README.md:
+```markdown
+## Attribution
+
+Loomworks ERP is based on [Odoo Community Edition](https://github.com/odoo/odoo),
+originally developed by Odoo S.A. and released under the LGPL v3 license.
+
+This fork includes modifications for branding and AI-first functionality.
+All modifications are also released under LGPL v3.
+```
+
+In About Dialog (UI):
+```
+Loomworks ERP v18.0
+Based on Odoo Community Edition
+Original software (C) Odoo S.A.
+Licensed under LGPL v3
+```
+
+### Decision 0.3: Automated Rebrand Script Design
+
+**Script Location:** `/scripts/rebrand.py`
+
+**Functionality:**
+```python
+#!/usr/bin/env python3
+"""
+Loomworks Rebrand Script
+
+Automates the replacement of Odoo branding with Loomworks branding.
+Designed to be run after fetching upstream Odoo updates.
+
+Usage:
+    python scripts/rebrand.py --check      # Report branding found
+    python scripts/rebrand.py --apply      # Apply replacements
+    python scripts/rebrand.py --report     # Generate detailed report
+"""
+
+# Configuration
+BRAND_REPLACEMENTS = {
+    # Text replacements (case-sensitive patterns)
+    'strings': {
+        'Odoo': 'Loomworks',
+        'odoo': 'loomworks',
+        'ODOO': 'LOOMWORKS',
+        'Odoo S.A.': 'Loomworks (based on Odoo by Odoo S.A.)',
+        'info@odoo.com': 'support@loomworks.app',
+        'www.odoo.com': 'www.loomworks.app',
+        'odoo.com': 'loomworks.app',
+        'https://www.odoo.com': 'https://www.loomworks.app',
+    },
+
+    # File replacements (copy new file over old)
+    'files': {
+        'addons/web/static/img/favicon.ico': 'assets/loomworks_favicon.ico',
+        'addons/web/static/img/logo.png': 'assets/loomworks_logo.png',
+        # ... all logo files
+    },
+
+    # Patterns to remove entirely
+    'remove_patterns': [
+        r'enterprise_upgrade',  # Enterprise upsell references
+        r'utm_source=db&utm_medium=',  # Tracking parameters
+    ],
+
+    # Files to skip (preserve original copyright)
+    'skip_files': [
+        'LICENSE',
+        'COPYRIGHT',
+        '*.po',  # Translation files
+        '*.pot',
+    ],
+
+    # Directories to skip
+    'skip_dirs': [
+        '.git',
+        'node_modules',
+        '__pycache__',
+    ],
+}
+
+# File type handlers
+FILE_HANDLERS = {
+    '.py': 'python',      # Add/update copyright header
+    '.js': 'javascript',  # String replacements
+    '.xml': 'xml',        # Template replacements
+    '.scss': 'scss',      # Variable replacements
+    '.css': 'css',        # String replacements
+    '.html': 'html',      # Template replacements
+    '.rst': 'text',       # Documentation
+    '.md': 'text',        # Documentation
+}
+```
+
+**Script Features:**
+1. **Dry-run mode** - Report what would change without modifying
+2. **Incremental mode** - Only process files changed since last run
+3. **Verification mode** - Check for missed branding after rebrand
+4. **Report generation** - Output CSV/JSON of all changes made
+5. **Rollback support** - Keep backup of original files
+
+**Branding Detection Patterns:**
+```python
+DETECTION_PATTERNS = [
+    # URLs
+    r'https?://[^\s]*odoo\.com[^\s]*',
+    r'mailto:[^\s]*@odoo\.com',
+
+    # Product names
+    r'\bOdoo\b',
+    r'\bodoo\b',
+    r'\bODOO\b',
+
+    # File references
+    r'odoo[_-]logo',
+    r'odoo[_-]icon',
+    r'favicon\.ico',  # Check if it's the Odoo favicon
+
+    # CSS/SCSS variables
+    r'\$o-brand-odoo',
+
+    # Meta tags
+    r'content=["\']Odoo',
+    r'name=["\']odoo',
+]
+```
 
 ### Decision 1: Module Structure
 
@@ -334,56 +645,206 @@ $link-hover-color: $lw-primary-dark !default;
 
 ## Risks / Trade-offs
 
-### Risk 1: Asset Bundling Conflicts
+### Risk 1: Fork Maintenance Burden
+**Risk:** Keeping fork synchronized with upstream Odoo updates is labor-intensive
+**Mitigation:**
+- Automated rebrand script reduces manual work
+- Track upstream 18.0 branch separately
+- Quarterly sync schedule (security patches immediate)
+- Document merge conflict resolution procedures
+**Trade-off:** Full fork gives complete control but requires ongoing maintenance
+
+### Risk 2: Incomplete Branding Removal
+**Risk:** Odoo branding may remain in obscure locations
+**Mitigation:**
+- Comprehensive file-by-file audit checklist
+- Automated detection script with regex patterns
+- Manual QA testing of all UI paths
+- Community/user bug reports for missed items
+**Detection Patterns:** Search for `odoo`, `Odoo`, `ODOO`, `odoo.com`, `o-brand`
+
+### Risk 3: LGPL Attribution Violations
+**Risk:** Improper removal of required copyright notices
+**Mitigation:**
+- Legal review of LGPL v3 requirements
+- Preserve all copyright headers (add Loomworks, don't remove Odoo)
+- Maintain COPYING/LICENSE files
+- About dialog includes Odoo attribution
+**Reference:** [GNU LGPL v3](https://www.gnu.org/licenses/lgpl-3.0.html)
+
+### Risk 4: Asset Bundling Conflicts
 **Risk:** SCSS prepend order could conflict with other modules
 **Mitigation:**
 - Use `('prepend', ...)` only for primary_variables
 - Test with common Odoo modules installed
 - Document asset loading order
 
-### Risk 2: Template Inheritance Fragility
+### Risk 5: Template Inheritance Fragility
 **Risk:** Odoo core template changes could break overrides
 **Mitigation:**
-- Use specific XPath selectors
-- Pin to Odoo v18.0 release branch
+- Direct file modification in fork (not just inheritance)
+- XPath overrides in loomworks_core as backup
 - Include template tests that verify selectors exist
 
-### Risk 3: Logo Display Issues
+### Risk 6: Logo Display Issues
 **Risk:** Logos may display incorrectly at various sizes
 **Mitigation:**
-- Provide multiple resolution variants
-- Use SVG where possible for scalability
+- Provide multiple resolution variants (16px to 512px)
+- Use SVG for scalability where supported
 - Test across browsers and devices
 
-### Risk 4: LGPL Compliance Errors
-**Risk:** Accidental inclusion of Enterprise code
+### Risk 7: Enterprise Code Contamination
+**Risk:** Accidental inclusion of Enterprise code violates license
 **Mitigation:**
-- Never reference `/home/loomworks/Desktop/OdooTestLauncher` in code
+- Never reference Enterprise repository in code
 - Code review checklist includes license check
 - Automated scanning for Enterprise module names
+- grep for `odoo/enterprise` references
+
+### Risk 8: Translation File Complexity
+**Risk:** 100+ .po/.pot files contain Odoo branding strings
+**Mitigation:**
+- Phase 1 focuses on English only
+- Translation rebrand deferred to later phase
+- Mark .po files as "skip" in rebrand script initially
 
 ## Migration Plan
 
-### Installation Steps (Fresh Install)
-1. Clone Odoo Community v18
-2. Add `loomworks_addons` to addons path
-3. Update module list: `./odoo-bin -d dbname -u base --stop-after-init`
-4. Install `loomworks_core`: `./odoo-bin -d dbname -i loomworks_core`
+### Phase 1a: Fork Creation (Day 1-2)
 
-### Upgrade Path
-Module follows Odoo's standard upgrade mechanism via `__manifest__.py` version.
+```bash
+# 1. Clone Odoo Community v18
+git clone --branch 18.0 --depth 1 https://github.com/odoo/odoo.git odoo
+rm -rf odoo/.git
+
+# 2. Create directory structure
+mkdir -p loomworks_addons/loomworks_core
+mkdir -p scripts
+mkdir -p assets
+mkdir -p docs
+
+# 3. Copy LICENSE file
+cp odoo/LICENSE ./LICENSE
+
+# 4. Initialize git
+git init
+git add .
+git commit -m "[init] Fork Odoo Community v18 for Loomworks ERP"
+```
+
+### Phase 1b: Branding Asset Preparation (Day 2-3)
+
+Create Loomworks logo assets in `/assets/`:
+- `loomworks_favicon.ico` (16x16, 32x32 multi-resolution)
+- `loomworks_favicon.png` (192x192)
+- `loomworks_logo.png` (200x50)
+- `loomworks_logo_white.png` (200x50)
+- `loomworks_logo.svg` (vector)
+- `loomworks_logo_dark.svg` (for dark mode)
+- `loomworks_logo_tiny.png` (62x20)
+- `loomworks_icon.svg` (square)
+- `loomworks_icon_192.png` (192x192)
+- `loomworks_icon_512.png` (512x512)
+- `loomworks_icon_ios.png` (iOS format)
+
+### Phase 1c: Automated Rebrand (Day 3-5)
+
+```bash
+# 1. Run rebrand script in check mode
+python scripts/rebrand.py --check > rebrand_report.txt
+
+# 2. Review report, adjust patterns if needed
+
+# 3. Run rebrand script in apply mode
+python scripts/rebrand.py --apply
+
+# 4. Verify no remaining Odoo branding
+python scripts/rebrand.py --verify
+
+# 5. Commit changes
+git add -A
+git commit -m "[rebrand] Complete Odoo to Loomworks branding replacement"
+```
+
+### Phase 1d: Module Development (Day 5-7)
+
+1. Create `loomworks_addons/loomworks_core/` module
+2. Add runtime branding overrides (for dynamic content)
+3. Test module installation
+4. Verify branding in all major views
+
+### Installation Steps (Fresh Install)
+
+```bash
+# 1. Clone Loomworks ERP repository
+git clone https://github.com/loomworks/LoomworksERP.git
+cd LoomworksERP
+
+# 2. Install Python dependencies
+pip install -r odoo/requirements.txt
+
+# 3. Create PostgreSQL database
+createdb loomworks
+
+# 4. Initialize database with Loomworks modules
+./odoo/odoo-bin -d loomworks \
+    --addons-path=odoo/addons,odoo/odoo/addons,loomworks_addons \
+    -i base,web,loomworks_core \
+    --stop-after-init
+
+# 5. Start server
+./odoo/odoo-bin -d loomworks \
+    --addons-path=odoo/addons,odoo/odoo/addons,loomworks_addons
+```
+
+### Upgrade Path (Upstream Sync)
+
+```bash
+# 1. Fetch upstream changes
+git remote add upstream https://github.com/odoo/odoo.git
+git fetch upstream 18.0
+
+# 2. Create diff of upstream changes
+git diff upstream/18.0 -- odoo/ > upstream_changes.patch
+
+# 3. Apply upstream changes carefully
+# (Manual review required for conflicts)
+
+# 4. Re-run rebrand script
+python scripts/rebrand.py --apply
+
+# 5. Test thoroughly
+python -m pytest loomworks_addons/*/tests/
+
+# 6. Commit
+git add -A
+git commit -m "[upstream] Sync with Odoo 18.0 (date)"
+```
 
 ### Rollback
-1. Uninstall `loomworks_core` via Apps
-2. Remove from addons path
-3. Standard Odoo branding restored
+
+Full rollback requires re-cloning from pre-rebrand state or Odoo upstream.
+Module-level rollback: Uninstall `loomworks_core` restores default Odoo behavior for runtime overrides only.
 
 ## Open Questions
 
-1. **Logo Design:** Final logo assets need to be created. Current proposal uses placeholder specifications.
-2. **Dark Mode:** Should we provide dark mode color variants? (Odoo 18 supports dark mode)
-3. **Email Templates:** Extent of email branding customization needed?
-4. **Website Theme:** Separate `loomworks_website` module or include basic website branding here?
+1. **Logo Design:** Final logo assets need to be created. Current proposal uses placeholder specifications. Who will create the Loomworks logo?
+
+2. **Dark Mode:** Should we provide dark mode color variants? (Odoo 18 supports dark mode) - Recommendation: Yes, include `loomworks_logo_dark.svg`
+
+3. **Email Templates:** Extent of email branding customization needed? - Recommendation: Full rebrand of `mail_templates_email_layouts.xml`
+
+4. **Website Theme:** Separate `loomworks_website` module or include basic website branding here? - Recommendation: Basic rebrand in fork, advanced theming in separate module
+
+5. **Translation Files:** 100+ .po files contain "Odoo" strings. Should we rebrand translations in Phase 1? - Recommendation: Defer to Phase 1.1, focus on English first
+
+6. **Upstream Sync Frequency:** How often should we sync with Odoo 18.0 upstream? - Recommendation: Monthly for features, immediate for security patches
+
+7. **Enterprise Upgrade Prompts:** Should we completely remove or replace with Loomworks hosting upsell? - Recommendation: Remove in Phase 1, add Loomworks-specific prompts in Phase 5
+
+8. **Database Manager Branding:** The `/web/database/manager` page has Odoo branding. Include in scope? - Recommendation: Yes, include in Phase 1
+
+9. **PWA Manifest:** The `manifest.webmanifest` contains Odoo branding. Include? - Recommendation: Yes, critical for mobile experience
 
 ## Asset Bundle Reference
 
@@ -397,3 +858,87 @@ Module follows Odoo's standard upgrade mechanism via `__manifest__.py` version.
 | `web.assets_frontend` | Frontend CSS/JS | Portal, website |
 
 **Source:** [Odoo 18 SCSS Inheritance](https://www.odoo.com/documentation/18.0/developer/reference/user_interface/scss_inheritance.html)
+
+## Complete Branding File Inventory
+
+### Files to REPLACE (copy Loomworks asset over Odoo asset)
+
+```
+odoo/addons/web/static/img/
+├── favicon.ico                    -> loomworks_favicon.ico
+├── logo.png                       -> loomworks_logo.png
+├── logo2.png                      -> loomworks_logo_alt.png
+├── logo_inverse_white_206px.png   -> loomworks_logo_white.png
+├── odoo-icon-192x192.png          -> loomworks_icon_192.png
+├── odoo-icon-512x512.png          -> loomworks_icon_512.png
+├── odoo-icon-ios.png              -> loomworks_icon_ios.png
+├── odoo-icon.svg                  -> loomworks_icon.svg
+├── odoo_logo.svg                  -> loomworks_logo.svg
+├── odoo_logo_dark.svg             -> loomworks_logo_dark.svg
+└── odoo_logo_tiny.png             -> loomworks_logo_tiny.png
+```
+
+### Files to DELETE
+
+```
+odoo/addons/web/static/img/
+└── enterprise_upgrade.jpg         # Enterprise upsell image
+
+odoo/addons/account/static/src/img/
+└── Odoo_logo_O.svg                # Odoo logo in accounting (or replace)
+```
+
+### Files to MODIFY (string replacement)
+
+**High Priority (visible to all users):**
+```
+odoo/odoo/release.py                           # Product name, author, URL
+odoo/addons/web/views/webclient_templates.xml  # Page titles, favicon, logos, powered-by
+odoo/addons/mail/data/mail_templates_email_layouts.xml  # Email footer
+odoo/addons/portal/data/mail_templates.xml     # Portal email templates
+```
+
+**Medium Priority (visible in specific contexts):**
+```
+odoo/addons/web/static/src/webclient/          # Multiple JS files with "Odoo" strings
+odoo/addons/web/static/src/core/               # Core JS components
+odoo/addons/website/views/                     # Website templates
+odoo/odoo/addons/base/data/res_company_data.xml  # Default company
+```
+
+**Lower Priority (developer-facing):**
+```
+odoo/odoo/http.py                              # Error pages
+odoo/odoo/service/server.py                    # Log messages
+odoo/README.md                                 # Repository readme
+odoo/doc/                                      # Documentation
+```
+
+### PWA Manifest Location
+
+```
+odoo/addons/web/static/src/public/manifest.webmanifest.mako
+```
+Contains: app name, short_name, icons array - all need rebranding.
+
+## Research References
+
+### Odoo Repository Structure
+- [GitHub: odoo/odoo](https://github.com/odoo/odoo)
+- [Odoo 18 Developer Documentation](https://www.odoo.com/documentation/18.0/developer.html)
+- [Odoo 18 Assets Documentation](https://www.odoo.com/documentation/18.0/developer/reference/frontend/assets.html)
+- [Odoo 18 SCSS Inheritance](https://www.odoo.com/documentation/18.0/developer/reference/user_interface/scss_inheritance.html)
+
+### LGPL v3 Compliance
+- [GNU LGPL v3 Full Text](https://www.gnu.org/licenses/lgpl-3.0.en.html)
+- [FOSSA LGPL Guide](https://fossa.com/blog/open-source-software-licenses-101-lgpl-license/)
+- [TLDRLegal LGPL v3](https://www.tldrlegal.com/license/gnu-lesser-general-public-license-v3-lgpl-3)
+
+### Odoo Fork Examples
+- [Flectra ERP](https://github.com/flectra-hq/flectra) - Odoo fork (note: had legal issues)
+- [OCA OCB](https://github.com/OCA/OCB) - Odoo Community Backports
+- [Debrand Odoo Gist](https://gist.github.com/lambone/2d7a0418b810a4cc8694) - Reference for branding locations
+
+### OCA Debranding Modules (Reference Only)
+- [OCA web_favicon](https://github.com/OCA/web/tree/18.0/web_favicon) - Favicon customization approach
+- [OCA portal_odoo_debranding](https://pypi.org/project/odoo-addon-portal-odoo-debranding/) - Portal debranding

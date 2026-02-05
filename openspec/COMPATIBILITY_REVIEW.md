@@ -1,9 +1,10 @@
-# Loomworks ERP - OpenSpec Compatibility Review
+# Loomworks ERP - OpenSpec Compatibility Review (Revision 2)
 
 **Review Date**: 2026-02-05
-**Reviewer**: Automated Compatibility Analysis
+**Reviewer**: Automated Compatibility Analysis (Revision 2 - Full Fork Architecture)
 **Scope**: All 8 Phases (Foundation through Skills Framework)
 **Total Project Duration**: 52 Weeks
+**Architecture**: FULL FORK of Odoo Community v18
 
 ---
 
@@ -11,509 +12,684 @@
 
 ### Overall Assessment: APPROVED WITH RECOMMENDATIONS
 
-The Loomworks ERP OpenSpec proposals demonstrate a **well-architected, coherent system design** with proper phase dependencies and consistent technical patterns. The proposals collectively define a comprehensive AI-first ERP system built on Odoo Community v18.
+The revised Loomworks ERP OpenSpec proposals demonstrate a **coherent, well-integrated system design** for a fully forked Odoo architecture. All proposals have been updated to reflect the FULL FORK strategy where core modifications are made directly in the forked Odoo codebase at `/odoo/`.
 
-**Strengths:**
-- Clear phase dependencies with logical progression
-- Consistent model naming conventions (`loomworks.*` namespace)
-- Unified security model across all modules
-- Proper LGPL v3 compliance strategy throughout
-- Well-defined integration points between AI layer and business modules
-- Comprehensive audit logging patterns
+**Key Strengths:**
+- **Consistent Fork Strategy**: All proposals correctly reference `/odoo/` as the forked core location
+- **Clear Core vs Addon Separation**: Each proposal explicitly distinguishes between core modifications and addon code
+- **Well-Defined Phase Dependencies**: Critical path dependencies are properly documented
+- **LGPL v3 Compliance**: All modifications maintain proper attribution markers (`LOOMWORKS-*` comments)
+- **Native View Types**: Spreadsheet, Gantt, and Dashboard are integrated as first-class view types
+- **Unified Infrastructure**: React bridge, PWA, and AI hooks are shared across all phases
 
 **Areas Requiring Attention:**
-- Several cross-phase model references need explicit dependency declarations
-- AI integration tools need to be extended for Phase 3 enterprise modules
-- Snapshot system integration with AI rollback needs more explicit connection
-- Dashboard data sources should explicitly support Phase 3 modules
+- Some overlapping modifications to `odoo/addons/web/static/src/views/` need coordination
+- React bridge must be available before Spreadsheet (Phase 3.1) and Dashboard (Phase 4)
+- Skills framework (Phase 6) depends on both AI hooks (Phase 2) and snapshots (Phase 5)
 
-**Critical Path Dependencies:**
-```
-Phase 1 (Foundation) --> Phase 2 (AI Integration) --> Phase 3 (Enterprise Modules)
-                                |                           |
-                                v                           v
-                    Phase 4 (Dashboard) <------------- Phase 5 (Infrastructure)
-                                |
-                                v
-                        Phase 6 (Skills Framework)
-```
+**Architecture Validation**: PASS
 
 ---
 
-## 2. Dependency Matrix
+## 2. Core Modification Matrix
 
-### 2.1 Phase Dependencies
+This matrix shows which files each phase modifies in the forked Odoo core.
 
-| Phase | Depends On | Blocks |
-|-------|------------|--------|
-| **Phase 1: Foundation** | Odoo v18 only | Phase 2, 3, 4, 5, 6 |
-| **Phase 2: AI Integration** | Phase 1 | Phase 3 (AI tools), Phase 4 (AI generation), Phase 5 (operation logging), Phase 6 |
-| **Phase 3.1: Studio/Spreadsheet** | Phase 1 | Phase 4 (data sources) |
-| **Phase 3.2: PLM/Sign/Appointment** | Phase 1 | None (parallel with 3.1, 3.3) |
-| **Phase 3.3: Payroll/FSM/Planning** | Phase 1 | None (parallel with 3.1, 3.2) |
-| **Phase 4: Dashboard** | Phase 1, Phase 2 (optional), Phase 3 (data sources) | None |
-| **Phase 5: Infrastructure** | Phase 1, Phase 2 (operation logging) | Phase 6 (execution rollback) |
-| **Phase 6: Skills Framework** | Phase 2 (tools), Phase 5 (snapshots) | None |
+### 2.1 Forked Core Files (`odoo/odoo/`)
 
-### 2.2 Module Dependencies
+| File Path | Phase 1 | Phase 2 | Phase 3.2 | Phase 3.3 | Phase 5 | Phase 6 |
+|-----------|:-------:|:-------:|:---------:|:---------:|:-------:|:-------:|
+| `odoo/release.py` | **M** | - | - | - | - | - |
+| `odoo/http.py` | **M** | - | - | - | **M** | - |
+| `odoo/models.py` | - | **M** | - | - | **M** | - |
+| `odoo/api.py` | - | **M** | - | - | - | - |
+| `odoo/fields.py` | - | - | **M** | - | - | - |
+| `odoo/tools/pdf.py` | - | - | **A** | - | - | - |
+| `odoo/service/server.py` | **M** | **M** | - | - | - | - |
 
-| Module | Required Dependencies | Optional Dependencies |
-|--------|----------------------|----------------------|
-| `loomworks_core` | `base`, `web`, `mail` | - |
-| `loomworks_ai` | `loomworks_core`, `base`, `web` | - |
-| `loomworks_studio` | `loomworks_core`, `base`, `web` | `loomworks_ai` |
-| `loomworks_spreadsheet` | `loomworks_core`, `base`, `web` | `loomworks_ai`, `documents` |
-| `loomworks_plm` | `loomworks_core`, `mrp` | `loomworks_sign` |
-| `loomworks_sign` | `loomworks_core`, `mail`, `portal` | - |
-| `loomworks_appointment` | `loomworks_core`, `calendar`, `website` | - |
-| `loomworks_payroll` | `loomworks_core`, `hr` | `hr_contract` |
-| `loomworks_fsm` | `loomworks_core`, `project`, `hr_timesheet` | - |
-| `loomworks_planning` | `loomworks_core`, `hr` | `project` |
-| `loomworks_dashboard` | `loomworks_core`, `web` | `loomworks_ai`, `loomworks_spreadsheet` |
-| `loomworks_tenant` | `loomworks_core` | - |
-| `loomworks_snapshot` | `loomworks_tenant`, `loomworks_ai` | - |
-| `loomworks_skills` | `loomworks_ai`, `loomworks_snapshot` | All Phase 3 modules |
+**Legend**: **M** = Modified, **A** = Added, **-** = No change
 
-### 2.3 Model Cross-References
+### 2.2 Forked Core Addons (`odoo/addons/`)
 
-The following models are referenced across multiple proposals:
+| File Path | P1 | P2 | P3.1 | P3.2 | P3.3 | P4 | P5 | P6 |
+|-----------|:--:|:--:|:----:|:----:|:----:|:--:|:--:|:--:|
+| `base/models/ir_ui_view.py` | - | - | **M** | - | **M** | **M** | - | - |
+| `base/models/ir_model.py` | - | - | **M** | - | - | - | - | - |
+| `base/models/ir_actions.py` | - | - | - | - | - | - | - | **M** |
+| `base/models/ir_actions_skill.py` | - | - | - | - | - | - | - | **A** |
+| `web/static/src/webclient/` | **M** | **M** | - | - | - | - | - | - |
+| `web/static/src/views/` | - | **M** | **M** | **M** | **M** | **M** | - | - |
+| `web/static/src/core/ai/` | - | **A** | - | - | - | - | - | - |
+| `web/static/src/core/react_bridge/` | - | - | - | - | - | **A** | - | - |
+| `web/static/src/core/pwa/` | - | - | - | **A** | - | - | - | - |
+| `web/static/src/studio/` | - | - | **A** | - | - | - | - | - |
+| `web/static/lib/react/` | - | - | - | - | - | **A** | - | - |
+| `web/__manifest__.py` | **M** | **M** | **M** | **M** | **M** | **M** | - | - |
+| `web/views/webclient_templates.xml` | **M** | - | - | - | - | - | - | - |
+| `mrp/models/mrp_bom.py` | - | - | - | **M** | - | - | - | - |
+| `calendar/models/calendar_event.py` | - | - | - | **M** | - | - | - | - |
+| `portal/controllers/portal.py` | - | - | - | **M** | - | - | - | - |
+| `project/models/project_task.py` | - | - | - | - | **M** | - | - | - |
+| `hr_contract/models/` | - | - | - | - | **M** | - | - | - |
 
-| Model | Defined In | Extended By | Referenced By |
-|-------|------------|-------------|---------------|
-| `loomworks.ai.session` | Phase 2 | - | Phase 5 (snapshot), Phase 6 (skills) |
-| `loomworks.ai.tool` | Phase 2 | - | Phase 3 (all), Phase 4, Phase 6 |
-| `loomworks.ai.operation.log` | **Phase 2** | **Phase 5** (adds snapshot_id) | Phase 6 |
-| `loomworks.snapshot` | Phase 5 | - | Phase 2 (rollback), Phase 6 (execution) |
-| `loomworks.tenant` | Phase 5 | - | All hosted modules |
-| `dashboard.data_source` | Phase 4 | - | Phase 3 (spreadsheet pivot) |
-| `loomworks.skill` | Phase 6 | - | Phase 2 (agent binding) |
+### 2.3 Loomworks Addons (`loomworks_addons/`)
+
+| Module | Phase | Dependencies |
+|--------|-------|--------------|
+| `loomworks_core` | 1 | `base`, `web`, `mail` |
+| `loomworks_ai` | 2 | `loomworks_core`, `base`, `web` |
+| `loomworks_studio` | 3.1 | `loomworks_core`, `base`, `web`, (opt: `loomworks_ai`) |
+| `loomworks_spreadsheet` | 3.1 | `loomworks_core`, `base`, `web`, (opt: `loomworks_ai`, `documents`) |
+| `loomworks_plm` | 3.2 | `loomworks_core`, `mrp`, (opt: `loomworks_sign`) |
+| `loomworks_sign` | 3.2 | `loomworks_core`, `mail`, `portal` |
+| `loomworks_appointment` | 3.2 | `loomworks_core`, `calendar`, `website` |
+| `loomworks_payroll` | 3.3 | `loomworks_core`, `hr`, (opt: `hr_contract`) |
+| `loomworks_fsm` | 3.3 | `loomworks_core`, `project`, `hr_timesheet` |
+| `loomworks_planning` | 3.3 | `loomworks_core`, `hr`, (opt: `project`) |
+| `loomworks_dashboard` | 4 | `loomworks_core`, `web`, (opt: `loomworks_ai`, `loomworks_spreadsheet`) |
+| `loomworks_tenant` | 5 | `loomworks_core` |
+| `loomworks_snapshot` | 5 | `loomworks_tenant`, **`loomworks_ai`** |
+| `loomworks_skills` | 6 | **`loomworks_ai`**, **`loomworks_snapshot`** |
 
 ---
 
-## 3. Integration Points Analysis
+## 3. Conflict Analysis
 
-### 3.1 AI Integration (Phase 2) with Enterprise Modules (Phase 3)
+### 3.1 Overlapping Modifications - RESOLVED
 
-**Status**: PARTIALLY DEFINED - Needs Extension
+#### `odoo/addons/web/static/src/views/` Directory
 
-The Phase 2 proposal defines base MCP tools:
-- `search_records` - Query any model
-- `create_record` - Create records
-- `update_record` - Modify records
-- `delete_record` - Remove records
-- `execute_action` - Run workflows/actions
-- `generate_report` - Create reports
-- `get_dashboard` - Fetch dashboard data
+Multiple phases add view types to this directory:
 
-**Gap Identified**: Phase 3 modules define AI agent integration tasks (e.g., `studio_create_app`, `spreadsheet_create_pivot`) but the Phase 2 proposal does not explicitly define extension patterns for module-specific tools.
+| Phase | View Type | Directory | Status |
+|-------|-----------|-----------|--------|
+| 3.1 | Spreadsheet | `views/spreadsheet/` | **No conflict** |
+| 3.3 | Gantt | `views/gantt/` | **No conflict** |
+| 4 | Dashboard | `views/dashboard/` | **No conflict** |
+| 3.1 | Studio overlay | `views/form/`, `views/list/` | **Potential conflict** |
 
-**Recommendation**: Add an explicit MCP tool extension pattern in Phase 2 design.md that Phase 3 modules must follow:
+**Resolution**: Studio view enhancements (form_controller.js, list_controller.js) must use inheritance patterns that compose cleanly. Each enhancement adds mixins rather than replacing methods.
+
+#### `odoo/addons/base/models/ir_ui_view.py`
+
+Multiple phases extend the `ir.ui.view` model:
+
+| Phase | Extension | Change |
+|-------|-----------|--------|
+| 3.1 | Studio customization | Adds `studio_customized`, `studio_customization_id`, `studio_arch_backup` fields |
+| 3.1 | Spreadsheet view type | Adds `'spreadsheet'` to `type` selection |
+| 3.3 | Gantt view type | Adds `'gantt'` to `type` selection |
+| 4 | Dashboard view type | Adds `'dashboard'` to `type` selection |
+
+**Resolution**: All `selection_add` modifications are additive and compatible. Fields from Studio customization do not conflict with view type additions. **No conflict**.
+
+#### `odoo/odoo/models.py`
+
+| Phase | Extension | Purpose |
+|-------|-----------|---------|
+| 2 | AI operation hooks | Adds `_ai_before_operation()` and `_ai_after_operation()` hooks |
+| 5 | Tenant isolation | Adds `_check_tenant_isolation()` check |
+
+**Resolution**: Both are independent hook additions to BaseModel. Phase 5 hooks run before Phase 2 hooks in the call chain. **No conflict**.
+
+### 3.2 Asset Bundle Conflicts - MONITORED
+
+The `web.assets_backend` bundle is extended by multiple phases:
+
+```
+Phase 1:  primary_variables.scss (prepend), loomworks_backend.scss
+Phase 2:  core/ai/*.js, components/ai_chat/*.js
+Phase 3.1: views/spreadsheet/*.js, studio/*.js, lib/univer/*.js
+Phase 3.2: views/fields/signature/*.js
+Phase 3.3: views/gantt/*.js, core/pwa/*.js
+Phase 4:  lib/react/*.js, core/react_bridge/*.js, views/dashboard/*.js
+Phase 6:  core/skill_recorder_service.js
+```
+
+**Load Order Requirement**:
+1. Primary variables (Phase 1) - MUST be prepended
+2. React libraries (Phase 4) - MUST load before react_bridge
+3. React bridge (Phase 4) - MUST load before Spreadsheet (3.1) components that use it
+4. All other JS - Order independent
+
+**Recommendation**: Ensure Phase 4 React integration is completed before Phase 3.1 Spreadsheet components that optionally use React for chart rendering.
+
+---
+
+## 4. Dependency Graph
+
+### 4.1 Critical Path
+
+```
+Phase 1: Fork + Rebrand
+    │
+    ├── Phase 2: AI Integration (Core)
+    │       │
+    │       ├── Phase 3.1: Studio/Spreadsheet
+    │       │       │
+    │       │       └── Phase 4: Dashboard (uses React bridge)
+    │       │
+    │       ├── Phase 3.2: PLM/Sign/Appointment
+    │       │
+    │       ├── Phase 3.3: Payroll/FSM/Planning
+    │       │
+    │       └── Phase 5: Infrastructure
+    │               │
+    │               └── Phase 6: Skills Framework
+    │
+    └── (All phases depend on Phase 1)
+```
+
+### 4.2 Detailed Dependencies
+
+```
+Phase 1 (Foundation)
+  └── Required by: ALL OTHER PHASES
+  └── Provides: Forked core, branding, loomworks_core module
+
+Phase 2 (AI Integration)
+  └── Requires: Phase 1
+  └── Provides: loomworks.ai.* models, MCP server, AI hooks
+  └── Required by: Phase 5 (snapshot extends ai.operation.log)
+                   Phase 6 (skills use AI tools)
+
+Phase 3.1 (Studio/Spreadsheet)
+  └── Requires: Phase 1
+  └── Optional: Phase 2 (AI tools for Studio)
+              Phase 4 (React bridge for charts) *
+  └── Provides: Studio view editing, spreadsheet view type
+
+Phase 3.2 (PLM/Sign/Appointment)
+  └── Requires: Phase 1
+  └── Provides: Signature field type (core), PLM versioning, appointment booking
+
+Phase 3.3 (Payroll/FSM/Planning)
+  └── Requires: Phase 1
+  └── Provides: Gantt view type (core), PWA infrastructure
+
+Phase 4 (Dashboard)
+  └── Requires: Phase 1
+  └── Optional: Phase 2 (AI dashboard generation)
+  └── Provides: React bridge (core), dashboard view type
+
+Phase 5 (Infrastructure)
+  └── Requires: Phase 1, Phase 2
+  └── Provides: Multi-tenant routing, snapshot system, Docker/K8s infrastructure
+
+Phase 6 (Skills Framework)
+  └── Requires: Phase 2, Phase 5
+  └── Provides: ir.actions.skill action type, session recording, intent matching
+```
+
+*Note: Phase 3.1 Spreadsheet can work without React, but advanced chart rendering benefits from React bridge. Implementation order flexibility exists.
+
+---
+
+## 5. New Core Components Alignment
+
+### 5.1 Native View Types Registration
+
+All new view types follow the consistent pattern in `odoo/addons/base/models/ir_ui_view.py`:
 
 ```python
-# Proposed pattern for Phase 3 modules to add AI tools
-class Module_AIToolProvider:
-    """Mixin for modules providing AI tools."""
-
-    @api.model
-    def _register_ai_tools(self):
-        """Called during module installation to register tools."""
-        pass
+type = fields.Selection(selection_add=[
+    ('spreadsheet', 'Spreadsheet'),  # Phase 3.1
+    ('gantt', 'Gantt'),              # Phase 3.3
+    ('dashboard', 'Dashboard'),       # Phase 4
+], ondelete={...})
 ```
 
-### 3.2 Snapshot System (Phase 5) with AI Rollback (Phase 2)
+**Status**: CONSISTENT across proposals
 
-**Status**: WELL INTEGRATED (R1 RESOLVED)
+### 5.2 React Bridge Availability
 
-The integration is properly designed with clear model ownership:
+| Component | Needs React Bridge | Phase Available |
+|-----------|-------------------|-----------------|
+| Spreadsheet charts (advanced) | Optional | 4 |
+| Dashboard builder | Required | 4 |
+| Graph view (Recharts) | Required | 4 |
+| Pivot view (enhanced) | Required | 4 |
 
-1. **Phase 2** defines `loomworks.ai.operation.log` as the canonical model for AI audit trail
-2. **Phase 2** defines `AIOperationSandbox` with savepoint-based rollback
-3. **Phase 5** EXTENDS `loomworks.ai.operation.log` to add `snapshot_id` for PITR integration
-4. **Phase 5** depends on `loomworks_ai` module (explicit dependency)
-5. **Phase 5** design mentions "Pre-AI Operation Snapshots"
+**Issue Identified**: Phase 3.1 Spreadsheet design includes Univer charts that may benefit from the React bridge, but Phase 4 introduces the React bridge.
 
-**Connection Points Verified**:
-- `loomworks.ai.operation.log.session_id` -> `loomworks.ai.session` (Phase 2)
-- `loomworks.ai.operation.log.snapshot_id` -> `loomworks.snapshot` (Phase 5 extension)
-- Pre-AI snapshot triggers integrated with session workflow
+**Resolution Options**:
+1. **Recommended**: Spreadsheet uses Univer's native chart rendering (no React dependency)
+2. Alternative: Move React bridge to Phase 3.1 (increases scope)
 
-**RESOLVED**: Phase 2 now owns the `loomworks.ai.operation.log` model. Phase 5's `loomworks_snapshot` module extends it via `_inherit` to add the `snapshot_id` field for PITR integration. The dependency chain is: `loomworks_snapshot` depends on `loomworks_ai`.
+**Decision**: Spreadsheet (Phase 3.1) will use Univer's native capabilities. Enhanced React-based chart integration will be added as an optional enhancement after Phase 4 completes.
 
-### 3.3 Dashboard System (Phase 4) with AI Integration (Phase 2)
+### 5.3 Signature Field Type
 
-**Status**: WELL INTEGRATED
+Phase 3.2 adds a native `Signature` field type to `odoo/odoo/fields.py`:
 
-Integration points:
-- AI dashboard generation via Claude (defined in Phase 4)
-- `dashboard.board.ai_generated` and `dashboard.board.ai_prompt` fields
-- AI tools for dashboard operations (implicit)
+```python
+class Signature(Field):
+    type = 'signature'
+    column_type = ('jsonb', 'jsonb')
+```
 
-**Verified**: Phase 4 states optional dependency on `loomworks_ai` with graceful degradation.
+**Verification Points**:
+- [x] Registered in core fields.py
+- [x] Widget registered in `web/static/src/views/fields/signature/`
+- [x] Accessible to all modules after Phase 3.2
 
-### 3.4 Dashboard System (Phase 4) with Spreadsheet (Phase 3.1)
+### 5.4 Skills Action Type
 
-**Status**: COMPLEMENTARY - Minor overlap to address
+Phase 6 adds `ir.actions.skill` as a native action type:
 
-Both modules provide BI capabilities:
-- **Spreadsheet**: Excel-like interface with pivot tables and charts
-- **Dashboard**: Drag-drop canvas with KPI cards and real-time updates
+```python
+class IrActionsSkill(models.Model):
+    _name = 'ir.actions.skill'
+    _inherit = 'ir.actions.actions'
+```
 
-**Potential Overlap**: Both can display charts and aggregated data.
+**Verification Points**:
+- [x] Located in `odoo/odoo/addons/base/models/ir_actions_skill.py`
+- [x] Inherits from `ir.actions.actions`
+- [x] Registered in action manager
+- [x] Requires Phase 2 AI tools for execution
+- [x] Requires Phase 5 snapshots for rollback
 
-**Recommendation**: Clearly differentiate use cases in documentation:
-- Spreadsheet = Ad-hoc analysis, data manipulation, Excel replacement
-- Dashboard = Real-time monitoring, KPI display, executive views
+### 5.5 PWA Infrastructure
 
-### 3.5 Studio (Phase 3.1) with Custom Models
+Phase 3.3 adds PWA support in `odoo/addons/web/static/src/core/pwa/`:
 
-**Status**: WELL DESIGNED
-
-Studio's dynamic model creation properly uses Odoo's `ir.model` and `ir.model.fields` APIs with `state='manual'` and `x_` prefix convention. This ensures:
-- Studio-created models work with all other modules
-- AI tools can operate on Studio-created models
-- Dashboard can use Studio models as data sources
-- Spreadsheet can query Studio models
-
-### 3.6 Skills Framework (Phase 6) with All Modules
-
-**Status**: PROPERLY ARCHITECTED
-
-Phase 6 correctly depends on:
-- Phase 2 for `loomworks.ai.tool` bindings
-- Phase 5 for execution snapshots and rollback
-- Implicitly works with all Phase 3 modules via generic MCP tools
-
-**Integration Verified**:
-- `loomworks.skill.tool_ids` -> `loomworks.ai.tool` (Many2many)
-- `loomworks.skill.execution.snapshot_id` -> `loomworks.snapshot`
-- `loomworks.skill.execution.session_id` -> `loomworks.ai.session`
+**Verification Points**:
+- [x] Service worker at `core/pwa/service_worker.js`
+- [x] PWA service at `core/pwa/pwa_service.js`
+- [x] Offline capabilities for FSM mobile views
+- [x] Available to all modules after Phase 3.3
 
 ---
 
-## 4. Technical Consistency Analysis
+## 6. Distribution Compatibility
 
-### 4.1 Odoo Version Compatibility
+### 6.1 Docker Image Verification
 
-**Status**: CONSISTENT
+Phase 5 defines Docker image structure that must include:
 
-All proposals assume Odoo Community v18:
-- Phase 1: Explicitly forks v18
-- All modules: Use `version: '18.0.x.x.x'` format
-- Views use `<list>` (v18) not `<tree>` (deprecated)
-- Asset bundles follow v18 patterns
+| Component | Source | Included |
+|-----------|--------|----------|
+| Forked Odoo core | `/odoo/` | YES |
+| Loomworks addons | `/loomworks_addons/` | YES |
+| React libraries | `web/static/lib/react/` | YES (after Phase 4) |
+| Univer libraries | `spreadsheet/static/lib/univer/` | YES (after Phase 3.1) |
+| Node.js runtime | System dependency | YES (>= 20.0.0 LTS) |
+| Python dependencies | `requirements.txt` | YES |
 
-### 4.2 Python/JS Library Versions
+**Addons path in container**: `/opt/loomworks/odoo/addons,/opt/loomworks/addons`
 
-**Status**: CONSISTENT with one clarification needed
+### 6.2 CI/CD Workflow Coverage
 
-| Library | Specified Version | Notes |
-|---------|------------------|-------|
-| Python | 3.10+ | Consistent across all |
-| PostgreSQL | 15+ | Required for WAL features |
-| Node.js | **20.0.0+ LTS** | **RESOLVED**: Required for dashboard/spreadsheet builds |
-| React | 18+ | Phase 4 dashboard |
-| Univer | Latest | Phase 3.1 spreadsheet (Apache-2.0), requires Node.js >= 18.17.0 |
+Phase 5 CI/CD workflows must test:
 
-**Status**: Node.js version requirement now specified in project.md, Phase 3.1, and Phase 4.
+| Component | Test Type | Status |
+|-----------|-----------|--------|
+| Core modifications | Unit tests | Covered (`pytest odoo/`) |
+| Loomworks addons | Unit tests | Covered (`pytest loomworks_addons/`) |
+| View types (Spreadsheet, Gantt, Dashboard) | Frontend tests | QUnit in CI |
+| React components | Jest tests | Covered in Phase 4 |
+| Integration | Docker compose tests | Covered |
 
-### 4.3 Security Model Consistency
+### 6.3 Rebrand Script Compatibility
 
-**Status**: CONSISTENT
+Phase 1 rebrand script (`scripts/rebrand.py`) must handle:
 
-All modules follow the same security patterns:
+| Pattern | Files Affected | Status |
+|---------|---------------|--------|
+| Logo replacements | `web/static/img/*` | Covered |
+| Text replacements | All `.py`, `.js`, `.xml` | Covered |
+| Manifest updates | `__manifest__.py` files | Covered |
+| React components | `*.jsx` files | **ADD** to file handlers |
+| SCSS variables | `primary_variables.scss` | Covered |
 
-1. **Access Control Groups**:
-   - `group_*_user` - Basic access
-   - `group_*_manager` - Full CRUD
-   - `group_*_admin` - System configuration
-
-2. **Sensitive Model Protection**:
-   - AI cannot access: `res.users`, `ir.config_parameter`, `ir.rule`, `ir.model.access`
-   - Consistent across Phase 2 (AI) and Phase 6 (Skills)
-
-3. **Multi-tenant Isolation**:
-   - Database-per-tenant (Phase 5)
-   - Subdomain routing via `dbfilter`
-   - Record rules for tenant filtering
-
-4. **Audit Logging**:
-   - All AI operations logged to `ai.operation.log`
-   - Studio changes logged
-   - Tenant operations audited
-
-### 4.4 Logging and Audit Patterns
-
-**Status**: CONSISTENT
-
-All proposals reference a common audit pattern:
-- Odoo's `mail.thread` for record chatter
-- `mail.activity.mixin` for activities
-- Custom audit models where needed (`ai.operation.log`, Studio audit)
-- `tracking=True` on sensitive fields
-
----
-
-## 5. Issues Found
-
-### 5.1 Critical Issues
-
-**None identified.** The proposals are architecturally sound.
-
-### 5.2 High Priority Issues
-
-#### Issue H1: Missing Explicit ai.operation.log Definition Location
-
-**Severity**: HIGH (RESOLVED)
-**Location**: Phase 2 vs Phase 5
-
-**Description**: Phase 2 (AI Integration) references operation logging but the `ai.operation.log` model was defined in Phase 5 (Infrastructure). This created a circular dependency concern.
-
-**Impact**: If Phase 2 is deployed before Phase 5, operation logging will not work.
-
-**Resolution Applied** (2026-02-05):
-- **Phase 2 owns `loomworks.ai.operation.log`**: The canonical model is defined in Phase 2 with full audit trail fields (session_id, operation_type, values_before/after, state, etc.)
-- **Phase 5 extends via `_inherit`**: The `loomworks_snapshot` module now uses `_inherit = 'loomworks.ai.operation.log'` to add `snapshot_id` and `undone`/`undone_at` fields
-- **Explicit dependency declared**: `loomworks_snapshot` manifest now lists `loomworks_ai` as a required dependency
-- **Consistent model naming**: Changed from `ai.operation.log` to `loomworks.ai.operation.log` for namespace consistency
-
-**Status**: RESOLVED - No circular dependency. Clear ownership chain established.
-
-#### Issue H2: Node.js Version Unspecified
-
-**Severity**: HIGH (RESOLVED)
-**Location**: Phase 3.1, Phase 4
-
-**Description**: Frontend builds require Node.js but version is not specified.
-
-**Impact**: Build failures or inconsistencies across environments.
-
-**Resolution Applied** (2026-02-05):
-- **project.md**: Added comprehensive Runtime Environment Requirements table with Node.js >= 20.0.0 LTS
-- **Phase 3.1 design.md**: Added Runtime Requirements section with Node.js >= 20.0.0 and rationale
-- **Phase 4 proposal**: Added Runtime Requirements section with Node.js >= 20.0.0 and rationale
-- **Version Policy**: Node.js 20 LTS recommended (security support until April 2026), Node.js 22 LTS also supported
-- **Rationale documented**: Univer requires >= 18.17.0, Node.js 18 EOL was April 2025
-
-**Status**: RESOLVED - Consistent Node.js >= 20.0.0 requirement across all proposals.
-
-### 5.3 Medium Priority Issues
-
-#### Issue M1: AI Tool Registration Pattern Undefined
-
-**Severity**: MEDIUM
-**Location**: Phase 2, Phase 3 modules
-
-**Description**: Phase 3 modules define AI tools (e.g., `studio_create_app`) but no standard registration pattern exists.
-
-**Impact**: Inconsistent tool implementation across modules.
-
-**Recommendation**: Add to Phase 2 design.md a `ToolProvider` mixin pattern that Phase 3 modules inherit.
-
-#### Issue M2: Dashboard Data Source Support for Phase 3 Modules
-
-**Severity**: MEDIUM
-**Location**: Phase 4
-
-**Description**: Dashboard data sources should explicitly list support for Phase 3 module models.
-
-**Impact**: Users may not realize Phase 3 data is queryable from dashboards.
-
-**Recommendation**: Add to Phase 4 spec.md:
-```markdown
-### Supported Models
-The Dashboard system SHALL support data sources from:
-- All Odoo Community models (sales, inventory, etc.)
-- All Loomworks Phase 3 modules (PLM ECOs, Payslips, FSM Tasks, etc.)
-- Studio-created custom models (x_* prefix)
-```
-
-#### Issue M3: Spreadsheet/Dashboard Overlap Not Addressed
-
-**Severity**: MEDIUM
-**Location**: Phase 3.1, Phase 4
-
-**Description**: Both provide charting and data visualization. No guidance on when to use which.
-
-**Impact**: User confusion, potential duplicate implementations.
-
-**Recommendation**: Add a "When to Use" section to both specs:
-- Spreadsheet: Ad-hoc analysis, data manipulation, formulas, Excel replacement
-- Dashboard: Real-time monitoring, executive KPIs, interactive filtering
-
-#### Issue M4: PLM-Sign Integration Incomplete
-
-**Severity**: MEDIUM
-**Location**: Phase 3.2
-
-**Description**: PLM proposal mentions optional `loomworks_sign` integration for ECO approvals (`plm.eco.approval.signature` field) but integration details are minimal.
-
-**Impact**: Digital signature workflow may not be fully implemented.
-
-**Recommendation**: Add explicit integration requirements to PLM spec:
-```markdown
-### Requirement: Digital Signature Integration
-When `loomworks_sign` is installed, ECO approvals SHALL support:
-- Digital signature capture via Sign module
-- Signature verification display
-- Audit trail linking to Sign request
-```
-
-### 5.4 Low Priority Issues
-
-#### Issue L1: Skill SKILL.md Format vs Odoo XML Data
-
-**Severity**: LOW
-**Location**: Phase 6
-
-**Description**: Skills export as SKILL.md files but Odoo typically uses XML for data. Import/export may need dual format support.
-
-**Impact**: Minor friction for Odoo administrators expecting XML.
-
-**Recommendation**: Support both formats - SKILL.md for human editing and XML export for Odoo standard tools.
-
-#### Issue L2: Timezone Handling Across Sessions
-
-**Severity**: LOW
-**Location**: Phase 2, Phase 5
-
-**Description**: AI sessions capture user timezone but snapshot restore might cross timezone boundaries.
-
-**Impact**: Minor display issues in restored data timestamps.
-
-**Recommendation**: Store all timestamps in UTC; convert only for display.
-
-#### Issue L3: Performance Benchmarks Need Consolidation
-
-**Severity**: LOW
-**Location**: All phases
-
-**Description**: Performance targets are scattered across proposals.
-
-**Impact**: No single source of truth for performance requirements.
-
-**Recommendation**: Add a `PERFORMANCE_REQUIREMENTS.md` document consolidating all targets:
-- AI response: < 3 seconds
-- Snapshot creation: < 30 seconds
-- PITR restore: < 15 minutes
-- Dashboard render: < 1 second
-- Page load: < 1 second additional from branding
-
----
-
-## 6. Recommendations
-
-### 6.1 Required Actions (Block deployment if not addressed)
-
-| # | Action | Phase | Owner | Priority | Status |
-|---|--------|-------|-------|----------|--------|
-| R1 | Define `ai.operation.log` model location explicitly | Phase 2/5 | Architect | HIGH | **RESOLVED** |
-| R2 | Specify Node.js version requirements | Phase 3.1, 4 | DevOps | HIGH | **RESOLVED** |
-
-### 6.2 Recommended Improvements
-
-| # | Action | Phase | Impact |
-|---|--------|-------|--------|
-| R3 | Add AI tool registration pattern documentation | Phase 2 | Enables consistent Phase 3 tool implementation |
-| R4 | Document Dashboard vs Spreadsheet use cases | Phase 3.1, 4 | Reduces user confusion |
-| R5 | Complete PLM-Sign integration specification | Phase 3.2 | Ensures feature completeness |
-| R6 | Create consolidated PERFORMANCE_REQUIREMENTS.md | Project | Single source of truth |
-| R7 | Add explicit Dashboard support for Phase 3 models | Phase 4 | User guidance |
-
-### 6.3 Future Considerations
-
-| # | Consideration | Timeline |
-|---|---------------|----------|
-| F1 | PgBouncer connection pooling (mentioned as Phase 6+) | Post-launch |
-| F2 | Multi-region active-active replication | Phase 7+ |
-| F3 | Real-time streaming replication standby | Phase 7+ |
-| F4 | Mobile app builder for Studio | Future enhancement |
+**Recommendation**: Ensure rebrand script handles `.jsx` files added in Phase 4.
 
 ---
 
 ## 7. LGPL v3 Compliance Check
 
-### Status: COMPLIANT
+### 7.1 Modification Markers
 
-All proposals maintain consistent LGPL v3 compliance:
+All core modifications must include the `LOOMWORKS-*` comment marker:
 
-| Checkpoint | Status | Notes |
-|------------|--------|-------|
-| No Enterprise code copying | PASS | Explicitly stated in all Phase 3 modules |
-| LGPL-3 license declaration | PASS | All manifests declare `'license': 'LGPL-3'` |
-| Attribution to Odoo | PASS | Phase 1 includes proper attribution |
-| Source availability | PASS | Open-source model confirmed |
-| Third-party library licenses | PASS | Univer (Apache-2.0), React (MIT), Frappe Gantt (MIT) |
+| Phase | Marker Pattern | Verified |
+|-------|---------------|----------|
+| 1 | `LOOMWORKS-CORE` | YES |
+| 2 | `LOOMWORKS-AI` | YES |
+| 3.1 | `LOOMWORKS-STUDIO`, `LOOMWORKS-SPREADSHEET` | YES |
+| 3.2 | `LOOMWORKS-PLM`, `LOOMWORKS-SIGN` | YES |
+| 3.3 | `LOOMWORKS-GANTT`, `LOOMWORKS-PWA`, `LOOMWORKS-PAYROLL` | YES |
+| 4 | `LOOMWORKS-DASHBOARD`, `LOOMWORKS-REACT` | YES |
+| 5 | `LOOMWORKS-TENANT`, `LOOMWORKS-SNAPSHOT` | YES |
+| 6 | `LOOMWORKS-SKILLS` | YES |
+
+### 7.2 Attribution Requirements
+
+| Requirement | Status |
+|-------------|--------|
+| Original Odoo copyright in modified files | REQUIRED |
+| Loomworks copyright addition | REQUIRED |
+| LICENSE file at repository root | REQUIRED |
+| About dialog attribution | REQUIRED |
+| README attribution section | REQUIRED |
+
+**Template for modified files**:
+```python
+# -*- coding: utf-8 -*-
+# Loomworks ERP - An AI-first ERP system
+# Copyright (C) 2024-2026 Loomworks
+#
+# Based on Odoo Community Edition
+# Copyright (C) 2004-2024 Odoo S.A. <https://www.odoo.com>
+#
+# License: LGPL-3 (see LICENSE file)
+#
+# LOOMWORKS-[MARKER]: [Brief description of modification]
+```
 
 ---
 
-## 8. Sign-off Checklist
+## 8. Issues Found
 
-### Ready for Implementation
+### 8.1 Critical Issues
 
-- [x] Phase 1: Foundation & Branding - **READY**
-- [x] Phase 2: AI Integration - **READY** (with R1 addressed)
-- [x] Phase 3.1: Studio & Spreadsheet - **READY** (with R2 addressed)
-- [x] Phase 3.2: PLM, Sign, Appointment - **READY** (R5 recommended)
-- [x] Phase 3.3: Payroll, FSM, Planning - **READY**
-- [x] Phase 4: Dashboard System - **READY** (with R2 addressed)
-- [x] Phase 5: Infrastructure & Snapshots - **READY** (with R1 addressed)
-- [x] Phase 6: Skills Framework - **READY**
+**None identified.** All proposals are architecturally sound and compatible.
 
-### Pre-Implementation Requirements
+### 8.2 High Priority Issues
 
-Before beginning implementation:
+All HIGH priority issues from Revision 1 have been **RESOLVED**:
 
-1. [x] **R1**: Clarify `ai.operation.log` model ownership (Phase 2 or Phase 5) - **RESOLVED 2026-02-05**: Phase 2 owns, Phase 5 extends
-2. [x] **R2**: Add Node.js 20+ requirement to project.md - **RESOLVED 2026-02-05**: Node.js >= 20.0.0 LTS added to project.md, Phase 3.1, and Phase 4
-3. [ ] Create PERFORMANCE_REQUIREMENTS.md consolidating all targets
+| Issue | Resolution | Status |
+|-------|------------|--------|
+| H1: ai.operation.log ownership | Phase 2 owns model, Phase 5 extends via `_inherit` | **RESOLVED** |
+| H2: Node.js version unspecified | Node.js >= 20.0.0 LTS specified in project.md, Phase 3.1, Phase 4 | **RESOLVED** |
 
-### Post-Review Actions
+### 8.3 Medium Priority Issues
 
-1. Update Phase 2 proposal with operation log model decision
-2. Update Phase 3.1 and Phase 4 with Node.js requirements
-3. Add AI tool registration pattern to Phase 2 design.md
-4. Enhance Phase 3.2 PLM-Sign integration specification
+All MEDIUM priority issues have been **RESOLVED** in Revision 2.1:
+
+#### Issue M1: React Bridge Timing (RESOLVED)
+
+**Severity**: MEDIUM
+**Location**: Phase 3.1, Phase 4
+**Status**: **RESOLVED** (2026-02-05)
+
+**Description**: The React bridge is defined in Phase 4, but Phase 3.1 Spreadsheet design mentions potential React usage for chart rendering.
+
+**Research Finding**: Univer spreadsheet library **requires React** as a runtime dependency (React 18.3.1+, ReactDOM, RxJS).
+
+**Resolution**:
+- React libraries are now loaded in Phase 3.1 asset bundle as a Univer dependency
+- Phase 4 Dashboard reuses the already-loaded React instance
+- Phase 3.1 design.md updated with "React Dependency Clarification (M1 Resolution)" section
+- Asset bundle order ensures React is available for all downstream consumers
+
+**Files Modified**: `/openspec/changes/phase3-tier1-studio-spreadsheet/design.md`
+
+#### Issue M2: PWA Service Worker Scope (RESOLVED)
+
+**Severity**: MEDIUM
+**Location**: Phase 3.3
+**Status**: **RESOLVED** (2026-02-05)
+
+**Description**: PWA service worker registers with scope `/`, which affects all Odoo URLs.
+
+**Resolution**: Implemented FSM-specific route whitelist that restricts offline caching to FSM routes only:
+
+```javascript
+// M2 RESOLUTION: FSM-Specific Route Whitelist
+const FSM_ROUTE_WHITELIST = [
+    '/fsm/',                      // FSM main routes
+    '/my/tasks/',                 // Portal task views
+    '/my/fsm/',                   // Portal FSM views
+    '/web/dataset/call_kw/project.task/action_fsm',
+    '/web/dataset/call_kw/fsm.',  // All FSM model calls
+    '/loomworks_fsm/',            // Module-specific routes
+];
+
+// Non-FSM routes pass through without PWA interference
+if (!isFSMRoute(url) && !isFSMStaticAsset(url)) {
+    return; // Pass through to network
+}
+```
+
+**Files Modified**: `/openspec/proposals/phase3-tier3-payroll-fsm-planning.md`
+
+#### Issue M3: Skills Execution Depends on Snapshot (RESOLVED)
+
+**Severity**: MEDIUM
+**Location**: Phase 6
+**Status**: **RESOLVED** (2026-02-05)
+
+**Description**: Skills framework uses snapshots for rollback, creating a hard dependency on Phase 5.
+
+**Resolution**: Added explicit dependency documentation and graceful degradation:
+
+- Phase 2 (AI Integration): **REQUIRED** dependency
+- Phase 5 (Snapshots): **OPTIONAL** dependency with graceful degradation
+- When Phase 5 is not installed, Skills Framework uses PostgreSQL SAVEPOINTs for transaction-level rollback
+- When Phase 5 is installed, full PITR database-level rollback is available
+- User notification when running in degraded mode
+
+**Files Modified**: `/openspec/proposals/phase6-skills-framework.md`
+
+#### Issue M4: AI Tool Registration Pattern (RESOLVED)
+
+**Severity**: MEDIUM
+**Location**: Phase 2, Phase 3 modules
+**Status**: **RESOLVED** (2026-02-05)
+
+**Description**: Phase 3 modules define AI tools (e.g., `studio_create_app`) but no standard registration pattern exists in Phase 2 design.
+
+**Resolution**: Implemented `ToolProvider` mixin pattern following Odoo registry patterns:
+
+```python
+class AIToolProvider(models.AbstractModel):
+    _name = 'loomworks.ai.tool.provider'
+
+    @api.model
+    def _get_tool_definitions(self):
+        """Override to return list of tool definition dicts."""
+        return []
+
+    @api.model
+    def _register_tools(self):
+        """Auto-register tools on module installation."""
+        # Creates/updates loomworks.ai.tool records
+
+# Usage in Phase 3+ modules:
+class StudioToolProvider(models.AbstractModel):
+    _name = 'studio.tool.provider'
+    _inherit = 'loomworks.ai.tool.provider'
+
+    @api.model
+    def _get_tool_definitions(self):
+        return [
+            {'technical_name': 'studio_create_app', ...},
+            {'technical_name': 'studio_add_field', ...},
+        ]
+```
+
+- JavaScript registry added for frontend-only tools
+- Module hooks for auto-registration on install/uninstall
+- Full examples provided for Studio and FSM modules
+
+**Files Modified**: `/openspec/proposals/phase2-ai-integration.md`
+
+### 8.4 Low Priority Issues
+
+| Issue | Description | Status |
+|-------|-------------|--------|
+| L1: Skill SKILL.md format | Support both SKILL.md and XML export | DOCUMENTED |
+| L2: Timezone handling | Store all timestamps in UTC | DOCUMENTED |
+| L3: Performance benchmarks | Create PERFORMANCE_REQUIREMENTS.md | RECOMMENDED |
+
+---
+
+## 9. Integration Verification
+
+### 9.1 Cross-Phase Model References
+
+| Model | Defined In | Extended By | Referenced By | Status |
+|-------|------------|-------------|---------------|--------|
+| `loomworks.ai.session` | Phase 2 | - | Phase 5, Phase 6 | VERIFIED |
+| `loomworks.ai.tool` | Phase 2 | - | Phase 3 (all), Phase 4, Phase 6 | VERIFIED |
+| `loomworks.ai.operation.log` | Phase 2 | Phase 5 (adds `snapshot_id`) | Phase 6 | VERIFIED |
+| `loomworks.snapshot` | Phase 5 | - | Phase 2 (rollback), Phase 6 | VERIFIED |
+| `loomworks.tenant` | Phase 5 | - | All hosted modules | VERIFIED |
+| `dashboard.data_source` | Phase 4 | - | Phase 3.1 (spreadsheet) | VERIFIED |
+| `ir.actions.skill` | Phase 6 | - | Phase 2 (agent binding) | VERIFIED |
+
+### 9.2 Core Service Dependencies
+
+| Service | Defined In | Used By | Status |
+|---------|------------|---------|--------|
+| `studioService` | Phase 3.1 (core) | loomworks_studio addon | VERIFIED |
+| `reactBridgeService` | Phase 4 (core) | loomworks_dashboard, enhanced graph/pivot | VERIFIED |
+| `pwaService` | Phase 3.3 (core) | loomworks_fsm addon | VERIFIED |
+| `aiService` | Phase 2 (core) | All AI-enabled modules | VERIFIED |
+| `skillRecorderService` | Phase 6 (core) | Skills framework | VERIFIED |
+
+### 9.3 View Type Registration
+
+| View Type | Registered In | arch parser | Controller | Model | Renderer | Status |
+|-----------|---------------|-------------|------------|-------|----------|--------|
+| spreadsheet | Phase 3.1 | YES | YES | YES | YES | COMPLETE |
+| gantt | Phase 3.3 | YES | YES | YES | YES | COMPLETE |
+| dashboard | Phase 4 | YES | YES | YES | YES | COMPLETE |
+
+---
+
+## 10. Sign-off Status
+
+### Phase Sign-off Checklist
+
+| Phase | Title | Status | Blocking Issues | Ready |
+|-------|-------|--------|-----------------|-------|
+| 1 | Foundation & Branding | APPROVED | None | YES |
+| 2 | AI Integration | APPROVED | None | YES |
+| 3.1 | Studio & Spreadsheet | APPROVED | None (React optional) | YES |
+| 3.2 | PLM, Sign, Appointment | APPROVED | None | YES |
+| 3.3 | Payroll, FSM, Planning | APPROVED | M2 (minor) | YES |
+| 4 | Dashboard System | APPROVED | None | YES |
+| 5 | Infrastructure | APPROVED | None | YES |
+| 6 | Skills Framework | APPROVED | None | YES |
+
+### Pre-Implementation Checklist
+
+- [x] All proposals reference consistent fork location (`/odoo/`)
+- [x] Core modification paths documented in each proposal
+- [x] Dependency chain validated (no circular dependencies)
+- [x] `loomworks.ai.operation.log` ownership clarified (Phase 2 owns, Phase 5 extends)
+- [x] Node.js version specified (>= 20.0.0 LTS)
+- [x] View type registration consistent across proposals
+- [x] LGPL attribution requirements documented
+- [x] React dependency clarified for Phase 3.1 Spreadsheet (M1 RESOLVED)
+- [x] PWA URL filtering strategy documented for Phase 3.3 (M2 RESOLVED)
+- [x] Skills Framework dependency on Phase 5 documented with graceful degradation (M3 RESOLVED)
+- [x] AI tool registration pattern added to Phase 2 (M4 RESOLVED)
+- [ ] Create PERFORMANCE_REQUIREMENTS.md (RECOMMENDED)
+
+---
+
+## 11. Recommendations Summary
+
+### Required Before Implementation
+
+1. **None** - All blocking issues resolved
+
+### Completed Improvements (M1-M4 Resolution)
+
+| # | Recommendation | Phase | Status |
+|---|---------------|-------|--------|
+| R1 | Add `ToolProvider` mixin pattern documentation | Phase 2 | **COMPLETED** (M4) |
+| R2 | Document PWA route filtering for FSM | Phase 3.3 | **COMPLETED** (M2) |
+
+### Remaining Recommended Improvements
+
+| # | Recommendation | Phase | Impact |
+|---|---------------|-------|--------|
+| R3 | Create consolidated PERFORMANCE_REQUIREMENTS.md | Project | Single source of truth for performance targets |
+| R4 | Add `.jsx` handling to rebrand script | Phase 1 | Ensures React components are rebranded |
+| R5 | Document Dashboard vs Spreadsheet use cases | Phase 3.1, 4 | User guidance |
+
+### Future Considerations
+
+| # | Consideration | Timeline |
+|---|---------------|----------|
+| F1 | PgBouncer connection pooling | Phase 6+ |
+| F2 | Multi-region deployment | Phase 7+ |
+| F3 | Mobile app builder for Studio | Future |
+| F4 | Real-time collaboration for Spreadsheet | Future |
 
 ---
 
 ## Appendix A: Model Name Consistency Check
 
-All models follow the `loomworks.*` or domain-specific naming convention:
+All models follow consistent naming conventions:
 
-| Module | Model Names | Status |
-|--------|-------------|--------|
-| loomworks_ai | `loomworks.ai.agent`, `loomworks.ai.session`, `loomworks.ai.tool`, `loomworks.ai.message` | CONSISTENT |
-| loomworks_studio | `studio.app`, `studio.view.customization`, `studio.automation` | CONSISTENT |
-| loomworks_spreadsheet | `spreadsheet.document`, `spreadsheet.data.source`, `spreadsheet.pivot`, `spreadsheet.chart` | CONSISTENT |
-| loomworks_plm | `plm.eco`, `plm.eco.type`, `plm.eco.stage`, `plm.bom.revision` | CONSISTENT |
-| loomworks_sign | `sign.request`, `sign.item`, `sign.template` | CONSISTENT |
-| loomworks_appointment | `appointment.type`, `appointment.slot` | CONSISTENT |
-| loomworks_payroll | `hr.payroll.structure`, `hr.salary.rule`, `hr.payslip` | CONSISTENT (follows hr.* pattern) |
-| loomworks_fsm | `fsm.worksheet.template`, `fsm.material.line` (extends `project.task`) | CONSISTENT |
-| loomworks_planning | `planning.slot`, `planning.shift` | CONSISTENT |
-| loomworks_dashboard | `dashboard.board`, `dashboard.widget`, `dashboard.data_source` | CONSISTENT |
-| loomworks_tenant | `loomworks.tenant` | CONSISTENT |
-| loomworks_snapshot | `loomworks.snapshot`, extends `loomworks.ai.operation.log` | CONSISTENT |
-| loomworks_skills | `loomworks.skill`, `loomworks.skill.step`, `loomworks.skill.execution` | CONSISTENT |
+| Namespace | Pattern | Examples |
+|-----------|---------|----------|
+| AI | `loomworks.ai.*` | `loomworks.ai.agent`, `loomworks.ai.session` |
+| Studio | `studio.*` | `studio.app`, `studio.view.customization` |
+| Spreadsheet | `spreadsheet.*` | `spreadsheet.document`, `spreadsheet.data.source` |
+| PLM | `plm.*` | `plm.eco`, `plm.eco.type` |
+| Sign | `sign.*` | `sign.request`, `sign.item` |
+| Appointment | `appointment.*` | `appointment.type`, `appointment.slot` |
+| Payroll | `hr.payroll.*` | `hr.payroll.structure`, `hr.salary.rule` |
+| Planning | `planning.*` | `planning.slot`, `planning.shift` |
+| Dashboard | `dashboard.*` | `dashboard.board`, `dashboard.widget` |
+| Tenant | `loomworks.tenant` | - |
+| Snapshot | `loomworks.snapshot` | - |
+| Skills | `loomworks.skill*` / `ir.actions.skill*` | `loomworks.skill`, `ir.actions.skill` |
 
 ---
 
-## Appendix B: Security Group Consistency
+## Appendix B: Forked Core File Summary
 
-| Module | User Group | Manager Group | Admin Group |
-|--------|------------|---------------|-------------|
-| AI | `group_ai_user` | `group_ai_manager` | - |
-| Studio | `group_studio_user` | `group_studio_manager` | `group_studio_admin` |
-| Spreadsheet | `group_spreadsheet_user` | - | - |
-| PLM | `group_plm_user` | `group_plm_manager` | - |
-| Sign | `group_sign_user` | `group_sign_manager` | - |
-| Payroll | `group_payroll_user` | `group_payroll_manager` | `group_payroll_admin` |
-| FSM | `group_fsm_user` | `group_fsm_manager` | - |
-| Dashboard | `group_dashboard_user` | - | - |
-| Tenant | `group_tenant_user` | `group_tenant_admin` | - |
+Total files modified in forked Odoo core:
+
+| Category | Count | Notes |
+|----------|-------|-------|
+| Python core (`odoo/odoo/`) | 6 | release.py, http.py, models.py, api.py, fields.py, tools/pdf.py |
+| Python addons (`odoo/addons/`) | ~15 | Across base, web, mrp, calendar, portal, project, hr_contract |
+| JavaScript/Owl (`web/static/src/`) | ~30 | New view types, services, components |
+| SCSS (`web/static/src/scss/`) | 5 | Branding, view styles |
+| XML templates | ~20 | View definitions, component templates |
 
 ---
 
 **Review Completed**: 2026-02-05
 **Next Review**: After implementation of Phase 1 and Phase 2
-**Document Version**: 1.0
+**Document Version**: 2.0
+
+---
+
+## Changelog
+
+### Version 2.1 (2026-02-05)
+- **M1 RESOLVED**: React Bridge Timing - React loads in Phase 3.1 for Univer, reused by Phase 4
+- **M2 RESOLVED**: PWA Service Worker Scope - Added FSM-specific route whitelist
+- **M3 RESOLVED**: Skills Dependency - Added explicit dependency documentation and graceful degradation
+- **M4 RESOLVED**: AI Tool Registration - Added ToolProvider mixin pattern to Phase 2
+- Updated Pre-Implementation Checklist with resolved items
+- Updated Recommendations Summary with completed items
+- All medium-priority issues now RESOLVED
+
+### Version 2.0 (2026-02-05)
+- Complete review of revised proposals with FULL FORK architecture
+- Added Core Modification Matrix (Section 2)
+- Added Conflict Analysis (Section 3)
+- Updated Dependency Graph with visual representation (Section 4)
+- Added New Core Components Alignment (Section 5)
+- Added Distribution Compatibility verification (Section 6)
+- Updated LGPL Compliance check with modification markers (Section 7)
+- Identified new medium-priority issues (M1, M2)
+- Confirmed all HIGH priority issues from v1.0 are RESOLVED
+- Added Integration Verification section (Section 9)
+- Updated Sign-off Status for all phases (Section 10)
+
+### Version 1.0 (2026-02-05)
+- Initial compatibility review
+- Identified H1 (ai.operation.log ownership) and H2 (Node.js version) issues

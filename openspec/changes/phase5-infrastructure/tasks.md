@@ -139,38 +139,41 @@
 
 ### 3.1 Dockerfile Creation
 - [ ] 3.1.1 Create multi-stage Dockerfile
-  - Builder stage: install Python dependencies
-  - Runtime stage: minimal image with Odoo + Loomworks
+  - Builder stage: install Python dependencies in venv
+  - Runtime stage: minimal Debian slim image with Loomworks
   - Include wkhtmltopdf for PDF generation
+  - Install Node.js and rtlcss for RTL support
 - [ ] 3.1.2 Configure entrypoint script
   - Wait for PostgreSQL availability
+  - Generate config from environment variables
   - Run database migrations
-  - Initialize Odoo configuration
   - Handle graceful shutdown
+  - Support multiple commands (loomworks, shell, scaffold)
 - [ ] 3.1.3 Add health check configuration
   - HTTP health endpoint on /web/health
   - Database connectivity check
-  - Redis connectivity check (if using)
+  - Appropriate start period for Odoo initialization
 
 ### 3.2 Docker Compose Configuration
 - [ ] 3.2.1 Create `docker-compose.yml`
-  - Odoo service with environment variables
+  - Loomworks service with environment variables
   - PostgreSQL 15 with WAL configuration
   - Redis for session storage
   - Nginx reverse proxy
+  - Network isolation
 - [ ] 3.2.2 Configure PostgreSQL for PITR
   - Mount custom postgresql.conf
   - Volume for WAL archive storage
   - Volume for base backups
 - [ ] 3.2.3 Create environment file template
   - Database credentials
-  - Odoo configuration options
+  - Loomworks configuration options
   - AI API keys placeholder
   - Backup configuration
 
 ### 3.3 Docker Volumes and Persistence
 - [ ] 3.3.1 Define volume structure
-  - `odoo_data` for filestore
+  - `loomworks_data` for filestore
   - `postgres_data` for database files
   - `wal_archive` for WAL segments
   - `backups` for base backups
@@ -209,25 +212,25 @@
   - Replication user credentials
   - Backup encryption key
 
-### 4.2 Odoo Deployment
-- [ ] 4.2.1 Create Odoo Deployment manifest
+### 4.2 Loomworks Deployment
+- [ ] 4.2.1 Create Loomworks Deployment manifest
   - Multiple replicas for high availability
   - Rolling update strategy
   - Resource requests and limits
-- [ ] 4.2.2 Configure ConfigMap for odoo.conf
+- [ ] 4.2.2 Configure ConfigMap for loomworks.conf
   - Database connection parameters
   - Worker configuration
   - Proxy mode settings
-- [ ] 4.2.3 Create Secret for Odoo credentials
+- [ ] 4.2.3 Create Secret for Loomworks credentials
   - Admin password
   - Database user credentials
   - AI API keys
 - [ ] 4.2.4 Configure PersistentVolumeClaim for filestore
   - ReadWriteMany access mode
-  - Shared across all Odoo pods
+  - Shared across all Loomworks pods
 
 ### 4.3 Services and Ingress
-- [ ] 4.3.1 Create ClusterIP Service for Odoo
+- [ ] 4.3.1 Create ClusterIP Service for Loomworks
   - Port 8069 for HTTP
   - Port 8072 for longpolling
 - [ ] 4.3.2 Create Headless Service for PostgreSQL
@@ -241,7 +244,7 @@
   - Wildcard certificate for *.loomworks.app
 
 ### 4.4 Horizontal Pod Autoscaling
-- [ ] 4.4.1 Create HorizontalPodAutoscaler for Odoo
+- [ ] 4.4.1 Create HorizontalPodAutoscaler for Loomworks
   - Min replicas: 2
   - Max replicas: 10
   - Target CPU utilization: 70%
@@ -256,54 +259,268 @@
 
 ### 4.5 Monitoring and Observability
 - [ ] 4.5.1 Create ServiceMonitor for Prometheus
-  - Odoo metrics endpoint
+  - Loomworks metrics endpoint
   - PostgreSQL metrics via postgres_exporter
 - [ ] 4.5.2 Configure logging
-  - Structured JSON logging from Odoo
+  - Structured JSON logging from Loomworks
   - Log aggregation configuration
 - [ ] 4.5.3 Create alerting rules
   - Pod restart alerts
   - Database connection pool exhaustion
   - Disk space warnings for backup volumes
 
-## 5. Testing and Verification
+## 5. Fork Distribution Strategy (Weeks 47-48)
 
-### 5.1 Unit Tests
-- [ ] 5.1.1 Test tenant model CRUD operations
-- [ ] 5.1.2 Test snapshot model CRUD operations
-- [ ] 5.1.3 Test AI operation log recording
-- [ ] 5.1.4 Test quota enforcement logic
+### 5.1 Repository Structure
+- [ ] 5.1.1 Set up monorepo structure
+  - Create `odoo/` directory for forked Odoo 18 core
+  - Organize `loomworks_addons/` for custom modules
+  - Create `infrastructure/` for deployment configs
+- [ ] 5.1.2 Create VERSION file
+  - Define LOOMWORKS_VERSION
+  - Track ODOO_VERSION
+  - Record ODOO_UPSTREAM_COMMIT
+  - Set RELEASE_DATE
+- [ ] 5.1.3 Initialize CHANGELOG.md
+  - Follow Keep a Changelog format
+  - Include sections: Added, Changed, Fixed, Security, Upstream Sync
+- [ ] 5.1.4 Set up upstream tracking branch
+  - Add Odoo as upstream remote
+  - Create `upstream/odoo-18.0` branch
+  - Document merge strategy
 
-### 5.2 Integration Tests
-- [ ] 5.2.1 Test tenant provisioning workflow
-- [ ] 5.2.2 Test subdomain routing with multiple tenants
-- [ ] 5.2.3 Test snapshot creation and metadata capture
-- [ ] 5.2.4 Test PITR restore to specific timestamp
-- [ ] 5.2.5 Test granular undo of AI operations
+### 5.2 Versioning and Tagging
+- [ ] 5.2.1 Implement version format
+  - Format: `{major}.{minor}.{patch}+odoo{version}`
+  - Example: `1.0.0+odoo18.0`
+- [ ] 5.2.2 Create release tagging script
+  - Read version from VERSION file
+  - Create annotated tag
+  - Generate release notes from CHANGELOG
+- [ ] 5.2.3 Set up branch protection rules
+  - Require PR reviews for main
+  - Require CI to pass before merge
+  - Prevent force pushes to main/develop
 
-### 5.3 Infrastructure Tests
-- [ ] 5.3.1 Test Docker Compose stack startup
-- [ ] 5.3.2 Test Kubernetes deployment rollout
-- [ ] 5.3.3 Test HPA scaling behavior
-- [ ] 5.3.4 Test backup and restore procedures
-- [ ] 5.3.5 Test zero-downtime deployment
+## 6. Package Distribution (Weeks 47-48)
 
-### 5.4 Security Tests
-- [ ] 5.4.1 Test tenant database isolation
-- [ ] 5.4.2 Test cross-tenant access prevention
-- [ ] 5.4.3 Test backup encryption verification
-- [ ] 5.4.4 Test credential rotation procedures
+### 6.1 Debian Package Build
+- [ ] 6.1.1 Create Dockerfile.debian for build environment
+  - Based on debian:bookworm
+  - Install dpkg-dev, devscripts
+- [ ] 6.1.2 Create debian/ directory structure
+  - control file with package metadata
+  - changelog file
+  - conffiles for config preservation
+  - postinst/prerm/postrm scripts
+- [ ] 6.1.3 Create systemd service file
+  - loomworks.service with security hardening
+  - Proper user/group configuration
+  - ReadWritePaths for data directories
+- [ ] 6.1.4 Test deb package installation
+  - Install on clean Ubuntu 22.04
+  - Verify service starts correctly
+  - Test upgrade path
 
-## 6. Documentation
+### 6.2 RPM Package Build
+- [ ] 6.2.1 Create Dockerfile.fedora for build environment
+  - Based on fedora:latest
+  - Install rpm-build, rpmdevtools
+- [ ] 6.2.2 Create loomworks.spec file
+  - Package metadata and dependencies
+  - Build and install sections
+  - Pre/post install scripts
+- [ ] 6.2.3 Test rpm package installation
+  - Install on clean Rocky Linux 9
+  - Verify service starts correctly
+  - Test upgrade path
 
-### 6.1 Operations Documentation
-- [ ] 6.1.1 Document tenant provisioning procedure
-- [ ] 6.1.2 Document backup and restore procedures
-- [ ] 6.1.3 Document disaster recovery runbook
-- [ ] 6.1.4 Document scaling procedures
+### 6.3 Package Build Automation
+- [ ] 6.3.1 Create infrastructure/packaging/build.py
+  - Support deb, rpm, docker builds
+  - Read version from VERSION file
+  - Output to dist/ directory
+- [ ] 6.3.2 Create Makefile for common operations
+  - `make build-deb`
+  - `make build-rpm`
+  - `make build-docker`
+  - `make build-all`
 
-### 6.2 Developer Documentation
-- [ ] 6.2.1 Document local development setup
-- [ ] 6.2.2 Document snapshot API usage
-- [ ] 6.2.3 Document tenant management API
-- [ ] 6.2.4 Document infrastructure configuration options
+## 7. CI/CD Pipeline (Weeks 47-48)
+
+### 7.1 GitHub Actions CI Workflow
+- [ ] 7.1.1 Create .github/workflows/ci.yml
+  - Trigger on push to main/develop and PRs
+  - Path-based filtering for efficiency
+- [ ] 7.1.2 Implement change detection job
+  - Use dorny/paths-filter action
+  - Detect odoo-core, loomworks-addons, infrastructure changes
+- [ ] 7.1.3 Create lint job
+  - Set up Python 3.11
+  - Run Ruff for linting and formatting
+  - Run mypy for type checking (non-blocking)
+- [ ] 7.1.4 Create unit test job
+  - Matrix for Python 3.10, 3.11, 3.12
+  - PostgreSQL 15 service container
+  - Run pytest with coverage
+  - Upload to Codecov
+
+### 7.2 Integration Testing
+- [ ] 7.2.1 Create integration test job
+  - Start Docker Compose stack
+  - Wait for health check
+  - Run integration tests
+- [ ] 7.2.2 Collect and upload logs on failure
+  - Docker compose logs
+  - Test output artifacts
+
+### 7.3 Docker Build Job
+- [ ] 7.3.1 Create Docker build job
+  - Set up Docker Buildx
+  - Extract metadata for tagging
+  - Build with layer caching
+- [ ] 7.3.2 Push to GitHub Container Registry
+  - Login with GITHUB_TOKEN
+  - Push on main/release branches
+  - Tag with version and sha
+
+### 7.4 Package Build Job
+- [ ] 7.4.1 Create package build job
+  - Only on main/release branches
+  - Matrix for deb/rpm formats
+  - Upload as artifacts
+
+### 7.5 Release Workflow
+- [ ] 7.5.1 Create .github/workflows/release.yml
+  - Trigger on version tags (v*)
+  - Build multi-arch Docker images
+  - Build deb and rpm packages
+- [ ] 7.5.2 Create GitHub Release
+  - Attach deb and rpm packages
+  - Generate release notes
+  - Mark pre-release for alpha/beta/rc
+
+## 8. Upstream Update Management (Ongoing)
+
+### 8.1 Upstream Sync Workflow
+- [ ] 8.1.1 Create .github/workflows/upstream-sync.yml
+  - Schedule: daily at 2 AM UTC
+  - Manual trigger option
+- [ ] 8.1.2 Implement update detection
+  - Compare current and latest upstream commits
+  - Check for security-related commits
+- [ ] 8.1.3 Auto-create sync PR
+  - Attempt merge with upstream
+  - Flag conflicts for manual review
+  - Add labels for security updates
+- [ ] 8.1.4 Set up notifications
+  - Slack webhook for security updates
+  - Email to security team
+
+### 8.2 Security Patch Process
+- [ ] 8.2.1 Document security patch SLA
+  - Critical: 4 hours response
+  - High: 24 hours response
+  - Medium/Low: include in scheduled release
+- [ ] 8.2.2 Create hotfix release process
+  - Branch from main for critical fixes
+  - Fast-track testing and deployment
+  - Notify all hosted customers
+
+## 9. Multi-Tenant for Forked Core
+
+### 9.1 Core Modifications
+- [ ] 9.1.1 Implement TenantRouter in odoo/http.py
+  - Subdomain extraction
+  - Management database lookup
+  - Tenant caching
+- [ ] 9.1.2 Add tenant isolation checks in odoo/models.py
+  - Check tenant on create/write/unlink
+  - Audit cross-tenant access attempts
+- [ ] 9.1.3 Add Loomworks-specific config options
+  - loomworks_mgmt_db
+  - loomworks_tenant_routing
+  - loomworks_strict_isolation
+
+### 9.2 Management Database
+- [ ] 9.2.1 Create loomworks_mgmt database schema
+  - loomworks_tenant table
+  - Indexes for subdomain lookup
+- [ ] 9.2.2 Implement tenant CRUD operations
+  - Create tenant with database provisioning
+  - Update tenant state
+  - Archive/delete tenant
+
+## 10. Testing and Verification
+
+### 10.1 Unit Tests
+- [ ] 10.1.1 Test tenant model CRUD operations
+- [ ] 10.1.2 Test snapshot model CRUD operations
+- [ ] 10.1.3 Test AI operation log recording
+- [ ] 10.1.4 Test quota enforcement logic
+
+### 10.2 Integration Tests
+- [ ] 10.2.1 Test tenant provisioning workflow
+- [ ] 10.2.2 Test subdomain routing with multiple tenants
+- [ ] 10.2.3 Test snapshot creation and metadata capture
+- [ ] 10.2.4 Test PITR restore to specific timestamp
+- [ ] 10.2.5 Test granular undo of AI operations
+
+### 10.3 Infrastructure Tests
+- [ ] 10.3.1 Test Docker Compose stack startup
+- [ ] 10.3.2 Test Kubernetes deployment rollout
+- [ ] 10.3.3 Test HPA scaling behavior
+- [ ] 10.3.4 Test backup and restore procedures
+- [ ] 10.3.5 Test zero-downtime deployment
+
+### 10.4 Security Tests
+- [ ] 10.4.1 Test tenant database isolation
+- [ ] 10.4.2 Test cross-tenant access prevention
+- [ ] 10.4.3 Test backup encryption verification
+- [ ] 10.4.4 Test credential rotation procedures
+
+### 10.5 Distribution Tests
+- [ ] 10.5.1 Test deb package on Ubuntu 22.04/24.04
+- [ ] 10.5.2 Test rpm package on Rocky Linux 9
+- [ ] 10.5.3 Test Docker image on clean system
+- [ ] 10.5.4 Test upgrade from previous version
+
+## 11. Documentation
+
+### 11.1 Operations Documentation
+- [ ] 11.1.1 Document tenant provisioning procedure
+- [ ] 11.1.2 Document backup and restore procedures
+- [ ] 11.1.3 Document disaster recovery runbook
+- [ ] 11.1.4 Document scaling procedures
+
+### 11.2 Developer Documentation
+- [ ] 11.2.1 Document local development setup
+- [ ] 11.2.2 Document snapshot API usage
+- [ ] 11.2.3 Document tenant management API
+- [ ] 11.2.4 Document infrastructure configuration options
+
+### 11.3 Installation Documentation
+- [ ] 11.3.1 Document Docker installation
+  - Quick start with docker-compose
+  - Production configuration guide
+- [ ] 11.3.2 Document Debian/Ubuntu installation
+  - Prerequisites and repository setup
+  - Post-install configuration
+- [ ] 11.3.3 Document RHEL/CentOS installation
+  - Prerequisites and repository setup
+  - SELinux considerations
+- [ ] 11.3.4 Document Kubernetes deployment
+  - Helm chart (future)
+  - Manual manifest deployment
+
+### 11.4 Contribution Documentation
+- [ ] 11.4.1 Document contribution workflow
+  - Fork, branch, PR process
+  - Commit message conventions
+- [ ] 11.4.2 Document upstream sync process
+  - How to handle merge conflicts
+  - Testing requirements
+- [ ] 11.4.3 Document release process
+  - Version bumping procedure
+  - Changelog updates
+  - Tag creation

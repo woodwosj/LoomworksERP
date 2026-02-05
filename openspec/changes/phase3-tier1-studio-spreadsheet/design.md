@@ -1,24 +1,23 @@
-# Design: Phase 3 Tier 1 - Studio and Spreadsheet Modules
+# Design: Phase 3 Tier 1 - Studio and Spreadsheet (Core Fork Edition)
 
 ## Context
 
-Loomworks ERP aims to eliminate developer labor by enabling AI-driven customization. Phase 3 Tier 1 delivers two critical modules:
+Loomworks ERP is a **fully forked** Odoo Community v18 codebase (LGPL v3). This changes our implementation strategy fundamentally: rather than building Studio and Spreadsheet as pure addons that work around Odoo's limitations, we can modify the core view system directly to provide deep, seamless integration.
 
-1. **loomworks_studio**: No-code application builder for creating and customizing apps
-2. **loomworks_spreadsheet**: Excel-like BI interface with Odoo data integration
-
-Both modules must be developed independently (LGPL v3 compatible) without copying Odoo Enterprise code. Odoo Enterprise features serve only as a reference for functionality.
+This design document supersedes the previous addon-only approach and describes how to leverage core modifications alongside addon code for maximum capability.
 
 ### Stakeholders
 
 - End users (business users who customize without coding)
 - AI agents (programmatic customization via MCP tools)
 - System administrators (managing custom apps and permissions)
+- Developers (maintaining the forked codebase)
 
 ### Constraints
 
-- **Legal**: LGPL v3 only, no Enterprise code copying
-- **Technical**: Must work with Odoo Community v18 APIs
+- **Legal**: LGPL v3 only, no Odoo Enterprise code copying
+- **Technical**: Core modifications must be maintainable and well-documented
+- **Upgrade Path**: Changes should be isolated enough to facilitate upstream merges
 - **Performance**: View rendering < 1 second, field creation < 3 seconds
 - **Security**: Respect Odoo's access control, sandbox custom code execution
 
@@ -26,125 +25,480 @@ Both modules must be developed independently (LGPL v3 compatible) without copyin
 
 | Component | Version | Notes |
 |-----------|---------|-------|
-| **Node.js** | >= 20.0.0 (LTS) | Required for Univer spreadsheet library (requires >= 18.17.0) and frontend asset bundling. Node.js 20 LTS recommended for production (EOL: April 2026). Node.js 22 LTS also supported. |
+| **Node.js** | >= 20.0.0 (LTS) | Required for Univer spreadsheet library |
 | **npm** | >= 9.0.0 | Package management |
 | **Python** | >= 3.10 | Odoo v18 requirement |
 | **PostgreSQL** | >= 15 | Required for WAL features |
 
-**Rationale for Node.js 20+:**
-- Univer spreadsheet library requires Node.js >= 18.17.0
-- Node.js 18 LTS reached end-of-life on April 30, 2025
-- Node.js 20 LTS provides security updates until April 2026
-- Node.js 22 LTS is the current active LTS version
+---
+
+## Architecture Strategy: Core vs Addon
+
+### Core Modifications (Fork Changes)
+
+These modifications live in the forked Odoo source code itself:
+
+| Area | Files | Purpose |
+|------|-------|---------|
+| **View Edit Mode** | `odoo/addons/web/static/src/views/` | Add Studio toggle to all view types |
+| **Field Palette** | `odoo/addons/web/static/src/core/` | Drag-drop field insertion framework |
+| **Spreadsheet View Type** | `odoo/addons/web/static/src/views/spreadsheet/` | New core view type |
+| **Dynamic Model Registry** | `odoo/odoo/models.py` | Enhanced runtime model registration |
+| **View Customization Storage** | `odoo/odoo/addons/base/models/ir_ui_view.py` | Studio customization persistence |
+| **Model Extension Support** | `odoo/odoo/addons/base/models/ir_model.py` | Enhanced dynamic field support |
+
+### Addon Code (loomworks_addons)
+
+Business logic and configuration that builds on core modifications:
+
+| Module | Purpose |
+|--------|---------|
+| **loomworks_studio** | Studio app registry, automation engine, MCP tools |
+| **loomworks_spreadsheet** | Document management, data sources, pivot/chart config |
 
 ---
 
-## Goals / Non-Goals
+## Part 1: Core View System Enhancements
 
-### Goals
+### 1.1 Studio Edit Mode in Core Views
 
-- Enable creation of custom models with `x_` prefix via UI
-- Provide drag-and-drop field addition to any model
-- Support all standard Odoo view types in the builder
-- Integrate spreadsheets with live Odoo data sources
-- Deliver pivot tables that query any model dynamically
-- Support chart creation from spreadsheet data and pivots
+Every Odoo view (form, list, kanban, etc.) will have a built-in Studio toggle. This is implemented at the core level for seamless integration.
 
-### Non-Goals
+**Modified File: `odoo/addons/web/static/src/views/view.js`**
 
-- Full code editor (Python/JavaScript) in browser
-- Mobile app builder (native iOS/Android)
-- Complex workflow designer (use `loomworks_ai` skills instead)
-- Excel macro/VBA compatibility
-- Offline spreadsheet editing (online-first approach)
+```javascript
+// Core view base class enhancement
+import { Component, useState } from "@odoo/owl";
+import { useService } from "@web/core/utils/hooks";
 
----
+export class View extends Component {
+    setup() {
+        super.setup();
+        this.studioService = useService("studio");
+        this.studioState = useState({
+            editMode: false,
+            selectedField: null,
+            hoveredElement: null,
+        });
+    }
 
-## Part 1: loomworks_studio - Technical Design
+    toggleStudioMode() {
+        if (!this.studioService.hasAccess()) return;
+        this.studioState.editMode = !this.studioState.editMode;
+        if (this.studioState.editMode) {
+            this.studioService.enterEditMode(this.props.resModel, this.props.type);
+        } else {
+            this.studioService.exitEditMode();
+        }
+    }
 
-### 1.1 Architecture Overview
-
-```
-loomworks_studio/
-├── __init__.py
-├── __manifest__.py
-├── models/
-│   ├── __init__.py
-│   ├── studio_app.py           # Custom app definitions
-│   ├── studio_field.py         # Field configuration
-│   ├── studio_view.py          # View customizations
-│   ├── studio_automation.py    # Workflow rules
-│   └── studio_report.py        # Report templates
-├── views/
-│   ├── studio_app_views.xml
-│   ├── studio_menus.xml
-│   └── studio_templates.xml
-├── security/
-│   ├── ir.model.access.csv
-│   └── security.xml
-├── static/src/
-│   ├── components/
-│   │   ├── studio_sidebar/     # Left panel with tools
-│   │   ├── field_palette/      # Draggable field types
-│   │   ├── view_editor/        # View customization canvas
-│   │   └── automation_builder/ # Workflow configuration
-│   ├── scss/
-│   │   └── studio.scss
-│   └── xml/
-│       └── studio_templates.xml
-├── data/
-│   └── studio_data.xml
-└── tests/
-    └── test_studio.py
+    get showStudioToggle() {
+        return this.studioService.hasAccess() && !this.props.disableStudio;
+    }
+}
 ```
 
-### 1.2 Data Models
+**Modified File: `odoo/addons/web/static/src/views/form/form_controller.js`**
 
-#### studio.app - Custom Application Registry
+```javascript
+import { FormController as BaseFormController } from "./form_controller_base";
+import { StudioFormOverlay } from "@web/studio/form_overlay";
+
+export class FormController extends BaseFormController {
+    static components = {
+        ...BaseFormController.components,
+        StudioFormOverlay,
+    };
+
+    static template = "web.FormView"; // Template includes studio overlay
+
+    setup() {
+        super.setup();
+        this.setupStudioDragDrop();
+    }
+
+    setupStudioDragDrop() {
+        if (!this.studioState?.editMode) return;
+
+        // Enable drop zones for field palette
+        this.dropZones = this.computeDropZones();
+    }
+
+    computeDropZones() {
+        // Analyze form arch to identify valid drop positions
+        const zones = [];
+        const arch = this.props.archInfo;
+        // Parse groups, notebooks, pages for drop targets
+        return zones;
+    }
+
+    async onFieldDrop(event, dropZone) {
+        const fieldData = JSON.parse(event.dataTransfer.getData("field"));
+        await this.studioService.addFieldToView({
+            model: this.props.resModel,
+            viewType: "form",
+            field: fieldData,
+            position: dropZone.position,
+            afterField: dropZone.afterField,
+        });
+        // Trigger view reload
+        await this.model.load();
+    }
+}
+```
+
+**Modified File: `odoo/addons/web/static/src/views/list/list_controller.js`**
+
+```javascript
+import { ListController as BaseListController } from "./list_controller_base";
+import { StudioColumnEditor } from "@web/studio/column_editor";
+
+export class ListController extends BaseListController {
+    static components = {
+        ...BaseListController.components,
+        StudioColumnEditor,
+    };
+
+    setup() {
+        super.setup();
+        this.setupColumnCustomization();
+    }
+
+    setupColumnCustomization() {
+        if (!this.studioState?.editMode) return;
+        // Add column resize, reorder, hide handlers
+    }
+
+    async onColumnAdd(fieldName, position) {
+        await this.studioService.addColumnToList({
+            model: this.props.resModel,
+            field: fieldName,
+            position,
+        });
+    }
+
+    async onColumnRemove(fieldName) {
+        await this.studioService.removeColumnFromList({
+            model: this.props.resModel,
+            field: fieldName,
+        });
+    }
+
+    async onColumnReorder(fromIndex, toIndex) {
+        await this.studioService.reorderListColumns({
+            model: this.props.resModel,
+            fromIndex,
+            toIndex,
+        });
+    }
+}
+```
+
+### 1.2 Studio Service (Core)
+
+**New File: `odoo/addons/web/static/src/studio/studio_service.js`**
+
+```javascript
+/** @odoo-module */
+
+import { registry } from "@web/core/registry";
+
+export const studioService = {
+    dependencies: ["orm", "user", "notification"],
+
+    start(env, { orm, user, notification }) {
+        let currentEditSession = null;
+
+        return {
+            hasAccess() {
+                // Check if user has studio permission
+                return user.hasGroup("loomworks_studio.group_studio_user");
+            },
+
+            enterEditMode(resModel, viewType) {
+                currentEditSession = {
+                    model: resModel,
+                    viewType,
+                    changes: [],
+                    startTime: Date.now(),
+                };
+                env.bus.trigger("STUDIO:EDIT_MODE_ENTERED", currentEditSession);
+            },
+
+            exitEditMode() {
+                if (currentEditSession) {
+                    env.bus.trigger("STUDIO:EDIT_MODE_EXITED", currentEditSession);
+                    currentEditSession = null;
+                }
+            },
+
+            async addFieldToView({ model, viewType, field, position, afterField }) {
+                // Create or get field on model
+                const fieldId = await this._ensureField(model, field);
+
+                // Update view arch
+                await orm.call("studio.view.customization", "add_field_to_view", [], {
+                    model,
+                    view_type: viewType,
+                    field_id: fieldId,
+                    position,
+                    after_field: afterField,
+                });
+
+                notification.add("Field added successfully", { type: "success" });
+            },
+
+            async _ensureField(model, fieldDef) {
+                if (fieldDef.existingFieldId) {
+                    return fieldDef.existingFieldId;
+                }
+
+                // Create new field via ir.model.fields
+                const fieldId = await orm.create("ir.model.fields", [{
+                    model_id: fieldDef.modelId,
+                    name: `x_${fieldDef.name}`,
+                    field_description: fieldDef.label,
+                    ttype: fieldDef.type,
+                    state: "manual",
+                    required: fieldDef.required || false,
+                    index: fieldDef.index || false,
+                    ...this._getFieldTypeSpecificAttrs(fieldDef),
+                }]);
+
+                return fieldId;
+            },
+
+            _getFieldTypeSpecificAttrs(fieldDef) {
+                const attrs = {};
+                switch (fieldDef.type) {
+                    case "selection":
+                        attrs.selection = JSON.stringify(fieldDef.selection || []);
+                        break;
+                    case "many2one":
+                    case "one2many":
+                    case "many2many":
+                        attrs.relation = fieldDef.relation;
+                        if (fieldDef.type === "one2many") {
+                            attrs.relation_field = fieldDef.relationField;
+                        }
+                        break;
+                }
+                return attrs;
+            },
+
+            async addColumnToList({ model, field, position }) {
+                await orm.call("studio.view.customization", "add_list_column", [], {
+                    model,
+                    field_name: field,
+                    position,
+                });
+            },
+
+            async removeColumnFromList({ model, field }) {
+                await orm.call("studio.view.customization", "remove_list_column", [], {
+                    model,
+                    field_name: field,
+                });
+            },
+
+            async reorderListColumns({ model, fromIndex, toIndex }) {
+                await orm.call("studio.view.customization", "reorder_list_columns", [], {
+                    model,
+                    from_index: fromIndex,
+                    to_index: toIndex,
+                });
+            },
+        };
+    },
+};
+
+registry.category("services").add("studio", studioService);
+```
+
+### 1.3 Field Palette Component (Core)
+
+**New File: `odoo/addons/web/static/src/studio/field_palette/field_palette.js`**
+
+```javascript
+/** @odoo-module */
+
+import { Component, useState } from "@odoo/owl";
+import { useService } from "@web/core/utils/hooks";
+
+export class FieldPalette extends Component {
+    static template = "web.FieldPalette";
+    static props = {
+        modelId: Number,
+        onClose: Function,
+    };
+
+    setup() {
+        this.orm = useService("orm");
+        this.state = useState({
+            activeTab: "new", // "new" or "existing"
+            searchQuery: "",
+            fieldTypes: this.getFieldTypes(),
+            existingFields: [],
+            loading: true,
+        });
+        this.loadExistingFields();
+    }
+
+    getFieldTypes() {
+        return [
+            { type: "char", label: "Text", icon: "fa-font", description: "Single line text" },
+            { type: "text", label: "Long Text", icon: "fa-align-left", description: "Multi-line text" },
+            { type: "html", label: "Rich Text", icon: "fa-code", description: "HTML content" },
+            { type: "integer", label: "Integer", icon: "fa-hashtag", description: "Whole numbers" },
+            { type: "float", label: "Decimal", icon: "fa-percent", description: "Decimal numbers" },
+            { type: "monetary", label: "Monetary", icon: "fa-dollar", description: "Currency values" },
+            { type: "boolean", label: "Checkbox", icon: "fa-check-square", description: "Yes/No" },
+            { type: "date", label: "Date", icon: "fa-calendar", description: "Date picker" },
+            { type: "datetime", label: "Date & Time", icon: "fa-clock", description: "Date and time" },
+            { type: "selection", label: "Dropdown", icon: "fa-list", description: "Choose from options" },
+            { type: "many2one", label: "Link", icon: "fa-link", description: "Link to another record" },
+            { type: "one2many", label: "Related List", icon: "fa-list-ul", description: "List of related records" },
+            { type: "many2many", label: "Tags", icon: "fa-tags", description: "Multiple links" },
+            { type: "binary", label: "File", icon: "fa-file", description: "File attachment" },
+            { type: "image", label: "Image", icon: "fa-image", description: "Image with preview" },
+        ];
+    }
+
+    async loadExistingFields() {
+        this.state.loading = true;
+        try {
+            const fields = await this.orm.searchRead(
+                "ir.model.fields",
+                [["model_id", "=", this.props.modelId]],
+                ["id", "name", "field_description", "ttype", "state"]
+            );
+            this.state.existingFields = fields;
+        } finally {
+            this.state.loading = false;
+        }
+    }
+
+    get filteredFieldTypes() {
+        if (!this.state.searchQuery) return this.state.fieldTypes;
+        const query = this.state.searchQuery.toLowerCase();
+        return this.state.fieldTypes.filter(
+            (ft) =>
+                ft.label.toLowerCase().includes(query) ||
+                ft.description.toLowerCase().includes(query)
+        );
+    }
+
+    get filteredExistingFields() {
+        if (!this.state.searchQuery) return this.state.existingFields;
+        const query = this.state.searchQuery.toLowerCase();
+        return this.state.existingFields.filter(
+            (f) =>
+                f.name.toLowerCase().includes(query) ||
+                f.field_description.toLowerCase().includes(query)
+        );
+    }
+
+    onDragStart(ev, data) {
+        ev.dataTransfer.setData("field", JSON.stringify(data));
+        ev.dataTransfer.effectAllowed = "copy";
+        document.body.classList.add("studio-dragging");
+    }
+
+    onDragEnd() {
+        document.body.classList.remove("studio-dragging");
+    }
+}
+```
+
+### 1.4 View Customization Storage (Core Python)
+
+**Modified File: `odoo/odoo/addons/base/models/ir_ui_view.py`**
 
 ```python
-class StudioApp(models.Model):
-    _name = 'studio.app'
-    _description = 'Studio Custom Application'
+# Add to existing ir.ui.view model
 
-    name = fields.Char(required=True)
-    technical_name = fields.Char(
-        required=True,
-        help="Technical name used for model prefix (x_[name]_)"
+class IrUIView(models.Model):
+    _inherit = 'ir.ui.view'
+
+    # Studio customization tracking
+    studio_customized = fields.Boolean(
+        string='Studio Customized',
+        default=False,
+        help="Indicates this view was modified via Studio"
     )
-    icon = fields.Char(default='fa-cube')
-    color = fields.Integer(default=0)
-    description = fields.Text()
+    studio_customization_id = fields.Many2one(
+        'studio.view.customization',
+        string='Studio Customization',
+        ondelete='set null'
+    )
+    studio_arch_backup = fields.Text(
+        string='Original Arch',
+        help="Backup of original arch before Studio modifications"
+    )
 
-    # Related components
-    model_ids = fields.One2many('ir.model', 'studio_app_id')
-    menu_id = fields.Many2one('ir.ui.menu')
-    action_id = fields.Many2one('ir.actions.act_window')
+    def _studio_backup_arch(self):
+        """Backup original arch before first Studio modification."""
+        for view in self:
+            if not view.studio_arch_backup and view.arch:
+                view.studio_arch_backup = view.arch
 
-    # State management
-    state = fields.Selection([
-        ('draft', 'Draft'),
-        ('published', 'Published'),
-        ('archived', 'Archived')
-    ], default='draft')
+    def _studio_restore_arch(self):
+        """Restore original arch, removing all Studio customizations."""
+        for view in self:
+            if view.studio_arch_backup:
+                view.write({
+                    'arch': view.studio_arch_backup,
+                    'studio_arch_backup': False,
+                    'studio_customized': False,
+                    'studio_customization_id': False,
+                })
 
-    # Audit
-    created_by_id = fields.Many2one('res.users', default=lambda self: self.env.user)
-    published_date = fields.Datetime()
+    @api.model
+    def _apply_studio_customizations(self, model, view_type, arch):
+        """Apply Studio customizations to a view arch.
+
+        This method is called during view processing to merge
+        Studio modifications into the base view architecture.
+        """
+        StudioCustomization = self.env['studio.view.customization']
+        customization = StudioCustomization.search([
+            ('model_name', '=', model),
+            ('view_type', '=', view_type),
+            ('active', '=', True)
+        ], limit=1)
+
+        if not customization:
+            return arch
+
+        return customization._apply_to_arch(arch)
 ```
 
-#### Extension to ir.model
+### 1.5 Enhanced Dynamic Model Support (Core Python)
+
+**Modified File: `odoo/odoo/addons/base/models/ir_model.py`**
 
 ```python
+# Enhancements to ir.model for Studio integration
+
 class IrModel(models.Model):
     _inherit = 'ir.model'
 
-    studio_app_id = fields.Many2one('studio.app', string='Studio App')
+    # Studio integration fields
+    studio_app_id = fields.Many2one(
+        'studio.app',
+        string='Studio Application',
+        ondelete='set null'
+    )
     studio_origin = fields.Selection([
         ('odoo', 'Odoo Core'),
         ('studio', 'Studio Created'),
         ('customized', 'Studio Customized')
-    ], default='odoo', compute='_compute_studio_origin', store=True)
+    ], string='Origin', compute='_compute_studio_origin', store=True)
+
+    # Runtime model metadata
+    studio_icon = fields.Char(string='Icon', default='fa-cube')
+    studio_color = fields.Integer(string='Color Index', default=0)
+    studio_description = fields.Text(string='Description')
 
     @api.depends('state', 'studio_app_id')
     def _compute_studio_origin(self):
@@ -155,17 +509,667 @@ class IrModel(models.Model):
                 model.studio_origin = 'customized'
             else:
                 model.studio_origin = 'odoo'
+
+    def _studio_create_model(self, vals):
+        """Create a new model via Studio with enhanced validation.
+
+        Args:
+            vals: Dictionary containing:
+                - name: Human-readable model name
+                - model: Technical name (will be validated/prefixed)
+                - studio_app_id: Optional Studio app reference
+                - fields: List of field definitions
+                - create_menu: Whether to auto-create menu
+                - create_views: List of view types to auto-generate
+
+        Returns:
+            Created ir.model record
+        """
+        # Validate and normalize model name
+        technical_name = vals.get('model', '')
+        if not technical_name.startswith('x_'):
+            technical_name = f"x_{technical_name}"
+
+        # Validate technical name format
+        if not re.match(r'^x_[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)*$', technical_name):
+            raise ValidationError(_(
+                "Invalid model name '%s'. Model names must start with 'x_' "
+                "and contain only lowercase letters, numbers, and underscores."
+            ) % technical_name)
+
+        # Check for name collision
+        if self.search([('model', '=', technical_name)]):
+            raise ValidationError(_(
+                "A model with technical name '%s' already exists."
+            ) % technical_name)
+
+        # Create the model
+        model_vals = {
+            'name': vals.get('name', technical_name),
+            'model': technical_name,
+            'state': 'manual',
+            'studio_app_id': vals.get('studio_app_id'),
+            'studio_icon': vals.get('icon', 'fa-cube'),
+            'studio_color': vals.get('color', 0),
+            'studio_description': vals.get('description', ''),
+        }
+        model = self.create(model_vals)
+
+        # Create fields
+        for field_def in vals.get('fields', []):
+            model._studio_create_field(field_def)
+
+        # Clear ORM cache to recognize new model
+        self.pool.setup_models(self._cr)
+        self.env.registry.init_models(
+            self._cr,
+            [technical_name],
+            {'module': 'loomworks_studio'}
+        )
+
+        # Auto-create views if requested
+        create_views = vals.get('create_views', ['form', 'list'])
+        if create_views:
+            model._studio_create_default_views(create_views)
+
+        # Auto-create menu if requested
+        if vals.get('create_menu', True):
+            model._studio_create_menu()
+
+        return model
+
+    def _studio_create_field(self, field_def):
+        """Create a field on this model via Studio.
+
+        Args:
+            field_def: Dictionary with field configuration
+        """
+        self.ensure_one()
+        IrModelFields = self.env['ir.model.fields']
+
+        # Normalize field name
+        field_name = field_def.get('name', '')
+        if not field_name.startswith('x_'):
+            field_name = f"x_{field_name}"
+
+        # Build field values
+        vals = {
+            'model_id': self.id,
+            'name': field_name,
+            'field_description': field_def.get('label', field_name),
+            'ttype': field_def.get('type', 'char'),
+            'state': 'manual',
+            'required': field_def.get('required', False),
+            'index': field_def.get('index', False),
+            'copied': field_def.get('copied', True),
+            'help': field_def.get('help', ''),
+        }
+
+        # Type-specific attributes
+        ttype = vals['ttype']
+        if ttype == 'selection':
+            vals['selection_ids'] = [
+                (0, 0, {'value': opt[0], 'name': opt[1], 'sequence': idx})
+                for idx, opt in enumerate(field_def.get('selection', []))
+            ]
+        elif ttype in ('many2one', 'one2many', 'many2many'):
+            vals['relation'] = field_def.get('relation')
+            if ttype == 'one2many':
+                vals['relation_field'] = field_def.get('relation_field')
+            elif ttype == 'many2many':
+                # Auto-generate relation table name
+                relation = field_def.get('relation', '')
+                if relation:
+                    vals['relation_table'] = f"x_{self.model.replace('.', '_')}_{relation.replace('.', '_')}_rel"
+        elif ttype in ('char', 'text'):
+            vals['size'] = field_def.get('size', 0)
+        elif ttype == 'float':
+            vals['digits'] = field_def.get('digits', (16, 2))
+        elif ttype == 'monetary':
+            vals['currency_field'] = field_def.get('currency_field', 'currency_id')
+
+        return IrModelFields.create(vals)
+
+    def _studio_create_default_views(self, view_types):
+        """Generate default views for a Studio-created model."""
+        self.ensure_one()
+        IrUIView = self.env['ir.ui.view']
+
+        for view_type in view_types:
+            arch = self._studio_generate_view_arch(view_type)
+            IrUIView.create({
+                'name': f"studio.{self.model}.{view_type}",
+                'model': self.model,
+                'type': view_type,
+                'arch': arch,
+                'priority': 16,  # Default priority for Studio views
+                'studio_customized': True,
+            })
+
+    def _studio_generate_view_arch(self, view_type):
+        """Generate view architecture XML for a view type."""
+        self.ensure_one()
+
+        # Get all manual fields
+        fields = self.field_id.filtered(lambda f: f.state == 'manual')
+
+        if view_type == 'form':
+            return self._studio_generate_form_arch(fields)
+        elif view_type == 'list':
+            return self._studio_generate_list_arch(fields)
+        elif view_type == 'kanban':
+            return self._studio_generate_kanban_arch(fields)
+        elif view_type == 'search':
+            return self._studio_generate_search_arch(fields)
+
+        return f"<{view_type}/>"
+
+    def _studio_generate_form_arch(self, fields):
+        """Generate form view XML."""
+        root = etree.Element('form')
+        sheet = etree.SubElement(root, 'sheet')
+        group = etree.SubElement(sheet, 'group')
+
+        # Add name field prominently if exists
+        name_field = fields.filtered(lambda f: f.name in ('x_name', 'name'))
+        if name_field:
+            field_el = etree.SubElement(group, 'field')
+            field_el.set('name', name_field[0].name)
+
+        # Add other fields in a two-column layout
+        left_group = etree.SubElement(group, 'group')
+        right_group = etree.SubElement(group, 'group')
+
+        for idx, field in enumerate(fields.filtered(lambda f: f.name not in ('x_name', 'name'))):
+            target_group = left_group if idx % 2 == 0 else right_group
+            field_el = etree.SubElement(target_group, 'field')
+            field_el.set('name', field.name)
+
+        return etree.tostring(root, encoding='unicode', pretty_print=True)
+
+    def _studio_generate_list_arch(self, fields):
+        """Generate list view XML."""
+        root = etree.Element('list')
+
+        # Prioritize name-like fields
+        priority_fields = ['x_name', 'name', 'display_name']
+        sorted_fields = sorted(
+            fields,
+            key=lambda f: (0 if f.name in priority_fields else 1, f.name)
+        )
+
+        for field in sorted_fields[:10]:  # Limit to 10 columns
+            field_el = etree.SubElement(root, 'field')
+            field_el.set('name', field.name)
+
+        return etree.tostring(root, encoding='unicode', pretty_print=True)
+
+    def _studio_create_menu(self):
+        """Create menu item for a Studio model."""
+        self.ensure_one()
+
+        # Create action
+        action = self.env['ir.actions.act_window'].create({
+            'name': self.name,
+            'res_model': self.model,
+            'view_mode': 'list,form',
+            'target': 'current',
+        })
+
+        # Create menu under Studio Apps
+        studio_menu = self.env.ref('loomworks_studio.menu_studio_apps', raise_if_not_found=False)
+        parent_id = studio_menu.id if studio_menu else False
+
+        self.env['ir.ui.menu'].create({
+            'name': self.name,
+            'parent_id': parent_id,
+            'action': f'ir.actions.act_window,{action.id}',
+            'sequence': 100,
+        })
 ```
 
-#### studio.view.customization - View Modifications
+---
+
+## Part 2: Spreadsheet as Core View Type
+
+### 2.1 Spreadsheet View Registration
+
+The spreadsheet becomes a first-class citizen in Odoo's view system, not just a standalone document viewer.
+
+**New File: `odoo/addons/web/static/src/views/spreadsheet/spreadsheet_view.js`**
+
+```javascript
+/** @odoo-module */
+
+import { registry } from "@web/core/registry";
+import { SpreadsheetController } from "./spreadsheet_controller";
+import { SpreadsheetArchParser } from "./spreadsheet_arch_parser";
+import { SpreadsheetModel } from "./spreadsheet_model";
+import { SpreadsheetRenderer } from "./spreadsheet_renderer";
+
+export const spreadsheetView = {
+    type: "spreadsheet",
+    display_name: "Spreadsheet",
+    icon: "fa fa-table",
+    multiRecord: true,
+    searchMenuTypes: ["filter", "groupBy"],
+    Controller: SpreadsheetController,
+    ArchParser: SpreadsheetArchParser,
+    Model: SpreadsheetModel,
+    Renderer: SpreadsheetRenderer,
+
+    props(genericProps, view) {
+        const { ArchParser } = view;
+        const { arch } = genericProps;
+        const archInfo = new ArchParser().parse(arch);
+
+        return {
+            ...genericProps,
+            Model: view.Model,
+            Renderer: view.Renderer,
+            archInfo,
+        };
+    },
+};
+
+registry.category("views").add("spreadsheet", spreadsheetView);
+```
+
+**New File: `odoo/addons/web/static/src/views/spreadsheet/spreadsheet_controller.js`**
+
+```javascript
+/** @odoo-module */
+
+import { Layout } from "@web/search/layout";
+import { useService } from "@web/core/utils/hooks";
+import { Component, onWillStart, onMounted, onWillUnmount, useState } from "@odoo/owl";
+
+export class SpreadsheetController extends Component {
+    static template = "web.SpreadsheetView";
+    static components = { Layout };
+
+    setup() {
+        this.orm = useService("orm");
+        this.notification = useService("notification");
+        this.actionService = useService("action");
+
+        this.model = useState(
+            new this.props.Model(
+                this.orm,
+                this.props.resModel,
+                this.props.fields,
+                this.props.archInfo,
+                this.props.domain
+            )
+        );
+
+        onWillStart(async () => {
+            await this.model.load();
+        });
+
+        onMounted(() => {
+            this.setupKeyboardShortcuts();
+        });
+
+        onWillUnmount(() => {
+            this.cleanupKeyboardShortcuts();
+        });
+    }
+
+    setupKeyboardShortcuts() {
+        this.keyHandler = (ev) => {
+            if (ev.ctrlKey && ev.key === "s") {
+                ev.preventDefault();
+                this.save();
+            }
+        };
+        document.addEventListener("keydown", this.keyHandler);
+    }
+
+    cleanupKeyboardShortcuts() {
+        document.removeEventListener("keydown", this.keyHandler);
+    }
+
+    async save() {
+        await this.model.save();
+        this.notification.add("Spreadsheet saved", { type: "success" });
+    }
+
+    async onExport(format) {
+        const data = await this.model.exportData(format);
+        this.downloadFile(data, `${this.props.resModel}_export.${format}`);
+    }
+
+    downloadFile(data, filename) {
+        const blob = new Blob([data], { type: "application/octet-stream" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+}
+```
+
+**New File: `odoo/addons/web/static/src/views/spreadsheet/spreadsheet_model.js`**
+
+```javascript
+/** @odoo-module */
+
+import { KeepLast } from "@web/core/utils/concurrency";
+
+export class SpreadsheetModel {
+    constructor(orm, resModel, fields, archInfo, domain) {
+        this.orm = orm;
+        this.resModel = resModel;
+        this.fields = fields;
+        this.archInfo = archInfo;
+        this.domain = domain;
+        this.keepLast = new KeepLast();
+
+        // Spreadsheet data
+        this.records = [];
+        this.recordsLength = 0;
+        this.columns = [];
+        this.pivotData = null;
+
+        // State tracking
+        this.isDirty = false;
+        this.lastSave = null;
+    }
+
+    async load() {
+        const { columns, measures, groupBy } = this.archInfo;
+
+        if (groupBy && measures) {
+            // Pivot mode
+            await this.loadPivotData(columns, measures, groupBy);
+        } else {
+            // Raw data mode
+            await this.loadRecords(columns);
+        }
+    }
+
+    async loadRecords(columns) {
+        const fieldNames = columns.map((c) => c.name);
+
+        const { length, records } = await this.keepLast.add(
+            this.orm.webSearchRead(this.resModel, this.domain, fieldNames, {
+                limit: 10000,
+            })
+        );
+
+        this.columns = columns;
+        this.records = records;
+        this.recordsLength = length;
+    }
+
+    async loadPivotData(columns, measures, groupBy) {
+        const results = await this.keepLast.add(
+            this.orm.call(this.resModel, "read_group", [], {
+                domain: this.domain,
+                fields: measures.map((m) => m.name),
+                groupby: groupBy,
+                lazy: false,
+            })
+        );
+
+        this.pivotData = {
+            columns,
+            measures,
+            groupBy,
+            results,
+        };
+    }
+
+    toUniverData() {
+        // Convert model data to Univer spreadsheet format
+        const sheetData = {
+            id: "sheet1",
+            name: this.resModel,
+            rowCount: this.recordsLength + 1,
+            columnCount: this.columns.length,
+            cellData: {},
+        };
+
+        // Headers
+        this.columns.forEach((col, colIdx) => {
+            sheetData.cellData[`0:${colIdx}`] = {
+                v: col.label || col.name,
+                s: { bg: "#f0f0f0", b: 1 },
+            };
+        });
+
+        // Data rows
+        this.records.forEach((record, rowIdx) => {
+            this.columns.forEach((col, colIdx) => {
+                const value = record[col.name];
+                sheetData.cellData[`${rowIdx + 1}:${colIdx}`] = {
+                    v: this.formatCellValue(value, col),
+                };
+            });
+        });
+
+        return {
+            id: `odoo_${this.resModel}`,
+            name: this.resModel,
+            sheets: [sheetData],
+        };
+    }
+
+    formatCellValue(value, column) {
+        if (value === null || value === undefined) return "";
+
+        // Handle relational fields
+        if (Array.isArray(value) && value.length === 2) {
+            return value[1]; // Display name
+        }
+
+        return value;
+    }
+
+    async save() {
+        // Save changes back to Odoo records
+        // Implementation depends on edit mode
+        this.isDirty = false;
+        this.lastSave = Date.now();
+    }
+
+    async exportData(format) {
+        // Export to XLSX, CSV, etc.
+        // Uses Univer's export capabilities
+    }
+}
+```
+
+### 2.2 Python Backend for Spreadsheet View
+
+**Modified File: `odoo/odoo/addons/base/models/ir_ui_view.py`**
 
 ```python
+# Add spreadsheet to view type selection
+
+class IrUIView(models.Model):
+    _inherit = 'ir.ui.view'
+
+    type = fields.Selection(selection_add=[
+        ('spreadsheet', 'Spreadsheet')
+    ], ondelete={'spreadsheet': 'cascade'})
+
+    def _get_view_info(self):
+        info = super()._get_view_info()
+        info['spreadsheet'] = {'icon': 'fa fa-table'}
+        return info
+```
+
+**Modified File: `odoo/odoo/addons/base/models/ir_actions.py`**
+
+```python
+# Add spreadsheet to action view modes
+
+class IrActionsActWindow(models.Model):
+    _inherit = 'ir.actions.act_window'
+
+    # view_mode already accepts any view type registered
+    # Just ensure spreadsheet is available
+```
+
+---
+
+## Part 3: loomworks_studio Addon
+
+Business logic that builds on core modifications.
+
+### 3.1 Architecture Overview
+
+```
+loomworks_studio/
+├── __init__.py
+├── __manifest__.py
+├── models/
+│   ├── __init__.py
+│   ├── studio_app.py              # Custom app registry
+│   ├── studio_view_customization.py # View modification storage
+│   ├── studio_automation.py       # Workflow rules
+│   └── ir_model_inherit.py        # Extends core ir.model
+├── views/
+│   ├── studio_app_views.xml
+│   ├── studio_menus.xml
+│   └── studio_templates.xml
+├── security/
+│   ├── ir.model.access.csv
+│   └── security.xml
+├── controllers/
+│   └── studio_controller.py       # REST endpoints
+├── static/src/
+│   ├── components/                # Addon-specific Owl components
+│   │   ├── app_wizard/
+│   │   └── automation_builder/
+│   └── xml/
+│       └── studio_templates.xml
+└── tests/
+    └── test_studio.py
+```
+
+### 3.2 Studio App Model
+
+```python
+# models/studio_app.py
+
+class StudioApp(models.Model):
+    _name = 'studio.app'
+    _description = 'Studio Custom Application'
+    _order = 'name'
+
+    name = fields.Char(required=True)
+    technical_name = fields.Char(
+        required=True,
+        help="Used as prefix for models: x_[technical_name]_"
+    )
+    icon = fields.Char(default='fa-cube')
+    color = fields.Integer(default=0)
+    description = fields.Text()
+
+    # Related components
+    model_ids = fields.One2many('ir.model', 'studio_app_id', string='Models')
+    menu_id = fields.Many2one('ir.ui.menu', string='Root Menu')
+    action_id = fields.Many2one('ir.actions.act_window', string='Default Action')
+
+    # State management
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('published', 'Published'),
+        ('archived', 'Archived')
+    ], default='draft')
+
+    # Audit
+    created_by_id = fields.Many2one(
+        'res.users',
+        default=lambda self: self.env.user,
+        readonly=True
+    )
+    published_date = fields.Datetime(readonly=True)
+
+    # Statistics
+    model_count = fields.Integer(compute='_compute_model_count')
+    record_count = fields.Integer(compute='_compute_record_count')
+
+    @api.depends('model_ids')
+    def _compute_model_count(self):
+        for app in self:
+            app.model_count = len(app.model_ids)
+
+    def _compute_record_count(self):
+        for app in self:
+            count = 0
+            for model in app.model_ids:
+                try:
+                    count += self.env[model.model].search_count([])
+                except Exception:
+                    pass
+            app.record_count = count
+
+    @api.constrains('technical_name')
+    def _check_technical_name(self):
+        for app in self:
+            if not re.match(r'^[a-z][a-z0-9_]*$', app.technical_name):
+                raise ValidationError(_(
+                    "Technical name must contain only lowercase letters, "
+                    "numbers, and underscores, and start with a letter."
+                ))
+
+    def action_create_model(self, vals):
+        """Create a new model for this Studio app.
+
+        Delegates to core ir.model._studio_create_model with app context.
+        """
+        self.ensure_one()
+        vals['studio_app_id'] = self.id
+
+        # Prefix model name with app technical name
+        model_name = vals.get('model', vals.get('name', '')).lower()
+        model_name = re.sub(r'[^a-z0-9_]', '_', model_name)
+        vals['model'] = f"x_{self.technical_name}_{model_name}"
+
+        return self.env['ir.model']._studio_create_model(vals)
+
+    def action_publish(self):
+        """Publish the app, making it available to users."""
+        self.ensure_one()
+        if self.state != 'draft':
+            raise UserError(_("Only draft apps can be published."))
+
+        self.write({
+            'state': 'published',
+            'published_date': fields.Datetime.now(),
+        })
+
+    def action_archive(self):
+        """Archive the app, hiding it from users."""
+        self.write({'state': 'archived'})
+
+    def action_unarchive(self):
+        """Restore an archived app."""
+        self.write({'state': 'published'})
+```
+
+### 3.3 View Customization Model
+
+```python
+# models/studio_view_customization.py
+
 class StudioViewCustomization(models.Model):
     _name = 'studio.view.customization'
     _description = 'Studio View Customization'
 
     name = fields.Char(required=True)
-    model_id = fields.Many2one('ir.model', required=True, ondelete='cascade')
+    model_name = fields.Char(required=True, index=True)
+    model_id = fields.Many2one(
+        'ir.model',
+        compute='_compute_model_id',
+        store=True
+    )
     view_type = fields.Selection([
         ('form', 'Form'),
         ('list', 'List'),
@@ -173,413 +1177,235 @@ class StudioViewCustomization(models.Model):
         ('calendar', 'Calendar'),
         ('pivot', 'Pivot'),
         ('graph', 'Graph'),
-        ('search', 'Search')
+        ('search', 'Search'),
+        ('spreadsheet', 'Spreadsheet'),
     ], required=True)
 
-    # Original view reference (if customizing existing)
-    base_view_id = fields.Many2one('ir.ui.view')
+    # Original view reference
+    base_view_id = fields.Many2one('ir.ui.view', string='Base View')
 
     # Generated view
-    generated_view_id = fields.Many2one('ir.ui.view', readonly=True)
-
-    # Customization storage (JSON structure)
-    arch_json = fields.Text(
-        help="JSON representation of view architecture for UI editing"
+    generated_view_id = fields.Many2one(
+        'ir.ui.view',
+        string='Generated View',
+        readonly=True
     )
 
-    # Field layout for form/list views
+    # Customization storage (JSON)
+    arch_json = fields.Text(
+        help="JSON representation of view customizations"
+    )
+
+    # Field configuration
     field_ids = fields.One2many(
-        'studio.view.field', 'customization_id',
+        'studio.view.field',
+        'customization_id',
         string='Fields'
     )
 
     active = fields.Boolean(default=True)
-```
 
-#### studio.view.field - Field Placement in Views
+    @api.depends('model_name')
+    def _compute_model_id(self):
+        IrModel = self.env['ir.model']
+        for cust in self:
+            cust.model_id = IrModel.search([
+                ('model', '=', cust.model_name)
+            ], limit=1)
 
-```python
-class StudioViewField(models.Model):
-    _name = 'studio.view.field'
-    _description = 'Field in Studio View'
-    _order = 'sequence'
+    def add_field_to_view(self, model, view_type, field_id, position, after_field=None):
+        """Add a field to a view via Studio.
 
-    customization_id = fields.Many2one(
-        'studio.view.customization',
-        required=True,
-        ondelete='cascade'
-    )
-    field_id = fields.Many2one('ir.model.fields', required=True)
-    sequence = fields.Integer(default=10)
-
-    # Positioning
-    group_name = fields.Char(help="Group/notebook page name")
-    column = fields.Integer(default=0, help="Column in form layout (0 or 1)")
-
-    # Display options
-    widget = fields.Char()
-    readonly = fields.Boolean()
-    required = fields.Boolean()
-    invisible_domain = fields.Char(help="Domain for conditional visibility")
-
-    # Label customization
-    custom_label = fields.Char()
-    placeholder = fields.Char()
-```
-
-#### studio.automation - Workflow Rules
-
-```python
-class StudioAutomation(models.Model):
-    _name = 'studio.automation'
-    _description = 'Studio Automation Rule'
-
-    name = fields.Char(required=True)
-    model_id = fields.Many2one('ir.model', required=True, ondelete='cascade')
-    active = fields.Boolean(default=True)
-
-    # Trigger configuration
-    trigger = fields.Selection([
-        ('on_create', 'On Creation'),
-        ('on_write', 'On Update'),
-        ('on_create_or_write', 'On Creation & Update'),
-        ('on_unlink', 'On Deletion'),
-        ('on_state_set', 'On State Change'),
-        ('on_time', 'Based on Time Condition'),
-        ('on_tag_set', 'On Tag Addition'),
-        ('on_user_set', 'On User Assignment')
-    ], required=True)
-
-    trigger_field_ids = fields.Many2many(
-        'ir.model.fields',
-        string='Trigger Fields',
-        help="Fields that trigger the automation when changed"
-    )
-
-    # Filter condition
-    filter_domain = fields.Char(default='[]')
-    filter_pre_domain = fields.Char(
-        default='[]',
-        help="Domain to check before the change"
-    )
-
-    # Actions to execute
-    action_ids = fields.One2many('studio.automation.action', 'automation_id')
-
-    # Generated base.automation record
-    base_automation_id = fields.Many2one('base.automation', readonly=True)
-```
-
-#### studio.automation.action - Action Steps
-
-```python
-class StudioAutomationAction(models.Model):
-    _name = 'studio.automation.action'
-    _description = 'Automation Action Step'
-    _order = 'sequence'
-
-    automation_id = fields.Many2one(
-        'studio.automation',
-        required=True,
-        ondelete='cascade'
-    )
-    sequence = fields.Integer(default=10)
-
-    action_type = fields.Selection([
-        ('update_record', 'Update Record'),
-        ('create_record', 'Create New Record'),
-        ('send_email', 'Send Email'),
-        ('send_notification', 'Add Activity/Notification'),
-        ('execute_code', 'Execute Python Code'),
-        ('call_webhook', 'Call Webhook')
-    ], required=True)
-
-    # For update_record
-    field_updates = fields.Text(help="JSON: {field_name: value_expression}")
-
-    # For create_record
-    target_model_id = fields.Many2one('ir.model')
-    record_values = fields.Text(help="JSON: {field_name: value_expression}")
-
-    # For send_email
-    email_template_id = fields.Many2one('mail.template')
-
-    # For execute_code (sandboxed)
-    code = fields.Text()
-
-    # For call_webhook
-    webhook_url = fields.Char()
-    webhook_method = fields.Selection([
-        ('GET', 'GET'),
-        ('POST', 'POST'),
-        ('PUT', 'PUT')
-    ], default='POST')
-```
-
-### 1.3 Dynamic Model/Field Creation
-
-Using Odoo's built-in `ir.model` and `ir.model.fields` APIs:
-
-```python
-class StudioApp(models.Model):
-    _inherit = 'studio.app'
-
-    def action_create_model(self, model_name, model_label, fields_config):
-        """Create a new custom model for this studio app.
-
-        Args:
-            model_name: Technical name (will be prefixed with x_)
-            model_label: Human-readable name
-            fields_config: List of field definitions
-
-        Returns:
-            Created ir.model record
+        Called from JavaScript StudioService.
         """
-        self.ensure_one()
+        customization = self.search([
+            ('model_name', '=', model),
+            ('view_type', '=', view_type),
+            ('active', '=', True)
+        ], limit=1)
 
-        # Validate model name
-        technical_name = f"x_{self.technical_name}_{model_name}"
-        if not technical_name.replace('_', '').replace('.', '').isalnum():
-            raise ValidationError(_("Invalid model name"))
+        if not customization:
+            # Create new customization
+            base_view = self.env['ir.ui.view'].search([
+                ('model', '=', model),
+                ('type', '=', view_type),
+            ], order='priority', limit=1)
 
-        # Create the model
-        IrModel = self.env['ir.model'].sudo()
-        model = IrModel.create({
-            'name': model_label,
-            'model': technical_name,
-            'state': 'manual',
-            'studio_app_id': self.id,
+            customization = self.create({
+                'name': f"Studio: {model} {view_type}",
+                'model_name': model,
+                'view_type': view_type,
+                'base_view_id': base_view.id if base_view else False,
+            })
+
+        # Add field to customization
+        sequence = 10
+        if after_field:
+            after = customization.field_ids.filtered(
+                lambda f: f.field_id.name == after_field
+            )
+            if after:
+                sequence = after.sequence + 1
+
+        self.env['studio.view.field'].create({
+            'customization_id': customization.id,
+            'field_id': field_id,
+            'sequence': sequence,
         })
 
-        # Create fields
-        for field_def in fields_config:
-            self._create_field(model, field_def)
+        # Regenerate view
+        customization._generate_view()
 
-        return model
+        return customization
 
-    def _create_field(self, model, field_def):
-        """Create a field on a model.
+    def add_list_column(self, model, field_name, position):
+        """Add a column to a list view."""
+        return self.add_field_to_view(
+            model, 'list',
+            self._get_field_id(model, field_name),
+            position
+        )
 
-        Args:
-            model: ir.model record
-            field_def: Dict with name, type, label, etc.
-        """
-        IrModelFields = self.env['ir.model.fields'].sudo()
+    def remove_list_column(self, model, field_name):
+        """Remove a column from a list view."""
+        customization = self.search([
+            ('model_name', '=', model),
+            ('view_type', '=', 'list'),
+            ('active', '=', True)
+        ], limit=1)
 
-        field_name = f"x_{field_def['name']}"
-        ttype = field_def.get('type', 'char')
+        if customization:
+            field = customization.field_ids.filtered(
+                lambda f: f.field_id.name == field_name
+            )
+            field.unlink()
+            customization._generate_view()
 
-        vals = {
-            'model_id': model.id,
-            'name': field_name,
-            'field_description': field_def.get('label', field_def['name']),
-            'ttype': ttype,
-            'state': 'manual',
-            'required': field_def.get('required', False),
-            'index': field_def.get('index', False),
-        }
+    def reorder_list_columns(self, model, from_index, to_index):
+        """Reorder columns in a list view."""
+        customization = self.search([
+            ('model_name', '=', model),
+            ('view_type', '=', 'list'),
+            ('active', '=', True)
+        ], limit=1)
 
-        # Type-specific attributes
-        if ttype == 'selection':
-            vals['selection'] = str(field_def.get('selection', []))
-        elif ttype in ('many2one', 'one2many', 'many2many'):
-            vals['relation'] = field_def.get('relation')
-            if ttype == 'one2many':
-                vals['relation_field'] = field_def.get('relation_field')
-        elif ttype in ('char', 'text'):
-            vals['size'] = field_def.get('size', 0)
+        if customization:
+            fields = customization.field_ids.sorted('sequence')
+            if 0 <= from_index < len(fields) and 0 <= to_index < len(fields):
+                # Recompute sequences
+                for idx, field in enumerate(fields):
+                    if idx == from_index:
+                        field.sequence = (to_index * 10) + 5
+                    else:
+                        field.sequence = idx * 10
+                customization._generate_view()
 
-        return IrModelFields.create(vals)
-```
+    def _get_field_id(self, model, field_name):
+        """Get ir.model.fields ID for a field."""
+        return self.env['ir.model.fields'].search([
+            ('model', '=', model),
+            ('name', '=', field_name)
+        ], limit=1).id
 
-### 1.4 View Generation
-
-Dynamic view generation from customization records:
-
-```python
-class StudioViewCustomization(models.Model):
-    _inherit = 'studio.view.customization'
-
-    def generate_view(self):
-        """Generate ir.ui.view from customization settings."""
+    def _generate_view(self):
+        """Generate or update the ir.ui.view from customization."""
         self.ensure_one()
 
-        # Build view architecture
         arch = self._build_arch()
 
         view_vals = {
-            'name': f"studio.{self.model_id.model}.{self.view_type}",
-            'model': self.model_id.model,
+            'name': f"studio.{self.model_name}.{self.view_type}",
+            'model': self.model_name,
             'type': self.view_type,
             'arch': arch,
-            'priority': 99,  # Lower priority to override defaults
+            'priority': 99,
+            'studio_customized': True,
+            'studio_customization_id': self.id,
         }
 
         if self.base_view_id:
-            # Create as inherited view
             view_vals['inherit_id'] = self.base_view_id.id
 
         if self.generated_view_id:
             self.generated_view_id.write(view_vals)
         else:
-            view = self.env['ir.ui.view'].sudo().create(view_vals)
+            view = self.env['ir.ui.view'].create(view_vals)
             self.generated_view_id = view
 
-        return self.generated_view_id
-
     def _build_arch(self):
-        """Build XML architecture based on view type."""
-        if self.view_type == 'form':
-            return self._build_form_arch()
-        elif self.view_type == 'list':
-            return self._build_list_arch()
-        elif self.view_type == 'kanban':
-            return self._build_kanban_arch()
-        # ... other view types
+        """Build XML architecture from customization."""
+        builder = getattr(self, f'_build_{self.view_type}_arch', None)
+        if builder:
+            return builder()
+        return f"<{self.view_type}/>"
 
     def _build_form_arch(self):
-        """Generate form view XML."""
+        """Build form view XML."""
         root = etree.Element('form')
         sheet = etree.SubElement(root, 'sheet')
 
-        # Group fields by group_name
+        # Group fields
         grouped = defaultdict(list)
         for field in self.field_ids.sorted('sequence'):
             grouped[field.group_name or ''].append(field)
 
-        # Build groups
         for group_name, fields in grouped.items():
             group = etree.SubElement(sheet, 'group')
             if group_name:
                 group.set('string', group_name)
 
             for field_rec in fields:
-                field_el = etree.SubElement(group, 'field')
-                field_el.set('name', field_rec.field_id.name)
-
-                if field_rec.widget:
-                    field_el.set('widget', field_rec.widget)
-                if field_rec.readonly:
-                    field_el.set('readonly', '1')
-                if field_rec.required:
-                    field_el.set('required', '1')
-                if field_rec.invisible_domain:
-                    field_el.set('invisible', field_rec.invisible_domain)
-                if field_rec.custom_label:
-                    field_el.set('string', field_rec.custom_label)
+                self._add_field_to_element(group, field_rec)
 
         return etree.tostring(root, encoding='unicode', pretty_print=True)
-```
 
-### 1.5 Supported Field Types
+    def _build_list_arch(self):
+        """Build list view XML."""
+        root = etree.Element('list')
 
-| Field Type | Odoo ttype | Widget Options | Notes |
-|------------|-----------|----------------|-------|
-| Text | char | default, email, url, phone | Single line |
-| Long Text | text | default, html | Multi-line |
-| Number | integer, float | default, monetary | Configurable decimals |
-| Date | date | default | Date picker |
-| DateTime | datetime | default | Date + time picker |
-| Boolean | boolean | default, toggle | Checkbox or toggle |
-| Selection | selection | default, radio, badge | Dropdown or radio |
-| Many2one | many2one | default | Link to another record |
-| One2many | one2many | default, kanban | List of related records |
-| Many2many | many2many | default, tags | Multiple links |
-| Binary | binary | default, image | File upload |
-| Image | binary | image | Image with preview |
-| Monetary | monetary | default | Currency-aware |
+        for field_rec in self.field_ids.sorted('sequence'):
+            self._add_field_to_element(root, field_rec)
 
-### 1.6 Frontend Components (Owl)
+        return etree.tostring(root, encoding='unicode', pretty_print=True)
 
-```javascript
-// static/src/components/studio_sidebar/studio_sidebar.js
-/** @odoo-module */
+    def _add_field_to_element(self, parent, field_rec):
+        """Add a field element to parent XML."""
+        field_el = etree.SubElement(parent, 'field')
+        field_el.set('name', field_rec.field_id.name)
 
-import { Component, useState } from "@odoo/owl";
-import { useService } from "@web/core/utils/hooks";
+        if field_rec.widget:
+            field_el.set('widget', field_rec.widget)
+        if field_rec.readonly:
+            field_el.set('readonly', '1')
+        if field_rec.required:
+            field_el.set('required', '1')
+        if field_rec.invisible_domain:
+            field_el.set('invisible', field_rec.invisible_domain)
+        if field_rec.custom_label:
+            field_el.set('string', field_rec.custom_label)
 
-export class StudioSidebar extends Component {
-    static template = "loomworks_studio.StudioSidebar";
-    static props = {
-        modelId: Number,
-        viewType: String,
-        onFieldAdd: Function,
-    };
+    def _apply_to_arch(self, base_arch):
+        """Apply customizations to a base view arch.
 
-    setup() {
-        this.orm = useService("orm");
-        this.state = useState({
-            fieldTypes: this.getFieldTypes(),
-            existingFields: [],
-            newFieldOpen: false,
-        });
-        this.loadExistingFields();
-    }
+        Called from core ir.ui.view during view processing.
+        """
+        self.ensure_one()
 
-    getFieldTypes() {
-        return [
-            { type: 'char', label: 'Text', icon: 'fa-font' },
-            { type: 'text', label: 'Long Text', icon: 'fa-align-left' },
-            { type: 'integer', label: 'Number', icon: 'fa-hashtag' },
-            { type: 'float', label: 'Decimal', icon: 'fa-percent' },
-            { type: 'boolean', label: 'Checkbox', icon: 'fa-check-square' },
-            { type: 'date', label: 'Date', icon: 'fa-calendar' },
-            { type: 'datetime', label: 'Date & Time', icon: 'fa-clock' },
-            { type: 'selection', label: 'Dropdown', icon: 'fa-list' },
-            { type: 'many2one', label: 'Link', icon: 'fa-link' },
-            { type: 'binary', label: 'File', icon: 'fa-file' },
-        ];
-    }
+        if not self.arch_json:
+            return base_arch
 
-    async loadExistingFields() {
-        const fields = await this.orm.searchRead(
-            'ir.model.fields',
-            [['model_id', '=', this.props.modelId]],
-            ['name', 'field_description', 'ttype']
-        );
-        this.state.existingFields = fields;
-    }
+        customizations = json.loads(self.arch_json)
+        # Apply JSON customizations to XML arch
+        # ... implementation
 
-    onDragStart(ev, fieldType) {
-        ev.dataTransfer.setData('fieldType', fieldType.type);
-        ev.dataTransfer.effectAllowed = 'copy';
-    }
-
-    onExistingFieldDrag(ev, field) {
-        ev.dataTransfer.setData('existingField', JSON.stringify(field));
-        ev.dataTransfer.effectAllowed = 'copy';
-    }
-}
+        return base_arch
 ```
 
 ---
 
-## Part 2: loomworks_spreadsheet - Technical Design
+## Part 4: loomworks_spreadsheet Addon
 
-### 2.1 Library Selection: Univer
-
-**Recommendation: Univer** (Apache-2.0 License)
-
-| Criteria | Univer | Handsontable | SheetJS |
-|----------|--------|--------------|---------|
-| License | Apache-2.0 | Dual (free/commercial) | Various |
-| UI Component | Full spreadsheet UI | Data grid focus | Headless only |
-| Formula Engine | Built-in, 400+ functions | Via HyperFormula | Read/write only |
-| Charts | Planned/plugins | Limited | None |
-| Pivot Tables | Supported | Plugin (paid) | None |
-| TypeScript | Native | Yes | Yes |
-| Collaboration | Built-in CRDT | Requires implementation | N/A |
-| Active Development | Yes (Luckysheet successor) | Yes | Yes |
-| Odoo Integration | Clean start | Clean start | Read/write only |
-
-**Rationale:**
-1. **Apache-2.0 license** is LGPL v3 compatible
-2. **Full spreadsheet UI** out of the box (unlike SheetJS which is headless)
-3. **Native collaboration support** aligns with Odoo's multi-user needs
-4. **Active development** as the successor to Luckysheet
-5. **TypeScript-first** matches modern development practices
-
-### 2.2 Architecture Overview
+### 4.1 Architecture Overview
 
 ```
 loomworks_spreadsheet/
@@ -599,246 +1425,28 @@ loomworks_spreadsheet/
 │   ├── ir.model.access.csv
 │   └── security.xml
 ├── controllers/
-│   └── spreadsheet_controller.py  # REST API for data
+│   └── spreadsheet_controller.py  # REST API
 ├── static/src/
-│   ├── spreadsheet/               # Univer integration
-│   │   ├── SpreadsheetComponent.js
-│   │   ├── OdooDataPlugin.js      # Odoo data source plugin
-│   │   ├── PivotPlugin.js         # Dynamic pivot plugin
-│   │   └── ChartPlugin.js         # Chart visualization
+│   ├── univer/                    # Univer integration
+│   │   ├── univer_wrapper.js
+│   │   ├── odoo_data_plugin.js
+│   │   ├── pivot_plugin.js
+│   │   └── chart_plugin.js
 │   ├── components/
-│   │   ├── spreadsheet_action/    # Owl action wrapper
-│   │   └── data_source_dialog/    # Data source selector
-│   ├── scss/
-│   │   └── spreadsheet.scss
+│   │   ├── spreadsheet_action/
+│   │   ├── data_source_dialog/
+│   │   └── pivot_config/
 │   └── xml/
-│       └── spreadsheet_templates.xml
-├── data/
-│   └── spreadsheet_data.xml
+│       └── templates.xml
 └── tests/
     └── test_spreadsheet.py
 ```
 
-### 2.3 Data Models
+### 4.2 Univer Integration
 
-#### spreadsheet.document - Document Storage
-
-```python
-class SpreadsheetDocument(models.Model):
-    _name = 'spreadsheet.document'
-    _description = 'Spreadsheet Document'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
-
-    name = fields.Char(required=True)
-    description = fields.Text()
-
-    # Document content (Univer JSON format)
-    data = fields.Text(
-        help="JSON serialization of spreadsheet state"
-    )
-
-    # Thumbnail for preview
-    thumbnail = fields.Binary(attachment=True)
-
-    # Data sources connected to this spreadsheet
-    data_source_ids = fields.One2many(
-        'spreadsheet.data.source',
-        'document_id'
-    )
-
-    # Ownership and sharing
-    owner_id = fields.Many2one(
-        'res.users',
-        default=lambda self: self.env.user,
-        required=True
-    )
-    shared_user_ids = fields.Many2many('res.users', string='Shared With')
-    share_mode = fields.Selection([
-        ('private', 'Private'),
-        ('readonly', 'Read Only'),
-        ('edit', 'Can Edit')
-    ], default='private')
-
-    # Folder organization
-    folder_id = fields.Many2one('documents.folder')
-    tag_ids = fields.Many2many('documents.tag')
-
-    # Versioning
-    version = fields.Integer(default=1)
-    last_modified = fields.Datetime(
-        default=fields.Datetime.now,
-        readonly=True
-    )
-
-    @api.model
-    def create(self, vals):
-        if 'data' not in vals:
-            vals['data'] = self._get_empty_spreadsheet()
-        return super().create(vals)
-
-    def _get_empty_spreadsheet(self):
-        """Return JSON for empty Univer spreadsheet."""
-        return json.dumps({
-            "id": str(uuid.uuid4()),
-            "name": self.name or "Untitled",
-            "sheets": [{
-                "id": "sheet1",
-                "name": "Sheet 1",
-                "rowCount": 100,
-                "columnCount": 26,
-                "cellData": {}
-            }]
-        })
-```
-
-#### spreadsheet.data.source - Odoo Data Connection
-
-```python
-class SpreadsheetDataSource(models.Model):
-    _name = 'spreadsheet.data.source'
-    _description = 'Spreadsheet Data Source'
-
-    name = fields.Char(required=True)
-    document_id = fields.Many2one(
-        'spreadsheet.document',
-        required=True,
-        ondelete='cascade'
-    )
-
-    source_type = fields.Selection([
-        ('model', 'Odoo Model'),
-        ('pivot', 'Pivot Table'),
-        ('list', 'List View'),
-        ('chart', 'Chart')
-    ], required=True, default='model')
-
-    # Model configuration
-    model_id = fields.Many2one('ir.model')
-    domain = fields.Char(default='[]')
-    field_ids = fields.Many2many(
-        'ir.model.fields',
-        string='Fields to Include'
-    )
-
-    # Grouping (for pivot/chart)
-    group_by_ids = fields.Many2many(
-        'ir.model.fields',
-        relation='spreadsheet_source_groupby_rel',
-        string='Group By'
-    )
-    measure_ids = fields.Many2many(
-        'ir.model.fields',
-        relation='spreadsheet_source_measure_rel',
-        string='Measures'
-    )
-
-    # Spreadsheet placement
-    target_sheet = fields.Char(default='Sheet 1')
-    target_cell = fields.Char(default='A1', help="Cell reference like A1, B5")
-
-    # Refresh settings
-    auto_refresh = fields.Boolean(default=True)
-    last_refresh = fields.Datetime()
-
-    def fetch_data(self):
-        """Fetch data from Odoo and return in spreadsheet format."""
-        self.ensure_one()
-
-        if self.source_type == 'model':
-            return self._fetch_model_data()
-        elif self.source_type == 'pivot':
-            return self._fetch_pivot_data()
-        elif self.source_type == 'list':
-            return self._fetch_list_data()
-
-    def _fetch_model_data(self):
-        """Fetch raw model data."""
-        Model = self.env[self.model_id.model]
-        domain = safe_eval(self.domain) if self.domain else []
-
-        field_names = self.field_ids.mapped('name') or ['id', 'display_name']
-        records = Model.search_read(domain, field_names, limit=10000)
-
-        return {
-            'type': 'table',
-            'headers': field_names,
-            'rows': [[r.get(f) for f in field_names] for r in records]
-        }
-
-    def _fetch_pivot_data(self):
-        """Fetch aggregated pivot data."""
-        Model = self.env[self.model_id.model]
-        domain = safe_eval(self.domain) if self.domain else []
-
-        group_fields = self.group_by_ids.mapped('name')
-        measure_fields = self.measure_ids.mapped('name')
-
-        # Use Odoo's read_group for aggregation
-        results = Model.read_group(
-            domain,
-            fields=measure_fields,
-            groupby=group_fields,
-            lazy=False
-        )
-
-        return {
-            'type': 'pivot',
-            'rows': group_fields,
-            'measures': measure_fields,
-            'data': results
-        }
-```
-
-#### spreadsheet.chart - Chart Configuration
-
-```python
-class SpreadsheetChart(models.Model):
-    _name = 'spreadsheet.chart'
-    _description = 'Spreadsheet Chart'
-
-    name = fields.Char(required=True)
-    document_id = fields.Many2one(
-        'spreadsheet.document',
-        required=True,
-        ondelete='cascade'
-    )
-
-    chart_type = fields.Selection([
-        ('bar', 'Bar Chart'),
-        ('line', 'Line Chart'),
-        ('pie', 'Pie Chart'),
-        ('area', 'Area Chart'),
-        ('scatter', 'Scatter Plot'),
-        ('combo', 'Combo Chart')
-    ], required=True, default='bar')
-
-    # Data source
-    data_source_id = fields.Many2one('spreadsheet.data.source')
-
-    # Or manual range
-    data_range = fields.Char(help="Cell range like A1:D10")
-
-    # Chart options
-    title = fields.Char()
-    stacked = fields.Boolean(default=False)
-    show_legend = fields.Boolean(default=True)
-    show_labels = fields.Boolean(default=False)
-
-    # Axes configuration (JSON)
-    axes_config = fields.Text(default='{}')
-
-    # Position in spreadsheet
-    sheet_name = fields.Char()
-    position_x = fields.Integer(default=0)
-    position_y = fields.Integer(default=0)
-    width = fields.Integer(default=600)
-    height = fields.Integer(default=400)
-```
-
-### 2.4 Univer Integration
+**File: `static/src/univer/univer_wrapper.js`**
 
 ```javascript
-// static/src/spreadsheet/SpreadsheetComponent.js
 /** @odoo-module */
 
 import { Component, useRef, onMounted, onWillUnmount } from "@odoo/owl";
@@ -851,33 +1459,34 @@ import { UniverSheetsPlugin } from "@univerjs/sheets";
 import { UniverSheetsUIPlugin } from "@univerjs/sheets-ui";
 import { UniverSheetsFormulaPlugin } from "@univerjs/sheets-formula";
 
-// Custom plugins
-import { OdooDataPlugin } from "./OdooDataPlugin";
-import { LoomworksPivotPlugin } from "./PivotPlugin";
-import { LoomworksChartPlugin } from "./ChartPlugin";
+import { OdooDataPlugin } from "./odoo_data_plugin";
+import { LoomworksPivotPlugin } from "./pivot_plugin";
+import { LoomworksChartPlugin } from "./chart_plugin";
 
-export class SpreadsheetComponent extends Component {
-    static template = "loomworks_spreadsheet.SpreadsheetComponent";
+export class UniverWrapper extends Component {
+    static template = "loomworks_spreadsheet.UniverWrapper";
     static props = {
+        data: { type: Object, optional: true },
         documentId: { type: Number, optional: true },
-        data: { type: String, optional: true },
         readonly: { type: Boolean, optional: true },
         onSave: { type: Function, optional: true },
+        onDataChange: { type: Function, optional: true },
     };
 
     setup() {
-        this.containerRef = useRef("spreadsheetContainer");
+        this.containerRef = useRef("univerContainer");
         this.orm = useService("orm");
         this.notification = useService("notification");
+
         this.univer = null;
         this.workbook = null;
 
-        onMounted(() => this.initSpreadsheet());
-        onWillUnmount(() => this.destroySpreadsheet());
+        onMounted(() => this.initUniver());
+        onWillUnmount(() => this.destroyUniver());
     }
 
-    async initSpreadsheet() {
-        // Initialize Univer
+    async initUniver() {
+        // Initialize Univer instance
         this.univer = new Univer({
             theme: defaultTheme,
             locale: LocaleType.EN_US,
@@ -890,73 +1499,122 @@ export class SpreadsheetComponent extends Component {
         });
         this.univer.registerPlugin(UniverSheetsFormulaPlugin);
 
-        // Register Loomworks custom plugins
+        // Register Loomworks plugins
         this.univer.registerPlugin(OdooDataPlugin, {
             orm: this.orm,
             documentId: this.props.documentId,
         });
-        this.univer.registerPlugin(LoomworksPivotPlugin);
+        this.univer.registerPlugin(LoomworksPivotPlugin, {
+            orm: this.orm,
+        });
         this.univer.registerPlugin(LoomworksChartPlugin);
 
-        // Load document data
-        let data = this.props.data;
-        if (this.props.documentId && !data) {
-            const doc = await this.orm.read(
-                'spreadsheet.document',
-                [this.props.documentId],
-                ['data']
-            );
-            data = doc[0]?.data;
-        }
+        // Load data
+        const data = this.props.data || await this.loadDocument();
+        this.workbook = this.univer.createUniverSheet(data);
 
-        if (data) {
-            this.workbook = this.univer.createUniverSheet(JSON.parse(data));
-        } else {
-            this.workbook = this.univer.createUniverSheet({});
-        }
-
-        // Set up auto-save
-        if (this.props.documentId && !this.props.readonly) {
-            this.setupAutoSave();
+        // Setup change tracking
+        if (!this.props.readonly) {
+            this.setupChangeTracking();
         }
     }
 
-    setupAutoSave() {
-        // Debounced save on changes
+    async loadDocument() {
+        if (!this.props.documentId) {
+            return this.getEmptySpreadsheet();
+        }
+
+        const [doc] = await this.orm.read(
+            "spreadsheet.document",
+            [this.props.documentId],
+            ["data"]
+        );
+
+        return doc?.data ? JSON.parse(doc.data) : this.getEmptySpreadsheet();
+    }
+
+    getEmptySpreadsheet() {
+        return {
+            id: `new_${Date.now()}`,
+            name: "New Spreadsheet",
+            sheets: [{
+                id: "sheet1",
+                name: "Sheet 1",
+                rowCount: 100,
+                columnCount: 26,
+                cellData: {},
+            }],
+        };
+    }
+
+    setupChangeTracking() {
         let saveTimeout;
         this.workbook.onChanged(() => {
+            if (this.props.onDataChange) {
+                this.props.onDataChange(this.getSnapshot());
+            }
+
+            // Debounced auto-save
             clearTimeout(saveTimeout);
-            saveTimeout = setTimeout(() => this.saveDocument(), 2000);
+            saveTimeout = setTimeout(() => this.autoSave(), 3000);
         });
     }
 
-    async saveDocument() {
-        if (!this.props.documentId) return;
+    getSnapshot() {
+        return this.workbook?.getSnapshot();
+    }
 
-        const data = JSON.stringify(this.workbook.getSnapshot());
-        await this.orm.write(
-            'spreadsheet.document',
-            [this.props.documentId],
-            { data, last_modified: new Date().toISOString() }
-        );
+    async autoSave() {
+        if (!this.props.documentId || this.props.readonly) return;
 
-        if (this.props.onSave) {
-            this.props.onSave();
+        try {
+            const data = JSON.stringify(this.getSnapshot());
+            await this.orm.write(
+                "spreadsheet.document",
+                [this.props.documentId],
+                { data, last_modified: new Date().toISOString() }
+            );
+
+            if (this.props.onSave) {
+                this.props.onSave();
+            }
+        } catch (error) {
+            this.notification.add("Failed to save spreadsheet", { type: "danger" });
+            console.error("Auto-save failed:", error);
         }
     }
 
-    destroySpreadsheet() {
+    destroyUniver() {
         if (this.univer) {
             this.univer.dispose();
+            this.univer = null;
+            this.workbook = null;
         }
+    }
+
+    // Public API for external control
+    insertOdooData(config) {
+        const plugin = this.univer.getPlugin(OdooDataPlugin);
+        return plugin?.insertDataSource(config);
+    }
+
+    createPivot(config) {
+        const plugin = this.univer.getPlugin(LoomworksPivotPlugin);
+        return plugin?.createPivot(config);
+    }
+
+    createChart(config) {
+        const plugin = this.univer.getPlugin(LoomworksChartPlugin);
+        return plugin?.createChart(config);
     }
 }
 ```
 
-### 2.5 Odoo Data Plugin
+### 4.3 Odoo Data Plugin
+
+**File: `static/src/univer/odoo_data_plugin.js`**
 
 ```javascript
-// static/src/spreadsheet/OdooDataPlugin.js
 /** @odoo-module */
 
 import { Plugin } from "@univerjs/core";
@@ -972,48 +1630,60 @@ export class OdooDataPlugin extends Plugin {
     }
 
     onStarting() {
-        // Register custom functions
         this.registerOdooFunctions();
-
-        // Load data sources
-        this.loadDataSources();
+        if (this.documentId) {
+            this.loadDataSources();
+        }
     }
 
     registerOdooFunctions() {
         const formulaEngine = this.getUniverSheet().getFormulaEngine();
 
         // ODOO.DATA(model, domain, fields, row, col)
-        formulaEngine.registerFunction('ODOO.DATA', {
+        formulaEngine.registerFunction("ODOO.DATA", {
             calculate: async (model, domain, fields, row, col) => {
                 return this.fetchOdooData(model, domain, fields, row, col);
             },
-            description: 'Fetch data from an Odoo model',
+            description: "Fetch data from an Odoo model",
+            parameters: [
+                { name: "model", type: "string" },
+                { name: "domain", type: "string" },
+                { name: "fields", type: "string" },
+                { name: "row", type: "number", optional: true },
+                { name: "col", type: "number", optional: true },
+            ],
         });
 
-        // ODOO.PIVOT(source_id, row_index, measure)
-        formulaEngine.registerFunction('ODOO.PIVOT', {
-            calculate: async (sourceId, rowIndex, measure) => {
-                return this.fetchPivotValue(sourceId, rowIndex, measure);
+        // ODOO.PIVOT(pivot_id, row, measure)
+        formulaEngine.registerFunction("ODOO.PIVOT", {
+            calculate: async (pivotId, row, measure) => {
+                return this.fetchPivotValue(pivotId, row, measure);
             },
-            description: 'Get value from a pivot table',
+            description: "Get a value from an Odoo pivot",
         });
 
-        // ODOO.PIVOT.HEADER(source_id, row_index)
-        formulaEngine.registerFunction('ODOO.PIVOT.HEADER', {
-            calculate: async (sourceId, rowIndex) => {
-                return this.fetchPivotHeader(sourceId, rowIndex);
+        // ODOO.PIVOT.HEADER(pivot_id, row)
+        formulaEngine.registerFunction("ODOO.PIVOT.HEADER", {
+            calculate: async (pivotId, row) => {
+                return this.fetchPivotHeader(pivotId, row);
             },
-            description: 'Get header from a pivot table',
+            description: "Get a header from an Odoo pivot",
+        });
+
+        // ODOO.FIELD(model, id, field)
+        formulaEngine.registerFunction("ODOO.FIELD", {
+            calculate: async (model, recordId, field) => {
+                return this.fetchFieldValue(model, recordId, field);
+            },
+            description: "Get a field value from an Odoo record",
         });
     }
 
     async loadDataSources() {
-        if (!this.documentId) return;
-
         const sources = await this.orm.searchRead(
-            'spreadsheet.data.source',
-            [['document_id', '=', this.documentId]],
-            ['id', 'name', 'source_type', 'model_id', 'domain', 'target_cell']
+            "spreadsheet.data.source",
+            [["document_id", "=", this.documentId]],
+            ["id", "name", "source_type", "model_id", "domain", "target_cell"]
         );
 
         for (const source of sources) {
@@ -1023,12 +1693,12 @@ export class OdooDataPlugin extends Plugin {
 
     async fetchOdooData(model, domain, fields, row, col) {
         try {
-            const parsedDomain = typeof domain === 'string'
-                ? JSON.parse(domain)
-                : domain;
-            const fieldList = typeof fields === 'string'
-                ? fields.split(',').map(f => f.trim())
-                : fields;
+            const parsedDomain = typeof domain === "string"
+                ? JSON.parse(domain || "[]")
+                : domain || [];
+            const fieldList = typeof fields === "string"
+                ? fields.split(",").map((f) => f.trim())
+                : fields || [];
 
             const records = await this.orm.searchRead(
                 model,
@@ -1038,38 +1708,57 @@ export class OdooDataPlugin extends Plugin {
             );
 
             if (row !== undefined && col !== undefined) {
-                // Return specific cell value
                 const record = records[row];
-                return record ? record[fieldList[col]] : '';
+                if (!record) return "";
+                const value = record[fieldList[col]];
+                return this.formatValue(value);
             }
 
             return records;
         } catch (error) {
-            console.error('ODOO.DATA error:', error);
-            return '#ERROR';
+            console.error("ODOO.DATA error:", error);
+            return "#ERROR";
         }
+    }
+
+    async fetchFieldValue(model, recordId, field) {
+        try {
+            const [record] = await this.orm.read(model, [recordId], [field]);
+            return record ? this.formatValue(record[field]) : "";
+        } catch (error) {
+            return "#ERROR";
+        }
+    }
+
+    formatValue(value) {
+        if (value === null || value === undefined) return "";
+        if (Array.isArray(value) && value.length === 2) {
+            return value[1]; // Many2one display name
+        }
+        return value;
     }
 
     async insertDataSource(config) {
         // Create data source record
-        const sourceId = await this.orm.create('spreadsheet.data.source', [{
+        const sourceId = await this.orm.create("spreadsheet.data.source", [{
             name: config.name,
             document_id: this.documentId,
-            source_type: config.type,
+            source_type: config.type || "model",
             model_id: config.modelId,
             domain: JSON.stringify(config.domain || []),
-            target_cell: config.targetCell,
+            target_cell: config.targetCell || "A1",
+            field_ids: [[6, 0, config.fieldIds || []]],
         }]);
 
         // Fetch and insert data
         const data = await this.orm.call(
-            'spreadsheet.data.source',
-            'fetch_data',
+            "spreadsheet.data.source",
+            "fetch_data",
             [sourceId]
         );
 
-        // Insert into spreadsheet
-        this.insertTableData(config.targetCell, data);
+        this.insertTableData(config.targetCell || "A1", data);
+        this.dataSources.set(sourceId, { id: sourceId, ...config });
 
         return sourceId;
     }
@@ -1080,23 +1769,29 @@ export class OdooDataPlugin extends Plugin {
 
         // Insert headers
         data.headers.forEach((header, i) => {
-            sheet.getCell(row, col + i).setValue(header);
+            const cell = sheet.getCell(row, col + i);
+            cell.setValue(header);
+            cell.setStyle({ fontWeight: "bold", backgroundColor: "#f0f0f0" });
         });
 
-        // Insert rows
+        // Insert data rows
         data.rows.forEach((rowData, rowIdx) => {
             rowData.forEach((value, colIdx) => {
-                sheet.getCell(row + rowIdx + 1, col + colIdx).setValue(value);
+                sheet.getCell(row + rowIdx + 1, col + colIdx).setValue(
+                    this.formatValue(value)
+                );
             });
         });
     }
 
     cellRefToCoords(ref) {
-        const match = ref.match(/^([A-Z]+)(\d+)$/);
+        const match = ref.match(/^([A-Z]+)(\d+)$/i);
         if (!match) return { row: 0, col: 0 };
 
-        const col = match[1].split('').reduce(
-            (acc, c) => acc * 26 + c.charCodeAt(0) - 64, 0
+        const colStr = match[1].toUpperCase();
+        const col = colStr.split("").reduce(
+            (acc, c) => acc * 26 + c.charCodeAt(0) - 64,
+            0
         ) - 1;
         const row = parseInt(match[2]) - 1;
 
@@ -1105,363 +1800,167 @@ export class OdooDataPlugin extends Plugin {
 }
 ```
 
-### 2.6 Pivot Table Implementation
-
-```python
-# models/spreadsheet_pivot.py
-
-class SpreadsheetPivot(models.Model):
-    _name = 'spreadsheet.pivot'
-    _description = 'Spreadsheet Pivot Configuration'
-
-    name = fields.Char(required=True)
-    document_id = fields.Many2one(
-        'spreadsheet.document',
-        required=True,
-        ondelete='cascade'
-    )
-
-    # Source model
-    model_id = fields.Many2one('ir.model', required=True)
-    domain = fields.Char(default='[]')
-
-    # Dimensions
-    row_group_ids = fields.One2many(
-        'spreadsheet.pivot.dimension',
-        'pivot_id',
-        domain=[('dimension_type', '=', 'row')],
-        string='Row Groups'
-    )
-    col_group_ids = fields.One2many(
-        'spreadsheet.pivot.dimension',
-        'pivot_id',
-        domain=[('dimension_type', '=', 'col')],
-        string='Column Groups'
-    )
-
-    # Measures
-    measure_ids = fields.One2many(
-        'spreadsheet.pivot.measure',
-        'pivot_id'
-    )
-
-    # Display options
-    show_row_totals = fields.Boolean(default=True)
-    show_col_totals = fields.Boolean(default=True)
-    show_grand_total = fields.Boolean(default=True)
-
-    def compute_pivot(self):
-        """Compute pivot table data using read_group."""
-        self.ensure_one()
-
-        Model = self.env[self.model_id.model]
-        domain = safe_eval(self.domain) if self.domain else []
-
-        row_fields = self.row_group_ids.mapped('field_id.name')
-        col_fields = self.col_group_ids.mapped('field_id.name')
-        measure_specs = [
-            f"{m.field_id.name}:{m.aggregation}"
-            for m in self.measure_ids
-        ]
-
-        # Multi-level grouping
-        all_groups = row_fields + col_fields
-
-        results = Model.read_group(
-            domain,
-            fields=[m.field_id.name for m in self.measure_ids],
-            groupby=all_groups,
-            lazy=False
-        )
-
-        return self._format_pivot_results(results, row_fields, col_fields)
-
-    def _format_pivot_results(self, results, row_fields, col_fields):
-        """Format read_group results into pivot structure."""
-        pivot_data = {
-            'rows': [],
-            'cols': [],
-            'values': {},
-            'row_totals': {},
-            'col_totals': {},
-            'grand_total': {}
-        }
-
-        # Build unique row/col combinations
-        row_keys = set()
-        col_keys = set()
-
-        for result in results:
-            row_key = tuple(result.get(f) for f in row_fields)
-            col_key = tuple(result.get(f) for f in col_fields)
-
-            row_keys.add(row_key)
-            col_keys.add(col_key)
-
-            # Store values
-            key = (row_key, col_key)
-            pivot_data['values'][str(key)] = {
-                m.field_id.name: result.get(m.field_id.name, 0)
-                for m in self.measure_ids
-            }
-
-        pivot_data['rows'] = sorted(list(row_keys))
-        pivot_data['cols'] = sorted(list(col_keys))
-
-        # Compute totals if enabled
-        if self.show_row_totals:
-            pivot_data['row_totals'] = self._compute_row_totals(
-                pivot_data, row_fields
-            )
-
-        if self.show_col_totals:
-            pivot_data['col_totals'] = self._compute_col_totals(
-                pivot_data, col_fields
-            )
-
-        return pivot_data
-
-
-class SpreadsheetPivotDimension(models.Model):
-    _name = 'spreadsheet.pivot.dimension'
-    _description = 'Pivot Table Dimension'
-    _order = 'sequence'
-
-    pivot_id = fields.Many2one(
-        'spreadsheet.pivot',
-        required=True,
-        ondelete='cascade'
-    )
-    field_id = fields.Many2one('ir.model.fields', required=True)
-    dimension_type = fields.Selection([
-        ('row', 'Row'),
-        ('col', 'Column')
-    ], required=True)
-    sequence = fields.Integer(default=10)
-
-    # Date grouping options
-    date_granularity = fields.Selection([
-        ('day', 'Day'),
-        ('week', 'Week'),
-        ('month', 'Month'),
-        ('quarter', 'Quarter'),
-        ('year', 'Year')
-    ])
-
-
-class SpreadsheetPivotMeasure(models.Model):
-    _name = 'spreadsheet.pivot.measure'
-    _description = 'Pivot Table Measure'
-    _order = 'sequence'
-
-    pivot_id = fields.Many2one(
-        'spreadsheet.pivot',
-        required=True,
-        ondelete='cascade'
-    )
-    field_id = fields.Many2one('ir.model.fields', required=True)
-    sequence = fields.Integer(default=10)
-
-    aggregation = fields.Selection([
-        ('sum', 'Sum'),
-        ('avg', 'Average'),
-        ('min', 'Minimum'),
-        ('max', 'Maximum'),
-        ('count', 'Count'),
-        ('count_distinct', 'Count Distinct')
-    ], default='sum', required=True)
-
-    # Formatting
-    format_type = fields.Selection([
-        ('number', 'Number'),
-        ('percentage', 'Percentage'),
-        ('currency', 'Currency')
-    ], default='number')
-    decimal_places = fields.Integer(default=2)
-```
-
-### 2.7 Chart Types and Rendering
-
-| Chart Type | Use Case | Data Requirements |
-|------------|----------|-------------------|
-| Bar | Category comparison | 1 dimension + 1-3 measures |
-| Line | Trends over time | Date dimension + measures |
-| Pie | Part-to-whole | 1 dimension + 1 measure |
-| Area | Cumulative trends | Date dimension + measures |
-| Scatter | Correlation | 2 numeric measures |
-| Combo | Mixed visualization | Date + multiple measures |
-
-Chart rendering uses Univer's built-in chart capabilities with custom styling:
-
-```javascript
-// static/src/spreadsheet/ChartPlugin.js
-/** @odoo-module */
-
-import { Plugin } from "@univerjs/core";
-
-export class LoomworksChartPlugin extends Plugin {
-    static pluginName = "LoomworksChartPlugin";
-
-    createChart(config) {
-        const chartManager = this.getUniverSheet().getChartManager();
-
-        const chartConfig = {
-            type: config.type,
-            data: {
-                labels: config.labels,
-                datasets: config.datasets.map(ds => ({
-                    label: ds.label,
-                    data: ds.data,
-                    backgroundColor: ds.backgroundColor || this.getDefaultColors(),
-                    borderColor: ds.borderColor,
-                })),
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: !!config.title,
-                        text: config.title,
-                    },
-                    legend: {
-                        display: config.showLegend !== false,
-                        position: 'bottom',
-                    },
-                },
-                scales: this.getScalesConfig(config),
-            },
-        };
-
-        return chartManager.addChart(chartConfig, {
-            sheet: config.sheetName,
-            x: config.x,
-            y: config.y,
-            width: config.width || 600,
-            height: config.height || 400,
-        });
-    }
-
-    getDefaultColors() {
-        // Loomworks brand colors
-        return [
-            '#4F46E5', // Primary indigo
-            '#10B981', // Green
-            '#F59E0B', // Amber
-            '#EF4444', // Red
-            '#8B5CF6', // Purple
-            '#06B6D4', // Cyan
-        ];
-    }
-
-    getScalesConfig(config) {
-        if (config.type === 'pie') return {};
-
-        return {
-            x: {
-                stacked: config.stacked,
-                title: {
-                    display: !!config.xAxisTitle,
-                    text: config.xAxisTitle,
-                },
-            },
-            y: {
-                stacked: config.stacked,
-                title: {
-                    display: !!config.yAxisTitle,
-                    text: config.yAxisTitle,
-                },
-                beginAtZero: true,
-            },
-        };
-    }
-}
-```
-
 ---
 
 ## Risks / Trade-offs
 
-### Studio Risks
+### Core Modification Risks
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|------------|--------|------------|
-| Dynamic model creation breaks caching | Medium | High | Clear ORM cache after model creation; document reload requirements |
-| Complex view customizations are slow | Low | Medium | Generate views asynchronously; cache generated XML |
-| Users create conflicting customizations | Medium | Medium | Version control for customizations; conflict detection |
-| Automation rules cause infinite loops | Medium | High | Loop detection; execution limits; audit logging |
+| Upstream merge conflicts | High | Medium | Isolate changes to specific files; document all modifications |
+| Breaking changes in Odoo 19 | Medium | High | Abstract core dependencies; maintain compatibility layer |
+| Increased maintenance burden | High | Medium | Comprehensive test coverage; clear documentation |
+| Developer onboarding complexity | Medium | Low | Training materials; architecture documentation |
 
-### Spreadsheet Risks
+### Technical Trade-offs
 
-| Risk | Likelihood | Impact | Mitigation |
-|------|------------|--------|------------|
-| Univer library has breaking changes | Medium | Medium | Pin version; maintain compatibility layer |
-| Large datasets cause browser performance issues | High | Medium | Pagination; lazy loading; row/column limits |
-| Formula engine differs from Excel | Medium | Low | Document differences; provide compatibility functions |
-| Real-time collaboration conflicts | Medium | Medium | Use Univer's CRDT implementation; test extensively |
+1. **Core vs Addon**: Deeper integration but higher maintenance cost
+2. **Univer vs alternatives**: Modern architecture but smaller community than Handsontable
+3. **JSON view storage**: Flexible but requires migration tooling
+4. **Runtime model creation**: Powerful but requires careful ORM cache management
 
-### Trade-offs Made
+---
 
-1. **Univer over Handsontable**: Better licensing (Apache-2.0) but smaller community
-2. **JSON storage over native format**: Simpler but less efficient for large spreadsheets
-3. **Server-side pivot computation**: More scalable but requires round-trip for updates
-4. **Owl wrapper over native React**: Consistent with Odoo patterns but adds complexity
+## React Dependency Clarification (M1 Resolution)
+
+### Univer Requires React
+
+**Research Finding**: The Univer spreadsheet library requires React as a runtime dependency. Based on official Univer documentation (https://docs.univer.ai/guides/sheets/getting-started/installation/cdn), Univer's preset mode requires:
+
+- React 18.3.1+
+- ReactDOM 18.3.1+
+- RxJS
+- ECharts (for charts)
+
+### Resolution: React Integration in Phase 3.1
+
+To resolve the timing conflict between Phase 3.1 (Spreadsheet) and Phase 4 (Dashboard/React Bridge), the following approach is adopted:
+
+#### Option Selected: Early React Loading in Phase 3.1
+
+1. **React Libraries in Phase 3.1 Asset Bundle**: The React libraries (`react`, `react-dom`) will be included in Phase 3.1's asset bundle as a dependency of the spreadsheet view type:
+
+   ```
+   odoo/addons/web/static/lib/react/
+   ├── react.production.min.js      # React 18+
+   ├── react-dom.production.min.js  # ReactDOM 18+
+   └── rxjs.umd.min.js              # RxJS dependency
+   ```
+
+2. **Asset Loading Order**: The `web.assets_backend` bundle will load React libraries before Univer:
+
+   ```xml
+   <!-- In web/__manifest__.py assets -->
+   'web.assets_backend': [
+       # React libraries (Phase 3.1 - required for Univer)
+       ('prepend', 'web/static/lib/react/react.production.min.js'),
+       ('prepend', 'web/static/lib/react/react-dom.production.min.js'),
+       ('prepend', 'web/static/lib/react/rxjs.umd.min.js'),
+       # Univer libraries
+       'web/static/lib/univer/*.js',
+       # Spreadsheet components
+       'web/static/src/views/spreadsheet/*.js',
+   ]
+   ```
+
+3. **React Bridge in Phase 4 Reuses Libraries**: Phase 4's React Bridge will not re-bundle React but will use the already-loaded React instance from Phase 3.1, adding only the bridging logic:
+
+   ```javascript
+   // Phase 4: React Bridge uses existing React global
+   const React = window.React;
+   const ReactDOM = window.ReactDOM;
+   ```
+
+#### Owl-to-React Bridge Pattern (For Univer)
+
+Phase 3.1 implements a minimal Owl-to-React bridge specifically for Univer integration:
+
+```javascript
+// odoo/addons/web/static/src/views/spreadsheet/univer_wrapper.js
+import { Component, useRef, onMounted, onWillUnmount } from "@odoo/owl";
+
+export class UniverWrapper extends Component {
+    static template = "web.UniverWrapper";
+
+    setup() {
+        this.containerRef = useRef("container");
+        onMounted(() => this._mountUniver());
+        onWillUnmount(() => this._unmountUniver());
+    }
+
+    _mountUniver() {
+        // Uses global React/ReactDOM loaded in asset bundle
+        const { createUniver } = window.UniverPresets;
+        this.univerInstance = createUniver({
+            locale: window.UniverCore.LocaleType.EN_US,
+            presets: [window.UniverPresetSheetsCore.UniverSheetsCorePreset()],
+        });
+    }
+
+    _unmountUniver() {
+        if (this.univerInstance) {
+            this.univerInstance.dispose();
+        }
+    }
+}
+```
+
+#### Phase 4 Enhancement
+
+Phase 4 Dashboard will extend this foundation with:
+- Full React Bridge service (`reactBridgeService`) for mounting arbitrary React components
+- React Flow, Tremor, and Recharts integration
+- Bidirectional data binding between Owl and React
+
+### Impact on Compatibility Review
+
+- **Issue M1 Status**: RESOLVED
+- **Resolution**: React is loaded in Phase 3.1 as a Univer dependency; Phase 4 reuses it
+- **No Breaking Change**: The asset bundle order ensures React is available for all downstream consumers
 
 ---
 
 ## Migration Plan
 
-### Phase 1: Foundation (Week 1-2)
-1. Create module scaffolding for both modules
-2. Implement core data models
-3. Set up Univer integration with Owl wrapper
+### Phase 1: Core Foundation (Week 1-2)
+1. Apply core view system modifications
+2. Implement Studio service in core
+3. Add spreadsheet view type to core
 
-### Phase 2: Studio Core (Week 3-4)
-1. Implement dynamic model creation
-2. Build field palette and drag-drop
-3. Create basic view generation (form, list)
+### Phase 2: Studio Addon (Week 3-5)
+1. Create loomworks_studio addon structure
+2. Implement studio.app and view customization models
+3. Build field palette and automation engine
 
-### Phase 3: Studio Views (Week 5-6)
-1. Add kanban, calendar, pivot, graph view support
-2. Implement view customization storage
-3. Build automation rule engine
+### Phase 3: Spreadsheet Addon (Week 6-8)
+1. Create loomworks_spreadsheet addon structure
+2. Integrate Univer with Owl wrapper
+3. Implement data source and pivot plugins
 
-### Phase 4: Spreadsheet Core (Week 7-8)
-1. Implement document storage and management
-2. Build Odoo data source plugin
-3. Create data source selector dialog
-
-### Phase 5: Spreadsheet BI (Week 9-10)
-1. Implement pivot table engine
-2. Add chart visualization
-3. Build formula functions for Odoo data
-
-### Phase 6: Integration & Polish (Week 11-12)
-1. AI agent tools for Studio operations
-2. AI agent tools for Spreadsheet operations
-3. Documentation and testing
+### Phase 4: Integration (Week 9-10)
+1. Connect Studio to AI agent via MCP tools
+2. Connect Spreadsheet to AI agent via MCP tools
+3. End-to-end testing and polish
 
 ### Rollback Strategy
 
-Both modules are additive and do not modify core Odoo code. Rollback consists of:
-1. Uninstall the module (preserves data in database)
-2. Run `DROP TABLE` for module-specific tables if full cleanup needed
-3. Custom models/fields created by Studio remain in `ir.model`/`ir.model.fields`
+1. **Core changes**: Maintain git branches; can revert to vanilla Odoo
+2. **Addon code**: Standard module uninstall
+3. **Data**: Views/models created by Studio remain in database; provide cleanup scripts
 
 ---
 
 ## Open Questions
 
-1. **Collaboration Architecture**: Should real-time collaboration use WebSocket or Odoo's existing bus system?
-   - Recommendation: Use Odoo bus for consistency with existing infrastructure
+1. **Collaboration**: Use Odoo bus or dedicated WebSocket for real-time sync?
+   - Recommendation: Odoo bus for consistency
 
-2. **Mobile Support**: Should Studio/Spreadsheet work on mobile devices?
-   - Recommendation: Desktop-first for initial release; mobile read-only
+2. **View Inheritance**: How to handle Studio customizations that conflict with module updates?
+   - Recommendation: Studio views have lower priority; provide conflict resolution UI
 
-3. **Export Formats**: Which export formats beyond XLSX should be supported?
-   - Recommendation: CSV, PDF for initial release
+3. **Formula Compatibility**: Which Excel formulas are must-have?
+   - Recommendation: Top 100 most-used functions
 
-4. **Formula Compatibility**: How much Excel formula compatibility is required?
-   - Recommendation: Support top 100 most-used Excel functions
-
-5. **AI Integration Depth**: Should AI be able to create entire apps from description?
-   - Recommendation: Phase 1 delivers tool-level AI; natural language app creation in Phase 2
+4. **AI Integration Depth**: Should AI be able to design full apps from description?
+   - Recommendation: Phase 1 delivers tools; natural language in Phase 2
