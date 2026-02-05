@@ -76,18 +76,18 @@ class LoomworksClaudeClient:
 
             self._client = anthropic.Anthropic(api_key=api_key)
             self._connected = True
-            _logger.info(f"Claude client connected for session {self.session.uuid}")
+            _logger.info("Claude client connected for session %s", self.session.uuid)
             return True
 
         except Exception as e:
-            _logger.error(f"Failed to connect Claude client: {e}")
+            _logger.error("Failed to connect Claude client: %s", e)
             return False
 
     def disconnect(self):
         """Close connection to Claude API."""
         self._client = None
         self._connected = False
-        _logger.info(f"Claude client disconnected for session {self.session.uuid}")
+        _logger.info("Claude client disconnected for session %s", self.session.uuid)
 
     def send_message(self, message: str) -> Generator[Dict[str, Any], None, None]:
         """
@@ -186,16 +186,16 @@ class LoomworksClaudeClient:
             }
 
         except anthropic.APIConnectionError as e:
-            _logger.error(f"Claude API connection error: {e}")
+            _logger.error("Claude API connection error: %s", e)
             yield {'type': 'error', 'content': 'Connection error with Claude API'}
         except anthropic.RateLimitError as e:
-            _logger.error(f"Claude API rate limit: {e}")
+            _logger.error("Claude API rate limit: %s", e)
             yield {'type': 'error', 'content': 'Rate limit exceeded. Please try again later.'}
         except anthropic.APIStatusError as e:
-            _logger.error(f"Claude API status error: {e}")
+            _logger.error("Claude API status error: %s", e)
             yield {'type': 'error', 'content': f'API error: {e.message}'}
         except Exception as e:
-            _logger.error(f"Error processing message: {e}")
+            _logger.error("Error processing message: %s", e)
             yield {'type': 'error', 'content': str(e)}
 
     def send_message_sync(self, message: str) -> Dict[str, Any]:
@@ -292,7 +292,7 @@ class LoomworksClaudeClient:
             result = tools[tool_name](**tool_input)
             return result
         except Exception as e:
-            _logger.error(f"Tool execution error ({tool_name}): {e}")
+            _logger.error("Tool execution error (%s): %s", tool_name, e)
             return {'error': str(e)}
 
     def _continue_with_tool_result(
@@ -337,7 +337,7 @@ class LoomworksClaudeClient:
                         }
 
         except Exception as e:
-            _logger.error(f"Error continuing with tool result: {e}")
+            _logger.error("Error continuing with tool result: %s", e)
             yield {'type': 'error', 'content': str(e)}
 
 
@@ -350,7 +350,7 @@ class MockClaudeClient(LoomworksClaudeClient):
     def connect(self):
         """Mock connection always succeeds."""
         self._connected = True
-        _logger.info(f"Mock Claude client connected for session {self.session.uuid}")
+        _logger.info("Mock Claude client connected for session %s", self.session.uuid)
         return True
 
     def send_message(self, message: str) -> Generator[Dict[str, Any], None, None]:

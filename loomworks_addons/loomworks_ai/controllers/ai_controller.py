@@ -227,7 +227,7 @@ class AIController(http.Controller):
             }
 
         except Exception as e:
-            _logger.error(f"Chat error: {e}")
+            _logger.error("Chat error: %s", e)
             return {'error': str(e)}
 
     @http.route('/loomworks/ai/chat/stream', type='http', auth='user', methods=['GET'])
@@ -290,7 +290,7 @@ class AIController(http.Controller):
                 for chunk in client.send_message(message):
                     yield f"data: {json.dumps(chunk)}\n\n"
             except Exception as e:
-                _logger.error(f"Streaming error: {e}")
+                _logger.error("Streaming error: %s", e)
                 yield f"data: {json.dumps({'type': 'error', 'content': str(e)})}\n\n"
 
         return Response(

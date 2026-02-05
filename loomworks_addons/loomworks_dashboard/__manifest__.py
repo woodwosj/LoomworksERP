@@ -90,8 +90,18 @@ This is part of Loomworks ERP, a fork of Odoo Community v18 (LGPL v3).
             # Owl Components
             'loomworks_dashboard/static/src/components/dashboard_action/dashboard_action.js',
             'loomworks_dashboard/static/src/components/dashboard_action/dashboard_action.xml',
-            # React Components (compiled bundle)
+            # React Components - utility bundle (contexts, hooks, helpers)
             'loomworks_dashboard/static/src/react/dashboard_bundle.js',
+            # React Components - compiled from JSX (load order matters)
+            'loomworks_dashboard/static/src/compiled/widgets/KPIWidget.js',
+            'loomworks_dashboard/static/src/compiled/widgets/ChartWidget.js',
+            'loomworks_dashboard/static/src/compiled/widgets/TableWidget.js',
+            'loomworks_dashboard/static/src/compiled/widgets/FilterWidget.js',
+            'loomworks_dashboard/static/src/compiled/widgets/GaugeWidget.js',
+            'loomworks_dashboard/static/src/compiled/panels/WidgetToolbox.js',
+            'loomworks_dashboard/static/src/compiled/panels/WidgetPropertiesPanel.js',
+            'loomworks_dashboard/static/src/compiled/DashboardCanvas.js',
+            'loomworks_dashboard/static/src/compiled/DashboardApp.js',
         ],
     },
     'images': ['static/description/icon.png'],

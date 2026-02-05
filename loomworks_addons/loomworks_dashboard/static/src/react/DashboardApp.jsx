@@ -12,7 +12,7 @@ const { useState, useEffect, useCallback, createContext, useContext } = React;
 // Odoo Context - provides access to Odoo services from React
 const OdooContext = createContext(null);
 
-export function useOdoo() {
+function useOdoo() {
     const context = useContext(OdooContext);
     if (!context) {
         console.warn('useOdoo called outside OdooContext');
@@ -244,4 +244,4 @@ function DashboardApp({
 
 // Export for global access
 window.LoomworksDashboardApp = DashboardApp;
-export default DashboardApp;
+window.useOdoo = useOdoo;

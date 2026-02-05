@@ -49,7 +49,7 @@ class AIDashboardGenerationService(models.AbstractModel):
             else:
                 return self._generate_with_templates(prompt, context)
         except Exception as e:
-            _logger.error(f"AI dashboard generation failed: {e}")
+            _logger.error("AI dashboard generation failed: %s", e)
             return self._generate_with_templates(prompt, context)
 
     def _generate_with_ai(self, prompt, context):
@@ -78,7 +78,7 @@ class AIDashboardGenerationService(models.AbstractModel):
                 'method': 'ai',
             }
         except Exception as e:
-            _logger.error(f"AI generation error: {e}")
+            _logger.error("AI generation error: %s", e)
             return self._generate_with_templates(prompt, context)
 
     def _build_ai_prompt(self, prompt, available_models, widget_types):

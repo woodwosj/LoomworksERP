@@ -128,7 +128,7 @@ class OdooMCPTools:
             }
 
         except Exception as e:
-            _logger.error(f"search_records error: {e}")
+            _logger.error("search_records error: %s", e)
             return {'error': str(e), 'model': model}
 
     def create_record(
@@ -191,7 +191,7 @@ class OdooMCPTools:
             }
 
         except Exception as e:
-            _logger.error(f"create_record error: {e}")
+            _logger.error("create_record error: %s", e)
             return {'error': str(e), 'model': model, 'created': False}
 
     def update_record(
@@ -266,7 +266,7 @@ class OdooMCPTools:
             }
 
         except Exception as e:
-            _logger.error(f"update_record error: {e}")
+            _logger.error("update_record error: %s", e)
             return {'error': str(e), 'model': model, 'updated': False}
 
     def delete_record(
@@ -335,7 +335,7 @@ class OdooMCPTools:
             }
 
         except Exception as e:
-            _logger.error(f"delete_record error: {e}")
+            _logger.error("delete_record error: %s", e)
             return {'error': str(e), 'model': model, 'deleted': False}
 
     def execute_action(
@@ -430,7 +430,7 @@ class OdooMCPTools:
             }
 
         except Exception as e:
-            _logger.error(f"execute_action error: {e}")
+            _logger.error("execute_action error: %s", e)
             return {'error': str(e), 'model': model, 'success': False}
 
     def generate_report(
@@ -542,7 +542,7 @@ class OdooMCPTools:
             }
 
         except Exception as e:
-            _logger.error(f"generate_report error: {e}")
+            _logger.error("generate_report error: %s", e)
             return {'error': str(e), 'model': model, 'success': False}
 
     def get_field_info(
@@ -661,7 +661,7 @@ class OdooMCPTools:
             }
 
         except Exception as e:
-            _logger.error(f"get_field_info error: {e}")
+            _logger.error("get_field_info error: %s", e)
             return {'error': str(e), 'model': model, 'success': False}
 
     def get_dashboard_data(
@@ -750,7 +750,7 @@ class OdooMCPTools:
             return result
 
         except Exception as e:
-            _logger.error(f"get_dashboard_data error: {e}")
+            _logger.error("get_dashboard_data error: %s", e)
             return {'error': str(e), 'dashboard_type': dashboard_type, 'success': False}
 
     def _get_overview_kpis(self, date_from, date_to):

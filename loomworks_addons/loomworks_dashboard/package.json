@@ -1,0 +1,17 @@
+{
+    "name": "loomworks-dashboard",
+    "version": "18.0.1.0.0",
+    "private": true,
+    "description": "Build tools for Loomworks Dashboard React components",
+    "scripts": {
+        "build": "babel static/src/react --out-dir static/src/compiled --extensions '.jsx' --source-maps inline",
+        "build:watch": "babel static/src/react --out-dir static/src/compiled --extensions '.jsx' --source-maps inline --watch",
+        "clean": "rm -rf static/src/compiled"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.25.0",
+        "@babel/core": "^7.25.0",
+        "@babel/preset-env": "^7.25.0",
+        "@babel/preset-react": "^7.25.0"
+    }
+}
