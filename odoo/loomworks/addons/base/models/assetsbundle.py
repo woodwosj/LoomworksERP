@@ -449,7 +449,9 @@ class AssetsBundle(object):
             # Load content.
             try:
                 content = asset.content.strip()
-                template = content if content.startswith(('<odoo>', '<loomworks>')) else f'<templates>{asset.content}</templates>'
+                # Strip XML declaration if present before checking root tag
+                check_content = content.split('\n', 1)[-1].strip() if content.startswith('<?xml') else content
+                template = content if check_content.startswith(('<odoo>', '<loomworks>')) else f'<templates>{asset.content}</templates>'
                 io_content = io.BytesIO(template.encode('utf-8'))
                 content_templates_tree = etree.parse(io_content, parser=parser).getroot()
             except etree.ParseError as e:
