@@ -26,7 +26,7 @@ class ResPartner(models.Model):
         string='Upwork Contracts',
     )
     upwork_contract_count = fields.Integer(
-        string='Upwork Contracts',
+        string='Upwork Contract Count',
         compute='_compute_upwork_contract_count',
         store=True,
     )
