@@ -238,9 +238,15 @@ export class AINavbarDropdown extends Component {
     }
 
     async executeQuickAction(action) {
-        // Open chat with pre-filled query
-        this.state.chatExpanded = true;
-        this.env.bus.trigger("AI_CHAT:SEND_MESSAGE", { content: action.query });
+        // Open full AI chat client action with the query
+        this.action.doAction({
+            type: 'ir.actions.client',
+            tag: 'loomworks_ai_chat',
+            name: _t('AI Assistant'),
+            target: 'current',
+            params: { initialMessage: action.query },
+        });
+        this.state.isOpen = false;
     }
 
     onQuickInputChange(ev) {
@@ -259,10 +265,16 @@ export class AINavbarDropdown extends Component {
         if (!query) return;
 
         this.state.inputValue = "";
-        this.state.chatExpanded = true;
 
-        // Send to AI chat
-        this.env.bus.trigger("AI_CHAT:SEND_MESSAGE", { content: query });
+        // Open full AI chat client action with the query
+        this.action.doAction({
+            type: 'ir.actions.client',
+            tag: 'loomworks_ai_chat',
+            name: _t('AI Assistant'),
+            target: 'current',
+            params: { initialMessage: query },
+        });
+        this.state.isOpen = false;
     }
 
     toggleChat() {

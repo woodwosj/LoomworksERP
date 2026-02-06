@@ -4,7 +4,9 @@
 
 import { Component, useState, useRef, onMounted, onWillUnmount } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
+import { registry } from "@web/core/registry";
 import { rpc } from "@web/core/network/rpc";
+import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 import { AIMessage } from "../ai_message/ai_message";
 
 /**
@@ -21,6 +23,7 @@ export class AIChat extends Component {
     static template = "loomworks_ai.AIChat";
     static components = { AIMessage };
     static props = {
+        ...standardActionServiceProps,
         sessionUuid: { type: String, optional: true },
         agentId: { type: Number, optional: true },
         onClose: { type: Function, optional: true },
@@ -29,6 +32,10 @@ export class AIChat extends Component {
     setup() {
         // Services
         this.notification = useService("notification");
+
+        // Extract initial message from client action params (if opened via doAction)
+        const actionParams = this.props.action?.params || {};
+        this.initialMessage = actionParams.initialMessage || null;
 
         // State
         this.state = useState({
@@ -59,6 +66,17 @@ export class AIChat extends Component {
             await this.loadSession();
         } else {
             await this.createSession();
+        }
+
+        // If we have an initial message (from navbar input), send it automatically
+        if (this.initialMessage && this.state.isConnected) {
+            const message = this.initialMessage;
+            this.initialMessage = null; // Clear to prevent re-send
+            // Use a short delay so the welcome message renders first
+            setTimeout(() => {
+                this.state.inputText = message;
+                this.sendMessage();
+            }, 300);
         }
 
         // Focus input
@@ -398,3 +416,6 @@ export class AIChat extends Component {
         return icons[type] || "fa-cog";
     }
 }
+
+// Register as a client action so it can be opened via doAction({ tag: 'loomworks_ai_chat' })
+registry.category("actions").add("loomworks_ai_chat", AIChat);
