@@ -19,6 +19,7 @@ import { useService } from "@web/core/utils/hooks";
 import { registry } from "@web/core/registry";
 import { Dropdown } from "@web/core/dropdown/dropdown";
 import { _t } from "@web/core/l10n/translation";
+import { user } from "@web/core/user";
 
 export class AINavbarDropdown extends Component {
     static template = "loomworks_ai.AINavbarDropdown";
@@ -287,7 +288,7 @@ export class AINavbarDropdown extends Component {
             views: [[false, 'form']],
             target: 'new',
             context: {
-                default_user_id: this.env.services.user.userId,
+                default_user_id: user.userId,
             },
         });
     }

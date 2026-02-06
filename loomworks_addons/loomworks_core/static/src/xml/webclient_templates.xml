@@ -9,9 +9,11 @@
 -->
 <templates xml:space="preserve">
     <!-- Override navbar logo in Owl NavBar component -->
+    <!-- Add Loomworks brand icon in the navbar (before breadcrumbs div) -->
     <t t-inherit="web.NavBar" t-inherit-mode="extension">
-        <xpath expr="//img[hasclass('o_menu_brand_icon')]" position="replace">
-            <img class="o_menu_brand_icon"
+        <xpath expr="//div[hasclass('o_navbar_breadcrumbs')]" position="before">
+            <img class="o_menu_brand_icon align-self-center"
+                 t-if="!env.isSmall"
                  src="/loomworks_core/static/src/img/loomworks_icon.png"
                  alt="Loomworks"
                  style="height: 30px; width: auto;"/>

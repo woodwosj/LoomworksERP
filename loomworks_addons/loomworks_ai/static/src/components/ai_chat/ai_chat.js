@@ -4,6 +4,7 @@
 
 import { Component, useState, useRef, onMounted, onWillUnmount } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
+import { rpc } from "@web/core/network/rpc";
 import { AIMessage } from "../ai_message/ai_message";
 
 /**
@@ -27,7 +28,6 @@ export class AIChat extends Component {
 
     setup() {
         // Services
-        this.rpc = useService("rpc");
         this.notification = useService("notification");
 
         // State
@@ -82,7 +82,7 @@ export class AIChat extends Component {
 
     async createSession() {
         try {
-            const result = await this.rpc("/loomworks/ai/session/create", {
+            const result = await rpc("/loomworks/ai/session/create", {
                 agent_id: this.props.agentId,
             });
 
@@ -108,7 +108,7 @@ export class AIChat extends Component {
 
     async loadSession() {
         try {
-            const result = await this.rpc(
+            const result = await rpc(
                 `/loomworks/ai/session/${this.state.sessionUuid}`,
                 {}
             );
@@ -141,7 +141,7 @@ export class AIChat extends Component {
         if (!this.state.sessionUuid) return;
 
         try {
-            await this.rpc(
+            await rpc(
                 `/loomworks/ai/session/${this.state.sessionUuid}/close`,
                 {}
             );
@@ -246,7 +246,7 @@ export class AIChat extends Component {
     }
 
     async sendMessageSync(text) {
-        const result = await this.rpc("/loomworks/ai/chat", {
+        const result = await rpc("/loomworks/ai/chat", {
             session_uuid: this.state.sessionUuid,
             message: text,
         });
@@ -319,7 +319,7 @@ export class AIChat extends Component {
         }
 
         try {
-            const result = await this.rpc(
+            const result = await rpc(
                 `/loomworks/ai/session/${this.state.sessionUuid}/rollback`,
                 {}
             );

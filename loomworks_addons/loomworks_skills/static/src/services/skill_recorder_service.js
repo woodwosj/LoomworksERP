@@ -1,6 +1,8 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
+import { rpc } from "@web/core/network/rpc";
+import { user } from "@web/core/user";
 
 /**
  * Skill Recorder Service
@@ -15,9 +17,9 @@ import { registry } from "@web/core/registry";
  * - Produces structured recording that maps to skill steps
  */
 export const skillRecorderService = {
-    dependencies: ["rpc", "action", "notification", "user", "orm"],
+    dependencies: ["action", "notification", "orm"],
 
-    start(env, { rpc, action, notification, user, orm }) {
+    start(env, { action, notification, orm }) {
         let isRecording = false;
         let recording = null;
         let frameCounter = 0;

@@ -9,11 +9,12 @@
  */
 
 import { registry } from "@web/core/registry";
+import { user } from "@web/core/user";
 
 export const studioService = {
-    dependencies: ["orm", "user", "notification", "action"],
+    dependencies: ["orm", "notification", "action"],
 
-    start(env, { orm, user, notification, action }) {
+    start(env, { orm, notification, action }) {
         let currentEditSession = null;
         let hasAccess = null;
 

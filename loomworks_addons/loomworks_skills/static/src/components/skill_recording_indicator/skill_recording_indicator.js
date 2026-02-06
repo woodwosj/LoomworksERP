@@ -104,5 +104,4 @@ export class SkillRecordingIndicator extends Component {
 // Register as systray item
 registry.category("systray").add("skillRecordingIndicator", {
     Component: SkillRecordingIndicator,
-    sequence: 5,
-});
+}, { sequence: 5 });

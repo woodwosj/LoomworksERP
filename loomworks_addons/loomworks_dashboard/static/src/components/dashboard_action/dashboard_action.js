@@ -12,6 +12,8 @@
 import { Component, onMounted, onWillUnmount, useState, useRef } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
+import { rpc } from "@web/core/network/rpc";
+import { user } from "@web/core/user";
 
 export class DashboardAction extends Component {
     static template = "loomworks_dashboard.DashboardAction";
@@ -24,11 +26,9 @@ export class DashboardAction extends Component {
 
     setup() {
         // Services
-        this.rpc = useService("rpc");
         this.notification = useService("notification");
         this.action = useService("action");
         this.orm = useService("orm");
-        this.user = useService("user");
 
         // Refs
         this.containerRef = useRef("dashboardContainer");
@@ -89,7 +89,7 @@ export class DashboardAction extends Component {
                 return;
             }
 
-            const response = await this.rpc("/loomworks/dashboard/" + this.state.dashboardId);
+            const response = await rpc("/loomworks/dashboard/" + this.state.dashboardId);
 
             if (response.error) {
                 throw new Error(response.error);
@@ -133,11 +133,11 @@ export class DashboardAction extends Component {
                 onFetchData: this.fetchWidgetData.bind(this),
                 onModeChange: this.handleModeChange.bind(this),
                 odooServices: {
-                    rpc: this.rpc,
+                    rpc: rpc,
                     notification: this.notification,
                     action: this.action,
                     orm: this.orm,
-                    user: this.user,
+                    user: user,
                 },
             };
 
@@ -194,7 +194,7 @@ export class DashboardAction extends Component {
      */
     async handleSave(canvasData) {
         try {
-            const response = await this.rpc(
+            const response = await rpc(
                 "/loomworks/dashboard/" + this.state.dashboardId + "/save",
                 canvasData
             );
@@ -241,7 +241,7 @@ export class DashboardAction extends Component {
      */
     async fetchWidgetData(widgetId, filters = {}) {
         try {
-            const response = await this.rpc(
+            const response = await rpc(
                 "/loomworks/dashboard/widget/" + widgetId + "/data",
                 { filters }
             );
@@ -279,7 +279,7 @@ export class DashboardAction extends Component {
      */
     async createDashboard() {
         try {
-            const response = await this.rpc("/loomworks/dashboard/create", {
+            const response = await rpc("/loomworks/dashboard/create", {
                 name: "New Dashboard",
             });
 
@@ -303,7 +303,7 @@ export class DashboardAction extends Component {
      */
     async generateFromPrompt(prompt) {
         try {
-            const response = await this.rpc("/loomworks/dashboard/generate", {
+            const response = await rpc("/loomworks/dashboard/generate", {
                 prompt,
             });
 

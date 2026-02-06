@@ -8,13 +8,15 @@
 
 import { registry } from "@web/core/registry";
 import { reactive } from "@odoo/owl";
+import { rpc } from "@web/core/network/rpc";
+import { user } from "@web/core/user";
 
 const serviceRegistry = registry.category("services");
 
 export const spreadsheetService = {
-    dependencies: ["orm", "notification", "user"],
+    dependencies: ["orm", "notification"],
 
-    start(env, { orm, notification, user }) {
+    start(env, { orm, notification }) {
         // Reactive state for active spreadsheet
         const state = reactive({
             activeDocumentId: null,
@@ -243,7 +245,7 @@ export const spreadsheetService = {
          */
         async function previewModelData(model, fields, domain = "[]", limit = 10) {
             try {
-                const result = await env.services.rpc("/spreadsheet/datasource/preview", {
+                const result = await rpc("/spreadsheet/datasource/preview", {
                     model,
                     fields,
                     domain,
@@ -265,7 +267,7 @@ export const spreadsheetService = {
          */
         async function listModels(search = null) {
             try {
-                const result = await env.services.rpc("/spreadsheet/models", {
+                const result = await rpc("/spreadsheet/models", {
                     search,
                     limit: 50,
                 });
@@ -285,7 +287,7 @@ export const spreadsheetService = {
          */
         async function getModelFields(modelName) {
             try {
-                const result = await env.services.rpc(
+                const result = await rpc(
                     `/spreadsheet/model/${modelName}/fields`,
                     {}
                 );

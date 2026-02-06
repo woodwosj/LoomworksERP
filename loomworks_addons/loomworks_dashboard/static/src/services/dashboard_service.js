@@ -10,11 +10,12 @@
  */
 
 import { registry } from "@web/core/registry";
+import { rpc } from "@web/core/network/rpc";
 
 export const dashboardService = {
-    dependencies: ["rpc", "notification"],
+    dependencies: ["notification"],
 
-    start(env, { rpc, notification }) {
+    start(env, { notification }) {
         // Cache for dashboard data
         const cache = new Map();
         const CACHE_TTL = 60000; // 1 minute

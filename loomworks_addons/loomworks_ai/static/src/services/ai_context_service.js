@@ -28,11 +28,12 @@
 
 import { registry } from "@web/core/registry";
 import { debounce } from "@web/core/utils/timing";
+import { user } from "@web/core/user";
 
 export const aiContextService = {
-    dependencies: ["user", "orm", "notification"],
+    dependencies: ["orm", "notification"],
 
-    start(env, { user, orm, notification }) {
+    start(env, { orm, notification }) {
         // Context state - only metadata, not actual values
         let currentContext = {
             // View state

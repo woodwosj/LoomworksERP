@@ -23,6 +23,7 @@ export const aiSuggestionService = {
     dependencies: ["aiContext", "orm", "notification"],
 
     start(env, { aiContext, orm, notification }) {
+        // Note: aiContext is our custom service, orm and notification are Odoo 18 services
         // Active suggestions
         let activeSuggestions = [];
         let suggestionIdCounter = 0;
