@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Upwork Account Form View -->
+    <record id="view_upwork_account_form" model="ir.ui.view">
+        <field name="name">upwork.account.form</field>
+        <field name="model">upwork.account</field>
+        <field name="arch" type="xml">
+            <form string="Upwork Account">
+                <header>
+                    <!-- Connection Actions -->
+                    <button name="action_authorize" type="object" string="Connect to Upwork" class="btn-primary" invisible="state != 'draft'" groups="upwork_integration.group_upwork_manager"/>
+
+                    <button name="action_test_connection" type="object" string="Test Connection" class="btn-secondary" invisible="state != 'connected'" groups="upwork_integration.group_upwork_manager"/>
+
+                    <button name="action_disconnect" type="object" string="Disconnect" class="btn-secondary" invisible="state == 'draft'" confirm="Are you sure you want to disconnect this account? All OAuth tokens will be cleared." groups="upwork_integration.group_upwork_manager"/>
+
+                    <!-- Connection State -->
+                    <field name="state" widget="statusbar" statusbar_visible="draft,connecting,connected"/>
+                </header>
+
+                <sheet>
+                    <!-- Connection Status Banner -->
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_test_connection" type="object" class="oe_stat_button" icon="fa-plug" invisible="not is_connected" groups="upwork_integration.group_upwork_manager">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Connected</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- Error Alert -->
+                    <div class="alert alert-danger" role="alert" invisible="not last_error or state != 'error'">
+                        <strong>Connection Error:</strong>
+                        <field name="last_error" readonly="1"/>
+                    </div>
+
+                    <!-- Account Information -->
+                    <div class="oe_title">
+                        <label for="name" string="Account Name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g., My Upwork Account"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="OAuth2 Configuration" groups="base.group_system">
+                            <field name="client_id" password="True" placeholder="Get from https://www.upwork.com/developer"/>
+                            <field name="client_secret" password="True" placeholder="OAuth2 Client Secret"/>
+                        </group>
+
+                        <group string="Connection Info">
+                            <field name="is_connected" readonly="1"/>
+                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Sync Settings">
+                            <field name="sync_enabled"/>
+                            <field name="last_sync" readonly="1"/>
+                        </group>
+
+                        <group string="OAuth2 Tokens" groups="base.group_system">
+                            <field name="access_token" password="True" readonly="1"/>
+                            <field name="refresh_token" password="True" readonly="1"/>
+                            <field name="token_expiry" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Configuration Help" name="help">
+                            <group>
+                                <div class="alert alert-info" role="alert">
+                                    <h4>How to Configure Upwork Integration</h4>
+                                    <ol>
+                                        <li>Go to <a href="https://www.upwork.com/developer" target="_blank">Upwork Developer Portal</a></li>
+                                        <li>Create a new API application (or use an existing one)</li>
+                                        <li>Copy the <strong>Client ID</strong> and <strong>Client Secret</strong></li>
+                                        <li>Paste them into the fields above</li>
+                                        <li>Click <strong>"Connect to Upwork"</strong> to authorize</li>
+                                        <li>You'll be redirected to Upwork to grant permission</li>
+                                        <li>After authorization, you'll be returned to Odoo</li>
+                                    </ol>
+
+                                    <p><strong>Note:</strong> Make sure to add the OAuth callback URL in your Upwork API application settings:</p>
+                                    <code id="callback_url"><!-- Callback URL will be displayed here --></code>
+                                </div>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Upwork Account List View -->
+    <record id="view_upwork_account_list" model="ir.ui.view">
+        <field name="name">upwork.account.list</field>
+        <field name="model">upwork.account</field>
+        <field name="arch" type="xml">
+            <list string="Upwork Accounts">
+                <field name="name"/>
+                <field name="state" decoration-success="state == 'connected'" decoration-warning="state == 'connecting'" decoration-danger="state == 'error'" decoration-muted="state == 'draft'" widget="badge"/>
+                <field name="is_connected" widget="boolean"/>
+                <field name="last_sync"/>
+                <field name="sync_enabled" widget="boolean"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="active" widget="boolean"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Upwork Account Search View -->
+    <record id="view_upwork_account_search" model="ir.ui.view">
+        <field name="name">upwork.account.search</field>
+        <field name="model">upwork.account</field>
+        <field name="arch" type="xml">
+            <search string="Upwork Accounts">
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+
+                <filter name="connected" string="Connected" domain="[('state', '=', 'connected')]"/>
+                <filter name="not_connected" string="Not Connected" domain="[('state', '=', 'draft')]"/>
+                <filter name="error" string="Error" domain="[('state', '=', 'error')]"/>
+
+                <separator/>
+
+                <filter name="sync_enabled" string="Sync Enabled" domain="[('sync_enabled', '=', True)]"/>
+                <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
+
+                <group expand="0" string="Group By">
+                    <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>

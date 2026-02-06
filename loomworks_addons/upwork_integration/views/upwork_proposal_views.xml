@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Upwork Proposal Form View -->
+    <record id="upwork_proposal_view_form" model="ir.ui.view">
+        <field name="name">upwork.proposal.view.form</field>
+        <field name="model">upwork.proposal</field>
+        <field name="arch" type="xml">
+            <form string="Upwork Proposal">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,hired,declined"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="upwork_account_id"/>
+                            <field name="submitted_date"/>
+                        </group>
+                        <group>
+                            <field name="contract_id" invisible="state != 'hired'"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Upwork Proposal Tree/List View -->
+    <record id="upwork_proposal_view_tree" model="ir.ui.view">
+        <field name="name">upwork.proposal.view.tree</field>
+        <field name="model">upwork.proposal</field>
+        <field name="arch" type="xml">
+            <list string="Upwork Proposals">
+                <field name="name"/>
+                <field name="submitted_date"/>
+                <field name="state" widget="badge" decoration-success="state == 'hired'" decoration-info="state == 'submitted'" decoration-muted="state == 'declined'"/>
+                <field name="contract_id" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Upwork Proposal Search View -->
+    <record id="upwork_proposal_view_search" model="ir.ui.view">
+        <field name="name">upwork.proposal.view.search</field>
+        <field name="model">upwork.proposal</field>
+        <field name="arch" type="xml">
+            <search string="Search Proposals">
+                <field name="name"/>
+                <separator/>
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Submitted" name="submitted" domain="[('state', '=', 'submitted')]"/>
+                <filter string="Hired" name="hired" domain="[('state', '=', 'hired')]"/>
+                <filter string="Declined" name="declined" domain="[('state', '=', 'declined')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Submitted Date" name="group_date" context="{'group_by': 'submitted_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Upwork Proposal QWeb Template -->
+    <record id="upwork_proposal_template" model="ir.ui.view">
+        <field name="name">upwork_proposal_template</field>
+        <field name="type">qweb</field>
+        <field name="arch" type="xml">
+            <t t-name="upwork_integration.upwork_proposal_template">
+                <t t-call="web.html_container">
+                    <t t-foreach="docs" t-as="proposal">
+                        <div class="page upwork-proposal">
+                            <div class="proposal-header">
+                                <div class="loomworks-logo">LOOMWORKS</div>
+                                <h1 t-field="proposal.title"/>
+                                <div class="subtitle">Custom Odoo Implementation Proposal</div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </field>
+    </record>
+
+</odoo>

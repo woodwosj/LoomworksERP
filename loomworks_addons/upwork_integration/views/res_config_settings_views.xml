@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Settings View: Upwork Integration -->
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.upwork</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Upwork Integration" name="upwork_integration">
+                    <block title="Financial Integration" name="upwork_financial_integration">
+                        <setting string="Income Account" help="Default account for Upwork invoice lines">
+                            <field name="upwork_income_account_id" class="oe_inline"/>
+                        </setting>
+                        <setting string="Fee Expense Account" help="Account for recording Upwork service fees">
+                            <field name="upwork_fee_expense_account_id" class="oe_inline"/>
+                        </setting>
+                        <setting string="Fee Payable Account" help="Liability account for fees payable to Upwork">
+                            <field name="upwork_fee_payable_account_id" class="oe_inline"/>
+                        </setting>
+                    </block>
+                    <block title="Automation" name="upwork_automation">
+                        <setting string="Auto-create Timesheets">
+                            <div class="text-muted">
+                                Automatically create Odoo timesheets when syncing Upwork time logs
+                            </div>
+                            <field name="upwork_auto_create_timesheets"/>
+                        </setting>
+                        <setting string="Auto-create Invoices">
+                            <div class="text-muted">
+                                Automatically create draft invoices when syncing Upwork earnings
+                            </div>
+                            <field name="upwork_auto_create_invoices"/>
+                        </setting>
+                    </block>
+                    <block title="Configuration Check" name="upwork_config_check">
+                        <button string="Check Financial Configuration" type="object" name="action_check_upwork_financial_config" class="btn-primary" help="Verify that all required financial accounts are configured"/>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

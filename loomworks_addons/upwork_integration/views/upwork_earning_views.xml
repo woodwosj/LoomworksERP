@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Upwork Earning Form View -->
+    <record id="upwork_earning_view_form" model="ir.ui.view">
+        <field name="name">upwork.earning.view.form</field>
+        <field name="model">upwork.earning</field>
+        <field name="arch" type="xml">
+            <form string="Upwork Earning">
+                <header>
+                    <button name="action_create_invoice" string="Create Invoice" type="object" class="btn-primary" invisible="invoice_id"/>
+                    <button name="action_create_fee_entry" string="Create Fee Entry" type="object" class="btn-secondary" invisible="journal_entry_id or upwork_fee == 0"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(upwork_earning_action_view_invoice)d" type="action" class="oe_stat_button" icon="fa-file-text-o" invisible="not invoice_id">
+                            <field name="invoice_id" widget="statinfo" string="Invoice"/>
+                        </button>
+                        <button name="%(upwork_earning_action_view_fee_entry)d" type="action" class="oe_stat_button" icon="fa-exchange" invisible="not journal_entry_id">
+                            <field name="journal_entry_id" widget="statinfo" string="Fee Entry"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="contract_id"/>
+                            <field name="partner_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                            <field name="total_hours"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Amounts">
+                        <group>
+                            <field name="gross_amount"/>
+                            <field name="upwork_fee"/>
+                            <field name="upwork_fee_percent"/>
+                        </group>
+                        <group>
+                            <field name="net_amount"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Upwork Earning Tree/List View -->
+    <record id="upwork_earning_view_tree" model="ir.ui.view">
+        <field name="name">upwork.earning.view.tree</field>
+        <field name="model">upwork.earning</field>
+        <field name="arch" type="xml">
+            <list string="Upwork Earnings" decoration-success="invoice_id">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="contract_id"/>
+                <field name="partner_id"/>
+                <field name="total_hours"/>
+                <field name="gross_amount"/>
+                <field name="upwork_fee"/>
+                <field name="net_amount"/>
+                <field name="invoice_id"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Upwork Contract Form View -->
+    <record id="upwork_contract_view_form" model="ir.ui.view">
+        <field name="name">upwork.contract.view.form</field>
+        <field name="model">upwork.contract</field>
+        <field name="arch" type="xml">
+            <form string="Upwork Contract">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="active,paused,ended"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="upwork_contract_id"/>
+                            <field name="upwork_account_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="contract_type"/>
+                            <field name="hourly_rate" invisible="contract_type != 'hourly'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Time Logs" name="timelogs">
+                            <field name="timelog_ids">
+                                <list>
+                                    <field name="date"/>
+                                    <field name="tracked_hours"/>
+                                    <field name="manual_hours"/>
+                                    <field name="total_hours"/>
+                                    <field name="timesheet_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Earnings" name="earnings">
+                            <field name="earning_ids">
+                                <list>
+                                    <field name="date"/>
+                                    <field name="name"/>
+                                    <field name="gross_amount"/>
+                                    <field name="upwork_fee"/>
+                                    <field name="net_amount"/>
+                                    <field name="invoice_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Upwork Contract Tree/List View -->
+    <record id="upwork_contract_view_tree" model="ir.ui.view">
+        <field name="name">upwork.contract.view.tree</field>
+        <field name="model">upwork.contract</field>
+        <field name="arch" type="xml">
+            <list string="Upwork Contracts">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="contract_type"/>
+                <field name="state" widget="badge" decoration-success="state == 'active'" decoration-warning="state == 'paused'" decoration-muted="state == 'ended'"/>
+                <field name="hourly_rate" optional="show"/>
+                <field name="start_date"/>
+                <field name="end_date" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Upwork Contract Search View -->
+    <record id="upwork_contract_view_search" model="ir.ui.view">
+        <field name="name">upwork.contract.view.search</field>
+        <field name="model">upwork.contract</field>
+        <field name="arch" type="xml">
+            <search string="Search Contracts">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <separator/>
+                <filter string="Active" name="active" domain="[('state', '=', 'active')]"/>
+                <filter string="Paused" name="paused" domain="[('state', '=', 'paused')]"/>
+                <filter string="Ended" name="ended" domain="[('state', '=', 'ended')]"/>
+                <separator/>
+                <filter string="Hourly" name="hourly" domain="[('contract_type', '=', 'hourly')]"/>
+                <filter string="Fixed Price" name="fixed" domain="[('contract_type', '=', 'fixed')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Type" name="group_type" context="{'group_by': 'contract_type'}"/>
+                    <filter string="Client" name="group_client" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Upwork Timelog Form View -->
+    <record id="upwork_timelog_view_form" model="ir.ui.view">
+        <field name="name">upwork.timelog.view.form</field>
+        <field name="model">upwork.timelog</field>
+        <field name="arch" type="xml">
+            <form string="Upwork Time Log">
+                <header>
+                    <button name="action_create_timesheet" string="Create Timesheet" type="object" class="btn-primary" invisible="timesheet_id"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="contract_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="tracked_hours"/>
+                            <field name="manual_hours"/>
+                            <field name="total_hours"/>
+                            <field name="timesheet_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="memo" nolabel="1" placeholder="Work description..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Upwork Timelog Tree/List View -->
+    <record id="upwork_timelog_view_tree" model="ir.ui.view">
+        <field name="name">upwork.timelog.view.tree</field>
+        <field name="model">upwork.timelog</field>
+        <field name="arch" type="xml">
+            <list string="Upwork Time Logs" decoration-success="timesheet_id">
+                <field name="date"/>
+                <field name="contract_id"/>
+                <field name="tracked_hours"/>
+                <field name="manual_hours"/>
+                <field name="total_hours"/>
+                <field name="timesheet_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Upwork Timelog Pivot View -->
+    <record id="upwork_timelog_view_pivot" model="ir.ui.view">
+        <field name="name">upwork.timelog.view.pivot</field>
+        <field name="model">upwork.timelog</field>
+        <field name="arch" type="xml">
+            <pivot string="Time Analysis">
+                <field name="date" interval="week" type="col"/>
+                <field name="contract_id" type="row"/>
+                <field name="total_hours" type="measure"/>
+                <field name="tracked_hours" type="measure"/>
+                <field name="manual_hours" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,22 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_upwork_account_system,upwork.account system,model_upwork_account,base.group_system,1,1,1,1
+access_upwork_account_manager,upwork.account manager,model_upwork_account,upwork_integration.group_upwork_manager,1,1,1,1
+access_upwork_account_user,upwork.account user,model_upwork_account,upwork_integration.group_upwork_user,1,0,0,0
+access_upwork_api_service_system,upwork.api.service system,model_upwork_api_service,base.group_system,1,1,1,1
+access_upwork_api_service_manager,upwork.api.service manager,model_upwork_api_service,upwork_integration.group_upwork_manager,1,1,1,1
+access_upwork_api_service_user,upwork.api.service user,model_upwork_api_service,upwork_integration.group_upwork_user,1,0,0,0
+access_upwork_contract_system,upwork.contract system,model_upwork_contract,base.group_system,1,1,1,1
+access_upwork_contract_manager,upwork.contract manager,model_upwork_contract,upwork_integration.group_upwork_manager,1,1,1,1
+access_upwork_contract_user,upwork.contract user,model_upwork_contract,upwork_integration.group_upwork_user,1,0,0,0
+access_upwork_earning_system,upwork.earning system,model_upwork_earning,base.group_system,1,1,1,1
+access_upwork_earning_manager,upwork.earning manager,model_upwork_earning,upwork_integration.group_upwork_manager,1,1,1,1
+access_upwork_earning_user,upwork.earning user,model_upwork_earning,upwork_integration.group_upwork_user,1,0,0,0
+access_upwork_milestone_system,upwork.milestone system,model_upwork_milestone,base.group_system,1,1,1,1
+access_upwork_milestone_manager,upwork.milestone manager,model_upwork_milestone,upwork_integration.group_upwork_manager,1,1,1,1
+access_upwork_milestone_user,upwork.milestone user,model_upwork_milestone,upwork_integration.group_upwork_user,1,0,0,0
+access_upwork_proposal_system,upwork.proposal system,model_upwork_proposal,base.group_system,1,1,1,1
+access_upwork_proposal_manager,upwork.proposal manager,model_upwork_proposal,upwork_integration.group_upwork_manager,1,1,1,1
+access_upwork_proposal_user,upwork.proposal user,model_upwork_proposal,upwork_integration.group_upwork_user,1,0,0,0
+access_upwork_timelog_system,upwork.timelog system,model_upwork_timelog,base.group_system,1,1,1,1
+access_upwork_timelog_manager,upwork.timelog manager,model_upwork_timelog,upwork_integration.group_upwork_manager,1,1,1,1
+access_upwork_timelog_user,upwork.timelog user,model_upwork_timelog,upwork_integration.group_upwork_user,1,0,0,0

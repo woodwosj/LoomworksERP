@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Cron: Sync Contracts (every 4 hours) -->
+        <record id="ir_cron_upwork_sync_contracts" model="ir.cron">
+            <field name="name">Upwork: Sync Contracts</field>
+            <field name="model_id" ref="model_upwork_api_service"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_sync_contracts()</field>
+            <field name="interval_number">4</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- Cron: Sync Time Logs (every 1 day) -->
+        <record id="ir_cron_upwork_sync_timelogs" model="ir.cron">
+            <field name="name">Upwork: Sync Time Logs</field>
+            <field name="model_id" ref="model_upwork_api_service"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_sync_timelogs()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- Cron: Sync Earnings (every 7 days) -->
+        <record id="ir_cron_upwork_sync_earnings" model="ir.cron">
+            <field name="name">Upwork: Sync Earnings</field>
+            <field name="model_id" ref="model_upwork_api_service"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_sync_earnings()</field>
+            <field name="interval_number">7</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- Cron: Refresh OAuth Tokens (every 1 day) -->
+        <record id="ir_cron_upwork_refresh_tokens" model="ir.cron">
+            <field name="name">Upwork: Refresh OAuth Tokens</field>
+            <field name="model_id" ref="model_upwork_api_service"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_refresh_tokens()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+        </record>
+
+    </data>
+</odoo>
