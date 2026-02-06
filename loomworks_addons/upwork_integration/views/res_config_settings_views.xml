@@ -23,7 +23,7 @@
                     <block title="Automation" name="upwork_automation">
                         <setting string="Auto-create Timesheets">
                             <div class="text-muted">
-                                Automatically create Odoo timesheets when syncing Upwork time logs
+                                Automatically create timesheets when syncing Upwork time logs
                             </div>
                             <field name="upwork_auto_create_timesheets"/>
                         </setting>
