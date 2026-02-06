@@ -230,7 +230,7 @@ class AIController(http.Controller):
             _logger.error("Chat error: %s", e)
             return {'error': str(e)}
 
-    @http.route('/loomworks/ai/chat/stream', type='http', auth='user', methods=['GET'])
+    @http.route('/loomworks/ai/chat/stream', type='http', auth='user', methods=['GET', 'POST'], csrf=False)
     def send_message_stream(self, session_uuid=None, message=None, **kwargs):
         """
         Send a message and receive streaming response via Server-Sent Events.
