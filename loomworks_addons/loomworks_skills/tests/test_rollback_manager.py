@@ -3,8 +3,8 @@
 
 import json
 from unittest.mock import patch, MagicMock, PropertyMock
-from odoo.tests import TransactionCase, tagged
-from odoo.exceptions import UserError
+from loomworks.tests import TransactionCase, tagged
+from loomworks.exceptions import UserError
 
 
 @tagged('post_install', '-at_install', 'loomworks_skills')
@@ -19,7 +19,7 @@ class TestRollbackManager(TransactionCase):
 
         # Import RollbackManager
         try:
-            from odoo.addons.loomworks_skills.services.rollback_manager import RollbackManager
+            from loomworks.addons.loomworks_skills.services.rollback_manager import RollbackManager
             cls.RollbackManager = RollbackManager
         except ImportError:
             cls.RollbackManager = None
@@ -238,7 +238,7 @@ class TestRollbackManagerEdgeCases(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         try:
-            from odoo.addons.loomworks_skills.services.rollback_manager import RollbackManager
+            from loomworks.addons.loomworks_skills.services.rollback_manager import RollbackManager
             cls.RollbackManager = RollbackManager
         except ImportError:
             cls.RollbackManager = None

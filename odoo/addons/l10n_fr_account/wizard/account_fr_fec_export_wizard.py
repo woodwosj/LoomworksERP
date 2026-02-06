@@ -4,10 +4,10 @@ import contextlib
 import csv
 import io
 from itertools import chain
-from odoo.tools import float_is_zero, SQL
-from odoo import fields, models, api
+from loomworks.tools import float_is_zero, SQL
+from loomworks import fields, models, api
 from stdnum.fr import siren
-from odoo.modules.registry import Registry
+from loomworks.modules.registry import Registry
 
 
 class FecExportWizard(models.TransientModel):

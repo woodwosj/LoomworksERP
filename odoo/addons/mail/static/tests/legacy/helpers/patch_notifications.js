@@ -1,4 +1,4 @@
-/** @odoo-module alias=@mail/../tests/helpers/patch_notifications default=false */
+/** @loomworks-module alias=@mail/../tests/helpers/patch_notifications default=false */
 
 import { browser } from "@web/core/browser/browser";
 import { patchWithCleanup } from "@web/../tests/helpers/utils";

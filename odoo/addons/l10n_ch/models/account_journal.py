@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields, api
+from loomworks import models, fields, api
 
-from odoo.exceptions import ValidationError
+from loomworks.exceptions import ValidationError
 
-from odoo.addons.base_iban.models.res_partner_bank import validate_iban
-from odoo.addons.base.models.res_bank import sanitize_account_number
+from loomworks.addons.base_iban.models.res_partner_bank import validate_iban
+from loomworks.addons.base.models.res_bank import sanitize_account_number
 
 
 class AccountJournal(models.Model):

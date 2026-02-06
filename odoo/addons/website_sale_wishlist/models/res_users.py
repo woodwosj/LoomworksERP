@@ -1,5 +1,5 @@
-from odoo import api, fields, models
-from odoo.http import request
+from loomworks import api, fields, models
+from loomworks.http import request
 
 
 class ResUsers(models.Model):

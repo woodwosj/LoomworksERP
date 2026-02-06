@@ -6,9 +6,9 @@ import uuid
 from contextlib import contextmanager
 from unittest.mock import patch
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.test_mimetypes.tests.test_guess_mimetypes import contents
-from odoo.tests import tagged
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.test_mimetypes.tests.test_guess_mimetypes import contents
+from loomworks.tests import tagged
 
 
 @tagged('post_install', '-at_install')

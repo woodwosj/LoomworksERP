@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from base64 import b64decode
 from cups import IPPError, IPP_PRINTER_IDLE, IPP_PRINTER_PROCESSING, IPP_PRINTER_STOPPED
@@ -11,15 +11,15 @@ from PIL import Image, ImageOps
 import re
 import subprocess
 
-from odoo import http
-from odoo.addons.hw_drivers.connection_manager import connection_manager
-from odoo.addons.hw_drivers.controllers.proxy import proxy_drivers
-from odoo.addons.hw_drivers.driver import Driver
-from odoo.addons.hw_drivers.event_manager import event_manager
-from odoo.addons.hw_drivers.iot_handlers.interfaces.PrinterInterface_L import PPDs, conn, cups_lock
-from odoo.addons.hw_drivers.main import iot_devices
-from odoo.addons.hw_drivers.tools import helpers
-from odoo.addons.hw_drivers.websocket_client import send_to_controller
+from loomworks import http
+from loomworks.addons.hw_drivers.connection_manager import connection_manager
+from loomworks.addons.hw_drivers.controllers.proxy import proxy_drivers
+from loomworks.addons.hw_drivers.driver import Driver
+from loomworks.addons.hw_drivers.event_manager import event_manager
+from loomworks.addons.hw_drivers.iot_handlers.interfaces.PrinterInterface_L import PPDs, conn, cups_lock
+from loomworks.addons.hw_drivers.main import iot_devices
+from loomworks.addons.hw_drivers.tools import helpers
+from loomworks.addons.hw_drivers.websocket_client import send_to_controller
 
 _logger = logging.getLogger(__name__)
 

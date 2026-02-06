@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import psycopg2
 
-from odoo.addons.website_slides.tests import common as slides_common
-from odoo.tests.common import users
-from odoo.tools import mute_logger
+from loomworks.addons.website_slides.tests import common as slides_common
+from loomworks.tests.common import users
+from loomworks.tools import mute_logger
 
 
 class TestSlideInternals(slides_common.SlidesCase):
@@ -46,7 +46,7 @@ class TestSlideInternals(slides_common.SlidesCase):
         after_unlink = self.category2.completion_time
         self.assertEqual(after_unlink, self.slide_4.completion_time)
 
-    @mute_logger('odoo.sql_db')
+    @mute_logger('loomworks.sql_db')
     @users('user_manager')
     def test_slide_create_vote_constraint(self):
         # test vote value must be 1, 0 and -1.

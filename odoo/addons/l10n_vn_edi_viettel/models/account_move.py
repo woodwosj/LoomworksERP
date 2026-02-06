@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import io
@@ -12,9 +12,9 @@ from datetime import datetime, timedelta
 import requests
 from requests import RequestException
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
-from odoo.tools import float_round, float_repr
+from loomworks import _, api, fields, models
+from loomworks.exceptions import UserError
+from loomworks.tools import float_round, float_repr
 
 SINVOICE_API_URL = 'https://api-vinvoice.viettel.vn/services/einvoiceapplication/api/'
 SINVOICE_TIMEOUT = 60  # They recommend between 60 and 90 seconds, but 60s is already quite long.

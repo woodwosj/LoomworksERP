@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
     <template id="report_invoice_document" inherit_id="account.report_invoice_document" primary="True">
         <xpath expr="//div[@id='qrcode']" position="after">
             <div t-if="o.l10n_jo_edi_qr" name="qr_code">
@@ -20,4 +20,4 @@
                 t-lang="lang"/>
         </xpath>
     </template>
-</odoo>
+</loomworks>

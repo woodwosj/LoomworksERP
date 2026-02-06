@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, api, fields, _, Command
-from odoo.exceptions import UserError
+from loomworks import models, api, fields, _, Command
+from loomworks.exceptions import UserError
 
 
 class L10nLatamPaymentMassTransfer(models.TransientModel):

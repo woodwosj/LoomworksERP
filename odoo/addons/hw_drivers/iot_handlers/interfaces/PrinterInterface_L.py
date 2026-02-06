@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from cups import Connection as CupsConnection
 from re import sub
 from threading import Lock
 
-from odoo.addons.hw_drivers.interface import Interface
+from loomworks.addons.hw_drivers.interface import Interface
 
 conn = CupsConnection()
 PPDs = conn.getPPDs()

@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <data>
         <record id="view_l10n_eg_edi_thumb_drive_tree" model="ir.ui.view">
             <field name="name">view_l10n_eg_edi_thumb_drive_tree</field>
@@ -25,4 +25,4 @@
             <menuitem id="menu_action_eta_thumb_drive_tree" action="action_eta_thumb_drive_tree" sequence="1"/>
         </menuitem>
     </data>
-</odoo>
+</loomworks>

@@ -7,11 +7,11 @@ from hashlib import sha1
 from lxml import etree
 from markupsafe import Markup
 
-from odoo import Command, _, api, fields, models
-from odoo.exceptions import UserError
-from odoo.tools import float_round, float_repr, float_compare, date_utils, SQL
-from odoo.tools.xml_utils import cleanup_xml_node, find_xml_value
-from odoo.addons.l10n_es_edi_facturae.xml_utils import (
+from loomworks import Command, _, api, fields, models
+from loomworks.exceptions import UserError
+from loomworks.tools import float_round, float_repr, float_compare, date_utils, SQL
+from loomworks.tools.xml_utils import cleanup_xml_node, find_xml_value
+from loomworks.addons.l10n_es_edi_facturae.xml_utils import (
     NS_MAP,
     _canonicalize_node,
     _reference_digests,

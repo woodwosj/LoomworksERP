@@ -4,15 +4,15 @@ from collections import defaultdict
 from datetime import timedelta, datetime, date
 import calendar
 
-from odoo import fields, models, api, _, Command
-from odoo.exceptions import ValidationError, UserError, RedirectWarning
-from odoo.osv import expression
-from odoo.tools import date_utils, format_list, SQL
-from odoo.tools.mail import is_html_empty
-from odoo.tools.misc import format_date
-from odoo.addons.account.models.account_move import MAX_HASH_VERSION
-from odoo.addons.account.models.partner import _ref_company_registry
-from odoo.addons.base_vat.models.res_partner import _ref_vat
+from loomworks import fields, models, api, _, Command
+from loomworks.exceptions import ValidationError, UserError, RedirectWarning
+from loomworks.osv import expression
+from loomworks.tools import date_utils, format_list, SQL
+from loomworks.tools.mail import is_html_empty
+from loomworks.tools.misc import format_date
+from loomworks.addons.account.models.account_move import MAX_HASH_VERSION
+from loomworks.addons.account.models.partner import _ref_company_registry
+from loomworks.addons.base_vat.models.res_partner import _ref_vat
 
 
 MONTH_SELECTION = [

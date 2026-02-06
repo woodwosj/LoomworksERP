@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.test_mail.tests.test_performance import BaseMailPerformance
-from odoo.tests.common import users, warmup
-from odoo.tests import tagged
-from odoo.tools import mute_logger
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.test_mail.tests.test_performance import BaseMailPerformance
+from loomworks.tests.common import users, warmup
+from loomworks.tests import tagged
+from loomworks.tools import mute_logger
 
 
 class TestMassMailPerformanceBase(BaseMailPerformance):
@@ -35,7 +35,7 @@ class TestMassMailPerformance(TestMassMailPerformanceBase):
 
     @users('__system__', 'marketing')
     @warmup
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.models.unlink', 'odoo.tests')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink', 'loomworks.tests')
     def test_send_mailing(self):
         mailing = self.env['mailing.mailing'].create({
             'name': 'Test',
@@ -78,7 +78,7 @@ class TestMassMailBlPerformance(TestMassMailPerformanceBase):
 
     @users('__system__', 'marketing')
     @warmup
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.models.unlink', 'odoo.tests')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink', 'loomworks.tests')
     def test_send_mailing_w_bl(self):
         mailing = self.env['mailing.mailing'].create({
             'name': 'Test',

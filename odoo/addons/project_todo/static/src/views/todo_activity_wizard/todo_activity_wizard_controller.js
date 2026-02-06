@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { onMounted } from "@odoo/owl";
 import { FormController } from "@web/views/form/form_controller";

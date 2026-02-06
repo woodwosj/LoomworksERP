@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models, api
-from odoo.tools import float_is_zero
+from loomworks import fields, models, api
+from loomworks.tools import float_is_zero
 
 
 class AccountMove(models.Model):

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.addons.test_mail.tests.common import TestRecipients
-from odoo.tests import tagged
-from odoo.tools import mute_logger
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.addons.test_mail.tests.common import TestRecipients
+from loomworks.tests import tagged
+from loomworks.tools import mute_logger
 
 
 @tagged("odoobot")
@@ -28,14 +28,14 @@ class TestOdoobot(MailCommon, TestRecipients):
         cls.odoobot_ping_body = f'<a href="http://odoo.com/odoo/res.partner/{cls.odoobot.id}" class="o_mail_redirect" data-oe-id="{cls.odoobot.id}" data-oe-model="res.partner" target="_blank">@OdooBot</a>'
         cls.test_record_employe = cls.test_record.with_user(cls.user_employee)
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_fetch_listener(self):
         channel = self.user_employee.with_user(self.user_employee)._init_odoobot()
         odoobot = self.env.ref("base.partner_root")
         odoobot_in_fetch_listeners = self.env['discuss.channel.member'].search([('channel_id', '=', channel.id), ('partner_id', '=', odoobot.id)])
         self.assertEqual(len(odoobot_in_fetch_listeners), 1, 'odoobot should appear only once in channel_fetch_listeners')
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_odoobot_ping(self):
         kwargs = self.message_post_default_kwargs.copy()
         kwargs.update({'body': self.odoobot_ping_body, 'partner_ids': [self.odoobot.id, self.user_admin.partner_id.id]})
@@ -52,7 +52,7 @@ class TestOdoobot(MailCommon, TestRecipients):
         self.assertIn(self.user_employee.partner_id, follower)
         self.assertIn(self.user_admin.partner_id, follower)
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_onboarding_flow(self):
         kwargs = self.message_post_default_kwargs.copy()
         channel = self.user_employee.with_user(self.user_employee)._init_odoobot()
@@ -110,7 +110,7 @@ class TestOdoobot(MailCommon, TestRecipients):
             answer=("If you need help",)
         )
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_odoobot_no_default_answer(self):
         kwargs = self.message_post_default_kwargs.copy()
         kwargs.update({'body': "I'm not talking to @odoobot right now", 'partner_ids': []})

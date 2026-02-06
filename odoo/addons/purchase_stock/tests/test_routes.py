@@ -1,5 +1,5 @@
-from odoo import Command
-from odoo.tests import Form, TransactionCase
+from loomworks import Command
+from loomworks.tests import Form, TransactionCase
 
 
 class TestRoutes(TransactionCase):

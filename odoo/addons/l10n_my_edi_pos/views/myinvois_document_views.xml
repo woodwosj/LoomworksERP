@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="myinvois_document_form_view" model="ir.ui.view">
             <field name="name">myinvois.document.form.view</field>
@@ -76,4 +76,4 @@
             <field name="code">action = records.action_generate_xml_file()</field>
         </record>
     </data>
-</odoo>
+</loomworks>

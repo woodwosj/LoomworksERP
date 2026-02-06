@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 /**
  * Field Palette Component - Drag-drop field selection for Studio.
  *

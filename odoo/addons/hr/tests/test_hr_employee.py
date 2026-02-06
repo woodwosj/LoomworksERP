@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import datetime
 from psycopg2.errors import UniqueViolation
 
-from odoo.tests import Form, users, HttpCase, tagged, new_test_user
-from odoo.addons.hr.tests.common import TestHrCommon
-from odoo.tools import mute_logger
-from odoo.exceptions import ValidationError
+from loomworks.tests import Form, users, HttpCase, tagged, new_test_user
+from loomworks.addons.hr.tests.common import TestHrCommon
+from loomworks.tools import mute_logger
+from loomworks.exceptions import ValidationError
 
 class TestHrEmployee(TestHrCommon):
 
@@ -274,7 +274,7 @@ class TestHrEmployee(TestHrCommon):
         employee_form = Form(self.env['hr.employee'].with_user(self.res_users_hr_officer).with_company(company=test_company.id))
         employee_form.name = "Second employee"
         employee_form.user_id = self.res_users_hr_officer
-        with mute_logger('odoo.sql_db'), self.assertRaises(UniqueViolation), self.assertRaises(ValidationError), self.cr.savepoint():
+        with mute_logger('loomworks.sql_db'), self.assertRaises(UniqueViolation), self.assertRaises(ValidationError), self.cr.savepoint():
             employee_form.save()
 
         employee_2 = self.env['hr.employee'].create({
@@ -285,7 +285,7 @@ class TestHrEmployee(TestHrCommon):
         # Try to set the user with existing employee in the company, on another existing employee
         employee_2_form = Form(employee_2.with_user(self.res_users_hr_officer).with_company(company=test_company.id))
         employee_2_form.user_id = self.res_users_hr_officer
-        with mute_logger('odoo.sql_db'), self.assertRaises(UniqueViolation), self.assertRaises(ValidationError), self.cr.savepoint():
+        with mute_logger('loomworks.sql_db'), self.assertRaises(UniqueViolation), self.assertRaises(ValidationError), self.cr.savepoint():
             employee_2_form.save()
 
 
@@ -394,7 +394,7 @@ class TestHrEmployee(TestHrCommon):
             'company_id': company_A.id,
         })
         # User cannot be assigned to more than one employee in the same company. work_contact_id should not be removed.
-        with mute_logger('odoo.sql_db'), self.assertRaises(UniqueViolation), self.assertRaises(ValidationError), self.cr.savepoint():
+        with mute_logger('loomworks.sql_db'), self.assertRaises(UniqueViolation), self.assertRaises(ValidationError), self.cr.savepoint():
             self.env['hr.employee'].create({
                 'name': 'new_employee_B',
                 'user_id': user.id,
@@ -507,9 +507,9 @@ class TestHrEmployeeLinks(HttpCase):
         employee_sonic = self.env['hr.employee'].create({
             'name': 'Sonic the Hedgehog',
         })
-        with mute_logger('odoo.http'):  # ignore raised RedirectWarning
+        with mute_logger('loomworks.http'):  # ignore raised RedirectWarning
             self.start_tour(
-                f"/odoo/employees/{employee_sonic.id}",
+                f"/loomworks/employees/{employee_sonic.id}",
                 "check_public_employee_link_redirect",
                 login=user_amy.login,
             )

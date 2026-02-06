@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from PIL import Image, ImageOps
 import logging
@@ -9,14 +9,14 @@ import win32print
 import pywintypes
 import ghostscript
 
-from odoo.addons.hw_drivers.controllers.proxy import proxy_drivers
-from odoo.addons.hw_drivers.driver import Driver
-from odoo.addons.hw_drivers.event_manager import event_manager
-from odoo.addons.hw_drivers.main import iot_devices
-from odoo.addons.hw_drivers.tools import helpers
-from odoo.tools.mimetypes import guess_mimetype
-from odoo.addons.hw_drivers.websocket_client import send_to_controller
-from odoo.addons.hw_drivers.iot_handlers.interfaces.PrinterInterface_W import win32print_lock
+from loomworks.addons.hw_drivers.controllers.proxy import proxy_drivers
+from loomworks.addons.hw_drivers.driver import Driver
+from loomworks.addons.hw_drivers.event_manager import event_manager
+from loomworks.addons.hw_drivers.main import iot_devices
+from loomworks.addons.hw_drivers.tools import helpers
+from loomworks.tools.mimetypes import guess_mimetype
+from loomworks.addons.hw_drivers.websocket_client import send_to_controller
+from loomworks.addons.hw_drivers.iot_handlers.interfaces.PrinterInterface_W import win32print_lock
 
 _logger = logging.getLogger(__name__)
 

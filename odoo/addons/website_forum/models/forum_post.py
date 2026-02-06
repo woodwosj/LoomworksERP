@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import math
 import re
 from datetime import datetime
 
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import UserError, ValidationError, AccessError
-from odoo.osv import expression
-from odoo.tools import sql, SQL
-from odoo.tools.json import scriptsafe as json_safe
+from loomworks import api, fields, models, tools, _
+from loomworks.exceptions import UserError, ValidationError, AccessError
+from loomworks.osv import expression
+from loomworks.tools import sql, SQL
+from loomworks.tools.json import scriptsafe as json_safe
 
 _logger = logging.getLogger(__name__)
 

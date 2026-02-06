@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { Meter } from "@auth_password_policy/password_meter";
 import { ConcretePolicy, recommendations } from "@auth_password_policy/password_policy";

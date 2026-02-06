@@ -1,7 +1,7 @@
-from odoo import api, SUPERUSER_ID
-from odoo.osv import expression
-from odoo.release import version
-from odoo.tools import parse_version
+from loomworks import api, SUPERUSER_ID
+from loomworks.osv import expression
+from loomworks.release import version
+from loomworks.tools import parse_version
 
 FIXED_ACCOUNTS_TYPE = {
     'asset_prepayments': ['242'],

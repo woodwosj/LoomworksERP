@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
+<loomworks noupdate="1">
 
     <!-- ECO Types -->
     <record id="plm_eco_type_design" model="plm.eco.type">
@@ -92,4 +92,4 @@
         <field name="color">5</field>
     </record>
 
-</odoo>
+</loomworks>

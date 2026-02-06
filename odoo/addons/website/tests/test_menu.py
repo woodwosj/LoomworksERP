@@ -5,9 +5,9 @@ from lxml import html
 from unittest.mock import Mock, patch
 from werkzeug.urls import url_parse
 
-from odoo.addons.website.tools import MockRequest
-from odoo.tests import common
-from odoo.exceptions import UserError
+from loomworks.addons.website.tools import MockRequest
+from loomworks.tests import common
+from loomworks.exceptions import UserError
 
 
 class TestMenu(common.TransactionCase):
@@ -164,7 +164,7 @@ class TestMenu(common.TransactionCase):
             url = a_menu.url
             self.request_url_mock = 'http://localhost:8069' + url
             with MockRequest(self.env, website=website_1), \
-                 patch('odoo.addons.website.models.website_menu.url_parse', new=url_parse_mock):
+                 patch('loomworks.addons.website.models.website_menu.url_parse', new=url_parse_mock):
                 self.assertTrue(a_menu._is_active(), "Same path, no domain, no qs, should match")
                 a_menu.url = f'{url}#anchor'
                 self.assertTrue(a_menu._is_active(), "Same path, no domain, no qs, should match (anchor should be ignored)")
@@ -206,7 +206,7 @@ class TestMenu(common.TransactionCase):
         # Second, test a nested menu configuration (simple URL, no qs/anchor)
         self.request_url_mock = 'http://localhost:8069/'
         with MockRequest(self.env, website=website_1), \
-             patch('odoo.addons.website.models.website_menu.url_parse', new=url_parse_mock):
+             patch('loomworks.addons.website.models.website_menu.url_parse', new=url_parse_mock):
             self.assertFalse(menu._is_active(), "Same path but it's a container menu, its URL shouldn't be considered")
             self.assertTrue(menu2._is_active(), "Same path and no child -> Should be active")
             self.assertFalse(menu3._is_active(), "Not same path + children")
@@ -247,7 +247,7 @@ class TestMenu(common.TransactionCase):
         self.assertEqual(menu.url, page.url, "Menu url should be the same than the page url")
 
         with MockRequest(self.env, website=website_1), \
-             patch('odoo.addons.website.models.website_menu.url_parse', new=url_parse_mock):
+             patch('loomworks.addons.website.models.website_menu.url_parse', new=url_parse_mock):
 
             self.request_url_mock = 'http://localhost:8069/sub/slug-3'
             self.assertFalse(menu._is_active(), "Page linked, same unslug, should not match")

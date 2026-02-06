@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 from freezegun import freeze_time
 
-from odoo.tests.common import tagged
-from odoo.addons.hr_holidays.tests.common import TestHrHolidaysCommon
-from odoo.models import ValidationError
+from loomworks.tests.common import tagged
+from loomworks.addons.hr_holidays.tests.common import TestHrHolidaysCommon
+from loomworks.models import ValidationError
 
 
 @tagged('negative_time_off')

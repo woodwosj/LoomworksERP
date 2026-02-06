@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 from freezegun import freeze_time
 from unittest.mock import patch
 
-from odoo import fields
-from odoo.addons.base.tests.test_format_address_mixin import FormatAddressCase
-from odoo.addons.crm.models.crm_lead import PARTNER_FIELDS_TO_SYNC, PARTNER_ADDRESS_FIELDS_TO_SYNC
-from odoo.addons.crm.tests.common import TestCrmCommon, INCOMING_EMAIL
-from odoo.addons.mail.tests.mail_tracking_duration_mixin_case import MailTrackingDurationMixinCase
-from odoo.addons.phone_validation.tools.phone_validation import phone_format
-from odoo.exceptions import UserError
-from odoo.tests import Form, tagged, users
-from odoo.tools import mute_logger
+from loomworks import fields
+from loomworks.addons.base.tests.test_format_address_mixin import FormatAddressCase
+from loomworks.addons.crm.models.crm_lead import PARTNER_FIELDS_TO_SYNC, PARTNER_ADDRESS_FIELDS_TO_SYNC
+from loomworks.addons.crm.tests.common import TestCrmCommon, INCOMING_EMAIL
+from loomworks.addons.mail.tests.mail_tracking_duration_mixin_case import MailTrackingDurationMixinCase
+from loomworks.addons.phone_validation.tools.phone_validation import phone_format
+from loomworks.exceptions import UserError
+from loomworks.tests import Form, tagged, users
+from loomworks.tools import mute_logger
 
 
 @tagged('lead_internals')
@@ -863,7 +863,7 @@ class TestCRMLead(TestCrmCommon):
                     self.assertNotIn(f"<a href='mailto:{team.alias_email}'>{team.alias_email}</a>", self.env['crm.lead'].sudo().get_empty_list_help(""))
                 team.active = False
 
-    @mute_logger('odoo.addons.mail.models.mail_thread')
+    @mute_logger('loomworks.addons.mail.models.mail_thread')
     def test_mailgateway(self):
         new_lead = self.format_and_process(
             INCOMING_EMAIL,

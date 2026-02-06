@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 /**
  * The jquery library extensions and fixes should be done here to avoid patching

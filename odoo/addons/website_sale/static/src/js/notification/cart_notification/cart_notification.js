@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Component } from "@odoo/owl";
 import { AddToCartNotification } from "../add_to_cart_notification/add_to_cart_notification";

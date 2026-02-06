@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from lxml import etree
 
-from odoo import tools
-from odoo.exceptions import ValidationError
-from odoo.tests import tagged
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks import tools
+from loomworks.exceptions import ValidationError
+from loomworks.tests import tagged
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 @tagged('post_install', '-at_install', 'post_install_l10n')

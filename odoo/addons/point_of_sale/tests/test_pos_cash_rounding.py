@@ -1,6 +1,6 @@
-from odoo import Command
-from odoo.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
+from loomworks.tests import tagged
 
 
 @tagged('post_install', '-at_install')

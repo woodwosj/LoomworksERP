@@ -1,7 +1,7 @@
-from odoo.fields import Command
-from odoo.tests import HttpCase
+from loomworks.fields import Command
+from loomworks.tests import HttpCase
 
-from odoo.addons.website_sale.tests.common import WebsiteSaleCommon
+from loomworks.addons.website_sale.tests.common import WebsiteSaleCommon
 
 
 class WebsiteSaleSEO(HttpCase, WebsiteSaleCommon):

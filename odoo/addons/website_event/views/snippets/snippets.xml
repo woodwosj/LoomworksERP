@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<odoo>
+<loomworks>
 
 <template id="remove_external_snippets" inherit_id="website.external_snippets">
     <xpath expr="//t[@t-install='website_event']" position="replace"/>
@@ -98,4 +98,4 @@
     <path>website_event/static/src/snippets/s_searchbar/000.xml</path>
 </asset>
 
-</odoo>
+</loomworks>

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo.tests import Form
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.stock.tests.common import TestStockCommon
+from loomworks.tests import Form
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.stock.tests.common import TestStockCommon
 
 
 class TestMrpCommon(TestStockCommon):

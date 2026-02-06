@@ -15,9 +15,9 @@ events (create, update, time-based) and execute actions.
 
 import logging
 
-from odoo import api, models, fields, _
-from odoo.exceptions import ValidationError, UserError
-from odoo.tools.safe_eval import safe_eval, test_python_expr
+from loomworks import api, models, fields, _
+from loomworks.exceptions import ValidationError, UserError
+from loomworks.tools.safe_eval import safe_eval, test_python_expr
 
 _logger = logging.getLogger(__name__)
 
@@ -184,7 +184,7 @@ class StudioAutomation(models.Model):
 #  - record: First record (shortcut for records[0])
 #  - time, datetime, dateutil, timezone: Python libraries
 #  - log: Logging function (log(message, level='info'))
-#  - Warning: odoo.exceptions.Warning exception class
+#  - Warning: loomworks.exceptions.Warning exception class
 #
 # Example:
 # for record in records:
@@ -218,7 +218,7 @@ class StudioAutomation(models.Model):
         'ir.actions.server',
         string='Server Action',
         readonly=True,
-        help="Generated Odoo server action"
+        help="Generated Loomworks server action"
     )
 
     # State

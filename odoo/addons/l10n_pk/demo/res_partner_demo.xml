@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
         <record id="res_partner_punjab" model="res.partner">
             <field name="name">Punjab Customer</field>
@@ -28,4 +28,4 @@
             <field name="website">http://islamabadvendor.odoo.com</field>
         </record>
 
-</odoo>
+</loomworks>

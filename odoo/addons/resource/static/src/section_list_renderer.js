@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { ListRenderer } from "@web/views/list/list_renderer";
 import { useEffect } from "@odoo/owl";

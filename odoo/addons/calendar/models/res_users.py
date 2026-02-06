@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import datetime
 
-from odoo import api, fields, models, modules, _
-from odoo.exceptions import AccessError
+from loomworks import api, fields, models, modules, _
+from loomworks.exceptions import AccessError
 
 from pytz import timezone, UTC
 

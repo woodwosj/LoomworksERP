@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import timedelta, datetime
 from freezegun import freeze_time
 
 from . import common
-from odoo import Command
-from odoo.tests import Form, tagged
+from loomworks import Command
+from loomworks.tests import Form, tagged
 
 
 @tagged('-at_install', 'post_install')

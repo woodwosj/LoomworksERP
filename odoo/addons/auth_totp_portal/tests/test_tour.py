@@ -1,8 +1,8 @@
 import logging
 
-from odoo.addons.auth_totp.tests.test_totp import TestTOTPMixin
-from odoo.addons.base.tests.common import HttpCaseWithUserPortal
-from odoo.tests import tagged
+from loomworks.addons.auth_totp.tests.test_totp import TestTOTPMixin
+from loomworks.addons.base.tests.common import HttpCaseWithUserPortal
+from loomworks.tests import tagged
 
 _logger = logging.getLogger(__name__)
 

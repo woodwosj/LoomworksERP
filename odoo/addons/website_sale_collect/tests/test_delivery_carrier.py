@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 
-from odoo import Command
-from odoo.exceptions import ValidationError
-from odoo.tests import Form, tagged
+from loomworks import Command
+from loomworks.exceptions import ValidationError
+from loomworks.tests import Form, tagged
 
-from odoo.addons.website.tools import MockRequest
-from odoo.addons.website_sale_collect.tests.common import ClickAndCollectCommon
-from odoo.addons.website_sale_stock.tests.common import WebsiteSaleStockCommon
+from loomworks.addons.website.tools import MockRequest
+from loomworks.addons.website_sale_collect.tests.common import ClickAndCollectCommon
+from loomworks.addons.website_sale_stock.tests.common import WebsiteSaleStockCommon
 
 
 @tagged('post_install', '-at_install')
@@ -73,7 +73,7 @@ class TestDeliveryCarrier(ClickAndCollectCommon, WebsiteSaleStockCommon):
         })
 
         with patch(
-            'odoo.addons.base_geolocalize.models.res_partner.ResPartner.geo_localize',
+            'loomworks.addons.base_geolocalize.models.res_partner.ResPartner.geo_localize',
             return_value=True
         ), MockRequest(self.env, website=self.website, sale_order_id=so.id):
             locations = self.in_store_dm._in_store_get_close_locations(wh_address_partner)

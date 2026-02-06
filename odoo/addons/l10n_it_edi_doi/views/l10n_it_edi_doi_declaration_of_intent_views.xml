@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
 
     <record id="view_l10n_it_edi_doi_tree" model="ir.ui.view">
         <field name="name">l10n_it_edi_doi.declaration_of_intent.list</field>
@@ -128,4 +128,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

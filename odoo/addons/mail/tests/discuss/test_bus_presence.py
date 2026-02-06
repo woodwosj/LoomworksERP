@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 
@@ -7,10 +7,10 @@ try:
 except ImportError:
     ws = None
 
-from odoo.tests import tagged, new_test_user
-from odoo.addons.bus.tests.common import WebsocketCase
-from odoo.addons.mail.tests.common import MailCommon, freeze_all_time
-from odoo.addons.bus.models.bus import channel_with_db, json_dump
+from loomworks.tests import tagged, new_test_user
+from loomworks.addons.bus.tests.common import WebsocketCase
+from loomworks.addons.mail.tests.common import MailCommon, freeze_all_time
+from loomworks.addons.bus.models.bus import channel_with_db, json_dump
 
 
 @tagged("post_install", "-at_install")

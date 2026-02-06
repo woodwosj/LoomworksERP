@@ -5,8 +5,8 @@
 Tests for Studio Automation functionality.
 """
 
-from odoo.tests import TransactionCase, tagged
-from odoo.exceptions import ValidationError
+from loomworks.tests import TransactionCase, tagged
+from loomworks.exceptions import ValidationError
 
 
 @tagged('post_install', '-at_install')

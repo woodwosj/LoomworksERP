@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-from odoo.exceptions import AccessError, UserError
-from odoo.tests import tagged
-from odoo.tools import mute_logger
+from loomworks import Command
+from loomworks.exceptions import AccessError, UserError
+from loomworks.tests import tagged
+from loomworks.tools import mute_logger
 
-from odoo.addons.base.tests.common import BaseUsersCommon
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.addons.sale.tests.common import SaleCommon
+from loomworks.addons.base.tests.common import BaseUsersCommon
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.addons.sale.tests.common import SaleCommon
 
 
 @tagged('post_install', '-at_install')
@@ -51,7 +51,7 @@ class TestAccessRights(BaseUsersCommon, SaleCommon, MailCommon):
         # Manager can confirm the SO
         sale_order.action_confirm()
         # Manager can not delete confirmed SO
-        with self.assertRaises(UserError), mute_logger('odoo.models.unlink'):
+        with self.assertRaises(UserError), mute_logger('loomworks.models.unlink'):
             sale_order.unlink()
 
         # Manager can delete the SO of other salesperson if SO is in 'draft' or 'cancel' state
@@ -60,7 +60,7 @@ class TestAccessRights(BaseUsersCommon, SaleCommon, MailCommon):
             so_as_sale_manager.id, SaleOrder.search([]).ids,
             'Sales manager should be able to delete the SO')
 
-    @mute_logger('odoo.addons.base.models.ir_model', 'odoo.addons.base.models.ir_rule')
+    @mute_logger('loomworks.addons.base.models.ir_model', 'loomworks.addons.base.models.ir_rule')
     def test_access_sales_person(self):
         """ Test Salesperson's access rights """
         SaleOrder = self.env['sale.order'].with_user(self.sale_user2)
@@ -109,7 +109,7 @@ class TestAccessRights(BaseUsersCommon, SaleCommon, MailCommon):
         with self.mock_mail_gateway(mail_unlink_sent=False):
             composer.action_send_and_print()
 
-    @mute_logger('odoo.addons.base.models.ir_model', 'odoo.addons.base.models.ir_rule')
+    @mute_logger('loomworks.addons.base.models.ir_model', 'loomworks.addons.base.models.ir_rule')
     def test_access_portal_user(self):
         """ Test portal user's access rights """
         SaleOrder = self.env['sale.order'].with_user(self.user_portal)
@@ -134,7 +134,7 @@ class TestAccessRights(BaseUsersCommon, SaleCommon, MailCommon):
         with self.assertRaises(AccessError):
             so_as_portal_user.unlink()
 
-    @mute_logger('odoo.addons.base.models.ir_model')
+    @mute_logger('loomworks.addons.base.models.ir_model')
     def test_access_employee(self):
         """ Test classic employee's access rights """
         SaleOrder = self.env['sale.order'].with_user(self.user_internal)

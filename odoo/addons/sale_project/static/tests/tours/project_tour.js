@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 /**
  * Add custom step to check allow_billable during project creation

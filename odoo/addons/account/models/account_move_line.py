@@ -4,14 +4,14 @@ from datetime import date
 import logging
 import re
 
-from odoo import api, fields, models, Command, _
-from odoo.exceptions import ValidationError, UserError, RedirectWarning
-from odoo.osv import expression
-from odoo.tools import frozendict, format_date, float_compare, format_list, Query
-from odoo.tools.sql import create_index, SQL
-from odoo.addons.web.controllers.utils import clean_action
+from loomworks import api, fields, models, Command, _
+from loomworks.exceptions import ValidationError, UserError, RedirectWarning
+from loomworks.osv import expression
+from loomworks.tools import frozendict, format_date, float_compare, format_list, Query
+from loomworks.tools.sql import create_index, SQL
+from loomworks.addons.web.controllers.utils import clean_action
 
-from odoo.addons.account.models.account_move import MAX_HASH_VERSION
+from loomworks.addons.account.models.account_move import MAX_HASH_VERSION
 
 
 _logger = logging.getLogger(__name__)

@@ -1,6 +1,6 @@
-from odoo import models
+from loomworks import models
 
-from odoo.addons.sms.tools.sms_api import SmsApi
+from loomworks.addons.sms.tools.sms_api import SmsApi
 
 
 class ResCompany(models.Model):

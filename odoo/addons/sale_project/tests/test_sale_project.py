@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-from odoo.tests import Form, HttpCase, new_test_user, tagged
-from odoo.exceptions import UserError
+from loomworks import Command
+from loomworks.tests import Form, HttpCase, new_test_user, tagged
+from loomworks.exceptions import UserError
 
 from .common import TestSaleProjectCommon
 
@@ -116,7 +116,7 @@ class TestSaleProject(HttpCase, TestSaleProjectCommon):
         cls.analytic_plan_2 = cls.env['account.analytic.plan'].create({'name': 'Sale Project Plan 2'})
 
     def test_task_create_sol_ui(self):
-        self.start_tour('/odoo', 'task_create_sol_tour', login='admin')
+        self.start_tour('/loomworks', 'task_create_sol_tour', login='admin')
 
     def test_project_create_sol_ui(self):
         self.product_order_service5 = self.env['product.product'].create({
@@ -124,7 +124,7 @@ class TestSaleProject(HttpCase, TestSaleProjectCommon):
             'type': 'service',
             'invoice_policy': 'delivery',
         })
-        self.start_tour('/odoo', 'project_create_sol_tour', login='admin')
+        self.start_tour('/loomworks', 'project_create_sol_tour', login='admin')
 
     def test_sale_order_with_project_task(self):
         SaleOrder = self.env['sale.order'].with_context(tracking_disable=True)

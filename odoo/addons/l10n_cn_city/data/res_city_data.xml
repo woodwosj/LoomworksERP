@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
     <data noupdate="1">
         <record id="china_city_860700" model="res.city">
             <field name="state_id" ref="base.state_cn_XZ" />
@@ -17102,4 +17102,4 @@
             <field name="name">呼和浩特市玉泉区</field>
         </record>
     </data>
-</odoo>
+</loomworks>

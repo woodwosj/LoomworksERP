@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from http import HTTPStatus
 from urllib.parse import parse_qs
 
-from odoo import fields
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.base.tests.common import HttpCaseWithUserPortal
-from odoo.addons.website_slides.tests import common
-from odoo.tests import tagged, users
+from loomworks import fields
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.base.tests.common import HttpCaseWithUserPortal
+from loomworks.addons.website_slides.tests import common
+from loomworks.tests import tagged, users
 
 @tagged('post_install', '-at_install')
 class TestAttendee(common.SlidesCase):

@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tests.common import tagged
-from odoo.tools import mute_logger
+from loomworks.tests.common import tagged
+from loomworks.tools import mute_logger
 from .common import TestPosQrCommon
 
 
@@ -31,7 +31,7 @@ class TestUiSEPA(TestPosQrCommon):
             'payment_method_ids': [(4, qr_payment.id)]
         })
 
-    @mute_logger('odoo.http')
+    @mute_logger('loomworks.http')
     def test_01_pos_order_with_sepa_qr_payment_fail(self):
         """ Test Point of Sale QR Payment flow with SEPA.
             In this test the QR payment method is missing the required fields and will display an error message.
@@ -99,7 +99,7 @@ class TestUiCH(TestPosQrCommon):
             'zip': "4242",
         })
 
-    @mute_logger('odoo.http')
+    @mute_logger('loomworks.http')
     def test_01_pos_order_with_swiss_qr_payment_fail(self):
         """ Test Point of Sale QR Payment flow with Swiss QR.
             In this test the QR payment will fail as we are not selecting a swiss customer
@@ -151,7 +151,7 @@ class TestUiHK(TestPosQrCommon):
             'payment_method_ids': [(4, qr_payment.id)]
         })
 
-    @mute_logger('odoo.http')
+    @mute_logger('loomworks.http')
     def test_01_pos_order_with_fps_qr_payment_fail(self):
         """ Test Point of Sale QR Payment flow with FPS.
             In this test the QR payment method is missing the required fields and will display an error message.
@@ -206,7 +206,7 @@ class TestUIBR(TestPosQrCommon):
             'payment_method_ids': [(4, qr_payment.id)]
         })
 
-    @mute_logger('odoo.http')
+    @mute_logger('loomworks.http')
     def test_01_pos_order_with_pix_qr_payment_fail(self):
         """ Test Point of Sale QR Payment flow with PIX.
             In this test the QR payment method is missing the required fields and will display an error message.

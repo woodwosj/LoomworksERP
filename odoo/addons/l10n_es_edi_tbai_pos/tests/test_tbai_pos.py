@@ -1,10 +1,10 @@
 from unittest.mock import patch
 
-from odoo import Command
-from odoo.addons.l10n_es_edi_tbai.tests.common import TestEsEdiTbaiCommonGipuzkoa
-from odoo.addons.point_of_sale.tests.common import TestPointOfSaleCommon
-from odoo.exceptions import UserError
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.addons.l10n_es_edi_tbai.tests.common import TestEsEdiTbaiCommonGipuzkoa
+from loomworks.addons.point_of_sale.tests.common import TestPointOfSaleCommon
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
@@ -51,7 +51,7 @@ class TestPosEdi(TestEsEdiTbaiCommonGipuzkoa, TestPointOfSaleCommon):
             'amount': pos_order.amount_total,
         })
         with patch(
-            'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+            'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
             return_value=None if with_error else cls.mock_response_post_invoice_success,
             side_effect=cls.mock_request_error if with_error else None,
         ):

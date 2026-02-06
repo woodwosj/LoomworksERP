@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 
 from ast import literal_eval
-from odoo import fields, models, _, api
-from odoo.exceptions import UserError
-from odoo.fields import Datetime
+from loomworks import fields, models, _, api
+from loomworks.exceptions import UserError
+from loomworks.fields import Datetime
 
 _logger = logging.getLogger(__name__)
 

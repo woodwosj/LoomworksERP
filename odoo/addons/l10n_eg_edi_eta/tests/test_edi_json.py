@@ -3,9 +3,9 @@ from unittest.mock import patch
 
 from freezegun import freeze_time
 
-from odoo import Command
-from odoo.tests import tagged
-from odoo import Command
+from loomworks import Command
+from loomworks.tests import tagged
+from loomworks import Command
 
 from .common import TestEGEdiCommon
 
@@ -74,10 +74,10 @@ class TestEdiJson(TestEGEdiCommon):
 
     def test_1_simple_test_local_parter_no_tax(self):
         with freeze_time(self.frozen_today), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
             new=mocked_action_post_sign_invoices,
         ), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
             new=mocked_l10n_eg_edi_post_invoice_web_service,
         ):
             invoice = self.create_invoice(
@@ -167,10 +167,10 @@ class TestEdiJson(TestEGEdiCommon):
 
     def test_2_simple_test_local_parter_vat_14(self):
         with freeze_time(self.frozen_today), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
             new=mocked_action_post_sign_invoices,
         ), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
             new=mocked_l10n_eg_edi_post_invoice_web_service,
         ):
             invoice = self.create_invoice(
@@ -262,10 +262,10 @@ class TestEdiJson(TestEGEdiCommon):
 
     def test_3_simple_test_local_parter_vat_14_discount_credit_note(self):
         with freeze_time(self.frozen_today), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
             new=mocked_action_post_sign_invoices,
         ), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
             new=mocked_l10n_eg_edi_post_invoice_web_service,
         ):
             invoice = self.create_invoice(
@@ -363,10 +363,10 @@ class TestEdiJson(TestEGEdiCommon):
 
     def test_4_simple_test_local_parter_vat_14_discount_multiple_tax(self):
         with freeze_time(self.frozen_today), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
             new=mocked_action_post_sign_invoices,
         ), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
             new=mocked_l10n_eg_edi_post_invoice_web_service,
         ):
             ref_eg_standard_sale_14 = self.env.ref(f'account.{self.env.company.id}_eg_standard_sale_14').ids
@@ -496,10 +496,10 @@ class TestEdiJson(TestEGEdiCommon):
 
     def test_5_simple_test_foreign_partner_exempt_discount(self):
         with freeze_time(self.frozen_today), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
             new=mocked_action_post_sign_invoices,
         ), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
             new=mocked_l10n_eg_edi_post_invoice_web_service,
         ):
             invoice = self.create_invoice(
@@ -595,10 +595,10 @@ class TestEdiJson(TestEGEdiCommon):
 
     def test_6_simple_test_foreign_parter_exempt_discount_foreign_currency(self):
         with freeze_time(self.frozen_today), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
             new=mocked_action_post_sign_invoices,
         ), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
             new=mocked_l10n_eg_edi_post_invoice_web_service,
         ):
             invoice = self.create_invoice(
@@ -704,10 +704,10 @@ class TestEdiJson(TestEGEdiCommon):
 
     def test_7_simple_test_foreign_parter_exempt_discount_foreign_currency_credit_note(self):
         with freeze_time(self.frozen_today), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
             new=mocked_action_post_sign_invoices,
         ), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
             new=mocked_l10n_eg_edi_post_invoice_web_service,
         ):
             invoice = self.create_invoice(
@@ -814,10 +814,10 @@ class TestEdiJson(TestEGEdiCommon):
 
     def test_8_test_serialization_function(self):
         with freeze_time(self.frozen_today), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
             new=mocked_action_post_sign_invoices,
         ), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
             new=mocked_l10n_eg_edi_post_invoice_web_service,
         ):
             invoice = self.create_invoice(
@@ -854,10 +854,10 @@ class TestEdiJson(TestEGEdiCommon):
 
     def test_9_test_withholding_tax(self):
         with freeze_time(self.frozen_today), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_move.AccountMove.action_post_sign_invoices',
             new=mocked_action_post_sign_invoices,
         ), patch(
-            'odoo.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
+            'loomworks.addons.l10n_eg_edi_eta.models.account_edi_format.AccountEdiFormat._l10n_eg_edi_post_invoice_web_service',
             new=mocked_l10n_eg_edi_post_invoice_web_service,
         ):
             taxes = self.env.ref(f'account.{self.env.company.id}_eg_standard_sale_14').ids + self.env.ref(f'account.{self.env.company.id}_eg_withholding_3_sale').ids

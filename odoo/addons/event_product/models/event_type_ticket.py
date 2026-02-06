@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 
-from odoo import api, fields, models
-from odoo.addons.product.models.product_template import PRICE_CONTEXT_KEYS
+from loomworks import api, fields, models
+from loomworks.addons.product.models.product_template import PRICE_CONTEXT_KEYS
 
 _logger = logging.getLogger(__name__)
 

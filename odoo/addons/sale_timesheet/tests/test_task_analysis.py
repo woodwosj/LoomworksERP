@@ -1,4 +1,4 @@
-from odoo.tests import tagged
+from loomworks.tests import tagged
 
 from .common import TestCommonSaleTimesheet
 

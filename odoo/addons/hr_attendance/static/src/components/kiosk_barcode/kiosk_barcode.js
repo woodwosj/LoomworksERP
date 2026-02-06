@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { BarcodeScanner } from "@barcodes/components/barcode_scanner";
 import { scanBarcode } from "@web/core/barcode/barcode_dialog";

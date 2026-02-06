@@ -6,8 +6,8 @@
 # Loomworks modifications copyright: Loomworks
 # License: LGPL-3
 
-from odoo.tests.common import TransactionCase
-from odoo.exceptions import AccessError, UserError
+from loomworks.tests.common import TransactionCase
+from loomworks.exceptions import AccessError, UserError
 
 
 class TestAISandbox(TransactionCase):

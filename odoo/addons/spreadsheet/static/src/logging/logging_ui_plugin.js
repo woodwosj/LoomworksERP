@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { CommandResult } from "@spreadsheet/o_spreadsheet/cancelled_reason";

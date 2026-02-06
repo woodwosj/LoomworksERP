@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { useSpreadsheetNotificationStore } from "@spreadsheet/hooks";
 import { Spreadsheet, Model } from "@odoo/o-spreadsheet";

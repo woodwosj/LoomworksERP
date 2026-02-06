@@ -1,4 +1,4 @@
-from odoo.tests import TransactionCase
+from loomworks.tests import TransactionCase
 from unittest import mock
 import smtplib
 
@@ -19,8 +19,8 @@ class MailCase(TransactionCase):
         disconnected_smtpsession = mock.MagicMock()
         disconnected_smtpsession.quit.side_effect = smtplib.SMTPServerDisconnected
         mail = self.env["mail.mail"].create({})
-        with mock.patch("odoo.addons.base.models.ir_mail_server.IrMailServer.connect", return_value=disconnected_smtpsession):
-            with mock.patch("odoo.addons.mail.models.mail_mail._logger.info") as mock_logging_info:
+        with mock.patch("loomworks.addons.base.models.ir_mail_server.IrMailServer.connect", return_value=disconnected_smtpsession):
+            with mock.patch("loomworks.addons.mail.models.mail_mail._logger.info") as mock_logging_info:
                 mail.send()
         disconnected_smtpsession.quit.assert_called_once()
         mock_logging_info.assert_any_call(

@@ -4,9 +4,9 @@ import requests
 
 from unittest import mock
 
-from odoo import _, release, Command
-from odoo.tools import file_open, html_sanitize, misc, zeep
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks import _, release, Command
+from loomworks.tools import file_open, html_sanitize, misc, zeep
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 class TestL10nEsEdiVerifactuCommon(AccountTestInvoicingCommon):
@@ -17,7 +17,7 @@ class TestL10nEsEdiVerifactuCommon(AccountTestInvoicingCommon):
         super().setUpClass()
 
         fake_db_identifier = '7244834601315494189'
-        db_identifier_function = 'odoo.addons.l10n_es_edi_verifactu.models.verifactu_document.L10nEsEdiVerifactuDocument._get_db_identifier'
+        db_identifier_function = 'loomworks.addons.l10n_es_edi_verifactu.models.verifactu_document.L10nEsEdiVerifactuDocument._get_db_identifier'
         patch_db_identifier = mock.patch(db_identifier_function, lambda _self: fake_db_identifier)
         cls.startClassPatcher(patch_db_identifier)
 
@@ -106,11 +106,11 @@ class TestL10nEsEdiVerifactuCommon(AccountTestInvoicingCommon):
         return response
 
     def _mock_request(self, mock_response):
-        request_function_path = 'odoo.addons.l10n_es_edi_verifactu.models.verifactu_document.L10nEsEdiVerifactuDocument._soap_request'
+        request_function_path = 'loomworks.addons.l10n_es_edi_verifactu.models.verifactu_document.L10nEsEdiVerifactuDocument._soap_request'
         return mock.patch(request_function_path, return_value=mock_response)
 
     def _mock_get_zeep_operation(self, registration_return_value=None, registration_xml_return_value=None):
-        request_function_path = 'odoo.addons.l10n_es_edi_verifactu.models.verifactu_document._get_zeep_operation'
+        request_function_path = 'loomworks.addons.l10n_es_edi_verifactu.models.verifactu_document._get_zeep_operation'
 
         def mocked_get_zeep_operation(company, operation):
             if operation not in ('registration', 'registration_xml'):
@@ -121,7 +121,7 @@ class TestL10nEsEdiVerifactuCommon(AccountTestInvoicingCommon):
         return mock.patch(request_function_path, mocked_get_zeep_operation)
 
     def _mock_zeep_registration_operation(self, response_file_json):
-        # Note: The real result is of type 'odoo.tools.zeep.client.SerialProxy'; here it is a dict
+        # Note: The real result is of type 'loomworks.tools.zeep.client.SerialProxy'; here it is a dict
         zeep_response_dict = json.loads(self._read_file(response_file_json))
         return self._mock_get_zeep_operation(registration_return_value=lambda *args, **kwargs: zeep_response_dict)
 
@@ -133,7 +133,7 @@ class TestL10nEsEdiVerifactuCommon(AccountTestInvoicingCommon):
         return self._mock_get_zeep_operation(registration_return_value=_raise_certificate_error)
 
     def _mock_cron_trigger(self, cron_trigger_result_dict):
-        trigger_function_path = 'odoo.addons.base.models.ir_cron.ir_cron._trigger'
+        trigger_function_path = 'loomworks.addons.base.models.ir_cron.ir_cron._trigger'
 
         def _put_at_in_dict(self, at=None):
             cron_trigger_result_dict['at'] = at
@@ -162,7 +162,7 @@ class TestL10nEsEdiVerifactuCommon(AccountTestInvoicingCommon):
 
     def _mock_last_document(self, document):
         # Note: returns the same document for all companies
-        function_path = 'odoo.addons.l10n_es_edi_verifactu.models.res_company.ResCompany._l10n_es_edi_verifactu_get_last_document'
+        function_path = 'loomworks.addons.l10n_es_edi_verifactu.models.res_company.ResCompany._l10n_es_edi_verifactu_get_last_document'
         return mock.patch(function_path, return_value=(document or self.env['l10n_es_edi_verifactu.document']))
 
     def _mock_create_date(self, date):

@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from contextlib import contextmanager
 from freezegun import freeze_time
 from unittest.mock import patch
 
-from odoo import exceptions
-from odoo.addons.mail.models.mail_activity import MailActivity
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.tests import Form, tagged, HttpCase
-from odoo.tools.misc import format_date
+from loomworks import exceptions
+from loomworks.addons.mail.models.mail_activity import MailActivity
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.tests import Form, tagged, HttpCase
+from loomworks.tools.misc import format_date
 
 
 class ActivityScheduleCase(MailCommon):
@@ -167,7 +167,7 @@ class TestMailActivityChatter(HttpCase):
 
     def test_mail_activity_schedule_from_chatter(self):
         self.start_tour(
-            f"/odoo/res.partner/{self.test_partner.id}",
+            f"/loomworks/res.partner/{self.test_partner.id}",
             "mail_activity_schedule_from_chatter",
             login="admin",
         )

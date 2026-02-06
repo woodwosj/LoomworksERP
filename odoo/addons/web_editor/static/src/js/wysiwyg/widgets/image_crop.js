@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import {applyModifications, cropperDataFields, activateCropper, loadImage, loadImageInfo} from "@web_editor/js/editor/image_processing";
 import { _t } from "@web/core/l10n/translation";
@@ -167,7 +167,7 @@ export class ImageCrop extends Component {
 
         if (this.uncroppable) {
             this.notification.add(
-                markup(_t("This type of image is not supported for cropping.<br/>If you want to crop it, please first download it from the original source and upload it in Odoo.")),
+                markup(_t("This type of image is not supported for cropping.<br/>If you want to crop it, please first download it from the original source and upload it in Loomworks.")),
                 {
                     title: _t("This image is an external image"),
                     type: 'warning',

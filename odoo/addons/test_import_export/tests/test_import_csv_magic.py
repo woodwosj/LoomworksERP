@@ -3,7 +3,7 @@ Tests for various autodetection magics for CSV imports
 """
 import codecs
 
-from odoo.tests import common
+from loomworks.tests import common
 
 
 class ImportCase(common.TransactionCase):

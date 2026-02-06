@@ -3,11 +3,11 @@ from functools import wraps
 from io import BytesIO
 from unittest.mock import MagicMock, call, patch
 
-from odoo.exceptions import UserError
-from odoo.tests import tagged
-from odoo.tools import file_open
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
+from loomworks.tools import file_open
 
-from odoo.addons.l10n_tr_nilvera_einvoice.tests.test_xml_ubl_tr_common import TestUBLTRCommon
+from loomworks.addons.l10n_tr_nilvera_einvoice.tests.test_xml_ubl_tr_common import TestUBLTRCommon
 
 COMPANY_VAT = '3297552117'
 ERRORENOUS_ALIAS = 'erroneous_alias'
@@ -111,7 +111,7 @@ def patch_nilvera_request(function):
     @wraps(function)
     def wrapper(*args, **kwargs):
         with patch(
-            'odoo.addons.l10n_tr_nilvera.lib.nilvera_client.NilveraClient.request',
+            'loomworks.addons.l10n_tr_nilvera.lib.nilvera_client.NilveraClient.request',
             side_effect=mock_requests_request
         ) as mocked_request:
             # If the test expects the mock as an argument, pass it
@@ -142,8 +142,8 @@ class TestTRNilveraMockedRequests(TestUBLTRCommon):
             invoice: {**invoice.read()[0], 'extra_edis': {'tr_nilvera'}}
         }
 
-        with patch('odoo.addons.l10n_tr_nilvera_einvoice.models.account_move.AccountMove._l10n_tr_nilvera_submit_einvoice') as mock_submit_einvoice, \
-             patch('odoo.addons.l10n_tr_nilvera_einvoice.models.account_move.AccountMove._l10n_tr_nilvera_submit_earchive') as mock_submit_earchive:
+        with patch('loomworks.addons.l10n_tr_nilvera_einvoice.models.account_move.AccountMove._l10n_tr_nilvera_submit_einvoice') as mock_submit_einvoice, \
+             patch('loomworks.addons.l10n_tr_nilvera_einvoice.models.account_move.AccountMove._l10n_tr_nilvera_submit_earchive') as mock_submit_earchive:
             self.env['account.move.send']._call_web_service_before_invoice_pdf_render(invoices_data)
             mock_submit_einvoice.assert_called_once()
             mock_submit_earchive.assert_not_called()

@@ -6,8 +6,8 @@
 # Loomworks modifications copyright: Loomworks
 # License: LGPL-3
 
-from odoo.tests.common import TransactionCase
-from odoo.exceptions import AccessError
+from loomworks.tests.common import TransactionCase
+from loomworks.exceptions import AccessError
 
 
 class TestMCPTools(TransactionCase):

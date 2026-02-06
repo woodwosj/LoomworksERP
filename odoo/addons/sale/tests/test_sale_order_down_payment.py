@@ -1,7 +1,7 @@
 import uuid
 
-from odoo.tests import tagged
-from odoo import Command
+from loomworks.tests import tagged
+from loomworks import Command
 from .common import TestSaleCommon
 
 

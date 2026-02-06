@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo import Command
-from odoo.exceptions import UserError
-from odoo.tests import tagged
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks import Command
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
 
 from freezegun import freeze_time
 

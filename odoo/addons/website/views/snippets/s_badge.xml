@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
 <template name="Badge" id="s_badge">
     <span class="s_badge badge text-bg-secondary o_animable" data-name="Badge" data-vxml="001">
@@ -34,4 +34,4 @@
     <path>website/static/src/snippets/s_badge/000.scss</path>
 </asset>
 
-</odoo>
+</loomworks>

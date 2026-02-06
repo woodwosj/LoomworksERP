@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <template id="totp_portal_hook" name="TOTP Portal hook" inherit_id="portal.portal_my_security">
         <xpath expr="//section[@name='portal_change_password']" position="after">
             <!--
@@ -64,4 +64,4 @@
             </section>
         </xpath>
     </template>
-</odoo>
+</loomworks>

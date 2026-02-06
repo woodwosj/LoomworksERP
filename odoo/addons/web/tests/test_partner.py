@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import io
 import logging
 import unittest
 import zipfile
-from odoo.fields import Command
+from loomworks.fields import Command
 
-from odoo.tests.common import HttpCase, tagged
+from loomworks.tests.common import HttpCase, tagged
 from base64 import b64decode
 
-from odoo.tools import mute_logger
+from loomworks.tools import mute_logger
 _logger = logging.getLogger(__name__)
 
 try:
@@ -101,7 +101,7 @@ class TestPartnerVCard(HttpCase):
             'password': 'testuser',
         })
         self.authenticate('testuser', 'testuser')
-        with mute_logger('odoo.http'):  # mute 403 warning
+        with mute_logger('loomworks.http'):  # mute 403 warning
             res = self.url_open('/web/partner/vcard?partner_ids=%s,%s' %
                             (self.partners[0].id, self.partners[1].id))
         self.assertEqual(res.status_code, 403)

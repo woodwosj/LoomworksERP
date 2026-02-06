@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 
-from odoo import fields
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.addons.mail.tools.discuss import Store
-from odoo.addons.test_mail.data.test_mail_data import MAIL_TEMPLATE
-from odoo.tests import Form, tagged, users
-from odoo.tools import mute_logger
+from loomworks import fields
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.addons.mail.tools.discuss import Store
+from loomworks.addons.test_mail.data.test_mail_data import MAIL_TEMPLATE
+from loomworks.tests import Form, tagged, users
+from loomworks.tools import mute_logger
 
 
 @tagged('mail_track')
@@ -266,7 +266,7 @@ class TestTracking(MailCommon):
             [('container_id', 'many2one', False, container)  # onchange tracked field
              ])
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_message_track_template(self):
         """ Update some tracked fields linked to some template -> message with onchange """
         self.record.write({'mail_template': self.env.ref('test_mail.mail_test_ticket_tracking_tpl').id})
@@ -296,7 +296,7 @@ class TestTracking(MailCommon):
             [('customer_id', 'many2one', False, self.user_admin.partner_id)  # onchange tracked field
              ])
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_message_track_template_at_create(self):
         """ Create a record with tracking template on create, template should be sent."""
 
@@ -318,7 +318,7 @@ class TestTracking(MailCommon):
         # one email send due to template
         self.assertSentEmail(self.record.env.user.partner_id, [self.partner_admin], body='<p>Hello Test</p>')
 
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.addons.mail.models.mail_thread')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.addons.mail.models.mail_thread')
     def test_message_track_template_at_create_from_message(self):
         """Make sure records created through aliasing show the original message before the template"""
         # setup
@@ -355,7 +355,7 @@ class TestTracking(MailCommon):
             }
         )
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_message_track_template_create_partner_multicompany(self):
         """ Test partner created due to usage of a mail.template, triggered by
         a tracking, in a multi company environment. """
@@ -381,7 +381,7 @@ class TestTracking(MailCommon):
                 args[0].message_post_with_source(template)
             return True
 
-        with patch('odoo.addons.mail.models.mail_thread.MailThread._message_track_post_template', patched_message_track_post_template):
+        with patch('loomworks.addons.mail.models.mail_thread.MailThread._message_track_post_template', patched_message_track_post_template):
             self.env['mail.test.track'].create({
                 'email_from': email_new_partner,
                 'company_id': company1.id,

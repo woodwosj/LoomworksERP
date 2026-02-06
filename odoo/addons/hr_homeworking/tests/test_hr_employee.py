@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from freezegun import freeze_time
 
-from odoo.tests import common
+from loomworks.tests import common
 
 
 class TestHrHomeworkingCommon(common.TransactionCase):

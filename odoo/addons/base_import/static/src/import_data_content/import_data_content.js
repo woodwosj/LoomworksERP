@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Component } from "@odoo/owl";
 import { SelectMenu } from "@web/core/select_menu/select_menu";

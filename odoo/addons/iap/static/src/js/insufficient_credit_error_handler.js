@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 import { Dialog } from "@web/core/dialog/dialog";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
@@ -28,7 +28,7 @@ class InsufficientCreditDialog extends Component {
         this.style = errorData.body ? "padding:0;" : "";
         const { isEnterprise } = odoo.info;
         if (errorData.trial && isEnterprise) {
-            this.buttonMessage = _t("Start a Trial at Odoo");
+            this.buttonMessage = _t("Start a Trial at Loomworks");
         } else {
             this.buttonMessage = _t("Buy credits");
         }

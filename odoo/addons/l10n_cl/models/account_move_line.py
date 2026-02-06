@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import models
-from odoo.tools.float_utils import float_repr
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import models
+from loomworks.tools.float_utils import float_repr
 
 
 class AccountMoveLine(models.Model):

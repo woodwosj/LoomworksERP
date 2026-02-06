@@ -3,12 +3,12 @@ import base64
 import io
 import re
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.exceptions import RedirectWarning
-from odoo.tools import pdf
-from odoo.tests import tagged
-from odoo.tools import file_open
-from odoo.tools.pdf import PdfFileReader, PdfFileWriter
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.exceptions import RedirectWarning
+from loomworks.tools import pdf
+from loomworks.tests import tagged
+from loomworks.tools import file_open
+from loomworks.tools.pdf import PdfFileReader, PdfFileWriter
 
 
 @tagged('post_install', '-at_install')

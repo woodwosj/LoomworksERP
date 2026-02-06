@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import binascii
 import json
 
 from io import BytesIO
 from PIL import Image
 
-from odoo.tests.common import HttpCase, new_test_user, tagged
-from odoo.tools.json import scriptsafe as json_safe
-from odoo.tools.misc import file_open
+from loomworks.tests.common import HttpCase, new_test_user, tagged
+from loomworks.tools.json import scriptsafe as json_safe
+from loomworks.tools.misc import file_open
 
 
 @tagged('-at_install', 'post_install')

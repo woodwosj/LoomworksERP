@@ -1,6 +1,6 @@
 
 import threading
-from odoo import api, fields, models
+from loomworks import api, fields, models
 
 
 class ResConfigSettings(models.TransientModel):

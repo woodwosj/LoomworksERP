@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.tests import tagged
 from datetime import datetime
-from odoo.addons.test_hr_contract_calendar.tests.common import TestHrContractCalendarCommon
+from loomworks.addons.test_hr_contract_calendar.tests.common import TestHrContractCalendarCommon
 
 
 @tagged('work_hours')

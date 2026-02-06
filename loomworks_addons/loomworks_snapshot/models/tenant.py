@@ -23,8 +23,8 @@ References:
 - Decision 10: Multi-Tenant Architecture for Forked Core
 """
 
-from odoo import models, fields, api
-from odoo.exceptions import ValidationError, UserError
+from loomworks import models, fields, api
+from loomworks.exceptions import ValidationError, UserError
 import re
 import logging
 

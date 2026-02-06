@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
 from collections import defaultdict
 from itertools import groupby
 from operator import itemgetter
 from datetime import date
-from odoo.osv.expression import AND
+from loomworks.osv.expression import AND
 
 
 class ProductTemplate(models.Model):

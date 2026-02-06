@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.sms.tests import common as sms_common
-from odoo.addons.test_mail.tests.test_performance import BaseMailPerformance
-from odoo.tests.common import users, warmup
-from odoo.tests import tagged
-from odoo.tools import mute_logger
+from loomworks.addons.sms.tests import common as sms_common
+from loomworks.addons.test_mail.tests.test_performance import BaseMailPerformance
+from loomworks.tests.common import users, warmup
+from loomworks.tests import tagged
+from loomworks.tools import mute_logger
 
 
 @tagged('mail_performance', 'post_install', '-at_install')
@@ -30,7 +30,7 @@ class TestSMSPerformance(BaseMailPerformance, sms_common.SMSCase):
             } for x in range(0, 10)
         ])
 
-    @mute_logger('odoo.addons.sms.models.sms_sms')
+    @mute_logger('loomworks.addons.sms.models.sms_sms')
     @users('employee')
     @warmup
     def test_message_sms_record_1_partner(self):
@@ -45,7 +45,7 @@ class TestSMSPerformance(BaseMailPerformance, sms_common.SMSCase):
         self.assertEqual(record.message_ids[0].body, '<p>Performance Test</p>')
         self.assertSMSNotification([{'partner': self.customer}], 'Performance Test', messages, sent_unlink=True)
 
-    @mute_logger('odoo.addons.sms.models.sms_sms')
+    @mute_logger('loomworks.addons.sms.models.sms_sms')
     @users('employee')
     @warmup
     def test_message_sms_record_10_partners(self):
@@ -60,7 +60,7 @@ class TestSMSPerformance(BaseMailPerformance, sms_common.SMSCase):
         self.assertEqual(record.message_ids[0].body, '<p>Performance Test</p>')
         self.assertSMSNotification([{'partner': partner} for partner in self.partners], 'Performance Test', messages, sent_unlink=True)
 
-    @mute_logger('odoo.addons.sms.models.sms_sms')
+    @mute_logger('loomworks.addons.sms.models.sms_sms')
     @users('employee')
     @warmup
     def test_message_sms_record_default(self):
@@ -106,7 +106,7 @@ class TestSMSMassPerformance(BaseMailPerformance, sms_common.MockSMS):
             'body': 'Dear {{ object.display_name }} this is an SMS.',
         })
 
-    @mute_logger('odoo.addons.sms.models.sms_sms')
+    @mute_logger('loomworks.addons.sms.models.sms_sms')
     @users('employee')
     @warmup
     def test_sms_composer_mass(self):
@@ -122,7 +122,7 @@ class TestSMSMassPerformance(BaseMailPerformance, sms_common.MockSMS):
         with self.mockSMSGateway(sms_allow_unlink=True), self.assertQueryCount(employee=57):
             composer.action_send_sms()
 
-    @mute_logger('odoo.addons.sms.models.sms_sms')
+    @mute_logger('loomworks.addons.sms.models.sms_sms')
     @users('employee')
     @warmup
     def test_sms_composer_mass_w_log(self):

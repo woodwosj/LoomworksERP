@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Component, onMounted, useRef, useState } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";

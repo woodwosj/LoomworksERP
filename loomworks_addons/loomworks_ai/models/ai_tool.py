@@ -6,7 +6,7 @@
 # Loomworks modifications copyright: Loomworks
 # License: LGPL-3
 
-from odoo import models, fields, api
+from loomworks import models, fields, api
 import json
 
 
@@ -101,7 +101,7 @@ class AITool(models.Model):
                 if not isinstance(schema, dict):
                     raise ValueError('Schema must be a JSON object')
             except json.JSONDecodeError as e:
-                from odoo.exceptions import UserError
+                from loomworks.exceptions import UserError
                 raise UserError(f'Invalid JSON schema: {e}')
 
     def get_mcp_schema(self):

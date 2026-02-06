@@ -1,4 +1,4 @@
-from odoo import models, fields
+from loomworks import models, fields
 
 TWILIO_CODE_TO_FAILURE_TYPE = {
     # https://www.twilio.com/docs/messaging/guides/debugging-tools#error-codes

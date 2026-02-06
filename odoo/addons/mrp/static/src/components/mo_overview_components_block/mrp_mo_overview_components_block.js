@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Component, onWillUpdateProps, useState } from "@odoo/owl";
 import { useBus } from "@web/core/utils/hooks";

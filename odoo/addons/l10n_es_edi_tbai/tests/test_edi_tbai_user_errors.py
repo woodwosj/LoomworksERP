@@ -1,8 +1,8 @@
 from unittest.mock import patch
 
-from odoo import Command
-from odoo.exceptions import UserError
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
 
 from .common import TestEsEdiTbaiCommonGipuzkoa
 
@@ -79,7 +79,7 @@ class TestTbaiUserErrors(TestEsEdiTbaiCommonGipuzkoa):
         # Post first with request error
         try:
             with patch(
-                'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+                'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
                 side_effect=self.mock_request_error,
             ):
                 first_invoice_send_wizard.action_send_and_print()
@@ -101,14 +101,14 @@ class TestTbaiUserErrors(TestEsEdiTbaiCommonGipuzkoa):
 
         # Post first with success
         with patch(
-            'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+            'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
             return_value=self.mock_response_post_invoice_success,
         ):
             first_invoice_send_wizard.action_send_and_print()
 
         # Can now post second with success
         with patch(
-            'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+            'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
             return_value=self.mock_response_post_invoice_success,
         ):
             second_invoice_send_wizard.action_send_and_print()
@@ -130,7 +130,7 @@ class TestTbaiUserErrors(TestEsEdiTbaiCommonGipuzkoa):
 
         # Can now post second with success
         with patch(
-            'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+            'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
             return_value=self.mock_response_post_invoice_success,
         ):
             invoice_already_sent_wizard.action_send_and_print()
@@ -156,14 +156,14 @@ class TestTbaiUserErrors(TestEsEdiTbaiCommonGipuzkoa):
 
         # Post the source invoice
         with patch(
-            'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+            'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
             return_value=self.mock_response_post_invoice_success,
         ):
             self.invoice_send_wizard.action_send_and_print()
 
         # It is now possible to post the credit note
         with patch(
-            'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+            'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
             return_value=self.mock_response_post_invoice_success,
         ):
             credit_note_send_wizard.action_send_and_print()

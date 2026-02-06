@@ -4,11 +4,11 @@ from xml.dom.minidom import parseString
 
 from stdnum.pl.nip import compact
 
-from odoo import api, fields, models
-from odoo.exceptions import UserError
-from odoo.tools import float_compare, float_is_zero, float_repr, OrderedSet
+from loomworks import api, fields, models
+from loomworks.exceptions import UserError
+from loomworks.tools import float_compare, float_is_zero, float_repr, OrderedSet
 
-from odoo.addons.l10n_pl_edi.tools.ksef_api_service import KsefApiService
+from loomworks.addons.l10n_pl_edi.tools.ksef_api_service import KsefApiService
 
 _logger = logging.getLogger(__name__)
 

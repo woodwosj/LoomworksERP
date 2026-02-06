@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
 <template id="s_instagram_page" name="Instagram Page">
     <section class="s_instagram_page" data-instagram-page="odoo.official">
@@ -14,7 +14,7 @@
     <xpath expr="." position="inside">
         <div data-js="InstagramPage" data-selector=".s_instagram_page">
             <we-alert class="mt-2">
-                Your instagram page must be public to be integrated into an Odoo website.
+                Your instagram page must be public to be integrated into a Loomworks website.
             </we-alert>
             <we-input string="Instagram Page"
                       class="o_we_large"
@@ -35,4 +35,4 @@
     <path>website/static/src/snippets/s_instagram_page/000.scss</path>
 </asset>
 
-</odoo>
+</loomworks>

@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, models
-from odoo.exceptions import ValidationError
-from odoo.osv.expression import OR
-from odoo.tools import format_list
+from loomworks import _, models
+from loomworks.exceptions import ValidationError
+from loomworks.osv.expression import OR
+from loomworks.tools import format_list
 
 
 class StockMove(models.Model):

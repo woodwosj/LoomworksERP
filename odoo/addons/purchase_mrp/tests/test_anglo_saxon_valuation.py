@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.exceptions import UserError
-from odoo.fields import Command, Date, Datetime
-from odoo.tools import mute_logger
-from odoo.tests import Form, tagged
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.stock_account.tests.test_stockvaluation import _create_accounting_data
+from loomworks.exceptions import UserError
+from loomworks.fields import Command, Date, Datetime
+from loomworks.tools import mute_logger
+from loomworks.tests import Form, tagged
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.stock_account.tests.test_stockvaluation import _create_accounting_data
 
 
 @tagged('post_install', '-at_install')
@@ -169,7 +169,7 @@ class TestAngloSaxonValuationPurchaseMRP(AccountTestInvoicingCommon):
         self.assertEqual(component01.stock_valuation_layer_ids.mapped('value'), [25, -25])
         self.assertEqual(component02.stock_valuation_layer_ids.mapped('value'), [75, -75])
 
-        with mute_logger('odoo.tests.form.onchange'):
+        with mute_logger('loomworks.tests.form.onchange'):
             with Form(bom_kit) as kit_form:
                 with kit_form.bom_line_ids.edit(0) as line:
                     line.cost_share = 30

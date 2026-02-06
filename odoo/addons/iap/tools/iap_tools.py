@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import contextlib
 import logging
@@ -8,8 +8,8 @@ import requests
 import threading
 import uuid
 
-from odoo import exceptions, _
-from odoo.tools import email_normalize, exception_to_unicode
+from loomworks import exceptions, _
+from loomworks.tools import email_normalize, exception_to_unicode
 
 _logger = logging.getLogger(__name__)
 
@@ -147,7 +147,7 @@ def iap_jsonrpc(url, method='call', params=None, timeout=15):
     except (requests.exceptions.RequestException, IAPServerError) as e:
         _logger.warning("iap jsonrpc %s failed, %s: %s", url, e.__class__.__name__, exception_to_unicode(e))
         raise exceptions.AccessError(
-            _("An error occurred while reaching %s. Please contact Odoo support if this error persists.", url)
+            _("An error occurred while reaching %s. Please contact Loomworks support if this error persists.", url)
         )
 
 #----------------------------------------------------------

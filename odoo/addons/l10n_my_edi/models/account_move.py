@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import datetime
@@ -7,10 +7,10 @@ import time
 
 import dateutil
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
-from odoo.osv import expression
-from odoo.tools import split_every
+from loomworks import _, api, fields, models
+from loomworks.exceptions import UserError
+from loomworks.osv import expression
+from loomworks.tools import split_every
 
 _logger = logging.getLogger(__name__)
 
@@ -644,9 +644,9 @@ Customs form No. 1, 9, etc for Vendor Bills""",
         """ This helper will take in an error code coming from the proxy, and return a translatable error message. """
         error_map = {
             # These errors should be returned when we send malformed request to the EDI, ... tldr; this should never happen unless we have bugs.
-            'internal_server_error': _('Server error; If the problem persists, please contact the Odoo support.'),
+            'internal_server_error': _('Server error; If the problem persists, please contact Loomworks support.'),
             # The proxy user credentials are either incorrect, or Odoo does not have the permission to invoice on their behalf.
-            'invalid_tin': _('Please make sure that your company TIN is correct, and that you gave Odoo sufficient permissions on the MyInvois platform.'),
+            'invalid_tin': _('Please make sure that your company TIN is correct, and that you gave Loomworks ERP sufficient permissions on the MyInvois platform.'),
             # The api rate limit has been reached. If this happens, we need to ask the user to wait. This is also handled proxy side to be safe
             'rate_limit_exceeded': _('The api request limit has been reached. Please wait until %(limit_reset_datetime)s to try again.',
                                      limit_reset_datetime=error.get('data')),  # Note, should be UTC. The TZ name is present in the formatted date.
@@ -675,7 +675,7 @@ Customs form No. 1, 9, etc for Vendor Bills""",
             'document_not_found': _('The document provided in the request does not exist.'),  # Should never happen
             'search_date_invalid': _('The search params are invalid.'),  # Should also never happen
             'submission_too_large': _('The submission is too large, try to send fewer invoices at once.'),
-            'action_forbidden': _('Permission to do this action has not been granted. Please ensure that Odoo has sufficient permissions on the MyInvois platform.'),
+            'action_forbidden': _('Permission to do this action has not been granted. Please ensure that Loomworks ERP has sufficient permissions on the MyInvois platform.'),
         }
 
         if error.get('target'):
@@ -697,7 +697,7 @@ Customs form No. 1, 9, etc for Vendor Bills""",
                 move.with_context(no_new_invoice=True).message_post(
                     body=_(
                         'The invoice has been canceled on MyInvois, '
-                        'But the cancellation in Odoo failed with error: %(error)s\n'
+                        'But the cancellation in Loomworks failed with error: %(error)s\n'
                         'Please resolve the problem manually, and then cancel the invoice.', error=e
                     )
                 )

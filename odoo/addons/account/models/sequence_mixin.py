@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from datetime import date
 
-from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
-from odoo.tools.misc import format_date
-from odoo.tools import frozendict, date_utils, SQL
+from loomworks import api, fields, models, _
+from loomworks.exceptions import ValidationError
+from loomworks.tools.misc import format_date
+from loomworks.tools import frozendict, date_utils, SQL
 
 import logging
 import re

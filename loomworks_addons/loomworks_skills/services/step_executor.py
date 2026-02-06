@@ -21,8 +21,8 @@ Handles execution of each step type:
 - ai_decision: Let AI decide
 """
 
-from odoo.exceptions import ValidationError
-from odoo.tools.safe_eval import safe_eval
+from loomworks.exceptions import ValidationError
+from loomworks.tools.safe_eval import safe_eval
 import json
 import logging
 import re
@@ -51,7 +51,7 @@ class StepExecutor:
     def mcp_tools(self):
         """Lazy load MCP tools service."""
         if self._mcp_tools is None:
-            from odoo.addons.loomworks_ai.services.odoo_mcp_tools import OdooMCPTools
+            from loomworks.addons.loomworks_ai.services.odoo_mcp_tools import OdooMCPTools
             self._mcp_tools = OdooMCPTools(self.env)
         return self._mcp_tools
 

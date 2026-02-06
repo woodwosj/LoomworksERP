@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <template id="report_invoice_document_inherit" inherit_id="account.report_invoice_document">
             <xpath expr="//div[@name='reference']" position="after">
@@ -43,4 +43,4 @@
             </xpath>
         </template>
     </data>
-</odoo>
+</loomworks>

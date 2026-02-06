@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="move_form_inherit_l10n_in_gst_verification" model="ir.ui.view">
         <field name="name">account.move.form.inherit.l10n.in.gst.verification</field>
         <field name="model">account.move</field>
@@ -29,4 +29,4 @@
             </xpath>
         </field>
     </record>
-</odoo>
+</loomworks>

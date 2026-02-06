@@ -1,7 +1,7 @@
 import logging
 
-from odoo import _, api, models, SUPERUSER_ID
-from odoo.exceptions import UserError
+from loomworks import _, api, models, SUPERUSER_ID
+from loomworks.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 

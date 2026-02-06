@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="view_ewaybill_cancel_form" model="ir.ui.view">
             <field name="name">l10n.in.ewaybill.cancel.form</field>
@@ -21,4 +21,4 @@
             </field>
         </record>
     </data>
-</odoo>
+</loomworks>

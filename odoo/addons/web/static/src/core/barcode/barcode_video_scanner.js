@@ -70,7 +70,7 @@ export class BarcodeVideoScanner extends Component {
             } catch (err) {
                 const errors = {
                     NotFoundError: _t("No device can be found."),
-                    NotAllowedError: _t("Odoo needs your authorization first."),
+                    NotAllowedError: _t("Loomworks ERP needs your authorization first."),
                 };
                 const errorMessage = _t("Could not start scanning. %(message)s", {
                     message: errors[err.name] || err.message,

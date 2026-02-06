@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import date, datetime, timedelta
 
-from odoo.fields import Command
-from odoo.tests import Form, TransactionCase
-from odoo.tools import mute_logger
-from odoo.exceptions import UserError
+from loomworks.fields import Command
+from loomworks.tests import Form, TransactionCase
+from loomworks.tools import mute_logger
+from loomworks.exceptions import UserError
 
 
 class TestProcRule(TransactionCase):
@@ -118,7 +118,7 @@ class TestProcRule(TransactionCase):
         # to the purchase demo data. As we update the stock module to run this test, the
         # method won't be an attribute of stock.procurement at this moment. For that reason
         # we mute the logger when running the scheduler.
-        with mute_logger('odoo.addons.stock.models.procurement'):
+        with mute_logger('loomworks.addons.stock.models.procurement'):
             self.env['procurement.group'].run_scheduler()
 
         # Check that a picking was created from stock to output.

@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import hmac
 import logging
@@ -6,8 +6,8 @@ import pprint
 
 from werkzeug.exceptions import Forbidden
 
-from odoo import SUPERUSER_ID, _
-from odoo.http import Controller, request, route
+from loomworks import SUPERUSER_ID, _
+from loomworks.http import Controller, request, route
 
 
 _logger = logging.getLogger(__name__)
@@ -24,7 +24,7 @@ class GelatoController(Controller):
         codes.
 
         :return: An empty response to acknowledge the notification.
-        :rtype: odoo.http.Response
+        :rtype: loomworks.http.Response
         """
         event_data = request.get_json_data()
         _logger.info("Webhook notification received from Gelato:\n%s", pprint.pformat(event_data))

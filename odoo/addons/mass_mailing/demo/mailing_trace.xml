@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data noupdate="1">
         <record id="mass_mail_1_stat_0" model="mailing.trace">
             <field name="mass_mailing_id" ref="mass_mail_1"/>
@@ -129,4 +129,4 @@
         </function>
 
     </data>
-</odoo>
+</loomworks>

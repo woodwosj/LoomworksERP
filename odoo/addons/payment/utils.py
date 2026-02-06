@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from hashlib import sha1
 
-from odoo import fields
-from odoo.http import request
-from odoo.tools import consteq, float_round, ustr
-from odoo.tools.misc import hmac as hmac_tool
+from loomworks import fields
+from loomworks.http import request
+from loomworks.tools import consteq, float_round, ustr
+from loomworks.tools.misc import hmac as hmac_tool
 
-from odoo.addons.payment.const import CURRENCY_MINOR_UNITS
+from loomworks.addons.payment.const import CURRENCY_MINOR_UNITS
 
 
 # Access token management

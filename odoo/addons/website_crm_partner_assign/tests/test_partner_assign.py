@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import date, timedelta
 from unittest.mock import patch
 
-from odoo.exceptions import AccessError
-from odoo.fields import Command
-from odoo.tests.common import tagged, new_test_user, TransactionCase
-from odoo.tools import mute_logger
+from loomworks.exceptions import AccessError
+from loomworks.fields import Command
+from loomworks.tests.common import tagged, new_test_user, TransactionCase
+from loomworks.tools import mute_logger
 
-from odoo.addons.base.tests.common import HttpCase
-from odoo.addons.crm.tests.common import TestCrmCommon
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.website.tools import MockRequest
-from odoo.addons.website_crm_partner_assign.controllers.main import (
+from loomworks.addons.base.tests.common import HttpCase
+from loomworks.addons.crm.tests.common import TestCrmCommon
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.website.tools import MockRequest
+from loomworks.addons.website_crm_partner_assign.controllers.main import (
     WebsiteAccount,
     WebsiteCrmPartnerAssign,
 )
@@ -43,7 +43,7 @@ class TestPartnerAssign(TransactionCase):
                 'Cannon Hill Park, B46 3AG Birmingham, United Kingdom': (52.45216, -1.898578),
             }.get(addr)
 
-        patcher = patch('odoo.addons.base_geolocalize.models.base_geocoder.GeoCoder.geo_find', wraps=geo_find)
+        patcher = patch('loomworks.addons.base_geolocalize.models.base_geocoder.GeoCoder.geo_find', wraps=geo_find)
         self.startPatcher(patcher)
 
     def test_opportunity_count(self):
@@ -335,7 +335,7 @@ class TestPartnerLeadPortal(TestCrmCommon, HttpCase):
             mock_request.render = render_function
             WebsiteAccount().portal_my_opportunities(filterby="today")
 
-    @patch('odoo.http.GeoIP')
+    @patch('loomworks.http.GeoIP')
     def test_03_crm_partner_assign_geolocalization(self, GeoIpMock):
         """
             This test checks situation when "{OdooURL}/partners" is visited from foreign country without resellers.
@@ -400,12 +400,12 @@ class TestPublish(HttpCase):
             'grade_id': grade.id,
         })
 
-    @mute_logger('odoo.addons.http_routing.models.ir_http', 'odoo.http')
+    @mute_logger('loomworks.addons.http_routing.models.ir_http', 'loomworks.http')
     def test_01_admin(self):
         self.start_tour(self.env['website'].get_client_action_url('/partners'), 'test_can_publish_partner', login="admin")
         self.assertTrue(self.partner.website_published, "Partner should have been published")
 
-    @mute_logger('odoo.addons.http_routing.models.ir_http', 'odoo.http')
+    @mute_logger('loomworks.addons.http_routing.models.ir_http', 'loomworks.http')
     def test_02_reditor_salesman(self):
         self.user_test.groups_id = [
             Command.link(self.group_restricted_editor.id),
@@ -414,7 +414,7 @@ class TestPublish(HttpCase):
         self.start_tour(self.env['website'].get_client_action_url('/partners'), 'test_can_publish_partner', login="testtest")
         self.assertTrue(self.partner.website_published, "Partner should have been published")
 
-    @mute_logger('odoo.addons.http_routing.models.ir_http', 'odoo.http')
+    @mute_logger('loomworks.addons.http_routing.models.ir_http', 'loomworks.http')
     def test_03_reditor_not_salesman(self):
         self.user_test.groups_id = [
             Command.link(self.group_restricted_editor.id),
@@ -425,7 +425,7 @@ class TestPublish(HttpCase):
         self.assertNotIn(self.group_partner_manager.id, self.user_test.groups_id.ids, "User should not be a group_partner_manager")
         self.start_tour(self.env['website'].get_client_action_url('/partners'), 'test_cannot_publish_partner', login="testtest")
 
-    @mute_logger('odoo.addons.http_routing.models.ir_http', 'odoo.http')
+    @mute_logger('loomworks.addons.http_routing.models.ir_http', 'loomworks.http')
     def test_04_not_reditor_salesman(self):
         self.user_test.groups_id = [
             Command.unlink(self.group_restricted_editor.id),
@@ -435,7 +435,7 @@ class TestPublish(HttpCase):
         self.start_tour(self.env['website'].get_client_action_url('/partners'), 'test_can_publish_partner', login="testtest")
         self.assertTrue(self.partner.website_published, "Partner should have been published")
 
-    @mute_logger('odoo.addons.http_routing.models.ir_http', 'odoo.http')
+    @mute_logger('loomworks.addons.http_routing.models.ir_http', 'loomworks.http')
     def test_05_not_reditor_not_salesman(self):
         self.user_test.groups_id = [
             Command.unlink(self.group_restricted_editor.id),

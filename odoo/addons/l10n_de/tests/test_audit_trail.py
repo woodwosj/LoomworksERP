@@ -1,9 +1,9 @@
 import logging
 
-from odoo import Command
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon, AccountTestInvoicingHttpCommon
-from odoo.exceptions import UserError
-from odoo.tests.common import tagged
+from loomworks import Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon, AccountTestInvoicingHttpCommon
+from loomworks.exceptions import UserError
+from loomworks.tests.common import tagged
 
 _logger = logging.getLogger(__name__)
 

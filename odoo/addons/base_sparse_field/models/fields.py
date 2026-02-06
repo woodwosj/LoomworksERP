@@ -2,7 +2,7 @@
 
 import json
 
-from odoo import fields
+from loomworks import fields
 
 
 def monkey_patch(cls):

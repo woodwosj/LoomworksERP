@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 from collections import defaultdict
 import itertools
 
-from odoo import api, fields, models
-from odoo.http import request
-from odoo.osv import expression
+from loomworks import api, fields, models
+from loomworks.http import request
+from loomworks.osv import expression
 
 
 class UtmMixin(models.AbstractModel):

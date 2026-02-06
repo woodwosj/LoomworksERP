@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
-from odoo.osv import expression
+from loomworks import api, fields, models, _
+from loomworks.exceptions import ValidationError
+from loomworks.osv import expression
 
 
-from odoo.tools import float_compare, float_round
+from loomworks.tools import float_compare, float_round
 
 
 class ProductPackaging(models.Model):

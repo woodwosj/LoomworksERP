@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, models
-from odoo.exceptions import UserError
-from odoo.addons.hr_homeworking.models.hr_homeworking import DAYS
+from loomworks import _, api, models
+from loomworks.exceptions import UserError
+from loomworks.addons.hr_homeworking.models.hr_homeworking import DAYS
 
 class WorkLocation(models.Model):
     _inherit = "hr.work.location"

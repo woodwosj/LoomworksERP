@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 
 from markupsafe import Markup
 from psycopg2.errors import LockNotAvailable
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from loomworks import _, api, fields, models
+from loomworks.exceptions import UserError
 
 TBAI_REFUND_REASONS = [
     ('R1', "R1: Art. 80.1, 80.2, 80.6 and rights founded error"),

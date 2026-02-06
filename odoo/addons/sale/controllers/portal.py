@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import binascii
 
-from odoo import fields, http, _
-from odoo.exceptions import AccessError, MissingError, ValidationError
-from odoo.fields import Command
-from odoo.http import request
+from loomworks import fields, http, _
+from loomworks.exceptions import AccessError, MissingError, ValidationError
+from loomworks.fields import Command
+from loomworks.http import request
 
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.payment.controllers import portal as payment_portal
-from odoo.addons.portal.controllers.portal import pager as portal_pager
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.payment.controllers import portal as payment_portal
+from loomworks.addons.portal.controllers.portal import pager as portal_pager
 
 
 class CustomerPortal(payment_portal.PaymentPortal):
@@ -160,7 +160,7 @@ class CustomerPortal(payment_portal.PaymentPortal):
                     subtype_xmlid="sale.mt_order_viewed",
                 )
 
-        backend_url = f'/odoo/action-{order_sudo._get_portal_return_action().id}/{order_sudo.id}'
+        backend_url = f'/loomworks/action-{order_sudo._get_portal_return_action().id}/{order_sudo.id}'
         values = {
             'sale_order': order_sudo,
             'product_documents': order_sudo._get_product_documents(),

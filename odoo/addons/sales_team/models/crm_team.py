@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 import random
@@ -8,10 +8,10 @@ from babel.dates import format_date
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.release import version
-from odoo.tools import SQL
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
+from loomworks.release import version
+from loomworks.tools import SQL
 
 
 class CrmTeam(models.Model):

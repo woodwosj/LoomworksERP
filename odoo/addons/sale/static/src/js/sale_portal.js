@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { PortalHomeCounters } from '@portal/js/portal';
 

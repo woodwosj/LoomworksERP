@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import itertools
-from odoo import api, fields, models, _
-from odoo.tools.float_utils import float_is_zero
-from odoo.tools.misc import groupby
+from loomworks import api, fields, models, _
+from loomworks.tools.float_utils import float_is_zero
+from loomworks.tools.misc import groupby
 
 
 class StockQuant(models.Model):

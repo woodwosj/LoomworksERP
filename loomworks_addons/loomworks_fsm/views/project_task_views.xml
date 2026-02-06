@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <!-- FSM Task Form View -->
     <record id="project_task_view_form_fsm" model="ir.ui.view">
         <field name="name">project.task.form.fsm</field>
@@ -249,4 +249,4 @@
         }</field>
         <field name="search_view_id" ref="project_task_view_search_fsm"/>
     </record>
-</odoo>
+</loomworks>

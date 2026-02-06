@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 
-from odoo.addons.auth_totp.controllers.home import TRUSTED_DEVICE_AGE
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.tests import tagged, users
+from loomworks.addons.auth_totp.controllers.home import TRUSTED_DEVICE_AGE
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.tests import tagged, users
 
 
 @tagged('-at_install', 'post_install', 'mail_tools', 'res_users')

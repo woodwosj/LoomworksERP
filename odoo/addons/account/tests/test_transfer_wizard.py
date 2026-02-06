@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from freezegun import freeze_time
 
-from odoo import fields, Command
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import tagged, Form
+from loomworks import fields, Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import tagged, Form
 import time
 
 

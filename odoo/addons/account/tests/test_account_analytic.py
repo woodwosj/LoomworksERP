@@ -1,8 +1,8 @@
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.analytic.tests.common import AnalyticCommon
-from odoo.tests import tagged, Form
-from odoo.exceptions import UserError, ValidationError
-from odoo import Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.analytic.tests.common import AnalyticCommon
+from loomworks.tests import tagged, Form
+from loomworks.exceptions import UserError, ValidationError
+from loomworks import Command
 
 
 @tagged('post_install', '-at_install')

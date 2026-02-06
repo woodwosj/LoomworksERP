@@ -1,5 +1,5 @@
-from odoo import models, _
-from odoo.exceptions import RedirectWarning
+from loomworks import models, _
+from loomworks.exceptions import RedirectWarning
 
 
 class PosConfig(models.Model):

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="res_config_settings_view_form" model="ir.ui.view">
         <field name="name">res.config.settings.view.form.inherit.proxy.user</field>
         <field name="model">res.config.settings</field>
@@ -11,7 +11,7 @@
                         <div class="o_setting_right_pane border-0">
 
                             <div invisible="l10n_dk_nemhandel_proxy_state != 'receiver'">
-                                You are sending and receiving your e-invoices via Odoo with this Nemhandel ID <field name="nemhandel_edi_identification" class="oe_inline o_form_label" readonly="1"/>.
+                                You are sending and receiving your e-invoices via Loomworks with this Nemhandel ID <field name="nemhandel_edi_identification" class="oe_inline o_form_label" readonly="1"/>.
                             </div>
                             <div invisible="l10n_dk_nemhandel_proxy_state != 'receiver'" class="mt-4">
                                 <div class="row" name="nemhandel_journal_config">
@@ -67,4 +67,4 @@
             </xpath>
         </field>
     </record>
-</odoo>
+</loomworks>

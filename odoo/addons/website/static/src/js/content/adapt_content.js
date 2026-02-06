@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 document.addEventListener('DOMContentLoaded', () => {
     const htmlEl = document.documentElement;

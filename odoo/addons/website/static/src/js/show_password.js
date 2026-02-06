@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 //
 // This file is meant to allow to switch the type of an input #password

@@ -1,23 +1,23 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 from functools import partial
 from unittest.mock import patch
 
-from odoo.exceptions import UserError, ValidationError
-from odoo.fields import Command
-from odoo.tests import tagged
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.fields import Command
+from loomworks.tests import tagged
 
-from odoo.addons.base.tests.common import BaseUsersCommon
-from odoo.addons.product.tests.common import ProductAttributesCommon
-from odoo.addons.website.tools import MockRequest
-from odoo.addons.website_sale.controllers.combo_configurator import (
+from loomworks.addons.base.tests.common import BaseUsersCommon
+from loomworks.addons.product.tests.common import ProductAttributesCommon
+from loomworks.addons.website.tools import MockRequest
+from loomworks.addons.website_sale.controllers.combo_configurator import (
     WebsiteSaleComboConfiguratorController,
 )
-from odoo.addons.website_sale.controllers.main import WebsiteSale
-from odoo.addons.website_sale.controllers.payment import PaymentPortal
-from odoo.addons.website_sale.models.product_template import ProductTemplate
-from odoo.addons.website_sale.tests.common import WebsiteSaleCommon
+from loomworks.addons.website_sale.controllers.main import WebsiteSale
+from loomworks.addons.website_sale.controllers.payment import PaymentPortal
+from loomworks.addons.website_sale.models.product_template import ProductTemplate
+from loomworks.addons.website_sale.tests.common import WebsiteSaleCommon
 
 
 @tagged('post_install', '-at_install')
@@ -444,7 +444,7 @@ class TestWebsiteSaleCart(BaseUsersCommon, ProductAttributesCommon, WebsiteSaleC
         self.carrier.country_ids = [Command.set((2,))]
         self.product.type = 'consu'
         with (MockRequest(self.product.with_user(portal_user).env, website=website), patch(
-            'odoo.addons.website_sale.models.sale_order.SaleOrder._get_preferred_delivery_method',
+            'loomworks.addons.website_sale.models.sale_order.SaleOrder._get_preferred_delivery_method',
             return_value=self.env['delivery.carrier'],
         )):
             order = website.sale_get_order(force_create=True)

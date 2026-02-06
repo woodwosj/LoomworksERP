@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
-from odoo.exceptions import UserError
-from odoo.tests import tagged
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
 
 from .common import TestEsEdiTbaiCommonGipuzkoa
 import base64
@@ -21,7 +21,7 @@ class TestSendAndPrintEdiGipuzkoa(TestEsEdiTbaiCommonGipuzkoa):
 
         # Post with success
         with patch(
-            'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+            'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
             return_value=self.mock_response_post_invoice_success,
         ):
             invoice_send_wizard.action_send_and_print()
@@ -36,7 +36,7 @@ class TestSendAndPrintEdiGipuzkoa(TestEsEdiTbaiCommonGipuzkoa):
 
         # Cancel with success
         with patch(
-            'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+            'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
             return_value=self.mock_response_cancel_invoice_success,
         ):
             invoice.l10n_es_tbai_cancel()
@@ -56,7 +56,7 @@ class TestSendAndPrintEdiGipuzkoa(TestEsEdiTbaiCommonGipuzkoa):
         # here we have to catch it in order to keep them.
         try:
             with patch(
-                'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+                'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
                 return_value=self.mock_response_failure,
             ):
                 invoice_send_wizard.action_send_and_print()
@@ -72,7 +72,7 @@ class TestSendAndPrintEdiGipuzkoa(TestEsEdiTbaiCommonGipuzkoa):
 
         # Post with success
         with patch(
-            'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+            'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
             return_value=self.mock_response_post_invoice_success,
         ):
             invoice_send_wizard.action_send_and_print()
@@ -90,7 +90,7 @@ class TestSendAndPrintEdiGipuzkoa(TestEsEdiTbaiCommonGipuzkoa):
 
         # Post with success
         with patch(
-            'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+            'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
             return_value=self.mock_response_post_invoice_success,
         ):
             invoice_send_wizard.action_send_and_print()
@@ -98,7 +98,7 @@ class TestSendAndPrintEdiGipuzkoa(TestEsEdiTbaiCommonGipuzkoa):
         # Cancel with error
         try:
             with patch(
-                'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+                'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
                 return_value=self.mock_response_failure,
             ):
                 invoice.l10n_es_tbai_cancel()
@@ -113,7 +113,7 @@ class TestSendAndPrintEdiGipuzkoa(TestEsEdiTbaiCommonGipuzkoa):
 
         # Cancel with success
         with patch(
-            'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+            'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
             return_value=self.mock_response_cancel_invoice_success,
         ):
             invoice.l10n_es_tbai_cancel()
@@ -131,7 +131,7 @@ class TestSendAndPrintEdiGipuzkoa(TestEsEdiTbaiCommonGipuzkoa):
         # Post with request error
         try:
             with patch(
-                'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+                'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
                 side_effect=self.mock_request_error,
             ):
                 invoice_send_wizard.action_send_and_print()
@@ -148,7 +148,7 @@ class TestSendAndPrintEdiGipuzkoa(TestEsEdiTbaiCommonGipuzkoa):
 
         # Post with success
         with patch(
-            'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+            'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
             return_value=self.mock_response_post_invoice_success,
         ):
             invoice_send_wizard.action_send_and_print()
@@ -166,7 +166,7 @@ class TestSendAndPrintEdiGipuzkoa(TestEsEdiTbaiCommonGipuzkoa):
 
         # Post with success
         with patch(
-            'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+            'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
             return_value=self.mock_response_post_invoice_success,
         ):
             invoice_send_wizard.action_send_and_print()
@@ -174,7 +174,7 @@ class TestSendAndPrintEdiGipuzkoa(TestEsEdiTbaiCommonGipuzkoa):
         # Cancel with request error
         try:
             with patch(
-                'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+                'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
                 side_effect=self.mock_request_error,
             ):
                 invoice.l10n_es_tbai_cancel()
@@ -189,7 +189,7 @@ class TestSendAndPrintEdiGipuzkoa(TestEsEdiTbaiCommonGipuzkoa):
 
         # Cancel with success
         with patch(
-            'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+            'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
             return_value=self.mock_response_cancel_invoice_success,
         ):
             invoice.l10n_es_tbai_cancel()
@@ -204,7 +204,7 @@ class TestSendAndPrintEdiGipuzkoa(TestEsEdiTbaiCommonGipuzkoa):
         invoice = self._create_posted_invoice()
 
         with patch(
-            'odoo.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
+            'loomworks.addons.l10n_es_edi_tbai.models.l10n_es_edi_tbai_document.requests.Session.request',
             return_value=self.mock_response_post_invoice_success,
         ):
             self._get_invoice_send_wizard(invoice).action_send_and_print()

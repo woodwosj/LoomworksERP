@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models
-from odoo.api import Environment
-from odoo.fields import Datetime
-from odoo.http import request
-from odoo.modules.registry import Registry
-from odoo.addons.bus.websocket import wsrequest
+from loomworks import models
+from loomworks.api import Environment
+from loomworks.fields import Datetime
+from loomworks.http import request
+from loomworks.modules.registry import Registry
+from loomworks.addons.bus.websocket import wsrequest
 
 class IrWebsocket(models.AbstractModel):
     _inherit = 'ir.websocket'

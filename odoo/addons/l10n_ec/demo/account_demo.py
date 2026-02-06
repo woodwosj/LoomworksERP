@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, models
+from loomworks import api, models
 
 
 class AccountChartTemplate(models.AbstractModel):

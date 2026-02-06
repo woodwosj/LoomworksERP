@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
 
@@ -6,12 +6,12 @@ from freezegun import freeze_time
 from psycopg2.errors import IntegrityError
 from pytz import timezone
 
-from odoo import Command, fields
-from odoo.exceptions import UserError
-from odoo.tests import Form, tagged
-from odoo.tools import mute_logger
+from loomworks import Command, fields
+from loomworks.exceptions import UserError
+from loomworks.tests import Form, tagged
+from loomworks.tools import mute_logger
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 @tagged('-at_install', 'post_install')
@@ -1150,7 +1150,7 @@ class TestPurchase(AccountTestInvoicingCommon):
                 })],
         })
 
-        with (self.assertRaises(IntegrityError), self.cr.savepoint(), mute_logger("odoo.sql_db")):
+        with (self.assertRaises(IntegrityError), self.cr.savepoint(), mute_logger("loomworks.sql_db")):
             uom_test.unlink()
 
         self.assertEqual(po.order_line[0].product_uom, uom_test)

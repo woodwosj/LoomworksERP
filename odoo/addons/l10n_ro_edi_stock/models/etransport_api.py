@@ -2,7 +2,7 @@ from json import JSONDecodeError
 import requests
 import re
 
-from odoo import _
+from loomworks import _
 
 
 SCHEMATRON_ERROR_ID_PATTERN = r'BR-(?:CL-)?\d{3}'

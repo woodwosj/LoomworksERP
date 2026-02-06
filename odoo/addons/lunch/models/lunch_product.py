@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 
 from collections import defaultdict
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.osv import expression
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
+from loomworks.osv import expression
 
 
 class LunchProduct(models.Model):

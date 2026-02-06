@@ -1,9 +1,9 @@
 import logging
 import urllib.parse
 
-from odoo import api, fields, models, modules
-from odoo.exceptions import UserError
-from odoo.addons.l10n_tr_nilvera.lib.nilvera_client import _get_nilvera_client
+from loomworks import api, fields, models, modules
+from loomworks.exceptions import UserError
+from loomworks.addons.l10n_tr_nilvera.lib.nilvera_client import _get_nilvera_client
 
 
 _logger = logging.getLogger(__name__)

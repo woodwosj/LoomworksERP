@@ -1,6 +1,6 @@
 from lxml import etree
 
-from odoo import api, models
+from loomworks import api, models
 
 
 class AccountEdiXmlUblTr(models.AbstractModel):

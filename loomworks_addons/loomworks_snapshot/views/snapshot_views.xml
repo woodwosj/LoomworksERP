@@ -7,7 +7,7 @@
     Loomworks modifications copyright: Loomworks
     License: LGPL-3
 -->
-<odoo>
+<loomworks>
     <!-- Action for related operations (must be defined before form view that references it) -->
     <record id="action_snapshot_operations" model="ir.actions.act_window">
         <field name="name">Related Operations</field>
@@ -150,4 +150,4 @@
     </record>
 
 
-</odoo>
+</loomworks>

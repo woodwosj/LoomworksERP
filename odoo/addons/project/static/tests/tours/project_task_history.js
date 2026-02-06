@@ -50,7 +50,7 @@ function insertEditorContent(newContent) {
 
 
 registry.category("web_tour.tours").add("project_task_history_tour", {
-    url: "/odoo",
+    url: "/loomworks",
     steps: () => [stepUtils.showAppsMenuItem(), {
         content: "Open the project app",
         trigger: ".o_app[data-menu-xmlid='project.menu_main_pm']",
@@ -205,7 +205,7 @@ registry.category("web_tour.tours").add("project_task_history_tour", {
 ]});
 
 registry.category("web_tour.tours").add("project_task_last_history_steps_tour", {
-    url: "/odoo",
+    url: "/loomworks",
     steps: () => [stepUtils.showAppsMenuItem(), {
         content: "Open the project app",
         trigger: ".o_app[data-menu-xmlid='project.menu_main_pm']",

@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { OdooEditor } from '../../src/OdooEditor.js';
 import {

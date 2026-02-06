@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 from statistics import mode
 import re
 
-from odoo import api, fields, models
-from odoo.exceptions import UserError, AccessError, ValidationError
-from odoo.osv import expression
-from odoo.tools import format_list
-from odoo.tools.translate import _
+from loomworks import api, fields, models
+from loomworks.exceptions import UserError, AccessError, ValidationError
+from loomworks.osv import expression
+from loomworks.tools import format_list
+from loomworks.tools.translate import _
 
 
 class AccountAnalyticLine(models.Model):

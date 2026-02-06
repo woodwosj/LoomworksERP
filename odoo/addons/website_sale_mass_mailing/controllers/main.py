@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.http import request
+from loomworks.http import request
 
-from odoo.addons.website_mass_mailing.controllers.main import MassMailController
-from odoo.addons.website_sale.controllers.main import WebsiteSale as WebsiteSaleController
+from loomworks.addons.website_mass_mailing.controllers.main import MassMailController
+from loomworks.addons.website_sale.controllers.main import WebsiteSale as WebsiteSaleController
 
 
 class WebsiteSale(WebsiteSaleController):

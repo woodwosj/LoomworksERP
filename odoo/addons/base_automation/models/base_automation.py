@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import datetime
 import logging
@@ -8,9 +8,9 @@ from collections import defaultdict
 from uuid import uuid4
 
 from dateutil.relativedelta import relativedelta
-from odoo import _, api, exceptions, fields, models
-from odoo.http import request
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, safe_eval
+from loomworks import _, api, exceptions, fields, models
+from loomworks.http import request
+from loomworks.tools import DEFAULT_SERVER_DATETIME_FORMAT, safe_eval
 
 _logger = logging.getLogger(__name__)
 

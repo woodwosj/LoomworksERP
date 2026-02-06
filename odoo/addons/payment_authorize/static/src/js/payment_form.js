@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 /* global Accept */
 
 import { _t } from '@web/core/l10n/translation';

@@ -1,7 +1,7 @@
-from odoo import Command
-from odoo.addons.l10n_account_edi_ubl_cii_tests.tests.common import TestUBLCommon
-from odoo.exceptions import UserError
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.addons.l10n_account_edi_ubl_cii_tests.tests.common import TestUBLCommon
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
 
 
 class TestUBLROCommon(TestUBLCommon):

@@ -1,17 +1,17 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 
-import odoo
-from odoo.tests import tagged, users
-from odoo.tools import mute_logger
-from odoo.addons.base.tests.common import HttpCase, HttpCaseWithUserDemo
-from odoo.addons.mail.tests.common import MailCommon, mail_new_test_user
-from odoo.http import STATIC_CACHE_LONG
-from odoo import Command, fields, http
+import loomworks
+from loomworks.tests import tagged, users
+from loomworks.tools import mute_logger
+from loomworks.addons.base.tests.common import HttpCase, HttpCaseWithUserDemo
+from loomworks.addons.mail.tests.common import MailCommon, mail_new_test_user
+from loomworks.http import STATIC_CACHE_LONG
+from loomworks import Command, fields, http
 
 
-@odoo.tests.tagged("-at_install", "post_install")
+@loomworks.tests.tagged("-at_install", "post_install")
 class TestMessageController(HttpCaseWithUserDemo):
     @classmethod
     def setUpClass(cls):
@@ -47,7 +47,7 @@ class TestMessageController(HttpCaseWithUserDemo):
         cls.guest = cls.env["mail.guest"].create({"name": "Guest"})
         cls.channel.add_members(guest_ids=cls.guest.ids)
 
-    @mute_logger("odoo.addons.http_routing.models.ir_http", "odoo.http")
+    @mute_logger("loomworks.addons.http_routing.models.ir_http", "loomworks.http")
     def test_channel_message_attachments(self):
         self.authenticate(None, None)
         self.opener.cookies[self.guest._cookie_name] = self.guest._format_auth_cookie()
@@ -244,7 +244,7 @@ class TestMessageController(HttpCaseWithUserDemo):
             "guest should be allowed to add own attachment without token when updating message",
         )
 
-    @mute_logger("odoo.addons.http_routing.models.ir_http", "odoo.http")
+    @mute_logger("loomworks.addons.http_routing.models.ir_http", "loomworks.http")
     def test_attachment_hijack(self):
         att = self.env["ir.attachment"].create(
             [
@@ -287,7 +287,7 @@ class TestMessageController(HttpCaseWithUserDemo):
             "arguments_for_firing_marc_demo", response.text
         )  # demo should not be able to see the name of the document
 
-    @mute_logger("odoo.addons.http_routing.models.ir_http", "odoo.http")
+    @mute_logger("loomworks.addons.http_routing.models.ir_http", "loomworks.http")
     def test_mail_partner_from_email_authenticated(self):
         self.authenticate(None, None)
         self.opener.cookies[self.guest._cookie_name] = self.guest._format_auth_cookie()
@@ -527,7 +527,7 @@ class TestMessageLinks(MailCommon, HttpCase):
         ).id
         self.authenticate('employee', 'employee')
         with self.subTest(channel_message=channel_message):
-            expected_url = self.base_url() + f'/odoo/action-mail.action_discuss?active_id={channel_message.res_id}&highlight_message_id={channel_message.id}'
+            expected_url = self.base_url() + f'/loomworks/action-mail.action_discuss?active_id={channel_message.res_id}&highlight_message_id={channel_message.id}'
             res = self.url_open(f'/mail/message/{channel_message.id}')
             self.assertEqual(res.url, expected_url)
         with self.subTest(private_message_id=private_message_id):

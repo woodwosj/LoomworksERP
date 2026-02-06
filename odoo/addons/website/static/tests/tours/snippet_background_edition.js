@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import weUtils from '@web_editor/js/common/utils';
 import {

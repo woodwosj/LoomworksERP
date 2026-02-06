@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import logging
 import json
 from datetime import datetime
@@ -13,10 +13,10 @@ from uuid import uuid4
 import psycopg2
 import pytz
 
-from odoo import api, fields, models, tools, _, Command
-from odoo.tools import float_is_zero, float_round, float_repr, float_compare, formatLang, SQL
-from odoo.exceptions import ValidationError, UserError
-from odoo.osv.expression import AND
+from loomworks import api, fields, models, tools, _, Command
+from loomworks.tools import float_is_zero, float_round, float_repr, float_compare, formatLang, SQL
+from loomworks.exceptions import ValidationError, UserError
+from loomworks.osv.expression import AND
 import base64
 
 

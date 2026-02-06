@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=bad-whitespace
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import Form, tagged
-from odoo import fields, Command
-from odoo.exceptions import UserError, ValidationError
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import Form, tagged
+from loomworks import fields, Command
+from loomworks.exceptions import UserError, ValidationError
 
 from collections import defaultdict
 from unittest.mock import patch

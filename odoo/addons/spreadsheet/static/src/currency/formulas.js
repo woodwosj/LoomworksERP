@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { _t } from "@web/core/l10n/translation";
 import * as spreadsheet from "@odoo/o-spreadsheet";
@@ -9,7 +9,7 @@ functionRegistry.add("ODOO.CURRENCY.RATE", {
     description: _t(
         "This function takes in two currency codes as arguments, and returns the exchange rate from the first currency to the second as float."
     ),
-    category: "Odoo",
+    category: "Loomworks",
     compute: function (currencyFrom, currencyTo, date, companyId) {
         const from = toString(currencyFrom);
         const to = toString(currencyTo);

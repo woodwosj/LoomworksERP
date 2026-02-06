@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <record model="ir.ui.view" id="res_config_settings_view_form">
         <field name="name">res.config.settings.view.form.inherit.l10n_eg_edi_eta</field>
@@ -34,4 +34,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

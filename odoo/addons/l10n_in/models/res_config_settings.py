@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, fields, models
-from odoo.exceptions import ValidationError
-from odoo.addons.l10n_in.models.iap_account import IAP_SERVICE_NAME
+from loomworks import _, fields, models
+from loomworks.exceptions import ValidationError
+from loomworks.addons.l10n_in.models.iap_account import IAP_SERVICE_NAME
 
 
 class ResConfigSettings(models.TransientModel):

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from werkzeug import urls
 
-from odoo import _, api, fields, models
-from odoo.tools import format_amount
+from loomworks import _, api, fields, models
+from loomworks.tools import format_amount
 
 
 class PaymentLinkWizard(models.TransientModel):

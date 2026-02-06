@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="product_template_form_inherit" model="ir.ui.view">
             <field name="name">product.template.form.inherit.l10n_ro_cpv_code</field>
@@ -14,4 +14,4 @@
             </field>
         </record>
     </data>
-</odoo>
+</loomworks>

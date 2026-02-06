@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.tests import tagged
-from odoo.tools import mute_logger
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.tests import tagged
+from loomworks.tools import mute_logger
 
 
 @tagged('mail_followers')
 class TestInvite(MailCommon):
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_invite_email(self):
         test_record = self.env['mail.test.simple'].with_context(self._test_context).create({'name': 'Test', 'email_from': 'ignasse@example.com'})
         test_partner = self.env['res.partner'].with_context(self._test_context).create({

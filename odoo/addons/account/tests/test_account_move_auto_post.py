@@ -1,8 +1,8 @@
-from odoo import fields
-from odoo.tests import tagged
+from loomworks import fields
+from loomworks.tests import tagged
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.base.tests.test_ir_cron import CronMixinCase
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.base.tests.test_ir_cron import CronMixinCase
 
 
 @tagged('post_install', '-at_install')

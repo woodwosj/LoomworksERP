@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { waitUntil } from "@odoo/hoot-dom";
 import { registry } from "@web/core/registry";
@@ -75,7 +75,7 @@ registry.category("web_tour.tours").add('sale_signature', {
     }, {
         trigger: '#quote_content',
         run: function () {
-            redirect("/odoo");
+            redirect("/loomworks");
         },  // Avoid race condition at the end of the tour by returning to the home page.
         expectUnloadPage: true,
     },

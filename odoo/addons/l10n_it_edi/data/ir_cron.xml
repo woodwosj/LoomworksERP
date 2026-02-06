@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="ir_cron_l10n_it_edi_download_and_update" model="ir.cron">
         <field name="name">IT EDI: Receive invoices from the SdI</field>
         <field name="interval_number">1</field>
@@ -8,4 +8,4 @@
         <field name="code">model.cron_l10n_it_edi_download_and_update()</field>
         <field name="state">code</field>
     </record>
-</odoo>
+</loomworks>

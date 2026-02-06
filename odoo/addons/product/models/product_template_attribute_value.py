@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from random import randint
 
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import UserError, ValidationError
-from odoo.fields import Command
+from loomworks import api, fields, models, tools, _
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.fields import Command
 
 
 class ProductTemplateAttributeValue(models.Model):
@@ -139,7 +139,7 @@ class ProductTemplateAttributeValue(models.Model):
         ptav_to_archive = self.env['product.template.attribute.value']
         for ptav in self:
             try:
-                with self.env.cr.savepoint(), tools.mute_logger('odoo.sql_db'):
+                with self.env.cr.savepoint(), tools.mute_logger('loomworks.sql_db'):
                     super(ProductTemplateAttributeValue, ptav).unlink()
             except Exception:
                 # We catch all kind of exceptions to be sure that the operation

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
         <!--
         Resource: res.partner.title
         Update partner titles
@@ -56,4 +56,4 @@
             <field name="name">Engineer</field>
             <field name="shortcut">Ing.</field>
         </record>
-</odoo>
+</loomworks>

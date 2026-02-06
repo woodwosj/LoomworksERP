@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 
-import odoo
-from odoo import fields
-from odoo.tests import tagged
-from odoo.addons.base.tests.common import HttpCaseWithUserPortal
+import loomworks
+from loomworks import fields
+from loomworks.tests import tagged
+from loomworks.addons.base.tests.common import HttpCaseWithUserPortal
 
 
 @tagged('post_install', '-at_install')
@@ -25,7 +25,7 @@ class TestWebsiteSaleMail(HttpCaseWithUserPortal):
         })
 
         # we override unlink because we don't want the email to be auto deleted
-        MailMail = odoo.addons.mail.models.mail_mail.MailMail
+        MailMail = loomworks.addons.mail.models.mail_mail.MailMail
         # as we check some link content, avoid mobile doing its link management
         self.env['ir.config_parameter'].sudo().set_param('mail_mobile.disable_redirect_firebase_dynamic_link', True)
 
@@ -60,7 +60,7 @@ class TestWebsiteSaleMail(HttpCaseWithUserPortal):
             self.authenticate('admin', 'admin')
             res = self.url_open(url)
             self.assertEqual(res.status_code, 200)
-            self.assertTrue(res.request.path_url.startswith('/odoo/product.template'))
+            self.assertTrue(res.request.path_url.startswith('/loomworks/product.template'))
 
         with self.subTest(user='portal'):
             self.authenticate('portal', 'portal')

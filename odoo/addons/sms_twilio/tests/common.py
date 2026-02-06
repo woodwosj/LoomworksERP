@@ -4,12 +4,12 @@ from contextlib import contextmanager
 from requests import Response
 from unittest.mock import patch
 
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.sms.models.sms_sms import SmsSms
-from odoo.addons.sms.tests.common import SMSCase
-from odoo.addons.sms_twilio.tools import sms_twilio as twilio_tools
-from odoo.addons.sms_twilio.tools.sms_api import SmsApiTwilio
-from odoo.tests.common import TransactionCase
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.sms.models.sms_sms import SmsSms
+from loomworks.addons.sms.tests.common import SMSCase
+from loomworks.addons.sms_twilio.tools import sms_twilio as twilio_tools
+from loomworks.addons.sms_twilio.tools.sms_api import SmsApiTwilio
+from loomworks.tests.common import TransactionCase
 
 
 class MockSmsTwilioApi(SMSCase):

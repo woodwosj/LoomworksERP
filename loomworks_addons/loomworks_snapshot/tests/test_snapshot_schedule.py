@@ -10,8 +10,8 @@
 Tests for Loomworks Snapshot Schedule functionality.
 """
 
-from odoo.tests import TransactionCase, tagged
-from odoo.exceptions import ValidationError
+from loomworks.tests import TransactionCase, tagged
+from loomworks.exceptions import ValidationError
 from datetime import timedelta
 
 
@@ -145,7 +145,7 @@ class TestSnapshotRetention(TransactionCase):
             'apply_to_auto': True,
         })
 
-        from odoo import fields
+        from loomworks import fields
         now = fields.Datetime.now()
         expiry = policy.calculate_expiry(snapshot_type='auto')
 

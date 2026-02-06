@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { intersection } from "@web/core/utils/arrays";
 import { _t } from "@web/core/l10n/translation";

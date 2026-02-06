@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-from odoo.addons.stock_landed_costs.tests.common import TestStockLandedCostsCommon
-from odoo.fields import Date
-from odoo.tests import tagged, Form
+from loomworks import Command
+from loomworks.addons.stock_landed_costs.tests.common import TestStockLandedCostsCommon
+from loomworks.fields import Date
+from loomworks.tests import tagged, Form
 
 
 @tagged('post_install', '-at_install')

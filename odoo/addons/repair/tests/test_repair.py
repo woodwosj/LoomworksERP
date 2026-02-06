@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-from odoo.exceptions import AccessError, UserError
-from odoo.tests import tagged, common, Form, HttpCase
-from odoo.tools import float_compare, float_is_zero
+from loomworks import Command
+from loomworks.exceptions import AccessError, UserError
+from loomworks.tests import tagged, common, Form, HttpCase
+from loomworks.tools import float_compare, float_is_zero
 
 
 @tagged('post_install', '-at_install')
@@ -996,5 +996,5 @@ class TestRepairHttp(HttpCase):
             })],
         })
 
-        self.start_tour(f"/odoo/repairs/{repair.id}", "test_repair_without_product_in_parts", login='admin')
+        self.start_tour(f"/loomworks/repairs/{repair.id}", "test_repair_without_product_in_parts", login='admin')
         self.assertTrue(repair.has_uncomplete_moves)

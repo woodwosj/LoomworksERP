@@ -1,4 +1,4 @@
-from odoo import models, api, fields
+from loomworks import models, api, fields
 
 class AccountMove(models.Model):
     _inherit = 'account.move'

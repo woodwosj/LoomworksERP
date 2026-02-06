@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import Counter
 from functools import partial
 
-from odoo import _, api, fields, models
-from odoo.osv import expression
+from loomworks import _, api, fields, models
+from loomworks.osv import expression
 
 
 class WebsiteSnippetFilter(models.Model):

@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import HttpCase, tagged, users
+from loomworks.tests import HttpCase, tagged, users
 
 
 @tagged('post_install', '-at_install', 'mail_activity')
@@ -36,4 +36,4 @@ class TestMailingUi(HttpCase):
 
         # Ensure that both activities appear in the systray and that clicking on
         # one activity opens a view where the other activity isn't listed
-        self.start_tour("/odoo", 'mailing_activities_split', login="admin")
+        self.start_tour("/loomworks", 'mailing_activities_split', login="admin")

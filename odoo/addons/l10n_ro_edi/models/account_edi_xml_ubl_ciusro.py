@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, _
+from loomworks import models, _
 
 DEFAULT_VAT = '0000000000000'
 SECTOR_RO_CODES = ('SECTOR1', 'SECTOR2', 'SECTOR3', 'SECTOR4', 'SECTOR5', 'SECTOR6')

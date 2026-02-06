@@ -1,16 +1,16 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import timedelta
 
-from odoo import fields, http
-from odoo.exceptions import ValidationError
-from odoo.fields import Command
-from odoo.tests import HttpCase, tagged
+from loomworks import fields, http
+from loomworks.exceptions import ValidationError
+from loomworks.fields import Command
+from loomworks.tests import HttpCase, tagged
 
-from odoo.addons.sale.tests.test_sale_product_attribute_value_config import (
+from loomworks.addons.sale.tests.test_sale_product_attribute_value_config import (
     TestSaleProductAttributeValueCommon,
 )
-from odoo.addons.website.tools import MockRequest
-from odoo.addons.website_sale_loyalty.controllers.main import WebsiteSale
+from loomworks.addons.website.tools import MockRequest
+from loomworks.addons.website_sale_loyalty.controllers.main import WebsiteSale
 
 
 @tagged('post_install', '-at_install')

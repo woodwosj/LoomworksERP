@@ -1,5 +1,5 @@
-from odoo import http
-from odoo.tests import tagged, HttpCase
+from loomworks import http
+from loomworks.tests import tagged, HttpCase
 
 
 @tagged("-at_install", "post_install")

@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import datetime
 
 from freezegun import freeze_time
 
-from odoo import Command
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.mail.tests.common import mail_new_test_user
+from loomworks import Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.mail.tests.common import mail_new_test_user
 
 
 class TestExpenseCommon(AccountTestInvoicingCommon):

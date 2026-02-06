@@ -1,12 +1,12 @@
 from markupsafe import Markup
 
-from odoo import _, api, models
-from odoo.addons.base.models.res_bank import sanitize_account_number
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import float_is_zero, float_repr, format_list
-from odoo.tools.float_utils import float_round
-from odoo.tools.misc import clean_context, formatLang, html_escape
-from odoo.tools.xml_utils import find_xml_value
+from loomworks import _, api, models
+from loomworks.addons.base.models.res_bank import sanitize_account_number
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools import float_is_zero, float_repr, format_list
+from loomworks.tools.float_utils import float_round
+from loomworks.tools.misc import clean_context, formatLang, html_escape
+from loomworks.tools.xml_utils import find_xml_value
 from datetime import datetime
 
 # -------------------------------------------------------------------------

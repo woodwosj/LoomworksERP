@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, models, Command
+from loomworks import api, models, Command
 
 
 class AccountJournal(models.Model):

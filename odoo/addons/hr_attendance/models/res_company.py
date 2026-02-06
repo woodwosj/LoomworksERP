@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, api
-from odoo.osv.expression import OR
+from loomworks import fields, models, api
+from loomworks.osv.expression import OR
 
 import uuid
 from werkzeug.urls import url_join

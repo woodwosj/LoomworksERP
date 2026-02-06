@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <template id="portal_my_details_fields" inherit_id="account.portal_my_details_fields">
         <xpath expr="//t[@t-if='invoice_edi_formats']" position="after">
             <t t-if="partner.country_id.code == 'MY'">
@@ -33,4 +33,4 @@
             </t>
         </xpath>
     </template>
-</odoo>
+</loomworks>

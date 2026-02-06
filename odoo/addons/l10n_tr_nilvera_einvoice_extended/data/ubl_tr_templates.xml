@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="ubl_tr_LineDelivery">
         <t xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
             xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
@@ -54,4 +54,4 @@
             </cac:BuyerCustomerParty>
         </xpath>
     </template>
-</odoo>
+</loomworks>

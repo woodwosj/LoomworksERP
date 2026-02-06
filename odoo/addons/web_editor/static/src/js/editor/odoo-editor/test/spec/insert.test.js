@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { parseHTML, setCursorEnd } from '../../src/utils/utils.js';
 import {

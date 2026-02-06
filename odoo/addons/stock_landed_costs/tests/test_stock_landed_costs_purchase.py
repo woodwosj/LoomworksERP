@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import unittest
-from odoo.addons.stock_landed_costs.tests.common import TestStockLandedCostsCommon
-from odoo.addons.stock_landed_costs.tests.test_stockvaluationlayer import TestStockValuationLCCommon
-from odoo.addons.stock_account.tests.test_stockvaluation import _create_accounting_data
+from loomworks.addons.stock_landed_costs.tests.common import TestStockLandedCostsCommon
+from loomworks.addons.stock_landed_costs.tests.test_stockvaluationlayer import TestStockValuationLCCommon
+from loomworks.addons.stock_account.tests.test_stockvaluation import _create_accounting_data
 
-from odoo import fields
-from odoo.fields import Command, Date
-from odoo.tests import tagged, Form
+from loomworks import fields
+from loomworks.fields import Command, Date
+from loomworks.tests import tagged, Form
 
 
 @tagged('post_install', '-at_install')

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <!-- Payroll Structure Form View -->
     <record id="hr_payroll_structure_view_form" model="ir.ui.view">
         <field name="name">hr.payroll.structure.form</field>
@@ -104,4 +104,4 @@
             </p>
         </field>
     </record>
-</odoo>
+</loomworks>

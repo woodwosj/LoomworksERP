@@ -5,10 +5,10 @@ import itertools
 import re
 import json
 
-from odoo import api, fields, models, _, Command
-from odoo.osv import expression
-from odoo.exceptions import UserError, ValidationError, RedirectWarning
-from odoo.tools import SQL, Query
+from loomworks import api, fields, models, _, Command
+from loomworks.osv import expression
+from loomworks.exceptions import UserError, ValidationError, RedirectWarning
+from loomworks.tools import SQL, Query
 
 
 ACCOUNT_REGEX = re.compile(r'(?:(\S*\d+\S*))?(.*)')

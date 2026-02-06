@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import base64
 import datetime
 import re
@@ -9,12 +9,12 @@ import dateutil
 import werkzeug
 from lxml import etree
 
-from odoo import SUPERUSER_ID, api, fields, models, modules
-from odoo.addons.account.tools import dict_to_xml
-from odoo.exceptions import UserError
-from odoo.osv import expression
-from odoo.tools import config, date_utils, split_every
-from odoo.tools.image import image_data_uri
+from loomworks import SUPERUSER_ID, api, fields, models, modules
+from loomworks.addons.account.tools import dict_to_xml
+from loomworks.exceptions import UserError
+from loomworks.osv import expression
+from loomworks.tools import config, date_utils, split_every
+from loomworks.tools.image import image_data_uri
 
 # Holds the maximum amount of records that can be sent in a single submission.
 SUBMISSION_MAX_SIZE = 100
@@ -835,11 +835,11 @@ class MyInvoisDocument(models.Model):
         error_map = {
             # These errors should be returned when we send malformed request to the EDI, ... tldr; this should never happen unless we have bugs.
             "internal_server_error": self.env._(
-                "Server error; If the problem persists, please contact the Odoo support."
+                "Server error; If the problem persists, please contact Loomworks support."
             ),
             # The proxy user credentials are either incorrect, or Odoo does not have the permission to invoice on their behalf.
             "invalid_tin": self.env._(
-                "Please make sure that your company TIN is correct, and that you gave Odoo sufficient permissions on the MyInvois platform."
+                "Please make sure that your company TIN is correct, and that you gave Loomworks sufficient permissions on the MyInvois platform."
             ),
             # The api rate limit has been reached. If this happens, we need to ask the user to wait. This is also handled proxy side to be safe
             "rate_limit_exceeded": self.env._(
@@ -887,7 +887,7 @@ class MyInvoisDocument(models.Model):
             "search_date_invalid": self.env._("The search params are invalid."),  # Should never happen
             'document_not_found': self.env._('The document provided in the request does not exist.'),  # Should never happen
             'submission_too_large': self.env._('The submission is too large, try to send fewer invoices at once.'),
-            'action_forbidden': self.env._('Permission to do this action has not been granted. Please ensure that Odoo has sufficient permissions on the MyInvois platform.'),
+            'action_forbidden': self.env._('Permission to do this action has not been granted. Please ensure that Loomworks ERP has sufficient permissions on the MyInvois platform.'),
         }
 
         if error.get('target'):

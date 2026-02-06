@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 
-from odoo import api, fields, models, _, release
-from odoo.addons.iap.tools import iap_tools
-from odoo.exceptions import UserError
-from odoo.tools import is_html_empty
+from loomworks import api, fields, models, _, release
+from loomworks.addons.iap.tools import iap_tools
+from loomworks.exceptions import UserError
+from loomworks.tools import is_html_empty
 
 _logger = logging.getLogger(__name__)
 
@@ -276,7 +276,7 @@ class CRMLeadMiningRequest(models.Model):
 
             template_values = data
             template_values.update({
-                'flavor_text': _("Opportunity created by Odoo Lead Generation"),
+                'flavor_text': _("Opportunity created by Loomworks Lead Generation"),
                 'people_data': data.get('people_data'),
                 'country': country.name,
                 'zip_code': data.get('zip'),

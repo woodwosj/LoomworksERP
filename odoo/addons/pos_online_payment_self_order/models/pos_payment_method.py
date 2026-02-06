@@ -1,5 +1,5 @@
-from odoo import models, api
-from odoo.osv import expression
+from loomworks import models, api
+from loomworks.osv import expression
 
 
 class PosPaymentMethod(models.Model):

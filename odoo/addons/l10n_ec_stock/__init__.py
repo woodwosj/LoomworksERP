@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from . import models
-from odoo import api, SUPERUSER_ID
+from loomworks import api, SUPERUSER_ID
 
 
 def post_init_hook(env):

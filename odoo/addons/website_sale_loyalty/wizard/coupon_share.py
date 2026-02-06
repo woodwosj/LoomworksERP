@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from werkzeug.urls import url_encode
 
-from odoo import fields, models, api, _
-from odoo.exceptions import UserError, ValidationError
+from loomworks import fields, models, api, _
+from loomworks.exceptions import UserError, ValidationError
 
 
 class CouponShare(models.TransientModel):

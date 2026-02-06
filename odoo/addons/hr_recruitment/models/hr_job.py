@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import ast
 from collections import defaultdict
 
 from dateutil.relativedelta import relativedelta
-from odoo import api, fields, models, SUPERUSER_ID, _
-from odoo.tools import SQL
-from odoo.tools.convert import convert_file
+from loomworks import api, fields, models, SUPERUSER_ID, _
+from loomworks.tools import SQL
+from loomworks.tools.convert import convert_file
 
 
 class Job(models.Model):

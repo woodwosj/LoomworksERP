@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import SUPERUSER_ID, api, Command, fields, models, _
-from odoo.tools.float_utils import float_compare, float_is_zero, float_round
-from odoo.exceptions import UserError
+from loomworks import SUPERUSER_ID, api, Command, fields, models, _
+from loomworks.tools.float_utils import float_compare, float_is_zero, float_round
+from loomworks.exceptions import UserError
 
 
 class PurchaseOrderLine(models.Model):

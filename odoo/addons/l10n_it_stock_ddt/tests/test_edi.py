@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 from lxml import etree
 from freezegun import freeze_time
-from odoo import tools
-from odoo.tests import Form, tagged
-from odoo.addons.l10n_it_edi.tests.common import TestItEdi
+from loomworks import tools
+from loomworks.tests import Form, tagged
+from loomworks.addons.l10n_it_edi.tests.common import TestItEdi
 
 _logger = logging.getLogger(__name__)
 

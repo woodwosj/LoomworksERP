@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 from unittest.mock import patch
 
-from odoo.addons.test_event_full.tests.common import TestEventFullCommon, TestEventMailCommon
-from odoo.tests import tagged, users
-from odoo.tools import formataddr
+from loomworks.addons.test_event_full.tests.common import TestEventFullCommon, TestEventMailCommon
+from loomworks.tests import tagged, users
+from loomworks.tools import formataddr
 
 
 @tagged('event_mail', 'post_install', '-at_install')

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
 
-from odoo import http, fields, _
-from odoo.http import request
-from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
+from loomworks import http, fields, _
+from loomworks.http import request
+from loomworks.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
 from datetime import datetime, timedelta
 import json
 

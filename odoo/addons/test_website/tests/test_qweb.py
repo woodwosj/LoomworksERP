@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from lxml import etree
 import re
 
-from odoo import tools
-from odoo.addons.base.tests.common import TransactionCaseWithUserDemo
-from odoo.addons.website.tools import MockRequest
+from loomworks import tools
+from loomworks.addons.base.tests.common import TransactionCaseWithUserDemo
+from loomworks.addons.website.tools import MockRequest
 
 
 class TestQweb(TransactionCaseWithUserDemo):

@@ -16,8 +16,8 @@ and filters for dynamic data analysis.
 import json
 import logging
 
-from odoo import api, models, fields, _
-from odoo.tools.safe_eval import safe_eval
+from loomworks import api, models, fields, _
+from loomworks.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
 

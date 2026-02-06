@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<odoo>
+<loomworks>
 
     <!-- DGI Is the Fiscal office on UY: Direccion General Impositiva -->
     <record id="partner_dgi" model="res.partner">
@@ -16,4 +16,4 @@
         <field name='country_id' ref='base.uy'/>
     </record>
 
-</odoo>
+</loomworks>

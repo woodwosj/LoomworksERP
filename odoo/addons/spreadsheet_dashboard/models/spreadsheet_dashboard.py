@@ -1,7 +1,7 @@
 import json
 
-from odoo import _, fields, models
-from odoo.tools import file_open
+from loomworks import _, fields, models
+from loomworks.tools import file_open
 
 
 class SpreadsheetDashboard(models.Model):

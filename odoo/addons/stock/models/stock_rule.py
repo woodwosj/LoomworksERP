@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 from collections import defaultdict, namedtuple, OrderedDict
 from dateutil.relativedelta import relativedelta
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
-from odoo.modules.registry import Registry
-from odoo.osv import expression
-from odoo.sql_db import BaseCursor
-from odoo.tools import float_compare, float_is_zero
-from odoo.tools.misc import split_every
+from loomworks import _, api, fields, models
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.modules.registry import Registry
+from loomworks.osv import expression
+from loomworks.sql_db import BaseCursor
+from loomworks.tools import float_compare, float_is_zero
+from loomworks.tools.misc import split_every
 
 _logger = logging.getLogger(__name__)
 
@@ -398,7 +398,7 @@ class StockRule(models.Model):
         procurement going through the rules in `self`.
 
         :param product: the product of the procurement
-        :type product: :class:`~odoo.addons.product.models.product.ProductProduct`
+        :type product: :class:`~loomworks.addons.product.models.product.ProductProduct`
         :return: the cumulative delay and cumulative delay's description
         :rtype: tuple[defaultdict(float), list[str, str]]
         """
@@ -478,7 +478,7 @@ class ProcurementGroup(models.Model):
         type of documents).
 
         :param procurements: the description of the procurement
-        :type list: list of `~odoo.addons.stock.models.stock_rule.ProcurementGroup.Procurement`
+        :type list: list of `~loomworks.addons.stock.models.stock_rule.ProcurementGroup.Procurement`
         :param raise_user_error: will raise either an UserError or a ProcurementException
         :type raise_user_error: boolan, optional
         :raises UserError: if `raise_user_error` is True and a procurement isn't fulfillable

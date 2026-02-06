@@ -1,7 +1,7 @@
-from odoo import Command
-from odoo.tests import tagged
-from odoo.addons.l10n_it_edi.tests.common import TestItEdi
-from odoo.addons.l10n_it_edi.tests.test_edi_reverse_charge import TestItEdiReverseCharge
+from loomworks import Command
+from loomworks.tests import tagged
+from loomworks.addons.l10n_it_edi.tests.common import TestItEdi
+from loomworks.addons.l10n_it_edi.tests.test_edi_reverse_charge import TestItEdiReverseCharge
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

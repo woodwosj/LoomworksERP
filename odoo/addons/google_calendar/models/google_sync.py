@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 from contextlib import contextmanager
@@ -9,15 +9,15 @@ import pytz
 from dateutil.parser import parse
 from markupsafe import Markup
 
-from odoo import api, fields, models, _
-from odoo.modules.registry import Registry
-from odoo.tools import ormcache_context, email_normalize
-from odoo.osv import expression
-from odoo.sql_db import BaseCursor
+from loomworks import api, fields, models, _
+from loomworks.modules.registry import Registry
+from loomworks.tools import ormcache_context, email_normalize
+from loomworks.osv import expression
+from loomworks.sql_db import BaseCursor
 
-from odoo.addons.google_calendar.utils.google_event import GoogleEvent
-from odoo.addons.google_calendar.utils.google_calendar import GoogleCalendarService
-from odoo.addons.google_account.models.google_service import TIMEOUT
+from loomworks.addons.google_calendar.utils.google_event import GoogleEvent
+from loomworks.addons.google_calendar.utils.google_calendar import GoogleCalendarService
+from loomworks.addons.google_account.models.google_service import TIMEOUT
 
 _logger = logging.getLogger(__name__)
 

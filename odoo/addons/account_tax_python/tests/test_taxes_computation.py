@@ -1,6 +1,6 @@
-from odoo.addons.account.tests.test_tax import TestTaxCommon
-from odoo.tests import tagged
-from odoo.exceptions import ValidationError
+from loomworks.addons.account.tests.test_tax import TestTaxCommon
+from loomworks.tests import tagged
+from loomworks.exceptions import ValidationError
 
 
 @tagged('post_install', '-at_install')

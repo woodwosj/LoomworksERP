@@ -1,4 +1,4 @@
-from odoo import api, models
+from loomworks import api, models
 
 
 class AccountEdiXmlUBL21RS(models.AbstractModel):

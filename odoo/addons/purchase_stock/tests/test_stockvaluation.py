@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import time
 from datetime import datetime, timedelta
 from freezegun import freeze_time
 from unittest.mock import patch
 
-import odoo
-from odoo import fields, exceptions, Command
-from odoo.tests import Form
-from odoo.tests.common import TransactionCase, tagged
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from odoo.addons.stock.tests.common import TestStockCommon
+import loomworks
+from loomworks import fields, exceptions, Command
+from loomworks.tests import Form
+from loomworks.tests.common import TransactionCase, tagged
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from loomworks.addons.stock.tests.common import TestStockCommon
 
 
 class TestStockValuation(TransactionCase):
@@ -360,8 +360,8 @@ class TestStockValuationWithCOA(AccountTestInvoicingCommon):
             'property_valuation': 'real_time',
         })
 
-        old_action_post = odoo.addons.account.models.account_move.AccountMove.action_post
-        old_create = odoo.models.BaseModel.create
+        old_action_post = loomworks.addons.account.models.account_move.AccountMove.action_post
+        old_create = loomworks.models.BaseModel.create
 
         def new_action_post(self):
             """ Force the creation of tracking values. """
@@ -375,8 +375,8 @@ class TestStockValuationWithCOA(AccountTestInvoicingCommon):
             cls.cr._now = datetime.now()
             return old_create(self, vals_list)
 
-        post_patch = patch('odoo.addons.account.models.account_move.AccountMove.action_post', new_action_post)
-        create_patch = patch('odoo.models.BaseModel.create', new_create)
+        post_patch = patch('loomworks.addons.account.models.account_move.AccountMove.action_post', new_action_post)
+        create_patch = patch('loomworks.models.BaseModel.create', new_create)
         cls.startClassPatcher(post_patch)
         cls.startClassPatcher(create_patch)
 
@@ -1210,7 +1210,7 @@ class TestStockValuationWithCOA(AccountTestInvoicingCommon):
         def _today(*args, **kwargs):
             return date_po
         patchers = [
-            patch('odoo.fields.Date.context_today', _today),
+            patch('loomworks.fields.Date.context_today', _today),
         ]
 
         for patcher in patchers:
@@ -1381,8 +1381,8 @@ class TestStockValuationWithCOA(AccountTestInvoicingCommon):
             return datetime.strptime(today + ' 01:00:00', "%Y-%m-%d %H:%M:%S")
 
         patchers = [
-            patch('odoo.fields.Date.context_today', _today),
-            patch('odoo.fields.Datetime.now', _now),
+            patch('loomworks.fields.Date.context_today', _today),
+            patch('loomworks.fields.Datetime.now', _now),
         ]
 
         for patcher in patchers:

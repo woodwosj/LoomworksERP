@@ -1,11 +1,11 @@
 #!/bin/bash
 ### BEGIN INIT INFO
-# Provides:          odoo
+# Provides:          loomworks
 # Required-Start:    $remote_fs $syslog
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Start odoo daemon at boot time
+# Short-Description: Start loomworks daemon at boot time
 # Description:       Enable service provided by daemon.
 # X-Interactive:     true
 ### END INIT INFO
@@ -14,13 +14,13 @@
 . /lib/lsb/init-functions
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
-DAEMON=/usr/bin/odoo
-NAME=odoo
-DESC=odoo
-CONFIG=/etc/odoo/odoo.conf
-LOGFILE=/var/log/odoo/odoo-server.log
+DAEMON=/usr/bin/loomworks
+NAME=loomworks
+DESC=loomworks
+CONFIG=/etc/loomworks/loomworks.conf
+LOGFILE=/var/log/loomworks/loomworks-server.log
 PIDFILE=/var/run/${NAME}.pid
-USER=odoo
+USER=loomworks
 export LOGNAME=$USER
 
 test -x $DAEMON || exit 0

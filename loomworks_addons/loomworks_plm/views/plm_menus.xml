@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <!-- PLM Root Menu -->
     <menuitem id="menu_plm_root"
@@ -40,4 +40,4 @@
               action="plm_eco_stage_action"
               sequence="20"/>
 
-</odoo>
+</loomworks>

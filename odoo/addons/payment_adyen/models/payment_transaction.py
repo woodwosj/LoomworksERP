@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import pprint
 
-from odoo import _, models, release
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import format_amount
+from loomworks import _, models, release
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools import format_amount
 
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.payment_adyen import utils as adyen_utils
-from odoo.addons.payment_adyen import const
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.payment_adyen import utils as adyen_utils
+from loomworks.addons.payment_adyen import const
 
 _logger = logging.getLogger(__name__)
 
@@ -75,9 +75,9 @@ class PaymentTransaction(models.Model):
             },
             'applicationInfo': {
                 'externalPlatform': {
-                    'name': 'Odoo',
+                    'name': 'Loomworks ERP',
                     'version': release.version,
-                    'integrator': 'Odoo SA',
+                    'integrator': 'Loomworks',
                 }
             },
             'countryCode': partner_country_code,

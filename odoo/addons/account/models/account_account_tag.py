@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models, _
-from odoo import osv
-from odoo.tools.sql import SQL
-from odoo.exceptions import UserError
+from loomworks import api, fields, models, _
+from loomworks import osv
+from loomworks.tools.sql import SQL
+from loomworks.exceptions import UserError
 
 
 class AccountAccountTag(models.Model):

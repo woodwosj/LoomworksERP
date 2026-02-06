@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 import pytz
 
-from odoo.exceptions import ValidationError
-from odoo.tests.common import tagged
-from odoo.fields import Date
-from odoo.addons.hr_work_entry_holidays.tests.common import TestWorkEntryHolidaysBase
+from loomworks.exceptions import ValidationError
+from loomworks.tests.common import tagged
+from loomworks.fields import Date
+from loomworks.addons.hr_work_entry_holidays.tests.common import TestWorkEntryHolidaysBase
 
 
 @tagged('work_entry')

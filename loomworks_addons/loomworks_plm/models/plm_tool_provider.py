@@ -8,7 +8,7 @@ This implements the M4 resolution pattern, allowing AI agents to interact with
 PLM functionality through natural language.
 """
 
-from odoo import api, models, _
+from loomworks import api, models, _
 import logging
 
 _logger = logging.getLogger(__name__)

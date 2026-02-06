@@ -4,8 +4,8 @@ from http import HTTPStatus
 from lxml import etree
 from zipfile import ZipFile
 
-from odoo import http
-from odoo.tests.common import HttpCase
+from loomworks import http
+from loomworks.tests.common import HttpCase
 
 
 class TestPivotExport(HttpCase):

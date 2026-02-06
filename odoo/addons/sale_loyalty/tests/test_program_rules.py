@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import date, timedelta
 
 from freezegun import freeze_time
 from pytz import timezone
 
-from odoo.exceptions import ValidationError
-from odoo.fields import Command, Datetime
+from loomworks.exceptions import ValidationError
+from loomworks.fields import Command, Datetime
 
-from odoo.addons.payment.tests.common import PaymentCommon
-from odoo.addons.sale_loyalty.tests.common import TestSaleCouponCommon
+from loomworks.addons.payment.tests.common import PaymentCommon
+from loomworks.addons.sale_loyalty.tests.common import TestSaleCouponCommon
 
 
 class TestProgramRules(TestSaleCouponCommon, PaymentCommon):

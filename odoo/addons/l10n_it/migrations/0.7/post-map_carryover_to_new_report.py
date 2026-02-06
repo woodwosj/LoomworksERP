@@ -1,5 +1,5 @@
-from odoo import api, SUPERUSER_ID
-from odoo.tools import sql
+from loomworks import api, SUPERUSER_ID
+from loomworks.tools import sql
 
 def migrate(cr, version):
     env = api.Environment(cr, SUPERUSER_ID, {})

@@ -1,4 +1,4 @@
-from odoo.tests.common import TransactionCase
+from loomworks.tests.common import TransactionCase
 from unittest import mock
 from datetime import datetime
 from freezegun import freeze_time
@@ -52,9 +52,9 @@ class TestIrMailServer(TransactionCase):
         ) in cases:
             with self.subTest(currenct_datetime=current_datetime), \
                 freeze_time(current_datetime), \
-                mock.patch("odoo.addons.google_gmail.models.google_gmail_mixin._logger.info") as mock_logger, \
+                mock.patch("loomworks.addons.google_gmail.models.google_gmail_mixin._logger.info") as mock_logger, \
                 mock.patch(
-                    "odoo.addons.google_gmail.models.google_gmail_mixin.GoogleGmailMixin._fetch_gmail_access_token",
+                    "loomworks.addons.google_gmail.models.google_gmail_mixin.GoogleGmailMixin._fetch_gmail_access_token",
                     return_value=("new-access-token", new_token_expiry),
                 ) as mock_fetch_gmail_access_token:
                 self.mail_server.google_gmail_access_token_expiration = current_token_expiry

@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import contextlib
@@ -6,10 +6,10 @@ import contextlib
 from datetime import timedelta
 from markupsafe import Markup
 
-from odoo import fields
-from odoo.exceptions import AccessError
-from odoo.addons.l10n_in_edi_ewaybill.models.error_codes import ERROR_CODES
-from odoo.tools import _
+from loomworks import fields
+from loomworks.exceptions import AccessError
+from loomworks.addons.l10n_in_edi_ewaybill.models.error_codes import ERROR_CODES
+from loomworks.tools import _
 
 
 _logger = logging.getLogger(__name__)

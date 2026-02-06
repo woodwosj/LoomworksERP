@@ -1,4 +1,4 @@
-/* @odoo-module */
+/* @loomworks-module */
 
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 

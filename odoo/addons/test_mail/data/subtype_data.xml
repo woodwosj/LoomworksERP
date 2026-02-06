@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <!-- mail.test.simple -->
     <record id="st_mail_test_simple_external" model="mail.message.subtype">
@@ -52,4 +52,4 @@
         <field name="internal" eval="True"/>
     </record>
 
-</odoo>
+</loomworks>

@@ -1,7 +1,7 @@
 import logging
 
-from odoo import api, models
-from odoo.exceptions import AccessError
+from loomworks import api, models
+from loomworks.exceptions import AccessError
 
 _logger = logging.getLogger(__name__)
 

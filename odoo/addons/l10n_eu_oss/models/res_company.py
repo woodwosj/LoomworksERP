@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import re
 from itertools import product
 
-from odoo import Command, _, api, models
+from loomworks import Command, _, api, models
 from .eu_account_map import EU_ACCOUNT_MAP
 from .eu_field_map import EU_FIELD_MAP
 from .eu_tag_map import EU_TAG_MAP

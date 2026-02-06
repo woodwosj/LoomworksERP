@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import functools
@@ -12,17 +12,17 @@ from contextlib import nullcontext
 try:
     from werkzeug.utils import send_file
 except ImportError:
-    from odoo.tools._vendor.send_file import send_file
+    from loomworks.tools._vendor.send_file import send_file
 
-import odoo
-import odoo.modules.registry
-from odoo import SUPERUSER_ID, _, http, api
-from odoo.addons.base.models.assetsbundle import ANY_UNIQUE
-from odoo.exceptions import AccessError, UserError
-from odoo.http import request, Response
-from odoo.tools import file_open, file_path, replace_exceptions, str2bool
-from odoo.tools.image import image_guess_size_from_field_name
-from odoo.tools.mimetypes import guess_mimetype
+import loomworks
+import loomworks.modules.registry
+from loomworks import SUPERUSER_ID, _, http, api
+from loomworks.addons.base.models.assetsbundle import ANY_UNIQUE
+from loomworks.exceptions import AccessError, UserError
+from loomworks.http import request, Response
+from loomworks.tools import file_open, file_path, replace_exceptions, str2bool
+from loomworks.tools.image import image_guess_size_from_field_name
+from loomworks.tools.mimetypes import guess_mimetype
 
 _logger = logging.getLogger(__name__)
 
@@ -52,10 +52,10 @@ class Binary(http.Controller):
 
     @http.route('/web/filestore/<path:_path>', type='http', auth='none')
     def content_filestore(self, _path):
-        if odoo.tools.config['x_sendfile']:
+        if loomworks.tools.config['x_sendfile']:
             # pylint: disable=logging-format-interpolation
             _logger.error(BAD_X_SENDFILE_ERROR.format(
-                data_dir=odoo.tools.config['data_dir']
+                data_dir=loomworks.tools.config['data_dir']
             ))
         raise http.request.not_found()
 
@@ -257,7 +257,7 @@ class Binary(http.Controller):
         imgname = 'logo'
         imgext = '.png'
         dbname = request.db
-        uid = (request.session.uid if dbname else None) or odoo.SUPERUSER_ID
+        uid = (request.session.uid if dbname else None) or loomworks.SUPERUSER_ID
 
         if not dbname:
             response = http.Stream.from_path(file_path('web/static/img/logo.png')).get_response()

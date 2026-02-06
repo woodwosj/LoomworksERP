@@ -2,10 +2,10 @@
 from collections import OrderedDict
 from zlib import error as zlib_error
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.tools import pdf
-from odoo.tools.pdf import PdfReadError, DependencyError
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
+from loomworks.tools import pdf
+from loomworks.tools.pdf import PdfReadError, DependencyError
 
 
 class IrActionsReport(models.Model):

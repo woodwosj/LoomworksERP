@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo.tests
+import loomworks.tests
 
-from odoo import Command
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.point_of_sale.tests.common import archive_products
+from loomworks import Command
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.point_of_sale.tests.common import archive_products
 
 
-@odoo.tests.tagged("post_install", "-at_install")
-class SelfOrderCommonTest(odoo.tests.HttpCase):
+@loomworks.tests.tagged("post_install", "-at_install")
+class SelfOrderCommonTest(loomworks.tests.HttpCase):
     browser_size = "375x667"
     touch_enabled = True
     allow_inherited_tests_method = True

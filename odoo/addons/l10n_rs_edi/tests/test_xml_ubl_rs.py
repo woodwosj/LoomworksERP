@@ -1,7 +1,7 @@
-from odoo import Command
-from odoo.addons.l10n_account_edi_ubl_cii_tests.tests.common import TestUBLCommon
-from odoo.tests import tagged
-from odoo.tools import misc
+from loomworks import Command
+from loomworks.addons.l10n_account_edi_ubl_cii_tests.tests.common import TestUBLCommon
+from loomworks.tests import tagged
+from loomworks.tools import misc
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

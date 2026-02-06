@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import datetime, timedelta
 
-from odoo import Command
-from odoo.addons.stock_account.tests.test_anglo_saxon_valuation_reconciliation_common import ValuationReconciliationTestCommon
-from odoo.addons.sale_stock.tests.common import TestSaleStockCommon
-from odoo.exceptions import RedirectWarning, UserError
-from odoo.tests import Form, tagged
-from odoo.tests.common import new_test_user
+from loomworks import Command
+from loomworks.addons.stock_account.tests.test_anglo_saxon_valuation_reconciliation_common import ValuationReconciliationTestCommon
+from loomworks.addons.sale_stock.tests.common import TestSaleStockCommon
+from loomworks.exceptions import RedirectWarning, UserError
+from loomworks.tests import Form, tagged
+from loomworks.tests.common import new_test_user
 
 
 @tagged('post_install', '-at_install')

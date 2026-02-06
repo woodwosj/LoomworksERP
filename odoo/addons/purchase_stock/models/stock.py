@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 
-from odoo import api, fields, models, _
-from odoo.osv.expression import AND
+from loomworks import api, fields, models, _
+from loomworks.osv.expression import AND
 
 
 class StockPicking(models.Model):
@@ -213,7 +213,7 @@ class Orderpoint(models.Model):
                     'message': '%s',
                     'links': [{
                         'label': order.display_name,
-                        'url': f'/odoo/action-purchase.action_rfq_form/{order.id}',
+                        'url': f'/loomworks/action-purchase.action_rfq_form/{order.id}',
                     }],
                     'sticky': False,
                     'next': {'type': 'ir.actions.act_window_close'},

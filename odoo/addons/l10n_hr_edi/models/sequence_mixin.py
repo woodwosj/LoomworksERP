@@ -14,8 +14,8 @@ Legal reference: https://porezna-uprava.gov.hr/Regulations#169%7C228, https://po
 
 import pytz
 
-from odoo import models, api
-from odoo.exceptions import ValidationError
+from loomworks import models, api
+from loomworks.exceptions import ValidationError
 import re
 import logging
 from datetime import datetime

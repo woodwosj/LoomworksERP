@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 from freezegun import freeze_time
 from unittest.mock import patch
 
-from odoo import exceptions
-from odoo.addons.mass_mailing.tests.common import MassMailCommon
-from odoo.tests import Form, tagged, users
+from loomworks import exceptions
+from loomworks.addons.mass_mailing.tests.common import MassMailCommon
+from loomworks.tests import Form, tagged, users
 
 
 @tagged('mailing_list')

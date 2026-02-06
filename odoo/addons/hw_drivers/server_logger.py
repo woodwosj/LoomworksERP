@@ -6,12 +6,12 @@ import threading
 import time
 import urllib3.exceptions
 
-from odoo.addons.hw_drivers.tools import helpers
-from odoo.netsvc import DBFormatter
+from loomworks.addons.hw_drivers.tools import helpers
+from loomworks.netsvc import DBFormatter
 
 _logger = logging.getLogger(__name__)
 
-IOT_LOG_TO_SERVER_CONFIG_NAME = 'iot_log_to_server'  # config name in odoo.conf
+IOT_LOG_TO_SERVER_CONFIG_NAME = 'iot_log_to_server'  # config name in loomworks.conf
 
 
 class AsyncHTTPHandler(logging.Handler):

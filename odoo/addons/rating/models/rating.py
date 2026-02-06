@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import uuid
 
-from odoo import api, fields, models
-from odoo.addons.mail.tools.discuss import Store
-from odoo.addons.rating.models import rating_data
-from odoo.tools.misc import file_open
+from loomworks import api, fields, models
+from loomworks.addons.mail.tools.discuss import Store
+from loomworks.addons.rating.models import rating_data
+from loomworks.tools.misc import file_open
 
 
 class Rating(models.Model):

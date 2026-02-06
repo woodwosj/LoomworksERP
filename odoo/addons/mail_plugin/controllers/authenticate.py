@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import datetime
 import hmac
 import json
 import logging
-import odoo
+import loomworks
 import werkzeug
 
-from odoo import _, http
-from odoo.http import request
+from loomworks import _, http
+from loomworks.http import request
 from werkzeug.exceptions import NotFound
 
 _logger = logging.getLogger(__name__)
@@ -90,7 +90,7 @@ class Authenticate(http.Controller):
         data, auth_code_signature = auth_code.split('.')
         data = base64.b64decode(data)
         auth_code_signature = base64.b64decode(auth_code_signature)
-        signature = odoo.tools.misc.hmac(request.env(su=True), 'mail_plugin', data).encode()
+        signature = loomworks.tools.misc.hmac(request.env(su=True), 'mail_plugin', data).encode()
         if not hmac.compare_digest(auth_code_signature, signature):
             return None
 
@@ -115,7 +115,7 @@ class Authenticate(http.Controller):
             'uid': request.uid,
         }
         auth_message = json.dumps(auth_dict, sort_keys=True).encode()
-        signature = odoo.tools.misc.hmac(request.env(su=True), 'mail_plugin', auth_message).encode()
+        signature = loomworks.tools.misc.hmac(request.env(su=True), 'mail_plugin', auth_message).encode()
         auth_code = "%s.%s" % (base64.b64encode(auth_message).decode(), base64.b64encode(signature).decode())
         _logger.info('Auth code created - user %s, scope %s', request.env.user, scope)
         return auth_code

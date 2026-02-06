@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import threading
@@ -7,8 +7,8 @@ import threading
 from uuid import uuid4
 from werkzeug.urls import url_join
 
-from odoo import api, fields, models, tools, _
-from odoo.addons.sms.tools.sms_api import SmsApi
+from loomworks import api, fields, models, tools, _
+from loomworks.addons.sms.tools.sms_api import SmsApi
 
 _logger = logging.getLogger(__name__)
 

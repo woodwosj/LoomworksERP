@@ -1,6 +1,6 @@
 import io
 
-from odoo import models
+from loomworks import models
 
 
 class IrActionsReport(models.Model):

@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { BasicEditor, testEditor, unformat } from '../utils.js';
 

@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import threading
 from unittest.mock import patch
 
-import odoo.tests
+import loomworks.tests
 
-@odoo.tests.tagged('website_nightly', '-standard')
-class TestIap(odoo.tests.HttpCase):
+@loomworks.tests.tagged('website_nightly', '-standard')
+class TestIap(loomworks.tests.HttpCase):
 
     def test_01_industries_lang(self):
         """Ensure that the industries are translated in all the languages

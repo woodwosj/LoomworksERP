@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo.tests
-from odoo.addons.website.tools import create_image_attachment
+import loomworks.tests
+from loomworks.addons.website.tools import create_image_attachment
 
-@odoo.tests.common.tagged('post_install', '-at_install')
-class TestWebsiteGridLayout(odoo.tests.HttpCase):
+@loomworks.tests.common.tagged('post_install', '-at_install')
+class TestWebsiteGridLayout(loomworks.tests.HttpCase):
 
     def test_01_replace_grid_image(self):
         create_image_attachment(self.env, '/web/image/website.s_banner_default_image', 's_banner_default_image.jpg')

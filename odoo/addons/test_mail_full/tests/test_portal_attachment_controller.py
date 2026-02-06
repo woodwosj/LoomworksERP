@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo
-from odoo.addons.mail.tests.test_attachment_controller import TestAttachmentControllerCommon
+import loomworks
+from loomworks.addons.mail.tests.test_attachment_controller import TestAttachmentControllerCommon
 
 
-@odoo.tests.tagged("-at_install", "post_install")
+@loomworks.tests.tagged("-at_install", "post_install")
 class TestPortalAttachmentController(TestAttachmentControllerCommon):
     def test_attachment_upload_portal(self):
         """Test access to upload an attachment on portal"""

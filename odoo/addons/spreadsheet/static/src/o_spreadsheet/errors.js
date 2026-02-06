@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { registries, EvaluationError } from "@odoo/o-spreadsheet";
 

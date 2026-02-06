@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { registry } from "@web/core/registry";
 import { KEProxyDialog } from "./ke_proxy_dialog";

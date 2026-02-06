@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models
+from loomworks import models
 
 class IrQWeb(models.AbstractModel):
     _inherit = "ir.qweb"

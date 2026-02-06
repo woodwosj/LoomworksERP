@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import requests
@@ -6,9 +6,9 @@ import requests
 from collections import defaultdict
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models
-from odoo.addons.mail.tools import discuss, jwt
-from odoo.addons.mail.tools.discuss import Store
+from loomworks import api, fields, models
+from loomworks.addons.mail.tools import discuss, jwt
+from loomworks.addons.mail.tools.discuss import Store
 
 _logger = logging.getLogger(__name__)
 

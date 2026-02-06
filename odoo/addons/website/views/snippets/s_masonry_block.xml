@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
 <!-- Template to fill with the chosen view -->
 <template id="s_masonry_block" name="Masonry">
@@ -331,4 +331,4 @@
     <path>website/static/src/snippets/s_masonry_block/000_variables.scss</path>
 </asset>
 
-</odoo>
+</loomworks>

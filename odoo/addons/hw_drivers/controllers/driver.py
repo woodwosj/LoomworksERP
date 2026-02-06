@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from base64 import b64decode
 from datetime import datetime
@@ -12,11 +12,11 @@ import time
 from werkzeug.exceptions import InternalServerError
 from zlib import adler32
 
-from odoo import http, tools
+from loomworks import http, tools
 
-from odoo.addons.hw_drivers.event_manager import event_manager
-from odoo.addons.hw_drivers.main import iot_devices, manager
-from odoo.addons.hw_drivers.tools import helpers
+from loomworks.addons.hw_drivers.event_manager import event_manager
+from loomworks.addons.hw_drivers.main import iot_devices, manager
+from loomworks.addons.hw_drivers.tools import helpers
 
 _logger = logging.getLogger(__name__)
 

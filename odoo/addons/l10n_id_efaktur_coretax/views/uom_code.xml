@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <record id="uom_code_list" model="ir.ui.view">
         <field name="name">uom.code.list</field>
@@ -12,4 +12,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

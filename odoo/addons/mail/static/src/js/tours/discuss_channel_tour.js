@@ -4,7 +4,7 @@ import { registry } from "@web/core/registry";
 import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add("discuss_channel_tour", {
-    url: "/odoo",
+    url: "/loomworks",
     steps: () => [
         {
             isActive: ["enterprise"],

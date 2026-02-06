@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import PaymentForm from '@payment/js/payment_form';
 

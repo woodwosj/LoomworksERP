@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from markupsafe import Markup
 
-from odoo.tests.common import TransactionCase, users
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.exceptions import AccessError
-from odoo.tests import tagged
-from odoo.tools import mute_logger, convert_file
+from loomworks.tests.common import TransactionCase, users
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.exceptions import AccessError
+from loomworks.tests import tagged
+from loomworks.tools import mute_logger, convert_file
 
 
 @tagged('post_install', '-at_install')
@@ -35,7 +35,7 @@ class TestSmsTemplateAccessRights(TransactionCase):
         cls.partner = cls.env['res.partner'].create({'name': 'Test Partner'})
 
     @users('user_employee')
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     def test_access_rights_user(self):
         # Check if a member of group_user can only read on sms.template
         for sms_template in self.env['sms.template'].browse(self.sms_templates.ids):
@@ -52,7 +52,7 @@ class TestSmsTemplateAccessRights(TransactionCase):
                 sms_template.unlink()
 
     @users('user_system')
-    @mute_logger('odoo.models.unlink', 'odoo.addons.base.models.ir_model')
+    @mute_logger('loomworks.models.unlink', 'loomworks.addons.base.models.ir_model')
     def test_access_rights_system(self):
         admin = self.env.ref('base.user_admin')
         for sms_template in self.env['sms.template'].browse(self.sms_templates.ids):

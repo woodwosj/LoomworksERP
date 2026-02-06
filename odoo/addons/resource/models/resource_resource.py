@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 from dateutil.relativedelta import relativedelta
 from pytz import timezone
 
-from odoo import api, fields, models
-from odoo.addons.base.models.res_partner import _tz_get
+from loomworks import api, fields, models
+from loomworks.addons.base.models.res_partner import _tz_get
 
 from .utils import timezone_datetime, make_aware, Intervals
 

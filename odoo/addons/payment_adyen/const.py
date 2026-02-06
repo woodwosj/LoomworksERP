@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 # Endpoints of the API.
 # See https://docs.adyen.com/api-explorer/#/CheckoutService/v70/overview for Checkout API

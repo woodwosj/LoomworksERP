@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import time
 from freezegun import freeze_time
 from datetime import datetime
 from unittest.mock import patch
 
-import odoo
-from odoo import fields, tools
-from odoo.fields import Command
-from odoo.tools import float_compare, mute_logger, test_reports
-from odoo.tests import Form
-from odoo.addons.point_of_sale.tests.common import TestPointOfSaleCommon
-from odoo.addons.point_of_sale.tests.common_setup_methods import setup_product_combo_items
-from odoo.exceptions import UserError, ValidationError
+import loomworks
+from loomworks import fields, tools
+from loomworks.fields import Command
+from loomworks.tools import float_compare, mute_logger, test_reports
+from loomworks.tests import Form
+from loomworks.addons.point_of_sale.tests.common import TestPointOfSaleCommon
+from loomworks.addons.point_of_sale.tests.common_setup_methods import setup_product_combo_items
+from loomworks.exceptions import UserError, ValidationError
 
 
-@odoo.tests.tagged('post_install', '-at_install')
+@loomworks.tests.tagged('post_install', '-at_install')
 class TestPointOfSaleFlow(TestPointOfSaleCommon):
 
     @classmethod

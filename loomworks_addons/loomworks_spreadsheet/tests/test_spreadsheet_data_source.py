@@ -5,8 +5,8 @@
 Tests for Spreadsheet Data Source Model.
 """
 
-from odoo.tests.common import TransactionCase
-from odoo.exceptions import UserError
+from loomworks.tests.common import TransactionCase
+from loomworks.exceptions import UserError
 
 
 class TestSpreadsheetDataSource(TransactionCase):

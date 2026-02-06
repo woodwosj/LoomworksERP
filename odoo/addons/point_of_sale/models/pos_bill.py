@@ -1,6 +1,6 @@
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.osv.expression import OR
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
+from loomworks.osv.expression import OR
 
 
 class Bill(models.Model):

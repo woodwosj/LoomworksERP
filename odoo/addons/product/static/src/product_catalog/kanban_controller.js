@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { KanbanController } from "@web/views/kanban/kanban_controller";
 import { onWillStart } from "@odoo/owl";

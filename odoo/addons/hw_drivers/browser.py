@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import logging
 import subprocess
 from enum import Enum
-from odoo.addons.hw_drivers.tools import helpers
+from loomworks.addons.hw_drivers.tools import helpers
 
 
 _logger = logging.getLogger(__name__)

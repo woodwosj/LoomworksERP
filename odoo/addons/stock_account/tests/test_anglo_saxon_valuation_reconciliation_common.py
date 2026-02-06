@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from freezegun import freeze_time
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import tagged
-from odoo import fields
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import tagged
+from loomworks import fields
 
 
 class ValuationReconciliationTestCommon(AccountTestInvoicingCommon):

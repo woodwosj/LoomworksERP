@@ -2,8 +2,8 @@ from datetime import date
 
 from freezegun import freeze_time
 
-from odoo.exceptions import UserError
-from odoo.tests import Form, tagged
+from loomworks.exceptions import UserError
+from loomworks.tests import Form, tagged
 
 from .common import TestEsEdiCommon, mocked_l10n_es_edi_call_web_service_sign
 

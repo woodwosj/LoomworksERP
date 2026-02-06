@@ -1,7 +1,7 @@
-from odoo.exceptions import ValidationError
-from odoo.tests import Form, tagged
+from loomworks.exceptions import ValidationError
+from loomworks.tests import Form, tagged
 
-from odoo.addons.mrp_subcontracting.tests.common import TestMrpSubcontractingCommon
+from loomworks.addons.mrp_subcontracting.tests.common import TestMrpSubcontractingCommon
 
 
 @tagged('post_install', '-at_install')

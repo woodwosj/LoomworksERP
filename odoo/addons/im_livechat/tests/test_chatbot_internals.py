@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-from odoo.addons.im_livechat.tests import chatbot_common
-from odoo.exceptions import ValidationError
-from odoo.tests.common import tagged, new_test_user
+from loomworks import Command
+from loomworks.addons.im_livechat.tests import chatbot_common
+from loomworks.exceptions import ValidationError
+from loomworks.tests.common import tagged, new_test_user
 
 @tagged("post_install", "-at_install")
 class ChatbotCase(chatbot_common.ChatbotCase):
@@ -235,7 +235,7 @@ class ChatbotCase(chatbot_common.ChatbotCase):
             },
         ])
         action = self.env.ref('im_livechat.chatbot_script_action')
-        self.start_tour(f"/odoo/action-{action.id}", 'change_chatbot_step_type', login='admin')
+        self.start_tour(f"/loomworks/action-{action.id}", 'change_chatbot_step_type', login='admin')
         self.assertFalse(step.answer_ids, "Answers were not cleared after step_type was changed.")
         self.assertFalse(step_2.triggering_answer_ids, "Step 2 still has stale triggering answers.")
         self.assertFalse(step_3.triggering_answer_ids, "Step 3 still has stale triggering answers.")

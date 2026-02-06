@@ -22,8 +22,8 @@ References:
 - design.md: Decision 2 - Snapshot Strategy
 """
 
-from odoo import api, models, fields
-from odoo.exceptions import UserError, ValidationError
+from loomworks import api, models, fields
+from loomworks.exceptions import UserError, ValidationError
 import logging
 
 _logger = logging.getLogger(__name__)

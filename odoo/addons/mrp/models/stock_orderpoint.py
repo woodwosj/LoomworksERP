@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models
-from odoo.tools.float_utils import float_is_zero
-from odoo.osv.expression import AND
+from loomworks import _, api, fields, models
+from loomworks.tools.float_utils import float_is_zero
+from loomworks.osv.expression import AND
 from dateutil.relativedelta import relativedelta
 from datetime import datetime, time
 
@@ -32,7 +32,7 @@ class StockWarehouseOrderpoint(models.Model):
                     'message': '%s',
                     'links': [{
                         'label': production.name,
-                        'url': f'/odoo/action-mrp.action_mrp_production_form/{production.id}'
+                        'url': f'/loomworks/action-mrp.action_mrp_production_form/{production.id}'
                     }],
                     'sticky': False,
                     'next': {'type': 'ir.actions.act_window_close'},

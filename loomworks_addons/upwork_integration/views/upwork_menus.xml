@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
 
     <!-- ============================================================ -->
     <!-- Window Actions                                                -->
@@ -151,4 +151,4 @@ action = records.action_create_invoices()
         action="action_upwork_account"
         sequence="90"/>
 
-</odoo>
+</loomworks>

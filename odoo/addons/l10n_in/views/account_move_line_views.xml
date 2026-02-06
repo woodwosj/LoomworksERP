@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="view_move_line_tree_hsn_l10n_in" model="ir.ui.view">
         <field name="name">account.move.line.list.l10n_in</field>
         <field name="model">account.move.line</field>
@@ -11,4 +11,4 @@
             </list>
         </field>
     </record>
-</odoo>
+</loomworks>

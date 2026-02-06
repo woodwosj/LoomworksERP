@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Component, useEffect, useRef, useState } from "@odoo/owl";
 import { usePosition } from "@web/core/position/position_hook";

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
         <xpath expr="//t[@t-set='address']" position="after">
             <t t-set="din5008_address_block">
@@ -33,4 +33,4 @@
             </t>
         </xpath>
     </template>
-</odoo>
+</loomworks>

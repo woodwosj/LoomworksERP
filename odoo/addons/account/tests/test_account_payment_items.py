@@ -2,8 +2,8 @@
 from datetime import date, datetime, timedelta
 from freezegun import freeze_time
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import tagged
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import tagged
 
 @tagged('post_install', '-at_install')
 class TestAccountPaymentItems(AccountTestInvoicingCommon):

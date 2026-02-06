@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 import selectors
 import threading
 
-import odoo
-from odoo.tests import TransactionCase
+import loomworks
+from loomworks.tests import TransactionCase
 
 from ..models.bus import json_dump, get_notify_payloads, NOTIFY_PAYLOAD_MAX_LENGTH, ODOO_NOTIFY_FUNCTION
 
@@ -64,7 +64,7 @@ class NotifyTests(TransactionCase):
         def single_listen():
             nonlocal channels
             with (
-                odoo.sql_db.db_connect("postgres").cursor() as cr,
+                loomworks.sql_db.db_connect("postgres").cursor() as cr,
                 selectors.DefaultSelector() as sel,
             ):
                 cr.execute("listen imbus")

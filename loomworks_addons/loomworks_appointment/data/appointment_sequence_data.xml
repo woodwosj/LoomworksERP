@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
+<loomworks noupdate="1">
 
     <record id="sequence_appointment_booking" model="ir.sequence">
         <field name="name">Appointment Booking</field>
@@ -9,4 +9,4 @@
         <field name="company_id" eval="False"/>
     </record>
 
-</odoo>
+</loomworks>

@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { ExpenseDashboard } from '../components/expense_dashboard';
 import { ExpenseMobileQRCode } from '../mixins/qrcode';

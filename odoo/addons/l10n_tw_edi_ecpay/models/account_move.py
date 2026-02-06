@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import re
@@ -6,10 +6,10 @@ import uuid
 
 from urllib.parse import urljoin
 
-from odoo import api, fields, models
-from odoo.addons.l10n_tw_edi_ecpay.utils import call_ecpay_api, transfer_time, convert_utc_time_to_tw_time
-from odoo.exceptions import UserError
-from odoo.tools import float_round
+from loomworks import api, fields, models
+from loomworks.addons.l10n_tw_edi_ecpay.utils import call_ecpay_api, transfer_time, convert_utc_time_to_tw_time
+from loomworks.exceptions import UserError
+from loomworks.tools import float_round
 
 
 class AccountMove(models.Model):

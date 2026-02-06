@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import publicWidget from '@web/legacy/js/public/public_widget';
 import { deserializeDateTime } from "@web/core/l10n/dates";

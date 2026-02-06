@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import api, SUPERUSER_ID
-from odoo.tools import SQL
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import api, SUPERUSER_ID
+from loomworks.tools import SQL
 
 
 def _get_tax_ids_for_xml_id(env, xml_id):

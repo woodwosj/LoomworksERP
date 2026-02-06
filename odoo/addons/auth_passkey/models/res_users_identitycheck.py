@@ -1,6 +1,6 @@
-from odoo import api, fields, _
-from odoo.exceptions import UserError, AccessDenied
-from odoo.addons.base.models.res_users import CheckIdentity
+from loomworks import api, fields, _
+from loomworks.exceptions import UserError, AccessDenied
+from loomworks.addons.base.models.res_users import CheckIdentity
 
 
 class CheckIdentityPasskeys(CheckIdentity):

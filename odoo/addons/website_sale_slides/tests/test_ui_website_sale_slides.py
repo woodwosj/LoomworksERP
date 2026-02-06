@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, tests
-from odoo.addons.website_slides.tests import test_ui_wslides
+from loomworks import fields, tests
+from loomworks.addons.website_slides.tests import test_ui_wslides
 
 
 @tests.common.tagged('post_install', '-at_install')

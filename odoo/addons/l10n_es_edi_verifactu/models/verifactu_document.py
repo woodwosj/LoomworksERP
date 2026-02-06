@@ -9,12 +9,12 @@ import math
 import requests.exceptions
 import json
 
-from odoo import _, api, fields, models
-from odoo.addons.certificate.tools import CertificateAdapter
-from odoo.exceptions import UserError
-from odoo.tools import float_repr, float_round, frozendict, zeep
+from loomworks import _, api, fields, models
+from loomworks.addons.certificate.tools import CertificateAdapter
+from loomworks.exceptions import UserError
+from loomworks.tools import float_repr, float_round, frozendict, zeep
 
-import odoo.release
+import loomworks.release
 
 _logger = logging.getLogger(__name__)
 
@@ -332,7 +332,7 @@ class L10nEsEdiVerifactuDocument(models.Model):
             errors.append(_("The record is Veri*Factu registered already."))
         # We currently do not support cancelling records that are not registered or were registered outside odoo.
         if vals['cancellation'] and not verifactu_registered:
-            errors.append(_("The cancelled record is not Veri*Factu registered (inside Odoo)."))
+            errors.append(_("The cancelled record is not Veri*Factu registered (inside Loomworks ERP)."))
 
         certificate = vals['company'].sudo()._l10n_es_edi_verifactu_get_certificate()
         if not certificate:
@@ -819,7 +819,7 @@ class L10nEsEdiVerifactuDocument(models.Model):
                 },
                 'NombreSistemaInformatico': 'Odoo',
                 'IdSistemaInformatico': '00',  # identifies Odoo the software as product of Odoo the company
-                'Version': odoo.release.version,
+                'Version': loomworks.release.version,
                 'NumeroInstalacion':  self._get_db_identifier(),
                 'TipoUsoPosibleSoloVerifactu': 'S',
                 'TipoUsoPosibleMultiOT': 'S',

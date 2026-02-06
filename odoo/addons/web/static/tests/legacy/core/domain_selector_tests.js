@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/core/domain_selector_tests default=false */
+/** @loomworks-module alias=@web/../tests/core/domain_selector_tests default=false */
 
 import {
     SELECTORS as treeEditorSELECTORS,

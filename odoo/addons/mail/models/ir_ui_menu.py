@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import contextlib
 
-from odoo import api, models
-from odoo.exceptions import AccessError
+from loomworks import api, models
+from loomworks.exceptions import AccessError
 
 
 class IrUiMenu(models.Model):

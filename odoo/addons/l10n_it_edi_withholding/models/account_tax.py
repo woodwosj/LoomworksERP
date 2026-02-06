@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from loomworks import _, api, fields, models
+from loomworks.exceptions import ValidationError
 
 WITHHOLDING_TYPE_SELECTION = [
     ('RT01', '[RT01] Withholding for persons'),

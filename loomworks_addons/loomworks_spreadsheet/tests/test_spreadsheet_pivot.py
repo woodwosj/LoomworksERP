@@ -5,7 +5,7 @@
 Tests for Spreadsheet Pivot Table Model.
 """
 
-from odoo.tests.common import TransactionCase
+from loomworks.tests.common import TransactionCase
 
 
 class TestSpreadsheetPivot(TransactionCase):

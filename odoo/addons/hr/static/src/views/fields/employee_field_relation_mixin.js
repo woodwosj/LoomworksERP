@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { onWillStart } from "@odoo/owl";
 import { user } from "@web/core/user";

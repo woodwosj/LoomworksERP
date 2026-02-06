@@ -1,7 +1,7 @@
 from collections import defaultdict
 
-from odoo import api, fields, models
-from odoo.tools import frozendict
+from loomworks import api, fields, models
+from loomworks.tools import frozendict
 
 
 

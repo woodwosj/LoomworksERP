@@ -11,12 +11,12 @@ import time
 from psycopg2 import InterfaceError
 from psycopg2.pool import PoolError
 
-import odoo
+import loomworks
 from ..tools import orjson
-from odoo import api, fields, models
-from odoo.service.server import CommonServer
-from odoo.tools import json_default, SQL
-from odoo.tools.misc import OrderedSet
+from loomworks import api, fields, models
+from loomworks.service.server import CommonServer
+from loomworks.tools import json_default, SQL
+from loomworks.tools.misc import OrderedSet
 
 _logger = logging.getLogger(__name__)
 
@@ -152,7 +152,7 @@ class ImBus(models.Model):
                         "The imbus notification payload was too large, it's been split into %d payloads.",
                         len(payloads),
                     )
-                with odoo.sql_db.db_connect("postgres").cursor() as cr:
+                with loomworks.sql_db.db_connect("postgres").cursor() as cr:
                     for payload in payloads:
                         cr.execute(
                             SQL(
@@ -233,7 +233,7 @@ class ImDispatch(threading.Thread):
     def loop(self):
         """ Dispatch postgres notifications to the relevant websockets """
         _logger.info("Bus.loop listen imbus on db postgres")
-        with odoo.sql_db.db_connect('postgres').cursor() as cr, \
+        with loomworks.sql_db.db_connect('postgres').cursor() as cr, \
              selectors.DefaultSelector() as sel:
             cr.execute("listen imbus")
             cr.commit()

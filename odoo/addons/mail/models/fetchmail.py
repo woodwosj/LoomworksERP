@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import imaplib
 import logging
@@ -11,8 +11,8 @@ from poplib import POP3, POP3_SSL
 from socket import gaierror, timeout
 from ssl import SSLError
 
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import UserError, ValidationError
+from loomworks import api, fields, models, tools, _
+from loomworks.exceptions import UserError, ValidationError
 
 
 _logger = logging.getLogger(__name__)

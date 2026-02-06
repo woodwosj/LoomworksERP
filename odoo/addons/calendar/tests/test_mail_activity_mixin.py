@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, time
 from dateutil.relativedelta import relativedelta
 
 import pytz
 
-from odoo import Command
-from odoo import tests
-from odoo.addons.mail.tests.common import MailCommon
+from loomworks import Command
+from loomworks import tests
+from loomworks.addons.mail.tests.common import MailCommon
 
 
 @tests.tagged('mail_activity_mixin')

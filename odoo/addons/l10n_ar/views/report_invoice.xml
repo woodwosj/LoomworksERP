@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <!-- this header can be used on any Argentinean report, to be useful some variables should be passed -->
     <template id="custom_header">
@@ -312,4 +312,4 @@
                t-lang="lang"/>
         </xpath>
     </template>
-</odoo>
+</loomworks>

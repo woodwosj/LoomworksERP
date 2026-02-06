@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import pytz
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 from uuid import uuid4
 
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import ValidationError
+from loomworks import api, fields, models, tools, _
+from loomworks.exceptions import ValidationError
 
-from odoo.addons.google_calendar.utils.google_calendar import GoogleCalendarService
+from loomworks.addons.google_calendar.utils.google_calendar import GoogleCalendarService
 
 class Meeting(models.Model):
     _name = 'calendar.event'

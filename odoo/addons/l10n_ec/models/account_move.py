@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.l10n_ec.models.res_partner import PartnerIdTypeEc
-from odoo import fields, models, api
+from loomworks.addons.l10n_ec.models.res_partner import PartnerIdTypeEc
+from loomworks import fields, models, api
 
 _DOCUMENTS_MAPPING = {
     "01": [

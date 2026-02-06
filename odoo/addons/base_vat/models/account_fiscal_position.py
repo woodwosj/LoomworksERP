@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, models, _
-from odoo.exceptions import ValidationError
+from loomworks import api, models, _
+from loomworks.exceptions import ValidationError
 
 
 class AccountFiscalPosition(models.Model):

@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 /**
  * Returns a function, that, as long as it continues to be invoked, will not

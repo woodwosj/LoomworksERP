@@ -1,9 +1,9 @@
 from datetime import timedelta
 
-from odoo import fields
-from odoo.exceptions import UserError
-from odoo.tests import tagged
-from odoo.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
+from loomworks import fields
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
+from loomworks.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

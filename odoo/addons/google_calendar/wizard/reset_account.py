@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models
+from loomworks import fields, models
 
-from odoo.addons.google_calendar.models.google_sync import google_calendar_token
-from odoo.addons.google_calendar.utils.google_calendar import GoogleCalendarService
+from loomworks.addons.google_calendar.models.google_sync import google_calendar_token
+from loomworks.addons.google_calendar.utils.google_calendar import GoogleCalendarService
 
 
 class ResetGoogleAccount(models.TransientModel):
@@ -15,7 +15,7 @@ class ResetGoogleAccount(models.TransientModel):
     delete_policy = fields.Selection(
         [('dont_delete', "Leave them untouched"),
          ('delete_google', "Delete from the current Google Calendar account"),
-         ('delete_odoo', "Delete from Odoo"),
+         ('delete_odoo', "Delete from Loomworks"),
          ('delete_both', "Delete from both"),
         ], string="User's Existing Events", required=True, default='dont_delete',
         help="This will only affect events for which the user is the owner")

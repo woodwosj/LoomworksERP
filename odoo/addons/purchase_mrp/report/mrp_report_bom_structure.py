@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models
-from odoo.tools import float_compare
+from loomworks import api, models
+from loomworks.tools import float_compare
 
 class ReportBomStructure(models.AbstractModel):
     _inherit = 'report.mrp.report_bom_structure'

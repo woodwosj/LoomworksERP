@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-from odoo.tests.common import TransactionCase, new_test_user
+from loomworks import Command
+from loomworks.tests.common import TransactionCase, new_test_user
 
 class DashboardTestCommon(TransactionCase):
     @classmethod

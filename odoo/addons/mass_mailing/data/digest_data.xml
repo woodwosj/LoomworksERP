@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <template id="digest_mail_main" inherit_id="digest.digest_mail_main">
             <xpath expr="//div[hasclass('by_odoo')]/t[last()]" position="after">
@@ -13,4 +13,4 @@
             </xpath>
         </template>
     </data>
-</odoo>
+</loomworks>

@@ -3,7 +3,7 @@
     Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
     License: LGPL-3
 -->
-<odoo>
+<loomworks>
 
     <!-- AI Manager Group -->
     <record id="group_ai_user" model="res.groups">
@@ -90,4 +90,4 @@
         <field name="groups" eval="[(4, ref('group_ai_manager'))]"/>
     </record>
 
-</odoo>
+</loomworks>

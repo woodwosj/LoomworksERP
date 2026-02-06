@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
-from odoo.tests import tagged
-from odoo import Command
+from loomworks.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
+from loomworks.tests import tagged
+from loomworks import Command
 
 
 @tagged('post_install', '-at_install')

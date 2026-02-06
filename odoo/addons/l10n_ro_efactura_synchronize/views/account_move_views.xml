@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="account_move_form_inherit_l10n_ro_synchronize" model="ir.ui.view">
         <field name="name">account.move.form.inherit.l10n_ro_edi</field>
         <field name="model">account.move</field>
@@ -16,4 +16,4 @@
             </xpath>
         </field>
     </record>
-</odoo>
+</loomworks>

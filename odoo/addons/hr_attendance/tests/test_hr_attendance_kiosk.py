@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo.tests.common import tagged, HttpCase
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks.tests.common import tagged, HttpCase
 from unittest.mock import patch
-from odoo.http import Request
+from loomworks.http import Request
 
 
 @tagged('post_install', '-at_install', 'hr_attendance_overtime')

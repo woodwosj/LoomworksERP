@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import timedelta
 from freezegun import freeze_time
 
-from odoo import Command, fields
-from odoo.tests import Form
-from odoo.addons.mrp.tests.common import TestMrpCommon
-from odoo.exceptions import UserError
+from loomworks import Command, fields
+from loomworks.tests import Form
+from loomworks.addons.mrp.tests.common import TestMrpCommon
+from loomworks.exceptions import UserError
 
 
 class TestProcurement(TestMrpCommon):

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.mass_mailing_sms.tests.common import MassSMSCommon
-from odoo.tests import Form, users
+from loomworks.addons.mass_mailing_sms.tests.common import MassSMSCommon
+from loomworks.tests import Form, users
 
 
 class TestMailingListSms(MassSMSCommon):

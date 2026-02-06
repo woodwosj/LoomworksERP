@@ -3,7 +3,7 @@ import re
 
 from stdnum.eu.vat import check_vies
 
-from odoo import api, fields, models, _
+from loomworks import api, fields, models, _
 
 _logger = logging.getLogger(__name__)
 

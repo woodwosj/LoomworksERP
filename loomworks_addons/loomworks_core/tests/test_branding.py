@@ -6,7 +6,7 @@
 # Loomworks modifications copyright: Loomworks
 # License: LGPL-3
 
-from odoo.tests import TransactionCase, tagged
+from loomworks.tests import TransactionCase, tagged
 
 
 @tagged('post_install', '-at_install')

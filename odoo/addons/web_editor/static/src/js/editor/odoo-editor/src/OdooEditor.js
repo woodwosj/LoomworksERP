@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import './commands/deleteBackward.js';
 import './commands/deleteForward.js';

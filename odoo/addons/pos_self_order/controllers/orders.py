@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import re
 from datetime import timedelta
-from odoo import http, fields, _
-from odoo.http import request
-from odoo.tools import float_round
-from odoo.osv import expression
+from loomworks import http, fields, _
+from loomworks.http import request
+from loomworks.tools import float_round
+from loomworks.osv import expression
 from werkzeug.exceptions import NotFound, BadRequest, Unauthorized
-from odoo.exceptions import MissingError
-from odoo.tools import consteq
+from loomworks.exceptions import MissingError
+from loomworks.tools import consteq
 
 class PosSelfOrderController(http.Controller):
     @http.route("/pos-self-order/process-order/<device_type>/", auth="public", type="json", website=True)

@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import fields
-from odoo.tests import Form
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import fields
+from loomworks.tests import Form
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
 import random
 import logging
 import time

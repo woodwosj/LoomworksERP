@@ -1,6 +1,6 @@
-from odoo import fields
-from odoo.tests import Form, freeze_time, tagged
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks import fields
+from loomworks.tests import Form, freeze_time, tagged
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

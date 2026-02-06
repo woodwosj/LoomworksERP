@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import api, models
-from odoo.osv.expression import AND
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import api, models
+from loomworks.osv.expression import AND
 
 
 class SingleEmployeeSalesReport(models.AbstractModel):

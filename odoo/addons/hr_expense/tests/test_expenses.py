@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 from datetime import date
 
 from freezegun import freeze_time
 
-from odoo import Command, fields
-from odoo.addons.hr_expense.tests.common import TestExpenseCommon
-from odoo.exceptions import UserError, ValidationError
-from odoo.tests import tagged, Form
-from odoo.tools.misc import format_date
+from loomworks import Command, fields
+from loomworks.addons.hr_expense.tests.common import TestExpenseCommon
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tests import tagged, Form
+from loomworks.tools.misc import format_date
 
 
 @tagged('-at_install', 'post_install')

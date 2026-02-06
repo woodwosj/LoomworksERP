@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="view_partner_form_l10n_tr_nilvera_extended" model="ir.ui.view">
             <field name="name">view.partner.form.inherit.l10n_tr_nilvera_extended</field>
@@ -12,4 +12,4 @@
             </field>
         </record>
     </data>
-</odoo>
+</loomworks>

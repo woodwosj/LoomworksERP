@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 from freezegun import freeze_time
 
-from odoo.tests import HttpCase, tagged
-from odoo.addons.bus.models.bus import DEFAULT_GC_RETENTION_SECONDS
+from loomworks.tests import HttpCase, tagged
+from loomworks.addons.bus.models.bus import DEFAULT_GC_RETENTION_SECONDS
 
 
 @tagged("-at_install", "post_install")

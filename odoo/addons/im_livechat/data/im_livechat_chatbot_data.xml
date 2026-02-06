@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<odoo><data noupdate="1">
+<loomworks><data noupdate="1">
 
     <!--
         This provides a working chatbot for people to work with.
@@ -100,4 +100,4 @@
         <field name="triggering_answer_ids" eval="[(4, ref('chatbot_script_welcome_step_dispatch_answer_just_looking'))]"/>
     </record>
 
-</data></odoo>
+</data></loomworks>

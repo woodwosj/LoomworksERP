@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from werkzeug.exceptions import NotFound
 
-from odoo import http
-from odoo.http import request
-from odoo.addons.mail.models.discuss.mail_guest import add_guest_to_context
+from loomworks import http
+from loomworks.http import request
+from loomworks.addons.mail.models.discuss.mail_guest import add_guest_to_context
 
 
 class GuestController(http.Controller):

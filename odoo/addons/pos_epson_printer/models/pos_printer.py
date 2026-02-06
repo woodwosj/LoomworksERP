@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from base64 import b32encode
 from hashlib import sha256
-from odoo import fields, models, api, _
-from odoo.exceptions import ValidationError
+from loomworks import fields, models, api, _
+from loomworks.exceptions import ValidationError
 
 
 def format_epson_certified_domain(serial_number):

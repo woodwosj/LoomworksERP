@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import contextlib
 
-from odoo import _, models, SUPERUSER_ID
-from odoo.exceptions import AccessError, MissingError, UserError
-from odoo.tools import consteq
-from odoo.addons.mail.tools.discuss import Store
+from loomworks import _, models, SUPERUSER_ID
+from loomworks.exceptions import AccessError, MissingError, UserError
+from loomworks.tools import consteq
+from loomworks.addons.mail.tools.discuss import Store
 
 
 class IrAttachment(models.Model):

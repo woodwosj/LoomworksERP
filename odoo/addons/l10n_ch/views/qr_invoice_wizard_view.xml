@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo>
+<loomworks>
     <record id="l10n_ch_qr_invoice_wizard_form" model="ir.ui.view">
         <field name="name">l10n_ch.qr_invoice.wizard.form</field>
         <field name="model">l10n_ch.qr_invoice.wizard</field>
@@ -32,4 +32,4 @@
         <field name="view_id" ref="l10n_ch_qr_invoice_wizard_form"/>
         <field name="target">new</field>
     </record>
-</odoo>
+</loomworks>

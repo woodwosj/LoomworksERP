@@ -3,8 +3,8 @@ import base64
 from pytz import timezone
 from datetime import datetime
 
-from odoo.tools import misc
-from odoo.addons.account_edi.tests.common import AccountEdiTestCommon
+from loomworks.tools import misc
+from loomworks.addons.account_edi.tests.common import AccountEdiTestCommon
 
 
 def mocked_l10n_es_edi_call_web_service_sign(edi_format, invoices, info_list):

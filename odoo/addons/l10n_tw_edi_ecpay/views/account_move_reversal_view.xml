@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="view_account_move_reversal_inherit_ecpay" model="ir.ui.view">
             <field name="name">ec_account_invoice_refund_form_inherit</field>
@@ -16,4 +16,4 @@
             </field>
         </record>
     </data>
-</odoo>
+</loomworks>

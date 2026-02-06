@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import './spec/utils.test.js';
 import './spec/align.test.js';

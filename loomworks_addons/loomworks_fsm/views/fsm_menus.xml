@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <!-- Main FSM Menu -->
     <menuitem id="menu_fsm_root"
               name="Field Service"
@@ -103,4 +103,4 @@
               parent="menu_fsm_reports"
               action="action_fsm_task_analysis"
               sequence="10"/>
-</odoo>
+</loomworks>

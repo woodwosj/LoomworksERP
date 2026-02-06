@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from hashlib import sha1
 
 from werkzeug import urls
 
-from odoo import fields, models
+from loomworks import fields, models
 
-from odoo.addons.payment_buckaroo import const
+from loomworks.addons.payment_buckaroo import const
 
 
 class PaymentProvider(models.Model):

@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { _t } from "@web/core/l10n/translation";
 
@@ -1260,7 +1260,7 @@ export class WysiwygAdapterComponent extends Wysiwyg {
         } else if (event.data.reloadWebClient) {
             const currentPath = encodeURIComponent(window.location.pathname);
             const websiteId = this.websiteService.currentWebsite.id;
-            callback = () => redirect(`/odoo/action-website.website_preview?website_id=${encodeURIComponent(websiteId)}&path=${currentPath}&enable_editor=1`);
+            callback = () => redirect(`/loomworks/action-website.website_preview?website_id=${encodeURIComponent(websiteId)}&path=${currentPath}&enable_editor=1`);
         } else if (event.data.action) {
             callback = () => {
                 this.leaveEditMode({

@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 
-from odoo.exceptions import ValidationError
-from odoo.http import request, route
+from loomworks.exceptions import ValidationError
+from loomworks.http import request, route
 
-from odoo.addons.base.models.ir_qweb_fields import nl2br_enclose
-from odoo.addons.website.controllers import main
-from odoo.addons.website.controllers.form import WebsiteForm
+from loomworks.addons.base.models.ir_qweb_fields import nl2br_enclose
+from loomworks.addons.website.controllers import main
+from loomworks.addons.website.controllers.form import WebsiteForm
 
 
 class WebsiteSaleForm(WebsiteForm):

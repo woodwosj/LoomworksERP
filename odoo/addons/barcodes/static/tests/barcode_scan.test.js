@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { expect, test } from "@odoo/hoot";
 import { waitFor } from "@odoo/hoot-dom";

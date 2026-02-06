@@ -6,8 +6,8 @@
 # Loomworks modifications copyright: Loomworks
 # License: LGPL-3
 
-from odoo import models, fields, api
-from odoo.exceptions import UserError
+from loomworks import models, fields, api
+from loomworks.exceptions import UserError
 
 
 class AIAgent(models.Model):
@@ -72,7 +72,7 @@ class AIAgent(models.Model):
         'agent_id',
         'model_id',
         string='Allowed Models',
-        help='Odoo models this agent can access. Empty = all accessible models.'
+        help='Loomworks models this agent can access. Empty = all accessible models.'
     )
     blocked_model_ids = fields.Many2many(
         'ir.model',
@@ -80,7 +80,7 @@ class AIAgent(models.Model):
         'agent_id',
         'model_id',
         string='Blocked Models',
-        help='Odoo models this agent cannot access (overrides allowed)'
+        help='Loomworks models this agent cannot access (overrides allowed)'
     )
 
     # Permission Settings

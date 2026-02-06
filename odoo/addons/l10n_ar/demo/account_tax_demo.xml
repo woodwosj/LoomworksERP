@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
      <function model="account.tax" name="write">
         <value model="account.tax" eval="ref('account.%s_base_tax_impuestos_internos' % ref('base.company_ri'))"/>
@@ -11,5 +11,5 @@
         <value eval="{'amount': 100.0, 'amount_type': 'fixed'}"/>
     </function>
 
-</odoo>
+</loomworks>
 

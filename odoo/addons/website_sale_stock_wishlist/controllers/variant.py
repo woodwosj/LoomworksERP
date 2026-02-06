@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.http import request, route
+from loomworks.http import request, route
 
-from odoo.addons.website_sale.controllers.variant import WebsiteSaleVariantController
+from loomworks.addons.website_sale.controllers.variant import WebsiteSaleVariantController
 
 
 class WebsiteSaleStockWishlistVariantController(WebsiteSaleVariantController):

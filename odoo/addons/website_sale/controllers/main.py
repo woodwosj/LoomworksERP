@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 
@@ -7,22 +7,22 @@ from datetime import datetime
 from werkzeug.exceptions import Forbidden, NotFound
 from werkzeug.urls import url_decode, url_encode, url_parse
 
-from odoo import fields
-from odoo.exceptions import ValidationError
-from odoo.fields import Command
-from odoo.http import request, route
-from odoo.osv import expression
-from odoo.tools import clean_context, float_round, groupby, lazy, single_email_re, str2bool, SQL
-from odoo.tools.image import image_data_uri
-from odoo.tools.json import scriptsafe as json_scriptsafe
-from odoo.tools.translate import _
+from loomworks import fields
+from loomworks.exceptions import ValidationError
+from loomworks.fields import Command
+from loomworks.http import request, route
+from loomworks.osv import expression
+from loomworks.tools import clean_context, float_round, groupby, lazy, single_email_re, str2bool, SQL
+from loomworks.tools.image import image_data_uri
+from loomworks.tools.json import scriptsafe as json_scriptsafe
+from loomworks.tools.translate import _
 
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.payment.controllers import portal as payment_portal
-from odoo.addons.portal.controllers.portal import _build_url_w_params
-from odoo.addons.sale.controllers import portal as sale_portal
-from odoo.addons.website.controllers.main import QueryURL
-from odoo.addons.website.models.ir_http import sitemap_qs2dom
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.payment.controllers import portal as payment_portal
+from loomworks.addons.portal.controllers.portal import _build_url_w_params
+from loomworks.addons.sale.controllers import portal as sale_portal
+from loomworks.addons.website.controllers.main import QueryURL
+from loomworks.addons.website.models.ir_http import sitemap_qs2dom
 
 
 class TableCompute:

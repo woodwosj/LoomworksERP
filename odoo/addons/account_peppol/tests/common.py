@@ -2,9 +2,9 @@ from contextlib import contextmanager
 from unittest.mock import patch
 from urllib.parse import parse_qs, quote_plus
 
-from odoo.tools import DotDict
+from loomworks.tools import DotDict
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
 
 ID_CLIENT = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.hr.tests.common import TestHrCommon
-from odoo.tools.misc import file_open
+from loomworks.addons.hr.tests.common import TestHrCommon
+from loomworks.tools.misc import file_open
 
 
 class TestRecruitmentProcess(TestHrCommon):

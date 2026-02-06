@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import fonts from '@web_editor/js/wysiwyg/fonts';
 import weUtils from '@web_editor/js/common/utils';

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="l10n_tr_nilvera_einvoice_extended_account_tax_code_view_list" model="ir.ui.view">
         <field name="name">l10n_tr_nilvera_einvoice_extended.account.tax.code.list</field>
         <field name="model">l10n_tr_nilvera_einvoice_extended.account.tax.code</field>
@@ -56,4 +56,4 @@
         parent="account.account_account_menu"
         sequence="9"
         groups="base.group_no_one"/>
-</odoo>
+</loomworks>

@@ -1,4 +1,4 @@
-/* @odoo-module */
+/* @loomworks-module */
 
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 import { patchWebsocketWorkerWithCleanup } from "@bus/../tests/helpers/mock_websocket";

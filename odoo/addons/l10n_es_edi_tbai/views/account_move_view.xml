@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="view_move_form_inherit_l10n_es_edi_tbai" model="ir.ui.view">
             <field name="name">account.move.form.inherit.l10n_es_edi_tbai</field>
@@ -56,4 +56,4 @@
             </field>
         </record>
     </data>
-</odoo>
+</loomworks>

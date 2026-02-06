@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import time
 import logging
-from odoo import api, models, Command
-from odoo.exceptions import UserError, ValidationError
+from loomworks import api, models, Command
+from loomworks.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
 

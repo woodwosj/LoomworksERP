@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
+from loomworks import api, fields, models, _
+from loomworks.exceptions import ValidationError
 
 class AccountAnalyticLine(models.Model):
     _inherit = 'account.analytic.line'

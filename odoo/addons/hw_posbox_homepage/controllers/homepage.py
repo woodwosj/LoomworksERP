@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import jinja2
 import json
@@ -11,13 +11,13 @@ import threading
 import time
 
 from pathlib import Path
-from odoo import http
-from odoo.addons.hw_drivers.tools import helpers
-from odoo.addons.hw_drivers.main import iot_devices
-from odoo.addons.web.controllers.home import Home
-from odoo.addons.hw_drivers.connection_manager import connection_manager
-from odoo.tools.misc import file_path
-from odoo.addons.hw_drivers.server_logger import (
+from loomworks import http
+from loomworks.addons.hw_drivers.tools import helpers
+from loomworks.addons.hw_drivers.main import iot_devices
+from loomworks.addons.web.controllers.home import Home
+from loomworks.addons.hw_drivers.connection_manager import connection_manager
+from loomworks.tools.misc import file_path
+from loomworks.addons.hw_drivers.server_logger import (
     check_and_update_odoo_config_log_to_server_option,
     get_odoo_config_log_to_server_option,
     close_server_log_sender_handler,
@@ -36,7 +36,7 @@ if hasattr(sys, 'frozen'):
     path = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'views'))
     loader = jinja2.FileSystemLoader(path)
 else:
-    loader = jinja2.PackageLoader('odoo.addons.hw_posbox_homepage', "views")
+    loader = jinja2.PackageLoader('loomworks.addons.hw_posbox_homepage', "views")
 
 jinja_env = jinja2.Environment(loader=loader, autoescape=True)
 jinja_env.filters["json"] = json.dumps
@@ -67,7 +67,7 @@ class IotBoxOwlHomePage(Home):
         helpers.odoo_restart(0)
         return json.dumps({
             'status': 'success',
-            'message': 'Odoo service restarted',
+            'message': 'Loomworks service restarted',
         })
 
     @http.route('/hw_posbox_homepage/iot_logs', auth='none', type='http', cors='*')
@@ -223,7 +223,7 @@ class IotBoxOwlHomePage(Home):
             'server': helpers.get_odoo_server_url(),
             'is_log_to_server_activated': get_odoo_config_log_to_server_option(),
             'root_logger_log_level': self._get_logger_effective_level_str(logging.getLogger()),
-            'odoo_current_log_level': self._get_logger_effective_level_str(logging.getLogger('odoo')),
+            'odoo_current_log_level': self._get_logger_effective_level_str(logging.getLogger('loomworks')),
             'recommended_log_level': 'warning',
             'available_log_levels': AVAILABLE_LOG_LEVELS,
             'drivers_logger_info': self._get_iot_handlers_logger(drivers_list, 'drivers'),

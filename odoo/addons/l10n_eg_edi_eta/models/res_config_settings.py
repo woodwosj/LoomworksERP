@@ -1,4 +1,4 @@
-from odoo import models, fields
+from loomworks import models, fields
 
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'

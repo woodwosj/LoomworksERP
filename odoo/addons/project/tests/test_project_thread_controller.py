@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo
-from odoo.addons.mail.tests.test_thread_controller import (
+import loomworks
+from loomworks.addons.mail.tests.test_thread_controller import (
     MessagePostSubTestData,
     TestThreadControllerCommon,
 )
 
 
-@odoo.tests.tagged("-at_install", "post_install")
+@loomworks.tests.tagged("-at_install", "post_install")
 class TestProjectThreadController(TestThreadControllerCommon):
     def test_message_post_partner_ids_project(self):
         """Test partner_ids of message_post for task.

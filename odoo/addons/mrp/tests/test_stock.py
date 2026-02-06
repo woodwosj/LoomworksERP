@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from . import common
-from odoo import Command
-from odoo.exceptions import UserError
-from odoo.tests import Form
+from loomworks import Command
+from loomworks.exceptions import UserError
+from loomworks.tests import Form
 
 
 class TestWarehouseMrp(common.TestMrpCommon):

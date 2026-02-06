@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
 <template id="s_faq_collapse" name="FAQ">
     <section class="s_faq_collapse pt32 pb32" data-vcss="001">
@@ -24,4 +24,4 @@
     <path>website/static/src/snippets/s_faq_collapse/000.scss</path>
 </asset>
 
-</odoo>
+</loomworks>

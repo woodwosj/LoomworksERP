@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 # The currencies supported by Flutterwave, in ISO 4217 format.
 # See https://flutterwave.com/us/support/general/what-are-the-currencies-accepted-on-flutterwave.

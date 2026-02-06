@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Macro } from "@web/core/macro";
 import { beforeEach, expect, test } from "@odoo/hoot";

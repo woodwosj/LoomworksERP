@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 import random
-from odoo import models, api
-from odoo.addons.pos_adyen.models.pos_payment_method import UNPREDICTABLE_ADYEN_DATA
+from loomworks import models, api
+from loomworks.addons.pos_adyen.models.pos_payment_method import UNPREDICTABLE_ADYEN_DATA
 
 
 class PosPaymentMethod(models.Model):

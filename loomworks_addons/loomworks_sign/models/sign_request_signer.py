@@ -2,7 +2,7 @@
 # Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
 
 import secrets
-from odoo import api, fields, models
+from loomworks import api, fields, models
 
 
 class SignRequestSigner(models.Model):

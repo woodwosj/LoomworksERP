@@ -1,6 +1,6 @@
-from odoo.exceptions import UserError
-from odoo.tests import Form
-from odoo.tests.common import TransactionCase, tagged
+from loomworks.exceptions import UserError
+from loomworks.tests import Form
+from loomworks.tests.common import TransactionCase, tagged
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

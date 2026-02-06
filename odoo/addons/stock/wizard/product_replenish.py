@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import datetime
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
-from odoo.osv import expression
-from odoo.tools.misc import clean_context
+from loomworks import _, api, fields, models
+from loomworks.exceptions import UserError
+from loomworks.osv import expression
+from loomworks.tools.misc import clean_context
 
 
 class ProductReplenish(models.TransientModel):
@@ -146,7 +146,7 @@ class ProductReplenish(models.TransientModel):
             action = self.env.ref('stock.stock_picking_action_picking_type')
             return [{
                 'label': move.picking_id.name,
-                'url': f'/odoo/action-stock.stock_picking_action_picking_type/{move.picking_id.id}'
+                'url': f'/loomworks/action-stock.stock_picking_action_picking_type/{move.picking_id.id}'
             }]
         return False
 

@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/qunit default=false */
+/** @loomworks-module alias=@web/../tests/qunit default=false */
 
 import { isVisible as isElemVisible } from "@web/core/utils/ui";
 import { fullTraceback, fullAnnotatedTraceback } from "@web/core/errors/error_utils";

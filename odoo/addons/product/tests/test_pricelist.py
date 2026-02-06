@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 
-from odoo.exceptions import UserError
-from odoo.fields import Command
-from odoo.tests import Form, tagged
+from loomworks.exceptions import UserError
+from loomworks.fields import Command
+from loomworks.tests import Form, tagged
 
-from odoo.addons.product.tests.common import ProductVariantsCommon
+from loomworks.addons.product.tests.common import ProductVariantsCommon
 
 
 @tagged('post_install', '-at_install')

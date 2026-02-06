@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Mutex } from "@web/core/utils/concurrency";
 import { redirect } from '@web/core/utils/urls';

@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 from freezegun import freeze_time
 
-from odoo import Command
-from odoo.addons.event.tests.common import EventCase
-from odoo import exceptions
-from odoo.fields import Datetime as FieldsDatetime
-from odoo.tests import Form, users, tagged
-from odoo.tools import mute_logger
+from loomworks import Command
+from loomworks.addons.event.tests.common import EventCase
+from loomworks import exceptions
+from loomworks.fields import Datetime as FieldsDatetime
+from loomworks.tests import Form, users, tagged
+from loomworks.tools import mute_logger
 
 
 class TestEventInternalsCommon(EventCase):
@@ -180,7 +180,7 @@ class TestEventData(TestEventInternalsCommon):
         self.assertFalse(event.is_ongoing)
 
     @users('user_eventmanager')
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     def test_event_configuration_from_type(self):
         """ Test data computation of event coming from its event.type template. """
         self.assertEqual(self.env.user.tz, 'Europe/Brussels')

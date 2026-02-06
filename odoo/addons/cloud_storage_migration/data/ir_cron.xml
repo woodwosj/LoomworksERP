@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="ir_cron_manual_migrate_local_to_cloud_storage" model="ir.cron">
             <field name="name">Migrate Local Attachment Binaries to Cloud Storage</field>
@@ -12,5 +12,5 @@
             <field name="nextcall" eval="(DateTime.now() + timedelta(days=9999)).strftime('%Y-%m-%d 22:00:00')"/>
         </record>
     </data>
-</odoo>
+</loomworks>
 

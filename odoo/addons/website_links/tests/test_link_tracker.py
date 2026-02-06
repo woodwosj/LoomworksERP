@@ -1,5 +1,5 @@
-from odoo.tests import TransactionCase, tagged, users
-from odoo.addons.mail.tests.common import mail_new_test_user
+from loomworks.tests import TransactionCase, tagged, users
+from loomworks.addons.mail.tests.common import mail_new_test_user
 
 
 @tagged('post_install', '-at_install')

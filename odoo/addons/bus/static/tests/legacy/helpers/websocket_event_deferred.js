@@ -1,4 +1,4 @@
-/** @odoo-module alias=@bus/../tests/helpers/websocket_event_deferred default=false */
+/** @loomworks-module alias=@bus/../tests/helpers/websocket_event_deferred default=false */
 
 import { patchWebsocketWorkerWithCleanup } from "@bus/../tests/helpers/mock_websocket";
 

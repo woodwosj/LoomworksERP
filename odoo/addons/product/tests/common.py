@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.fields import Command
+from loomworks.fields import Command
 
-from odoo.addons.base.tests.common import BaseCommon
-from odoo.addons.uom.tests.common import UomCommon
+from loomworks.addons.base.tests.common import BaseCommon
+from loomworks.addons.uom.tests.common import UomCommon
 
 
 class ProductCommon(

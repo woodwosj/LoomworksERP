@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
     <template id="ubl_jo_InvoiceType" inherit_id="account_edi_ubl_cii.ubl_20_InvoiceType" primary="True">
         <xpath expr="//*[local-name()='BillingReference']//*[local-name()='InvoiceDocumentReference']" position="inside">
             <cbc:DocumentDescription
@@ -81,4 +81,4 @@
                 t-out="format_float(vals.get('rounding_amount'), vals.get('currency_dp'))"/>
         </xpath>
     </template>
-</odoo>
+</loomworks>

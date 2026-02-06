@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 import * as hoot from "@odoo/hoot-dom";
 import { _t } from "@web/core/l10n/translation";
 

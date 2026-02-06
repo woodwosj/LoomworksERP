@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 /**
  * Chart Plugin for Univer
  *

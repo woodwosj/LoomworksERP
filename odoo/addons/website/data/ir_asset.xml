@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <asset id="website.user_custom_bootstrap_overridden_scss" name="User custom bootstrap overridden SCSS">
             <bundle directive="prepend">web._assets_frontend_helpers</bundle>
@@ -19,4 +19,4 @@
             <path>website/static/src/js/tours/configurator_tour.js</path>
         </asset>
     </data>
-</odoo>
+</loomworks>

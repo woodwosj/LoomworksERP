@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { browser } from "@web/core/browser/browser";
 import {
@@ -321,7 +321,7 @@ QUnit.module("Base Import Tests", (hooks) => {
         patchWithCleanup(browser.location, {
             origin: "http://example.com",
         });
-        redirect("/odoo");
+        redirect("/loomworks");
 
         await createImportAction({
             "partner/get_import_templates": (route, args) => {

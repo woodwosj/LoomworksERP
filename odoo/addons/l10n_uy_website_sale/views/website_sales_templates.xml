@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <template id="partner_info" name="Uruguay partner">
 
@@ -70,4 +70,4 @@
         </label>
     </template>
 
-</odoo>
+</loomworks>

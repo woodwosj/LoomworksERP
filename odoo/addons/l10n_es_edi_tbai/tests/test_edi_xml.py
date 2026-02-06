@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, date
 
 from freezegun import freeze_time
 from lxml import etree
 
-from odoo.addons.l10n_es_edi_tbai.models.xml_utils import NS_MAP
-from odoo.tests import tagged
+from loomworks.addons.l10n_es_edi_tbai.models.xml_utils import NS_MAP
+from loomworks.tests import tagged
 
 from .common import TestEsEdiTbaiCommon
 

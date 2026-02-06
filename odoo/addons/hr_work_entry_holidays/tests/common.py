@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo.addons.hr_work_entry_contract.tests.common import TestWorkEntryBase
-from odoo.addons.hr_holidays_contract.tests.common import TestHolidayContract
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks.addons.hr_work_entry_contract.tests.common import TestWorkEntryBase
+from loomworks.addons.hr_holidays_contract.tests.common import TestHolidayContract
 
 class TestWorkEntryHolidaysBase(TestWorkEntryBase, TestHolidayContract):
 

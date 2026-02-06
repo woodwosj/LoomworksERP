@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models, fields, _
-from odoo.exceptions import UserError
-from odoo.tools import date_utils, SQL
+from loomworks import api, models, fields, _
+from loomworks.exceptions import UserError
+from loomworks.tools import date_utils, SQL
 
 
 class ResCurrency(models.Model):

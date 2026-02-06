@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import datetime
 from collections import namedtuple
 
-from odoo import fields, Command
-from odoo.tests import tagged, Form
-from odoo.exceptions import ValidationError
-from odoo.addons.l10n_it_edi.tests.common import TestItEdi
+from loomworks import fields, Command
+from loomworks.tests import tagged, Form
+from loomworks.exceptions import ValidationError
+from loomworks.addons.l10n_it_edi.tests.common import TestItEdi
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

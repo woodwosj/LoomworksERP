@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import tagged
+from loomworks.tests import tagged
 
-from odoo.addons.base.tests.common import HttpCaseWithUserDemo
-from odoo.addons.website_sale.tests.common import WebsiteSaleCommon
+from loomworks.addons.base.tests.common import HttpCaseWithUserDemo
+from loomworks.addons.website_sale.tests.common import WebsiteSaleCommon
 
 
 @tagged('post_install', '-at_install')

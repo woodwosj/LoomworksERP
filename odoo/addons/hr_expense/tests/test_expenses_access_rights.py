@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-from odoo.exceptions import AccessError, UserError
-from odoo.tests import HttpCase, tagged, new_test_user
+from loomworks import Command
+from loomworks.exceptions import AccessError, UserError
+from loomworks.tests import HttpCase, tagged, new_test_user
 
-from odoo.addons.hr_expense.tests.common import TestExpenseCommon
-from odoo.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.hr_expense.tests.common import TestExpenseCommon
+from loomworks.addons.mail.tests.common import mail_new_test_user
 
 
 @tagged('-at_install', 'post_install')
@@ -186,5 +186,5 @@ class TestExpensesAccessRights(TestExpenseCommon, HttpCase):
                 }),
             ],
         })
-        self.start_tour("/odoo", 'hr_expense_access_rights_test_tour', login="test-expense")
+        self.start_tour("/loomworks", 'hr_expense_access_rights_test_tour', login="test-expense")
         self.assertRecordValues(expense_sheet, [{'state': 'submit'}])

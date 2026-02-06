@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo.tests
+import loomworks.tests
 
 
-@odoo.tests.common.tagged('post_install', '-at_install')
-class TestClientAction(odoo.tests.HttpCase):
+@loomworks.tests.common.tagged('post_install', '-at_install')
+class TestClientAction(loomworks.tests.HttpCase):
 
     def test_01_client_action_redirect(self):
         page = self.env['website.page'].create({

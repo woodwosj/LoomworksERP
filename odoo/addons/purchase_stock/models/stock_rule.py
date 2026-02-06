@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from odoo.tools import float_compare
+from loomworks.tools import float_compare
 
-from odoo import api, fields, models, SUPERUSER_ID, _
-from odoo.addons.stock.models.stock_rule import ProcurementException
-from odoo.tools import groupby
+from loomworks import api, fields, models, SUPERUSER_ID, _
+from loomworks.addons.stock.models.stock_rule import ProcurementException
+from loomworks.tools import groupby
 
 
 class StockRule(models.Model):

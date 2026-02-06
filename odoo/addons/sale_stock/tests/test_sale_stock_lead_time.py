@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo.addons.stock_account.tests.test_anglo_saxon_valuation_reconciliation_common import ValuationReconciliationTestCommon
-from odoo.addons.sale_stock.tests.common import TestSaleStockCommon
-from odoo import fields
-from odoo.tests import tagged
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks.addons.stock_account.tests.test_anglo_saxon_valuation_reconciliation_common import ValuationReconciliationTestCommon
+from loomworks.addons.sale_stock.tests.common import TestSaleStockCommon
+from loomworks import fields
+from loomworks.tests import tagged
 
 from datetime import timedelta
 

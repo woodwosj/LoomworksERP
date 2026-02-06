@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import uuid
 import base64
 import logging
 
 from collections import defaultdict
-from odoo import api, fields, models, _
-from odoo.addons.base.models.res_partner import _tz_get
-from odoo.exceptions import UserError
-from odoo.tools.misc import clean_context
-from odoo.tools import split_every
+from loomworks import api, fields, models, _
+from loomworks.addons.base.models.res_partner import _tz_get
+from loomworks.exceptions import UserError
+from loomworks.tools.misc import clean_context
+from loomworks.tools import split_every
 
 _logger = logging.getLogger(__name__)
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from odoo.addons.l10n_ar.tests.common import TestArCommon
-from odoo.tests import tagged
-from odoo import Command
+from loomworks.addons.l10n_ar.tests.common import TestArCommon
+from loomworks.tests import tagged
+from loomworks import Command
 from datetime import datetime
 
 

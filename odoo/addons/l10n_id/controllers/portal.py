@@ -1,7 +1,7 @@
 
-from odoo.addons.account.controllers.portal import PortalAccount
-from odoo import http
-from odoo.http import request
+from loomworks.addons.account.controllers.portal import PortalAccount
+from loomworks import http
+from loomworks.http import request
 
 
 class Portal(PortalAccount):

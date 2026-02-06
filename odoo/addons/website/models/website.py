@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import fnmatch
@@ -19,17 +19,17 @@ from urllib.parse import urlparse
 from werkzeug import urls
 from werkzeug.exceptions import NotFound
 
-from odoo import api, fields, models, tools, release
-from odoo.addons.website.models.ir_http import sitemap_qs2dom
-from odoo.addons.website.tools import similarity_score, text_from_html, get_base_domain
-from odoo.addons.portal.controllers.portal import pager
-from odoo.addons.iap.tools import iap_tools
-from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.http import request
-from odoo.modules.module import get_manifest
-from odoo.osv.expression import AND, OR, FALSE_DOMAIN
-from odoo.tools import SQL, Query, sql as sqltools
-from odoo.tools.translate import _, xml_translate
+from loomworks import api, fields, models, tools, release
+from loomworks.addons.website.models.ir_http import sitemap_qs2dom
+from loomworks.addons.website.tools import similarity_score, text_from_html, get_base_domain
+from loomworks.addons.portal.controllers.portal import pager
+from loomworks.addons.iap.tools import iap_tools
+from loomworks.exceptions import AccessError, UserError, ValidationError
+from loomworks.http import request
+from loomworks.modules.module import get_manifest
+from loomworks.osv.expression import AND, OR, FALSE_DOMAIN
+from loomworks.tools import SQL, Query, sql as sqltools
+from loomworks.tools.translate import _, xml_translate
 
 logger = logging.getLogger(__name__)
 
@@ -1320,7 +1320,7 @@ class Website(models.Model):
                 dependencies[model_name] += [{
                     'field_name': field_string,
                     'record_name': rec.display_name,
-                    'link': 'website_url' in rec and rec.website_url or f'/odoo/{model_name}/{rec.id}',
+                    'link': 'website_url' in rec and rec.website_url or f'/loomworks/{model_name}/{rec.id}',
                     'model_name': model_name,
                 } for rec in dependency_records]
 
@@ -1752,7 +1752,7 @@ class Website(models.Model):
             action_params["enable_editor"] = 1
         if mode_debug:
             action_params["debug"] = mode_debug
-        return "/odoo/action-website.website_preview?" + urls.url_encode(action_params)
+        return "/loomworks/action-website.website_preview?" + urls.url_encode(action_params)
 
     def get_client_action(self, url, mode_edit=False, website_id=False):
         action = self.env["ir.actions.actions"]._for_xml_id("website.website_preview")

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <template id="test_website.test_template" name="test template 2">
 &lt;!DOCTYPE html&gt;
@@ -29,4 +29,4 @@
         <a t-att-href='""'>5</a>
     </template>
 
-</odoo>
+</loomworks>

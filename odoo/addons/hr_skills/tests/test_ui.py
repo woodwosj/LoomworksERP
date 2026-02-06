@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo.tests
+import loomworks.tests
 
-@odoo.tests.tagged('-at_install', 'post_install')
-class SkillsTestUI(odoo.tests.HttpCase):
+@loomworks.tests.tagged('-at_install', 'post_install')
+class SkillsTestUI(loomworks.tests.HttpCase):
     def test_ui(self):
         levels = self.env['hr.skill.level'].create([{
             'name': f'Level {x}',
@@ -21,4 +21,4 @@ class SkillsTestUI(odoo.tests.HttpCase):
             'skill_type_id': skill_type.id,
         }])
 
-        self.start_tour("/odoo", 'hr_skills_tour', login='admin')
+        self.start_tour("/loomworks", 'hr_skills_tour', login='admin')

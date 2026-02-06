@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import babel.dates
 import logging
 
 from datetime import datetime, timedelta
 
-from odoo import _, models
-from odoo.exceptions import AccessDenied, UserError
-from odoo.http import request
-from odoo.tools.misc import babel_locale_parse, hmac
+from loomworks import _, models
+from loomworks.exceptions import AccessDenied, UserError
+from loomworks.http import request
+from loomworks.tools.misc import babel_locale_parse, hmac
 
-from odoo.addons.auth_totp.models.totp import hotp, TOTP
+from loomworks.addons.auth_totp.models.totp import hotp, TOTP
 
 _logger = logging.getLogger(__name__)
 

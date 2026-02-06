@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from odoo import api, models, _
-from odoo.exceptions import UserError
+from loomworks import api, models, _
+from loomworks.exceptions import UserError
 
 
 class ResUsers(models.Model):

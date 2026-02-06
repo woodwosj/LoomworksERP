@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 from pytz import timezone, utc
 
-from odoo import api, fields, models, _
+from loomworks import api, fields, models, _
 
 
 class ResourceCalendarLeaves(models.Model):

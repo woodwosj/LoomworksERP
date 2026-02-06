@@ -1,4 +1,4 @@
-from odoo import models
+from loomworks import models
 
 
 class ResCompany(models.Model):

@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 /**
  * Loomworks Field Service Signature Pad Component
  * Provides touch-friendly signature capture for customer sign-off

@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/mobile/views/fields/many2one_barcode_field_tests default=false */
+/** @loomworks-module alias=@web/../tests/mobile/views/fields/many2one_barcode_field_tests default=false */
 
 import { AutoComplete } from "@web/core/autocomplete/autocomplete";
 import { browser } from "@web/core/browser/browser";

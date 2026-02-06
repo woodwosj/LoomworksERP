@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo auto_sequence="1">
+<loomworks auto_sequence="1">
     <!-- PR -->
     <record id="tax_report_pr" model="account.report">
         <field name="name">Receivable VAT (PR) </field>
@@ -256,4 +256,4 @@
             </record>
         </field>
     </record>
-</odoo>
+</loomworks>

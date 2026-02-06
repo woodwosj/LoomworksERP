@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 import { registry } from "@web/core/registry";
 
 registry.category("web_tour.tours").add('test_detailed_op_no_save_1', {  steps: () => [

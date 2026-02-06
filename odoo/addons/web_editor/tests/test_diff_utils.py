@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo.tests
+import loomworks.tests
 
-from odoo.tests.common import BaseCase
-from odoo.addons.web_editor.models.diff_utils import (
+from loomworks.tests.common import BaseCase
+from loomworks.addons.web_editor.models.diff_utils import (
     generate_patch,
     generate_comparison,
     apply_patch,
 )
 
 
-@odoo.tests.tagged("post_install", "-at_install", "html_history")
+@loomworks.tests.tagged("post_install", "-at_install", "html_history")
 class TestPatchUtils(BaseCase):
     def test_new_content_add_line(self):
         initial_content = "<p>foo</p><p>baz</p>"

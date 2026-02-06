@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import VariantMixin from "@website_sale/js/sale_variant_mixin";
 import { renderToFragment } from "@web/core/utils/render";

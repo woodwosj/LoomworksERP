@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="l10n_tr_nilvera_trailer_plate_view_tree" model="ir.ui.view">
         <field name="name">l10n_tr.nilvera.trailer.plate.tree</field>
         <field name="model">l10n_tr.nilvera.trailer.plate</field>
@@ -46,4 +46,4 @@
         action="action_l10n_tr_nilvera_trailer_plate"
         sequence="200"
     />
-</odoo>
+</loomworks>

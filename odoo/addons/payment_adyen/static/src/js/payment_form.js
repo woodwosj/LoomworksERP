@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { loadJS, loadCSS } from '@web/core/assets';
 import { _t } from '@web/core/l10n/translation';

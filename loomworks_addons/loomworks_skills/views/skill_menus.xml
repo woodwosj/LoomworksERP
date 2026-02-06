@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <!-- Skills Root Menu (under AI menu from loomworks_ai) -->
     <menuitem id="menu_skills_root"
@@ -65,4 +65,4 @@
               groups="group_skills_creator"
               sequence="5"/>
 
-</odoo>
+</loomworks>

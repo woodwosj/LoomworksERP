@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import Command, fields
-from odoo.tests import Form, TransactionCase, users
+from loomworks import Command, fields
+from loomworks.tests import Form, TransactionCase, users
 
 from datetime import datetime, time
 from dateutil.relativedelta import relativedelta

@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 import { useSubEnv } from "@odoo/owl";
 import { rpc } from "@web/core/network/rpc";
 import { useDebounced } from "@web/core/utils/timing";

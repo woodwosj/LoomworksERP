@@ -1,4 +1,4 @@
-/** @odoo-module alias=@bus/../tests/helpers/mock_python_environment default=false */
+/** @loomworks-module alias=@bus/../tests/helpers/mock_python_environment default=false */
 
 import { TEST_USER_IDS } from "@bus/../tests/helpers/test_constants";
 

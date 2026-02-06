@@ -16,9 +16,9 @@ spreadsheet cells, including field selection and filtering.
 import json
 import logging
 
-from odoo import api, models, fields, _
-from odoo.exceptions import UserError
-from odoo.tools.safe_eval import safe_eval
+from loomworks import api, models, fields, _
+from loomworks.exceptions import UserError
+from loomworks.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
 
@@ -58,7 +58,7 @@ class SpreadsheetDataSource(models.Model):
     model_id = fields.Many2one(
         'ir.model',
         string='Model',
-        help="Odoo model to fetch data from",
+        help="Loomworks model to fetch data from",
         ondelete='cascade'
     )
     model_name = fields.Char(

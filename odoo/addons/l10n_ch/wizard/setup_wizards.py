@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import api, models, fields
+from loomworks import api, models, fields
 
 
 class SwissSetupBarBankConfigWizard(models.TransientModel):

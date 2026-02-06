@@ -10,7 +10,7 @@
     Extended views for AI Operation Log with snapshot integration.
     These views inherit from the base views defined in loomworks_ai.
 -->
-<odoo>
+<loomworks>
     <!-- Extend AI Operation Log Tree View -->
     <record id="view_ai_operation_log_tree_snapshot" model="ir.ui.view">
         <field name="name">loomworks.ai.operation.log.tree.snapshot</field>
@@ -88,4 +88,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

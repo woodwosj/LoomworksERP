@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from odoo.tests import Form, tagged
-from odoo import Command
-from odoo.exceptions import RedirectWarning
+from loomworks.tests import Form, tagged
+from loomworks import Command
+from loomworks.exceptions import RedirectWarning
 
-from odoo.addons.analytic.tests.common import AnalyticCommon
+from loomworks.addons.analytic.tests.common import AnalyticCommon
 
 
 @tagged('post_install', '-at_install')

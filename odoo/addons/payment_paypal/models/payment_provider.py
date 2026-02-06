@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 import logging
@@ -8,11 +8,11 @@ import requests
 from datetime import timedelta
 from werkzeug import urls
 
-from odoo import _, fields, models
-from odoo.exceptions import UserError, ValidationError
+from loomworks import _, fields, models
+from loomworks.exceptions import UserError, ValidationError
 
-from odoo.addons.payment_paypal import const
-from odoo.addons.payment_paypal.controllers.main import PaypalController
+from loomworks.addons.payment_paypal import const
+from loomworks.addons.payment_paypal.controllers.main import PaypalController
 
 
 _logger = logging.getLogger(__name__)

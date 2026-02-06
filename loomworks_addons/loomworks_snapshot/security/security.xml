@@ -7,7 +7,7 @@
     Loomworks modifications copyright: Loomworks
     License: LGPL-3
 -->
-<odoo>
+<loomworks>
     <!-- Security Groups for Snapshot Management -->
 
     <!-- Module Category -->
@@ -99,4 +99,4 @@
         <field name="groups" eval="[(4, ref('group_snapshot_admin'))]"/>
     </record>
 
-</odoo>
+</loomworks>

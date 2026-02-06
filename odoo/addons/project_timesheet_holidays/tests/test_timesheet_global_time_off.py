@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 from datetime import datetime, timedelta
 from freezegun import freeze_time
 
-from odoo import Command
-from odoo.tests import common
-from odoo.exceptions import UserError
+from loomworks import Command
+from loomworks.tests import common
+from loomworks.exceptions import UserError
 
 class TestTimesheetGlobalTimeOff(common.TransactionCase):
 

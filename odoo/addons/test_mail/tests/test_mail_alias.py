@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import psycopg2
 
 from ast import literal_eval
 
-from odoo import exceptions
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.tests import tagged
-from odoo.tests.common import users
-from odoo.tools import formataddr, mute_logger
+from loomworks import exceptions
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.tests import tagged
+from loomworks.tests.common import users
+from loomworks.tools import formataddr, mute_logger
 
 
 class TestMailAliasCommon(MailCommon):
@@ -230,7 +230,7 @@ class TestMailAlias(TestMailAliasCommon):
             'alias_name': 'unused.test.alias'
         })
 
-        with mute_logger('odoo.sql_db'), self.assertRaises(psycopg2.errors.UniqueViolation), self.cr.savepoint():
+        with mute_logger('loomworks.sql_db'), self.assertRaises(psycopg2.errors.UniqueViolation), self.cr.savepoint():
             new_mail_alias.copy({'alias_name': 'unused.test.alias'})
 
         # test that duplicating an alias should have blank name
@@ -247,7 +247,7 @@ class TestMailAlias(TestMailAliasCommon):
             (copy_1 + copy_2).write({'alias_name': 'test.alias.other'})
 
     @users('admin')
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     def test_alias_name_sanitize(self):
         """ Check sanitizer, at both create, copy and write on alias name. """
         alias_names = [
@@ -457,7 +457,7 @@ class TestAliasCompany(TestMailAliasCommon):
         self.assertEqual(self.company_archived.alias_domain_id.id, mc_alias_domain.id,
                          'Archived company was attributed wrong alias domain')
 
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     @users('erp_manager')
     def test_alias_domain_setup(self):
         """ Test synchronization of alias domain with companies when adding /
@@ -469,7 +469,7 @@ class TestAliasCompany(TestMailAliasCommon):
         self.assertEqual(self.company_2.alias_domain_id, mail_alias_domain_c2)
 
         # cannot unlink alias domain as there are aliases linked to it
-        with self.assertRaises(psycopg2.errors.ForeignKeyViolation), self.cr.savepoint(), mute_logger('odoo.sql_db'):
+        with self.assertRaises(psycopg2.errors.ForeignKeyViolation), self.cr.savepoint(), mute_logger('loomworks.sql_db'):
             mail_alias_domain.unlink()
 
         # eject linked aliases then remove alias domain of first company; should
@@ -613,7 +613,7 @@ class TestMailAliasDomain(TestMailAliasCommon):
         alias_domain = self.mail_alias_domain.with_env(self.env)
 
         # copying directly would duplicate bounce / catchall emails
-        with mute_logger('odoo.sql_db'), self.assertRaises(psycopg2.errors.UniqueViolation), self.cr.savepoint():
+        with mute_logger('loomworks.sql_db'), self.assertRaises(psycopg2.errors.UniqueViolation), self.cr.savepoint():
             new_alias_domain = alias_domain.copy()
 
         # same domain name is authorized if bounce and catchall are different
@@ -632,12 +632,12 @@ class TestMailAliasDomain(TestMailAliasCommon):
             'name': alias_domain.name,
         })
         # any not unique should raise UniqueViolation (SQL constraint fired after check)
-        with mute_logger('odoo.sql_db'), self.assertRaises(psycopg2.errors.UniqueViolation), self.cr.savepoint():
+        with mute_logger('loomworks.sql_db'), self.assertRaises(psycopg2.errors.UniqueViolation), self.cr.savepoint():
             self.env['mail.alias.domain'].create({
                 'bounce_alias': alias_domain.bounce_alias,
                 'name': alias_domain.name,
             })
-        with mute_logger('odoo.sql_db'), self.assertRaises(psycopg2.errors.UniqueViolation), self.cr.savepoint():
+        with mute_logger('loomworks.sql_db'), self.assertRaises(psycopg2.errors.UniqueViolation), self.cr.savepoint():
             self.env['mail.alias.domain'].create({
                 'catchall_alias': alias_domain.catchall_alias,
                 'name': alias_domain.name,
@@ -776,7 +776,7 @@ class TestMailAliasMixin(TestMailAliasCommon):
     based on owner records. """
 
     @users('employee')
-    @mute_logger('odoo.addons.base.models.ir_model')
+    @mute_logger('loomworks.addons.base.models.ir_model')
     def test_alias_mixin(self):
         """ Various base checks on alias mixin behavior """
         self.assertEqual(self.env.company.alias_domain_id, self.mail_alias_domain)
@@ -850,7 +850,7 @@ class TestMailAliasMixin(TestMailAliasCommon):
             'Search: both part search: search on name + domain')
 
     @users('employee')
-    @mute_logger('odoo.addons.base.models.ir_model')
+    @mute_logger('loomworks.addons.base.models.ir_model')
     def test_alias_mixin_alias_id_management(self):
         """ Test alias_id being not mandatory """
         record_wo_alias, record_w_alias = self.env['mail.test.alias.optional'].create([

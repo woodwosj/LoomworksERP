@@ -5,12 +5,12 @@ Early inbox documents used for direct testing: 3084664, 3084663, 3084656, 308366
 # All five have scuffed company setup
 """
 
-from odoo import Command
-from odoo.exceptions import UserError
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
 
-from odoo.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
-from odoo.addons.l10n_hr_edi.tests.test_hr_edi_common import TestL10nHrEdiCommon
+from loomworks.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
+from loomworks.addons.l10n_hr_edi.tests.test_hr_edi_common import TestL10nHrEdiCommon
 from ..tools import (
     _mer_api_query_document_process_status_outbox,
     _mer_api_receive_document,

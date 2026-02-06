@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo.tests import TransactionCase, tagged
-from odoo import Command
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks.tests import TransactionCase, tagged
+from loomworks import Command
 
 @tagged('post_install', '-at_install')
 class TestSnailmailOnInvoice(TransactionCase):

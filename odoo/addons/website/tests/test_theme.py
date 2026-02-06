@@ -1,4 +1,4 @@
-from odoo.tests import common, tagged
+from loomworks.tests import common, tagged
 
 
 @tagged('-at_install', 'post_install')

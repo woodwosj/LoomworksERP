@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import functools
 
-from odoo import _
-from odoo.exceptions import AccessError
-from odoo.http import Controller, route, request, Response
+from loomworks import _
+from loomworks.exceptions import AccessError
+from loomworks.http import Controller, route, request, Response
 
 
 class ImportModule(Controller):

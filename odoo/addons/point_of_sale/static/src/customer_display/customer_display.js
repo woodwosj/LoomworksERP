@@ -1,5 +1,5 @@
 import { Component, useEffect, useState, whenReady } from "@odoo/owl";
-import { OdooLogo } from "@point_of_sale/app/generic_components/odoo_logo/odoo_logo";
+import { LoomworksLogo } from "@point_of_sale/app/generic_components/odoo_logo/odoo_logo";
 import { OrderWidget } from "@point_of_sale/app/generic_components/order_widget/order_widget";
 import { Orderline } from "@point_of_sale/app/generic_components/orderline/orderline";
 import { MainComponentsContainer } from "@web/core/main_components_container";
@@ -30,7 +30,7 @@ function useSingleDialog() {
 
 export class CustomerDisplay extends Component {
     static template = "point_of_sale.CustomerDisplay";
-    static components = { OdooLogo, OrderWidget, Orderline, MainComponentsContainer };
+    static components = { LoomworksLogo, OrderWidget, Orderline, MainComponentsContainer };
     static props = [];
 
     setup() {

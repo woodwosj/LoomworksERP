@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { _t } from "@web/core/l10n/translation";
 import { QuestionPageListRenderer } from "./question_page_list_renderer";

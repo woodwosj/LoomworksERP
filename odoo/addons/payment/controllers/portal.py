@@ -1,16 +1,16 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import urllib.parse
 
 import werkzeug
 
-from odoo import _, http
-from odoo.exceptions import AccessError, ValidationError
-from odoo.http import request
+from loomworks import _, http
+from loomworks.exceptions import AccessError, ValidationError
+from loomworks.http import request
 
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.payment.controllers.post_processing import PaymentPostProcessing
-from odoo.addons.portal.controllers import portal
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.payment.controllers.post_processing import PaymentPostProcessing
+from loomworks.addons.portal.controllers import portal
 
 
 class PaymentPortal(portal.CustomerPortal):

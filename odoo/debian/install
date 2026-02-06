@@ -1,2 +1,2 @@
-debian/odoo.conf /etc/odoo
-README.md /usr/share/doc/odoo
+debian/odoo.conf /etc/loomworks
+README.md /usr/share/doc/loomworks

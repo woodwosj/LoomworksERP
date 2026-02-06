@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from urllib.parse import urlencode
 
-from odoo import tests
-from odoo.addons.test_mail_full.tests.test_portal import TestPortal
+from loomworks import tests
+from loomworks.addons.test_mail_full.tests.test_portal import TestPortal
 
 
 @tests.common.tagged("post_install", "-at_install")

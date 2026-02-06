@@ -2,8 +2,8 @@
 
 from collections import defaultdict
 
-from odoo import models, fields, api, _
-from odoo.exceptions import UserError
+from loomworks import models, fields, api, _
+from loomworks.exceptions import UserError
 
 
 class Base(models.AbstractModel):

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
-from odoo.tools import html2plaintext
+from loomworks.tools import html2plaintext
 
-from odoo import Command
-from odoo.tests import Form, tagged
-from odoo.exceptions import AccessError
-from odoo.addons.stock.tests.test_report import TestReportsCommon
-from odoo.addons.sale.tests.common import TestSaleCommon
+from loomworks import Command
+from loomworks.tests import Form, tagged
+from loomworks.exceptions import AccessError
+from loomworks.addons.stock.tests.test_report import TestReportsCommon
+from loomworks.addons.sale.tests.common import TestSaleCommon
 
 
 class TestSaleStockReports(TestReportsCommon):

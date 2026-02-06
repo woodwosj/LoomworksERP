@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from dateutil.relativedelta import relativedelta
 
-from odoo.fields import Datetime
-from odoo.tests.common import TransactionCase
-from odoo.osv.expression import normalize_domain
-from odoo.addons.resource.models import utils
-from odoo.tests import Form
+from loomworks.fields import Datetime
+from loomworks.tests.common import TransactionCase
+from loomworks.osv.expression import normalize_domain
+from loomworks.addons.resource.models import utils
+from loomworks.tests import Form
 
 
 class TestExpression(TransactionCase):

@@ -2,9 +2,9 @@
 # pylint: disable=bad-whitespace
 from lxml import etree
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import Form, tagged
-from odoo import fields, Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import Form, tagged
+from loomworks import fields, Command
 
 from collections import defaultdict
 

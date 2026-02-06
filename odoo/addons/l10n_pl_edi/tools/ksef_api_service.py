@@ -11,7 +11,7 @@ from cryptography.hazmat.primitives import padding as sym_padding
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
-from odoo.exceptions import UserError
+from loomworks.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 TIMEOUT = 10

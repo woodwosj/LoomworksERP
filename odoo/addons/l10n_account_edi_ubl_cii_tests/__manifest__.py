@@ -14,7 +14,7 @@ The test files are separated by sources, they were taken from:
 * odoo, these files pass all validation tests (using ecosio or the FNFE validator)
 
 We test that the external examples are correctly imported (currency, total amount and total tax match).
-We also test that generating xml from odoo with given parameters gives exactly the same xml as the expected,
+We also test that generating xml from loomworks with given parameters gives exactly the same xml as the expected,
 valid ones.
     """,
     'depends': [

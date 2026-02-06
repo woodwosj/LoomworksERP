@@ -1,10 +1,10 @@
-from odoo import _, api, fields, models, Command
-from odoo.osv import expression
-from odoo.tools import create_index
-from odoo.tools.misc import format_datetime
-from odoo.exceptions import UserError, ValidationError
+from loomworks import _, api, fields, models, Command
+from loomworks.osv import expression
+from loomworks.tools import create_index
+from loomworks.tools.misc import format_datetime
+from loomworks.exceptions import UserError, ValidationError
 
-from odoo.addons.account.models.company import SOFT_LOCK_DATE_FIELDS
+from loomworks.addons.account.models.company import SOFT_LOCK_DATE_FIELDS
 
 from datetime import date
 

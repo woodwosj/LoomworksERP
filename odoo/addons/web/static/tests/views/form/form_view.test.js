@@ -6202,7 +6202,7 @@ test("delete the last record (without previous action)", async () => {
             </form>`,
     };
 
-    redirect("/odoo/m-partner/1");
+    redirect("/loomworks/m-partner/1");
     patchWithCleanup(WebClient.prototype, {
         _loadDefaultApp() {
             expect.step("__DEFAULT_ACTION__ called");

@@ -1,7 +1,7 @@
-from odoo.exceptions import ValidationError
-from odoo.tests import Form, tagged
+from loomworks.exceptions import ValidationError
+from loomworks.tests import Form, tagged
 
-from odoo.addons.event_product.tests.common import TestEventProductCommon
+from loomworks.addons.event_product.tests.common import TestEventProductCommon
 
 
 @tagged('post_install', '-at_install')

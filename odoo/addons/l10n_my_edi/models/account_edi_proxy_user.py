@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 
 from werkzeug.urls import url_join
 
-from odoo import _, fields, models
-from odoo.addons.account_edi_proxy_client.models.account_edi_proxy_user import AccountEdiProxyError
-from odoo.exceptions import UserError
-from odoo.tools import index_exists
+from loomworks import _, fields, models
+from loomworks.addons.account_edi_proxy_client.models.account_edi_proxy_user import AccountEdiProxyError
+from loomworks.exceptions import UserError
+from loomworks.tools import index_exists
 
 _logger = logging.getLogger(__name__)
 

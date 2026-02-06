@@ -1,8 +1,8 @@
 import time
 from datetime import timedelta
 
-from odoo import api, fields, models, _
-from odoo.addons.l10n_hu_edi.models.l10n_hu_edi_connection import L10nHuEdiConnection
+from loomworks import api, fields, models, _
+from loomworks.addons.l10n_hu_edi.models.l10n_hu_edi_connection import L10nHuEdiConnection
 
 
 class AccountMoveSend(models.AbstractModel):

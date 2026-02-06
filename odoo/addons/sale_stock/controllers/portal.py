@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from werkzeug.exceptions import NotFound
 
-from odoo import exceptions, SUPERUSER_ID
-from odoo.addons.sale.controllers.portal import CustomerPortal
-from odoo.http import request, route
-from odoo.tools import consteq
+from loomworks import exceptions, SUPERUSER_ID
+from loomworks.addons.sale.controllers.portal import CustomerPortal
+from loomworks.http import request, route
+from loomworks.tools import consteq
 
 
 class SaleStockPortal(CustomerPortal):

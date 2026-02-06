@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from odoo import api, models
-from odoo.tools.pdf import OdooPdfFileReader, PdfReadError
-from odoo.tools.mimetypes import guess_mimetype
+from loomworks import api, models
+from loomworks.tools.pdf import OdooPdfFileReader, PdfReadError
+from loomworks.tools.mimetypes import guess_mimetype
 
 from lxml import etree
 from struct import error as StructError

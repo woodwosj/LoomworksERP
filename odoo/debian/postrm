@@ -2,27 +2,27 @@
 
 set -e
 
-ODOO_LIB_DIR=/var/lib/odoo
-ODOO_USER="odoo"
-ODOO_GROUP="odoo"
+LOOMWORKS_LIB_DIR=/var/lib/loomworks
+LOOMWORKS_USER="loomworks"
+LOOMWORKS_GROUP="loomworks"
 GSFONTS_DIR=/usr/share/fonts/type1/gsfonts
 
 case "${1}" in
     remove)
-        deluser --quiet --system $ODOO_USER || true
-        delgroup --quiet --system --only-if-empty $ODOO_GROUP || true
+        deluser --quiet --system $LOOMWORKS_USER || true
+        delgroup --quiet --system --only-if-empty $LOOMWORKS_GROUP || true
         	# remove workaround for https://bugs.debian.org/1059326
         if [ -L ${GSFONTS_DIR}/n021003l.pfb ] ; then
             rm ${GSFONTS_DIR}/n021003l.pfb
-            if [ "$(ls -A ${GSFONTS_DIR})" = ".created-by-odoo-package" ] ; then
+            if [ "$(ls -A ${GSFONTS_DIR})" = ".created-by-loomworks-package" ] ; then
                 rm -fr ${GSFONTS_DIR}
             fi
     	fi
         ;;
 
     purge)
-        if [ -d "$ODOO_LIB_DIR" ]; then
-            rm -rf $ODOO_LIB_DIR
+        if [ -d "$LOOMWORKS_LIB_DIR" ]; then
+            rm -rf $LOOMWORKS_LIB_DIR
         fi
         ;;
 

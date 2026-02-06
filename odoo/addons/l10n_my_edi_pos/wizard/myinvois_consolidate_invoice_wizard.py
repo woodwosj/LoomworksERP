@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import Command, fields, models
-from odoo.exceptions import ValidationError
-from odoo.tools import split_every
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import Command, fields, models
+from loomworks.exceptions import ValidationError
+from loomworks.tools import split_every
 
 MAX_LINE_COUNT_PER_INVOICE = 100
 

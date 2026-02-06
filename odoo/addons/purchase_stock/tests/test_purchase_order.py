@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import re
 from datetime import datetime, timedelta
 
-from odoo import Command, fields
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from odoo.addons.stock_account.tests.test_anglo_saxon_valuation_reconciliation_common import ValuationReconciliationTestCommon
-from odoo.exceptions import UserError
-from odoo.tests import Form, tagged, freeze_time
+from loomworks import Command, fields
+from loomworks.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from loomworks.addons.stock_account.tests.test_anglo_saxon_valuation_reconciliation_common import ValuationReconciliationTestCommon
+from loomworks.exceptions import UserError
+from loomworks.tests import Form, tagged, freeze_time
 
 
 @freeze_time("2021-01-14 09:12:15")

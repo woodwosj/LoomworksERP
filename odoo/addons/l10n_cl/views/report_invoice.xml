@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <!-- this header can be used on any Chilean report -->
     <template id="custom_header">
@@ -268,4 +268,4 @@
         </tr>
     </template>
 
-</odoo>
+</loomworks>

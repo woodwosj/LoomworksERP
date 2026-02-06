@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import textwrap
@@ -7,9 +7,9 @@ import uuid
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError, UserError
-from odoo.tools import float_is_zero
+from loomworks import api, fields, models, _
+from loomworks.exceptions import ValidationError, UserError
+from loomworks.tools import float_is_zero
 
 _logger = logging.getLogger(__name__)
 

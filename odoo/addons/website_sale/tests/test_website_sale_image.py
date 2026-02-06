@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import io
 
 from PIL import Image
 
-from odoo.fields import Command
-from odoo.tests import HttpCase, tagged
+from loomworks.fields import Command
+from loomworks.tests import HttpCase, tagged
 
 
 def _create_image(color: int | str = 0, dims=(1920, 1080), format='JPEG'):

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
+<loomworks noupdate="1">
 
     <!-- Having rules triggers call to check_access_rules and allow to spot crashes
     notably when records are unlinked. Without rule, method is not called and
@@ -171,4 +171,4 @@
         <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
     </record>
 
-</odoo>
+</loomworks>

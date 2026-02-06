@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Component, useState, onWillStart } from "@odoo/owl";
 

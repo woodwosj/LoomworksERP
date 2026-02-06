@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 
 from requests import Session
 
-from odoo import api, fields, models
-from odoo.addons.mail.tools.web_push import push_to_end_point, DeviceUnreachableError
+from loomworks import api, fields, models
+from loomworks.addons.mail.tools.web_push import push_to_end_point, DeviceUnreachableError
 
 _logger = logging.getLogger(__name__)
 

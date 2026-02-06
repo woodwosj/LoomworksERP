@@ -51307,7 +51307,7 @@ class Grid extends Component {
     }
 }
 
-/** @odoo-module */
+/** @loomworks-module */
 class EditableName extends Component {
     static template = "o-spreadsheet-EditableName";
     static props = {

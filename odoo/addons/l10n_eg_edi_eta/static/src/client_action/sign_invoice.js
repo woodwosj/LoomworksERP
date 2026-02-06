@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { registry } from "@web/core/registry";
@@ -51,7 +51,7 @@ async function actionGetDrive(env, action, type) {
     } else if (result[key]) {
         await orm.call("l10n_eg_edi.thumb.drive", method, [[drive_id], result[key]]).catch(() => {
             dialog.add(AlertDialog, {
-                body: _t("Error trying to connect to Odoo. Check your internet connection"),
+                body: _t("Error trying to connect to Loomworks. Check your internet connection"),
             });
         });
         actionService.doAction({

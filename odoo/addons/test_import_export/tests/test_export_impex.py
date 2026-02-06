@@ -2,8 +2,8 @@ import itertools
 import pstats
 from cProfile import Profile
 
-from odoo import fields, Command
-from odoo.tests import common
+from loomworks import fields, Command
+from loomworks.tests import common
 
 
 class CreatorCase(common.TransactionCase):

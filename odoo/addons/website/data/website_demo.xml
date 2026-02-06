@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="bs_debug_view" model="ir.ui.view">
             <field name="name">BS Debug</field>
@@ -648,4 +648,4 @@
             <field name="view_id" ref="snippets_debug_view"/>
         </record>
     </data>
-</odoo>
+</loomworks>

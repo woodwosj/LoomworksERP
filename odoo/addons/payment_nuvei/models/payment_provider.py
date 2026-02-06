@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import hashlib
 import logging
 
-from odoo import fields, models
+from loomworks import fields, models
 
-from odoo.addons.payment_nuvei import const
+from loomworks.addons.payment_nuvei import const
 
 
 _logger = logging.getLogger(__name__)

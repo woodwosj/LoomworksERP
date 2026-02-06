@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import pprint
 from functools import partial, wraps
 
-from odoo import _, models
-from odoo.exceptions import UserError, ValidationError
+from loomworks import _, models
+from loomworks.exceptions import UserError, ValidationError
 
-from odoo.addons.sale_gelato import utils
+from loomworks.addons.sale_gelato import utils
 
 
 _logger = logging.getLogger(__name__)
@@ -87,7 +87,7 @@ class SaleOrder(models.Model):
         payload = {
             'orderType': 'draft',  # The order is confirmed/deleted later, see @post_commit hooks.
             'orderReferenceId': self.id,
-            'customerReferenceId': f'Odoo Partner #{self.partner_id.id}',
+            'customerReferenceId': f'Loomworks Partner #{self.partner_id.id}',
             'currency': self.currency_id.name,
             'items': self._gelato_prepare_items_payload(),
             'shipmentMethodUid': delivery_line.product_id.default_code or 'cheapest',

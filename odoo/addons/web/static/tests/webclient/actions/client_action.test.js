@@ -379,7 +379,7 @@ test("test next action on display_notification client action", async () => {
 });
 
 test("test reload client action", async () => {
-    redirect("/odoo?test=42");
+    redirect("/loomworks?test=42");
     browser.location.search = "?test=42";
 
     patchWithCleanup(browser.history, {
@@ -442,7 +442,7 @@ test("test reload client action", async () => {
 });
 
 test("test home client action", async () => {
-    redirect("/odoo");
+    redirect("/loomworks");
     browser.location.search = "";
 
     patchWithCleanup(browser.location, {

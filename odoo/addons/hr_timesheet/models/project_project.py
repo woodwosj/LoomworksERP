@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from collections import defaultdict
 
-from odoo import api, fields, models
-from odoo.exceptions import RedirectWarning, ValidationError
-from odoo.tools import SQL
-from odoo.tools.translate import _
+from loomworks import api, fields, models
+from loomworks.exceptions import RedirectWarning, ValidationError
+from loomworks.tools import SQL
+from loomworks.tools.translate import _
 
 
 class Project(models.Model):

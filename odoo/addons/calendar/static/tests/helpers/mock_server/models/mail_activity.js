@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 // ensure mail override is applied first.
 import "@mail/../tests/helpers/mock_server/models/mail_activity";

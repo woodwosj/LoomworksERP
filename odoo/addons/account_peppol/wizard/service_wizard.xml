@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <!-- DEPRECATED -->
         <record model="ir.ui.view" id="peppol_service_configuration">
@@ -31,4 +31,4 @@
             </field>
         </record>
     </data>
-</odoo>
+</loomworks>

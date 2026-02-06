@@ -1,4 +1,4 @@
-from odoo import api, fields, models, _
+from loomworks import api, fields, models, _
 
 
 class CandidateSendMail(models.TransientModel):

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="view_move_form_inherit_ecpay" model="ir.ui.view">
             <field name="name">ecpay_invoice_view_form</field>
@@ -50,4 +50,4 @@ action = record._l10n_tw_edi_print_invoice()
             </field>
         </record>
     </data>
-</odoo>
+</loomworks>

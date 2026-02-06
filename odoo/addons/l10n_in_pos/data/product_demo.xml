@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <data noupdate="1">
         <record id="product.desk_organizer" model="product.product">
             <field name="l10n_in_hsn_code">9403</field>
@@ -37,4 +37,4 @@
             <field name="l10n_in_hsn_code">9608</field>
         </record>
     </data>
-</odoo>
+</loomworks>

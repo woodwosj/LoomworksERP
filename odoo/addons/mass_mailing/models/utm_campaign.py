@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
-from odoo.tools.float_utils import float_round
+from loomworks import api, fields, models, _
+from loomworks.exceptions import ValidationError
+from loomworks.tools.float_utils import float_round
 
 
 class UtmCampaign(models.Model):

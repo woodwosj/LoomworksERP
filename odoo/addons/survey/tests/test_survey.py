@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import datetime
 
 from freezegun import freeze_time
 
-from odoo import _, Command, fields
-from odoo.addons.mail.tests.common import MailCase
-from odoo.addons.survey.tests import common
-from odoo.tests.common import users
+from loomworks import _, Command, fields
+from loomworks.addons.mail.tests.common import MailCase
+from loomworks.addons.survey.tests import common
+from loomworks.tests.common import users
 
 
 class TestSurveyInternals(common.TestSurveyCommon, MailCase):

@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 // @ts-check
 
 import { registries, helpers, constants } from "@odoo/o-spreadsheet";

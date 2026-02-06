@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { _t } from "@web/core/l10n/translation";
 import { rpc } from "@web/core/network/rpc";
@@ -39,7 +39,7 @@ export class AttachmentError extends Component {
                     following pages or views:</p>
                 <ul t-foreach="props.views"  t-as="view" t-key="view.id">
                     <li>
-                        <a t-att-href="'/odoo/ir.ui.view/' + window.encodeURIComponent(view.id)">
+                        <a t-att-href="'/loomworks/ir.ui.view/' + window.encodeURIComponent(view.id)">
                             <t t-esc="view.name"/>
                         </a>
                     </li>

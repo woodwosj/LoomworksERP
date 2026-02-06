@@ -5,9 +5,9 @@ from xmlrpc.client import Fault
 
 from passlib.totp import TOTP
 
-from odoo import http
-from odoo.tests import tagged, get_db_name, new_test_user, HttpCase
-from odoo.tools import mute_logger
+from loomworks import http
+from loomworks.tests import tagged, get_db_name, new_test_user, HttpCase
+from loomworks.tools import mute_logger
 
 from ..controllers.home import Home
 
@@ -58,7 +58,7 @@ class TestTOTP(TestTOTPMixin, HttpCase):
 
     def test_totp(self):
         # 1. Enable 2FA
-        self.start_tour('/odoo', 'totp_tour_setup', login='test_user')
+        self.start_tour('/loomworks', 'totp_tour_setup', login='test_user')
 
         # 2. Verify that RPC is blocked because 2FA is on.
         self.assertFalse(
@@ -70,7 +70,7 @@ class TestTOTP(TestTOTPMixin, HttpCase):
             'Trying to fake the auth type should not work'
         )
         uid = self.user_test.id
-        with self.assertRaisesRegex(Fault, r'Access Denied'), mute_logger('odoo.http'):
+        with self.assertRaisesRegex(Fault, r'Access Denied'), mute_logger('loomworks.http'):
             self.xmlrpc_object.execute_kw(
                 get_db_name(), uid, 'test_user',
                 'res.users', 'read', [uid, ['login']]
@@ -102,16 +102,16 @@ class TestTOTP(TestTOTPMixin, HttpCase):
         group_order_template = self.env.ref('sale_management.group_sale_order_template', raise_if_not_found=False)
         if group_order_template:
             self.env.ref('base.group_user').write({"implied_ids": [(4, group_order_template.id)]})
-        self.start_tour('/odoo', 'totp_admin_disables', login='admin')
+        self.start_tour('/loomworks', 'totp_admin_disables', login='admin')
         self.start_tour('/', 'totp_login_disabled', login=None)
 
-    @mute_logger('odoo.http')
+    @mute_logger('loomworks.http')
     def test_totp_authenticate(self):
         """
         Ensure we don't leak the session info from an half-logged-in
         user.
         """
-        self.start_tour('/odoo', 'totp_tour_setup', login='test_user')
+        self.start_tour('/loomworks', 'totp_tour_setup', login='test_user')
         self.url_open('/web/session/logout')
 
         headers = {

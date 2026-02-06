@@ -1,4 +1,4 @@
-from odoo.tools.sql import column_exists, create_column
+from loomworks.tools.sql import column_exists, create_column
 
 from . import models
 from . import tools

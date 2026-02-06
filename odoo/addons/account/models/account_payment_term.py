@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, _, Command
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import format_date, formatLang, frozendict, date_utils
-from odoo.tools.float_utils import float_round
+from loomworks import api, fields, models, _, Command
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools import format_date, formatLang, frozendict, date_utils
+from loomworks.tools.float_utils import float_round
 
 from dateutil.relativedelta import relativedelta
 

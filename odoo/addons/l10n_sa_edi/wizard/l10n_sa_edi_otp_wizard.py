@@ -1,5 +1,5 @@
-from odoo import fields, models, _, api
-from odoo.exceptions import UserError
+from loomworks import fields, models, _, api
+from loomworks.exceptions import UserError
 
 
 class RequestZATCAOtp(models.TransientModel):

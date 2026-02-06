@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models, SUPERUSER_ID
-from odoo.exceptions import UserError
-from odoo.fields import Command
-from odoo.tools import formatLang, frozendict
+from loomworks import _, api, fields, models, SUPERUSER_ID
+from loomworks.exceptions import UserError
+from loomworks.fields import Command
+from loomworks.tools import formatLang, frozendict
 
 
 class SaleAdvancePaymentInv(models.TransientModel):

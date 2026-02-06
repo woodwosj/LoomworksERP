@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from . import models
 from . import wizard
 from . import report
 
-from odoo import api, SUPERUSER_ID
+from loomworks import api, SUPERUSER_ID
 
 def _create_warehouse_data(env):
     """ This hook is used to add default repair picking types on every warehouse.

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import datetime
 import random
@@ -8,10 +8,10 @@ import werkzeug
 
 from unittest.mock import patch
 
-from odoo.tools import email_normalize, mail
-from odoo.addons.link_tracker.tests.common import MockLinkTracker
-from odoo.addons.mail.tests.common import MailCase, MailCommon, mail_new_test_user
-from odoo.sql_db import Cursor
+from loomworks.tools import email_normalize, mail
+from loomworks.addons.link_tracker.tests.common import MockLinkTracker
+from loomworks.addons.mail.tests.common import MailCase, MailCommon, mail_new_test_user
+from loomworks.sql_db import Cursor
 
 
 class MassMailCase(MailCase, MockLinkTracker):

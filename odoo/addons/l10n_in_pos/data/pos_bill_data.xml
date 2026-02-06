@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <data noupdate="1">
         <record model="pos.bill" id="500_00" forcecreate="0">
             <field name="name">500.00</field>
@@ -25,4 +25,4 @@
             <field name="for_all_config">False</field>
         </record>
     </data>
-</odoo>
+</loomworks>

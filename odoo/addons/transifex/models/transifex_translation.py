@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import werkzeug.urls
 from configparser import ConfigParser
 from os import pardir
 from os.path import isfile, join as opj
 
-import odoo
-from odoo import models, tools
+import loomworks
+from loomworks import models, tools
 
 
 class TransifexTranslation(models.AbstractModel):
@@ -26,7 +26,7 @@ class TransifexTranslation(models.AbstractModel):
         """
         tx_config_file = ConfigParser()
         projects = {}
-        for addon_path in odoo.addons.__path__:
+        for addon_path in loomworks.addons.__path__:
             for tx_path in (
                     opj(addon_path, '.tx', 'config'),
                     opj(addon_path, pardir, '.tx', 'config'),

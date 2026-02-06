@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_raw">
         <xpath expr='//t[@t-call="sale.report_saleorder_document"]' position="attributes">
             <attribute name="t-if" add="doc.company_id.country_code != 'BR'" separator="and"/>
@@ -26,4 +26,4 @@
             </t>
         </xpath>
     </template>
-</odoo>
+</loomworks>

@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { session } from "@web/session";
 import * as OdooEditorLib from "@web_editor/js/editor/odoo-editor/src/OdooEditor";

@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from urllib.parse import urlparse
-import odoo.tests
+import loomworks.tests
 import lxml
 
 
-@odoo.tests.common.tagged('post_install', '-at_install')
-class TestIsMultiLang(odoo.tests.HttpCase):
+@loomworks.tests.common.tagged('post_install', '-at_install')
+class TestIsMultiLang(loomworks.tests.HttpCase):
 
     def test_01_is_multilang_url(self):
         website = self.env['website'].search([], limit=1)

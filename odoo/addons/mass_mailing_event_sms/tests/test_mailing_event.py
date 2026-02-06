@@ -1,9 +1,9 @@
 from ast import literal_eval
 
-from odoo.addons.event.tests.common import EventCase
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.tests.common import users
-from odoo.tests import tagged, Form
+from loomworks.addons.event.tests.common import EventCase
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.tests.common import users
+from loomworks.tests import tagged, Form
 
 
 @tagged('post_install', '-at_install')

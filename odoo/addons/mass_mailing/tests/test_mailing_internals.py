@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import re
@@ -11,12 +11,12 @@ from freezegun import freeze_time
 from psycopg2 import IntegrityError
 from unittest.mock import patch
 
-from odoo.addons.base.tests.test_ir_cron import CronMixinCase
-from odoo.addons.mass_mailing.tests.common import MassMailCommon
-from odoo.exceptions import ValidationError
-from odoo.sql_db import Cursor
-from odoo.tests import Form, HttpCase, users, tagged
-from odoo.tools import mute_logger
+from loomworks.addons.base.tests.test_ir_cron import CronMixinCase
+from loomworks.addons.mass_mailing.tests.common import MassMailCommon
+from loomworks.exceptions import ValidationError
+from loomworks.sql_db import Cursor
+from loomworks.tests import Form, HttpCase, users, tagged
+from loomworks.tools import mute_logger
 
 BASE_64_STRING = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII='
 
@@ -51,9 +51,9 @@ class TestMassMailValues(MassMailCommon):
                 return urls
             else:
                 return []
-        with patch("odoo.addons.mass_mailing.models.mailing.MassMailing._get_image_by_url",
+        with patch("loomworks.addons.mass_mailing.models.mailing.MassMailing._get_image_by_url",
                    new=patched_get_image), \
-             patch("odoo.addons.mass_mailing.models.mailing.MassMailing._create_attachments_from_inline_images",
+             patch("loomworks.addons.mass_mailing.models.mailing.MassMailing._create_attachments_from_inline_images",
                    new=patched_images_to_urls):
             mailing = self.env['mailing.mailing'].create({
                 'name': 'Test',
@@ -94,7 +94,7 @@ class TestMassMailValues(MassMailCommon):
                     'token': attachment_token,
                 })
             return urls
-        with patch("odoo.addons.mass_mailing.models.mailing.MassMailing._create_attachments_from_inline_images",
+        with patch("loomworks.addons.mass_mailing.models.mailing.MassMailing._create_attachments_from_inline_images",
                    new=patched_images_to_urls):
             mailing = self.env['mailing.mailing'].create({
                     'name': 'Test',
@@ -390,7 +390,7 @@ class TestMassMailValues(MassMailCommon):
         )
         self.assertEqual(mailing_form.mailing_model_real, 'res.partner')
 
-    @mute_logger('odoo.sql_db')
+    @mute_logger('loomworks.sql_db')
     @users('user_marketing')
     def test_mailing_trace_values(self):
         recipient = self.partner_employee
@@ -480,7 +480,7 @@ class TestMassMailValues(MassMailCommon):
         self.assertSetEqual(set(mail_thread_attachments.ids), {png_duplicate_of_svg_attachment.id, original_png_attachment.id})
 
     @users('user_marketing')
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_process_mailing_queue_without_html_body(self):
         """ Test mailing with past schedule date and without any html body """
         mailing = self.env['mailing.mailing'].create({
@@ -581,7 +581,7 @@ class TestMassMailFeatures(MassMailCommon, CronMixinCase):
         cls._create_mailing_list()
 
     @users('user_marketing')
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_mailing_cron_trigger(self):
         """ Technical test to ensure the cron is triggered at the correct
         time """
@@ -616,7 +616,7 @@ class TestMassMailFeatures(MassMailCommon, CronMixinCase):
                     self.assertLessEqual(capt.records.call_at, truth)
 
     @users('user_marketing')
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_mailing_deletion(self):
         """ Test deletion in various use case, depending on reply-to """
         # 1- Keep archives and reply-to set to 'answer = new thread'
@@ -689,7 +689,7 @@ class TestMassMailFeatures(MassMailCommon, CronMixinCase):
         self.assertEqual(len(self.mailing_list_1.contact_ids.message_ids), 3)
 
     @users('user_marketing')
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_mailing_on_res_partner(self):
         """ Test mailing on res.partner model: ensure default recipients are
         correctly computed """
@@ -721,7 +721,7 @@ class TestMassMailFeatures(MassMailCommon, CronMixinCase):
         )
 
     @users('user_marketing')
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_mailing_shortener(self):
         mailing = self.env['mailing.mailing'].create({
             'name': 'TestSource',
@@ -834,7 +834,7 @@ class TestMailingHeaders(MassMailCommon, HttpCase):
 
 class TestMailingScheduleDateWizard(MassMailCommon):
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     @users('user_marketing')
     def test_mailing_schedule_date(self):
         mailing = self.env['mailing.mailing'].create({

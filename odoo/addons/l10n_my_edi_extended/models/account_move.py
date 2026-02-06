@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import time
@@ -6,9 +6,9 @@ from collections import defaultdict
 
 import werkzeug
 
-from odoo import fields, models, api, _, SUPERUSER_ID
-from odoo.exceptions import UserError
-from odoo.tools.image import image_data_uri
+from loomworks import fields, models, api, _, SUPERUSER_ID
+from loomworks.exceptions import UserError
+from loomworks.tools.image import image_data_uri
 
 
 class AccountMove(models.Model):

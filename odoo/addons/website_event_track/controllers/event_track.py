@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from ast import literal_eval
 from collections import defaultdict
@@ -14,11 +14,11 @@ import json
 import operator
 import pytz
 
-from odoo import exceptions, http, fields, tools, _
-from odoo.http import request
-from odoo.osv import expression
-from odoo.tools import is_html_empty, plaintext2html
-from odoo.tools.misc import babel_locale_parse
+from loomworks import exceptions, http, fields, tools, _
+from loomworks.http import request
+from loomworks.osv import expression
+from loomworks.tools import is_html_empty, plaintext2html
+from loomworks.tools.misc import babel_locale_parse
 
 
 class EventTrackController(http.Controller):

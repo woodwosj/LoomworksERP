@@ -1,10 +1,10 @@
 from datetime import datetime, timedelta
 
-from odoo import Command
-from odoo.tests import tagged, Form
+from loomworks import Command
+from loomworks.tests import tagged, Form
 
-from odoo.addons.website_event_sale.tests.common import TestWebsiteEventSaleCommon
-from odoo.addons.website_sale.tests.test_website_sale_cart_abandoned import (
+from loomworks.addons.website_event_sale.tests.common import TestWebsiteEventSaleCommon
+from loomworks.addons.website_sale.tests.test_website_sale_cart_abandoned import (
     TestWebsiteSaleCartAbandonedCommon,
 )
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from odoo import models
-from odoo.tools.translate import _
-from odoo.exceptions import UserError
+from loomworks import models
+from loomworks.tools.translate import _
+from loomworks.exceptions import UserError
 
 
 class AccountDebitNote(models.TransientModel):

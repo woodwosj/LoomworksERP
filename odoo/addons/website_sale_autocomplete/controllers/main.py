@@ -1,13 +1,13 @@
 # -*- encoding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from pprint import pformat
 
 import requests
 
-from odoo import http
-from odoo.http import request
-from odoo.tools import html2plaintext
+from loomworks import http
+from loomworks.http import request
+from loomworks.tools import html2plaintext
 
 import logging
 _logger = logging.getLogger(__name__)

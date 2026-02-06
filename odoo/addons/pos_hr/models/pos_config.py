@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
-from odoo.osv.expression import AND
+from loomworks import models, fields, api
+from loomworks.osv.expression import AND
 
 
 class PosConfig(models.Model):

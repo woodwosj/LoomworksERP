@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import datetime
 import requests
 import pytz
 from urllib.parse import urljoin
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from loomworks import _, api, fields, models
+from loomworks.exceptions import ValidationError
 
 QRIS_TIMEOUT = 35  # They say that the time to get a response vary between 6 to 30s
 

@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.web_editor.controllers.main import Web_Editor
-from odoo.addons.web_unsplash.controllers.main import Web_Unsplash
+from loomworks.addons.web_editor.controllers.main import Web_Editor
+from loomworks.addons.web_unsplash.controllers.main import Web_Unsplash
 
-import odoo.tests
+import loomworks.tests
 
-from odoo import http
+from loomworks import http
 
 
-@odoo.tests.common.tagged('post_install', '-at_install')
-class TestImageUploadProgress(odoo.tests.HttpCase):
+@loomworks.tests.common.tagged('post_install', '-at_install')
+class TestImageUploadProgress(loomworks.tests.HttpCase):
 
     def test_01_image_upload_progress(self):
         self.start_tour(self.env['website'].get_client_action_url('/test_image_progress'), 'test_image_upload_progress', login="admin")

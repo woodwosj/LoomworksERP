@@ -23,8 +23,8 @@ References:
 - pg_current_wal_lsn(): https://www.postgresql.org/docs/current/functions-admin.html
 """
 
-from odoo import models, fields, api
-from odoo.exceptions import UserError
+from loomworks import models, fields, api
+from loomworks.exceptions import UserError
 import logging
 
 _logger = logging.getLogger(__name__)

@@ -3,14 +3,14 @@ import json
 from lxml import etree
 import requests
 
-from odoo import Command, fields
-from odoo.exceptions import UserError
-from odoo.tests import tagged
-from odoo.tools import file_open
+from loomworks import Command, fields
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
+from loomworks.tools import file_open
 
-from odoo.addons.account.tests.common import PatchRequestsMixin
-from odoo.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
-from odoo.addons.l10n_hr_edi.tests.test_hr_edi_common import TestL10nHrEdiCommon
+from loomworks.addons.account.tests.common import PatchRequestsMixin
+from loomworks.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
+from loomworks.addons.l10n_hr_edi.tests.test_hr_edi_common import TestL10nHrEdiCommon
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

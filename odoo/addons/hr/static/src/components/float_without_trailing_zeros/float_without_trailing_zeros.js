@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { registry } from "@web/core/registry";
 import { floatField, FloatField } from "@web/views/fields/float/float_field";

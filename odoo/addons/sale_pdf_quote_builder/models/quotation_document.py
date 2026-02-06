@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 
-from odoo import Command, _, api, fields, models
-from odoo.exceptions import ValidationError
+from loomworks import Command, _, api, fields, models
+from loomworks.exceptions import ValidationError
 
-from odoo.addons.sale_pdf_quote_builder import utils
+from loomworks.addons.sale_pdf_quote_builder import utils
 
 
 class QuotationDocument(models.Model):

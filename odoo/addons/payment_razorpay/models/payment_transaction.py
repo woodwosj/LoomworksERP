@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import pprint
@@ -8,11 +8,11 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from loomworks import _, api, fields, models
+from loomworks.exceptions import UserError, ValidationError
 
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.payment_razorpay import const
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.payment_razorpay import const
 
 
 _logger = logging.getLogger(__name__)
@@ -328,7 +328,7 @@ class PaymentTransaction(models.Model):
         if self.provider_code != 'razorpay':
             return child_void_tx
 
-        raise UserError(_("Transactions processed by Razorpay can't be manually voided from Odoo."))
+        raise UserError(_("Transactions processed by Razorpay can't be manually voided from Loomworks ERP."))
 
     def _get_tx_from_notification_data(self, provider_code, notification_data):
         """ Override of `payment` to find the transaction based on razorpay data.

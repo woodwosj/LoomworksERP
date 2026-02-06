@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from ast import literal_eval
 
-from odoo.addons.phone_validation.tools import phone_validation
-from odoo.addons.sms_twilio.tests.common import MockSmsTwilioApi
-from odoo.addons.test_mass_mailing.tests.common import TestMassSMSCommon
-from odoo import exceptions
-from odoo.tests import tagged
-from odoo.tests.common import users
-from odoo.tools import mute_logger
+from loomworks.addons.phone_validation.tools import phone_validation
+from loomworks.addons.sms_twilio.tests.common import MockSmsTwilioApi
+from loomworks.addons.test_mass_mailing.tests.common import TestMassSMSCommon
+from loomworks import exceptions
+from loomworks.tests import tagged
+from loomworks.tests.common import users
+from loomworks.tools import mute_logger
 
 
 @tagged('mass_mailing', 'mass_mailing_sms')
@@ -255,7 +255,7 @@ class TestMassSMSInternals(TestMassSMSCommon):
             mailing, self.records,
         )
 
-    @mute_logger('odoo.addons.mail.models.mail_render_mixin')
+    @mute_logger('loomworks.addons.mail.models.mail_render_mixin')
     def test_mass_sms_test_button(self):
         mailing = self.env['mailing.mailing'].create({
             'name': 'TestButton',
@@ -317,7 +317,7 @@ class TestMassSMS(TestMassSMSCommon):
         )
 
     @users('user_marketing')
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_mass_sms_partner_only(self):
         """ Check sending SMS marketing on models having only a partner_id fields
         set is working. """
@@ -377,7 +377,7 @@ class TestMassSMS(TestMassSMSCommon):
         )
 
     @users('user_marketing')
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_mass_sms_partner_only_m2m(self):
         """ Check sending SMS marketing on models having only a m2m to partners
         is currently not suppored. """
@@ -397,7 +397,7 @@ class TestMassSMS(TestMassSMSCommon):
 
 
     @users('user_marketing')
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_mass_sms_w_opt_out(self):
         mailing = self.env['mailing.mailing'].browse(self.mailing_sms.ids)
         recipients = self._create_mailing_sms_test_records(model='mail.test.sms.bl.optout', count=5)

@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import time
 from datetime import datetime
@@ -6,12 +6,12 @@ from unittest.mock import patch
 
 from dateutil.relativedelta import relativedelta
 
-from odoo.exceptions import UserError
-from odoo.tests import tagged
-from odoo.tools import mute_logger
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
+from loomworks.tools import mute_logger
 
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.payment_razorpay.tests.common import RazorpayCommon
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.payment_razorpay.tests.common import RazorpayCommon
 
 
 @tagged('post_install', '-at_install')
@@ -76,7 +76,7 @@ class TestPaymentTransaction(RazorpayCommon):
             tx1.state = state
             for other_tx in other_txs:
                 with patch(
-                    'odoo.addons.payment_razorpay.models.payment_provider.PaymentProvider'
+                    'loomworks.addons.payment_razorpay.models.payment_provider.PaymentProvider'
                     '._razorpay_make_request',
                     return_value={'status': 'created', 'id': '12345', 'amount': other_tx.amount}
                 ):
@@ -120,8 +120,8 @@ class TestPaymentTransaction(RazorpayCommon):
         tx._process_notification_data(self.payment_data)
         self.assertEqual(tx.state, 'done')
 
-    @mute_logger('odoo.addons.payment.models.payment_transaction')
-    @mute_logger('odoo.addons.payment_razorpay.models.payment_transaction')
+    @mute_logger('loomworks.addons.payment.models.payment_transaction')
+    @mute_logger('loomworks.addons.payment_razorpay.models.payment_transaction')
     def test_processing_notification_data_updates_reference_if_not_confirmed(self):
         """ Test that the provider reference and payment method are not changed when the transaction
         is already confirmed. This can happen in case of multiple payment attempts. """
@@ -142,14 +142,14 @@ class TestPaymentTransaction(RazorpayCommon):
             msg="The payment method should not be updated if the transaction is already confirmed.",
         )
 
-    @mute_logger('odoo.addons.payment_razorpay.models.payment_transaction')
+    @mute_logger('loomworks.addons.payment_razorpay.models.payment_transaction')
     def test_processing_notification_data_only_tokenizes_once(self):
         """ Test that only one token is created when notification data of a given transaction are
         processed multiple times. """
         tx1 = self._create_transaction('direct', reference='tx1', tokenize=True)
         tx1._process_notification_data(self.tokenize_payment_data)
         with patch(
-            'odoo.addons.payment_razorpay.models.payment_transaction.PaymentTransaction'
+            'loomworks.addons.payment_razorpay.models.payment_transaction.PaymentTransaction'
             '._razorpay_tokenize_from_notification_data'
         ) as tokenize_mock:
             # Create the second transaction with the first transaction's token.
@@ -166,7 +166,7 @@ class TestPaymentTransaction(RazorpayCommon):
         include token data. """
         tx = self._create_transaction('direct', tokenize=True)
         with patch(
-            'odoo.addons.payment_razorpay.models.payment_transaction.PaymentTransaction'
+            'loomworks.addons.payment_razorpay.models.payment_transaction.PaymentTransaction'
             '._razorpay_tokenize_from_notification_data'
         ) as tokenize_mock:
             tx._process_notification_data(self.tokenize_payment_data)

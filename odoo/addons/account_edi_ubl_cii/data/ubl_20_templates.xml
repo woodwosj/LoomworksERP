@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <template id="ubl_20_AddressType">
         <t xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
@@ -697,4 +697,4 @@
         </DebitNote>
     </template>
 
-</odoo>
+</loomworks>

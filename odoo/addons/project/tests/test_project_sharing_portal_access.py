@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 
@@ -6,10 +6,10 @@ from collections import OrderedDict
 from lxml import etree
 from re import search
 
-from odoo import Command
-from odoo.tools import mute_logger, config
-from odoo.exceptions import AccessError
-from odoo.tests import HttpCase, tagged
+from loomworks import Command
+from loomworks.tools import mute_logger, config
+from loomworks.exceptions import AccessError
+from loomworks.tests import HttpCase, tagged
 
 from .test_project_sharing import TestProjectSharingCommon
 
@@ -130,7 +130,7 @@ class TestProjectSharingPortalAccess(TestProjectSharingCommon):
 
 
 class TestProjectSharingChatterAccess(TestProjectSharingCommon, HttpCase):
-    @mute_logger('odoo.addons.http_routing.models.ir_http', 'odoo.http')
+    @mute_logger('loomworks.addons.http_routing.models.ir_http', 'loomworks.http')
     def test_post_chatter_as_portal_user(self):
         self.project_no_collabo.privacy_visibility = 'portal'
         message = self.get_project_share_link()

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id='ec_ruc' model='l10n_latam.identification.type'>
             <field name='name'>RUC</field>
@@ -31,4 +31,4 @@
             <field name='sequence'>110</field>
         </record>
     </data>
-</odoo>
+</loomworks>

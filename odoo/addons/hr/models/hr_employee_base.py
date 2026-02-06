@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from pytz import timezone, UTC, utc
 from datetime import timedelta, datetime
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
-from odoo.tools import format_time
+from loomworks import _, api, fields, models
+from loomworks.exceptions import UserError
+from loomworks.tools import format_time
 
 
 class HrEmployeeBase(models.AbstractModel):

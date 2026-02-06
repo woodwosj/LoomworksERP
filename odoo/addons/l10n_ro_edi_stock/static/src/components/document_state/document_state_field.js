@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 import { registry } from "@web/core/registry";
 import { selectionField } from "@web/views/fields/selection/selection_field";
 import { DocumentState } from "@account/components/document_state/document_state_field";

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 from html import unescape
@@ -8,9 +8,9 @@ import lxml
 import markupsafe
 from werkzeug import urls
 
-from odoo import api, models, tools
-from odoo.addons.link_tracker.tools.html import find_links_with_urls_and_labels
-from odoo.tools.mail import is_html_empty, URL_SKIP_PROTOCOL_REGEX, TEXT_URL_REGEX
+from loomworks import api, models, tools
+from loomworks.addons.link_tracker.tools.html import find_links_with_urls_and_labels
+from loomworks.tools.mail import is_html_empty, URL_SKIP_PROTOCOL_REGEX, TEXT_URL_REGEX
 
 
 class MailRenderMixin(models.AbstractModel):

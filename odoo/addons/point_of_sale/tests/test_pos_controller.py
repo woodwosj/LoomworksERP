@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
+import loomworks
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
 
-@odoo.tests.tagged('post_install', '-at_install')
+@loomworks.tests.tagged('post_install', '-at_install')
 class TestPoSController(TestPointOfSaleHttpCommon):
     def test_qr_code_receipt(self):
         """This test make sure that no user is created when a partner is set on the PoS order.
@@ -57,7 +57,7 @@ class TestPoSController(TestPointOfSaleHttpCommon):
             'country_id': self.new_partner.country_id.id,
             'state_id': self.new_partner.state_id,
             'phone': "123456789",
-            'csrf_token': odoo.http.Request.csrf_token(self)
+            'csrf_token': loomworks.http.Request.csrf_token(self)
         }
         self.url_open(f'/pos/ticket/validate?access_token={self.pos_order.access_token}', data=get_invoice_data)
         self.assertEqual(self.env['res.partner'].sudo().search_count([('name', '=', 'AAA Partner')]), 1)
@@ -155,7 +155,7 @@ class TestPoSController(TestPointOfSaleHttpCommon):
             'zipcode': '12345',
             'country_id': self.company.country_id.id,
             'phone': "123456789",
-            'csrf_token': odoo.http.Request.csrf_token(self)
+            'csrf_token': loomworks.http.Request.csrf_token(self)
         }
         self.url_open(f'/pos/ticket/validate?access_token={self.pos_order.access_token}', data=get_invoice_data, timeout=30000)
         self.assertEqual(self.partner_1.vat, 'VAT_TEST_NUMBER_123')

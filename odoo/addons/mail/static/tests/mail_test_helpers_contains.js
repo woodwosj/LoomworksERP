@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/utils default=false */
+/** @loomworks-module alias=@web/../tests/utils default=false */
 
 import { __debug__, after, afterEach, expect, getFixture } from "@odoo/hoot";
 import { queryAll, queryFirst } from "@odoo/hoot-dom";

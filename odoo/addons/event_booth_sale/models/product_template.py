@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from loomworks import _, api, fields, models
 
 
 class ProductTemplate(models.Model):

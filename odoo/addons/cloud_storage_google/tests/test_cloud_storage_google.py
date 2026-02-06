@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from urllib.parse import quote
 
@@ -8,8 +8,8 @@ try:
 except ImportError:
     service_account = Request = None
 
-from odoo.tests.common import TransactionCase
-from odoo.exceptions import UserError
+from loomworks.tests.common import TransactionCase
+from loomworks.exceptions import UserError
 
 from .. import uninstall_hook
 

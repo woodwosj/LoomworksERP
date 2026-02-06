@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <record id="dom-tom" model="res.country.group">
              <field name="name">DOM-TOM</field>
              <field name="country_ids" eval="[(6,0,[
@@ -18,4 +18,4 @@
         <field name="name">France and Monaco</field>
         <field name="country_ids" eval="[Command.set([ref('base.fr'), ref('base.mc')])]"/>
     </record>
-</odoo>
+</loomworks>

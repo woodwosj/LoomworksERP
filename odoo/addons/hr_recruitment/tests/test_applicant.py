@@ -1,5 +1,5 @@
-from odoo.tests.common import TransactionCase, new_test_user
-from odoo.tests import tagged
+from loomworks.tests.common import TransactionCase, new_test_user
+from loomworks.tests import tagged
 
 
 @tagged('hr_applicant')

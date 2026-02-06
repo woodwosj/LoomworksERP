@@ -1,7 +1,7 @@
-from odoo import _
-from odoo.addons.portal.controllers.portal import CustomerPortal
-from odoo.addons.account.models.company import PEPPOL_LIST
-from odoo.http import request
+from loomworks import _
+from loomworks.addons.portal.controllers.portal import CustomerPortal
+from loomworks.addons.account.models.company import PEPPOL_LIST
+from loomworks.http import request
 
 
 class PortalAccount(CustomerPortal):

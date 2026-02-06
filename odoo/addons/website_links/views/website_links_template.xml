@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
         <template id="create_shorten_url">
             <div class="o_website_links_create_tracked_url">
                 <div class="container">
@@ -66,8 +66,8 @@
 
                         <div class="offset-md-1 col-md-4 d-none d-md-block">
                             <p class="text-muted text-justify">Share this page with a <strong>short link</strong> that includes <strong>analytics trackers</strong>.</p>
-                            <p class="text-muted text-justify">Those trackers can be used in Google Analytics to track clicks and visitors, or in Odoo reports to track opportunities and related revenues.</p>
-                            <a target="_blank" href="https://www.odoo.com/documentation/18.0/applications/websites/website/reporting/link_tracker.html">Read More</a>
+                            <p class="text-muted text-justify">Those trackers can be used in Google Analytics to track clicks and visitors, or in Loomworks reports to track opportunities and related revenues.</p>
+                            <a target="_blank" href="https://www.loomworks.solutions/documentation/18.0/applications/websites/website/reporting/link_tracker.html">Read More</a>
                         </div>
                     </div>
 
@@ -101,4 +101,4 @@
             </t>
         </template>
 
-</odoo>
+</loomworks>

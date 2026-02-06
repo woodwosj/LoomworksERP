@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import textwrap
 
 from lxml import etree, html
 from lxml.builder import E
 
-from odoo.tests import common
-from odoo.tests.common import BaseCase
-from odoo.addons.web_editor.models.ir_qweb_fields import html_to_text
+from loomworks.tests import common
+from loomworks.tests.common import BaseCase
+from loomworks.addons.web_editor.models.ir_qweb_fields import html_to_text
 
 
 class TestHTMLToText(BaseCase):

@@ -10,8 +10,8 @@
 Tests for Loomworks Snapshot functionality.
 """
 
-from odoo.tests import TransactionCase, tagged
-from odoo.exceptions import UserError
+from loomworks.tests import TransactionCase, tagged
+from loomworks.exceptions import UserError
 from datetime import timedelta
 
 

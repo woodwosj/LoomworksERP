@@ -1,8 +1,8 @@
 import math
 from num2words import num2words
 
-from odoo import _, api, models
-from odoo.exceptions import UserError
+from loomworks import _, api, models
+from loomworks.exceptions import UserError
 
 
 class AccountEdiXmlUblTr(models.AbstractModel):

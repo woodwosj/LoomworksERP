@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields, _
-from odoo.api import ondelete
-from odoo.exceptions import UserError
+from loomworks import models, fields, _
+from loomworks.api import ondelete
+from loomworks.exceptions import UserError
 
 
 class AccountPayment(models.Model):

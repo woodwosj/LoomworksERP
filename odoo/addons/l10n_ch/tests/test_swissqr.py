@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import time
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import tagged
-from odoo.tools.misc import mod10r
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import tagged
+from loomworks.tools.misc import mod10r
 
 CH_IBAN = 'CH15 3881 5158 3845 3843 7'
 QR_IBAN = 'CH21 3080 8001 2345 6782 7'

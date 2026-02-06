@@ -1,4 +1,4 @@
-<odoo noupdate="1">
+<loomworks noupdate="1">
 
     <record id="l10n_ar_partner_tax_comp_rule" model="ir.rule">
         <field name="name">Argentinean Partner Taxes Company Rule</field>
@@ -6,4 +6,4 @@
         <field name="domain_force">[('company_id', 'parent_of', company_ids)]</field>
     </record>
 
-</odoo>
+</loomworks>

@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 import struct
@@ -11,8 +11,8 @@ try:
 except ImportError:
     websocket = None
 
-from odoo.tests.common import HOST
-from odoo.tests import HttpCase, TEST_CURSOR_COOKIE_NAME
+from loomworks.tests.common import HOST
+from loomworks.tests import HttpCase, TEST_CURSOR_COOKIE_NAME
 from ..websocket import CloseCode, Websocket, WebsocketConnectionHandler
 from ..models.bus import dispatch, hashable, channel_with_db
 

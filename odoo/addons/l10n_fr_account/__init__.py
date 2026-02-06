@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 # Copyright (c) 2008 JAILLET Simon - CrysaLEAD - www.crysalead.fr
 from . import models
 from . import wizard
 
-from odoo.addons.account.models.chart_template import preserve_existing_tags_on_taxes
+from loomworks.addons.account.models.chart_template import preserve_existing_tags_on_taxes
 
 
 def _l10n_fr_post_init_hook(env):

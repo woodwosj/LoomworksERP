@@ -13,7 +13,7 @@ Extends ir.ui.view with fields to track Studio customizations
 and enable view backup/restore functionality.
 """
 
-from odoo import api, models, fields
+from loomworks import api, models, fields
 
 
 class IrUIView(models.Model):

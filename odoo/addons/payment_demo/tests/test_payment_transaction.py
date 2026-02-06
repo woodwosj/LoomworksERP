@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 
-from odoo.tests import tagged
-from odoo.tools import mute_logger
+from loomworks.tests import tagged
+from loomworks.tools import mute_logger
 
-from odoo.addons.payment_demo.tests.common import PaymentDemoCommon
-from odoo.addons.payment.tests.http_common import PaymentHttpCommon
+from loomworks.addons.payment_demo.tests.common import PaymentDemoCommon
+from loomworks.addons.payment.tests.http_common import PaymentHttpCommon
 
 
 @tagged('-at_install', 'post_install')
@@ -53,13 +53,13 @@ class TestPaymentTransaction(PaymentDemoCommon, PaymentHttpCommon):
         include token data. """
         tx = self._create_transaction('direct', tokenize=True)
         with patch(
-            'odoo.addons.payment_demo.models.payment_transaction.PaymentTransaction'
+            'loomworks.addons.payment_demo.models.payment_transaction.PaymentTransaction'
             '._demo_tokenize_from_notification_data'
         ) as tokenize_mock:
             tx._process_notification_data(self.notification_data)
         self.assertEqual(tokenize_mock.call_count, 1)
 
-    @mute_logger('odoo.addons.payment_demo.models.payment_transaction')
+    @mute_logger('loomworks.addons.payment_demo.models.payment_transaction')
     def test_processing_notification_data_propagates_simulated_state_to_token(self):
         """ Test that the simulated state of the notification data is set on the token when
         processing notification data. """

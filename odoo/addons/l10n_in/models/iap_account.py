@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models
-from odoo.addons.iap import jsonrpc
+from loomworks import api, models
+from loomworks.addons.iap import jsonrpc
 
 DEFAULT_IAP_ENDPOINT = "https://l10n-in-edi.api.odoo.com"
 DEFAULT_IAP_TEST_ENDPOINT = "https://l10n-in-edi-demo.api.odoo.com"

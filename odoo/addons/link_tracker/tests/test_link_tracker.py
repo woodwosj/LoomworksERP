@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.link_tracker.tests.common import MockLinkTracker
-from odoo.exceptions import UserError
-from odoo.tests import common, tagged
+from loomworks.addons.link_tracker.tests.common import MockLinkTracker
+from loomworks.exceptions import UserError
+from loomworks.tests import common, tagged
 
 
 @tagged('link_tracker')

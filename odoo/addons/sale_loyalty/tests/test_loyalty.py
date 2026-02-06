@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.exceptions import ValidationError
-from odoo.fields import Command
-from odoo.tests import new_test_user, tagged
-from odoo.tools.float_utils import float_compare
+from loomworks.exceptions import ValidationError
+from loomworks.fields import Command
+from loomworks.tests import new_test_user, tagged
+from loomworks.tools.float_utils import float_compare
 
-from odoo.addons.sale_loyalty.tests.common import TestSaleCouponCommon
+from loomworks.addons.sale_loyalty.tests.common import TestSaleCouponCommon
 
 
 @tagged('post_install', '-at_install')

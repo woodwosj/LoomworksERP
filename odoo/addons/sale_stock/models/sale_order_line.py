@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
 from collections import defaultdict
 
-from odoo import api, fields, models, _
-from odoo.osv import expression
-from odoo.tools import float_compare
-from odoo.exceptions import UserError
+from loomworks import api, fields, models, _
+from loomworks.osv import expression
+from loomworks.tools import float_compare
+from loomworks.exceptions import UserError
 
 
 class SaleOrderLine(models.Model):

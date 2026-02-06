@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
 
         <asset id="website_blog.s_latest_posts_000_scss" name="Latest posts 000 SCSS" active="False">
@@ -8,4 +8,4 @@
         </asset>
 
     </data>
-</odoo>
+</loomworks>

@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
 
 import requests
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
 
 
 class ResUsersSettings(models.Model):
@@ -17,7 +17,7 @@ class ResUsersSettings(models.Model):
     google_calendar_token_validity = fields.Datetime('Token Validity', copy=False, groups='base.group_system')
     google_calendar_sync_token = fields.Char('Next Sync Token', copy=False, groups='base.group_system')
     google_calendar_cal_id = fields.Char('Calendar ID', copy=False, groups='base.group_system',
-        help='Last Calendar ID who has been synchronized. If it is changed, we remove all links between GoogleID and Odoo Google Internal ID')
+        help='Last Calendar ID who has been synchronized. If it is changed, we remove all links between GoogleID and Loomworks Google Internal ID')
     google_synchronization_stopped = fields.Boolean('Google Synchronization stopped', copy=False, groups='base.group_system')
 
     @api.model

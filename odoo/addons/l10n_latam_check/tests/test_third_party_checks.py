@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from freezegun import freeze_time
 from unittest.mock import patch
 from datetime import datetime, timedelta
 
-from odoo.addons.l10n_latam_check.tests.common import L10nLatamCheckTest
-from odoo.exceptions import ValidationError, UserError
-from odoo.tests.common import tagged
-from odoo import fields, Command
+from loomworks.addons.l10n_latam_check.tests.common import L10nLatamCheckTest
+from loomworks.exceptions import ValidationError, UserError
+from loomworks.tests.common import tagged
+from loomworks import fields, Command
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

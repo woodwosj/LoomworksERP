@@ -1,5 +1,5 @@
-from odoo import models, api
-from odoo.osv.expression import OR
+from loomworks import models, api
+from loomworks.osv.expression import OR
 
 
 class AccountFiscalPosition(models.Model):

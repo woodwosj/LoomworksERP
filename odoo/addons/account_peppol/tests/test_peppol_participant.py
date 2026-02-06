@@ -1,12 +1,12 @@
 from base64 import b64encode
 
-from odoo import Command
-from odoo.exceptions import ValidationError
-from odoo.tests.common import tagged, TransactionCase, freeze_time
-from odoo.tools import mute_logger
-from odoo.tools.misc import file_open
+from loomworks import Command
+from loomworks.exceptions import ValidationError
+from loomworks.tests.common import tagged, TransactionCase, freeze_time
+from loomworks.tools import mute_logger
+from loomworks.tools.misc import file_open
 
-from odoo.addons.account_peppol.tests.common import PeppolConnectorCommon
+from loomworks.addons.account_peppol.tests.common import PeppolConnectorCommon
 
 
 @freeze_time('2023-01-01')

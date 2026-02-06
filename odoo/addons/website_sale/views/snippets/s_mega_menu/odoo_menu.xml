@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <template
         id="website_sale.s_mega_menu_odoo_menu"
-        name="eCommerce: Odoo Menu"
+        name="eCommerce: Loomworks Menu"
         groups="base.group_user"
     >
         <section class="s_mega_menu_odoo_menu pt16 o_colored_level o_cc o_cc1">
@@ -43,4 +43,4 @@
         </section>
     </template>
 
-</odoo>
+</loomworks>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo.addons.l10n_account_edi_ubl_cii_tests.tests.common import TestUBLCommon
-from odoo.tests import tagged
+from loomworks.addons.l10n_account_edi_ubl_cii_tests.tests.common import TestUBLCommon
+from loomworks.tests import tagged
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
 class TestCIIFR(TestUBLCommon):

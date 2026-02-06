@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="l10n_tw_edi_invoice_print_form" model="ir.ui.view">
         <field name="name">l10n_tw_edi.invoice.print.form</field>
         <field name="model">l10n_tw_edi.invoice.print</field>
@@ -17,4 +17,4 @@
             </form>
         </field>
     </record>
-</odoo>
+</loomworks>

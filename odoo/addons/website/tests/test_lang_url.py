@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 import lxml.html
 from urllib.parse import urlparse
 
-import odoo
-from odoo.addons.website.tools import MockRequest
-from odoo.tests import HttpCase, tagged
+import loomworks
+from loomworks.addons.website.tools import MockRequest
+from loomworks.tests import HttpCase, tagged
 
 
 class TestLangUrlCommon(HttpCase):
@@ -56,7 +56,7 @@ class TestLangUrl(TestLangUrlCommon):
         """
         # 1. Load backend
         self.authenticate('admin', 'admin')
-        r = self.url_open('/odoo')
+        r = self.url_open('/loomworks')
         self.assertEqual(r.status_code, 200)
 
         for line in r.text.splitlines():
@@ -66,7 +66,7 @@ class TestLangUrl(TestLangUrlCommon):
                 self.assertEqual(session_info['user_context']['lang'], 'en_US', "ensure english was loaded")
                 self.assertEqual(session_info['bundle_params']['lang'], 'en_US', "ensure bundle use english")
                 with MockRequest(self.env) as req:
-                    backend_modules = list(req.registry._init_modules) + (odoo.conf.server_wide_modules or [])
+                    backend_modules = list(req.registry._init_modules) + (loomworks.conf.server_wide_modules or [])
                 en_hash = self.env['ir.http'].get_web_translations_hash(modules=backend_modules, lang='en_US')
                 self.assertEqual(session_info['cache_hashes']['translations'], en_hash)
                 break

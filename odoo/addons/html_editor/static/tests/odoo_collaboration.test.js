@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { stripHistoryIds } from "@html_editor/others/collaboration/collaboration_odoo_plugin";
 import { HISTORY_SNAPSHOT_INTERVAL } from "@html_editor/others/collaboration/collaboration_plugin";

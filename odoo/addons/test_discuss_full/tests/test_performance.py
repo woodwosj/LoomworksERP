@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from dateutil.relativedelta import relativedelta
 from unittest.mock import patch, PropertyMock
 
-from odoo import Command, fields
-from odoo.tools.misc import limited_field_access_token
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.addons.mail.tools.discuss import Store
-from odoo.tests.common import users, tagged, HttpCase, warmup
+from loomworks import Command, fields
+from loomworks.tools.misc import limited_field_access_token
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.addons.mail.tools.discuss import Store
+from loomworks.tests.common import users, tagged, HttpCase, warmup
 
 
 @tagged('post_install', '-at_install')
@@ -238,7 +238,7 @@ class TestDiscussFullPerformance(HttpCase, MailCommon):
         self.channel_livechat_1.with_user(self.users[1]).message_post(body="test")
         self.authenticate(None, None)
         with patch(
-            "odoo.http.GeoIP.country_code",
+            "loomworks.http.GeoIP.country_code",
             new_callable=PropertyMock(return_value=self.env.ref("base.be").code),
         ):
             self.channel_livechat_2 = Channel.browse(

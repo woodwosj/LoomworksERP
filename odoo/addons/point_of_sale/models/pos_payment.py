@@ -1,6 +1,6 @@
-from odoo import api, fields, models, _
-from odoo.tools import formatLang, float_is_zero
-from odoo.exceptions import ValidationError
+from loomworks import api, fields, models, _
+from loomworks.tools import formatLang, float_is_zero
+from loomworks.exceptions import ValidationError
 
 
 class PosPayment(models.Model):

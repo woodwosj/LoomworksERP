@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, api
-from odoo.addons.pos_epson_printer.models.pos_config import format_epson_certified_domain
+from loomworks import fields, models, api
+from loomworks.addons.pos_epson_printer.models.pos_config import format_epson_certified_domain
 
 
 class ResConfigSettings(models.TransientModel):

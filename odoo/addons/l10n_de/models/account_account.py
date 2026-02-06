@@ -1,5 +1,5 @@
-from odoo import models, _
-from odoo.exceptions import UserError
+from loomworks import models, _
+from loomworks.exceptions import UserError
 
 
 class AccountAccount(models.Model):

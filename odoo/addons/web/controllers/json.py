@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import ast
 import logging
@@ -13,12 +13,12 @@ from dateutil.relativedelta import relativedelta
 from lxml import etree
 from werkzeug.exceptions import BadRequest, NotFound
 
-from odoo import http
-from odoo.exceptions import AccessError
-from odoo.http import request
-from odoo.models import regex_object_name
-from odoo.osv import expression
-from odoo.tools.safe_eval import safe_eval
+from loomworks import http
+from loomworks.exceptions import AccessError
+from loomworks.http import request
+from loomworks.models import regex_object_name
+from loomworks.osv import expression
+from loomworks.tools.safe_eval import safe_eval
 
 from .utils import get_action_triples
 
@@ -41,7 +41,7 @@ class WebJsonController(http.Controller):
         """Simple JSON representation of the views.
 
         Get the JSON representation of the action/view as it would be shown
-        in the web client for the same /odoo `subpath`.
+        in the web client for the same /loomworks `subpath`.
 
         Behaviour:
         - When, the action resolves to a pair (Action, id), `form` view_type.

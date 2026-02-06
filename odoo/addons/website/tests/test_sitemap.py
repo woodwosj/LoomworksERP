@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import TransactionCase, tagged
+from loomworks.tests import TransactionCase, tagged
 import functools
 from unittest.mock import patch
 
@@ -68,7 +68,7 @@ class TestWebsiteSitemap(TransactionCase):
                 return [FakeRule()]
 
         # Patch routing_map to return our fake router so only our fake rules are considered
-        with patch('odoo.addons.website.models.ir_http.Http.routing_map', autospec=True, return_value=FakeRouter()):
+        with patch('loomworks.addons.website.models.ir_http.Http.routing_map', autospec=True, return_value=FakeRouter()):
             locs = list(website.with_user(website.user_id)._enumerate_pages())
 
         dupes = [l['loc'] for l in locs if l['loc'].startswith('/dupe')]
@@ -115,7 +115,7 @@ class TestWebsiteSitemap(TransactionCase):
             def iter_rules(self):
                 return [RuleBound(), RulePartial()]
 
-        with patch('odoo.addons.website.models.ir_http.Http.routing_map', autospec=True, return_value=FakeRouter()):
+        with patch('loomworks.addons.website.models.ir_http.Http.routing_map', autospec=True, return_value=FakeRouter()):
             locs = list(website.with_user(website.user_id)._enumerate_pages())
 
         # The sitemap callable should have been executed only once

@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import calendar
 from collections import defaultdict
@@ -14,13 +14,13 @@ import re
 import os
 from textwrap import shorten
 
-from odoo import api, fields, models, _, Command, SUPERUSER_ID, modules, tools
-from odoo.tools.sql import column_exists, create_column
-from odoo.addons.account.tools import format_structured_reference_iso
-from odoo.exceptions import UserError, ValidationError, AccessError, RedirectWarning
-from odoo.osv import expression
-from odoo.tools.misc import clean_context
-from odoo.tools import (
+from loomworks import api, fields, models, _, Command, SUPERUSER_ID, modules, tools
+from loomworks.tools.sql import column_exists, create_column
+from loomworks.addons.account.tools import format_structured_reference_iso
+from loomworks.exceptions import UserError, ValidationError, AccessError, RedirectWarning
+from loomworks.osv import expression
+from loomworks.tools.misc import clean_context
+from loomworks.tools import (
     create_index,
     date_utils,
     float_compare,
@@ -36,9 +36,9 @@ from odoo.tools import (
     OrderedSet,
     SQL,
 )
-from odoo.tools.mail import email_re, email_split, is_html_empty, generate_tracking_message_id
-from odoo.tools.misc import StackMap
-from odoo.tools.safe_eval import safe_eval
+from loomworks.tools.mail import email_re, email_split, is_html_empty, generate_tracking_message_id
+from loomworks.tools.misc import StackMap
+from loomworks.tools.safe_eval import safe_eval
 
 
 _logger = logging.getLogger(__name__)
@@ -600,7 +600,7 @@ class AccountMove(models.Model):
     quick_edit_total_amount = fields.Monetary(
         string='Total (Tax inc.)',
         help='Use this field to encode the total amount of the invoice.\n'
-             'Odoo will automatically create one invoice line with default values to match it.',
+             'Loomworks ERP will automatically create one invoice line with default values to match it.',
     )
     quick_encoding_vals = fields.Json(compute='_compute_quick_encoding_vals', exportable=False)
 

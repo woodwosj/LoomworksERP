@@ -3,7 +3,7 @@
 
 from math import radians, sin, cos, sqrt, atan2
 
-from odoo import api, models
+from loomworks import api, models
 
 
 class FSMRouteHelper(models.TransientModel):

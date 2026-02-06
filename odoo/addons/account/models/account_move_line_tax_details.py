@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, models
-from odoo.tools import SQL
+from loomworks import api, models
+from loomworks.tools import SQL
 
 
 class AccountMoveLine(models.Model):

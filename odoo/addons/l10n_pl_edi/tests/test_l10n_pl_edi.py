@@ -1,12 +1,12 @@
 import base64
 from lxml import etree
 
-from odoo import Command, fields, tools
-from odoo.exceptions import UserError
-from odoo.tests import freeze_time, patch, tagged
+from loomworks import Command, fields, tools
+from loomworks.exceptions import UserError
+from loomworks.tests import freeze_time, patch, tagged
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.l10n_pl_edi.tools.ksef_api_service import KsefApiService
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.l10n_pl_edi.tools.ksef_api_service import KsefApiService
 
 
 def attachment_to_dict(attachment):
@@ -440,7 +440,7 @@ class TestL10nPlEdi(AccountTestInvoicingCommon):
             invoice: self.env['account.move.send']._get_default_sending_settings(invoice, from_cron=from_cron)
             for invoice in invoices
         }
-        with patch('odoo.addons.l10n_pl_edi.models.account_move_send.AccountMoveSend._call_web_service_before_invoice_pdf_render'):
+        with patch('loomworks.addons.l10n_pl_edi.models.account_move_send.AccountMoveSend._call_web_service_before_invoice_pdf_render'):
             self.env['account.move.send']._generate_invoice_documents(moves_data)
 
     def test_l10n_pl_edi_send_success(self):

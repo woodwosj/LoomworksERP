@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 import random
 
-from odoo import api, models, fields, _
-from odoo.addons.website.tools import text_from_html
-from odoo.tools.json import scriptsafe as json_scriptsafe
-from odoo.tools.translate import html_translate
-from odoo.tools import html_escape
+from loomworks import api, models, fields, _
+from loomworks.addons.website.tools import text_from_html
+from loomworks.tools.json import scriptsafe as json_scriptsafe
+from loomworks.tools.translate import html_translate
+from loomworks.tools import html_escape
 
 
 class Blog(models.Model):

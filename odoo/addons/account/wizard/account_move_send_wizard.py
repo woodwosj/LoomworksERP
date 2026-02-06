@@ -1,5 +1,5 @@
-from odoo import api, fields, models
-from odoo.tools.misc import get_lang
+from loomworks import api, fields, models
+from loomworks.tools.misc import get_lang
 
 
 class AccountMoveSendWizard(models.TransientModel):

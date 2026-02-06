@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 import { setSelection } from "@web_editor/js/editor/odoo-editor/src/utils/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { patchWithCleanup, nextTick } from "@web/../tests/helpers/utils";

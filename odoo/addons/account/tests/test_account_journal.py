@@ -3,13 +3,13 @@
 from ast import literal_eval
 from unittest.mock import patch
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.account.models.account_payment_method import AccountPaymentMethod
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.addons.test_mail.data.test_mail_data import MAIL_EML_ATTACHMENT
-from odoo.tests import Form, tagged, new_test_user
-from odoo.exceptions import UserError, ValidationError
-from odoo import Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.account.models.account_payment_method import AccountPaymentMethod
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.addons.test_mail.data.test_mail_data import MAIL_EML_ATTACHMENT
+from loomworks.tests import Form, tagged, new_test_user
+from loomworks.exceptions import UserError, ValidationError
+from loomworks import Command
 
 
 @tagged('post_install', '-at_install')

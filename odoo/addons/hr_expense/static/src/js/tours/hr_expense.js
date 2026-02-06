@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
@@ -7,7 +7,7 @@ import { stepUtils } from "@web_tour/tour_service/tour_utils";
 import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add('hr_expense_tour' , {
-    url: "/odoo",
+    url: "/loomworks",
     steps: () => [stepUtils.showAppsMenuItem(), {
     isActive: ["community"],
     trigger: '.o_app[data-menu-xmlid="hr_expense.menu_hr_expense_root"]',
@@ -57,7 +57,7 @@ registry.category("web_tour.tours").add('hr_expense_tour' , {
 },
 {
     trigger: '.o_form_status_indicator_dirty .o_form_button_save',
-    content: markup(_t("Ready? You can save it manually or discard modifications from here. You don't <em>need to save</em> - Odoo will save eveyrthing for you when you navigate.")),
+    content: markup(_t("Ready? You can save it manually or discard modifications from here. You don't <em>need to save</em> - Loomworks ERP will save eveyrthing for you when you navigate.")),
     tooltipPosition: 'bottom',
     run: "click",
 }, ...stepUtils.statusbarButtonsSteps(_t("Attach Receipt"), _t("Attach a receipt - usually an image or a PDF file.")),

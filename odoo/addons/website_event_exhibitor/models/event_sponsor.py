@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 from pytz import timezone, utc
 
-from odoo import api, fields, models, _
-from odoo.addons.resource.models.utils import float_to_time
-from odoo.tools import is_html_empty
-from odoo.tools.translate import html_translate
+from loomworks import api, fields, models, _
+from loomworks.addons.resource.models.utils import float_to_time
+from loomworks.tools import is_html_empty
+from loomworks.tools.translate import html_translate
 
 
 class Sponsor(models.Model):

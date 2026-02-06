@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="ec_final_consumer" model="res.partner">
             <field name="name">Consumidor final</field>
@@ -28,4 +28,4 @@
             <field name="vat">1760013210001</field>
         </record>
     </data>
-</odoo>
+</loomworks>

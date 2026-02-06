@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from freezegun import freeze_time
 
-from odoo import Command
-from odoo.tests import Form, tagged
-from odoo.tools import float_compare
+from loomworks import Command
+from loomworks.tests import Form, tagged
+from loomworks.tools import float_compare
 
-from odoo.addons.delivery.tests.common import DeliveryCommon
-from odoo.addons.sale.tests.common import SaleCommon
+from loomworks.addons.delivery.tests.common import DeliveryCommon
+from loomworks.addons.sale.tests.common import SaleCommon
 
 
 @tagged('post_install', '-at_install')

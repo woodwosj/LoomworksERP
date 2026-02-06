@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <data>
         <template id="template_xades_signature">
             <ds:Signature t-att-Id="signature_id" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
@@ -88,4 +88,4 @@
             </ds:Signature>
         </template>
     </data>
-</odoo>
+</loomworks>

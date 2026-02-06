@@ -2,9 +2,9 @@
 import json
 from base64 import b64decode
 
-from odoo import Command
-from odoo.tests import tagged
-from odoo.addons.account_edi.tests.common import AccountEdiTestCommon
+from loomworks import Command
+from loomworks.tests import tagged
+from loomworks.addons.account_edi.tests.common import AccountEdiTestCommon
 
 
 @tagged('post_install_l10n', '-at_install', 'post_install')

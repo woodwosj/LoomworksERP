@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from odoo import Command
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.tests import tagged
 
-from odoo.addons.project.tests.test_project_sharing import TestProjectSharingCommon
+from loomworks.addons.project.tests.test_project_sharing import TestProjectSharingCommon
 
 @tagged('post_install', '-at_install')
 class TestPortalTimesheet(TestProjectSharingCommon):

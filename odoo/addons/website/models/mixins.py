@@ -1,17 +1,17 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import re
 
 from werkzeug.urls import url_join
 
-from odoo import api, fields, models, _
-from odoo.addons.website.tools import text_from_html
-from odoo.http import request
-from odoo.osv import expression
-from odoo.exceptions import AccessError
-from odoo.tools import escape_psql
-from odoo.tools.json import scriptsafe as json_safe
+from loomworks import api, fields, models, _
+from loomworks.addons.website.tools import text_from_html
+from loomworks.http import request
+from loomworks.osv import expression
+from loomworks.exceptions import AccessError
+from loomworks.tools import escape_psql
+from loomworks.tools.json import scriptsafe as json_safe
 
 logger = logging.getLogger(__name__)
 

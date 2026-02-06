@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.exceptions import AccessDenied
+from loomworks.exceptions import AccessDenied
 
-from odoo import api, models, SUPERUSER_ID
-from odoo.modules.registry import Registry
+from loomworks import api, models, SUPERUSER_ID
+from loomworks.modules.registry import Registry
 
 
 class Users(models.Model):

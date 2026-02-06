@@ -1,4 +1,4 @@
-/** @odoo-module alias=@mail/../tests/web/debug_menu_tests default=false */
+/** @loomworks-module alias=@mail/../tests/web/debug_menu_tests default=false */
 const test = QUnit.test; // QUnit.test()
 
 import { manageMessages } from "@mail/js/tools/debug_manager";

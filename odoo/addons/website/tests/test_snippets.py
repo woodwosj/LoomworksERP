@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import logging
 
 from lxml import html
 from werkzeug.urls import url_encode
 
-from odoo.tests import HttpCase, tagged
-from odoo.addons.website.tools import MockRequest, create_image_attachment
-from odoo.tests.common import HOST
-from odoo.tools import config
+from loomworks.tests import HttpCase, tagged
+from loomworks.addons.website.tools import MockRequest, create_image_attachment
+from loomworks.tests.common import HOST
+from loomworks.tools import config
 
 _logger = logging.getLogger(__name__)
 
@@ -53,7 +53,7 @@ class TestSnippets(HttpCase):
                 'name': 'My Mail Group',
                 'alias_name': 'my_mail_group',
             })
-        self.start_tour(f"/odoo/action-website.website_preview?{path}", "snippets_all_drag_and_drop", login='admin', timeout=600)
+        self.start_tour(f"/loomworks/action-website.website_preview?{path}", "snippets_all_drag_and_drop", login='admin', timeout=600)
 
     def test_04_countdown_preview(self):
         self.start_tour(self.env['website'].get_client_action_url('/'), 'snippet_countdown', login='admin')

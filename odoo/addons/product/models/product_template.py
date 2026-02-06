@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import itertools
 import logging
 
 from collections import defaultdict
 
-from odoo import _, api, fields, models, tools
-from odoo.exceptions import UserError, ValidationError
-from odoo.osv import expression
-from odoo.tools.image import is_image_size_above
-from odoo.tools.sql import SQL
+from loomworks import _, api, fields, models, tools
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.osv import expression
+from loomworks.tools.image import is_image_size_above
+from loomworks.tools.sql import SQL
 
 _logger = logging.getLogger(__name__)
 PRICE_CONTEXT_KEYS = ['pricelist', 'quantity', 'uom', 'date']

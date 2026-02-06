@@ -1,4 +1,4 @@
-/** @odoo-module alias=@mail/../tests/helpers/mock_server/models/res_users default=false */
+/** @loomworks-module alias=@mail/../tests/helpers/mock_server/models/res_users default=false */
 
 import { patch } from "@web/core/utils/patch";
 import { today, serializeDate } from "@web/core/l10n/dates";

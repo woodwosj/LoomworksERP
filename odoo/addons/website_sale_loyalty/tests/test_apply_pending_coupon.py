@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import http
-from odoo.tests import tagged, HttpCase
+from loomworks import http
+from loomworks.tests import tagged, HttpCase
 
-from odoo.addons.sale_loyalty.tests.common import TestSaleCouponNumbersCommon
-from odoo.addons.website.tools import MockRequest
-from odoo.addons.website_sale_loyalty.controllers.main import WebsiteSale
+from loomworks.addons.sale_loyalty.tests.common import TestSaleCouponNumbersCommon
+from loomworks.addons.website.tools import MockRequest
+from loomworks.addons.website_sale_loyalty.controllers.main import WebsiteSale
 
 
 @tagged('-at_install', 'post_install')

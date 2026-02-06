@@ -1,19 +1,19 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 from lxml import etree
 import re
 from markupsafe import Markup
 
-from odoo.addons.website.controllers.main import Website
-from odoo.addons.website.tools import distance, MockRequest
-import odoo.tests
-from odoo.tests.common import TransactionCase
+from loomworks.addons.website.controllers.main import Website
+from loomworks.addons.website.tools import distance, MockRequest
+import loomworks.tests
+from loomworks.tests.common import TransactionCase
 
 _logger = logging.getLogger(__name__)
 
 
-@odoo.tests.tagged('-at_install', 'post_install')
+@loomworks.tests.tagged('-at_install', 'post_install')
 class TestFuzzy(TransactionCase):
     def test_01_fuzzy_names(self):
         # Models from other modules commented out on commit: they make the test much longer
@@ -102,7 +102,7 @@ class TestFuzzy(TransactionCase):
         self.assertEqual(distance("", "", 10), 0)
 
 
-@odoo.tests.tagged('-at_install', 'post_install')
+@loomworks.tests.tagged('-at_install', 'post_install')
 class TestAutoComplete(TransactionCase):
     @classmethod
     def setUpClass(cls):

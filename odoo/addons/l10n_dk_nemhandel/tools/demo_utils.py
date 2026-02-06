@@ -2,8 +2,8 @@ import uuid
 
 from decorator import decorator
 
-from odoo import _, modules
-from odoo.exceptions import ValidationError
+from loomworks import _, modules
+from loomworks.exceptions import ValidationError
 
 DEMO_PRIVATE_KEY = 'l10n_dk_nemhandel/tools/private_key.pem'
 

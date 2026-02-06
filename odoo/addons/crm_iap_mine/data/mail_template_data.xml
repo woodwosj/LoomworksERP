@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data noupdate="1">
         <record id="lead_generation_no_credits" model="mail.template">
             <field name="name">IAP Lead Generation Notification</field>
@@ -13,8 +13,8 @@
     <p>There are no more credits on your IAP Lead Generation account.<br/>
     You can charge your IAP Lead Generation account in the settings of the CRM app.<br/></p>
     <p>Best regards,</p>
-    <p>Odoo S.A.</p>
+    <p>Loomworks</p>
 </div></field>
         </record>
     </data>
-</odoo>
+</loomworks>

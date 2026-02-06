@@ -1,5 +1,5 @@
-from odoo import api, models
-from odoo.osv import expression
+from loomworks import api, models
+from loomworks.osv import expression
 
 
 class KpiProvider(models.AbstractModel):

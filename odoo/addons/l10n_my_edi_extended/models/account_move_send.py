@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models
-from odoo.tools import str2bool
+from loomworks import api, models
+from loomworks.tools import str2bool
 
 
 class AccountMoveSend(models.AbstractModel):

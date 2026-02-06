@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models
-from odoo.tools import date_utils
+from loomworks import api, fields, models
+from loomworks.tools import date_utils
 
-from odoo.addons.l10n_my_edi.models.account_edi_xml_ubl_my import E_164_REGEX
+from loomworks.addons.l10n_my_edi.models.account_edi_xml_ubl_my import E_164_REGEX
 
 
 class MyInvoisDocumentPoS(models.Model):

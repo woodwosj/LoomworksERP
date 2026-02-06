@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.base.tests.test_ir_cron import CronMixinCase
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.addons.test_mail.models.mail_test_lead import MailTestTLead
-from odoo.addons.test_mail.tests.common import TestRecipients
-from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.fields import Datetime as FieldDatetime
-from odoo.tests import tagged, users
-from odoo.tools import mute_logger
+from loomworks.addons.base.tests.test_ir_cron import CronMixinCase
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.addons.test_mail.models.mail_test_lead import MailTestTLead
+from loomworks.addons.test_mail.tests.common import TestRecipients
+from loomworks.exceptions import AccessError, UserError, ValidationError
+from loomworks.fields import Datetime as FieldDatetime
+from loomworks.tests import tagged, users
+from loomworks.tools import mute_logger
 from unittest.mock import patch
 
 
@@ -165,7 +165,7 @@ class TestScheduledMessageBusiness(TestScheduledMessage, CronMixinCase):
 
             with self.mock_datetime_and_now('2022-12-24 14:00:00'),\
                 patch.object(MailTestTLead, '_message_post_after_hook', _message_post_after_hook),\
-                mute_logger('odoo.addons.mail.models.mail_scheduled_message'):
+                mute_logger('loomworks.addons.mail.models.mail_scheduled_message'):
                 self.env['mail.scheduled.message'].with_user(self.user_root)._post_messages_cron()
             # one scheduled message failed, only one mail should be sent
             self.assertEqual(len(self._new_mails), 1)

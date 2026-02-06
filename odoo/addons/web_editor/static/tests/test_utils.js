@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { MockServer } from "@web/../tests/helpers/mock_server";
 import testUtils from "@web/../tests/legacy_tests/helpers/test_utils";

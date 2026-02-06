@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 from requests.exceptions import HTTPError
 
-import odoo
-from odoo.tools import file_open, mute_logger
-from odoo.addons.mail.tests.test_controller_common import TestControllerCommon
+import loomworks
+from loomworks.tools import file_open, mute_logger
+from loomworks.addons.mail.tests.test_controller_common import TestControllerCommon
 
 
-@odoo.tests.tagged("-at_install", "post_install")
+@loomworks.tests.tagged("-at_install", "post_install")
 class TestAttachmentControllerCommon(TestControllerCommon):
     @classmethod
     def setUpClass(cls):
@@ -36,11 +36,11 @@ class TestAttachmentControllerCommon(TestControllerCommon):
                         self._upload_attachment(record.id, record._name, route_kw)
 
     def _upload_attachment(self, thread_id, thread_model, route_kw):
-        with mute_logger("odoo.http"), file_open("addons/web/__init__.py") as file:
+        with mute_logger("loomworks.http"), file_open("addons/web/__init__.py") as file:
             res = self.url_open(
                 url="/mail/attachment/upload",
                 data={
-                    "csrf_token": odoo.http.Request.csrf_token(self),
+                    "csrf_token": loomworks.http.Request.csrf_token(self),
                     "is_pending": True,
                     "thread_id": thread_id,
                     "thread_model": thread_model,
@@ -62,7 +62,7 @@ class TestAttachmentControllerCommon(TestControllerCommon):
         )
 
 
-@odoo.tests.tagged("-at_install", "post_install")
+@loomworks.tests.tagged("-at_install", "post_install")
 class TestAttachmentController(TestAttachmentControllerCommon):
     def test_attachment_partner(self):
         """Test access to upload an attachment on a non channel thread"""
@@ -80,4 +80,4 @@ class TestAttachmentController(TestAttachmentControllerCommon):
         )
 
     def test_send_attachment_without_body(self):
-        self.start_tour("/odoo/discuss", "create_thread_for_attachment_without_body",login="admin")
+        self.start_tour("/loomworks/discuss", "create_thread_for_attachment_without_body",login="admin")

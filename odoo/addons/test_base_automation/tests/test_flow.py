@@ -1,14 +1,14 @@
 # # -*- coding: utf-8 -*-
-# # Part of Odoo. See LICENSE file for full copyright and licensing details.
+# # Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import json
 import sys
 from unittest.mock import patch
 
-from odoo import Command
-from odoo.addons.base.tests.common import TransactionCaseWithUserDemo
-from odoo.exceptions import AccessError, ValidationError
-from odoo.tests import Form, common, tagged
-from odoo.tools import mute_logger
+from loomworks import Command
+from loomworks.addons.base.tests.common import TransactionCaseWithUserDemo
+from loomworks.exceptions import AccessError, ValidationError
+from loomworks.tests import Form, common, tagged
+from loomworks.tools import mute_logger
 
 
 def create_automation(self, **kwargs):
@@ -385,7 +385,7 @@ else:
             nonlocal send_mail_count
             send_mail_count += 1
 
-        patcher = patch('odoo.addons.mail.models.mail_template.MailTemplate.send_mail', _patched_send_mail)
+        patcher = patch('loomworks.addons.mail.models.mail_template.MailTemplate.send_mail', _patched_send_mail)
         self.startPatcher(patcher)
 
         lead = self.env['base.automation.lead.thread.test'].create({
@@ -471,7 +471,7 @@ if env.context.get('old_values', None):  # on write
         def _patch(*args, **kwargs):
             self.assertEqual(args[0], automations.pop(0))
 
-        patcher = patch('odoo.addons.base_automation.models.base_automation.BaseAutomation._process', _patch)
+        patcher = patch('loomworks.addons.base_automation.models.base_automation.BaseAutomation._process', _patch)
         self.startPatcher(patcher)
 
         lead = self.create_lead(state='draft')
@@ -848,7 +848,7 @@ if env.context.get('old_values', None):  # on write
             called_count += 1
             self.assertEqual(args[0], automation)
 
-        patcher = patch('odoo.addons.base_automation.models.base_automation.BaseAutomation._process', _patch)
+        patcher = patch('loomworks.addons.base_automation.models.base_automation.BaseAutomation._process', _patch)
         self.startPatcher(patcher)
 
         lead = self.create_lead()
@@ -1472,7 +1472,7 @@ class TestHttp(common.HttpCase):
         self.assertEqual(obj.another_field, "written")
 
         obj.another_field = False
-        with mute_logger("odoo.addons.base_automation.models.base_automation"):
+        with mute_logger("loomworks.addons.base_automation.models.base_automation"):
             response = self.url_open(automation.url, data=json.dumps({}))
         self.assertEqual(response.json(), {"status": "error"})
         self.assertEqual(response.status_code, 500)

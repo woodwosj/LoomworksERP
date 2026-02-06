@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-import odoo.tests
-from odoo.tests import Form
-from odoo.tests.common import TransactionCase
-from odoo.exceptions import UserError
-from odoo import Command
+from loomworks import Command
+import loomworks.tests
+from loomworks.tests import Form
+from loomworks.tests.common import TransactionCase
+from loomworks.exceptions import UserError
+from loomworks import Command
 
 
 class TestPackingCommon(TransactionCase):
@@ -1968,7 +1968,7 @@ class TestPacking(TestPackingCommon):
         self.assertFalse(delivery.move_ids.picked)
 
 
-@odoo.tests.tagged('post_install', '-at_install')
+@loomworks.tests.tagged('post_install', '-at_install')
 class TestPackagePropagation(TestPackingCommon):
 
     def test_reusable_package_propagation(self):

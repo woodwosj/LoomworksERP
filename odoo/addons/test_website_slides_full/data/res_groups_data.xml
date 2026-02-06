@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data noupdate="1">
         <!-- We want to activate product variant by default for testing product
              configurator. Otherwise Odoo want to de-install the whole module due
@@ -8,4 +8,4 @@
             <field name="implied_ids" eval="[(4, ref('product.group_product_variant'))]"/>
         </record>
     </data>
-</odoo>
+</loomworks>

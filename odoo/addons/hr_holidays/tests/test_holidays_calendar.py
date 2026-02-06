@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import date, timedelta
 
-from odoo.osv import expression
+from loomworks.osv import expression
 
-from odoo.addons.base.tests.common import HttpCase
-from odoo.tests.common import tagged
-from odoo.tests.common import users
+from loomworks.addons.base.tests.common import HttpCase
+from loomworks.tests.common import tagged
+from loomworks.tests.common import users
 
-from odoo.addons.hr_holidays.tests.common import TestHrHolidaysCommon
+from loomworks.addons.hr_holidays.tests.common import TestHrHolidaysCommon
 
 @tagged('post_install', '-at_install', 'holiday_calendar')
 class TestHolidaysCalendar(HttpCase, TestHrHolidaysCommon):

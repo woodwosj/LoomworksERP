@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 import logging
@@ -6,13 +6,13 @@ import operator
 
 from werkzeug.urls import url_encode
 
-import odoo
-import odoo.modules.registry
-from odoo import http
-from odoo.modules import module
-from odoo.exceptions import AccessError, UserError, AccessDenied
-from odoo.http import request
-from odoo.tools.translate import _
+import loomworks
+import loomworks.modules.registry
+from loomworks import http
+from loomworks.modules import module
+from loomworks.exceptions import AccessError, UserError, AccessDenied
+from loomworks.http import request
+from loomworks.tools.translate import _
 
 
 _logger = logging.getLogger(__name__)
@@ -42,9 +42,9 @@ class Session(http.Controller):
             return {'uid': None}
 
         request.session.db = db
-        registry = odoo.modules.registry.Registry(db)
+        registry = loomworks.modules.registry.Registry(db)
         with registry.cursor() as cr:
-            env = odoo.api.Environment(cr, request.session.uid, request.session.context)
+            env = loomworks.api.Environment(cr, request.session.uid, request.session.context)
             if not request.db:
                 # request._save_session would not update the session_token
                 # as it lacks an environment, rotating the session myself
@@ -87,6 +87,6 @@ class Session(http.Controller):
         request.session.logout()
 
     @http.route('/web/session/logout', type='http', auth='none', readonly=True)
-    def logout(self, redirect='/odoo'):
+    def logout(self, redirect='/loomworks'):
         request.session.logout(keep_db=True)
         return request.redirect(redirect, 303)

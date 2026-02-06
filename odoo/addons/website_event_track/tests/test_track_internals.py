@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 from unittest.mock import patch
 
-from odoo import fields
-from odoo.addons.website.models.website_visitor import WebsiteVisitor
-from odoo.addons.website_event.tests.common import TestEventOnlineCommon
-from odoo.tests.common import users
+from loomworks import fields
+from loomworks.addons.website.models.website_visitor import WebsiteVisitor
+from loomworks.addons.website_event.tests.common import TestEventOnlineCommon
+from loomworks.tests.common import users
 
 class TestTrackData(TestEventOnlineCommon):
 

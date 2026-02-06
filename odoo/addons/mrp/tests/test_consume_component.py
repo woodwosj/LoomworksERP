@@ -1,7 +1,7 @@
 import copy
 
-from odoo.exceptions import UserError
-from odoo.tests import common, tagged, Form
+from loomworks.exceptions import UserError
+from loomworks.tests import common, tagged, Form
 
 
 class TestConsumeComponentCommon(common.TransactionCase):

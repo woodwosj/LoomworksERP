@@ -5,7 +5,7 @@
 Sign AI Tool Provider - Provides AI tools for electronic signature workflows.
 """
 
-from odoo import api, models, _
+from loomworks import api, models, _
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -245,7 +245,7 @@ Use this tool when:
 
         # Create request
         from datetime import timedelta
-        from odoo import fields
+        from loomworks import fields
         expire_date = fields.Date.today() + timedelta(days=expire_days) if expire_days else False
 
         request = self.env['sign.request'].create({

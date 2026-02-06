@@ -1,13 +1,13 @@
 from lxml import etree
 from urllib.parse import urlencode
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.tools import cleanup_xml_node
-from odoo.tools.sql import column_exists, create_column
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
+from loomworks.tools import cleanup_xml_node
+from loomworks.tools.sql import column_exists, create_column
 
-from odoo.addons.l10n_gr_edi.models.l10n_gr_edi_document import _make_mydata_request
-from odoo.addons.l10n_gr_edi.models.preferred_classification import (
+from loomworks.addons.l10n_gr_edi.models.l10n_gr_edi_document import _make_mydata_request
+from loomworks.addons.l10n_gr_edi.models.preferred_classification import (
     CLASSIFICATION_CATEGORY_EXPENSE,
     COMBINATIONS_WITH_POSSIBLE_EMPTY_TYPE,
     INVOICE_TYPES_HAVE_EXPENSE,
@@ -601,7 +601,7 @@ class AccountMove(models.Model):
                 'name': _("Settings"),
                 'type': 'ir.actions.act_url',
                 'target': 'self',
-                'url': '/odoo/settings#l10n_gr_edi_aade_settings',
+                'url': '/loomworks/settings#l10n_gr_edi_aade_settings',
             },
         }
 

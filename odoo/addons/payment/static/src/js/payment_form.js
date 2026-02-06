@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Component } from '@odoo/owl';
 import publicWidget from '@web/legacy/js/public/public_widget';

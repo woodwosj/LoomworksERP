@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { useBus, useService } from '@web/core/utils/hooks';
 import { ActionContainer } from '@web/webclient/actions/action_container';

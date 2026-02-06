@@ -1,6 +1,6 @@
-from odoo import http, _
-from odoo.http import request
-from odoo.exceptions import UserError
+from loomworks import http, _
+from loomworks.http import request
+from loomworks.exceptions import UserError
 
 class DashboardShareRoute(http.Controller):
     @http.route(['/dashboard/share/<int:share_id>/<token>'], type='http', auth='public')

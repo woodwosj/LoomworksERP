@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.hr.tests.common import TestHrCommon
-from odoo.tests.common import tagged
+from loomworks.addons.hr.tests.common import TestHrCommon
+from loomworks.tests.common import tagged
 
 
 @tagged("post_install", "-at_install")

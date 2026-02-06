@@ -1,4 +1,4 @@
-/* @odoo-module */
+/* @loomworks-module */
 
 import { TimeOffCard } from "./time_off_card";
 import { useNewAllocationRequest } from "@hr_holidays/views/hooks";

@@ -4,9 +4,9 @@
 from collections import defaultdict
 from datetime import date, datetime, timedelta
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools.safe_eval import safe_eval, datetime as safe_datetime, dateutil, time
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools.safe_eval import safe_eval, datetime as safe_datetime, dateutil, time
 import logging
 
 _logger = logging.getLogger(__name__)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
+<loomworks noupdate="1">
     <!-- Tags for accounts -->
     <record id="account_tag_development_costs" model="account.account.tag">
         <field name="name">Balance sheet: Development expenses</field>
@@ -545,4 +545,4 @@
         <field name="name">Result: Other direct taxes</field>
         <field name="applicability">accounts</field>
     </record>
-</odoo>
+</loomworks>

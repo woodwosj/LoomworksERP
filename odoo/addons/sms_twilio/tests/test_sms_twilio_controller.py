@@ -1,8 +1,8 @@
-from odoo.addons.sms_twilio.tests.common import MockSmsTwilio
-from odoo.addons.sms_twilio.tools import sms_twilio as twilio_tools
-from odoo.tools import mute_logger
-from odoo.tests import tagged, users
-from odoo.tests.common import HttpCase
+from loomworks.addons.sms_twilio.tests.common import MockSmsTwilio
+from loomworks.addons.sms_twilio.tools import sms_twilio as twilio_tools
+from loomworks.tools import mute_logger
+from loomworks.tests import tagged, users
+from loomworks.tests.common import HttpCase
 
 
 @tagged('post_install', '-at_install', 'twilio', 'twilio_controller')
@@ -13,7 +13,7 @@ class TestSmsTwilioController(MockSmsTwilio, HttpCase):
         super().setUpClass()
         cls._setup_sms_twilio(cls.user_admin.company_id)
 
-    @mute_logger('odoo.addons.sms_twilio.controllers.controllers')
+    @mute_logger('loomworks.addons.sms_twilio.controllers.controllers')
     @users('employee')
     def test_sms_twilio_controller_status(self):
         """Test that the controller correctly processes the webhook calls we
@@ -90,7 +90,7 @@ class TestSmsTwilioController(MockSmsTwilio, HttpCase):
                         'failure_reason': expected_data["failure_reason"],
                     }])
 
-    @mute_logger('odoo.addons.sms_twilio.controllers.controllers')
+    @mute_logger('loomworks.addons.sms_twilio.controllers.controllers')
     @users('employee')
     def test_sms_twilio_controller_status_signature(self):
         """ Check X-Twilio-Signature is effectively checked """

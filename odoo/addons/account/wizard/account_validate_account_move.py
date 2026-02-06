@@ -1,6 +1,6 @@
-from odoo import Command, models, fields, api, _
-from odoo.addons.account.models.exceptions import TaxClosingNonPostedDependingMovesError
-from odoo.exceptions import UserError
+from loomworks import Command, models, fields, api, _
+from loomworks.addons.account.models.exceptions import TaxClosingNonPostedDependingMovesError
+from loomworks.exceptions import UserError
 
 
 class ValidateAccountMove(models.TransientModel):

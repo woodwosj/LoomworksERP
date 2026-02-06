@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 
-from odoo import Command
-from odoo.tests import tagged
-from odoo.tools.float_utils import float_compare
+from loomworks import Command
+from loomworks.tests import tagged
+from loomworks.tools.float_utils import float_compare
 
-from odoo.addons.sale.tests.common import TestSaleCommon
-from odoo.addons.project.tests.test_project_profitability import TestProjectProfitabilityCommon as Common
+from loomworks.addons.sale.tests.common import TestSaleCommon
+from loomworks.addons.project.tests.test_project_profitability import TestProjectProfitabilityCommon as Common
 
 
 class TestProjectProfitabilityCommon(Common):

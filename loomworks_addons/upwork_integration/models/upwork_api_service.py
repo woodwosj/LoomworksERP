@@ -18,8 +18,8 @@ import logging
 import time
 from datetime import datetime, timedelta
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
 
 try:
     import requests

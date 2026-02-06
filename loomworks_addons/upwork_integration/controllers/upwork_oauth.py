@@ -15,8 +15,8 @@ Route: /upwork/oauth/callback
 
 import logging
 
-from odoo import http
-from odoo.http import request
+from loomworks import http
+from loomworks.http import request
 
 _logger = logging.getLogger(__name__)
 
@@ -52,13 +52,13 @@ class UpworkOAuthController(http.Controller):
                         'last_error': error_description or error,
                         'oauth_state': False,
                     })
-                    return request.redirect(f'/odoo/upwork-accounts/{account.id}')
-            return request.redirect('/odoo/upwork-accounts')
+                    return request.redirect(f'/loomworks/upwork-accounts/{account.id}')
+            return request.redirect('/loomworks/upwork-accounts')
 
         # Validate required parameters
         if not code or not state:
             _logger.error("Upwork OAuth callback missing code or state")
-            return request.redirect('/odoo/upwork-accounts')
+            return request.redirect('/loomworks/upwork-accounts')
 
         # Find the account by state token (CSRF validation)
         account = request.env['upwork.account'].sudo().search([
@@ -67,7 +67,7 @@ class UpworkOAuthController(http.Controller):
 
         if not account:
             _logger.error("Upwork OAuth callback: no account found for state %s", state)
-            return request.redirect('/odoo/upwork-accounts')
+            return request.redirect('/loomworks/upwork-accounts')
 
         # Exchange the code for tokens
         try:
@@ -83,4 +83,4 @@ class UpworkOAuthController(http.Controller):
                 'oauth_state': False,
             })
 
-        return request.redirect(f'/odoo/upwork-accounts/{account.id}')
+        return request.redirect(f'/loomworks/upwork-accounts/{account.id}')

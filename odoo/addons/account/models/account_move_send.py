@@ -1,9 +1,9 @@
 from collections import defaultdict
 from markupsafe import Markup
 
-from odoo import _, api, models, modules, tools
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools.misc import OrderedSet
+from loomworks import _, api, models, modules, tools
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools.misc import OrderedSet
 
 
 class AccountMoveSend(models.AbstractModel):

@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <data>        
         <record id="l10n_eg_res_partner_1" model="res.partner">
             <field name="name">Egyptian Furniture</field>
@@ -15,4 +15,4 @@
             <field name="vat">987654321</field>
         </record>
     </data>
-</odoo>
+</loomworks>

@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from lxml import html
 
-from odoo.tests import tagged, HttpCase
+from loomworks.tests import tagged, HttpCase
 
 
 @tagged('post_install', '-at_install')

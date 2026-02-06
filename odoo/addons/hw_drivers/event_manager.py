@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 from threading import Event
 import time
 
-from odoo.http import request
+from loomworks.http import request
 
 class EventManager(object):
     def __init__(self):

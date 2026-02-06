@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="type_delivery_challan_sub_job_work" model="l10n.in.ewaybill.type">
         <field name="name">Delivery Challan</field>
         <field name="code">CHL</field>
@@ -71,4 +71,4 @@
         <field name="sub_type_code">7</field>
         <field name="allowed_supply_type">in</field>
     </record>
-</odoo>
+</loomworks>

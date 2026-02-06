@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.exceptions import AccessError
-from odoo.tests import tagged, common, new_test_user
-from odoo.tools import mute_logger
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.exceptions import AccessError
+from loomworks.tests import tagged, common, new_test_user
+from loomworks.tools import mute_logger
 
 
 @tagged('security')
@@ -39,7 +39,7 @@ class TestAccessRating(common.TransactionCase):
         })
 
 
-    @mute_logger('odoo.addons.base.models.ir_model')
+    @mute_logger('loomworks.addons.base.models.ir_model')
     def test_rating_access(self):
         """ Security test : only a employee (user group) can create and write rating object """
         # Public and portal user can't Access direclty to the ratings

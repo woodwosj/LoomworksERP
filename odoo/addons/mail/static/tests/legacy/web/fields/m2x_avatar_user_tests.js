@@ -1,4 +1,4 @@
-/** @odoo-module alias=@mail/../tests/web/fields/m2x_avatar_user_tests default=false */
+/** @loomworks-module alias=@mail/../tests/web/fields/m2x_avatar_user_tests default=false */
 const test = QUnit.test; // QUnit.test()
 
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";

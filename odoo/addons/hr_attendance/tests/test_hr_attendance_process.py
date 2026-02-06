@@ -4,9 +4,9 @@ import pytz
 from datetime import datetime
 from unittest.mock import patch
 
-from odoo import fields
-from odoo.tests import new_test_user
-from odoo.tests.common import tagged, TransactionCase, freeze_time
+from loomworks import fields
+from loomworks.tests import new_test_user
+from loomworks.tests.common import tagged, TransactionCase, freeze_time
 
 
 @tagged('attendance_process')

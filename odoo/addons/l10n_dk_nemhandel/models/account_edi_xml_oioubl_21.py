@@ -1,6 +1,6 @@
-from odoo import _, models, tools
-from odoo.tools import html2plaintext
-from odoo.tools.float_utils import float_round
+from loomworks import _, models, tools
+from loomworks.tools import html2plaintext
+from loomworks.tools.float_utils import float_round
 
 DANISH_NATIONAL_IT_AND_TELECOM_AGENCY_ID = '320'
 

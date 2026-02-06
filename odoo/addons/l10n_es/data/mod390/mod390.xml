@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 <data auto_sequence="1">
     <record id="mod_390" model="account.report">
         <field name="name">Tax Report (Mod 390)</field>
@@ -13,4 +13,4 @@
         <field name="section_report_ids" eval="[Command.set([ref('mod_390_section_1'),ref('mod_390_section_2'),ref('mod_390_section_3'),ref('mod_390_section_4'),ref('mod_390_section_5'),ref('mod_390_section_6'),ref('mod_390_section_7')])]"/>
     </record>
 </data>
-</odoo>
+</loomworks>

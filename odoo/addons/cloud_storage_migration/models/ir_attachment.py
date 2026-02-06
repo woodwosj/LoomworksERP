@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import time
@@ -6,13 +6,13 @@ import requests
 
 from datetime import timedelta
 
-from odoo.tools import SQL, config
-from odoo.http import request
-from odoo import models, fields, _
-from odoo.exceptions import UserError, ValidationError
+from loomworks.tools import SQL, config
+from loomworks.http import request
+from loomworks import models, fields, _
+from loomworks.exceptions import UserError, ValidationError
 
-from odoo.addons.base.models.ir_module import assert_log_admin_access
-from odoo.addons.cloud_storage.models.res_config_settings import DEFAULT_CLOUD_STORAGE_MIN_FILE_SIZE
+from loomworks.addons.base.models.ir_module import assert_log_admin_access
+from loomworks.addons.cloud_storage.models.res_config_settings import DEFAULT_CLOUD_STORAGE_MIN_FILE_SIZE
 
 
 _logger = logging.getLogger(__name__)

@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 import { browser } from "@web/core/browser/browser";
 const localStorage = browser.localStorage;
 

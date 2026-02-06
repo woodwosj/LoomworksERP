@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/mobile/core/action_swiper_tests default=false */
+/** @loomworks-module alias=@web/../tests/mobile/core/action_swiper_tests default=false */
 
 import { beforeEach, expect, test } from "@odoo/hoot";
 import { hover, queryFirst } from "@odoo/hoot-dom";

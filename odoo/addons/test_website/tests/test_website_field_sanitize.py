@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo
-import odoo.tests
+import loomworks
+import loomworks.tests
 
 
-@odoo.tests.tagged('-at_install', 'post_install')
-class TestWebsiteFieldSanitize(odoo.tests.HttpCase):
+@loomworks.tests.tagged('-at_install', 'post_install')
+class TestWebsiteFieldSanitize(loomworks.tests.HttpCase):
     def test_sanitize_video_iframe(self):
         self.env['res.users'].create({
             'name': 'Restricted Editor',

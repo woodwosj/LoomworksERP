@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="view_tax_form_inherit_l10n_ee" model="ir.ui.view">
             <field name="name">account.tax.form</field>
@@ -12,4 +12,4 @@
             </field>
         </record>
     </data>
-</odoo>
+</loomworks>

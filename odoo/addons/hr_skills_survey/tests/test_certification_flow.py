@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
 from markupsafe import Markup
 
-from odoo import Command, fields
-from odoo.addons.survey.tests import common
-from odoo.tests import tagged
-from odoo.tests.common import HttpCase
+from loomworks import Command, fields
+from loomworks.addons.survey.tests import common
+from loomworks.tests import tagged
+from loomworks.tests.common import HttpCase
 
 
 @tagged('-at_install', 'post_install', 'functional')

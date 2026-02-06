@@ -1,5 +1,5 @@
-from odoo.addons.point_of_sale.tests.common import TestPointOfSaleCommon
-from odoo.tests import tagged
+from loomworks.addons.point_of_sale.tests.common import TestPointOfSaleCommon
+from loomworks.tests import tagged
 from ..models.pos import ORDER_FIELDS_BEFORE_17_4, ORDER_FIELDS_FROM_17_4, LINE_FIELDS
 from json import dumps
 

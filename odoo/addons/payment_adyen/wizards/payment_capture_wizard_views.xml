@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <record id="payment_capture_wizard_view_form" model="ir.ui.view">
         <field name="name">payment.adyen.capture.wizard.form</field>
@@ -13,10 +13,10 @@
                      class="alert alert-info mb-2"
                      invisible="not has_adyen_tx">
                     The capture or void of the transaction might take a few minutes to be
-                    processed by Adyen and reflected in Odoo.
+                    processed by Adyen and reflected in Loomworks ERP.
                 </div>
             </footer>
         </field>
     </record>
 
-</odoo>
+</loomworks>

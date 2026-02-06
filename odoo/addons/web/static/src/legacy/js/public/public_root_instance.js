@@ -1,4 +1,4 @@
-/** @odoo-module alias=root.widget */
+/** @loomworks-module alias=root.widget */
 import { PublicRoot, createPublicRoot } from "./public_root";
 import lazyloader from "@web/legacy/js/public/lazyloader";
 

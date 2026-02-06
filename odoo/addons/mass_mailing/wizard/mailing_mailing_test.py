@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from markupsafe import Markup
 
-from odoo import _, fields, models, tools
-from odoo.tools.misc import file_open
+from loomworks import _, fields, models, tools
+from loomworks.tools.misc import file_open
 
 
 class TestMassMailing(models.TransientModel):

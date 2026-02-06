@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, fields, http
-from odoo.exceptions import AccessError, MissingError, ValidationError
-from odoo.http import request
+from loomworks import _, fields, http
+from loomworks.exceptions import AccessError, MissingError, ValidationError
+from loomworks.http import request
 
-from odoo.addons.account.controllers import portal
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.payment.controllers.portal import PaymentPortal
+from loomworks.addons.account.controllers import portal
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.payment.controllers.portal import PaymentPortal
 
 
 class PortalAccount(portal.PortalAccount, PaymentPortal):

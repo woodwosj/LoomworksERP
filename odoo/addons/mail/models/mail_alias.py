@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import ast
 import re
 from collections import defaultdict
 from markupsafe import Markup
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError, UserError
-from odoo.osv import expression
-from odoo.tools import is_html_empty, remove_accents
+from loomworks import _, api, fields, models
+from loomworks.exceptions import ValidationError, UserError
+from loomworks.osv import expression
+from loomworks.tools import is_html_empty, remove_accents
 
 # see rfc5322 section 3.2.3
 atext = r"[a-zA-Z0-9!#$%&'*+\-/=?^_`{|}~]"
@@ -47,7 +47,7 @@ class Alias(models.Model):
     alias_domain = fields.Char('Alias domain name', related='alias_domain_id.name')
     # target: create / update
     alias_model_id = fields.Many2one('ir.model', 'Aliased Model', required=True, ondelete="cascade",
-                                     help="The model (Odoo Document Kind) to which this alias "
+                                     help="The model (Loomworks Document Kind) to which this alias "
                                           "corresponds. Any incoming email that does not reply to an "
                                           "existing record will cause the creation of a new record "
                                           "of this model (e.g. a Project Task)",

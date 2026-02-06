@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 // jQuery extensions
 $.extend($.expr[':'], {

@@ -6,7 +6,7 @@
 # Loomworks modifications copyright: Loomworks
 # License: LGPL-3
 
-from odoo import models, fields, api
+from loomworks import models, fields, api
 import json
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <!-- Spreadsheet Pivot Table Views -->
 
     <!-- Tree View -->
@@ -121,4 +121,4 @@
         <field name="search_view_id" ref="spreadsheet_pivot_view_search"/>
     </record>
 
-</odoo>
+</loomworks>

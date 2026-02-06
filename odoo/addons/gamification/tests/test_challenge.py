@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import datetime
 from freezegun import freeze_time
 
-from odoo.addons.gamification.tests.common import TransactionCaseGamification
-from odoo.exceptions import UserError
-from odoo.tools import mute_logger
+from loomworks.addons.gamification.tests.common import TransactionCaseGamification
+from loomworks.exceptions import UserError
+from loomworks.tools import mute_logger
 
 
 class TestGamificationCommon(TransactionCaseGamification):
@@ -62,7 +62,7 @@ class test_challenge(TestGamificationCommon):
         badge_ids = self.env['gamification.badge.user'].search([('badge_id', '=', badge_id), ('user_id', '=', demo.id)])
         self.assertEqual(len(badge_ids), 1, "Demo user has not received the badge")
 
-    @mute_logger('odoo.models.unlink', 'odoo.addons.mail', 'odoo.addons.auth_signup')
+    @mute_logger('loomworks.models.unlink', 'loomworks.addons.mail', 'loomworks.addons.auth_signup')
     def test_20_update_all_goals_filter(self):
         # Enroll two internal and two portal users in the challenge
         (

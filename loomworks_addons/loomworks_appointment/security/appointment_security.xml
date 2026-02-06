@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <!-- Module Category -->
     <record id="module_category_appointment" model="ir.module.category">
@@ -116,4 +116,4 @@
         <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
     </record>
 
-</odoo>
+</loomworks>

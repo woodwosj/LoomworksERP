@@ -5,12 +5,12 @@ from requests import PreparedRequest, Response, Session
 from unittest.mock import patch
 from urllib import parse
 
-from odoo import Command
-from odoo.exceptions import UserError
-from odoo.tests.common import tagged, freeze_time
-from odoo.tools.misc import file_open
+from loomworks import Command
+from loomworks.exceptions import UserError
+from loomworks.tests.common import tagged, freeze_time
+from loomworks.tools.misc import file_open
 
-from odoo.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
+from loomworks.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
 
 
 ID_CLIENT = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
@@ -380,7 +380,7 @@ class TestNemhandelMessage(TestAccountMoveSendCommon):
 
         wizard = self.create_send_and_print(move_1 + move_2)
         with patch(
-            'odoo.addons.account_edi_ubl_cii.models.account_edi_xml_ubl_20.AccountEdiXmlUBL20._export_invoice_constraints',
+            'loomworks.addons.account_edi_ubl_cii.models.account_edi_xml_ubl_20.AccountEdiXmlUBL20._export_invoice_constraints',
             mocked_export_invoice_constraints
         ):
             wizard.action_send_and_print()

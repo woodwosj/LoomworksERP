@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import time
@@ -8,7 +8,7 @@ import pytz
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-from odoo.tests import TransactionCase, warmup
+from loomworks.tests import TransactionCase, warmup
 
 _logger = logging.getLogger(__name__)
 

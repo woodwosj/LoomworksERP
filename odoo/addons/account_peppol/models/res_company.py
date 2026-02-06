@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 from stdnum import get_cc_module, ean
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
-from odoo.addons.account.models.company import PEPPOL_LIST
+from loomworks import _, api, fields, models
+from loomworks.exceptions import ValidationError
+from loomworks.addons.account.models.company import PEPPOL_LIST
 
 try:
     import phonenumbers
@@ -53,7 +53,7 @@ class ResCompany(models.Model):
         string='Primary contact email',
         compute='_compute_account_peppol_contact_email', store=True, readonly=False,
         help='Primary contact email for Peppol connection related communications and notifications.\n'
-             'In particular, this email is used by Odoo to reconnect your Peppol account in case of database change.',
+             'In particular, this email is used by Loomworks to reconnect your Peppol account in case of database change.',
     )
     account_peppol_migration_key = fields.Char(string="Migration Key", groups="base.group_system")
     account_peppol_phone_number = fields.Char(

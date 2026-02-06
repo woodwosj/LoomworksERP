@@ -128,7 +128,7 @@ export class Homepage extends Component {
                     <WifiDialog />
                 </t>
             </SingleData>
-            <SingleData name="'Odoo database connected'" value="state.data.server_status" icon="'fa-link'">
+            <SingleData name="'Loomworks database connected'" value="state.data.server_status" icon="'fa-link'">
 				<t t-set-slot="button">
 					<ServerDialog />
 				</t>

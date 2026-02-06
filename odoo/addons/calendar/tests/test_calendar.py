@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import datetime
 
 from datetime import date, datetime, timedelta
 
-from odoo import fields, Command
-from odoo.addons.base.tests.common import HttpCaseWithUserDemo
-from odoo.exceptions import AccessError
-from odoo.tests import Form, tagged, new_test_user
-from odoo.addons.base.tests.common import SavepointCaseWithUserDemo
+from loomworks import fields, Command
+from loomworks.addons.base.tests.common import HttpCaseWithUserDemo
+from loomworks.exceptions import AccessError
+from loomworks.tests import Form, tagged, new_test_user
+from loomworks.addons.base.tests.common import SavepointCaseWithUserDemo
 
 import freezegun
 import pytz
@@ -703,7 +703,7 @@ class TestCalendar(SavepointCaseWithUserDemo):
 class TestCalendarTours(HttpCaseWithUserDemo):
     def test_calendar_month_view_start_hour_displayed(self):
         """ Test that the time is displayed in the month view. """
-        self.start_tour("/odoo", 'calendar_appointments_hour_tour', login="demo")
+        self.start_tour("/loomworks", 'calendar_appointments_hour_tour', login="demo")
 
     def test_calendar_delete_tour(self):
         """
@@ -723,7 +723,7 @@ class TestCalendarTours(HttpCaseWithUserDemo):
             'show_as': 'busy',
         })
         action_id = self.env.ref('calendar.action_calendar_event')
-        url = "/odoo/action-" + str(action_id.id)
+        url = "/loomworks/action-" + str(action_id.id)
         self.start_tour(url, 'test_calendar_delete_tour', login='admin')
         event = self.env['calendar.event'].search([('name', '=', 'Test Event')])
         self.assertFalse(event) # Check if the event has been correctly deleted
@@ -748,7 +748,7 @@ class TestCalendarTours(HttpCaseWithUserDemo):
         })
         event.partner_ids = [Command.link(user_demo.partner_id.id)]
         action_id = self.env.ref('calendar.action_calendar_event')
-        url = "/odoo/action-" + str(action_id.id)
+        url = "/loomworks/action-" + str(action_id.id)
         self.start_tour(url, 'test_calendar_decline_tour', login='demo')
         attendee = self.env['calendar.attendee'].search([('event_id', '=', event.id), ('partner_id', '=', user_demo.partner_id.id)])
         self.assertEqual(attendee.state, 'declined') # Check if the event has been correctly declined
@@ -773,7 +773,7 @@ class TestCalendarTours(HttpCaseWithUserDemo):
         })
         event.partner_ids = [Command.link(user_demo.partner_id.id)]
         action_id = self.env.ref('calendar.action_calendar_event')
-        url = "/odoo/action-" + str(action_id.id)
+        url = "/loomworks/action-" + str(action_id.id)
         self.start_tour(url, 'test_calendar_decline_with_everybody_filter_tour', login='demo')
         attendee = self.env['calendar.attendee'].search([('event_id', '=', event.id), ('partner_id', '=', user_demo.partner_id.id)])
         self.assertEqual(attendee.state, 'declined') # Check if the event has been correctly declined

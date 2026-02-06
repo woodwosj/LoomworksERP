@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import jinja2
 import json
@@ -12,14 +12,14 @@ import time
 import werkzeug
 import urllib3
 
-from odoo import http
-from odoo.addons.hw_drivers.browser import Browser, BrowserState
-from odoo.addons.hw_drivers.connection_manager import connection_manager
-from odoo.addons.hw_drivers.driver import Driver
-from odoo.addons.hw_drivers.main import iot_devices
-from odoo.addons.hw_drivers.tools import helpers
-from odoo.addons.hw_drivers.tools.helpers import Orientation
-from odoo.tools.misc import file_path
+from loomworks import http
+from loomworks.addons.hw_drivers.browser import Browser, BrowserState
+from loomworks.addons.hw_drivers.connection_manager import connection_manager
+from loomworks.addons.hw_drivers.driver import Driver
+from loomworks.addons.hw_drivers.main import iot_devices
+from loomworks.addons.hw_drivers.tools import helpers
+from loomworks.addons.hw_drivers.tools.helpers import Orientation
+from loomworks.tools.misc import file_path
 
 path = os.path.realpath(os.path.join(os.path.dirname(__file__), '../../views'))
 loader = jinja2.FileSystemLoader(path)
@@ -195,7 +195,7 @@ class DisplayController(http.Controller):
             display_identifier = default_display.device_identifier
 
         return pos_display_template.render({
-            'title': "Odoo -- Point of Sale",
+            'title': "Loomworks -- Point of Sale",
             'breadcrumb': 'POS Client display',
             'display_ifaces': display_ifaces,
             'display_identifier': display_identifier,

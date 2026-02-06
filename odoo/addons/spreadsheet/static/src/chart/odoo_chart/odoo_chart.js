@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { AbstractChart, CommandResult } from "@odoo/o-spreadsheet";
 import { ChartDataSource } from "../data_source/chart_data_source";

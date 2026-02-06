@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
 from itertools import chain, starmap, zip_longest
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
-from odoo.tools import is_html_empty
+from loomworks import _, api, fields, models
+from loomworks.exceptions import ValidationError
+from loomworks.tools import is_html_empty
 
 
 class SaleOrder(models.Model):

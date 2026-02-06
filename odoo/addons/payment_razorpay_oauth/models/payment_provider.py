@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import pprint
@@ -9,13 +9,13 @@ from urllib.parse import urlencode
 import requests
 from werkzeug import urls
 
-from odoo import _, api, fields, models
-from odoo.exceptions import RedirectWarning, ValidationError
-from odoo.http import request
+from loomworks import _, api, fields, models
+from loomworks.exceptions import RedirectWarning, ValidationError
+from loomworks.http import request
 
-from odoo.addons.payment_razorpay import const
-from odoo.addons.payment_razorpay_oauth import const as oauth_const
-from odoo.addons.payment_razorpay_oauth.controllers.onboarding import RazorpayController
+from loomworks.addons.payment_razorpay import const
+from loomworks.addons.payment_razorpay_oauth import const as oauth_const
+from loomworks.addons.payment_razorpay_oauth.controllers.onboarding import RazorpayController
 
 
 _logger = logging.getLogger(__name__)

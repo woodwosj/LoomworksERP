@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 
-from odoo.fields import Datetime as FieldsDatetime
-from odoo.tests.common import users
-from odoo.addons.website.tests.test_website_visitor import MockVisitor
-from odoo.addons.website.tools import MockRequest
-from odoo.addons.website_event.controllers.main import WebsiteEventController
-from odoo.addons.event.tests.common import EventCase
+from loomworks.fields import Datetime as FieldsDatetime
+from loomworks.tests.common import users
+from loomworks.addons.website.tests.test_website_visitor import MockVisitor
+from loomworks.addons.website.tools import MockRequest
+from loomworks.addons.website_event.controllers.main import WebsiteEventController
+from loomworks.addons.event.tests.common import EventCase
 
 
 class TestEventData(EventCase, MockVisitor):

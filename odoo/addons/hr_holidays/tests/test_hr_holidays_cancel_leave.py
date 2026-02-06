@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
 
-from odoo.exceptions import UserError, ValidationError
+from loomworks.exceptions import UserError, ValidationError
 
 from .common import TestHrHolidaysCommon
 

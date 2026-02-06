@@ -1,4 +1,4 @@
-// @odoo-module ignore
+// @loomworks-module ignore
 // ! WARNING: this module must be loaded after `module_loader` but cannot have dependencies !
 
 (function (odoo) {

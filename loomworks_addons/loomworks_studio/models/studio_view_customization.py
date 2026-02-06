@@ -18,8 +18,8 @@ import logging
 from collections import defaultdict
 from lxml import etree
 
-from odoo import api, models, fields, _
-from odoo.exceptions import ValidationError
+from loomworks import api, models, fields, _
+from loomworks.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 

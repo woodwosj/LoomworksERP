@@ -6,14 +6,14 @@ import pytz
 from unittest.mock import patch, ANY
 from freezegun import freeze_time
 
-from odoo import Command
+from loomworks import Command
 
-from odoo.addons.microsoft_calendar.models.microsoft_sync import MicrosoftSync
-from odoo.addons.microsoft_calendar.utils.microsoft_calendar import MicrosoftCalendarService
-from odoo.addons.microsoft_calendar.utils.microsoft_event import MicrosoftEvent
-from odoo.addons.microsoft_calendar.models.res_users import User
-from odoo.addons.microsoft_calendar.tests.common import TestCommon, mock_get_token, _modified_date_in_the_future, patch_api
-from odoo.exceptions import UserError, ValidationError
+from loomworks.addons.microsoft_calendar.models.microsoft_sync import MicrosoftSync
+from loomworks.addons.microsoft_calendar.utils.microsoft_calendar import MicrosoftCalendarService
+from loomworks.addons.microsoft_calendar.utils.microsoft_event import MicrosoftEvent
+from loomworks.addons.microsoft_calendar.models.res_users import User
+from loomworks.addons.microsoft_calendar.tests.common import TestCommon, mock_get_token, _modified_date_in_the_future, patch_api
+from loomworks.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
 

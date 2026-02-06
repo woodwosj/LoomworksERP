@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 
-from odoo import _, fields, models, api
-from odoo.exceptions import UserError
+from loomworks import _, fields, models, api
+from loomworks.exceptions import UserError
 
 
 class IrMailServer(models.Model):

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
-from odoo import http, Command, fields
-from odoo.http import request
-from odoo.addons.mail.tools.discuss import Store
+from loomworks import http, Command, fields
+from loomworks.http import request
+from loomworks.addons.mail.tools.discuss import Store
 
 
 class WebsiteLivechatChatbotScriptController(http.Controller):

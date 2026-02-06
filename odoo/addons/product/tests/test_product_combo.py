@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from freezegun import freeze_time
 
-from odoo.exceptions import UserError, ValidationError
-from odoo.fields import Command
-from odoo.tools import mute_logger
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.fields import Command
+from loomworks.tools import mute_logger
 
-from odoo.addons.product.tests.common import ProductCommon
+from loomworks.addons.product.tests.common import ProductCommon
 
 
 class TestProductCombo(ProductCommon):
@@ -95,7 +95,7 @@ class TestProductCombo(ProductCommon):
                 ],
             })
 
-    @mute_logger('odoo.sql_db')
+    @mute_logger('loomworks.sql_db')
     def test_nested_combos_raises(self):
         combo = self.env['product.combo'].create({
             'name': "Test combo",

@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models, modules, tools
-from odoo.exceptions import UserError, ValidationError
+from loomworks import _, api, fields, models, modules, tools
+from loomworks.exceptions import UserError, ValidationError
 
-from odoo.addons.account_peppol.tools.demo_utils import handle_demo
+from loomworks.addons.account_peppol.tools.demo_utils import handle_demo
 
 
 class ResConfigSettings(models.TransientModel):
@@ -107,7 +107,7 @@ class ResConfigSettings(models.TransientModel):
         The migration key is then displayed in Peppol settings.
         Currently, reopening after migrating away is not supported.
         """
-        raise UserError(_("This feature is deprecated. Contact Odoo support if you need a migration key."))
+        raise UserError(_("This feature is deprecated. Contact Loomworks support if you need a migration key."))
 
     def button_peppol_disconnect_branch_from_parent(self):
         self.ensure_one()

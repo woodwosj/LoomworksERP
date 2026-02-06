@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 from unittest.mock import patch
@@ -6,13 +6,13 @@ from urllib.parse import urljoin
 
 from freezegun import freeze_time
 
-from odoo import Command
-from odoo.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
-from odoo.exceptions import UserError
-from odoo.tests import tagged
-from odoo.tests.common import HttpCase
+from loomworks import Command
+from loomworks.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
+from loomworks.tests.common import HttpCase
 
-CALL_API_METHOD = 'odoo.addons.l10n_tw_edi_ecpay.models.account_move.call_ecpay_api'
+CALL_API_METHOD = 'loomworks.addons.l10n_tw_edi_ecpay.models.account_move.call_ecpay_api'
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

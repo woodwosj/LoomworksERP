@@ -1,6 +1,6 @@
 
 
-from odoo import models
+from loomworks import models
 
 
 class StockValuationLayer(models.Model):

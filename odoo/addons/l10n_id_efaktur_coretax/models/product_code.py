@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
-from odoo.osv import expression
+from loomworks import api, fields, models
+from loomworks.osv import expression
 
 class EfakturProductCode(models.Model):
     _name = "l10n_id_efaktur_coretax.product.code"

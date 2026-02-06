@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.exceptions import UserError, ValidationError
-from odoo.fields import Command
-from odoo.tests import tagged
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.fields import Command
+from loomworks.tests import tagged
 
-from odoo.addons.sale_management.tests.common import SaleManagementCommon
+from loomworks.addons.sale_management.tests.common import SaleManagementCommon
 
 
 @tagged('-at_install', 'post_install')

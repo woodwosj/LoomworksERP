@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-from odoo.addons.hr.tests.test_mail_activity_plan import ActivityScheduleHRCase
-from odoo.exceptions import ValidationError
-from odoo.tests import tagged, users
+from loomworks import Command
+from loomworks.addons.hr.tests.test_mail_activity_plan import ActivityScheduleHRCase
+from loomworks.exceptions import ValidationError
+from loomworks.tests import tagged, users
 
 
 @tagged('mail_activity', 'mail_activity_plan')

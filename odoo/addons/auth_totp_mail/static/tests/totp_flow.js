@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
@@ -39,7 +39,7 @@ function openAccountSettingsTab() {
 }
 
 registry.category("web_tour.tours").add('totp_admin_self_invite', {
-    url: '/odoo',
+    url: '/loomworks',
     steps: () => [stepUtils.showAppsMenuItem(), ...openAccountSettingsTab(), {
     content: "open the user's form",
     trigger: "td.o_data_cell:contains(admin)",
@@ -63,7 +63,7 @@ registry.category("web_tour.tours").add('totp_admin_self_invite', {
 }]});
 
 registry.category("web_tour.tours").add('totp_admin_invite', {
-    url: '/odoo',
+    url: '/loomworks',
     steps: () => [stepUtils.showAppsMenuItem(), ...openAccountSettingsTab(), {
     content: "open the user's form",
     trigger: "td.o_data_cell:contains(test_user)",

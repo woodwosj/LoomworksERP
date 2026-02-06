@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import tagged, HttpCase
-from odoo import Command
+from loomworks.tests import tagged, HttpCase
+from loomworks import Command
 from .test_project_base import TestProjectCommon
 
 
@@ -55,4 +55,4 @@ class TestProjectTags(HttpCase, TestProjectCommon):
         ])
 
     def test_01_project_tags(self):
-        self.start_tour("/odoo", 'project_tags_filter_tour', login="admin")
+        self.start_tour("/loomworks", 'project_tags_filter_tour', login="admin")

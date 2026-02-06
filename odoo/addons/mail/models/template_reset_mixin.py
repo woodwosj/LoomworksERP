@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 
 from lxml import etree
 
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import UserError
-from odoo.modules.module import get_resource_from_path
-from odoo.tools.convert import xml_import
-from odoo.tools.misc import file_path
-from odoo.tools.translate import TranslationImporter, get_po_paths
+from loomworks import api, fields, models, tools, _
+from loomworks.exceptions import UserError
+from loomworks.modules.module import get_resource_from_path
+from loomworks.tools.convert import xml_import
+from loomworks.tools.misc import file_path
+from loomworks.tools.translate import TranslationImporter, get_po_paths
 
 
 class TemplateResetMixin(models.AbstractModel):

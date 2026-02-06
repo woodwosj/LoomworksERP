@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 
-from odoo.tests.common import TransactionCase, new_test_user
-from odoo.tests import Form
-from odoo.exceptions import AccessError
-from odoo.tools import mute_logger
+from loomworks.tests.common import TransactionCase, new_test_user
+from loomworks.tests import Form
+from loomworks.exceptions import AccessError
+from loomworks.tools import mute_logger
 
 
 class TestAccessRights(TransactionCase):
 
     @classmethod
-    @mute_logger('odoo.tests', 'odoo.addons.auth_signup.models.res_users')
+    @mute_logger('loomworks.tests', 'loomworks.addons.auth_signup.models.res_users')
     def setUpClass(cls):
         super().setUpClass()
         cls.john = new_test_user(cls.env, login='john', groups='base.group_user')
@@ -39,7 +39,7 @@ class TestAccessRights(TransactionCase):
         return [r[field] for r in data]
 
     # don't spam logs with ACL failures from portal
-    @mute_logger('odoo.addons.base.models.ir_rule')
+    @mute_logger('loomworks.addons.base.models.ir_rule')
     def test_privacy(self):
         event = self.create_event(
             self.john,

@@ -1,4 +1,4 @@
-from odoo import models, _
+from loomworks import models, _
 
 
 class StockRule(models.Model):

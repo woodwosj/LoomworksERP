@@ -1,9 +1,9 @@
-import odoo.tests
+import loomworks.tests
 
-from odoo.addons.website.tools import MockRequest
+from loomworks.addons.website.tools import MockRequest
 
 
-class TestReports(odoo.tests.HttpCase):
+class TestReports(loomworks.tests.HttpCase):
     def test_report_session_cookie(self):
         """ Asserts wkhtmltopdf forwards the user session when requesting resources to Odoo, such as images,
         and that the resource is correctly returned as expected.

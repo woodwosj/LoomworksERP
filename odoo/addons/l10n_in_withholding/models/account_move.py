@@ -1,6 +1,6 @@
-from odoo import api, models, fields, _, Command
-from odoo.tools import SQL
-from odoo.tools.date_utils import get_month
+from loomworks import api, models, fields, _, Command
+from loomworks.tools import SQL
+from loomworks.tools.date_utils import get_month
 
 
 class AccountMove(models.Model):

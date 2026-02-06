@@ -1,4 +1,4 @@
-/** @odoo-module alias=@bus/../tests/helpers/model_definitions_setup default=false */
+/** @loomworks-module alias=@bus/../tests/helpers/model_definitions_setup default=false */
 
 import { TEST_GROUP_IDS, TEST_USER_IDS } from "@bus/../tests/helpers/test_constants";
 import {

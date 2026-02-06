@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { FILTER_DATE_OPTION, monthsOptions } from "@spreadsheet/assets_backend/constants";
 import { Domain } from "@web/core/domain";

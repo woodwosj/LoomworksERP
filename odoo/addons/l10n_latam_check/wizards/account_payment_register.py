@@ -1,5 +1,5 @@
-from odoo import models, fields, api, Command, _
-from odoo.exceptions import ValidationError
+from loomworks import models, fields, api, Command, _
+from loomworks.exceptions import ValidationError
 
 
 class AccountPaymentRegister(models.TransientModel):

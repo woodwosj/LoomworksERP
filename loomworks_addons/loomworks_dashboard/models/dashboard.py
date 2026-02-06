@@ -17,8 +17,8 @@ Each dashboard consists of:
 - Sharing/permissions settings
 """
 
-from odoo import api, fields, models
-from odoo.exceptions import UserError, AccessError
+from loomworks import api, fields, models
+from loomworks.exceptions import UserError, AccessError
 import json
 import logging
 

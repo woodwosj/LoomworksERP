@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from ast import literal_eval
 from uuid import uuid4
 
-from odoo import api, fields, models, _
-from odoo.addons.sms.tools.sms_tools import sms_content_to_rendered_html
-from odoo.exceptions import UserError
+from loomworks import api, fields, models, _
+from loomworks.addons.sms.tools.sms_tools import sms_content_to_rendered_html
+from loomworks.exceptions import UserError
 
 
 class SendSMS(models.TransientModel):

@@ -4,11 +4,11 @@ from contextlib import contextmanager
 from lxml import etree
 from unittest.mock import patch
 
-from odoo.http import request
-from odoo.tests import tagged
-from odoo.tools import SQL, mute_logger
+from loomworks.http import request
+from loomworks.tests import tagged
+from loomworks.tools import SQL, mute_logger
 
-from odoo.addons.base.tests.common import HttpCaseWithUserDemo
+from loomworks.addons.base.tests.common import HttpCaseWithUserDemo
 
 
 class PasskeyTest(HttpCaseWithUserDemo):
@@ -302,13 +302,13 @@ class PasskeyTest(HttpCaseWithUserDemo):
 
                 # 4. Attempt a replay attack, without reseting the challenge
                 self.rpc('res.users.identitycheck', 'write', wizard_id, {'password': json.dumps(webauthn_response)})
-                with mute_logger('odoo.http'):
+                with mute_logger('loomworks.http'):
                     response = self.rpc('res.users.identitycheck', 'run_check', wizard_id)
 
                 # Assert the authentication failed
                 self.assertFalse(response.get('result'))
                 self.assertTrue(response.get('error'))
-                self.assertEqual(response['error']['data']['name'], 'odoo.exceptions.UserError')
+                self.assertEqual(response['error']['data']['name'], 'loomworks.exceptions.UserError')
                 self.assertEqual(
                     response['error']['data']['message'],
                     'Incorrect Passkey. Please provide a valid passkey or use a different authentication method.'
@@ -323,7 +323,7 @@ class PasskeyTest(HttpCaseWithUserDemo):
 
                 # Write the same webauthn response
                 self.rpc('res.users.identitycheck', 'write', wizard_id, {'password': json.dumps(webauthn_response)})
-                with mute_logger('odoo.http'):
+                with mute_logger('loomworks.http'):
                     response = self.rpc('res.users.identitycheck', 'run_check', wizard_id)
 
                 if passkey.get('supports_sign_count', True):
@@ -342,7 +342,7 @@ class PasskeyTest(HttpCaseWithUserDemo):
             # hence it will generate a random challenge.
             self.url_open('/auth/passkey/start-auth', '{}', headers={"Content-Type": "application/json"})
             self.rpc('res.users.identitycheck', 'write', wizard_id, {'password': json.dumps(webauthn_response)})
-            with mute_logger('odoo.http'):
+            with mute_logger('loomworks.http'):
                 response = self.rpc('res.users.identitycheck', 'run_check', wizard_id)
             self.assertFalse(response.get('result'))
             self.assertTrue(response.get('error'))
@@ -436,7 +436,7 @@ class PasskeyTest(HttpCaseWithUserDemo):
             })
 
             # Login successful, redirected to /odoo
-            self.assertTrue(response.url.endswith('/odoo'))
+            self.assertTrue(response.url.endswith('/loomworks'))
 
 
 @tagged('post_install', '-at_install')
@@ -452,7 +452,7 @@ class PasskeyTestTours(PasskeyTest):
         self.admin_user.tz = 'UTC'  # workaround to fix timezone not being set so you are unable to click any buttons on the profile page
         self.admin_user.auth_passkey_key_ids.unlink()
         with self.patch_start_registration(self.passkeys['test-yubikey']['registration']['challenge']):
-            self.start_tour("/odoo?debug=tests", 'passkeys_tour_registration', login="admin")
+            self.start_tour("/loomworks?debug=tests", 'passkeys_tour_registration', login="admin")
         with self.patch_start_auth(self.passkeys['test-yubikey']['auth']['challenge']):
-            self.start_tour("/odoo?debug=tests", 'passkeys_tour_verify', login="admin")
-        self.start_tour("/odoo?debug=tests", 'passkeys_tour_delete', login="admin")
+            self.start_tour("/loomworks?debug=tests", 'passkeys_tour_verify', login="admin")
+        self.start_tour("/loomworks?debug=tests", 'passkeys_tour_delete', login="admin")

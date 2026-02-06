@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
+<loomworks noupdate="1">
 
     <!-- ECO Stages -->
     <record id="plm_eco_stage_draft" model="plm.eco.stage">
@@ -46,4 +46,4 @@
         <field name="fold">True</field>
     </record>
 
-</odoo>
+</loomworks>

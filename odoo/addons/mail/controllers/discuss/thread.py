@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.http import request
-from odoo.addons.mail.controllers.thread import ThreadController
+from loomworks.http import request
+from loomworks.addons.mail.controllers.thread import ThreadController
 
 
 class DiscussThreadController(ThreadController):

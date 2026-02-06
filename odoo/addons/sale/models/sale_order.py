@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 import logging
@@ -7,17 +7,17 @@ from collections import defaultdict
 from datetime import timedelta
 from itertools import groupby
 
-from odoo import SUPERUSER_ID, _, api, fields, models
-from odoo.exceptions import (
+from loomworks import SUPERUSER_ID, _, api, fields, models
+from loomworks.exceptions import (
     AccessError,
     RedirectWarning,
     UserError,
     ValidationError,
 )
-from odoo.fields import Command
-from odoo.http import request
-from odoo.osv import expression
-from odoo.tools import (
+from loomworks.fields import Command
+from loomworks.http import request
+from loomworks.osv import expression
+from loomworks.tools import (
     create_index,
     float_is_zero,
     format_amount,
@@ -25,9 +25,9 @@ from odoo.tools import (
     is_html_empty,
     SQL,
 )
-from odoo.tools.mail import html_keep_url
+from loomworks.tools.mail import html_keep_url
 
-from odoo.addons.payment import utils as payment_utils
+from loomworks.addons.payment import utils as payment_utils
 
 _logger = logging.getLogger(__name__)
 

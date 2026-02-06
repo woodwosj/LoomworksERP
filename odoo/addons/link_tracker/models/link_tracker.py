@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import random
@@ -6,12 +6,12 @@ import string
 
 from werkzeug import urls
 
-from odoo import _, api, fields, models, tools
-from odoo.exceptions import UserError
-from odoo.osv import expression
-from odoo.tools.mail import validate_url
+from loomworks import _, api, fields, models, tools
+from loomworks.exceptions import UserError
+from loomworks.osv import expression
+from loomworks.tools.mail import validate_url
 
-from odoo.addons.mail.tools import link_preview
+from loomworks.addons.mail.tools import link_preview
 
 LINK_TRACKER_UNIQUE_FIELDS = ('url', 'campaign_id', 'medium_id', 'source_id', 'label')
 

@@ -1,12 +1,12 @@
 [Unit]
-Description=Odoo Open Source ERP and CRM
+Description=Loomworks ERP
 After=network.target
 
 [Service]
 Type=simple
-User=odoo
-Group=odoo
-ExecStart=/usr/bin/odoo --config /etc/odoo/odoo.conf --logfile /var/log/odoo/odoo-server.log
+User=loomworks
+Group=loomworks
+ExecStart=/usr/bin/loomworks --config /etc/loomworks/loomworks.conf --logfile /var/log/loomworks/loomworks-server.log
 KillMode=mixed
 
 [Install]

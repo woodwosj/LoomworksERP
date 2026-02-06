@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from uuid import uuid4
 import requests
 import json
 import logging
 
-from odoo import fields
-from odoo.addons.google_calendar.utils.google_event import GoogleEvent
-from odoo.addons.google_account.models.google_service import TIMEOUT
+from loomworks import fields
+from loomworks.addons.google_calendar.utils.google_event import GoogleEvent
+from loomworks.addons.google_account.models.google_service import TIMEOUT
 
 
 _logger = logging.getLogger(__name__)

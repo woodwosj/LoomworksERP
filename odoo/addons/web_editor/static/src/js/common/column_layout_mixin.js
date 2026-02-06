@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 export const ColumnLayoutMixin = {
     /**

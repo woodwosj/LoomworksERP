@@ -1,4 +1,4 @@
-from odoo import api, models, fields
+from loomworks import api, models, fields
 
 
 class Users(models.Model):

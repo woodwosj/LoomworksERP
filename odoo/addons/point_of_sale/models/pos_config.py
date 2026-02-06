@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 from uuid import uuid4
 import pytz
 import secrets
 
-from odoo import api, fields, models, _, Command, tools, SUPERUSER_ID
-from odoo.http import request
-from odoo.exceptions import AccessError, ValidationError, UserError
-from odoo.tools import convert, SQL
-from odoo.osv import expression
+from loomworks import api, fields, models, _, Command, tools, SUPERUSER_ID
+from loomworks.http import request
+from loomworks.exceptions import AccessError, ValidationError, UserError
+from loomworks.tools import convert, SQL
+from loomworks.osv import expression
 
 
 class PosConfig(models.Model):
@@ -127,10 +127,10 @@ class PosConfig(models.Model):
     uuid = fields.Char(readonly=True, default=lambda self: str(uuid4()), copy=False,
         help='A globally unique identifier for this pos configuration, used to prevent conflicts in client-generated data.')
     sequence_id = fields.Many2one('ir.sequence', string='Order IDs Sequence', readonly=True,
-        help="This sequence is automatically created by Odoo but you can change it "
+        help="This sequence is automatically created by Loomworks but you can change it "
         "to customize the reference numbers of your orders.", copy=False, ondelete='restrict')
     sequence_line_id = fields.Many2one('ir.sequence', string='Order Line IDs Sequence', readonly=True,
-        help="This sequence is automatically created by Odoo but you can change it "
+        help="This sequence is automatically created by Loomworks but you can change it "
         "to customize the reference numbers of your orders lines.", copy=False)
     session_ids = fields.One2many('pos.session', 'config_id', string='Sessions')
     current_session_id = fields.Many2one('pos.session', compute='_compute_current_session', string="Current Session")

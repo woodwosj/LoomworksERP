@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import base64
 import logging
 
 import psycopg2.errors
 
-from odoo import models, fields, api, _
-from odoo.exceptions import UserError
+from loomworks import models, fields, api, _
+from loomworks.exceptions import UserError
 
 
 _logger = logging.getLogger(__name__)

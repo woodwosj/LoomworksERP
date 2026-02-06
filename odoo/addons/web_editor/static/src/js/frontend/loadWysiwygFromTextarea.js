@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { loadBundle } from "@web/core/assets";
 import { ensureJQuery } from "@web/core/ensure_jquery";

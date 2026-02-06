@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="base.partner_demo_company_hu" model="res.partner">
         <field name="vat">12345676-2-12</field>
     </record>
@@ -65,4 +65,4 @@
         <field name="vat">10725759-4-05</field>
         <field name="l10n_hu_group_vat">17781774-5-44</field>
     </record>
-</odoo>
+</loomworks>

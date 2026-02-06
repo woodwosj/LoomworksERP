@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import tagged
-from odoo.tools import mute_logger
+from loomworks.tests import tagged
+from loomworks.tools import mute_logger
 
-from odoo.addons.account_payment.tests.common import AccountPaymentCommon
-from odoo.addons.sale.tests.common import SaleCommon
+from loomworks.addons.account_payment.tests.common import AccountPaymentCommon
+from loomworks.addons.sale.tests.common import SaleCommon
 
 
 @tagged('-at_install', 'post_install')
@@ -28,7 +28,7 @@ class TestWebsiteSaleInvoice(AccountPaymentCommon, SaleCommon):
         # Create the payment
         self.amount = self.sale_order.amount_total
         tx = self._create_transaction(flow='redirect', sale_order_ids=[self.sale_order.id], state='done')
-        with mute_logger('odoo.addons.sale.models.payment_transaction'):
+        with mute_logger('loomworks.addons.sale.models.payment_transaction'):
             tx._post_process()
 
         self.assertEqual(self.sale_order.website_id.id, self.website.id)

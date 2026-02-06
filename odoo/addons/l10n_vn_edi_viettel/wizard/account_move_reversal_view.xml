@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="view_account_move_reversal_inherit_l10n_vn_edi" model="ir.ui.view">
             <field name="name">account.move.reversal.form.inherit.l10n_vn_edi</field>
@@ -14,4 +14,4 @@
             </field>
         </record>
     </data>
-</odoo>
+</loomworks>

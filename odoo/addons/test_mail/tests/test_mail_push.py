@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 import socket
 
 from datetime import datetime, timedelta
 
-import odoo
+import loomworks
 
-from odoo.tools.misc import mute_logger
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.mail.tools.jwt import InvalidVapidError
-from odoo.addons.mail.tools.web_push import ENCRYPTION_BLOCK_OVERHEAD, ENCRYPTION_HEADER_SIZE
-from odoo.addons.sms.tests.common import SMSCommon
-from odoo.addons.test_mail.data.test_mail_data import MAIL_TEMPLATE
-from odoo.tests import tagged
+from loomworks.tools.misc import mute_logger
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.mail.tools.jwt import InvalidVapidError
+from loomworks.addons.mail.tools.web_push import ENCRYPTION_BLOCK_OVERHEAD, ENCRYPTION_HEADER_SIZE
+from loomworks.addons.sms.tests.common import SMSCommon
+from loomworks.addons.test_mail.data.test_mail_data import MAIL_TEMPLATE
+from loomworks.tests import tagged
 from markupsafe import Markup
 from unittest.mock import patch
 from types import SimpleNamespace
@@ -64,8 +64,8 @@ class TestWebPushNotification(SMSCommon):
         notification_count = self.env['mail.push'].search_count([])
         self.assertEqual(notification_count, number_of_notification)
 
-    @patch.object(odoo.addons.mail.models.mail_thread, 'push_to_end_point')
-    @mute_logger('odoo.tests')
+    @patch.object(loomworks.addons.mail.models.mail_thread, 'push_to_end_point')
+    @mute_logger('loomworks.tests')
     def test_notify_by_push(self, push_to_end_point):
         """ When posting a comment, notify both inbox and people outside of Odoo
         aka email """
@@ -80,7 +80,7 @@ class TestWebPushNotification(SMSCommon):
         # two recipients, comment notifies both inbox and email people
         self.assertEqual(push_to_end_point.call_count, 2)
 
-    @patch.object(odoo.addons.mail.models.mail_thread, 'push_to_end_point')
+    @patch.object(loomworks.addons.mail.models.mail_thread, 'push_to_end_point')
     def test_notify_by_push_channel(self, push_to_end_point):
         """ Test various use case with discuss.channel. Chat and group channels
         sends push notifications, channel not. """
@@ -167,7 +167,7 @@ class TestWebPushNotification(SMSCommon):
         )
         push_to_end_point.assert_called_once()
 
-    @patch.object(odoo.addons.mail.models.mail_thread, "push_to_end_point")
+    @patch.object(loomworks.addons.mail.models.mail_thread, "push_to_end_point")
     def test_notify_by_push_channel_with_channel_notifications_settings(self, push_to_end_point):
         """ Test various use case with the channel notification settings."""
         all_test_user = mail_new_test_user(
@@ -279,8 +279,8 @@ class TestWebPushNotification(SMSCommon):
         )
         push_to_end_point.assert_not_called()
 
-    @patch.object(odoo.addons.mail.models.mail_thread, 'push_to_end_point')
-    @mute_logger('odoo.addons.mail.models.mail_thread')
+    @patch.object(loomworks.addons.mail.models.mail_thread, 'push_to_end_point')
+    @mute_logger('loomworks.addons.mail.models.mail_thread')
     def test_notify_by_push_mail_gateway(self, push_to_end_point):
         test_record = self.env['mail.test.gateway'].with_context(self._test_context).create({
             'name': 'Test',
@@ -314,8 +314,8 @@ class TestWebPushNotification(SMSCommon):
             'The body must contain the text send by mail'
         )
 
-    @patch.object(odoo.addons.mail.models.mail_thread, 'push_to_end_point')
-    @mute_logger('odoo.tests')
+    @patch.object(loomworks.addons.mail.models.mail_thread, 'push_to_end_point')
+    @mute_logger('loomworks.tests')
     def test_notify_by_push_message_notify(self, push_to_end_point):
         """ In case of notification, only inbox users are notified """
         for recipient, has_notification in [(self.user_email, False), (self.user_inbox, True)]:
@@ -349,7 +349,7 @@ class TestWebPushNotification(SMSCommon):
                     push_to_end_point.assert_not_called()
                 push_to_end_point.reset_mock()
 
-    @patch.object(odoo.addons.mail.models.mail_thread, 'push_to_end_point')
+    @patch.object(loomworks.addons.mail.models.mail_thread, 'push_to_end_point')
     def test_notify_by_push_tracking(self, push_to_end_point):
         """ Test tracking message included in push notifications """
         container_update_subtype = self.env.ref('test_mail.st_mail_test_ticket_container_upd')
@@ -391,7 +391,7 @@ class TestWebPushNotification(SMSCommon):
             'Tracking changes should be included in push notif payload'
         )
 
-    @patch.object(odoo.addons.mail.models.mail_push, 'push_to_end_point')
+    @patch.object(loomworks.addons.mail.models.mail_push, 'push_to_end_point')
     def test_push_notifications_cron(self, push_to_end_point):
         # Add 4 more devices to force sending via cron queue
         for index in range(10, 14):
@@ -417,10 +417,10 @@ class TestWebPushNotification(SMSCommon):
         self._trigger_cron_job()
         self.assertEqual(push_to_end_point.call_count, 5)
 
-    @patch.object(odoo.addons.mail.models.mail_thread.Session, 'post',
+    @patch.object(loomworks.addons.mail.models.mail_thread.Session, 'post',
                   return_value=SimpleNamespace(**{'status_code': 404, 'text': 'Device Unreachable'}))
     def test_push_notifications_error_device_unreachable(self, post):
-        with mute_logger('odoo.addons.mail.tools.web_push'):
+        with mute_logger('loomworks.addons.mail.tools.web_push'):
             self.record_simple.with_user(self.user_email).message_notify(
                 partner_ids=self.user_inbox.partner_id.ids,
                 body='Test message send via Web Push',
@@ -434,7 +434,7 @@ class TestWebPushNotification(SMSCommon):
         notification_count = self.env['mail.push.device'].search_count([('endpoint', '=', 'https://test.odoo.com/webpush/user2')])
         self.assertEqual(notification_count, 0)
 
-    @patch.object(odoo.addons.mail.models.mail_thread.Session, 'post',
+    @patch.object(loomworks.addons.mail.models.mail_thread.Session, 'post',
                   return_value=SimpleNamespace(**{'status_code': 201, 'text': 'Ok'}))
     def test_push_notifications_error_encryption_simple(self, post):
         """ Test to see if all parameters sent to the endpoint are present.
@@ -458,7 +458,7 @@ class TestWebPushNotification(SMSCommon):
         self.assertIn('data', post.call_args.kwargs)
         self.assertIn('timeout', post.call_args.kwargs)
 
-    @patch.object(odoo.addons.mail.models.mail_thread.Session, 'post',
+    @patch.object(loomworks.addons.mail.models.mail_thread.Session, 'post',
                   return_value=SimpleNamespace(status_code=201, text='Ok'))
     def test_push_notifications_device_invalid_tld_domain(self, post):
         self.env['mail.push.device'].sudo().create([{
@@ -487,7 +487,7 @@ class TestWebPushNotification(SMSCommon):
         device_count = self.env['mail.push.device'].search_count([('endpoint', '=', 'https://test.odoo.invalid/webpush/user')])
         self.assertEqual(device_count, 0)
 
-    @patch.object(odoo.addons.mail.models.mail_thread.Session, 'post', side_effect=ConnectionError("Oops, network error"))
+    @patch.object(loomworks.addons.mail.models.mail_thread.Session, 'post', side_effect=ConnectionError("Oops, network error"))
     def test_push_notifications_device_raise_exception(self, post):
         # Add 4 more devices to force sending via cron queue
         for index in range(10, 14):
@@ -508,11 +508,11 @@ class TestWebPushNotification(SMSCommon):
             record_name=self.record_simple._name,
         )
 
-        with self.assertLogs('odoo.addons.mail.models.mail_push', level="ERROR") as capture:
+        with self.assertLogs('loomworks.addons.mail.models.mail_push', level="ERROR") as capture:
             self._assert_notification_count_for_cron(5)
             self._trigger_cron_job()
             self.assertEqual(capture.output, [
-                'ERROR:odoo.addons.mail.models.mail_push:An error occurred while trying to send web push: Oops, network error',
+                'ERROR:loomworks.addons.mail.models.mail_push:An error occurred while trying to send web push: Oops, network error',
             ] * 5)
 
     def test_push_notification_regenerate_vapid_keys(self):
@@ -536,11 +536,11 @@ class TestWebPushNotification(SMSCommon):
             )
 
     @patch.object(
-        odoo.addons.mail.models.mail_thread.Session, 'post', return_value=SimpleNamespace(status_code=201, text='Ok')
+        loomworks.addons.mail.models.mail_thread.Session, 'post', return_value=SimpleNamespace(status_code=201, text='Ok')
     )
     @patch.object(
-        odoo.addons.mail.models.mail_thread, 'push_to_end_point',
-        wraps=odoo.addons.mail.tools.web_push.push_to_end_point,
+        loomworks.addons.mail.models.mail_thread, 'push_to_end_point',
+        wraps=loomworks.addons.mail.tools.web_push.push_to_end_point,
     )
     def test_push_notifications_truncate_payload(self, thread_push_mock, session_post_mock):
         """Ensure that when we send large bodies with various character types,
@@ -611,15 +611,15 @@ class TestWebPushNotification(SMSCommon):
                 )
 
     @patch.object(
-        odoo.addons.mail.models.mail_thread.Session, 'post', return_value=SimpleNamespace(status_code=201, text='Ok')
+        loomworks.addons.mail.models.mail_thread.Session, 'post', return_value=SimpleNamespace(status_code=201, text='Ok')
     )
     @patch.object(
-        odoo.addons.mail.models.mail_thread, 'push_to_end_point',
-        wraps=odoo.addons.mail.tools.web_push.push_to_end_point,
+        loomworks.addons.mail.models.mail_thread, 'push_to_end_point',
+        wraps=loomworks.addons.mail.tools.web_push.push_to_end_point,
     )
     @patch.object(
-        odoo.addons.mail.tools.web_push, '_encrypt_payload',
-        wraps=odoo.addons.mail.tools.web_push._encrypt_payload,
+        loomworks.addons.mail.tools.web_push, '_encrypt_payload',
+        wraps=loomworks.addons.mail.tools.web_push._encrypt_payload,
     )
     def test_push_notifications_truncate_payload_mocked_size_limit(self, web_push_encrypt_payload_mock, thread_push_mock, session_post_mock):
         """Illustrative test for text contents truncation.
@@ -653,7 +653,7 @@ class TestWebPushNotification(SMSCommon):
             (base_payload_size + len(body_json) - 10, ""),  # should still work even if it would still be too big after truncate
         ]:
             with self.subTest(size_limit=size_limit), patch.object(
-                odoo.addons.mail.models.mail_thread.MailThread, '_truncate_payload_get_max_payload_length',
+                loomworks.addons.mail.models.mail_thread.MailThread, '_truncate_payload_get_max_payload_length',
                 return_value=size_limit,
             ):
                 self.record_simple.with_user(self.user_email).message_notify(

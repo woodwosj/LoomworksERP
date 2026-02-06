@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo
-from odoo.tests import JsonRpcException
-from odoo.addons.mail.tests.test_controller_common import TestControllerCommon
+import loomworks
+from loomworks.tests import JsonRpcException
+from loomworks.addons.mail.tests.test_controller_common import TestControllerCommon
 
 
-@odoo.tests.tagged("-at_install", "post_install")
+@loomworks.tests.tagged("-at_install", "post_install")
 class TestMessageReactionControllerCommon(TestControllerCommon):
     @classmethod
     def setUpClass(cls):
@@ -58,7 +58,7 @@ class TestMessageReactionControllerCommon(TestControllerCommon):
         return self.env["mail.message.reaction"].search([("message_id", "=", message.id)])
 
 
-@odoo.tests.tagged("-at_install", "post_install")
+@loomworks.tests.tagged("-at_install", "post_install")
 class TestMessageReactionController(TestMessageReactionControllerCommon):
     def test_message_reaction_partner(self):
         """Test access of message reaction for partner chatter."""

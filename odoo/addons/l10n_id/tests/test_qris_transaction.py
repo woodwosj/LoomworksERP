@@ -1,7 +1,7 @@
 
-from odoo.fields import Command
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import tagged
+from loomworks.fields import Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import tagged
 from unittest.mock import patch
 
 
@@ -93,7 +93,7 @@ class TestQrisTransaction(AccountTestInvoicingCommon):
         # status returned is {'paid': True, 'qr_statuses': [{self.qris_status_success}]}
         # and check that the transaction is also paid
         with patch(
-            'odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.qris_status_success
+            'loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.qris_status_success
         ) as patched:
             res = trx._l10n_id_get_qris_qr_statuses()
             patched.assert_called_once()
@@ -104,7 +104,7 @@ class TestQrisTransaction(AccountTestInvoicingCommon):
         # if QRIS returns fail for all, _l10n_id_make-request should be called twice and
         # status returned is {'paid': False, 'qr_statuses': [{self.qris_status}, {self.qris_status_fail}]}
         with patch(
-            'odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.qris_status_fail
+            'loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.qris_status_fail
         ) as patched:
             res = trx._l10n_id_get_qris_qr_statuses()
             self.assertEqual(patched.call_count, 2)

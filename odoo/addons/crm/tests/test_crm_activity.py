@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import date, timedelta
 
-from odoo.addons.crm.tests.common import TestCrmCommon
-from odoo.tests.common import users
+from loomworks.addons.crm.tests.common import TestCrmCommon
+from loomworks.tests.common import users
 
 
 class TestCrmMailActivity(TestCrmCommon):

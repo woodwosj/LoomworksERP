@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from dateutil.relativedelta import relativedelta
 import json
-from odoo import models, fields, api, _, Command
-from odoo.tools import format_date
-from odoo.exceptions import UserError
-from odoo.tools import date_utils
-from odoo.tools.misc import formatLang
+from loomworks import models, fields, api, _, Command
+from loomworks.tools import format_date
+from loomworks.exceptions import UserError
+from loomworks.tools import date_utils
+from loomworks.tools.misc import formatLang
 
 class AccruedExpenseRevenue(models.TransientModel):
     _name = 'account.accrued.orders.wizard'

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="account_account_tag_l10n_si_rp_A3" model="account.account.tag">
             <field name="name">rp_a3</field>
@@ -27,4 +27,4 @@
             <field name="applicability">taxes</field>
         </record>
     </data>
-</odoo>
+</loomworks>

@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 import requests
@@ -6,10 +6,10 @@ import requests
 from datetime import timedelta
 from lxml import html
 
-from odoo import api, models, fields, tools
-from odoo.tools.misc import OrderedSet
-from odoo.addons.mail.tools.discuss import Store
-from odoo.addons.mail.tools.link_preview import get_link_preview_from_url
+from loomworks import api, models, fields, tools
+from loomworks.tools.misc import OrderedSet
+from loomworks.addons.mail.tools.discuss import Store
+from loomworks.addons.mail.tools.link_preview import get_link_preview_from_url
 
 
 class LinkPreview(models.Model):

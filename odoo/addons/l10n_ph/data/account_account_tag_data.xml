@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
     <!-- required for the SLSP but cannot yet be mapped to the tax report as we don't support amortized tax yet -->
     <record id="tax_tag_capital_base_positive" model="account.account.tag">
         <field name="name">+CAPA</field>
@@ -67,4 +67,4 @@
         <field name="tax_negate">True</field>
         <field name="country_id" ref="base.ph"/>
     </record>
-</odoo>
+</loomworks>

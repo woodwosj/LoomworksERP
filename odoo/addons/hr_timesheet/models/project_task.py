@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import re
 
 from collections import defaultdict
 
-from odoo import models, fields, api, _
-from odoo.exceptions import UserError, RedirectWarning
-from odoo.tools import SQL
-from odoo.addons.rating.models.rating_data import OPERATOR_MAPPING
+from loomworks import models, fields, api, _
+from loomworks.exceptions import UserError, RedirectWarning
+from loomworks.tools import SQL
+from loomworks.addons.rating.models.rating_data import OPERATOR_MAPPING
 
 
 PROJECT_TASK_READABLE_FIELDS = {

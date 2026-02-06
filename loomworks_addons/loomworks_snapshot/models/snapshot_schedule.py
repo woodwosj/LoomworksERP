@@ -13,8 +13,8 @@ Provides configurable scheduled snapshots with various interval options
 and retention policy integration.
 """
 
-from odoo import models, fields, api
-from odoo.exceptions import ValidationError
+from loomworks import models, fields, api
+from loomworks.exceptions import ValidationError
 from datetime import timedelta
 import logging
 

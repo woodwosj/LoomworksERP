@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <!-- Appointment Resource Tree View -->
     <record id="appointment_resource_view_tree" model="ir.ui.view">
@@ -160,4 +160,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

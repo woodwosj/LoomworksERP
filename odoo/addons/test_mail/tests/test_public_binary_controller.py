@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo
-from odoo.addons.mail.tests.test_binary_controller import TestBinaryControllerCommon
+import loomworks
+from loomworks.addons.mail.tests.test_binary_controller import TestBinaryControllerCommon
 
 
-@odoo.tests.tagged("-at_install", "post_install")
+@loomworks.tests.tagged("-at_install", "post_install")
 class TestPublicBinaryController(TestBinaryControllerCommon):
     def test_01_guest_avatar_public_record(self):
         """Test access to open a guest avatar who hasn't sent a message on a public record."""

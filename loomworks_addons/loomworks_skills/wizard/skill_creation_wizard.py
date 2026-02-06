@@ -18,8 +18,8 @@ The wizard guides users through the skill creation process and provides
 previews of the generated skill definition before creation.
 """
 
-from odoo import models, fields, api
-from odoo.exceptions import UserError
+from loomworks import models, fields, api
+from loomworks.exceptions import UserError
 import json
 import re
 import logging

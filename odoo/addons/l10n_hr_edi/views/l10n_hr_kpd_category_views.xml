@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="l10n_hr_kpd_category_view_tree" model="ir.ui.view">
         <field name="name">l10n_hr.kpd.category.list</field>
         <field name="model">l10n_hr.kpd.category</field>
@@ -25,4 +25,4 @@
             </search>
         </field>
     </record>
-</odoo>
+</loomworks>

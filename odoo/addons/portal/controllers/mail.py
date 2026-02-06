@@ -1,16 +1,16 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from werkzeug import urls
 from werkzeug.exceptions import Forbidden, NotFound
 
-from odoo import http
-from odoo.http import request
-from odoo.osv import expression
-from odoo.tools import consteq
-from odoo.addons.mail.controllers import mail
-from odoo.addons.mail.tools.discuss import Store
-from odoo.addons.portal.utils import get_portal_partner
-from odoo.exceptions import AccessError
+from loomworks import http
+from loomworks.http import request
+from loomworks.osv import expression
+from loomworks.tools import consteq
+from loomworks.addons.mail.controllers import mail
+from loomworks.addons.mail.tools.discuss import Store
+from loomworks.addons.portal.utils import get_portal_partner
+from loomworks.exceptions import AccessError
 
 
 class PortalChatter(http.Controller):

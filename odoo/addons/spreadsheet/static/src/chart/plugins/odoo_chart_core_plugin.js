@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 import { globalFiltersFieldMatchers } from "@spreadsheet/global_filters/plugins/global_filters_core_plugin";
 import { checkFilterFieldMatching } from "@spreadsheet/global_filters/helpers";
 import { CommandResult } from "../../o_spreadsheet/cancelled_reason";
@@ -14,9 +14,9 @@ import { _t } from "@web/core/l10n/translation";
  */
 
 const CHART_PLACEHOLDER_DISPLAY_NAME = {
-    odoo_bar: _t("Odoo Bar Chart"),
-    odoo_line: _t("Odoo Line Chart"),
-    odoo_pie: _t("Odoo Pie Chart"),
+    odoo_bar: _t("Loomworks Bar Chart"),
+    odoo_line: _t("Loomworks Line Chart"),
+    odoo_pie: _t("Loomworks Pie Chart"),
 };
 
 export class OdooChartCorePlugin extends OdooCorePlugin {

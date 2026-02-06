@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields
-from odoo.exceptions import UserError
+from loomworks import models, fields
+from loomworks.exceptions import UserError
 
 
 class L10nTwEDIInvoiceCancel(models.TransientModel):

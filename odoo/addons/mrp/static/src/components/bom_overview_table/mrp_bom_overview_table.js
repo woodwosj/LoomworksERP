@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { formatFloat, formatMonetary } from "@web/views/fields/formatters";
 import { useService } from "@web/core/utils/hooks";

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import logging
 import json
 import re
 from datetime import datetime
 
-from odoo import models, fields, _, api
-from odoo.exceptions import UserError
+from loomworks import models, fields, _, api
+from loomworks.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 

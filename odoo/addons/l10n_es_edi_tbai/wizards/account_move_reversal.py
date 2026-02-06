@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import fields, models, api
-from odoo.addons.l10n_es_edi_tbai.models.account_move import TBAI_REFUND_REASONS
-from odoo.exceptions import UserError
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import fields, models, api
+from loomworks.addons.l10n_es_edi_tbai.models.account_move import TBAI_REFUND_REASONS
+from loomworks.exceptions import UserError
 
 
 class AccountMoveReversal(models.TransientModel):

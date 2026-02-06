@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from unittest.mock import patch
 
-from odoo.tests import tagged
-from odoo.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
-from odoo.addons.account_edi_proxy_client.models.account_edi_proxy_user import AccountEdiProxyError
-from odoo.addons.l10n_it_edi.tests.common import TestItEdi
+from loomworks.tests import tagged
+from loomworks.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
+from loomworks.addons.account_edi_proxy_client.models.account_edi_proxy_user import AccountEdiProxyError
+from loomworks.addons.l10n_it_edi.tests.common import TestItEdi
 
 
 def attachment_to_dict(attachment):
@@ -35,7 +35,7 @@ class TestItAccountMoveSend(TestItEdi, TestAccountMoveSendCommon):
 
     def generate_l10n_it_edi_send_attachments(self, invoices, from_cron=False):
         moves_data = {invoice: self.env['account.move.send']._get_default_sending_settings(invoice, from_cron=from_cron) for invoice in invoices}
-        with patch('odoo.addons.l10n_it_edi.models.account_move_send.AccountMoveSend._call_web_service_after_invoice_pdf_render'):
+        with patch('loomworks.addons.l10n_it_edi.models.account_move_send.AccountMoveSend._call_web_service_after_invoice_pdf_render'):
             self.env['account.move.send']._generate_invoice_documents(moves_data)
 
     def test_invoice_multi_without_l10n_it_edi_xml_export(self):
@@ -48,7 +48,7 @@ class TestItAccountMoveSend(TestItEdi, TestAccountMoveSendCommon):
             return {}
 
         with patch(
-                'odoo.addons.account.models.account_move_send.AccountMoveSend._get_default_extra_edis',
+                'loomworks.addons.account.models.account_move_send.AccountMoveSend._get_default_extra_edis',
                 _get_default_extra_edis
         ):
             self.env['account.move.send']._generate_and_send_invoices(invoice1 + invoice2)
@@ -74,7 +74,7 @@ class TestItAccountMoveSend(TestItEdi, TestAccountMoveSendCommon):
             return {}
 
         with patch(
-                'odoo.addons.account.models.account_move_send.AccountMoveSend._get_default_extra_edis',
+                'loomworks.addons.account.models.account_move_send.AccountMoveSend._get_default_extra_edis',
                 _get_default_extra_edis
         ):
             self.env['account.move.send']._generate_and_send_invoices(invoice1 + invoice2)
@@ -165,7 +165,7 @@ class TestItAccountMoveSend(TestItEdi, TestAccountMoveSendCommon):
             self.company_data['default_tax_sale']
         )
 
-        with patch('odoo.addons.l10n_it_edi.models.account_move.AccountMove._l10n_it_edi_upload_single', return_value={}, autospec=True) as mock_check:
+        with patch('loomworks.addons.l10n_it_edi.models.account_move.AccountMove._l10n_it_edi_upload_single', return_value={}, autospec=True) as mock_check:
             self.env['account.move.send'].with_context(allowed_company_ids=[second_company.id, self.company.id])._generate_and_send_invoices(invoice2 + invoice1)
             self.assertEqual(mock_check.call_count, 2)
             res_call_invoice1, res_call_invoice2 = mock_check.call_args_list
@@ -179,7 +179,7 @@ class TestItAccountMoveSend(TestItEdi, TestAccountMoveSendCommon):
         invoice = self.init_invoice(self.italian_partner_a)
         self.generate_l10n_it_edi_send_attachments(invoice)
         success = {'id_transaction': "SDI ID 1", 'signed': False, 'signed_data': False}
-        with patch('odoo.addons.l10n_it_edi.models.account_move.AccountMove._l10n_it_edi_upload_single', return_value=success) as mock_check:
+        with patch('loomworks.addons.l10n_it_edi.models.account_move.AccountMove._l10n_it_edi_upload_single', return_value=success) as mock_check:
             attachments_vals = {invoice: attachment_to_dict(invoice.l10n_it_edi_attachment_id)}
             results = invoice._l10n_it_edi_send(attachments_vals)
 
@@ -192,7 +192,7 @@ class TestItAccountMoveSend(TestItEdi, TestAccountMoveSendCommon):
         invoice = self.init_invoice(self.italian_partner_a)
         self.generate_l10n_it_edi_send_attachments(invoice)
         proxy_error = {'error': 'error_code', 'error_description': 'error_description'}
-        with patch('odoo.addons.l10n_it_edi.models.account_move.AccountMove._l10n_it_edi_upload_single', return_value=proxy_error) as mock_check:
+        with patch('loomworks.addons.l10n_it_edi.models.account_move.AccountMove._l10n_it_edi_upload_single', return_value=proxy_error) as mock_check:
             attachments_vals = {invoice: attachment_to_dict(invoice.l10n_it_edi_attachment_id)}
             results = invoice._l10n_it_edi_send(attachments_vals)
             proxy_error['error_message'] = invoice._l10n_it_edi_upload_error_message(proxy_error['error'], proxy_error['error_description'])
@@ -205,7 +205,7 @@ class TestItAccountMoveSend(TestItEdi, TestAccountMoveSendCommon):
     def test_l10n_it_edi_send_proxy_exception(self):
         invoice = self.init_invoice(self.italian_partner_a)
         self.generate_l10n_it_edi_send_attachments(invoice)
-        with patch('odoo.addons.l10n_it_edi.models.account_move.AccountMove._l10n_it_edi_upload_single', side_effect=AccountEdiProxyError('error_code', message='error_description')) as mock_check:
+        with patch('loomworks.addons.l10n_it_edi.models.account_move.AccountMove._l10n_it_edi_upload_single', side_effect=AccountEdiProxyError('error_code', message='error_description')) as mock_check:
             attachments_vals = {invoice: attachment_to_dict(invoice.l10n_it_edi_attachment_id)}
             results = invoice._l10n_it_edi_send(attachments_vals)
 
@@ -225,7 +225,7 @@ class TestItAccountMoveSend(TestItEdi, TestAccountMoveSendCommon):
         def _l10n_it_edi_upload_single(record, file):
             return success if file['filename'] == 'file_1.xml' else proxy_error
 
-        with patch('odoo.addons.l10n_it_edi.models.account_move.AccountMove._l10n_it_edi_upload_single', side_effect=_l10n_it_edi_upload_single, autospec=True) as mock_check:
+        with patch('loomworks.addons.l10n_it_edi.models.account_move.AccountMove._l10n_it_edi_upload_single', side_effect=_l10n_it_edi_upload_single, autospec=True) as mock_check:
             invoices[0].l10n_it_edi_attachment_id.name = 'file_1.xml'
 
             attachments_vals = {invoice: attachment_to_dict(invoice.l10n_it_edi_attachment_id) for invoice in invoices}

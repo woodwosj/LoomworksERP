@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data noupdate="1">
         <!-- Planning Module Category -->
         <record id="module_category_planning" model="ir.module.category">
@@ -79,4 +79,4 @@
             <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
         </record>
     </data>
-</odoo>
+</loomworks>

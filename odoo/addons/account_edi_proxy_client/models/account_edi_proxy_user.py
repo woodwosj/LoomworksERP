@@ -5,9 +5,9 @@ import uuid
 import psycopg2.errors
 import requests
 
-from odoo import _, fields, models
-from odoo.exceptions import UserError
-from odoo.tools import index_exists
+from loomworks import _, fields, models
+from loomworks.exceptions import UserError
+from loomworks.tools import index_exists
 from .account_edi_proxy_auth import OdooEdiProxyAuth
 
 _logger = logging.getLogger(__name__)

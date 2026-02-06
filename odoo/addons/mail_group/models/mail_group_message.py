@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 
 from markupsafe import Markup
 
-from odoo import _, api, fields, models
-from odoo.exceptions import AccessError, UserError
-from odoo.osv import expression
-from odoo.tools.mail import email_normalize, append_content_to_html
+from loomworks import _, api, fields, models
+from loomworks.exceptions import AccessError, UserError
+from loomworks.osv import expression
+from loomworks.tools.mail import email_normalize, append_content_to_html
 
 _logger = logging.getLogger(__name__)
 

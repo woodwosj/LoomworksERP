@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 import logging
@@ -7,10 +7,10 @@ import werkzeug
 
 from werkzeug.exceptions import Forbidden
 
-from odoo import http
-from odoo.exceptions import UserError
-from odoo.http import request
-from odoo.tools import consteq
+from loomworks import http
+from loomworks.exceptions import UserError
+from loomworks.http import request
+from loomworks.tools import consteq
 
 _logger = logging.getLogger(__name__)
 
@@ -73,4 +73,4 @@ class MicrosoftOutlookController(http.Controller):
             'microsoft_outlook_access_token_expiration': expiration,
         })
 
-        return request.redirect(f'/odoo/{model_name}/{rec_id}')
+        return request.redirect(f'/loomworks/{model_name}/{rec_id}')

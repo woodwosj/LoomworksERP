@@ -1,4 +1,4 @@
-from odoo import models
+from loomworks import models
 
 class Warehouse(models.Model):
     _inherit = "stock.warehouse"

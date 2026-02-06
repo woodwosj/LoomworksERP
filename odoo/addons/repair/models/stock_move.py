@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, Command, fields, models
-from odoo.tools.misc import groupby
+from loomworks import api, Command, fields, models
+from loomworks.tools.misc import groupby
 
 MAP_REPAIR_LINE_TYPE_TO_MOVE_LOCATIONS_FROM_REPAIR = {
     'add': {'location_id': 'location_id', 'location_dest_id': 'location_dest_id'},

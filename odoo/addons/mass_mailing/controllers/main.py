@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import urllib.parse
@@ -10,9 +10,9 @@ from markupsafe import Markup, escape
 from lxml import etree
 from werkzeug.exceptions import BadRequest, NotFound, Unauthorized
 
-from odoo import _, fields, http, tools
-from odoo.http import request, Response
-from odoo.tools import consteq
+from loomworks import _, fields, http, tools
+from loomworks.http import request, Response
+from loomworks.tools import consteq
 
 
 class MassMailController(http.Controller):

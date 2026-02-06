@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import difflib
 import logging
 import time
 from markupsafe import Markup
 
-from odoo import api, fields, models, Command, _
-from odoo.tools import float_compare
+from loomworks import api, fields, models, Command, _
+from loomworks.tools import float_compare
 
 _logger = logging.getLogger(__name__)
 

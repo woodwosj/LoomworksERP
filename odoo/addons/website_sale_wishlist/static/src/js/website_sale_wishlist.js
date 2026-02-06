@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { redirect } from '@web/core/utils/urls';
 import publicWidget from "@web/legacy/js/public/public_widget";

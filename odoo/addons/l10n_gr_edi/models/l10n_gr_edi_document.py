@@ -3,7 +3,7 @@ import requests
 from lxml import etree
 from requests import RequestException
 
-from odoo import fields, models
+from loomworks import fields, models
 
 
 def _make_mydata_request(company, endpoint, xml_content) -> dict[str, str] | dict[int, dict[str, str]]:

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo >
+<loomworks >
     <data>
         <!-- When refunding an order included in a consolidated invoice, we need to issue the invoice to the general public -->
         <record model='res.partner' id='general_public'>
@@ -14,4 +14,4 @@
             <field name='l10n_my_identification_number'>NA</field>
         </record>
     </data>
-</odoo>
+</loomworks>

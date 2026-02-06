@@ -1,10 +1,10 @@
 from collections import defaultdict
 from lxml import etree
 
-from odoo import _, models, Command
-from odoo.tools import html2plaintext, cleanup_xml_node, float_is_zero, float_repr, float_round
-from odoo.addons.account.tools import dict_to_xml
-from odoo.addons.account_edi_ubl_cii.tools import Invoice, CreditNote, DebitNote
+from loomworks import _, models, Command
+from loomworks.tools import html2plaintext, cleanup_xml_node, float_is_zero, float_repr, float_round
+from loomworks.addons.account.tools import dict_to_xml
+from loomworks.addons.account_edi_ubl_cii.tools import Invoice, CreditNote, DebitNote
 
 UBL_NAMESPACES = {
     'cbc': "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",

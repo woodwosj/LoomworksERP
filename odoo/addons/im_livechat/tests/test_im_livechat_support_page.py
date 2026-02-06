@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo
-from odoo.tests import HttpCase
+import loomworks
+from loomworks.tests import HttpCase
 
-@odoo.tests.tagged('-at_install', 'post_install')
+@loomworks.tests.tagged('-at_install', 'post_install')
 class TestImLivechatSupportPage(HttpCase):
     def test_load_modules(self):
         """Checks that all javascript modules load correctly on the livechat support page"""

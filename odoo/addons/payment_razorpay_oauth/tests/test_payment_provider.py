@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import tagged
-from odoo.exceptions import ValidationError
+from loomworks.tests import tagged
+from loomworks.exceptions import ValidationError
 
-from odoo.addons.payment_razorpay.tests.common import RazorpayCommon
+from loomworks.addons.payment_razorpay.tests.common import RazorpayCommon
 
 
 @tagged('post_install', '-at_install')

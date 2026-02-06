@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { loadBundle } from "@web/core/assets";
 import { Wysiwyg } from "@web_editor/js/wysiwyg/wysiwyg";

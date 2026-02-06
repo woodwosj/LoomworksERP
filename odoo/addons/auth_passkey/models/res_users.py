@@ -1,11 +1,11 @@
 import json
 
-from odoo import fields, models, _
-from odoo.tools import SQL
-from odoo.exceptions import AccessDenied
-from odoo.modules.registry import Registry
+from loomworks import fields, models, _
+from loomworks.tools import SQL
+from loomworks.exceptions import AccessDenied
+from loomworks.modules.registry import Registry
 
-from odoo.addons.base.models.res_users import check_identity
+from loomworks.addons.base.models.res_users import check_identity
 from .._vendor.webauthn.helpers.exceptions import InvalidAuthenticationResponse
 
 

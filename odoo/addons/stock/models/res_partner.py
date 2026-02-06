@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models
-from odoo.addons.base.models.res_partner import WARNING_HELP, WARNING_MESSAGE
+from loomworks import fields, models
+from loomworks.addons.base.models.res_partner import WARNING_HELP, WARNING_MESSAGE
 
 
 class Partner(models.Model):

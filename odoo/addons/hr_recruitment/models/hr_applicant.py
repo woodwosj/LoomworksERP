@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import re
 
 from markupsafe import Markup
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 
-from odoo import api, fields, models, tools
-from odoo.exceptions import UserError, ValidationError
-from odoo.osv import expression
-from odoo.tools import clean_context
-from odoo.tools.translate import _
+from loomworks import api, fields, models, tools
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.osv import expression
+from loomworks.tools import clean_context
+from loomworks.tools.translate import _
 
 
 AVAILABLE_PRIORITIES = [
@@ -430,7 +430,7 @@ class Applicant(models.Model):
             'para_1': match[1],
             'para_2': match[2],
             'para_3': match[3],
-            'link': f'/odoo/recruitment/{hr_job.id}',
+            'link': f'/loomworks/recruitment/{hr_job.id}',
         }
 
         if hr_job.alias_email:

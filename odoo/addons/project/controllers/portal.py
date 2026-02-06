@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 
@@ -6,13 +6,13 @@ from collections import OrderedDict
 from operator import itemgetter
 from markupsafe import Markup
 
-from odoo import conf, http, _
-from odoo.exceptions import AccessError, MissingError, UserError
-from odoo.http import request
-from odoo.osv.expression import AND, FALSE_DOMAIN
-from odoo.tools import groupby as groupbyelem
+from loomworks import conf, http, _
+from loomworks.exceptions import AccessError, MissingError, UserError
+from loomworks.http import request
+from loomworks.osv.expression import AND, FALSE_DOMAIN
+from loomworks.tools import groupby as groupbyelem
 
-from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
+from loomworks.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
 
 
 class ProjectCustomerPortal(CustomerPortal):

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import models
+from loomworks import models
 
-from odoo.addons.google_calendar.utils.google_calendar import GoogleCalendarService
+from loomworks.addons.google_calendar.utils.google_calendar import GoogleCalendarService
 
 class Attendee(models.Model):
     _name = 'calendar.attendee'

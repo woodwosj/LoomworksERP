@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from odoo import http, _
-from odoo.addons.website_sale.controllers.main import WebsiteSale
-from odoo.addons.website_sale.controllers.delivery import Delivery
+from loomworks import http, _
+from loomworks.addons.website_sale.controllers.main import WebsiteSale
+from loomworks.addons.website_sale.controllers.delivery import Delivery
 
-from odoo.exceptions import AccessDenied, UserError
-from odoo.http import request
+from loomworks.exceptions import AccessDenied, UserError
+from loomworks.http import request
 
 
 class MondialRelay(http.Controller):

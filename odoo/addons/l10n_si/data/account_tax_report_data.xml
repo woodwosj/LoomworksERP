@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo auto_sequence="1">
+<loomworks auto_sequence="1">
     <!-- DDV -->
     <record id="tax_report" model="account.report">
         <field name="name">VAT Return (DDV-O)</field>
@@ -483,4 +483,4 @@
             </record>
         </field>
     </record>
-</odoo>
+</loomworks>

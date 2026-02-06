@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, api, _
-from odoo.exceptions import ValidationError
-from odoo.osv import expression
+from loomworks import fields, models, api, _
+from loomworks.exceptions import ValidationError
+from loomworks.osv import expression
 import pytz
 from datetime import datetime
 

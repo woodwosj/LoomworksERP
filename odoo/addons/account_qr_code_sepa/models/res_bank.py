@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
-from odoo.addons.account.tools import is_valid_structured_reference, sanitize_structured_reference
+from loomworks import models, fields, api, _
+from loomworks.addons.account.tools import is_valid_structured_reference, sanitize_structured_reference
 
 
 class ResPartnerBank(models.Model):

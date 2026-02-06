@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import base64
 import functools
 import json
@@ -10,14 +10,14 @@ import werkzeug.urls
 import werkzeug.utils
 from werkzeug.exceptions import BadRequest
 
-from odoo import api, http, SUPERUSER_ID, _
-from odoo.exceptions import AccessDenied
-from odoo.http import request, Response
-from odoo import registry as registry_get
-from odoo.tools.misc import clean_context
+from loomworks import api, http, SUPERUSER_ID, _
+from loomworks.exceptions import AccessDenied
+from loomworks.http import request, Response
+from loomworks import registry as registry_get
+from loomworks.tools.misc import clean_context
 
-from odoo.addons.auth_signup.controllers.main import AuthSignupHome as Home
-from odoo.addons.web.controllers.utils import ensure_db, _get_login_redirect_url
+from loomworks.addons.auth_signup.controllers.main import AuthSignupHome as Home
+from loomworks.addons.web.controllers.utils import ensure_db, _get_login_redirect_url
 
 
 _logger = logging.getLogger(__name__)
@@ -142,13 +142,13 @@ class OAuthController(http.Controller):
             action = state.get('a')
             menu = state.get('m')
             redirect = werkzeug.urls.url_unquote_plus(state['r']) if state.get('r') else False
-            url = '/odoo'
+            url = '/loomworks'
             if redirect:
                 url = redirect
             elif action:
-                url = '/odoo/action-%s' % action
+                url = '/loomworks/action-%s' % action
             elif menu:
-                url = '/odoo?menu_id=%s' % menu
+                url = '/loomworks?menu_id=%s' % menu
 
             credential = {'login': login, 'token': key, 'type': 'oauth_token'}
             auth_info = request.session.authenticate(dbname, credential)

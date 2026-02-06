@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
-from odoo import _
-from odoo.exceptions import UserError, MissingError, AccessError
-from odoo.http import Controller, request, route
+from loomworks import _
+from loomworks.exceptions import UserError, MissingError, AccessError
+from loomworks.http import Controller, request, route
 from .utils import clean_action
 from werkzeug.exceptions import BadRequest
 

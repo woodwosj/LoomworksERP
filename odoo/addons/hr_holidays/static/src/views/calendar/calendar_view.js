@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { calendarView } from '@web/views/calendar/calendar_view';
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 <data auto_sequence="1">
     <record id="mod_390_section_6" model="account.report">
         <field name="name">Operaciones específicas</field>
@@ -180,4 +180,4 @@
         </field>
     </record>
 </data>
-</odoo>
+</loomworks>

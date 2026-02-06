@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 const { DateTime } = luxon;
 import { Domain } from "@web/core/domain";

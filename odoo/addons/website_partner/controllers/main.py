@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import http
-from odoo.http import request
+from loomworks import http
+from loomworks.http import request
 
 
 class WebsitePartnerPage(http.Controller):

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models, fields
-from odoo.osv import expression
-from odoo.addons.mail.tools.discuss import Store
+from loomworks import api, models, fields
+from loomworks.osv import expression
+from loomworks.addons.mail.tools.discuss import Store
 
 import textwrap
 

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command, fields
-from odoo.tests import Form, tagged
-from odoo.tools.float_utils import float_round, float_compare
+from loomworks import Command, fields
+from loomworks.tests import Form, tagged
+from loomworks.tools.float_utils import float_round, float_compare
 
-from odoo.addons.mrp_subcontracting.tests.common import TestMrpSubcontractingCommon
-from odoo.addons.mrp_account.tests.test_bom_price import TestBomPriceCommon
+from loomworks.addons.mrp_subcontracting.tests.common import TestMrpSubcontractingCommon
+from loomworks.addons.mrp_account.tests.test_bom_price import TestBomPriceCommon
 
 
 @tagged('post_install', '-at_install')

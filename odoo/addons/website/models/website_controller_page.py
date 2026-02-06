@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from ast import literal_eval
-from odoo import api, fields, models
+from loomworks import api, fields, models
 
 
 class WebsiteControllerPage(models.Model):

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import tagged
+from loomworks.tests import tagged
 
-from odoo.addons.sale.tests.test_sale_product_attribute_value_config import TestSaleProductAttributeValueCommon
-from odoo.addons.website.tools import MockRequest
-from odoo.addons.website_sale_stock.tests.common import WebsiteSaleStockCommon
+from loomworks.addons.sale.tests.test_sale_product_attribute_value_config import TestSaleProductAttributeValueCommon
+from loomworks.addons.website.tools import MockRequest
+from loomworks.addons.website_sale_stock.tests.common import WebsiteSaleStockCommon
 
 
 @tagged('post_install', '-at_install')

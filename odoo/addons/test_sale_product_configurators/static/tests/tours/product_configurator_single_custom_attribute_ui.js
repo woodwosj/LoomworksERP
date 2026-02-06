@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { queryOne } from "@odoo/hoot-dom";
 import { registry } from "@web/core/registry";
@@ -7,7 +7,7 @@ import configuratorTourUtils from "@sale/js/tours/product_configurator_tour_util
 import tourUtils from "@sale/js/tours/tour_utils";
 
 registry.category("web_tour.tours").add('sale_product_configurator_single_custom_attribute_tour', {
-    url: '/odoo',
+    url: '/loomworks',
     steps: () => [
         ...stepUtils.goToAppSteps("sale.sale_menu_root", "Go to the Sales App"),
         ...tourUtils.createNewSalesOrder(),

@@ -1,20 +1,20 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from contextlib import contextmanager
 from unittest.mock import patch
 
 from freezegun import freeze_time
 from lxml import etree
 
-from odoo import fields
-from odoo.exceptions import UserError, ValidationError
-from odoo.tests import tagged
-from odoo.tools import file_open, mute_logger
+from loomworks import fields
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tests import tagged
+from loomworks.tools import file_open, mute_logger
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.l10n_my_edi.tests.test_file_generation import NS_MAP
-from odoo.addons.point_of_sale.tests.common import TestPoSCommon
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.l10n_my_edi.tests.test_file_generation import NS_MAP
+from loomworks.addons.point_of_sale.tests.common import TestPoSCommon
 
-CONTACT_PROXY_METHOD = 'odoo.addons.l10n_my_edi.models.account_edi_proxy_user.AccountEdiProxyClientUser._l10n_my_edi_contact_proxy'
+CONTACT_PROXY_METHOD = 'loomworks.addons.l10n_my_edi.models.account_edi_proxy_user.AccountEdiProxyClientUser._l10n_my_edi_contact_proxy'
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
@@ -115,7 +115,7 @@ class TestMyInvoisPoS(TestPoSCommon):
     # Base tests: consolidated invoice
     ##################################
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_consolidate_invoices(self):
         """ Creates and consolidate a few pos Order, then generate the consolidated invoice xml file. """
         with freeze_time("2025-01-01"):
@@ -140,7 +140,7 @@ class TestMyInvoisPoS(TestPoSCommon):
             self._assert_node_values(xml_tree, "cac:InvoiceLine/cbc:LineExtensionAmount", '600.00')
             self._assert_node_values(xml_tree, "cac:AccountingCustomerParty//cac:PartyIdentification/cbc:ID", 'EI00000000010')
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_consolidate_invoices_with_split(self):
         """ Make sure that when orders are not continuous, we split them in multiple lines. """
         with freeze_time("2025-01-01"):
@@ -165,7 +165,7 @@ class TestMyInvoisPoS(TestPoSCommon):
             self._assert_node_values(xml_tree, "cac:InvoiceLine[1]/cbc:LineExtensionAmount", '100.00')
             self._assert_node_values(xml_tree, "cac:InvoiceLine[2]/cbc:LineExtensionAmount", '500.00')
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_consolidate_invoices_from_multiple_configs(self):
         """ When consolidating from multiple configs at once, we expect one Consolidated Invoice per config. """
         with freeze_time("2025-01-01"):
@@ -183,7 +183,7 @@ class TestMyInvoisPoS(TestPoSCommon):
             consolidated_invoice = (first_order | second_order).consolidated_invoice_ids
             self.assertEqual(len(consolidated_invoice), 2)  # One consolidated invoice holds up to 100 lines
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_consolidate_invoices_limit(self):
         """ Consolidate multiple orders by lowering the allowed amount of lines """
         with freeze_time("2025-01-01"):
@@ -193,7 +193,7 @@ class TestMyInvoisPoS(TestPoSCommon):
                 self._create_order({'pos_order_lines_ui_args': [(self.product_two, 1.0)], 'customer': self.invoicing_customer, 'is_invoiced': True})
                 third_order = self._create_order({'pos_order_lines_ui_args': [(self.product_two, 1.0)]})
 
-            with patch('odoo.addons.l10n_my_edi_pos.wizard.myinvois_consolidate_invoice_wizard.MAX_LINE_COUNT_PER_INVOICE', 1):
+            with patch('loomworks.addons.l10n_my_edi_pos.wizard.myinvois_consolidate_invoice_wizard.MAX_LINE_COUNT_PER_INVOICE', 1):
                 # Consolidate them
                 wizard = self.env['myinvois.consolidate.invoice.wizard'].create({
                     'date_from': '2025-01-01',
@@ -203,7 +203,7 @@ class TestMyInvoisPoS(TestPoSCommon):
                 consolidated_invoice = (first_order | third_order).consolidated_invoice_ids
                 self.assertEqual(len(consolidated_invoice), 2)  # Two consolidated invoices of a single line due to the MAX_LINE_COUNT_PER_INVOICE
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_send_consolidated_invoice(self):
         with freeze_time("2025-01-01"):
             # Create the orders
@@ -225,7 +225,7 @@ class TestMyInvoisPoS(TestPoSCommon):
                     'myinvois_validation_time': fields.Datetime.from_string('2025-01-01 01:00:00'),
                 }])
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_send_multiple_consolidated_invoice(self):
         with freeze_time("2025-01-01"):
             with self.with_pos_session():
@@ -252,7 +252,7 @@ class TestMyInvoisPoS(TestPoSCommon):
                     'myinvois_validation_time': fields.Datetime.from_string('2025-01-01 01:00:00'),
                 }])
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_invoice_from_pos(self):
         with freeze_time("2025-01-01"):
             with self.with_pos_session(), patch(CONTACT_PROXY_METHOD, new=self._mock_successful_submission):
@@ -264,7 +264,7 @@ class TestMyInvoisPoS(TestPoSCommon):
                 'l10n_my_edi_invoice_long_id': '123-789-654',
             }])
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_delete_consolidated_invoice(self):
         with freeze_time("2025-01-01"):
             with self.with_pos_session():
@@ -297,7 +297,7 @@ class TestMyInvoisPoS(TestPoSCommon):
             consolidated_invoice.unlink()
             self.assertFalse(consolidated_invoice.exists())
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_nothing_to_consolidate(self):
         with freeze_time("2025-01-01"):
             with self.with_pos_session():
@@ -310,7 +310,7 @@ class TestMyInvoisPoS(TestPoSCommon):
                 with self.assertRaises(ValidationError):
                     wizard.button_consolidate_orders()
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_consolidate_invoices_in_foreign_currency(self):
         """
         Creates and consolidate a few pos Order, then generate the consolidated invoice xml file.
@@ -340,7 +340,7 @@ class TestMyInvoisPoS(TestPoSCommon):
             self._assert_node_values(xml_tree, "cac:InvoiceLine/cbc:LineExtensionAmount", '1200.00')
             self._assert_node_values(xml_tree, "cac:TaxExchangeRate/cbc:CalculationRate", '0.5')
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_consolidate_invoices_with_different_discounts(self):
         """
         Creates and consolidate a few pos Order, then generate the consolidated invoice xml file.
@@ -375,7 +375,7 @@ class TestMyInvoisPoS(TestPoSCommon):
             # And the discount should be 100
             self._assert_node_values(xml_tree, "cac:InvoiceLine/cac:AllowanceCharge/cbc:Amount", '100.00')
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_consolidate_invoices_with_tax_included_in_price(self):
         """ Test that price_include taxes don't incorrectly appear as discounts in XML. """
         tax_included = self.env['account.tax'].create({
@@ -401,7 +401,7 @@ class TestMyInvoisPoS(TestPoSCommon):
                 expected_xml = etree.fromstring(f.read())
             self.assertXmlTreeEqual(root, expected_xml)
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_consolidate_invoices_with_tax_included_in_price_and_discount(self):
         """ Test that price_include taxes with actual discounts work correctly. """
         tax_included = self.env['account.tax'].create({
@@ -431,7 +431,7 @@ class TestMyInvoisPoS(TestPoSCommon):
     # Refunds
     #########
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_refund_order(self):
         with freeze_time("2025-01-01"):
             # Create the orders
@@ -461,7 +461,7 @@ class TestMyInvoisPoS(TestPoSCommon):
             self._assert_node_values(xml_tree, "cac:InvoiceLine/cbc:LineExtensionAmount", '500.00')
             self._assert_node_values(xml_tree, "cac:InvoiceLine/cac:Price/cbc:PriceAmount", '500.0')
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_refund_order_partially(self):
         with freeze_time("2025-01-01"):
             # Create the orders
@@ -490,7 +490,7 @@ class TestMyInvoisPoS(TestPoSCommon):
             # The refunded amount is removed from the line
             self._assert_node_values(xml_tree, "cac:InvoiceLine/cbc:LineExtensionAmount", '600.00')
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order', 'odoo.addons.point_of_sale.models.pos_session')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order', 'loomworks.addons.point_of_sale.models.pos_session')
     def test_refund_constrains_consolidated_invoice(self):
         with freeze_time("2025-01-01"):
             # Create the orders
@@ -528,7 +528,7 @@ class TestMyInvoisPoS(TestPoSCommon):
                     ], 'customer': self.invoicing_customer, 'is_invoiced': True,
                 })
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order', 'odoo.addons.point_of_sale.models.pos_session')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order', 'loomworks.addons.point_of_sale.models.pos_session')
     def test_refund_constrains_regular_invoice(self):
         with freeze_time("2025-01-01"):
             # Create the orders
@@ -558,7 +558,7 @@ class TestMyInvoisPoS(TestPoSCommon):
                     ], 'customer': self.invoicing_customer, 'is_invoiced': True,
                 })
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order', 'odoo.addons.point_of_sale.models.pos_session')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order', 'loomworks.addons.point_of_sale.models.pos_session')
     def test_refund_constrains_not_submitted(self):
         with freeze_time("2025-01-01"):
             # Create the orders
@@ -586,7 +586,7 @@ class TestMyInvoisPoS(TestPoSCommon):
                     ],
                 })
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_consolidate_invoices_refund_with_customer(self):
         """
         When an order has a customer set, Odoo enforces that the refund must use the same customer.
@@ -628,7 +628,7 @@ class TestMyInvoisPoS(TestPoSCommon):
     # Test XMLs
     ###########
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_consolidate_invoices_export_xml(self):
         """ Generate a relatively complex use case, and compare it to an XML file in order to ensure correct generation of the file. """
         tax_5 = self.env['account.tax'].create({
@@ -677,7 +677,7 @@ class TestMyInvoisPoS(TestPoSCommon):
                 expected_xml = etree.fromstring(f.read())
             self.assertXmlTreeEqual(root, expected_xml)
 
-    @mute_logger('odoo.addons.point_of_sale.models.pos_order')
+    @mute_logger('loomworks.addons.point_of_sale.models.pos_order')
     def test_consolidate_invoices_refund_export_xml(self):
         """ Generate a relatively complex use case, and compare it to an XML file in order to ensure correct generation of the file. """
         tax_5 = self.env['account.tax'].create({

@@ -1,18 +1,18 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
 from unittest.mock import patch
 
 from freezegun import freeze_time
 
-from odoo import fields
-from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.fields import Command
-from odoo.tests import Form, HttpCase, tagged
+from loomworks import fields
+from loomworks.exceptions import AccessError, UserError, ValidationError
+from loomworks.fields import Command
+from loomworks.tests import Form, HttpCase, tagged
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.addons.sale.tests.common import SaleCommon
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.addons.sale.tests.common import SaleCommon
 
 
 @tagged('post_install', '-at_install')
@@ -568,7 +568,7 @@ class TestSaleOrder(SaleCommon):
     def test_so_discount_is_not_reset(self):
         """ Discounts should not be recomputed on order confirmation """
         with patch(
-            'odoo.addons.sale.models.sale_order_line.SaleOrderLine'
+            'loomworks.addons.sale.models.sale_order_line.SaleOrderLine'
             '._compute_discount'
         ) as patched:
             self.sale_order.action_confirm()
@@ -1139,7 +1139,7 @@ class TestSaleMailComposerUI(MailCommon, HttpCase):
         })
 
     def test_mail_attachment_removal_tour(self):
-        url = f"/odoo/sales/{self.quotation.id}"
+        url = f"/loomworks/sales/{self.quotation.id}"
         with self.mock_mail_app():
             self.start_tour(
                 url,

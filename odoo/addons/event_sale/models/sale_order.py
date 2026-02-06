@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from werkzeug.urls import url_encode, url_join
 
-from odoo import fields, models, _
-from odoo.exceptions import ValidationError
-from odoo.osv import expression
+from loomworks import fields, models, _
+from loomworks.exceptions import ValidationError
+from loomworks.osv import expression
 
 
 class SaleOrder(models.Model):

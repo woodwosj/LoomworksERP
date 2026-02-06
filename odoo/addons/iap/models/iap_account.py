@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import secrets
@@ -6,10 +6,10 @@ import threading
 import uuid
 import werkzeug.urls
 
-from odoo import api, fields, models, _
-from odoo.addons.iap.tools import iap_tools
-from odoo.exceptions import AccessError, UserError
-from odoo.tools import get_lang
+from loomworks import api, fields, models, _
+from loomworks.addons.iap.tools import iap_tools
+from loomworks.exceptions import AccessError, UserError
+from loomworks.tools import get_lang
 
 _logger = logging.getLogger(__name__)
 
@@ -232,9 +232,9 @@ class IapAccount(models.Model):
         if not self.env.user.has_group('base.group_no_one'):
             return False
         if account:
-            url = f"/odoo/action-iap.iap_account_action/{account.id}?menu_id={menu.id}"
+            url = f"/loomworks/action-iap.iap_account_action/{account.id}?menu_id={menu.id}"
         else:
-            url = f"/odoo/action-iap.iap_account_action?menu_id={menu.id}"
+            url = f"/loomworks/action-iap.iap_account_action?menu_id={menu.id}"
         return url
 
     @api.model

@@ -61,7 +61,7 @@ test("open record withtout the correct company (load state)", async () => {
         });
     });
 
-    redirect("/odoo/res.partner/1");
+    redirect("/loomworks/res.partner/1");
     await mountWebClient();
     expect(cookie.get("cids")).toBe("1-2");
     expect.verifySteps(["reload"]);

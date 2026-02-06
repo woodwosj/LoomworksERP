@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from odoo import fields, models, api
+from loomworks import fields, models, api
 
 
 class SmsSms(models.Model):

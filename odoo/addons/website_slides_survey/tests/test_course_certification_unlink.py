@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 
-from odoo.addons.website_slides.tests.common import SlidesCase
-from odoo.exceptions import ValidationError
-from odoo.tests.common import users
+from loomworks.addons.website_slides.tests.common import SlidesCase
+from loomworks.exceptions import ValidationError
+from loomworks.tests.common import users
 
 
 class TestSurvey(SlidesCase):

@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.sale_timesheet.tests.common import TestCommonSaleTimesheet
-from odoo.exceptions import UserError, ValidationError
-from odoo.tests import tagged
-from odoo.tests import Form
+from loomworks.addons.sale_timesheet.tests.common import TestCommonSaleTimesheet
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tests import tagged
+from loomworks.tests import Form
 
 
 @tagged('-at_install', 'post_install')

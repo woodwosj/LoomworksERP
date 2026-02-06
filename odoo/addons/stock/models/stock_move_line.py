@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import Counter, defaultdict
 
-from odoo import _, api, fields, tools, models, Command
-from odoo.exceptions import UserError, ValidationError
-from odoo.osv import expression
-from odoo.tools import OrderedSet, format_list, groupby
-from odoo.tools.float_utils import float_compare, float_is_zero, float_round
+from loomworks import _, api, fields, tools, models, Command
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.osv import expression
+from loomworks.tools import OrderedSet, format_list, groupby
+from loomworks.tools.float_utils import float_compare, float_is_zero, float_round
 
 
 class StockMoveLine(models.Model):

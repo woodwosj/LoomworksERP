@@ -2,10 +2,10 @@
 import logging
 import time
 
-from odoo.modules.loading import force_demo
-from odoo.tools import make_index_name, SQL
-from odoo.tests import standalone
-from odoo.addons.account.models.chart_template import AccountChartTemplate
+from loomworks.modules.loading import force_demo
+from loomworks.tools import make_index_name, SQL
+from loomworks.tests import standalone
+from loomworks.addons.account.models.chart_template import AccountChartTemplate
 from unittest.mock import patch
 
 _logger = logging.getLogger(__name__)
@@ -93,7 +93,7 @@ def test_all_l10n(env):
     # Install the CoAs
     start = time.time()
     env.cr.execute('ANALYZE')
-    logger = logging.getLogger('odoo.loading')
+    logger = logging.getLogger('loomworks.loading')
     logger.runbot('ANALYZE took %s seconds', time.time() - start)  # not sure this one is useful
     for (template_code, _template), company in zip(not_loaded_codes, companies):
         env.user.company_ids += company

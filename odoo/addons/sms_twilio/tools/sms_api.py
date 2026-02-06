@@ -1,9 +1,9 @@
 import logging
 import requests
 
-from odoo import _
-from odoo.addons.sms.tools.sms_api import SmsApiBase
-from odoo.addons.sms_twilio.tools.sms_twilio import get_twilio_from_number, get_twilio_status_callback_url
+from loomworks import _
+from loomworks.addons.sms.tools.sms_api import SmsApiBase
+from loomworks.addons.sms_twilio.tools.sms_twilio import get_twilio_from_number, get_twilio_status_callback_url
 
 _logger = logging.getLogger(__name__)
 
@@ -53,7 +53,7 @@ class SmsApiTwilio(SmsApiBase):
                 uuid = number_info['uuid']
                 response = self._sms_twilio_send_request(session, number_info['number'], body, uuid)
                 fields_values = {
-                    'failure_reason':  _("Unknown failure at sending, please contact Odoo support"),
+                    'failure_reason':  _("Unknown failure at sending, please contact Loomworks support"),
                     'state': 'server_error',
                     'uuid': uuid,
                 }
@@ -111,6 +111,6 @@ class SmsApiTwilio(SmsApiBase):
             'twilio_from_to': _("'To' and 'From' numbers cannot be the same"),
             'wrong_number_format': _("The number you're trying to reach is not correctly formatted"),
             # fallback
-            'unknown': _("Unknown error, please contact Odoo support"),
+            'unknown': _("Unknown error, please contact Loomworks support"),
         })
         return error_dict

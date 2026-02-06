@@ -1,7 +1,7 @@
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.l10n_in.tests.test_hsn_summary import TestL10nInHSNSummary
-from odoo.addons.point_of_sale.tests.test_frontend import TestTaxCommonPOS
-from odoo.tests import tagged
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.l10n_in.tests.test_hsn_summary import TestL10nInHSNSummary
+from loomworks.addons.point_of_sale.tests.test_frontend import TestTaxCommonPOS
+from loomworks.tests import tagged
 
 
 @tagged('post_install', '-at_install', 'post_install_l10n')

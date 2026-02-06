@@ -1,9 +1,9 @@
 from urllib.parse import urljoin
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from loomworks import _, api, fields, models
+from loomworks.exceptions import ValidationError
 
-from odoo.addons.account.models.company import PEPPOL_LIST
+from loomworks.addons.account.models.company import PEPPOL_LIST
 
 try:
     import phonenumbers

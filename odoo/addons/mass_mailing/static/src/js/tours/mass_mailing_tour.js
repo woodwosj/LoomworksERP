@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
     import { registry } from "@web/core/registry";
     import { stepUtils } from "@web_tour/tour_service/tour_utils";
@@ -7,7 +7,7 @@
     import { markup } from "@odoo/owl";
 
     registry.category("web_tour.tours").add('mass_mailing_tour', {
-        url: '/odoo',
+        url: '/loomworks',
         steps: () => [stepUtils.showAppsMenuItem(), {
         isActive: ["enterprise"],
         trigger: '.o_app[data-menu-xmlid="mass_mailing.mass_mailing_menu_root"]',

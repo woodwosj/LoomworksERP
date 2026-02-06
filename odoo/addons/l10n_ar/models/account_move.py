@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import models, fields, api, _
-from odoo.osv import expression
-from odoo.exceptions import UserError, RedirectWarning, ValidationError
-from odoo.tools.misc import formatLang
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import models, fields, api, _
+from loomworks.osv import expression
+from loomworks.exceptions import UserError, RedirectWarning, ValidationError
+from loomworks.tools.misc import formatLang
 from dateutil.relativedelta import relativedelta
 import logging
 _logger = logging.getLogger(__name__)

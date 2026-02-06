@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="loyalty_report">
         <t t-call="web.internal_layout">
             <div class="card">
@@ -130,4 +130,4 @@
             <div class="oe_structure"></div>
         </t>
     </template>
-</odoo>
+</loomworks>

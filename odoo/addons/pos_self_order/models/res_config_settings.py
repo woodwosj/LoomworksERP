@@ -4,10 +4,10 @@ import qrcode
 import zipfile
 from io import BytesIO
 
-from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError
-from odoo.tools.misc import split_every
-from odoo.osv.expression import AND
+from loomworks import models, fields, api, _
+from loomworks.exceptions import ValidationError
+from loomworks.tools.misc import split_every
+from loomworks.osv.expression import AND
 from werkzeug.urls import url_unquote
 
 

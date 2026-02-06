@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from . import controllers
 from . import models
 from . import report
 from . import wizard
 
-from odoo import api, SUPERUSER_ID
+from loomworks import api, SUPERUSER_ID
 
 def _hr_holiday_post_init(env):
     french_companies = env['res.company'].search_count([('partner_id.country_id.code', '=', 'FR')])

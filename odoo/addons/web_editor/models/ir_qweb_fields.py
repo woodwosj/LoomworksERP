@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 """
 Web_editor-context rendering needs to add some metadata to rendered and allow to edit fields,
@@ -24,10 +24,10 @@ from markupsafe import Markup, escape_silent
 from PIL import Image as I
 from werkzeug import urls
 
-from odoo import _, api, models, fields
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import posix_to_ldml
-from odoo.tools.misc import file_open, get_lang, babel_locale_parse
+from loomworks import _, api, models, fields
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools import posix_to_ldml
+from loomworks.tools.misc import file_open, get_lang, babel_locale_parse
 
 REMOTE_CONNECTION_TIMEOUT = 2.5
 

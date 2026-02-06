@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from freezegun import freeze_time
 
-from odoo.addons.stock_account.tests.test_anglo_saxon_valuation_reconciliation_common import ValuationReconciliationTestCommon
+from loomworks.addons.stock_account.tests.test_anglo_saxon_valuation_reconciliation_common import ValuationReconciliationTestCommon
 from datetime import timedelta
-from odoo import Command, fields
-from odoo.tests import common, tagged
+from loomworks import Command, fields
+from loomworks.tests import common, tagged
 
 
 @tagged('post_install', '-at_install')

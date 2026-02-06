@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import re
@@ -10,15 +10,15 @@ import werkzeug.urls
 import urllib.parse
 from werkzeug.exceptions import HTTPException, NotFound
 
-import odoo
-from odoo import api, models, exceptions, tools, http
-from odoo.addons.base.models import ir_http
-from odoo.addons.base.models.ir_http import RequestUID
-from odoo.addons.base.models.ir_qweb import keep_query, QWebException
-from odoo.addons.base.models.res_lang import LangData
-from odoo.exceptions import AccessError, MissingError
-from odoo.http import request, Response
-from odoo.osv import expression
+import loomworks
+from loomworks import api, models, exceptions, tools, http
+from loomworks.addons.base.models import ir_http
+from loomworks.addons.base.models.ir_http import RequestUID
+from loomworks.addons.base.models.ir_qweb import keep_query, QWebException
+from loomworks.addons.base.models.res_lang import LangData
+from loomworks.exceptions import AccessError, MissingError
+from loomworks.http import request, Response
+from loomworks.osv import expression
 
 _logger = logging.getLogger(__name__)
 
@@ -514,7 +514,7 @@ class IrHttp(models.AbstractModel):
             if request.httprequest.method in ('GET', 'HEAD'):
                 try:
                     _, path = rule.build(args)
-                except odoo.exceptions.MissingError as exc:
+                except loomworks.exceptions.MissingError as exc:
                     raise werkzeug.exceptions.NotFound() from exc
                 assert path is not None
                 generated_path = werkzeug.urls.url_unquote_plus(path)

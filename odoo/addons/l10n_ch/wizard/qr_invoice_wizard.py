@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api, _
-from odoo.exceptions import UserError
+from loomworks import models, fields, api, _
+from loomworks.exceptions import UserError
 
 
 class QrInvoiceWizard(models.TransientModel):

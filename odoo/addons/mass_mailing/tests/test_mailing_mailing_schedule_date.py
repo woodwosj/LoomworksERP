@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 from freezegun import freeze_time
 
-from odoo.addons.base.tests.test_ir_cron import CronMixinCase
-from odoo.addons.mass_mailing.tests.common import MassMailCommon
-from odoo.tests import users, Form
-from odoo.tools import mute_logger
+from loomworks.addons.base.tests.test_ir_cron import CronMixinCase
+from loomworks.addons.mass_mailing.tests.common import MassMailCommon
+from loomworks.tests import users, Form
+from loomworks.tools import mute_logger
 
 
 class TestMailingScheduleDateWizard(MassMailCommon, CronMixinCase):
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     @users('user_marketing')
     def test_mailing_next_departure(self):
         # test if mailing.mailing.next_departure is correctly set taking into account

@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { HierarchyNavbar } from "./hierarchy_navbar";
 import { Layout } from "@web/search/layout";

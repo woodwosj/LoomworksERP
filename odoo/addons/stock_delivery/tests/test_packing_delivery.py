@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-from odoo.addons.stock.tests.test_packing import TestPackingCommon
-from odoo.exceptions import UserError
-from odoo.tests import Form
+from loomworks import Command
+from loomworks.addons.stock.tests.test_packing import TestPackingCommon
+from loomworks.exceptions import UserError
+from loomworks.tests import Form
 from unittest.mock import patch
 
 
@@ -150,7 +150,7 @@ class TestPacking(TestPackingCommon):
 
         # Mock carrier shipping method
         with patch(
-            'odoo.addons.stock_delivery.models.delivery_carrier.DeliveryCarrier.fixed_send_shipping',
+            'loomworks.addons.stock_delivery.models.delivery_carrier.DeliveryCarrier.fixed_send_shipping',
             return_value=[{'exact_price': 0, 'tracking_number': "666"}]
         ):
             picking_ship.send_to_shipper()

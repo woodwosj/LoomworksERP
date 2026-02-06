@@ -5,7 +5,7 @@
 
     Default MCP Tool Definitions
 -->
-<odoo>
+<loomworks>
     <data noupdate="1">
 
         <!-- Search Records Tool -->
@@ -14,7 +14,7 @@
             <field name="technical_name">search_records</field>
             <field name="category">data</field>
             <field name="risk_level">safe</field>
-            <field name="description">Search for records in any Odoo model.
+            <field name="description">Search for records in any Loomworks model.
 
 Use this tool to find existing records before creating new ones, to check if data exists, or to retrieve information for reports.
 
@@ -24,7 +24,7 @@ Examples:
             <field name="parameters_schema">{
     "type": "object",
     "properties": {
-        "model": {"type": "string", "description": "Odoo model name (e.g., sale.order, res.partner)"},
+        "model": {"type": "string", "description": "Loomworks model name (e.g., sale.order, res.partner)"},
         "domain": {"type": "array", "description": "Search domain as list of tuples"},
         "fields": {"type": "array", "items": {"type": "string"}, "description": "Fields to return"},
         "limit": {"type": "integer", "default": 80, "description": "Max records (max 500)"},
@@ -44,7 +44,7 @@ Examples:
             <field name="technical_name">create_record</field>
             <field name="category">data</field>
             <field name="risk_level">moderate</field>
-            <field name="description">Create a new record in an Odoo model.
+            <field name="description">Create a new record in a Loomworks model.
 
 Use this tool to create new business data like sales orders, invoices, products, contacts, etc.
 
@@ -54,7 +54,7 @@ Examples:
             <field name="parameters_schema">{
     "type": "object",
     "properties": {
-        "model": {"type": "string", "description": "Odoo model name"},
+        "model": {"type": "string", "description": "Loomworks model name"},
         "values": {"type": "object", "description": "Field values for new record"},
         "context": {"type": "object", "description": "Optional context overrides"}
     },
@@ -71,7 +71,7 @@ Examples:
             <field name="technical_name">update_record</field>
             <field name="category">data</field>
             <field name="risk_level">moderate</field>
-            <field name="description">Update an existing record in an Odoo model.
+            <field name="description">Update an existing record in a Loomworks model.
 
 Always search for records first to confirm they exist before updating.
 
@@ -81,7 +81,7 @@ Examples:
             <field name="parameters_schema">{
     "type": "object",
     "properties": {
-        "model": {"type": "string", "description": "Odoo model name"},
+        "model": {"type": "string", "description": "Loomworks model name"},
         "record_id": {"type": "integer", "description": "ID of record to update"},
         "values": {"type": "object", "description": "Field values to change"},
         "context": {"type": "object", "description": "Optional context overrides"}
@@ -99,7 +99,7 @@ Examples:
             <field name="technical_name">delete_record</field>
             <field name="category">data</field>
             <field name="risk_level">high</field>
-            <field name="description">Delete a record from an Odoo model.
+            <field name="description">Delete a record from a Loomworks model.
 
 WARNING: This is a destructive operation. The record will be permanently removed. Use with caution.
 
@@ -108,7 +108,7 @@ Example:
             <field name="parameters_schema">{
     "type": "object",
     "properties": {
-        "model": {"type": "string", "description": "Odoo model name"},
+        "model": {"type": "string", "description": "Loomworks model name"},
         "record_id": {"type": "integer", "description": "ID of record to delete"},
         "confirm": {"type": "boolean", "default": false, "description": "Must be True to delete"}
     },
@@ -141,7 +141,7 @@ Example:
             <field name="parameters_schema">{
     "type": "object",
     "properties": {
-        "model": {"type": "string", "description": "Odoo model name"},
+        "model": {"type": "string", "description": "Loomworks model name"},
         "record_ids": {"type": "array", "items": {"type": "integer"}, "description": "Record IDs to act on"},
         "action": {"type": "string", "description": "Method name to call (e.g., action_confirm)"},
         "parameters": {"type": "object", "description": "Optional action parameters"}
@@ -180,7 +180,7 @@ Examples:
             "enum": ["summary", "trend", "breakdown", "comparison"],
             "description": "Type of report"
         },
-        "model": {"type": "string", "description": "Odoo model to analyze"},
+        "model": {"type": "string", "description": "Loomworks model to analyze"},
         "domain": {"type": "array", "description": "Filter criteria"},
         "date_from": {"type": "string", "format": "date", "description": "Start date YYYY-MM-DD"},
         "date_to": {"type": "string", "format": "date", "description": "End date YYYY-MM-DD"},
@@ -200,7 +200,7 @@ Examples:
             <field name="technical_name">get_field_info</field>
             <field name="category">system</field>
             <field name="risk_level">safe</field>
-            <field name="description">Get field schema information for an Odoo model.
+            <field name="description">Get field schema information for a Loomworks model.
 
 Use this tool to understand the structure of a model before creating or updating records.
 Returns field names, types, required status, and for relational fields, the related model.
@@ -212,7 +212,7 @@ Examples:
             <field name="parameters_schema">{
     "type": "object",
     "properties": {
-        "model": {"type": "string", "description": "Odoo model name to introspect"},
+        "model": {"type": "string", "description": "Loomworks model name to introspect"},
         "field_names": {
             "type": "array",
             "items": {"type": "string"},
@@ -328,4 +328,4 @@ Remember:
         </record>
 
     </data>
-</odoo>
+</loomworks>

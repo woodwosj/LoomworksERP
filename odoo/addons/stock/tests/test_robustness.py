@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-from odoo.exceptions import UserError, ValidationError
-from odoo.tests.common import TransactionCase
+from loomworks import Command
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tests.common import TransactionCase
 
 
 class TestRobustness(TransactionCase):

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 from base64 import b64decode
 
-from odoo import models
-from odoo.tools.facade import Proxy, ProxyAttr, ProxyFunc
+from loomworks import models
+from loomworks.tools.facade import Proxy, ProxyAttr, ProxyFunc
 
 _logger = logging.getLogger(__name__)
 

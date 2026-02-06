@@ -4,13 +4,13 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 from psycopg2 import IntegrityError
 
-from odoo import Command
-from odoo.exceptions import UserError
-from odoo.tests import tagged, Form
-from odoo.exceptions import ValidationError
-from odoo.tools import mute_logger
+from loomworks import Command
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged, Form
+from loomworks.exceptions import ValidationError
+from loomworks.tools import mute_logger
 
-from odoo.addons.hr_holidays.tests.common import TestHrHolidaysCommon
+from loomworks.addons.hr_holidays.tests.common import TestHrHolidaysCommon
 
 
 @tagged('post_install', '-at_install', 'accruals')
@@ -1383,7 +1383,7 @@ class TestAccrualAllocations(TestHrHolidaysCommon):
             allocation._update_accrual()
         self.assertEqual(allocation.number_of_days, 18 / self.hours_per_day, "Should accrue 8 additional hours")
 
-    @mute_logger('odoo.sql_db')
+    @mute_logger('loomworks.sql_db')
     def test_yearly_cap_constraint(self):
         accrual_plan = self.env['hr.leave.accrual.plan'].with_context(tracking_disable=True).create({
             'name': 'Accrual Plan For Test',

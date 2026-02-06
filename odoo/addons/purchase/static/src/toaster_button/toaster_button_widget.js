@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { Component } from "@odoo/owl";

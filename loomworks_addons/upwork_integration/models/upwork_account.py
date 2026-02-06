@@ -12,8 +12,8 @@ Upwork Account model - Stores OAuth2 credentials and connection state.
 
 import logging
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 

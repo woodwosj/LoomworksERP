@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import random
@@ -7,10 +7,10 @@ import threading
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models, tools
-from odoo.tools import exception_to_unicode
-from odoo.tools.translate import _
-from odoo.exceptions import MissingError
+from loomworks import api, fields, models, tools
+from loomworks.tools import exception_to_unicode
+from loomworks.tools.translate import _
+from loomworks.exceptions import MissingError
 
 
 _logger = logging.getLogger(__name__)

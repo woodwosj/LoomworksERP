@@ -21,8 +21,8 @@ All endpoints require authentication.
 import json
 import logging
 
-from odoo import http
-from odoo.http import request, Response
+from loomworks import http
+from loomworks.http import request, Response
 
 _logger = logging.getLogger(__name__)
 

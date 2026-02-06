@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/webclient/helpers default=false */
+/** @loomworks-module alias=@web/../tests/webclient/helpers default=false */
 
 import { dialogService } from "@web/core/dialog/dialog_service";
 import { notificationService } from "@web/core/notifications/notification_service";

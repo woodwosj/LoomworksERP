@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import date, datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -10,13 +10,13 @@ from unittest.mock import DEFAULT
 import pytz
 import random
 
-from odoo import fields, exceptions, tests
-from odoo.addons.mail.models.mail_activity import MailActivity
-from odoo.addons.mail.tests.common import mail_new_test_user, MailCommon
-from odoo.addons.test_mail.models.test_mail_models import MailTestActivity
-from odoo.tests import Form, HttpCase, users
-from odoo.tests.common import freeze_time
-from odoo.tools import mute_logger
+from loomworks import fields, exceptions, tests
+from loomworks.addons.mail.models.mail_activity import MailActivity
+from loomworks.addons.mail.tests.common import mail_new_test_user, MailCommon
+from loomworks.addons.test_mail.models.test_mail_models import MailTestActivity
+from loomworks.tests import Form, HttpCase, users
+from loomworks.tests.common import freeze_time
+from loomworks.tools import mute_logger
 
 
 class TestActivityCommon(MailCommon):
@@ -60,7 +60,7 @@ class TestActivityRights(TestActivityCommon):
             self.assertEqual(action['res_model'], 'mail.activity')
             self.assertEqual(action['res_id'], test_activity.id)
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_activity_security_user_access_other(self):
         activity = self.test_record.with_user(self.user_employee).activity_schedule(
             'test_mail.mail_act_test_todo',
@@ -68,7 +68,7 @@ class TestActivityRights(TestActivityCommon):
         self.assertTrue(activity.can_write)
         activity.write({'user_id': self.user_employee.id})
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_activity_security_user_access_own(self):
         activity = self.test_record.with_user(self.user_employee).activity_schedule(
             'test_mail.mail_act_test_todo')
@@ -101,7 +101,7 @@ class TestActivityRights(TestActivityCommon):
                 'test_mail.mail_act_test_todo_generic',
             )
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_activity_security_user_noaccess_automated(self):
         def _employee_crash(records, operation):
             """ If employee is test employee, consider they have no access on document """
@@ -242,7 +242,7 @@ class TestActivityFlow(TestActivityCommon):
             self.assertEqual(test_record.activity_ids, self.env['mail.activity'])
             self.assertEqual(test_record.message_ids[0].subtype_id, self.env.ref('mail.mt_activities'))
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_activity_notify_other_user(self):
         self.user_admin.notification_type = 'email'
         rec = self.test_record.with_user(self.user_employee)
@@ -265,7 +265,7 @@ class TestActivityFlow(TestActivityCommon):
         self.assertEqual(activity.create_uid, self.user_employee)
         self.assertEqual(activity.user_id, self.user_employee)
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_activity_dont_notify_no_user_change(self):
         self.user_employee.notification_type = 'email'
         activity = self.test_record.activity_schedule('test_mail.mail_act_test_todo', user_id=self.user_employee.id)
@@ -296,7 +296,7 @@ class TestActivityFlow(TestActivityCommon):
             # activity summary remains unchanged from change of activity type as call activity doesn't have default summary
             self.assertEqual(ActivityForm.summary, email_activity_type.summary)
 
-    @mute_logger('odoo.sql_db')
+    @mute_logger('loomworks.sql_db')
     def test_activity_values(self):
         """ Test activities are created with right model / res_id values linking
         to records without void values. 0 as res_id especially is not wanted. """
@@ -358,7 +358,7 @@ class TestActivityMixin(TestActivityCommon):
         )
         cls.user_australia.tz = 'Australia/Sydney'
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_activity_mixin(self):
         self.user_employee.tz = self.user_admin.tz
         with self.with_user('employee'):
@@ -444,7 +444,7 @@ class TestActivityMixin(TestActivityCommon):
             self.assertFalse(self.test_record.activity_state)
             self.assertFalse(act2.exists())
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_activity_mixin_archive(self):
         rec = self.test_record.with_user(self.user_employee)
         new_act = rec.activity_schedule(
@@ -458,7 +458,7 @@ class TestActivityMixin(TestActivityCommon):
         self.assertEqual(rec.active, True)
         self.assertEqual(rec.activity_ids, self.env['mail.activity'])
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_activity_mixin_archive_user(self):
         """
         Test when archiving an user, we unlink all his related activities
@@ -498,7 +498,7 @@ class TestActivityMixin(TestActivityCommon):
         activities = self.env['mail.activity'].search([('user_id', 'in', archived_users.ids)])
         self.assertFalse(activities, "Activities of archived users should be deleted.")
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_activity_mixin_reschedule_user(self):
         rec = self.test_record.with_user(self.user_employee)
         rec.activity_schedule(
@@ -628,7 +628,7 @@ class TestActivityMixin(TestActivityCommon):
 
         record = self.env['mail.test.activity'].create({'name': 'Record'})
 
-        with patch('odoo.addons.mail.models.mail_activity.datetime', MockedDatetime):
+        with patch('loomworks.addons.mail.models.mail_activity.datetime', MockedDatetime):
             activity_1 = self.env['mail.activity'].create({
                 'summary': 'Test',
                 'activity_type_id': 1,
@@ -663,7 +663,7 @@ class TestActivityMixin(TestActivityCommon):
         })
         self.assertEqual(MailTestActivity.search([('activity_user_id', '!=', True)]), self.test_record_2)
 
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.tests')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.tests')
     def test_mail_activity_mixin_search_state_basic(self):
         """Test the search method on the "activity_state".
 
@@ -688,8 +688,8 @@ class TestActivityMixin(TestActivityCommon):
         activity_type = self.env.ref('test_mail.mail_act_test_todo')
         activity_type.sudo().keep_done = True
 
-        with patch('odoo.addons.mail.models.mail_activity.datetime', MockedDatetime), \
-            patch('odoo.addons.mail.models.mail_activity_mixin.datetime', MockedDatetime):
+        with patch('loomworks.addons.mail.models.mail_activity.datetime', MockedDatetime), \
+            patch('loomworks.addons.mail.models.mail_activity_mixin.datetime', MockedDatetime):
             origin_1_activity_1 = self.env['mail.activity'].create({
                 'summary': 'Test',
                 'activity_type_id': activity_type.id,
@@ -777,7 +777,7 @@ class TestActivityMixin(TestActivityCommon):
                 {(e['activity_state'], e['activity_state_count']) for e in Model.read_group(**read_group_params)},
                 {('today', 2)})
 
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.tests')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.tests')
     def test_mail_activity_mixin_search_state_different_day_but_close_time(self):
         """Test the case where there's less than 24 hours between the deadline and now_tz,
         but one day of difference (e.g. 23h 01/01/2020 & 1h 02/02/2020). So the state
@@ -799,7 +799,7 @@ class TestActivityMixin(TestActivityCommon):
 
         origin_1 = self.env['mail.test.activity'].search([], limit=1)
 
-        with patch('odoo.addons.mail.models.mail_activity.datetime', MockedDatetime):
+        with patch('loomworks.addons.mail.models.mail_activity.datetime', MockedDatetime):
             origin_1_activity_1 = self.env['mail.activity'].create({
                 'summary': 'Test',
                 'activity_type_id': 1,
@@ -813,7 +813,7 @@ class TestActivityMixin(TestActivityCommon):
             result = self.env['mail.test.activity'].search([('activity_state', '=', 'today')])
             self.assertNotIn(origin_1, result, 'The activity state miss calculated during the search')
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_my_activity_flow_employee(self):
         self.env.ref('test_mail.mail_act_test_todo').keep_done = True
         Activity = self.env['mail.activity']

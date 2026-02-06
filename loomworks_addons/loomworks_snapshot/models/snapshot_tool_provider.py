@@ -23,7 +23,7 @@ References:
 - design.md: Decision 2 - Snapshot Strategy
 """
 
-from odoo import api, models
+from loomworks import api, models
 import logging
 
 _logger = logging.getLogger(__name__)

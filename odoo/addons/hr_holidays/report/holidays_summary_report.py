@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import babel.dates
 import calendar
 
 from datetime import timedelta
 from dateutil.relativedelta import relativedelta
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.tools.misc import format_date, get_lang
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
+from loomworks.tools.misc import format_date, get_lang
 
 COLORS_MAP = {
     0: 'lightgrey',

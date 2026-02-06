@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo import Command
-from odoo.exceptions import UserError
-from odoo.tests import HttpCase, tagged
+from loomworks import Command
+from loomworks.exceptions import UserError
+from loomworks.tests import HttpCase, tagged
 
 from .test_project_base import TestProjectCommon
 
@@ -383,4 +383,4 @@ class TestPersonalStageTour(HttpCase, TestProjectCommon):
 
     def test_personal_stage_tour(self):
         # Test customizing personal stages as a project user
-        self.start_tour('/odoo', 'personal_stage_tour', login="armandel")
+        self.start_tour('/loomworks', 'personal_stage_tour', login="armandel")

@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <data>
         <record id="action_sign_invoices" model="ir.actions.server">
             <field name="name">Sign invoices</field>
@@ -49,4 +49,4 @@
             </field>
         </record>
     </data>
-</odoo>
+</loomworks>

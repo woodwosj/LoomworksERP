@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 /**
  * Speed up fade-in fade-out to avoid useless delay in tests.

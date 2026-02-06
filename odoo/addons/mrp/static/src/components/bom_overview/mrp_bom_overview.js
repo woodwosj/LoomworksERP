@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { registry } from "@web/core/registry";
 import { useService, useBus } from "@web/core/utils/hooks";

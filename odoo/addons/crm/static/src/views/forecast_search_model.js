@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Domain } from "@web/core/domain";
 import { makeContext } from "@web/core/context";

@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import new_test_user, tagged
-from odoo.addons.im_livechat.tests.common import TestImLivechatCommon
+from loomworks.tests import new_test_user, tagged
+from loomworks.addons.im_livechat.tests.common import TestImLivechatCommon
 
 
 @tagged("-at_install", "post_install")
@@ -20,7 +20,7 @@ class TestImLivechatSessionHistory(TestImLivechatCommon):
         channel.with_user(operator).message_post(body="Hello, how can I help you?")
         action = self.env.ref("im_livechat.discuss_channel_action_from_livechat_channel")
         self.start_tour(
-            f"/odoo/livechat/{self.livechat_channel.id}/action-{action.id}",
+            f"/loomworks/livechat/{self.livechat_channel.id}/action-{action.id}",
             "im_livechat_history_back_and_forth_tour",
             login="operator",
         )

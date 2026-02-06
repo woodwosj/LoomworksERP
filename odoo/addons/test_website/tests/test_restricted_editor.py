@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import unittest
 
-import odoo.tests
+import loomworks.tests
 
-from odoo.tests.common import new_test_user
-from odoo.tools import mute_logger
+from loomworks.tests.common import new_test_user
+from loomworks.tools import mute_logger
 
 
-@odoo.tests.common.tagged('post_install', '-at_install')
-class TestRestrictedEditor(odoo.tests.HttpCase):
+@loomworks.tests.common.tagged('post_install', '-at_install')
+class TestRestrictedEditor(loomworks.tests.HttpCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -29,7 +29,7 @@ class TestRestrictedEditor(odoo.tests.HttpCase):
             'sequence': 100,
         })
 
-    @mute_logger('odoo.addons.http_routing.models.ir_http', 'odoo.http')
+    @mute_logger('loomworks.addons.http_routing.models.ir_http', 'loomworks.http')
     def test_01_restricted_editor_only(self):
         self.restricted_editor = self.env['res.users'].create({
             'name': 'Restricted Editor',
@@ -42,7 +42,7 @@ class TestRestrictedEditor(odoo.tests.HttpCase):
         })
         self.start_tour(self.env['website'].get_client_action_url('/'), 'test_restricted_editor_only', login='restricted')
 
-    @mute_logger('odoo.addons.http_routing.models.ir_http', 'odoo.http')
+    @mute_logger('loomworks.addons.http_routing.models.ir_http', 'loomworks.http')
     def test_02_restricted_editor_test_admin(self):
         self.restricted_editor = self.env['res.users'].create({
             'name': 'Restricted Editor',
@@ -61,7 +61,7 @@ class TestRestrictedEditor(odoo.tests.HttpCase):
     # a restricted editor is something we want in some custo (e.g. odoo.com).
     # See commit messages for details.
     @unittest.skip
-    @mute_logger('odoo.addons.http_routing.models.ir_http', 'odoo.http')
+    @mute_logger('loomworks.addons.http_routing.models.ir_http', 'loomworks.http')
     def test_03_restricted_editor_tester(self):
         """
         Tests that restricted users cannot edit ir.ui.view records despite being

@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from lxml import etree
 
-from odoo import fields, models, _
-from odoo.tools import format_list
+from loomworks import fields, models, _
+from loomworks.tools import format_list
 
 HIERARCHY_VALID_ATTRIBUTES = {
     '__validate__',                     # ir.ui.view implementation detail

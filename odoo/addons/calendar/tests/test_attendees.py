@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-from odoo.tests.common import TransactionCase, new_test_user
-from odoo.tests import Form
-from odoo import fields, Command
+from loomworks.tests.common import TransactionCase, new_test_user
+from loomworks.tests import Form
+from loomworks import fields, Command
 from freezegun import freeze_time
 
 

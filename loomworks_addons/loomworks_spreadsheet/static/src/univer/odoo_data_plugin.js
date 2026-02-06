@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 /**
  * Odoo Data Plugin for Univer
  *

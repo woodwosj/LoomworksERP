@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { onWillRender } from "@odoo/owl";
 import { UploadButton } from '@product/js/product_document_kanban/upload_button/upload_button';

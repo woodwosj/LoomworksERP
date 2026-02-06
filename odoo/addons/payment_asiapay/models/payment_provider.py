@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from hashlib import new as hashnew
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from loomworks import _, api, fields, models
+from loomworks.exceptions import ValidationError
 
-from odoo.addons.payment_asiapay import const
+from loomworks.addons.payment_asiapay import const
 
 
 class PaymentProvider(models.Model):

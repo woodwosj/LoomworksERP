@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-import odoo
-from odoo.tests import HttpCase, tagged
-from odoo.tools import mute_logger
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+import loomworks
+from loomworks.tests import HttpCase, tagged
+from loomworks.tools import mute_logger
 
 from unittest.mock import patch
 
@@ -77,7 +77,7 @@ class TestRedirect(HttpCase):
             b'<a href="/get_new"></a><a href="/post_new"></a><a href="/get_post_new"></a>'
         )
 
-    @mute_logger('odoo.http')  # mute 403 warning
+    @mute_logger('loomworks.http')  # mute 403 warning
     def test_02_redirect_308_RequestUID(self):
         self.env['website.rewrite'].create({
             'name': 'Test Website Redirect',
@@ -89,7 +89,7 @@ class TestRedirect(HttpCase):
         rec_published = self.env['test.model'].create({'name': 'name', 'website_published': True})
         rec_unpublished = self.env['test.model'].create({'name': 'name', 'website_published': False})
 
-        WebsiteHttp = odoo.addons.website.models.ir_http.Http
+        WebsiteHttp = loomworks.addons.website.models.ir_http.Http
 
         def _get_error_html(env, code, value):
             return str(code).split('_')[-1], f"CUSTOM {code}"
@@ -193,7 +193,7 @@ class TestRedirect(HttpCase):
             "Redirection should have been applied, and query string should not have been duplicated.",
         )
 
-    @mute_logger('odoo.http')  # mute 403 warning
+    @mute_logger('loomworks.http')  # mute 403 warning
     def test_04_redirect_301_route_unpublished_record(self):
         # 1. Accessing published record: Normal case, expecting 200
         rec1 = self.env['test.model'].create({
@@ -230,7 +230,7 @@ class TestRedirect(HttpCase):
             r.url.endswith(url_rec2),
             "Unpublished record should redirect to published record set in redirect")
 
-    @mute_logger('odoo.http')
+    @mute_logger('loomworks.http')
     def test_05_redirect_404_notfound_record(self):
         # 1. Accessing unexisting record: raise 404
         url_rec1 = '/test_website/200/unexisting-100000'

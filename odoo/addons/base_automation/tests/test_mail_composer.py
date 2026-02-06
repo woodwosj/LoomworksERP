@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.tests.common import tagged, HttpCase
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.tests.common import tagged, HttpCase
 
 
 @tagged('-at_install', 'post_install', 'mail_composer')
@@ -38,7 +38,7 @@ class TestMailFullComposer(MailCommon, HttpCase):
         user = self.env["res.users"].create({"name": "Not A Demo User", "login": "nadu"})
         with self.mock_mail_app():
             self.start_tour(
-                f"/odoo/res.partner/{partner.id}",
+                f"/loomworks/res.partner/{partner.id}",
                 "mail/static/tests/tours/mail_composer_test_tour.js",
                 login=self.user_employee.login
             )

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="l10n_ke_inherit_view_tax_tree" model="ir.ui.view">
         <field name="name">l10n.ke.account.tax.list</field>
         <field name="model">account.tax</field>
@@ -24,4 +24,4 @@
             </xpath>
         </field>
     </record>
-</odoo>
+</loomworks>

@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from werkzeug import urls
 
-from odoo import Command
-from odoo.http import root
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.http import root
+from loomworks.tests import tagged
 
-from odoo.addons.base.tests.common import HttpCaseWithUserDemo
-from odoo.addons.website_sale.controllers.main import WebsiteSale
+from loomworks.addons.base.tests.common import HttpCaseWithUserDemo
+from loomworks.addons.website_sale.controllers.main import WebsiteSale
 
 
 @tagged('at_install')

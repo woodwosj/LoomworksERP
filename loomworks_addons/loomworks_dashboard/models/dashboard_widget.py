@@ -20,8 +20,8 @@ Widget types:
 - gauge: Progress toward target
 """
 
-from odoo import api, fields, models
-from odoo.exceptions import ValidationError
+from loomworks import api, fields, models
+from loomworks.exceptions import ValidationError
 import json
 import logging
 
@@ -186,7 +186,7 @@ class DashboardWidget(models.Model):
     # Inline data source config (for widgets without separate data source)
     inline_model = fields.Char(
         string='Model',
-        help='Odoo model for inline data source',
+        help='Loomworks model for inline data source',
     )
     inline_domain = fields.Text(
         string='Domain',

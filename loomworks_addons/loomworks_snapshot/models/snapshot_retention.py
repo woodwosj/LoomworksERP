@@ -13,8 +13,8 @@ Provides configurable retention policies for snapshot lifecycle management,
 including tiered retention (e.g., hourly for 24h, daily for 7d, weekly for 4w).
 """
 
-from odoo import models, fields, api
-from odoo.exceptions import ValidationError
+from loomworks import models, fields, api
+from loomworks.exceptions import ValidationError
 from datetime import timedelta
 import logging
 

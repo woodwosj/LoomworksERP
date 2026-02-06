@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { isVisible } from "@web/core/utils/ui";
 import * as OdooEditorLib from "@web_editor/js/editor/odoo-editor/src/utils/utils";

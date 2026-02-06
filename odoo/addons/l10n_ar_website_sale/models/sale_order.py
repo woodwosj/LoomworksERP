@@ -1,6 +1,6 @@
 import pytz
 
-from odoo import fields, models
+from loomworks import fields, models
 
 
 class SaleOrder(models.Model):

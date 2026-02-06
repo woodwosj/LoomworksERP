@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import json
 
 from collections import abc
 from typing import Iterator, Mapping
 
-from odoo.tools import email_normalize
-from odoo.tools.misc import ReadonlyDict
+from loomworks.tools import email_normalize
+from loomworks.tools.misc import ReadonlyDict
 
 
 class MicrosoftEvent(abc.Set):

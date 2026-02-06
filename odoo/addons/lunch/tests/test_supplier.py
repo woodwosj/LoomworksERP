@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import pytz
 
 from datetime import datetime, time, timedelta
 from unittest.mock import patch
 
-from odoo import fields
-from odoo.tests import common
+from loomworks import fields
+from loomworks.tests import common
 
-from odoo.addons.lunch.tests.common import TestsCommon
+from loomworks.addons.lunch.tests.common import TestsCommon
 
 
 class TestSupplier(TestsCommon):

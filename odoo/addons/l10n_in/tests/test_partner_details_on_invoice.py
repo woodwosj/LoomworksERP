@@ -1,7 +1,7 @@
-from odoo.tests import tagged
+from loomworks.tests import tagged
 import logging
 
-from odoo.addons.l10n_in.tests.common import L10nInTestInvoicingCommon
+from loomworks.addons.l10n_in.tests.common import L10nInTestInvoicingCommon
 
 _logger = logging.getLogger(__name__)
 

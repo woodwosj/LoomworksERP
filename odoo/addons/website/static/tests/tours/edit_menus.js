@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { delay } from '@odoo/hoot-dom';
 import {

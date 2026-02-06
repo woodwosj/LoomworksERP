@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from markupsafe import Markup
 from unittest.mock import patch
 
-from odoo import fields
-from odoo.tools.misc import limited_field_access_token
-from odoo.addons.base.tests.common import TransactionCaseWithUserDemo
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.addons.mail.tools.discuss import Store
-from odoo.tests import Form, users, warmup, tagged
-from odoo.tools import mute_logger, formataddr
+from loomworks import fields
+from loomworks.tools.misc import limited_field_access_token
+from loomworks.addons.base.tests.common import TransactionCaseWithUserDemo
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.addons.mail.tools.discuss import Store
+from loomworks.tests import Form, users, warmup, tagged
+from loomworks.tools import mute_logger, formataddr
 
 
 @tagged('mail_performance', 'post_install', '-at_install')
@@ -286,7 +286,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
 
     @users('admin', 'employee')
     @warmup
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     def test_activity_full(self):
         record = self.env['mail.test.activity'].create({'name': 'Test'})
         MailActivity = self.env['mail.activity'].with_context({
@@ -326,7 +326,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
 
     @users('admin', 'employee')
     @warmup
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     def test_activity_mixin(self):
         record = self.env['mail.test.activity'].create({'name': 'Test'})
 
@@ -345,7 +345,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
 
     @users('admin', 'employee')
     @warmup
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     def test_activity_mixin_w_attachments(self):
         record = self.env['mail.test.activity'].create({'name': 'Test'})
 
@@ -376,7 +376,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
 
     @users('admin', 'employee')
     @warmup
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.models.unlink', 'odoo.tests')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink', 'loomworks.tests')
     def test_mail_composer(self):
         test_record, _test_template = self._create_test_records()
         customer_id = self.customer.id
@@ -395,7 +395,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
 
     @users('admin', 'employee')
     @warmup
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.models.unlink', 'odoo.tests')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink', 'loomworks.tests')
     def test_mail_composer_attachments(self):
         test_record, _test_template = self._create_test_records()
         customer = self.env['res.partner'].browse(self.customer.ids)
@@ -416,7 +416,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
 
     @users('admin', 'employee')
     @warmup
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.models.unlink', 'odoo.tests')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink', 'loomworks.tests')
     def test_mail_composer_form_attachments(self):
         test_record, _test_template = self._create_test_records()
         customer = self.env['res.partner'].browse(self.customer.ids)
@@ -445,7 +445,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
 
     @users('admin', 'employee')
     @warmup
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.models.unlink', 'odoo.tests')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink', 'loomworks.tests')
     def test_mail_composer_mass_w_template(self):
         _partners, test_records, test_template = self._create_test_records_for_batch()
 
@@ -464,7 +464,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
 
     @users('admin', 'employee')
     @warmup
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.models.unlink', 'odoo.tests')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink', 'loomworks.tests')
     def test_mail_composer_nodelete(self):
         test_record, _test_template = self._create_test_records()
         customer_id = self.customer.id
@@ -484,7 +484,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
 
     @users('admin', 'employee')
     @warmup
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.models.unlink', 'odoo.tests')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink', 'loomworks.tests')
     def test_mail_composer_w_template(self):
         test_record, test_template = self._create_test_records()
         test_template.write({'attachment_ids': [(5, 0)]})
@@ -509,7 +509,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
 
     @users('admin', 'employee')
     @warmup
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.models.unlink', 'odoo.tests')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink', 'loomworks.tests')
     def test_mail_composer_w_template_attachments(self):
         test_record, test_template = self._create_test_records()
 
@@ -536,7 +536,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
 
     @users('admin', 'employee')
     @warmup
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.models.unlink', 'odoo.tests')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink', 'loomworks.tests')
     def test_mail_composer_w_template_form(self):
         test_record, test_template = self._create_test_records()
         test_template.write({'attachment_ids': [(5, 0)]})
@@ -567,7 +567,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
 
     @users('admin', 'employee')
     @warmup
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.models.unlink', 'odoo.tests')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink', 'loomworks.tests')
     def test_mail_composer_w_template_form_attachments(self):
         test_record, test_template = self._create_test_records()
 
@@ -598,7 +598,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
         # remove created partner to ensure tests are the same each run
         new_partner.unlink()
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_message_assignation_email(self):
@@ -687,7 +687,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
                 message_type='comment',
                 subtype_xmlid='mail.mt_comment')
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_message_post_one_email_notification(self):
@@ -712,7 +712,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
                 message_type='comment',
                 subtype_xmlid='mail.mt_comment')
 
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_message_subscribe_default(self):
@@ -724,7 +724,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
         with self.assertQueryCount(admin=3, employee=3):
             record.message_subscribe(partner_ids=self.user_test.partner_id.ids)
 
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_message_subscribe_subtypes(self):
@@ -737,7 +737,7 @@ class TestBaseAPIPerformance(BaseMailPerformance):
         with self.assertQueryCount(admin=2, employee=2):
             record.message_subscribe(partner_ids=self.user_test.partner_id.ids, subtype_ids=subtype_ids)
 
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_message_track(self):
@@ -815,7 +815,7 @@ class TestMailAPIPerformance(BaseMailPerformance):
             cls.env.ref('test_mail.st_mail_test_container_child_full').id
         ])
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_mail_mail_send(self):
@@ -842,7 +842,7 @@ class TestMailAPIPerformance(BaseMailPerformance):
         with self.assertQueryCount(admin=8, employee=8):
             self.env['mail.mail'].sudo().browse(mail.ids).send()
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_mail_mail_send_batch_complete(self):
@@ -890,7 +890,7 @@ class TestMailAPIPerformance(BaseMailPerformance):
         self.assertEqual(mails[-1].state, 'exception')
         self.assertIn(mails[-1].id, unlinked_mails, 'Mail: mails with invalid recipient are also to be unlinked')
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_message_post(self):
@@ -907,7 +907,7 @@ class TestMailAPIPerformance(BaseMailPerformance):
         self.assertEqual(record.message_ids[0].body, '<p>Test Post Performances</p>')
         self.assertEqual(record.message_ids[0].notified_partner_ids, self.partners | self.user_portal.partner_id)
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_message_post_template(self):
@@ -926,7 +926,7 @@ class TestMailAPIPerformance(BaseMailPerformance):
         self.assertEqual(record.message_ids[0].body, '<p>Adding stuff on %s</p>' % record.name)
         self.assertEqual(record.message_ids[0].notified_partner_ids, self.partners | self.user_portal.partner_id | self.customer)
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_message_post_view(self):
@@ -949,7 +949,7 @@ class TestMailAPIPerformance(BaseMailPerformance):
 
         self.assertEqual(len(messages_as_sudo), 10)
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_message_subscribe(self):
@@ -993,7 +993,7 @@ class TestMailAPIPerformance(BaseMailPerformance):
 
         self.assertEqual(rec1.message_partner_ids, self.env.user.partner_id | self.user_portal.partner_id | self.partners)
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_tracking_assignation(self):
@@ -1018,7 +1018,7 @@ class TestMailAPIPerformance(BaseMailPerformance):
         self.assertEqual(rec1.message_ids[1].notified_partner_ids, self.partners)
         self.assertEqual(len(rec1.message_ids), 2)
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_tracking_subscription_create(self):
@@ -1042,7 +1042,7 @@ class TestMailAPIPerformance(BaseMailPerformance):
         self.assertEqual(rec1.message_ids[0].notified_partner_ids, self.partners | self.user_portal.partner_id)
         self.assertEqual(len(rec1.message_ids), 1)
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_tracking_subscription_subtype(self):
@@ -1072,7 +1072,7 @@ class TestMailAPIPerformance(BaseMailPerformance):
         self.assertEqual(rec1.message_ids[1].notified_partner_ids, self.env['res.partner'])
         self.assertEqual(len(rec1.message_ids), 2)
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_tracking_subscription_write(self):
@@ -1110,7 +1110,7 @@ class TestMailAPIPerformance(BaseMailPerformance):
         self.assertEqual(rec1.message_ids[1].notified_partner_ids, self.user_portal.partner_id)
         self.assertEqual(len(rec1.message_ids), 2)
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('admin', 'employee')
     @warmup
     def test_tracking_template(self):
@@ -1265,7 +1265,7 @@ class TestMessageToStorePerformance(BaseMailPerformance):
     def test_assert_initial_values(self):
         self.assertEqual(len(self.messages_all), 2*2)
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('employee')
     @warmup
     def test_message_to_store_multi(self):
@@ -1292,7 +1292,7 @@ class TestMessageToStorePerformance(BaseMailPerformance):
         for message in res["mail.message"]:
             self.assertEqual(len(message["attachment_ids"]), 2)
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('employee')
     @warmup
     def test_message_to_store_single(self):
@@ -1304,7 +1304,7 @@ class TestMessageToStorePerformance(BaseMailPerformance):
         self.assertEqual(len(res["mail.message"]), 1)
         self.assertEqual(len(res["mail.message"][0]["attachment_ids"]), 2)
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('employee')
     @warmup
     def test_message_to_store_group_thread_name_by_model(self):
@@ -1641,7 +1641,7 @@ class TestPerformance(BaseMailPerformance):
             'email': 'partner@example.com',
         })
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('employee')
     @warmup
     def test_message_post(self):

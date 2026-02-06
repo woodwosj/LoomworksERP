@@ -3,12 +3,12 @@ from datetime import datetime
 from lxml import html
 from unittest.mock import patch
 
-from odoo import exceptions
-from odoo.tools import mute_logger
-from odoo.tests.common import users
-from odoo.tests import Form, HttpCase, tagged, warmup
-from odoo.addons.mail.tests.common import MailCase
-from odoo.addons.marketing_card.controllers.marketing_card import SOCIAL_NETWORK_USER_AGENTS
+from loomworks import exceptions
+from loomworks.tools import mute_logger
+from loomworks.tests.common import users
+from loomworks.tests import Form, HttpCase, tagged, warmup
+from loomworks.addons.mail.tests.common import MailCase
+from loomworks.addons.marketing_card.controllers.marketing_card import SOCIAL_NETWORK_USER_AGENTS
 
 from .common import MarketingCardCommon, mock_image_render, VALID_JPEG
 
@@ -46,7 +46,7 @@ class TestMarketingCardMail(MailCase, MarketingCardCommon):
 
     @users('marketing_card_user')
     @warmup
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_campaign_send_mailing(self):
         campaign = self.campaign.with_user(self.env.user)
         self.env.user.sudo().groups_id += self.env.ref('mass_mailing.group_mass_mailing_user')
@@ -110,7 +110,7 @@ class TestMarketingCardMail(MailCase, MarketingCardCommon):
         self.assertSentMailCorrectCard(self._mails, sent_cards)
 
     @users('marketing_card_user')
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_campaign_send_mailing_with_duplicates(self):
         # set a low batch size to make sure mailing "seen list" does not affect card mailings
         # as it is based on traces existing with some email -> traces created in batches with mail.mail
@@ -206,7 +206,7 @@ class TestMarketingCardRender(MarketingCardCommon):
 
         # mismatch preview
 
-        with patch('odoo.addons.marketing_card.models.card_campaign.CardCampaign._get_model_selection',
+        with patch('loomworks.addons.marketing_card.models.card_campaign.CardCampaign._get_model_selection',
                    lambda Model: [('res.partner', 'Partner'), ('res.users', 'User')]):
 
             # mismatches without cards
@@ -247,7 +247,7 @@ class TestMarketingCardRender(MarketingCardCommon):
         for tz in timezones:
             # force find different timezones to check the returned time
             with patch(
-                    'odoo.addons.mail.models.models.BaseModel._mail_get_timezone_with_default',
+                    'loomworks.addons.mail.models.models.BaseModel._mail_get_timezone_with_default',
                     lambda model, default_tz: tz
             ):
                 timezone_result_headers.append(
@@ -343,7 +343,7 @@ class TestMarketingCardRouting(HttpCase, MarketingCardCommon):
 class TestMarketingCardSecurity(MarketingCardCommon):
 
     @users('marketing_card_manager')
-    @mute_logger('odoo.addons.mail.models.mail_render_mixin')
+    @mute_logger('loomworks.addons.mail.models.mail_render_mixin')
     def test_campaign_field_paths(self):
         """Check that card updates are performed as the current user."""
         # restrict reading from partner titles (flush to apply new rule)

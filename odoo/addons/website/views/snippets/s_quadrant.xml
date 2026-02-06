@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
 <template id="s_quadrant" name="Quadrant">
     <section class="s_quadrant">
@@ -54,4 +54,4 @@
     <path>website/static/src/snippets/s_quadrant/000.scss</path>
 </asset>
 
-</odoo>
+</loomworks>

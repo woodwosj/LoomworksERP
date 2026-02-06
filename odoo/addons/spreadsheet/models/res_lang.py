@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models
+from loomworks import api, models
 
-from odoo.addons.spreadsheet.utils.formatting import (
+from loomworks.addons.spreadsheet.utils.formatting import (
     strftime_format_to_spreadsheet_date_format,
     strftime_format_to_spreadsheet_time_format,
 )

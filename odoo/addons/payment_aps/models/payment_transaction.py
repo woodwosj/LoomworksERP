@@ -1,16 +1,16 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 
 from werkzeug import urls
 
-from odoo import _, api, models
-from odoo.exceptions import ValidationError
+from loomworks import _, api, models
+from loomworks.exceptions import ValidationError
 
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.payment_aps import utils as aps_utils
-from odoo.addons.payment_aps.const import PAYMENT_STATUS_MAPPING
-from odoo.addons.payment_aps.controllers.main import APSController
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.payment_aps import utils as aps_utils
+from loomworks.addons.payment_aps.const import PAYMENT_STATUS_MAPPING
+from loomworks.addons.payment_aps.controllers.main import APSController
 
 
 _logger = logging.getLogger(__name__)

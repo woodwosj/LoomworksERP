@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
 
-from odoo import fields, Command
-from odoo.addons.stock.tests.common import TestStockCommon
+from loomworks import fields, Command
+from loomworks.addons.stock.tests.common import TestStockCommon
 
-from odoo.tests import Form
+from loomworks.tests import Form
 
 
 class TestSaleMrpLeadTime(TestStockCommon):

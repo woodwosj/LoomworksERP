@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo.addons.stock.tests.common import TestStockCommon
-from odoo.tests import Form
+from loomworks.addons.stock.tests.common import TestStockCommon
+from loomworks.tests import Form
 
 class TestReturnPicking(TestStockCommon):
 

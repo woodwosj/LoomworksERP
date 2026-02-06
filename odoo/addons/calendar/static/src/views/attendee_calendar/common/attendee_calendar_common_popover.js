@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { onWillStart } from "@odoo/owl";
 import { CalendarCommonPopover } from "@web/views/calendar/calendar_common/calendar_common_popover";

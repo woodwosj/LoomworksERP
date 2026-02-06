@@ -1,21 +1,21 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import json
 
 from werkzeug.urls import url_encode
 
-import odoo
-import odoo.tests
-from odoo import http
-from odoo.addons.base.tests.common import HttpCaseWithUserDemo
-from odoo.addons.web_editor.controllers.main import Web_Editor
-from odoo.fields import Command
-from odoo.tools import mute_logger
+import loomworks
+import loomworks.tests
+from loomworks import http
+from loomworks.addons.base.tests.common import HttpCaseWithUserDemo
+from loomworks.addons.web_editor.controllers.main import Web_Editor
+from loomworks.fields import Command
+from loomworks.tools import mute_logger
 
 
-@odoo.tests.tagged('-at_install', 'post_install')
-class TestUiCustomizeTheme(odoo.tests.HttpCase):
+@loomworks.tests.tagged('-at_install', 'post_install')
+class TestUiCustomizeTheme(loomworks.tests.HttpCase):
     def test_01_attachment_website_unlink(self):
         ''' Some ir.attachment needs to be unlinked when a website is unlink,
             otherwise some flows will just crash. That's the case when 2 website
@@ -65,7 +65,7 @@ class TestUiCustomizeTheme(odoo.tests.HttpCase):
         self.assertFalse(so_attachment.website_id, 'Website should be removed')
 
 
-@odoo.tests.tagged('-at_install', 'post_install')
+@loomworks.tests.tagged('-at_install', 'post_install')
 class TestUiHtmlEditor(HttpCaseWithUserDemo):
 
     def test_html_editor_language(self):
@@ -185,18 +185,18 @@ class TestUiHtmlEditor(HttpCaseWithUserDemo):
 
     def test_code_editor_usable(self):
         # TODO: enable debug mode when failing tests have been fixed (props validation)
-        url = '/odoo/action-website.website_preview'
+        url = '/loomworks/action-website.website_preview'
         self.start_tour(url, 'website_code_editor_usable', login='admin')
 
 
-@odoo.tests.tagged('external', '-standard', '-at_install', 'post_install')
+@loomworks.tests.tagged('external', '-standard', '-at_install', 'post_install')
 class TestUiHtmlEditorWithExternal(HttpCaseWithUserDemo):
     def test_media_dialog_external_library(self):
         self.start_tour("/", 'website_media_dialog_external_library', login='admin')
 
 
-@odoo.tests.tagged('-at_install', 'post_install')
-class TestUiTranslate(odoo.tests.HttpCase):
+@loomworks.tests.tagged('-at_install', 'post_install')
+class TestUiTranslate(loomworks.tests.HttpCase):
     def test_admin_tour_rte_translator(self):
         self.env['res.lang'].create({
             'name': 'Parseltongue',
@@ -282,11 +282,11 @@ class TestUiTranslate(odoo.tests.HttpCase):
         self.start_tour(f"/website/force/{website.id}", 'snippet_dialog_rtl', login='admin')
 
 
-@odoo.tests.common.tagged('post_install', '-at_install')
-class TestUi(odoo.tests.HttpCase):
+@loomworks.tests.common.tagged('post_install', '-at_install')
+class TestUi(loomworks.tests.HttpCase):
 
     def test_01_admin_tour_homepage(self):
-        self.start_tour("/odoo", 'homepage', login='admin')
+        self.start_tour("/loomworks", 'homepage', login='admin')
 
     def test_02_restricted_editor(self):
         self.restricted_editor = self.env['res.users'].create({
@@ -425,7 +425,7 @@ class TestUi(odoo.tests.HttpCase):
 
     def test_10_website_conditional_visibility(self):
         self.start_tour(self.env['website'].get_client_action_url('/'), 'conditional_visibility_1', login='admin')
-        self.start_tour('/odoo', 'conditional_visibility_2', login='admin')
+        self.start_tour('/loomworks', 'conditional_visibility_2', login='admin')
         self.start_tour(self.env['website'].get_client_action_url('/'), 'conditional_visibility_3', login='admin', step_delay=500, timeout=180)
         self.start_tour(self.env['website'].get_client_action_url('/'), 'conditional_visibility_4', login='admin')
         self.start_tour(self.env['website'].get_client_action_url('/'), 'conditional_visibility_5', login='admin')
@@ -512,16 +512,16 @@ class TestUi(odoo.tests.HttpCase):
         self.start_tour('/', 'website_snippets_menu_tabs', login='admin')
 
     def test_19_website_page_options(self):
-        self.start_tour("/odoo", "website_page_options", login="admin")
+        self.start_tour("/loomworks", "website_page_options", login="admin")
 
     def test_20_snippet_editor_panel_options(self):
         self.start_tour('/@/', 'snippet_editor_panel_options', login='admin')
 
     def test_21_website_start_cloned_snippet(self):
-        self.start_tour('/odoo', 'website_start_cloned_snippet', login='admin')
+        self.start_tour('/loomworks', 'website_start_cloned_snippet', login='admin')
 
     def test_22_website_gray_color_palette(self):
-        self.start_tour('/odoo', 'website_gray_color_palette', login='admin')
+        self.start_tour('/loomworks', 'website_gray_color_palette', login='admin')
 
     def test_23_website_multi_edition(self):
         self.start_tour('/@/', 'website_multi_edition', login='admin')
@@ -560,7 +560,7 @@ class TestUi(odoo.tests.HttpCase):
         self.start_tour("/", 'website_media_dialog_icons', login='admin')
 
     def test_27_website_clicks(self):
-        self.start_tour('/odoo', 'website_click_tour', login='admin')
+        self.start_tour('/loomworks', 'website_click_tour', login='admin')
 
     def test_29_website_text_edition(self):
         self.start_tour('/@/', 'website_text_edition', login='admin')
@@ -772,7 +772,7 @@ class TestUi(odoo.tests.HttpCase):
     def test_website_edit_megamenu_visibility(self):
         self.start_tour("/", 'edit_megamenu_visibility', login='admin')
 
-    @mute_logger("odoo.http")
+    @mute_logger("loomworks.http")
     def test_website_replace_remove_image(self):
         self.start_tour("/", "website_replace_remove_image", login="admin")
 

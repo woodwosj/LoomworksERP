@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.website_forum.models.forum_forum import MOST_USED_TAGS_COUNT
-from odoo.addons.website_forum.tests.common import KARMA, TestForumCommon
-from odoo.tests import tagged, users
+from loomworks.addons.website_forum.models.forum_forum import MOST_USED_TAGS_COUNT
+from loomworks.addons.website_forum.tests.common import KARMA, TestForumCommon
+from loomworks.tests import tagged, users
 
 
 @tagged('forum_internals')

@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import psycopg2
 import re
 
-from odoo import _, api, fields, models, Command, SUPERUSER_ID
-from odoo.exceptions import UserError
-from odoo.modules.registry import Registry
-from odoo.tools.safe_eval import safe_eval
+from loomworks import _, api, fields, models, Command, SUPERUSER_ID
+from loomworks.exceptions import UserError
+from loomworks.modules.registry import Registry
+from loomworks.tools.safe_eval import safe_eval
 
 
 class DeliveryCarrier(models.Model):

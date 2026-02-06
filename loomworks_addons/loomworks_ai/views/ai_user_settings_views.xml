@@ -5,7 +5,7 @@
 
     AI User Settings Views
 -->
-<odoo>
+<loomworks>
 
     <!-- Form View -->
     <record id="view_ai_user_settings_form" model="ir.ui.view">
@@ -106,4 +106,4 @@
         <field name="domain">[('user_id', '=', uid)]</field>
     </record>
 
-</odoo>
+</loomworks>

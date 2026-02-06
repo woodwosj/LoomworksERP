@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from dateutil.relativedelta import relativedelta
 from operator import itemgetter
 
-from odoo import fields, http, _
-from odoo.http import request
-from odoo.tools import date_utils, groupby as groupbyelem
-from odoo.osv.expression import AND, FALSE_DOMAIN
+from loomworks import fields, http, _
+from loomworks.http import request
+from loomworks.tools import date_utils, groupby as groupbyelem
+from loomworks.osv.expression import AND, FALSE_DOMAIN
 
-from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
-from odoo.addons.project.controllers.portal import ProjectCustomerPortal
+from loomworks.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
+from loomworks.addons.project.controllers.portal import ProjectCustomerPortal
 
 
 class TimesheetCustomerPortal(CustomerPortal):

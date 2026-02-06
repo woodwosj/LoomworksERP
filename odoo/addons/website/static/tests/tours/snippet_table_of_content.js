@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { isVisible } from '@odoo/hoot-dom';
 import {

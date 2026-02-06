@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 
-from odoo.exceptions import AccessError
-from odoo.tests import tagged
-from odoo.tools import mute_logger
+from loomworks.exceptions import AccessError
+from loomworks.tests import tagged
+from loomworks.tools import mute_logger
 
-from odoo.addons.payment.tests.common import PaymentCommon
+from loomworks.addons.payment.tests.common import PaymentCommon
 
 
 @tagged('-at_install', 'post_install')
@@ -175,7 +175,7 @@ class TestPaymentTransaction(PaymentCommon):
         source_tx = self._create_transaction(flow='direct', state='authorized')
         child_tx_1 = source_tx._create_child_transaction(100)
         with patch(
-            'odoo.addons.payment.models.payment_transaction.PaymentTransaction'
+            'loomworks.addons.payment.models.payment_transaction.PaymentTransaction'
             '._update_source_transaction_state'
         ) as patched:
             child_tx_1._set_done()
@@ -189,7 +189,7 @@ class TestPaymentTransaction(PaymentCommon):
         child_tx_1._set_done()
         child_tx_2 = source_tx._create_child_transaction(source_tx.amount-100)
         with patch(
-            'odoo.addons.payment.models.payment_transaction.PaymentTransaction'
+            'loomworks.addons.payment.models.payment_transaction.PaymentTransaction'
             '._update_source_transaction_state'
         ) as patched:
             child_tx_2._set_canceled()
@@ -223,7 +223,7 @@ class TestPaymentTransaction(PaymentCommon):
                 "'done'."
         )
 
-    @mute_logger('odoo.addons.payment.models.payment_transaction')
+    @mute_logger('loomworks.addons.payment.models.payment_transaction')
     def test_update_state_to_illegal_target_state(self):
         tx = self._create_transaction('redirect', state='done')
         tx._update_state(['draft', 'pending', 'authorized'], 'cancel', None)
@@ -255,7 +255,7 @@ class TestPaymentTransaction(PaymentCommon):
         secret_keys = {'provider_id': None}.keys()
         with (
             patch.object(PaymentTransaction, '_get_specific_secret_keys', lambda tx: secret_keys),
-            self.assertLogs('odoo.addons.payment.models.payment_transaction') as cm,
+            self.assertLogs('loomworks.addons.payment.models.payment_transaction') as cm,
         ):
             values = tx._get_processing_values()
             self.assertRegex(cm.output[0], r".reference.: .TX-12345.", "Values should be logged")

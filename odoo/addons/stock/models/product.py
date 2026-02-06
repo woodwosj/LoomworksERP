@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import operator as py_operator
 from ast import literal_eval
 from collections import defaultdict
 from dateutil.relativedelta import relativedelta
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
-from odoo.osv import expression
-from odoo.tools import float_is_zero, check_barcode_encoding
-from odoo.tools.float_utils import float_round
-from odoo.tools.mail import html2plaintext, is_html_empty
+from loomworks import _, api, fields, models
+from loomworks.exceptions import UserError
+from loomworks.osv import expression
+from loomworks.tools import float_is_zero, check_barcode_encoding
+from loomworks.tools.float_utils import float_round
+from loomworks.tools.mail import html2plaintext, is_html_empty
 
 OPERATORS = {
     '<': py_operator.lt,

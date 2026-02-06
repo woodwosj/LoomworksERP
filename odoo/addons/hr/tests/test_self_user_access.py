@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import OrderedDict
 from itertools import chain
 from lxml import etree
 
-from odoo.addons.hr.tests.common import TestHrCommon
-from odoo.tests import new_test_user, tagged, Form
-from odoo.exceptions import AccessError
+from loomworks.addons.hr.tests.common import TestHrCommon
+from loomworks.tests import new_test_user, tagged, Form
+from loomworks.exceptions import AccessError
 
 @tagged('post_install', '-at_install')
 class TestSelfAccessProfile(TestHrCommon):

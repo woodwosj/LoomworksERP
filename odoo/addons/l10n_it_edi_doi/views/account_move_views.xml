@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <record id="view_account_invoice_filter" model="ir.ui.view">
         <field name="name">account.invoice.select</field>
@@ -77,4 +77,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

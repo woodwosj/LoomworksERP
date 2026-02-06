@@ -1,5 +1,5 @@
-from odoo.tests import tagged
-from odoo.addons.l10n_it_edi.tests.common import TestItEdi
+from loomworks.tests import tagged
+from loomworks.addons.l10n_it_edi.tests.common import TestItEdi
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

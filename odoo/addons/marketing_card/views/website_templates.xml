@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <data>
         <template id="robots" inherit_id="website.robots">
             <xpath expr="//t[@t-out='request.website.sudo().robots_txt']" position="before">
@@ -9,4 +9,4 @@ Allow: /cards/
             </xpath>
         </template>
     </data>
-</odoo>
+</loomworks>

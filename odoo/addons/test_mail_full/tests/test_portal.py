@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from werkzeug.urls import url_parse, url_decode, url_encode
 
-from odoo.addons.auth_signup.models.res_partner import ResPartner
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.addons.test_mail_full.tests.common import TestMailFullCommon
-from odoo.addons.test_mail_sms.tests.common import TestSMSRecipients
-from odoo.exceptions import AccessError
-from odoo.tests import tagged, users
-from odoo.tests.common import HttpCase
-from odoo.tools import html_escape, mute_logger
+from loomworks.addons.auth_signup.models.res_partner import ResPartner
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.addons.test_mail_full.tests.common import TestMailFullCommon
+from loomworks.addons.test_mail_sms.tests.common import TestSMSRecipients
+from loomworks.exceptions import AccessError
+from loomworks.tests import tagged, users
+from loomworks.tests.common import HttpCase
+from loomworks.tools import html_escape, mute_logger
 
 
 @tagged('portal')
@@ -229,11 +229,11 @@ class TestPortalFlow(MailCommon, HttpCase):
         cls.portal_web_url = f'{base_url}/my/test_portal/{cls.record_portal.id}'
         cls.portal_web_url_with_token = f'{base_url}/my/test_portal/{cls.record_portal.id}?{url_encode({"access_token": cls.record_portal.access_token, "pid": cls.customer.id, "hash": cls.record_portal_hash}, sort=True)}'
         cls.public_act_url_share = f'{base_url}/test_portal/public_type/{cls.record_public_act_url.id}'
-        cls.internal_backend_local_url = f'/odoo/{cls.record_internal._name}/{cls.record_internal.id}'
-        cls.portal_backend_local_url = f'/odoo/{cls.record_portal._name}/{cls.record_portal.id}'
-        cls.read_backend_local_url = f'/odoo/{cls.record_read._name}/{cls.record_read.id}'
-        cls.public_act_url_backend_local_url = f'/odoo/{cls.record_public_act_url._name}/{cls.record_public_act_url.id}'
-        cls.discuss_local_url = '/odoo/action-mail.action_discuss'
+        cls.internal_backend_local_url = f'/loomworks/{cls.record_internal._name}/{cls.record_internal.id}'
+        cls.portal_backend_local_url = f'/loomworks/{cls.record_portal._name}/{cls.record_portal.id}'
+        cls.read_backend_local_url = f'/loomworks/{cls.record_read._name}/{cls.record_read.id}'
+        cls.public_act_url_backend_local_url = f'/loomworks/{cls.record_public_act_url._name}/{cls.record_public_act_url.id}'
+        cls.discuss_local_url = '/loomworks/action-mail.action_discuss'
 
     def test_assert_initial_data(self):
         """ Test some initial values. Test that record_portal_url_auth is a valid URL

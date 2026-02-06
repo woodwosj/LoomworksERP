@@ -1,4 +1,4 @@
-/* @odoo-module */
+/* @loomworks-module */
 
 import { Domain } from "@web/core/domain";
 import { ActivityMenu } from "@mail/core/web/activity_menu";

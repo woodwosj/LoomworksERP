@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Component, useState } from "@odoo/owl";
 import { CheckBox } from "@web/core/checkbox/checkbox";

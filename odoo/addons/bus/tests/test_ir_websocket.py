@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import json
 from datetime import datetime, timedelta
 from freezegun import freeze_time
@@ -7,7 +7,7 @@ try:
 except ImportError:
     ws = None
 
-from odoo.tests import new_test_user, tagged
+from loomworks.tests import new_test_user, tagged
 from .common import WebsocketCase
 from ..models.bus_presence import AWAY_TIMER
 from ..models.bus import channel_with_db, json_dump

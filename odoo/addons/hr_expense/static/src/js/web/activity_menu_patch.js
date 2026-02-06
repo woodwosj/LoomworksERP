@@ -1,4 +1,4 @@
-/* @odoo-module */
+/* @loomworks-module */
 
 import { ActivityMenu } from "@mail/core/web/activity_menu";
 import { MEDIAS_BREAKPOINTS, SIZES } from "@web/core/ui/ui_service";

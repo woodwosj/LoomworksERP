@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="l10n_tr_nilvera_einvoice_extended_tax_office_view_list" model="ir.ui.view">
         <field name="name">l10n_tr_nilvera_einvoice_extended.tax.office.list</field>
         <field name="model">l10n_tr_nilvera_einvoice_extended.tax.office</field>
@@ -46,4 +46,4 @@
     </record>
 
     <menuitem id="l10n_tr_menu_state_office_partner" action="action_l10n_tr_nilvera_einvoice_extended_tax_office_list" parent="contacts.menu_localisation" sequence="10"/>
-</odoo>
+</loomworks>

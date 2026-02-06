@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { compensateScrollbar, getScrollingElement } from "@web/core/utils/scrolling";
 

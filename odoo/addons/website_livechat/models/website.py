@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, _, Command
-from odoo.addons.mail.models.discuss.mail_guest import add_guest_to_context
+from loomworks import fields, models, _, Command
+from loomworks.addons.mail.models.discuss.mail_guest import add_guest_to_context
 
 
 class Website(models.Model):

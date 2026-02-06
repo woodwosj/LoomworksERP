@@ -1,6 +1,6 @@
 from markupsafe import Markup
 
-from odoo import api, fields, models
+from loomworks import api, fields, models
 
 
 class BaseDocumentLayout(models.TransientModel):

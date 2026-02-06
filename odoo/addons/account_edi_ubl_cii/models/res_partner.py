@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import re
 from stdnum.fr import siret
 
-from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError
-from odoo.addons.account_edi_ubl_cii.models.account_edi_common import EAS_MAPPING
-from odoo.addons.account.models.company import PEPPOL_DEFAULT_COUNTRIES
+from loomworks import models, fields, api, _
+from loomworks.exceptions import ValidationError
+from loomworks.addons.account_edi_ubl_cii.models.account_edi_common import EAS_MAPPING
+from loomworks.addons.account.models.company import PEPPOL_DEFAULT_COUNTRIES
 
 
 class ResPartner(models.Model):

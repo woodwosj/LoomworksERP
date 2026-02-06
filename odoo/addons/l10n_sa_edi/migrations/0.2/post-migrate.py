@@ -1,4 +1,4 @@
-from odoo import _, api, SUPERUSER_ID
+from loomworks import _, api, SUPERUSER_ID
 
 
 def migrate(cr, version):

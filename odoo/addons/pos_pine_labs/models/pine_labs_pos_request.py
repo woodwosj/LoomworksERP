@@ -2,7 +2,7 @@ import json
 import logging
 import requests
 
-from odoo import _
+from loomworks import _
 
 REQUEST_TIMEOUT = 10
 PINE_LABS_AUTO_CANCEL_DURATION_MIN = 10

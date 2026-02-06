@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import Command, fields
-from odoo.addons.hr_expense.tests.common import TestExpenseCommon
-from odoo.addons.sale.tests.common import TestSaleCommon
-from odoo.tests import tagged
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import Command, fields
+from loomworks.addons.hr_expense.tests.common import TestExpenseCommon
+from loomworks.addons.sale.tests.common import TestSaleCommon
+from loomworks.tests import tagged
 
 
 @tagged('post_install', '-at_install')

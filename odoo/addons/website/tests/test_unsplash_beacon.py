@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo.tests
+import loomworks.tests
 
 
-@odoo.tests.common.tagged('post_install', '-at_install')
-class TestUnsplashBeacon(odoo.tests.HttpCase):
+@loomworks.tests.common.tagged('post_install', '-at_install')
+class TestUnsplashBeacon(loomworks.tests.HttpCase):
 
     def test_01_beacon(self):
         self.env['ir.config_parameter'].sudo().set_param('unsplash.app_id', '123456')

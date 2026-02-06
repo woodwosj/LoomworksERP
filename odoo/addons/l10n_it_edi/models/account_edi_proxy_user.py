@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 
-from odoo import _, fields, models
-from odoo.exceptions import UserError
-from odoo.tools import index_exists
+from loomworks import _, fields, models
+from loomworks.exceptions import UserError
+from loomworks.tools import index_exists
 
 _logger = logging.getLogger(__name__)
 

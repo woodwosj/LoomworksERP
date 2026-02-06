@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 from datetime import timedelta
 
-from odoo import api, fields, models
-from odoo.addons.rating.models import rating_data
-from odoo.osv import expression
-from odoo.tools.float_utils import float_compare
+from loomworks import api, fields, models
+from loomworks.addons.rating.models import rating_data
+from loomworks.osv import expression
+from loomworks.tools.float_utils import float_compare
 
 
 class RatingParentMixin(models.AbstractModel):

@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo.addons.account.controllers.portal import PortalAccount
-from odoo.http import request, route
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks.addons.account.controllers.portal import PortalAccount
+from loomworks.http import request, route
 
 
 class PortalAccountMy(PortalAccount):

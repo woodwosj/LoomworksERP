@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 
-from odoo import api, fields, models
+from loomworks import api, fields, models
 
-from odoo.tools.misc import file_open
+from loomworks.tools.misc import file_open
 
 
 class LunchProductCategory(models.Model):

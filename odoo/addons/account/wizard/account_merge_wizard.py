@@ -1,8 +1,8 @@
 import json
 
-from odoo import _, api, fields, models, Command
-from odoo.exceptions import UserError
-from odoo.tools import SQL
+from loomworks import _, api, fields, models, Command
+from loomworks.exceptions import UserError
+from loomworks.tools import SQL
 
 
 class AccountMergeWizard(models.TransientModel):

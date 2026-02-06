@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { CalendarYearRenderer } from "@web/views/calendar/calendar_year/calendar_year_renderer";
 

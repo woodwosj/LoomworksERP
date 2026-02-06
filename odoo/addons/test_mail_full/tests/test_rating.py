@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import lxml
 from datetime import datetime
 
-from odoo import http
-from odoo.addons.test_mail_full.tests.common import TestMailFullCommon
-from odoo.addons.test_mail_sms.tests.common import TestSMSRecipients
-from odoo.tests import tagged
-from odoo.tests.common import users, warmup
-from odoo.tools import mute_logger
+from loomworks import http
+from loomworks.addons.test_mail_full.tests.common import TestMailFullCommon
+from loomworks.addons.test_mail_sms.tests.common import TestSMSRecipients
+from loomworks.tests import tagged
+from loomworks.tests.common import users, warmup
+from loomworks.tools import mute_logger
 
 
 class TestRatingCommon(TestMailFullCommon, TestSMSRecipients):
@@ -41,7 +41,7 @@ class TestRatingFlow(TestRatingCommon):
             self.assertEqual(len(record_rating.message_ids), 1)
 
     @users('employee')
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_rating_prepare(self):
         for record_rating, desc in ((self.record_rating, 'With rating mixin'),
                                     (self.record_rating_thread, 'Without rating mixin')):
@@ -61,7 +61,7 @@ class TestRatingFlow(TestRatingCommon):
                 self.assertFalse(rating.rating)
 
     @users('employee')
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_rating_rating_apply(self):
         for record_rating, expected_subtype, is_rating_mixin_test in (
             (self.record_rating_thread, self.env.ref('mail.mt_comment'), False),

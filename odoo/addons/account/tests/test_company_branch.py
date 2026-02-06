@@ -4,10 +4,10 @@ from contextlib import nullcontext
 from freezegun import freeze_time
 from functools import partial
 
-from odoo import Command, fields
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.exceptions import UserError
-from odoo.tests import tagged, Form
+from loomworks import Command, fields
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged, Form
 
 
 @tagged('post_install', '-at_install')

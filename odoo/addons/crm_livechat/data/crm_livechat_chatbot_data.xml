@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<odoo><data noupdate="1">
+<loomworks><data noupdate="1">
 
     <!--
         This provides a working lead generation chatbot for people to work with.
@@ -46,4 +46,4 @@
         <field name="chatbot_script_id" ref="chatbot_script_lead_generation_bot"/>
     </record>
 
-</data></odoo>
+</data></loomworks>

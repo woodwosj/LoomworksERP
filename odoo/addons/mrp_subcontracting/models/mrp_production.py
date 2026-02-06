@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
 from collections import defaultdict
-from odoo import fields, models, _, api
-from odoo.exceptions import UserError, ValidationError, AccessError
-from odoo.tools.float_utils import float_compare, float_is_zero
+from loomworks import fields, models, _, api
+from loomworks.exceptions import UserError, ValidationError, AccessError
+from loomworks.tools.float_utils import float_compare, float_is_zero
 
 
 class MrpProduction(models.Model):

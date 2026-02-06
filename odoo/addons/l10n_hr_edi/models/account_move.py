@@ -2,10 +2,10 @@ import logging
 import pytz
 import re
 
-from odoo import api, models, fields
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import SQL
-from odoo.tools.sql import column_exists, create_column
+from loomworks import api, models, fields
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools import SQL
+from loomworks.tools.sql import column_exists, create_column
 
 from ..tools import (
     _mer_api_mark_paid,

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from ast import literal_eval
 from dateutil.relativedelta import relativedelta
@@ -10,14 +10,14 @@ import logging
 import math
 import werkzeug
 
-from odoo import fields, http, tools, _
-from odoo.addons.website.controllers.main import QueryURL
-from odoo.addons.website.models.ir_http import sitemap_qs2dom
-from odoo.addons.website_profile.controllers.main import WebsiteProfile
-from odoo.exceptions import AccessError, ValidationError, UserError, MissingError
-from odoo.http import request, Response
-from odoo.osv import expression
-from odoo.tools import consteq, email_split
+from loomworks import fields, http, tools, _
+from loomworks.addons.website.controllers.main import QueryURL
+from loomworks.addons.website.models.ir_http import sitemap_qs2dom
+from loomworks.addons.website_profile.controllers.main import WebsiteProfile
+from loomworks.exceptions import AccessError, ValidationError, UserError, MissingError
+from loomworks.http import request, Response
+from loomworks.osv import expression
+from loomworks.tools import consteq, email_split
 
 _logger = logging.getLogger(__name__)
 

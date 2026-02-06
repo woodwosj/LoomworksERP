@@ -1,18 +1,18 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
 
-from odoo import Command
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
-from odoo.exceptions import UserError
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
 from unittest.mock import patch
 
-CONTACT_PROXY_METHOD = 'odoo.addons.l10n_my_edi.models.account_edi_proxy_user.AccountEdiProxyClientUser._l10n_my_edi_contact_proxy'
+CONTACT_PROXY_METHOD = 'loomworks.addons.l10n_my_edi.models.account_edi_proxy_user.AccountEdiProxyClientUser._l10n_my_edi_contact_proxy'
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
@@ -290,7 +290,7 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
 
         send_and_print = self.create_send_and_print(self.submission_invoice)
         with patch(CONTACT_PROXY_METHOD, new=self._test_08_mock), \
-             patch('odoo.addons.l10n_my_edi.models.account_move.SUBMISSION_MAX_SIZE', 2):
+             patch('loomworks.addons.l10n_my_edi.models.account_move.SUBMISSION_MAX_SIZE', 2):
             send_and_print._generate_and_send_invoices(
                 self.submission_invoice,
                 invoice_edi_format='my_myinvois',

@@ -1,17 +1,17 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
 
-from odoo import Command
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
-from odoo.exceptions import UserError
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
 from unittest.mock import patch
 
-CONTACT_PROXY_METHOD = 'odoo.addons.l10n_my_edi.models.account_edi_proxy_user.AccountEdiProxyClientUser._l10n_my_edi_contact_proxy'
+CONTACT_PROXY_METHOD = 'loomworks.addons.l10n_my_edi.models.account_edi_proxy_user.AccountEdiProxyClientUser._l10n_my_edi_contact_proxy'
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
@@ -271,7 +271,7 @@ class L10nMyEDITestNewSubmission(TestAccountMoveSendCommon):
         self.submission_invoice |= self.basic_invoice
 
         with patch(CONTACT_PROXY_METHOD, new=self._test_08_mock), \
-             patch('odoo.addons.l10n_my_edi.models.account_move.SUBMISSION_MAX_SIZE', 2):
+             patch('loomworks.addons.l10n_my_edi.models.account_move.SUBMISSION_MAX_SIZE', 2):
             self.submission_invoice.action_l10n_my_edi_send_invoice()
 
         # we have 10 invoices, with a max size of 2 we expect 5 different submissions.
@@ -347,7 +347,7 @@ class L10nMyEDITestNewSubmission(TestAccountMoveSendCommon):
         self.submission_invoice |= self.basic_invoice
 
         with patch(CONTACT_PROXY_METHOD, new=self._test_12_mock), \
-             patch('odoo.addons.l10n_my_edi.models.account_move.SUBMISSION_MAX_SIZE', 1):
+             patch('loomworks.addons.l10n_my_edi.models.account_move.SUBMISSION_MAX_SIZE', 1):
             self.submission_invoice.action_l10n_my_edi_send_invoice()
 
         self.assertEqual(self.submission_count, 5)

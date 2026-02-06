@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/helpers/mock_server default=false */
+/** @loomworks-module alias=@web/../tests/helpers/mock_server default=false */
 
 import { assets } from "@web/core/assets";
 import { browser } from "@web/core/browser/browser";

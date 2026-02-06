@@ -4,10 +4,10 @@ from collections import defaultdict
 
 import werkzeug
 import werkzeug.exceptions
-from odoo import _, api, fields, models
-from odoo.fields import SQL
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools.image import image_data_uri
+from loomworks import _, api, fields, models
+from loomworks.fields import SQL
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools.image import image_data_uri
 
 
 class ResPartnerBank(models.Model):

@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import _lt
-from odoo.http import request
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import _lt
+from loomworks.http import request
 
-from odoo.addons.website_sale.controllers.main import WebsiteSale
+from loomworks.addons.website_sale.controllers.main import WebsiteSale
 
 
 class L10nBRWebsiteSale(WebsiteSale):

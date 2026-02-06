@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="l10n_id_efaktur_document_form_view" model="ir.ui.view">
             <field name="name">l10n_id.efaktur.document.form.view</field>
@@ -76,4 +76,4 @@
         </record>
 
     </data>
-</odoo>
+</loomworks>

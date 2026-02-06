@@ -3,8 +3,8 @@ import json
 
 from freezegun import freeze_time
 
-from odoo import Command
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.tests import tagged
 from .common import TestL10nEsEdiVerifactuCommon
 
 

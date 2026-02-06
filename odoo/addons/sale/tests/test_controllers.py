@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo.tests import HttpCase, tagged
-from odoo.tools import mute_logger
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks.tests import HttpCase, tagged
+from loomworks.tools import mute_logger
 
-from odoo.addons.base.tests.common import BaseUsersCommon, HttpCaseWithUserPortal
-from odoo.addons.sale.tests.common import SaleCommon
+from loomworks.addons.base.tests.common import BaseUsersCommon, HttpCaseWithUserPortal
+from loomworks.addons.sale.tests.common import SaleCommon
 
 
 @tagged('post_install', '-at_install')
 class TestAccessRightsControllers(BaseUsersCommon, HttpCase, SaleCommon):
 
-    @mute_logger('odoo.addons.base.models.ir_model', 'odoo.addons.base.models.ir_rule')
+    @mute_logger('loomworks.addons.base.models.ir_model', 'loomworks.addons.base.models.ir_rule')
     def test_access_controller(self):
         private_so = self.sale_order
         portal_so = self.sale_order.copy()

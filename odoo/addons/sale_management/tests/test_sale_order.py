@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from itertools import chain
 
-from odoo.fields import Command
-from odoo.tests import Form, tagged
+from loomworks.fields import Command
+from loomworks.tests import Form, tagged
 
-from odoo.addons.sale_management.tests.common import SaleManagementCommon
+from loomworks.addons.sale_management.tests.common import SaleManagementCommon
 
 
 @tagged('-at_install', 'post_install')
@@ -508,7 +508,7 @@ class TestSaleOrder(SaleManagementCommon):
         ]
         self.env['ir.default'].set('sale.order', 'sale_order_template_id', quotation_template.id)
         try:
-            with self.assertLogs('odoo.tests.form.onchange') as log_catcher:
+            with self.assertLogs('loomworks.tests.form.onchange') as log_catcher:
                 Form(self.env['sale.order'])
         except AssertionError:
             pass

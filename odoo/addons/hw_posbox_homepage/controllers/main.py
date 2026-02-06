@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import os
 import subprocess
 import threading
 
-from odoo import http
-from odoo.http import Response
-from odoo.addons.hw_drivers.tools import helpers
-from odoo.addons.web.controllers.home import Home
+from loomworks import http
+from loomworks.http import Response
+from loomworks.addons.hw_drivers.tools import helpers
+from loomworks.addons.web.controllers.home import Home
 
 _logger = logging.getLogger(__name__)
 

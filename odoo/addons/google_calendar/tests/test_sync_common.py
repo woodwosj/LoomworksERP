@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 from contextlib import contextmanager
@@ -7,12 +7,12 @@ from datetime import datetime
 from freezegun import freeze_time
 from unittest.mock import patch
 
-from odoo.addons.google_calendar.utils.google_calendar import GoogleCalendarService
-from odoo.addons.google_account.models.google_service import GoogleService
-from odoo.addons.google_calendar.models.res_users import User
-from odoo.addons.google_calendar.models.google_sync import google_calendar_token, GoogleSync
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.tests.common import HttpCase
+from loomworks.addons.google_calendar.utils.google_calendar import GoogleCalendarService
+from loomworks.addons.google_account.models.google_service import GoogleService
+from loomworks.addons.google_calendar.models.res_users import User
+from loomworks.addons.google_calendar.models.google_sync import google_calendar_token, GoogleSync
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.tests.common import HttpCase
 
 
 def patch_api(func):

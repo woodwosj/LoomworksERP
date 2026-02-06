@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 import json
 from datetime import timedelta
 from markupsafe import Markup
 
-from odoo import models, fields, api, _
-from odoo.tools import html_escape
-from odoo.exceptions import AccessError
+from loomworks import models, fields, api, _
+from loomworks.tools import html_escape
+from loomworks.exceptions import AccessError
 
 from .error_codes import ERROR_CODES
 

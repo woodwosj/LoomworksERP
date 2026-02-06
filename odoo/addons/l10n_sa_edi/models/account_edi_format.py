@@ -5,9 +5,9 @@ from hashlib import sha256
 from base64 import b64decode, b64encode
 from lxml import etree
 from datetime import datetime
-from odoo import models, fields, _, api
-from odoo.exceptions import UserError
-from odoo.tools import format_list
+from loomworks import models, fields, _, api
+from loomworks.exceptions import UserError
+from loomworks.tools import format_list
 
 _logger = logging.getLogger(__name__)
 

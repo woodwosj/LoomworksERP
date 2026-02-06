@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import HttpCase, tagged, Form
-from odoo.addons.sale.tests.common import TestSaleCommon
-from odoo.addons.mail.tests.common import mail_new_test_user
+from loomworks.tests import HttpCase, tagged, Form
+from loomworks.addons.sale.tests.common import TestSaleCommon
+from loomworks.addons.mail.tests.common import mail_new_test_user
 
 
 @tagged('post_install', '-at_install')

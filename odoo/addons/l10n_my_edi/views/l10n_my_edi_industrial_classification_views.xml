@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <!-- Just there for the search more -->
         <record id="view_classification_list" model="ir.ui.view">
@@ -13,4 +13,4 @@
             </field>
         </record>
     </data>
-</odoo>
+</loomworks>

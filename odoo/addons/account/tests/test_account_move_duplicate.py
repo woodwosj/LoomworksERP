@@ -1,5 +1,5 @@
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import Form, tagged
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import Form, tagged
 
 @tagged('post_install', '-at_install')
 class TestAccountMoveDuplicate(AccountTestInvoicingCommon):

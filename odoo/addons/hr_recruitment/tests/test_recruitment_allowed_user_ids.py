@@ -1,4 +1,4 @@
-from odoo.tests import tagged, TransactionCase
+from loomworks.tests import tagged, TransactionCase
 
 
 @tagged('recruitment_allowed_user_ids')

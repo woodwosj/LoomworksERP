@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import fields, models
-from odoo.tools.translate import html_translate
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import fields, models
+from loomworks.tools.translate import html_translate
 
 
 class DigestTip(models.Model):

@@ -1,6 +1,6 @@
-from odoo.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
-from odoo.tests import tagged
-from odoo.fields import Command
+from loomworks.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
+from loomworks.tests import tagged
+from loomworks.fields import Command
 
 
 @tagged('post_install', '-at_install', 'post_install_l10n')

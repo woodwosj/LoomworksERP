@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <div t-name="spreadsheet.FigureComponent" t-inherit="o-spreadsheet-FigureComponent" t-inherit-mode="extension">
         <xpath expr="//div[hasclass('o-figure-menu-item')]" position="before">
             <div
@@ -13,4 +13,4 @@
             <attribute name="t-att-role">env.isDashboard() and hasOdooMenu ? "button" : ""</attribute>
         </xpath>
     </div>
-</odoo>
+</loomworks>

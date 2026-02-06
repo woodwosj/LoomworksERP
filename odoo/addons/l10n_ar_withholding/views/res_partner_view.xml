@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <record model="ir.ui.view" id="view_partner_form">
         <field name="name">res.partner.form.inherit</field>
@@ -21,4 +21,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

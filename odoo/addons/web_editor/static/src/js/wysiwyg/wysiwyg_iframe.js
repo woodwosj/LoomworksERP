@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Wysiwyg } from '@web_editor/js/wysiwyg/wysiwyg';
 import { patch } from "@web/core/utils/patch";

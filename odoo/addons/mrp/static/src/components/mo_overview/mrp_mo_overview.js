@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Component, EventBus, onWillStart, useSubEnv, useState } from "@odoo/owl";
 import { registry } from "@web/core/registry";

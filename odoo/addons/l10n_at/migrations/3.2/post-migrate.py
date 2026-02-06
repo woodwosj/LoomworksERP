@@ -1,5 +1,5 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import api, SUPERUSER_ID, Command
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import api, SUPERUSER_ID, Command
 
 
 def migrate(cr, version):

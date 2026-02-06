@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.website_slides.tests import common
-from odoo.tests.common import users
+from loomworks.addons.website_slides.tests import common
+from loomworks.tests.common import users
 
 
 class TestCoursePurchaseFlow(common.SlidesCase):

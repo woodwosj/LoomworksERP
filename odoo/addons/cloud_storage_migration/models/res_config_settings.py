@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields
-from odoo.fields import Command
+from loomworks import models, fields
+from loomworks.fields import Command
 
 
 class CloudStorageMigrationSettings(models.TransientModel):

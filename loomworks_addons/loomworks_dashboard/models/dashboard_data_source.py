@@ -17,9 +17,9 @@ They handle:
 - Data transformation for charts/tables
 """
 
-from odoo import api, fields, models
-from odoo.exceptions import UserError, AccessError
-from odoo.osv import expression
+from loomworks import api, fields, models
+from loomworks.exceptions import UserError, AccessError
+from loomworks.osv import expression
 import json
 import logging
 from datetime import datetime, timedelta
@@ -63,7 +63,7 @@ class DashboardDataSource(models.Model):
     model_id = fields.Many2one(
         'ir.model',
         string='Model',
-        help='Odoo model to fetch data from',
+        help='Loomworks model to fetch data from',
         domain=[('transient', '=', False)],
         ondelete='cascade',
     )

@@ -1,4 +1,4 @@
-/var/log/odoo/*.log {
+/var/log/loomworks/*.log {
     copytruncate
     missingok
     notifempty

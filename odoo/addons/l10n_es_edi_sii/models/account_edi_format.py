@@ -4,11 +4,11 @@ from collections import defaultdict
 
 import requests
 
-from odoo import _, fields, models
-from odoo.tools import html_escape, zeep
-from odoo.tools.float_utils import float_round
+from loomworks import _, fields, models
+from loomworks.tools import html_escape, zeep
+from loomworks.tools.float_utils import float_round
 
-from odoo.addons.certificate.tools import CertificateAdapter
+from loomworks.addons.certificate.tools import CertificateAdapter
 
 # Custom patches to perform the WSDL requests.
 # Avoid failure on servers where the DH key is too small

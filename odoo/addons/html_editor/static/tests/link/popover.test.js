@@ -682,13 +682,13 @@ describe("link preview", () => {
             description: markup("Test description"),
             link_preview_name: "Task name | Project name",
         }));
-        onRpc("/odoo/project/1/tasks/8", () => "");
+        onRpc("/loomworks/project/1/tasks/8", () => "");
         const { editor, el } = await setupEditor(`<p>[]</p>`);
         await insertText(editor, "/link");
         await animationFrame();
         await click(".o-we-command-name:first");
         await contains(".o-we-linkpopover input.o_we_href_input_link").fill(
-            window.location.origin + "/odoo/project/1/tasks/8"
+            window.location.origin + "/loomworks/project/1/tasks/8"
         );
         await animationFrame();
         expect(".o_we_replace_title_btn").toHaveCount(1);
@@ -732,13 +732,13 @@ describe("link preview", () => {
                 link_preview_name: "Task name | Project name",
             };
         });
-        onRpc("/odoo/cachetest/8", () => "");
+        onRpc("/loomworks/cachetest/8", () => "");
         const { editor } = await setupEditor(`<p>abc[]</p>`);
         await insertText(editor, "/link");
         await animationFrame();
         await click(".o-we-command-name:first");
         await contains(".o-we-linkpopover input.o_we_href_input_link").fill(
-            window.location.origin + "/odoo/cachetest/8"
+            window.location.origin + "/loomworks/cachetest/8"
         );
         await animationFrame();
         expect.verifySteps(["/html_editor/link_preview_internal"]);
@@ -773,7 +773,7 @@ describe("link preview", () => {
         });
 
         const currentProtocol = window.location.protocol;
-        onRpc("/odoo/cachetest/8", (request) => {
+        onRpc("/loomworks/cachetest/8", (request) => {
             const urlProtocol = new URL(request.url).protocol;
             expect(urlProtocol).toBe(currentProtocol);
             return "";

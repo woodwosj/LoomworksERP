@@ -1,11 +1,11 @@
 # pylint: disable=protected-access
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import logging
 import stdnum
 
-from odoo import models, fields, api, Command, _
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import index_exists
+from loomworks import models, fields, api, Command, _
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools import index_exists
 
 
 _logger = logging.getLogger(__name__)

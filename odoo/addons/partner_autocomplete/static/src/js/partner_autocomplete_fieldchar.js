@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { useChildRef, useService } from "@web/core/utils/hooks";
 import { registry } from "@web/core/registry";

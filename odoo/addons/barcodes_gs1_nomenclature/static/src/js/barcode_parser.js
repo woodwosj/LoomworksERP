@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { patch } from "@web/core/utils/patch";
 import { BarcodeParser } from "@barcodes/js/barcode_parser";

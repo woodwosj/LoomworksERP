@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
         <!-- add company id to partner details-->
         <xpath expr="//div[@id='partner_vat_address_not_same_as_shipping']" position="before">
@@ -35,4 +35,4 @@
             </p>
         </xpath>
     </template>
-</odoo>
+</loomworks>

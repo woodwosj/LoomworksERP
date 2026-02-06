@@ -1,5 +1,5 @@
-from odoo import models
-from odoo.addons.phone_validation.tools import phone_validation
+from loomworks import models
+from loomworks.addons.phone_validation.tools import phone_validation
 
 
 class BaseModel(models.AbstractModel):

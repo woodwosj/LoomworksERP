@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.website_sale.tests.common import WebsiteSaleCommon
+from loomworks.addons.website_sale.tests.common import WebsiteSaleCommon
 
 
 class WebsiteSaleStockCommon(WebsiteSaleCommon):

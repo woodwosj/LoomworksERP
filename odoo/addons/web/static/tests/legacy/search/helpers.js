@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/search/helpers default=false */
+/** @loomworks-module alias=@web/../tests/search/helpers default=false */
 
 import { Component, xml } from "@odoo/owl";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";

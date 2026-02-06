@@ -1,8 +1,8 @@
-from odoo.addons.mail.tests.common import mail_new_test_user, MailCommon
-from odoo.addons.test_mail.data.test_mail_data import MAIL_TEMPLATE
-from odoo.addons.test_mail.tests.common import TestRecipients
-from odoo.tools.mail import email_normalize, formataddr
-from odoo.tests import tagged
+from loomworks.addons.mail.tests.common import mail_new_test_user, MailCommon
+from loomworks.addons.test_mail.data.test_mail_data import MAIL_TEMPLATE
+from loomworks.addons.test_mail.tests.common import TestRecipients
+from loomworks.tools.mail import email_normalize, formataddr
+from loomworks.tests import tagged
 
 
 @tagged('mail_gateway', 'mail_flow', 'post_install', '-at_install')

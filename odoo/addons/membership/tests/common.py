@@ -3,7 +3,7 @@
 import datetime
 from dateutil.relativedelta import relativedelta
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 class TestMembershipCommon(AccountTestInvoicingCommon):

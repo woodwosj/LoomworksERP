@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.project.tests.test_project_base import TestProjectCommon
-from odoo import Command
-from odoo.exceptions import AccessError, ValidationError
-from odoo.tests.common import users
-from odoo.tools import mute_logger
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.project.tests.test_project_base import TestProjectCommon
+from loomworks import Command
+from loomworks.exceptions import AccessError, ValidationError
+from loomworks.tests.common import users
+from loomworks.tools import mute_logger
 
 class TestAccessRights(TestProjectCommon):
     def setUp(self):
@@ -256,7 +256,7 @@ class TestProjectPortalCommon(TestProjectCommon):
 
 class TestPortalProject(TestProjectPortalCommon):
 
-    @mute_logger('odoo.addons.base.models.ir_model')
+    @mute_logger('loomworks.addons.base.models.ir_model')
     def test_employee_project_access_rights(self):
         pigs = self.project_pigs
 
@@ -278,7 +278,7 @@ class TestPortalProject(TestProjectPortalCommon):
             'project_id': pigs.id})
         tmp_task.with_user(self.user_projectuser).unlink()
 
-    @mute_logger('odoo.addons.base.models.ir_model')
+    @mute_logger('loomworks.addons.base.models.ir_model')
     def test_favorite_project_access_rights(self):
         pigs = self.project_pigs.with_user(self.user_projectuser)
 
@@ -287,7 +287,7 @@ class TestPortalProject(TestProjectPortalCommon):
         # we can write on is_favorite
         pigs.write({'is_favorite': True})
 
-    @mute_logger('odoo.addons.base.ir.ir_model')
+    @mute_logger('loomworks.addons.base.ir.ir_model')
     def test_followers_project_access_rights(self):
         pigs = self.project_pigs
         pigs.write({'privacy_visibility': 'followers'})

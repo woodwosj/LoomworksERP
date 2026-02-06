@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 import { WarningDialog } from "@web/core/errors/error_dialogs";
 import { _t } from "@web/core/l10n/translation";
 import { debounce } from "@web/core/utils/timing";

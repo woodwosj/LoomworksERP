@@ -1,4 +1,4 @@
-/** @odoo-module alias=@bus/../tests/helpers/model_definitions_helpers default=false */
+/** @loomworks-module alias=@bus/../tests/helpers/model_definitions_helpers default=false */
 
 import { registry } from "@web/core/registry";
 

@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from lxml import etree
 
-from odoo import fields, Command
-from odoo.addons.survey.tests import common
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.exceptions import UserError
-from odoo.tests import Form
-from odoo.tests.common import users
+from loomworks import fields, Command
+from loomworks.addons.survey.tests import common
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.exceptions import UserError
+from loomworks.tests import Form
+from loomworks.tests.common import users
 
 
 class TestSurveyInvite(common.TestSurveyCommon, MailCommon):

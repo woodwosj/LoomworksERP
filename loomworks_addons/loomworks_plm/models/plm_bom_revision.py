@@ -2,7 +2,7 @@
 # Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
 
 import json
-from odoo import api, fields, models
+from loomworks import api, fields, models
 
 
 class PlmBomRevision(models.Model):

@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { onWillStart } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";

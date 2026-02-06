@@ -1,7 +1,7 @@
 import werkzeug.urls
 
-from odoo.tests.common import users
-from odoo.addons.mass_mailing_sms.tests.common import MassSMSCommon
+from loomworks.tests.common import users
+from loomworks.addons.mass_mailing_sms.tests.common import MassSMSCommon
 
 
 class TestMailingListSms(MassSMSCommon):

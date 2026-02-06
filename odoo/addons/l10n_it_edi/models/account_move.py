@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from base64 import b64encode
 from collections import defaultdict
@@ -7,11 +7,11 @@ import logging
 from lxml import etree
 import uuid
 
-from odoo import _, api, Command, fields, models, modules
-from odoo.addons.base.models.ir_qweb_fields import Markup, nl2br, nl2br_enclose
-from odoo.addons.account_edi_proxy_client.models.account_edi_proxy_user import AccountEdiProxyError
-from odoo.exceptions import UserError
-from odoo.tools import float_compare, float_repr, float_round, cleanup_xml_node, float_is_zero
+from loomworks import _, api, Command, fields, models, modules
+from loomworks.addons.base.models.ir_qweb_fields import Markup, nl2br, nl2br_enclose
+from loomworks.addons.account_edi_proxy_client.models.account_edi_proxy_user import AccountEdiProxyError
+from loomworks.exceptions import UserError
+from loomworks.tools import float_compare, float_repr, float_round, cleanup_xml_node, float_is_zero
 
 _logger = logging.getLogger(__name__)
 

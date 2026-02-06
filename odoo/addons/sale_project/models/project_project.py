@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import ast
 import json
 from collections import defaultdict
 
-from odoo import api, fields, models
-from odoo.osv import expression
-from odoo.tools import Query, SQL
-from odoo.tools.misc import unquote
-from odoo.tools.translate import _
+from loomworks import api, fields, models
+from loomworks.osv import expression
+from loomworks.tools import Query, SQL
+from loomworks.tools.misc import unquote
+from loomworks.tools.translate import _
 
 
 class ProjectProject(models.Model):

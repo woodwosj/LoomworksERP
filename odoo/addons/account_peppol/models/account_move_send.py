@@ -3,10 +3,10 @@ import logging
 from base64 import b64encode
 from datetime import timedelta
 
-from odoo import _, api, fields, models
+from loomworks import _, api, fields, models
 
-from odoo.addons.account.models.company import PEPPOL_LIST
-from odoo.addons.account_edi_proxy_client.models.account_edi_proxy_user import AccountEdiProxyError
+from loomworks.addons.account.models.company import PEPPOL_LIST
+from loomworks.addons.account_edi_proxy_client.models.account_edi_proxy_user import AccountEdiProxyError
 
 _logger = logging.getLogger(__name__)
 

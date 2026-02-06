@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { session } from "@web/session";
 import { loadJS } from "@web/core/assets";

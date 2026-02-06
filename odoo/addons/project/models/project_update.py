@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 from werkzeug.urls import url_encode
 
-from odoo import api, fields, models
-from odoo.osv import expression
-from odoo.tools import format_amount, formatLang
+from loomworks import api, fields, models
+from loomworks.osv import expression
+from loomworks.tools import format_amount, formatLang
 
 STATUS_COLOR = {
     'on_track': 20,  # green / success

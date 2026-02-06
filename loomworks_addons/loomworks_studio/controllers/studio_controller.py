@@ -15,8 +15,8 @@ Provides JSON-RPC endpoints for the Studio frontend components.
 import json
 import logging
 
-from odoo import http
-from odoo.http import request
+from loomworks import http
+from loomworks.http import request
 
 _logger = logging.getLogger(__name__)
 

@@ -3,7 +3,7 @@ from . import wizard
 
 import logging
 
-from odoo.exceptions import ValidationError
+from loomworks.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 

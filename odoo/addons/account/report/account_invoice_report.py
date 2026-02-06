@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
-from odoo.tools import SQL
-from odoo.addons.account.models.account_move import PAYMENT_STATE_SELECTION
+from loomworks import models, fields, api
+from loomworks.tools import SQL
+from loomworks.addons.account.models.account_move import PAYMENT_STATE_SELECTION
 
 from functools import lru_cache
 

@@ -7,3 +7,4 @@
 # License: LGPL-3
 
 from . import res_company
+from . import mail_bot

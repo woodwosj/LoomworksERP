@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
 
     <record model="ir.ui.view" id="view_account_invoice_report_search_inherit">
         <field name="name">account.invoice.report.search</field>
@@ -44,4 +44,4 @@
         parent="l10n_ar.account_reports_ar_statements_menu"
         sequence="40"/>
 
-</odoo>
+</loomworks>

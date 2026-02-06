@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 from pytz import timezone
@@ -7,9 +7,9 @@ from datetime import date, datetime
 import requests
 from unittest.mock import Mock
 
-from odoo.tools import file_open
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
+from loomworks.tools import file_open
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
 
 
 class TestEsEdiTbaiCommon(TestAccountMoveSendCommon):

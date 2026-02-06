@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools.misc import format_date, formatLang
-from odoo.tools.float_utils import float_repr
-from odoo.tools import groupby
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools.misc import format_date, formatLang
+from loomworks.tools.float_utils import float_repr
+from loomworks.tools import groupby
 
 from collections import defaultdict
 from markupsafe import Markup, escape
-from odoo.tools import frozendict
+from loomworks.tools import frozendict
 import json
 
 class AutomaticEntryWizard(models.TransientModel):

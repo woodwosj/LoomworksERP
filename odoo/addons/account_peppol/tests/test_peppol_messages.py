@@ -6,11 +6,11 @@ from urllib import parse
 
 from requests import PreparedRequest, Response, Session
 
-from odoo import Command
-from odoo.tests.common import tagged, freeze_time
-from odoo.tools.misc import file_open
+from loomworks import Command
+from loomworks.tests.common import tagged, freeze_time
+from loomworks.tools.misc import file_open
 
-from odoo.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
+from loomworks.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
 
 ID_CLIENT = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 FAKE_UUID = ['yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy',
@@ -272,7 +272,7 @@ class TestPeppolMessage(TestPeppolMessageCommon):
         self.assertTrue(wizard.sending_method_checkboxes['peppol']['readonly'])  # peppol is not possible to select
         self.assertFalse(wizard.alerts)  # there is no alerts
 
-    @patch('odoo.addons.account_peppol.models.res_partner.ResPartner._check_document_type_support', return_value=False)
+    @patch('loomworks.addons.account_peppol.models.res_partner.ResPartner._check_document_type_support', return_value=False)
     def test_send_peppol_alerts_not_valid_format_partner(self, mocked_check):
         move = self.create_move(self.valid_partner)
         move.action_post()
@@ -523,7 +523,7 @@ class TestPeppolMessage(TestPeppolMessageCommon):
 
         wizard = self.create_send_and_print(move_1 + move_2)
         with patch(
-            'odoo.addons.account_edi_ubl_cii.models.account_edi_xml_ubl_20.AccountEdiXmlUBL20._export_invoice_constraints',
+            'loomworks.addons.account_edi_ubl_cii.models.account_edi_xml_ubl_20.AccountEdiXmlUBL20._export_invoice_constraints',
             mocked_export_invoice_constraints
         ):
             wizard.action_send_and_print()

@@ -1,8 +1,8 @@
-from odoo import Command
-from odoo.tests import tagged
-from odoo.tools.float_utils import float_compare
-from odoo.addons.l10n_jo_edi.tests.jo_edi_common import JoEdiCommon
-from odoo.addons.l10n_jo_edi.models.account_edi_xml_ubl_21_jo import JO_MAX_DP
+from loomworks import Command
+from loomworks.tests import tagged
+from loomworks.tools.float_utils import float_compare
+from loomworks.addons.l10n_jo_edi.tests.jo_edi_common import JoEdiCommon
+from loomworks.addons.l10n_jo_edi.models.account_edi_xml_ubl_21_jo import JO_MAX_DP
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

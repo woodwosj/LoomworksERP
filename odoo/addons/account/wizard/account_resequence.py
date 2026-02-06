@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.tools.date_utils import get_fiscal_year
-from odoo.tools.misc import format_date
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
+from loomworks.tools.date_utils import get_fiscal_year
+from loomworks.tools.misc import format_date
 
 from collections import defaultdict
 import json

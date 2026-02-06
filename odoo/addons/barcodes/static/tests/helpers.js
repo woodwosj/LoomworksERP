@@ -1,4 +1,4 @@
-/* @odoo-module */
+/* @loomworks-module */
 
 import { triggerEvent } from "@web/../tests/helpers/utils";
 

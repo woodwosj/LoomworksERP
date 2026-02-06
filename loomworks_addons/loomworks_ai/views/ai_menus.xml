@@ -3,7 +3,7 @@
     Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
     License: LGPL-3
 -->
-<odoo>
+<loomworks>
 
     <!-- Main AI Menu -->
     <menuitem id="menu_loomworks_ai_root"
@@ -67,4 +67,4 @@
               action="action_ai_operation_log"
               sequence="1"/>
 
-</odoo>
+</loomworks>

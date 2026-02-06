@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Component, useEffect } from "@odoo/owl";
 import { useChildRef } from "@web/core/utils/hooks";

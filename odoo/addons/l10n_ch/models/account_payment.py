@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import re
 
-from odoo import _, models, fields, api
-from odoo.tools import mod10r
+from loomworks import _, models, fields, api
+from loomworks.tools import mod10r
 
 
 class AccountPayment(models.Model):

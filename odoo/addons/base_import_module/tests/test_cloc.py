@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import json
 from io import BytesIO
 from zipfile import ZipFile, ZIP_DEFLATED
 
-from odoo.tools import cloc
-from odoo.addons.base.tests import test_cloc
+from loomworks.tools import cloc
+from loomworks.addons.base.tests import test_cloc
 
 VALID_XML = """
 <templates id="template" xml:space="preserve">

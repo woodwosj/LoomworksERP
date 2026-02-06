@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo auto_sequence="1">
+<loomworks auto_sequence="1">
     <record id="l10n_lu_tax_report_section_2" model="account.report">
         <field name="name">Section II</field>
         <field name="sequence">2</field>
@@ -1383,4 +1383,4 @@
             </record>
         </field>
     </record>
-</odoo>
+</loomworks>

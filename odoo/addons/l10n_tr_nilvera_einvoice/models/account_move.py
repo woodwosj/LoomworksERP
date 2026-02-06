@@ -2,9 +2,9 @@ import uuid
 from markupsafe import Markup
 from urllib.parse import quote, urlencode, urlparse
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
-from odoo.addons.l10n_tr_nilvera.lib.nilvera_client import _get_nilvera_client
+from loomworks import _, api, fields, models
+from loomworks.exceptions import UserError
+from loomworks.addons.l10n_tr_nilvera.lib.nilvera_client import _get_nilvera_client
 
 MOVE_TYPE_CATEGORY_MAP = {
     "out_invoice": {

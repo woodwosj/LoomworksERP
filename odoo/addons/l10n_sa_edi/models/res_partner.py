@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from loomworks import fields, models, api
 
 
 class ResPartner(models.Model):

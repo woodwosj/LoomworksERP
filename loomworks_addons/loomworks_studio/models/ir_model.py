@@ -13,7 +13,7 @@ Extends ir.model with Studio-specific fields and methods for
 tracking custom models created via Studio.
 """
 
-from odoo import api, models, fields
+from loomworks import api, models, fields
 
 
 class IrModel(models.Model):

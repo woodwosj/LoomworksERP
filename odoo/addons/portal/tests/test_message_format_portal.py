@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tools import mute_logger
-from odoo.tests import common, tagged
+from loomworks.tools import mute_logger
+from loomworks.tests import common, tagged
 
 
 @tagged('mail_message')
 class TestMessageFormatPortal(common.TransactionCase):
 
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     def test_portal_message_format(self):
         """ Test the specific message formatting for the portal.
         Notably the flag that tells if the message is of subtype 'note'. """

@@ -1,6 +1,6 @@
-from odoo import http
-from odoo.addons.base.tests.common import HttpCaseWithUserPortal
-from odoo.addons.website_event_sale.tests.common import TestWebsiteEventSaleCommon
+from loomworks import http
+from loomworks.addons.base.tests.common import HttpCaseWithUserPortal
+from loomworks.addons.website_event_sale.tests.common import TestWebsiteEventSaleCommon
 
 
 class TestWebsiteEventSale(HttpCaseWithUserPortal, TestWebsiteEventSaleCommon):

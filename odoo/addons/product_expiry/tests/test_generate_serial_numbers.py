@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 from freezegun import freeze_time
 
-from odoo.addons.stock.tests.test_generate_serial_numbers import StockGenerateCommon
-from odoo.tools.misc import get_lang
+from loomworks.addons.stock.tests.test_generate_serial_numbers import StockGenerateCommon
+from loomworks.tools.misc import get_lang
 
 
 class TestStockLot(StockGenerateCommon):

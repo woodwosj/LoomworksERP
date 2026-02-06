@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import hashlib
 import re
 from base64 import b64encode
 
 from lxml import etree
-from odoo.tools.xml_utils import cleanup_xml_node
+from loomworks.tools.xml_utils import cleanup_xml_node
 
 
 # Utility Methods for Basque Country's TicketBAI XML-related stuff.

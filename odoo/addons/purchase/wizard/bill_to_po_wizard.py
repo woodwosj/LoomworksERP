@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import fields, models, Command, _
-from odoo.exceptions import UserError
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import fields, models, Command, _
+from loomworks.exceptions import UserError
 
 
 class BillToPO(models.TransientModel):

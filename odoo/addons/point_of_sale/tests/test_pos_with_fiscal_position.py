@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import tools
-import odoo
-from odoo.addons.point_of_sale.tests.common import TestPoSCommon
+from loomworks import tools
+import loomworks
+from loomworks.addons.point_of_sale.tests.common import TestPoSCommon
 
-@odoo.tests.tagged('post_install', '-at_install')
+@loomworks.tests.tagged('post_install', '-at_install')
 class TestPoSWithFiscalPosition(TestPoSCommon):
     """ Tests to pos orders with fiscal position.
 

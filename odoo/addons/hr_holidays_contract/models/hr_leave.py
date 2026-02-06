@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 
-from odoo import api, models, _
-from odoo.exceptions import ValidationError
-from odoo.osv.expression import AND
-from odoo.tools import format_date
+from loomworks import api, models, _
+from loomworks.exceptions import ValidationError
+from loomworks.osv.expression import AND
+from loomworks.tools import format_date
 
 
 class HrLeave(models.Model):

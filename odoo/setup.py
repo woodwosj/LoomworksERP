@@ -5,11 +5,11 @@ from setuptools import find_packages, setup
 from os.path import join, dirname
 
 
-exec(open(join(dirname(__file__), 'odoo', 'release.py'), 'rb').read())  # Load release variables
-lib_name = 'odoo'
+exec(open(join(dirname(__file__), 'loomworks', 'release.py'), 'rb').read())  # Load release variables
+lib_name = 'loomworks'
 
 setup(
-    name='odoo',
+    name='loomworks',
     version=version,
     description=description,
     long_description=long_desc,
@@ -18,9 +18,9 @@ setup(
     author_email=author_email,
     classifiers=[c for c in classifiers.split('\n') if c],
     license=license,
-    scripts=['setup/odoo'],
+    scripts=['setup/loomworks'],
     packages=find_packages(),
-    package_dir={'%s' % lib_name: 'odoo'},
+    package_dir={'%s' % lib_name: 'loomworks'},
     include_package_data=True,
     install_requires=[
         'asn1crypto',

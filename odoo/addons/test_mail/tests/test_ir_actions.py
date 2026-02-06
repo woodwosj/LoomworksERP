@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.base.tests.test_ir_actions import TestServerActionsBase
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.tests import tagged
-from odoo.tools import mute_logger
+from loomworks.addons.base.tests.test_ir_actions import TestServerActionsBase
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.tests import tagged
+from loomworks.tools import mute_logger
 
 
 @tagged('ir_actions')
@@ -19,7 +19,7 @@ class TestServerActionsEmail(MailCommon, TestServerActionsBase):
             }
         )
 
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     def test_action_email(self):
         # initial state
         self.assertEqual(len(self.test_partner.message_ids), 1,
@@ -136,7 +136,7 @@ class TestServerActionsEmail(MailCommon, TestServerActionsBase):
         self.assertEqual(self.env['mail.activity'].search_count([]), before_count + 1)
         self.assertEqual(self.env['mail.activity'].search_count([('summary', '=', 'TestNew')]), 1)
 
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     def test_action_send_mail_without_mail_thread(self):
         """ Check running a server action to send an email with custom layout on a non mail.thread model """
         no_thread_record = self.env['mail.test.nothread'].create({'name': 'Test NoMailThread', 'customer_id': self.test_partner.id})

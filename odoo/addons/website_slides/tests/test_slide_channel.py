@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo.addons.website_slides.tests import common as slides_common
-from odoo.exceptions import UserError
-from odoo.tests.common import HttpCase, users
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks.addons.website_slides.tests import common as slides_common
+from loomworks.exceptions import UserError
+from loomworks.tests.common import HttpCase, users
 from unittest.mock import patch
 
 
@@ -289,7 +289,7 @@ class TestSlidesManagement(slides_common.SlidesCase, HttpCase):
             return 13.37
 
         with patch(
-            'odoo.addons.website_slides.models.slide_slide.Slide._get_completion_time_pdf',
+            'loomworks.addons.website_slides.models.slide_slide.Slide._get_completion_time_pdf',
             new=_get_completion_time_pdf
         ):
             slides_1 = self.env['slide.slide'].create({

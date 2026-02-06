@@ -1,9 +1,9 @@
-import odoo
+import loomworks
 
-from odoo.addons.point_of_sale.tests.common import TestPoSCommon
-from odoo.fields import Command
+from loomworks.addons.point_of_sale.tests.common import TestPoSCommon
+from loomworks.fields import Command
 
-@odoo.tests.tagged('post_install', '-at_install')
+@loomworks.tests.tagged('post_install', '-at_install')
 class TestStockProductUpdates(TestPoSCommon):
 
     def setUp(self):

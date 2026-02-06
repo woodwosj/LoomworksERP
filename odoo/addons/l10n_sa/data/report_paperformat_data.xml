@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data noupdate="1">
         <record id="paperformat_l10n_sa_a4" model="report.paperformat">
             <field name="name">Saudi Arabia A4</field>
@@ -18,4 +18,4 @@
             <value eval="{'paperformat_id': ref('l10n_sa.paperformat_l10n_sa_a4')}"/>
         </function>
     </data>
-</odoo>
+</loomworks>

@@ -8,8 +8,8 @@ Provides public routes for external signers to view and sign documents.
 """
 
 import json
-from odoo import http
-from odoo.http import request
+from loomworks import http
+from loomworks.http import request
 
 
 class SignPortal(http.Controller):

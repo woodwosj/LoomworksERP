@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { clamp } from "@web/core/utils/numbers";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
@@ -5297,7 +5297,7 @@ class SnippetsMenu extends Component {
         moduleDisplayName = `"${moduleDisplayName}"`;
         const bodyText = _t("Do you want to install %s App?", moduleDisplayName);
         const linkText = _t("More info about this app.");
-        const linkUrl = '/odoo/action-base.open_module_tree/' + encodeURIComponent(moduleID);
+        const linkUrl = '/loomworks/action-base.open_module_tree/' + encodeURIComponent(moduleID);
         this.dialog.add(ConfirmationDialog, {
             title: _t("Install %s", moduleDisplayName),
             body: markup(`${escape(bodyText)}\n<a href="${escape(linkUrl)}" target="_blank"><i class="oi oi-arrow-right me-1"></i>${escape(linkText)}</a>`),

@@ -5,8 +5,8 @@ from cryptography.x509 import ObjectIdentifier
 from cryptography.x509.oid import NameOID
 from cryptography.hazmat.primitives import hashes, serialization
 
-from odoo import _, api, models, service
-from odoo.exceptions import UserError
+from loomworks import _, api, models, service
+from loomworks.exceptions import UserError
 
 CERT_TEMPLATE_NAME = {
     'prod': b'\x0c\x12ZATCA-Code-Signing',

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import namedtuple
 
-from odoo import api, fields, models
-from odoo.exceptions import UserError, RedirectWarning
-from odoo.tools import format_list
-from odoo.tools.translate import _, LazyTranslate
+from loomworks import api, fields, models
+from loomworks.exceptions import UserError, RedirectWarning
+from loomworks.tools import format_list
+from loomworks.tools.translate import _, LazyTranslate
 
 _lt = LazyTranslate(__name__)
 

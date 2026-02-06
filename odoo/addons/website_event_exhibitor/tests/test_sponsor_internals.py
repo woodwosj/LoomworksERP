@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 from freezegun import freeze_time
 
-from odoo.addons.website_event_exhibitor.tests.common import TestEventExhibitorCommon
-from odoo.tests.common import users
+from loomworks.addons.website_event_exhibitor.tests.common import TestEventExhibitorCommon
+from loomworks.tests.common import users
 
 
 class TestSponsorData(TestEventExhibitorCommon):

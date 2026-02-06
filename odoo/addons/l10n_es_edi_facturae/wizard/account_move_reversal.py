@@ -1,4 +1,4 @@
-from odoo import models, fields, _
+from loomworks import models, fields, _
 
 
 class AccountMoveReversal(models.TransientModel):

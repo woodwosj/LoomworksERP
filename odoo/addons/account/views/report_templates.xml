@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="report_invoice_wizard_iframe">
         <t t-call="web.html_preview_container">
             <t t-call="account.report_invoice_document_preview"/>
@@ -44,4 +44,4 @@
             </div>
         </div>
     </template>
-</odoo>
+</loomworks>

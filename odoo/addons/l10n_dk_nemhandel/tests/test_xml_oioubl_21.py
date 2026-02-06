@@ -2,12 +2,12 @@ from freezegun import freeze_time
 from requests import PreparedRequest, Response, Session
 from unittest.mock import patch
 
-from odoo import Command
-from odoo.exceptions import UserError
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
 
-from odoo.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
-from odoo.addons.l10n_account_edi_ubl_cii_tests.tests.common import TestUBLCommon
+from loomworks.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
+from loomworks.addons.l10n_account_edi_ubl_cii_tests.tests.common import TestUBLCommon
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
@@ -118,7 +118,7 @@ class TestUBLDKOIOUBL21(TestUBLCommon, TestAccountMoveSendCommon):
 
     @classmethod
     def _send_patched(cls, invoice):
-        with patch('odoo.addons.l10n_dk_nemhandel.models.res_partner.ResPartner._get_nemhandel_verification_state', return_value='not_valid'):
+        with patch('loomworks.addons.l10n_dk_nemhandel.models.res_partner.ResPartner._get_nemhandel_verification_state', return_value='not_valid'):
             wizard = cls.env['account.move.send.wizard'] \
                 .with_context(active_model=invoice._name, active_ids=invoice.ids) \
                 .create({})

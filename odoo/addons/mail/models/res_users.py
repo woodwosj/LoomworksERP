@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 
-from odoo import _, api, Command, fields, models, modules, tools
-from odoo.tools import email_normalize
-from odoo.addons.mail.tools.discuss import Store
+from loomworks import _, api, Command, fields, models, modules, tools
+from loomworks.tools import email_normalize
+from loomworks.addons.mail.tools.discuss import Store
 
 
 class Users(models.Model):

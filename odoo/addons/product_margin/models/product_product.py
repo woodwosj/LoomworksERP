@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import itertools
 import time
 
-from odoo import api, fields, models
-from odoo.tools.sql import SQL
+from loomworks import api, fields, models
+from loomworks.tools.sql import SQL
 
 
 class ProductProduct(models.Model):

@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from re import search
 
-from odoo import http
-from odoo.tests import HttpCase
+from loomworks import http
+from loomworks.tests import HttpCase
 
-from odoo.addons.mail.controllers.thread import ThreadController
-from odoo.addons.project.tests.test_project_sharing import TestProjectSharingCommon
-from odoo.addons.website.tools import MockRequest
+from loomworks.addons.mail.controllers.thread import ThreadController
+from loomworks.addons.project.tests.test_project_sharing import TestProjectSharingCommon
+from loomworks.addons.website.tools import MockRequest
 
 
 class TestProjectPortalAccess(TestProjectSharingCommon, HttpCase):

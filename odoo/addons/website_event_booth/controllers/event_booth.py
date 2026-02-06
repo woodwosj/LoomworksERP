@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 import werkzeug
 from werkzeug.exceptions import Forbidden, NotFound
 
-from odoo import http, tools
-from odoo.http import request
-from odoo.addons.website_event.controllers.main import WebsiteEventController
+from loomworks import http, tools
+from loomworks.http import request
+from loomworks.addons.website_event.controllers.main import WebsiteEventController
 
 
 class WebsiteEventBoothController(WebsiteEventController):

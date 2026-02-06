@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { Dialog } from "@web/core/dialog/dialog";
 import { Component } from "@odoo/owl";
@@ -16,7 +16,7 @@ export class companyStateDialog extends Component {
     }
 
     redirect() {
-        window.location = "/odoo/companies/" + this.pos.company.id;
+        window.location = "/loomworks/companies/" + this.pos.company.id;
     }
 
     onClose() {

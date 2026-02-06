@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.http import request
+from loomworks.http import request
 
-from odoo import _
-from odoo.addons.base.models.ir_qweb_fields import nl2br, nl2br_enclose
-from odoo.addons.website.controllers import form
-from odoo.tools import html2plaintext
+from loomworks import _
+from loomworks.addons.base.models.ir_qweb_fields import nl2br, nl2br_enclose
+from loomworks.addons.website.controllers import form
+from loomworks.tools import html2plaintext
 
 
 class WebsiteForm(form.WebsiteForm):

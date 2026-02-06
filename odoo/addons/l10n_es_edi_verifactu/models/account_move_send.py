@@ -1,5 +1,5 @@
-from odoo import _, api, models
-from odoo.exceptions import RedirectWarning
+from loomworks import _, api, models
+from loomworks.exceptions import RedirectWarning
 
 
 class AccountMoveSend(models.AbstractModel):

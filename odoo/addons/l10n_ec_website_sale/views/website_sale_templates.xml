@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <template id="address" inherit_id="website_sale.address">
         <div id="div_vat" position="before">
@@ -35,4 +35,4 @@
         </div>
     </template>
 
-</odoo>
+</loomworks>

@@ -3,7 +3,7 @@
     Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
     License: LGPL-3
 -->
-<odoo>
+<loomworks>
 
     <!-- AI Agent Form View -->
     <record id="loomworks_ai_agent_view_form" model="ir.ui.view">
@@ -160,4 +160,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

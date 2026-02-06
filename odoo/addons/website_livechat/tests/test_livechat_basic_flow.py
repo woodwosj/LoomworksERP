@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import datetime
 
-from odoo import tests, _
-from odoo.addons.base.tests.common import HttpCaseWithUserDemo
-from odoo.addons.website_livechat.tests.common import TestLivechatCommon
-from odoo.tests.common import new_test_user
+from loomworks import tests, _
+from loomworks.addons.base.tests.common import HttpCaseWithUserDemo
+from loomworks.addons.website_livechat.tests.common import TestLivechatCommon
+from loomworks.tests.common import new_test_user
 
 
 @tests.tagged('post_install', '-at_install')

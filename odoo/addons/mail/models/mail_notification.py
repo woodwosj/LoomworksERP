@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models
-from odoo.exceptions import AccessError
-from odoo.tools.translate import _
-from odoo.addons.mail.tools.discuss import Store
+from loomworks import api, fields, models
+from loomworks.exceptions import AccessError
+from loomworks.tools.translate import _
+from loomworks.addons.mail.tools.discuss import Store
 
 
 class MailNotification(models.Model):

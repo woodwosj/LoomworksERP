@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import base64
 import datetime
 import os
@@ -19,21 +19,21 @@ from textwrap import shorten
 from werkzeug.exceptions import NotFound
 from xml.etree import ElementTree as ET
 
-import odoo
+import loomworks
 
-from odoo import http, models, fields, _
-from odoo.exceptions import AccessError, UserError
-from odoo.http import request, SessionExpiredException
-from odoo.osv import expression
-from odoo.tools import OrderedSet, escape_psql, html_escape as escape, py_to_js_locale
-from odoo.addons.base.models.ir_http import EXTENSION_TO_WEB_MIMETYPES
-from odoo.addons.base.models.ir_qweb import QWebException
-from odoo.addons.portal.controllers.portal import pager as portal_pager
-from odoo.addons.portal.controllers.web import Home
-from odoo.addons.web.controllers.binary import Binary
-from odoo.addons.web.controllers.session import Session
-from odoo.addons.website.tools import get_base_domain
-from odoo.tools.json import scriptsafe as json
+from loomworks import http, models, fields, _
+from loomworks.exceptions import AccessError, UserError
+from loomworks.http import request, SessionExpiredException
+from loomworks.osv import expression
+from loomworks.tools import OrderedSet, escape_psql, html_escape as escape, py_to_js_locale
+from loomworks.addons.base.models.ir_http import EXTENSION_TO_WEB_MIMETYPES
+from loomworks.addons.base.models.ir_qweb import QWebException
+from loomworks.addons.portal.controllers.portal import pager as portal_pager
+from loomworks.addons.portal.controllers.web import Home
+from loomworks.addons.web.controllers.binary import Binary
+from loomworks.addons.web.controllers.session import Session
+from loomworks.addons.website.tools import get_base_domain
+from loomworks.tools.json import scriptsafe as json
 
 logger = logging.getLogger(__name__)
 
@@ -188,7 +188,7 @@ class Website(Home):
         """
         if not redirect and request.params.get('login_success'):
             if request.env['res.users'].browse(uid)._is_internal():
-                redirect = '/odoo?' + request.httprequest.query_string.decode()
+                redirect = '/loomworks?' + request.httprequest.query_string.decode()
             else:
                 redirect = '/my'
         return super()._login_redirect(uid, redirect=redirect)
@@ -343,7 +343,7 @@ class Website(Home):
         values = {
             'apps': apps,
             'l10n': l10n,
-            'version': odoo.service.common.exp_version()
+            'version': loomworks.service.common.exp_version()
         }
         return request.render('website.website_info', values)
 
@@ -355,7 +355,7 @@ class Website(Home):
             return request.redirect('/')
         if request.env.lang != request.website.default_lang_id.code:
             return request.redirect('/%s%s' % (request.website.default_lang_id.url_code, request.httprequest.path))
-        action_url = f"/odoo/action-website.website_configurator?menu_id={request.env.ref('website.menu_website_configuration').id}"
+        action_url = f"/loomworks/action-website.website_configurator?menu_id={request.env.ref('website.menu_website_configuration').id}"
         if step > 1:
             action_url += '&step=' + str(step)
         return request.redirect(action_url)
@@ -679,7 +679,7 @@ class Website(Home):
 
         if redirect:
             if ext_special_case:  # redirect non html pages to backend to edit
-                return request.redirect(f"/odoo/ir.ui.view/{page.get('view_id')}")
+                return request.redirect(f"/loomworks/ir.ui.view/{page.get('view_id')}")
             return request.redirect(request.env['website'].get_client_action_url(url, True))
 
         if ext_special_case:

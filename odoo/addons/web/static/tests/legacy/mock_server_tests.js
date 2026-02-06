@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/mock_server_tests default=false */
+/** @loomworks-module alias=@web/../tests/mock_server_tests default=false */
 
 import { MockServer } from "./helpers/mock_server";
 

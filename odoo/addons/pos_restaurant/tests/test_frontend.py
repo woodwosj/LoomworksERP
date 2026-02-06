@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo.tests
-from odoo.addons.point_of_sale.tests.common_setup_methods import setup_product_combo_items
-from odoo.addons.point_of_sale.tests.common import archive_products
-from odoo.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
-from odoo import Command
+import loomworks.tests
+from loomworks.addons.point_of_sale.tests.common_setup_methods import setup_product_combo_items
+from loomworks.addons.point_of_sale.tests.common import archive_products
+from loomworks.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
+from loomworks import Command
 from unittest.mock import patch
 
-@odoo.tests.tagged('post_install', '-at_install')
+@loomworks.tests.tagged('post_install', '-at_install')
 class TestFrontendCommon(TestPointOfSaleHttpCommon):
 
     @classmethod

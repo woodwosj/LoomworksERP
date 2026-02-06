@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo.tests import common, new_test_user
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks.tests import common, new_test_user
 
 
 class TestFleet(common.TransactionCase):

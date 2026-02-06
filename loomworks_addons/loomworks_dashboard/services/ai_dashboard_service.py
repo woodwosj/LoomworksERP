@@ -13,7 +13,7 @@ Generates dashboard specifications from natural language prompts.
 Falls back to template-based generation when AI is unavailable.
 """
 
-from odoo import api, models
+from loomworks import api, models
 import json
 import logging
 

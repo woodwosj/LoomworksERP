@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { onWillUnmount, reactive, useEffect, useExternalListener } from "@odoo/owl";
 import { useThrottleForAnimation } from "@web/core/utils/timing";

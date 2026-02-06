@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
 
-from odoo.exceptions import UserError
-from odoo.fields import Datetime
-from odoo.tests import Form, TransactionCase
-from odoo import Command
+from loomworks.exceptions import UserError
+from loomworks.fields import Datetime
+from loomworks.tests import Form, TransactionCase
+from loomworks import Command
 
 
 def _create_accounting_data(env):

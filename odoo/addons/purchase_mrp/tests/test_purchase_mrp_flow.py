@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
 
-from odoo.tests import Form, TransactionCase, tagged
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo import fields
-from odoo.fields import Command
+from loomworks.tests import Form, TransactionCase, tagged
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks import fields
+from loomworks.fields import Command
 
 
 @tagged('post_install', '-at_install')

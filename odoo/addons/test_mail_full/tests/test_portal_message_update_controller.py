@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo
-from odoo.addons.mail.tests.test_message_update_controller import TestMessageUpdateControllerCommon
+import loomworks
+from loomworks.addons.mail.tests.test_message_update_controller import TestMessageUpdateControllerCommon
 
 
-@odoo.tests.tagged("-at_install", "post_install")
+@loomworks.tests.tagged("-at_install", "post_install")
 class TestPortalMessageUpdateController(TestMessageUpdateControllerCommon):
     def test_message_update_portal(self):
         """Test Only Admin and Portal User can update a portal user message on a record with no assigned partner."""

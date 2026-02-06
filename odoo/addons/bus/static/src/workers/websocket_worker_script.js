@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 /* eslint-env worker */
 /* eslint-disable no-restricted-globals */
 

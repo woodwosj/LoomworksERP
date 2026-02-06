@@ -7,7 +7,7 @@
     Loomworks modifications copyright: Loomworks
     License: LGPL-3
 -->
-<odoo>
+<loomworks>
     <!-- Main Snapshot Menu (appears in app drawer) -->
     <menuitem id="menu_snapshot_root"
         name="Snapshots"
@@ -80,4 +80,4 @@
         action="action_snapshot_retention"
         sequence="10"/>
 
-</odoo>
+</loomworks>

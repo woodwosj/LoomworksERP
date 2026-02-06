@@ -1,16 +1,16 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 import werkzeug
 
 
-from odoo import http
-from odoo.exceptions import AccessError, MissingError
-from odoo.http import request, route
+from loomworks import http
+from loomworks.exceptions import AccessError, MissingError
+from loomworks.http import request, route
 
-from odoo.addons.l10n_tw_edi_ecpay.utils import call_ecpay_api
-from odoo.addons.portal.controllers.portal import CustomerPortal
-from odoo.addons.website_sale.controllers.main import WebsiteSale
+from loomworks.addons.l10n_tw_edi_ecpay.utils import call_ecpay_api
+from loomworks.addons.portal.controllers.portal import CustomerPortal
+from loomworks.addons.website_sale.controllers.main import WebsiteSale
 
 
 class WebsiteSaleL10nTW(WebsiteSale):

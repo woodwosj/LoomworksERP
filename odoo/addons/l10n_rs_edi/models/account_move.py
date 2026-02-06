@@ -2,7 +2,7 @@ import uuid
 from json import JSONDecodeError
 import requests
 
-from odoo import _, api, fields, models
+from loomworks import _, api, fields, models
 from requests.exceptions import Timeout, ConnectionError, HTTPError
 
 DEMO_EFAKTURA_URL = 'https://demoefaktura.mfin.gov.rs/api/publicApi/sales-invoice/ubl'

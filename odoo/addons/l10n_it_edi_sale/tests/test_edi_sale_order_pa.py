@@ -2,9 +2,9 @@ import datetime
 
 from freezegun import freeze_time
 
-from odoo import Command
-from odoo.addons.l10n_it_edi.tests.common import TestItEdi
-from odoo.tests.common import tagged
+from loomworks import Command
+from loomworks.addons.l10n_it_edi.tests.common import TestItEdi
+from loomworks.tests.common import tagged
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

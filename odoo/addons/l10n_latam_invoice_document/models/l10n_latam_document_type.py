@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import fields, models, api
-from odoo.osv import expression
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import fields, models, api
+from loomworks.osv import expression
 
 
 class L10nLatamDocumentType(models.Model):

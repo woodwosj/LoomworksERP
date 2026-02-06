@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.exceptions import UserError
-from odoo.fields import Command
-from odoo.tests import tagged
+from loomworks.exceptions import UserError
+from loomworks.fields import Command
+from loomworks.tests import tagged
 
-from odoo.addons.account_edi_ubl_cii.tests.test_ubl_cii import TestAccountEdiUblCii
+from loomworks.addons.account_edi_ubl_cii.tests.test_ubl_cii import TestAccountEdiUblCii
 
 
 @tagged('post_install', '-at_install')

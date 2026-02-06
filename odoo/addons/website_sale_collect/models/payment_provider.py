@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models
+from loomworks import _, api, fields, models
 
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.website_sale_collect import const
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.website_sale_collect import const
 
 
 class PaymentProvider(models.Model):

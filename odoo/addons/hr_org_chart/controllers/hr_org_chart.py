@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import http
-from odoo.exceptions import AccessError
-from odoo.http import request
+from loomworks import http
+from loomworks.exceptions import AccessError
+from loomworks.http import request
 
 
 class HrOrgChartController(http.Controller):

@@ -3,9 +3,9 @@ from contextlib import contextmanager
 from freezegun import freeze_time
 from unittest.mock import patch
 
-from odoo.tests import BaseCase, TransactionCase
-from odoo.addons.base.models.ir_actions_report import IrActionsReport
-from odoo.addons.mail.tests.common import mail_new_test_user
+from loomworks.tests import BaseCase, TransactionCase
+from loomworks.addons.base.models.ir_actions_report import IrActionsReport
+from loomworks.addons.mail.tests.common import mail_new_test_user
 
 
 VALID_JPEG = base64.b64decode('/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/yQALCAABAAEBAREA/8wABgAQEAX/2gAIAQEAAD8A0s8g/9k=')

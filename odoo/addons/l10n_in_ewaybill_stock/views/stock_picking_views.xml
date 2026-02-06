@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="view_picking_form_inherit_ewaybill" model="ir.ui.view">
         <field name="name">view.picking.form.inherit.ewaybill</field>
         <field name="model">stock.picking</field>
@@ -31,4 +31,4 @@
             </xpath>
         </field>
     </record>
-</odoo>
+</loomworks>

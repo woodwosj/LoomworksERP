@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="True">
+<loomworks noupdate="True">
 
     <!-- we add l10n_latam_document_number on on a separete line because we need l10n_latam_document_type_id to be auto assigned so that account.move.name can be computed with the _inverse_l10n_latam_document_number -->
 
@@ -324,4 +324,4 @@
         <value eval="[ref('demo_sup_invoice_1'), ref('demo_sup_invoice_2'), ref('demo_sup_invoice_3'), ref('demo_sup_invoice_4'), ref('demo_sup_invoice_5'), ref('demo_sup_invoice_6'), ref('demo_sup_invoice_7'), ref('demo_sup_invoice_8'), ref('demo_sup_invoice_9'), ref('demo_sup_invoice_10'), ref('demo_despacho_1'), ref('demo_liquido_producto_1')]"/>
     </function>
 
-</odoo>
+</loomworks>

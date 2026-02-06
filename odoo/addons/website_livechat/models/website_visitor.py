@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, Command, fields, models, _
-from odoo.addons.mail.tools.discuss import Store
-from odoo.exceptions import UserError
-from odoo.http import request
-from odoo.tools import get_lang
-from odoo.tools.sql import column_exists, create_column
+from loomworks import api, Command, fields, models, _
+from loomworks.addons.mail.tools.discuss import Store
+from loomworks.exceptions import UserError
+from loomworks.http import request
+from loomworks.tools import get_lang
+from loomworks.tools.sql import column_exists, create_column
 
 
 class WebsiteVisitor(models.Model):

@@ -1,7 +1,7 @@
-from odoo.addons.account.tests.test_taxes_tax_totals_summary import TestTaxesTaxTotalsSummary
-from odoo.addons.sale.tests.common import TestTaxCommonSale
-from odoo.fields import Command
-from odoo.tests import tagged
+from loomworks.addons.account.tests.test_taxes_tax_totals_summary import TestTaxesTaxTotalsSummary
+from loomworks.addons.sale.tests.common import TestTaxCommonSale
+from loomworks.fields import Command
+from loomworks.tests import tagged
 
 
 @tagged('post_install', '-at_install')

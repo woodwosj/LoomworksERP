@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import json
 
 from babel.dates import format_date
@@ -10,12 +10,12 @@ from functools import partial
 from pytz import timezone
 from random import randint
 
-from odoo import api, exceptions, fields, models, _
-from odoo.exceptions import UserError, ValidationError
-from odoo.addons.resource.models.utils import make_aware, Intervals
-from odoo.tools.date_utils import start_of, end_of
-from odoo.tools.float_utils import float_compare, float_round
-from odoo.tools.misc import get_lang
+from loomworks import api, exceptions, fields, models, _
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.addons.resource.models.utils import make_aware, Intervals
+from loomworks.tools.date_utils import start_of, end_of
+from loomworks.tools.float_utils import float_compare, float_round
+from loomworks.tools.misc import get_lang
 
 
 class MrpWorkcenter(models.Model):

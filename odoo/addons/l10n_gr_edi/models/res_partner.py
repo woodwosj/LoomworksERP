@@ -1,5 +1,5 @@
-from odoo import api, fields, models
-from odoo.tools.sql import column_exists, create_column
+from loomworks import api, fields, models
+from loomworks.tools.sql import column_exists, create_column
 
 
 class ResPartner(models.Model):

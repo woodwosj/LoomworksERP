@@ -20,8 +20,8 @@ Provides REST API for frontend Univer integration:
 import json
 import logging
 
-from odoo import http
-from odoo.http import request, Response
+from loomworks import http
+from loomworks.http import request, Response
 
 _logger = logging.getLogger(__name__)
 
@@ -233,7 +233,7 @@ class SpreadsheetController(http.Controller):
         Returns:
             dict: Preview data
         """
-        from odoo.tools.safe_eval import safe_eval
+        from loomworks.tools.safe_eval import safe_eval
 
         if model not in request.env:
             return {'error': f"Model '{model}' not found", 'code': 404}
@@ -417,7 +417,7 @@ class SpreadsheetController(http.Controller):
         Returns:
             dict: Preview pivot data
         """
-        from odoo.tools.safe_eval import safe_eval
+        from loomworks.tools.safe_eval import safe_eval
 
         if model not in request.env:
             return {'error': f"Model '{model}' not found", 'code': 404}
@@ -515,7 +515,7 @@ class SpreadsheetController(http.Controller):
         Returns:
             dict: Preview chart data
         """
-        from odoo.tools.safe_eval import safe_eval
+        from loomworks.tools.safe_eval import safe_eval
 
         if model not in request.env:
             return {'error': f"Model '{model}' not found", 'code': 404}

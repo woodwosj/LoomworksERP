@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { queryAll } from "@odoo/hoot-dom";
 import { registry } from "@web/core/registry";

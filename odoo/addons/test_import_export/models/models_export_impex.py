@@ -1,5 +1,5 @@
-from odoo import api, fields, models, _
-from odoo.osv.expression import FALSE_DOMAIN
+from loomworks import api, fields, models, _
+from loomworks.osv.expression import FALSE_DOMAIN
 
 
 def selection_fn(self):

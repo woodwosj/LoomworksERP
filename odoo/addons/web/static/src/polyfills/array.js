@@ -1,4 +1,4 @@
-// @odoo-module ignore
+// @loomworks-module ignore
 if (!Array.prototype.at) {
     Object.defineProperty(Array.prototype, "at", {
         enumerable: false,

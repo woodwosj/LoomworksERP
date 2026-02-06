@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
   <!--
     Odoo QWeb template for generating a Polish KSeF e-invoice in FA(3) XML format.
     This template maps Odoo's invoice data model to the official XML structure required by the Polish tax authorities.
@@ -22,7 +22,7 @@
         <!-- Timestamp of the XML file generation. -->
         <DataWytworzeniaFa t-out="DataWytworzeniaFa"/>
         <!-- Information about the system that generated the file. -->
-        <SystemInfo>Odoo</SystemInfo>
+        <SystemInfo>Loomworks</SystemInfo>
       </Naglowek>
 
       <!--
@@ -339,4 +339,4 @@
       </Fa>
     </Faktura>
   </template>
-</odoo>
+</loomworks>

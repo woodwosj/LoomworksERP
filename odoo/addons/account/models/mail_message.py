@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import api, fields, models
-from odoo.exceptions import UserError
-from odoo.osv.expression import OR
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import api, fields, models
+from loomworks.exceptions import UserError
+from loomworks.osv.expression import OR
 
 bypass_token = object()
 DOMAINS = {

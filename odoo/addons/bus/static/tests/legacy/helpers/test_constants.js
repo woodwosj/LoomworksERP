@@ -1,4 +1,4 @@
-/** @odoo-module alias=@bus/../tests/helpers/test_constants default=false */
+/** @loomworks-module alias=@bus/../tests/helpers/test_constants default=false */
 
 export const TEST_GROUP_IDS = {
     groupUserId: 11,

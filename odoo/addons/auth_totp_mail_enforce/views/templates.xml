@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <template id="auth_totp_mail_form" inherit_id="auth_totp.auth_totp_form">
         <xpath expr="//form/div[1]" position="attributes">
             <attribute name="t-if">user._mfa_type() == 'totp'</attribute>
@@ -25,4 +25,4 @@
             </div>
         </xpath>
     </template>
-</odoo>
+</loomworks>

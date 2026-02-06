@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="report_invoice_document" inherit_id="account.report_invoice_document" primary="True">
         <xpath expr="//div[hasclass('page')]/t[@t-set='layout_document_title']" position="replace">
             <t t-set="layout_document_title">
@@ -26,4 +26,4 @@
                t-lang="lang"/>
         </xpath>
     </template>
-</odoo>
+</loomworks>

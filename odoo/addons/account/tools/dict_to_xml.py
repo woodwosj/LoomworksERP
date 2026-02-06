@@ -1,5 +1,5 @@
 from lxml import etree
-from odoo.tools.xml_utils import remove_control_characters
+from loomworks.tools.xml_utils import remove_control_characters
 
 
 def dict_to_xml(node, *, nsmap={}, template=None, render_empty_nodes=False, tag=None, path=None):

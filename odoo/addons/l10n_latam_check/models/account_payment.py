@@ -1,6 +1,6 @@
-from odoo import fields, models, api, Command, _
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools.misc import format_date
+from loomworks import fields, models, api, Command, _
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools.misc import format_date
 
 
 class AccountPayment(models.Model):

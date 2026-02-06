@@ -3,7 +3,7 @@ import hashlib
 from copy import deepcopy
 from lxml import etree
 
-from odoo.exceptions import UserError
+from loomworks.exceptions import UserError
 
 NS_MAP = {'ds': "http://www.w3.org/2000/09/xmldsig#"}
 

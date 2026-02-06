@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 
-from odoo import _, api, fields, models, tools
-from odoo.osv import expression
-from odoo.tools.misc import limited_field_access_token
-from odoo.addons.mail.tools.discuss import Store
+from loomworks import _, api, fields, models, tools
+from loomworks.osv import expression
+from loomworks.tools.misc import limited_field_access_token
+from loomworks.addons.mail.tools.discuss import Store
 
 
 class Partner(models.Model):

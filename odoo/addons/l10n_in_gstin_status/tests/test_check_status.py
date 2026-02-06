@@ -1,10 +1,10 @@
 from unittest.mock import patch
 from freezegun import freeze_time
 
-from odoo.addons.l10n_in.models.iap_account import IapAccount
-from odoo.tests.common import TransactionCase, tagged
-from odoo.exceptions import UserError
-from odoo.tools import mute_logger
+from loomworks.addons.l10n_in.models.iap_account import IapAccount
+from loomworks.tests.common import TransactionCase, tagged
+from loomworks.exceptions import UserError
+from loomworks.tools import mute_logger
 from datetime import date
 
 
@@ -49,7 +49,7 @@ class TestGSTStatusFeature(TransactionCase):
         self.env.company.account_fiscal_country_id = self.env.ref("base.in")
 
     @freeze_time('2024-05-20')
-    @mute_logger('odoo.addons.l10n_in_gstin_status.models.res_partner')
+    @mute_logger('loomworks.addons.l10n_in_gstin_status.models.res_partner')
     def check_gstin_status(self, partner, expected_status, mock_response, raises_exception=False):
         with patch.object(IapAccount, "_l10n_in_connect_to_server", return_value=mock_response):
             if raises_exception:

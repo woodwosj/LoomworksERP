@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from lxml import html
 from unittest.mock import patch
 
-from odoo import http
-from odoo.addons.website.models.website import Website
-import odoo.tests
+from loomworks import http
+from loomworks.addons.website.models.website import Website
+import loomworks.tests
 
-from odoo.addons.base.tests.common import HttpCaseWithUserDemo
+from loomworks.addons.base.tests.common import HttpCaseWithUserDemo
 
 
-@odoo.tests.common.tagged('post_install', '-at_install')
+@loomworks.tests.common.tagged('post_install', '-at_install')
 class TestWebsiteSession(HttpCaseWithUserDemo):
 
     def test_01_run_test(self):
@@ -20,11 +20,11 @@ class TestWebsiteSession(HttpCaseWithUserDemo):
         session = self.authenticate(None, None)
         self.env.ref('base.lang_fr').active = False
         session.context['lang'] = 'fr_FR'
-        odoo.http.root.session_store.save(session)
+        loomworks.http.root.session_store.save(session)
 
         # ensure that _get_current_website_id will be able to match a website
-        current_website_id = self.env["website"]._get_current_website_id(odoo.tests.HOST)
-        self.env["website"].browse(current_website_id).domain = odoo.tests.HOST
+        current_website_id = self.env["website"]._get_current_website_id(loomworks.tests.HOST)
+        self.env["website"].browse(current_website_id).domain = loomworks.tests.HOST
 
         res = self.url_open('/test_website_sitemap')  # any auth='public' route would do
         res.raise_for_status()
@@ -33,11 +33,11 @@ class TestWebsiteSession(HttpCaseWithUserDemo):
         session = self.authenticate(None, None)
         self.env.ref('base.lang_fr').active = False
         session.context['lang'] = 'fr_FR'
-        odoo.http.root.session_store.save(session)
+        loomworks.http.root.session_store.save(session)
 
         # ensure that _get_current_website_id will be able to match a website
-        current_website_id = self.env["website"]._get_current_website_id(odoo.tests.HOST)
-        self.env["website"].browse(current_website_id).domain = odoo.tests.HOST
+        current_website_id = self.env["website"]._get_current_website_id(loomworks.tests.HOST)
+        self.env["website"].browse(current_website_id).domain = loomworks.tests.HOST
 
         with patch.object(self.env.registry["res.users"], "_mfa_url", return_value="/web/login/totp"):
             res = self.url_open('/web/login', allow_redirects=False, data={

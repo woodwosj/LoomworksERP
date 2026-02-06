@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import threading
-from odoo import api, fields, models
-from odoo.tools.translate import xml_translate
-from odoo.modules.module import get_resource_from_path
+from loomworks import api, fields, models
+from loomworks.tools.translate import xml_translate
+from loomworks.modules.module import get_resource_from_path
 
-from odoo.addons.base.models.ir_asset import AFTER_DIRECTIVE, APPEND_DIRECTIVE, BEFORE_DIRECTIVE, DEFAULT_SEQUENCE, INCLUDE_DIRECTIVE, PREPEND_DIRECTIVE, REMOVE_DIRECTIVE, REPLACE_DIRECTIVE
+from loomworks.addons.base.models.ir_asset import AFTER_DIRECTIVE, APPEND_DIRECTIVE, BEFORE_DIRECTIVE, DEFAULT_SEQUENCE, INCLUDE_DIRECTIVE, PREPEND_DIRECTIVE, REMOVE_DIRECTIVE, REPLACE_DIRECTIVE
 
 _logger = logging.getLogger(__name__)
 

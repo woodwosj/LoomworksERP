@@ -1,17 +1,17 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 
-from odoo.fields import Command
-from odoo.tests import tagged
+from loomworks.fields import Command
+from loomworks.tests import tagged
 
-from odoo.addons.base.tests.common import HttpCaseWithUserDemo, HttpCaseWithUserPortal
-from odoo.addons.sale.tests.product_configurator_common import TestProductConfiguratorCommon
-from odoo.addons.website.tools import MockRequest
-from odoo.addons.website_sale.controllers.product_configurator import (
+from loomworks.addons.base.tests.common import HttpCaseWithUserDemo, HttpCaseWithUserPortal
+from loomworks.addons.sale.tests.product_configurator_common import TestProductConfiguratorCommon
+from loomworks.addons.website.tools import MockRequest
+from loomworks.addons.website_sale.controllers.product_configurator import (
     WebsiteSaleProductConfiguratorController,
 )
-from odoo.addons.website_sale.tests.common import WebsiteSaleCommon
+from loomworks.addons.website_sale.tests.common import WebsiteSaleCommon
 
 
 @tagged('post_install', '-at_install')

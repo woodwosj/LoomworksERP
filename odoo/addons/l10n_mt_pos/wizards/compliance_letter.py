@@ -1,6 +1,6 @@
-from odoo import models, fields, release, _
+from loomworks import models, fields, release, _
 from datetime import datetime
-from odoo.exceptions import UserError
+from loomworks.exceptions import UserError
 
 class ComplianceLetter(models.TransientModel):
     _name = 'compliance.letter.wizard'

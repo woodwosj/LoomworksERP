@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<odoo>
+<loomworks>
     <data>
         <record id="ir_cron_update_status" model="ir.cron">
             <field name="name">NAV 3.0: Update status of pending invoices</field>
@@ -13,4 +13,4 @@
             <field name="nextcall" eval="DateTime.now().strftime('%Y-%m-%d 22:00:00')"/>
         </record>
      </data>
-</odoo>
+</loomworks>

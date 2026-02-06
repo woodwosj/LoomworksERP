@@ -62,7 +62,7 @@ registerWebsitePreviewTour(
             content: "Verify that we are redirected to the backend blog post form view.",
             trigger: ".o_form_view",
             run: () => {
-                if (!window.location.href.includes("/odoo/website/blog.post/")) {
+                if (!window.location.href.includes("/loomworks/website/blog.post/")) {
                     throw new Error("We should be on the blog page backend view");
                 }
             },

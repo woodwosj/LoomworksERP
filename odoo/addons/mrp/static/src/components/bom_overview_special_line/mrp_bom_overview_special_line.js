@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { formatFloat, formatFloatTime, formatMonetary } from "@web/views/fields/formatters";
 import { Component } from "@odoo/owl";

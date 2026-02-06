@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
-from odoo import models
-from odoo.exceptions import AccessDenied, AccessError
+from loomworks import models
+from loomworks.exceptions import AccessDenied, AccessError
 
 
 class IrWebsocket(models.AbstractModel):

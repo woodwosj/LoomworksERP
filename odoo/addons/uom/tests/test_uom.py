@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.exceptions import ValidationError
+from loomworks.exceptions import ValidationError
 
-from odoo.addons.uom.tests.common import UomCommon
+from loomworks.addons.uom.tests.common import UomCommon
 
 
 class TestUom(UomCommon):

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from contextlib import contextmanager
 
-from odoo import Command, fields
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.tests import Form, tagged
+from loomworks import Command, fields
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.tests import Form, tagged
 from unittest.mock import patch
 
 

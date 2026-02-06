@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
+<loomworks noupdate="1">
     <!--
         l10n_in_code use in export GSTR hsn section report.
     -->
@@ -81,4 +81,4 @@
     <record id="uom.product_uom_cubic_foot" model="uom.uom">
         <field name="l10n_in_code">OTH-OTHERS</field>
     </record>
-</odoo>
+</loomworks>

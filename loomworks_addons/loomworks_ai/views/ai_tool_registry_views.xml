@@ -5,7 +5,7 @@
 
     AI Tool Registry Views
 -->
-<odoo>
+<loomworks>
 
     <!-- Form View -->
     <record id="view_ai_tool_registry_form" model="ir.ui.view">
@@ -70,4 +70,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

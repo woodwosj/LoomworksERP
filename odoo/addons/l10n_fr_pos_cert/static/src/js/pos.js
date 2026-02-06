@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { PosStore } from "@point_of_sale/app/store/pos_store";
 import { _t } from "@web/core/l10n/translation";

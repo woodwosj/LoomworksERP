@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <record id="view_afip_earnings_table_scale_tree" model="ir.ui.view">
         <field name="name">l10n_ar.earnings.scale.tree</field>
@@ -58,4 +58,4 @@
 
     <menuitem name="Earnings Scale" action="act_afip_earnings_table_scale" id="menu_action_afip_earnings_table_scale_line" sequence="95" parent="l10n_ar.menu_afip_config"/>
 
-</odoo>
+</loomworks>

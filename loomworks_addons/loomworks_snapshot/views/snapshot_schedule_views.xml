@@ -7,7 +7,7 @@
     Loomworks modifications copyright: Loomworks
     License: LGPL-3
 -->
-<odoo>
+<loomworks>
     <!-- Action for schedule's snapshots (must be defined before form view that references it) -->
     <record id="action_schedule_snapshots" model="ir.actions.act_window">
         <field name="name">Snapshots from Schedule</field>
@@ -133,4 +133,4 @@
     </record>
 
 
-</odoo>
+</loomworks>

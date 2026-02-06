@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="mojeracun_reject_wizard_form" model="ir.ui.view">
         <field name="name">l10n_hr_edi.mojeracun_reject_wizard.form</field>
         <field name="model">l10n_hr_edi.mojeracun_reject_wizard</field>
@@ -24,4 +24,4 @@
             </form>
         </field>
     </record>
-</odoo>
+</loomworks>

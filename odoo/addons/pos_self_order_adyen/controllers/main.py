@@ -1,7 +1,7 @@
 import logging
-from odoo.addons.pos_adyen.controllers.main import PosAdyenController
-from odoo import fields
-from odoo.http import request
+from loomworks.addons.pos_adyen.controllers.main import PosAdyenController
+from loomworks import fields
+from loomworks.http import request
 
 _logger = logging.getLogger(__name__)
 

@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/helpers/mount_in_fixture default=false**/
+/** @loomworks-module alias=@web/../tests/helpers/mount_in_fixture default=false**/
 
 import { App, Component, xml } from "@odoo/owl";
 import { registerCleanup } from "@web/../tests/helpers/cleanup";

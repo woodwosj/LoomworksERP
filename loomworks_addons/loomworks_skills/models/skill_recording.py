@@ -20,8 +20,8 @@ Recording Flow:
 5. New LoomworksSkill is created with generated steps
 """
 
-from odoo import models, fields, api
-from odoo.exceptions import UserError
+from loomworks import models, fields, api
+from loomworks.exceptions import UserError
 import json
 import logging
 from datetime import datetime
@@ -479,7 +479,7 @@ class LoomworksSkillRecordingAction(models.Model):
     # Model and method
     model_name = fields.Char(
         string='Model',
-        help='Odoo model name'
+        help='Loomworks model name'
     )
     method_name = fields.Char(
         string='Method',

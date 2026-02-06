@@ -5,10 +5,10 @@ import io
 from lxml import etree
 from xml.sax.saxutils import escape, quoteattr
 
-from odoo import _, api, fields, models, tools, SUPERUSER_ID
-from odoo.addons.account_edi_ubl_cii.models.account_edi_common import SUPPORTED_FILE_TYPES
-from odoo.tools import cleanup_xml_node
-from odoo.tools.pdf import OdooPdfFileReader, OdooPdfFileWriter
+from loomworks import _, api, fields, models, tools, SUPERUSER_ID
+from loomworks.addons.account_edi_ubl_cii.models.account_edi_common import SUPPORTED_FILE_TYPES
+from loomworks.tools import cleanup_xml_node
+from loomworks.tools.pdf import OdooPdfFileReader, OdooPdfFileWriter
 
 _logger = logging.getLogger(__name__)
 

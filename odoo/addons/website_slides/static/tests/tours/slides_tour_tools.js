@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { getDataURLFromFile } from "@web/core/utils/urls";
 

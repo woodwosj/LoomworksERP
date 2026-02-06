@@ -3,9 +3,9 @@ import logging
 import pprint
 import json
 from urllib.parse import parse_qs
-from odoo import http
-from odoo.http import request
-from odoo.tools import consteq
+from loomworks import http
+from loomworks.http import request
+from loomworks.tools import consteq
 
 _logger = logging.getLogger(__name__)
 

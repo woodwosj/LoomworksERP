@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import io
 import zipfile
 
-from odoo import http, _
-from odoo.http import request, content_disposition
+from loomworks import http, _
+from loomworks.http import request, content_disposition
 
 
 def _get_headers(filename, filetype, content):

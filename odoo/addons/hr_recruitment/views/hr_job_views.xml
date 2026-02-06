@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
 
     <record model="ir.actions.act_window" id="action_hr_job_new_application">
         <field name="name">New Application</field>
@@ -386,4 +386,4 @@
             </p>
         </field>
     </record>
-</odoo>
+</loomworks>

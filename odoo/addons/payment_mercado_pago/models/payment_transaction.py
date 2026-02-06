@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import pprint
@@ -6,12 +6,12 @@ from urllib.parse import quote as url_quote
 
 from werkzeug import urls
 
-from odoo import _, api, models
-from odoo.exceptions import ValidationError
-from odoo.tools import float_round
+from loomworks import _, api, models
+from loomworks.exceptions import ValidationError
+from loomworks.tools import float_round
 
-from odoo.addons.payment_mercado_pago import const
-from odoo.addons.payment_mercado_pago.controllers.main import MercadoPagoController
+from loomworks.addons.payment_mercado_pago import const
+from loomworks.addons.payment_mercado_pago.controllers.main import MercadoPagoController
 
 
 _logger = logging.getLogger(__name__)

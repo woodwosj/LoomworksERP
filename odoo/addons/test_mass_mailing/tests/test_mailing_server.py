@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.test_mass_mailing.tests.common import TestMassMailCommon
-from odoo.exceptions import UserError
-from odoo.tests import tagged
-from odoo.tests.common import users
-from odoo.tools import mute_logger
+from loomworks.addons.test_mass_mailing.tests.common import TestMassMailCommon
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
+from loomworks.tests.common import users
+from loomworks.tools import mute_logger
 
 
 @tagged('mass_mailing', 'mail_server')
@@ -71,7 +71,7 @@ class TestMassMailingServer(TestMassMailCommon):
         self.assertFalse(servers.filtered('active'), 'All servers must be archived')
 
     @users('user_marketing')
-    @mute_logger('odoo.addons.mail.models.mail_mail', 'odoo.models.unlink', 'odoo.addons.mass_mailing.models.mailing')
+    @mute_logger('loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink', 'loomworks.addons.mass_mailing.models.mailing')
     def test_mass_mailing_server_find(self):
         """Test that the right mail server is chosen to send the mailing.
 

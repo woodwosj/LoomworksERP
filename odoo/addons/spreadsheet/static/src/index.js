@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 /**
  * This file is meant to load the different subparts of the module

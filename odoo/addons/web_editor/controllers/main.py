@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import io
 import json
 import logging
@@ -13,10 +13,10 @@ import werkzeug.urls
 from lxml import etree
 from PIL import Image, ImageDraw, ImageFont
 
-from odoo import http, tools
-from odoo.http import STATIC_CACHE, Response, request
-from odoo.tools.image import binary_to_image, image_data_uri, get_webp_size
-from odoo.tools.misc import file_open
+from loomworks import http, tools
+from loomworks.http import STATIC_CACHE, Response, request
+from loomworks.tools.image import binary_to_image, image_data_uri, get_webp_size
+from loomworks.tools.misc import file_open
 
 try:
     from werkzeug.utils import send_file

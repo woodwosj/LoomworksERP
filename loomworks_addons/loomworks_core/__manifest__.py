@@ -31,6 +31,7 @@ Original software: https://github.com/odoo/odoo
         'base',
         'web',
         'mail',
+        'mail_bot',
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -43,6 +44,8 @@ Original software: https://github.com/odoo/odoo
         'web.assets_backend': [
             'loomworks_core/static/src/scss/loomworks_backend.scss',
             'loomworks_core/static/src/xml/webclient_templates.xml',
+            'loomworks_core/static/src/js/title_service.js',
+            'loomworks_core/static/src/js/dialog_patch.js',
         ],
         'web.assets_frontend': [
             'loomworks_core/static/src/scss/loomworks_backend.scss',

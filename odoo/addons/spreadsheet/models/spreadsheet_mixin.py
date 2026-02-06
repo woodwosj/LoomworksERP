@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import io
 import zipfile
 import base64
@@ -8,10 +8,10 @@ import re
 
 from collections import defaultdict
 
-from odoo import api, fields, models, _, tools
-from odoo.exceptions import ValidationError, MissingError
+from loomworks import api, fields, models, _, tools
+from loomworks.exceptions import ValidationError, MissingError
 
-from odoo.addons.spreadsheet.utils.validate_data import fields_in_spreadsheet, menus_xml_ids_in_spreadsheet
+from loomworks.addons.spreadsheet.utils.validate_data import fields_in_spreadsheet, menus_xml_ids_in_spreadsheet
 
 class SpreadsheetMixin(models.AbstractModel):
     _name = "spreadsheet.mixin"

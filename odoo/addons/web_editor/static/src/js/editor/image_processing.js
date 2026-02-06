@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { rpc } from "@web/core/network/rpc";
 import { pick } from "@web/core/utils/objects";

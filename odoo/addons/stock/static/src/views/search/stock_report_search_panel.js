@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { SearchPanel } from "@web/search/search_panel/search_panel";
 

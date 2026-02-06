@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 
-from odoo import models, api, fields, _
+from loomworks import models, api, fields, _
 
 
 class DataRecycleRecord(models.Model):

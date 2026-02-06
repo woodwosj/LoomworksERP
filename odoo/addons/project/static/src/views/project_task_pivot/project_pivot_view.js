@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { registry } from "@web/core/registry";
 import { pivotView } from "@web/views/pivot/pivot_view";

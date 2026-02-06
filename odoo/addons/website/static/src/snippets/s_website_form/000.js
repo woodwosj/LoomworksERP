@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
     import {ReCaptcha} from "@google_recaptcha/js/recaptcha";
     import { session } from "@web/session";

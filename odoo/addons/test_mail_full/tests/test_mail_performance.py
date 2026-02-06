@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 from markupsafe import Markup
 
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.test_mail.tests.test_performance import BaseMailPerformance
-from odoo.tests.common import users, warmup
-from odoo.tests import tagged
-from odoo.tools import mute_logger
-from odoo.tools.mimetypes import magic
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.test_mail.tests.test_performance import BaseMailPerformance
+from loomworks.tests.common import users, warmup
+from loomworks.tests import tagged
+from loomworks.tools import mute_logger
+from loomworks.tools.mimetypes import magic
 
 
 @tagged('mail_performance', 'post_install', '-at_install')
@@ -84,7 +84,7 @@ class TestMailPerformance(FullBaseMailPerformance):
                          self.user_emp_email.partner_id + self.user_admin.partner_id + self.customers + self.user_portal.partner_id)
         self.assertEqual(len(record_ticket.message_ids), 1)
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('employee')
     @warmup
     def test_message_post_w_followers(self):
@@ -235,7 +235,7 @@ class TestPortalFormatPerformance(FullBaseMailPerformance):
         self.assertEqual(len(self.messages_all), 5 * 2)
         self.assertEqual(len(self.ratings_all), len(self.messages_all) * 2)
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('employee')
     @warmup
     def test_portal_message_format_norating(self):
@@ -288,7 +288,7 @@ class TestPortalFormatPerformance(FullBaseMailPerformance):
             self.assertNotIn('rating_stats', format_res)
             self.assertNotIn('rating_value', format_res)
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('employee')
     @warmup
     def test_portal_message_format_rating(self):
@@ -310,7 +310,7 @@ class TestPortalFormatPerformance(FullBaseMailPerformance):
             )
             self.assertEqual(format_res['rating_value'], 4)
 
-    @mute_logger('odoo.tests', 'odoo.addons.mail.models.mail_mail', 'odoo.models.unlink')
+    @mute_logger('loomworks.tests', 'loomworks.addons.mail.models.mail_mail', 'loomworks.models.unlink')
     @users('employee')
     @warmup
     def test_portal_message_format_monorecord(self):

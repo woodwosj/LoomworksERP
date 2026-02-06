@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { CodeEditor } from "@web/core/code_editor/code_editor";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <template id="external_layout_boxed" inherit_id="web.external_layout_boxed" primary="True">
             <xpath expr="//div[contains(@t-attf-class, 'header')]/div" position="replace">
@@ -116,4 +116,4 @@
             </t>
         </template>
     </data>
-</odoo>
+</loomworks>

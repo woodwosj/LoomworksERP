@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 
-import odoo.tests
+import loomworks.tests
 
 
-@odoo.tests.common.tagged('post_install', '-at_install')
-class TestUi(odoo.tests.HttpCase):
+@loomworks.tests.common.tagged('post_install', '-at_install')
+class TestUi(loomworks.tests.HttpCase):
 
     def setUp(self):
         super().setUp()
@@ -14,7 +14,7 @@ class TestUi(odoo.tests.HttpCase):
         def _get_title_from_url(addr, **kw):
             return 'Contact Us | My Website'
 
-        patcher = patch('odoo.addons.link_tracker.models.link_tracker.LinkTracker._get_title_from_url', wraps=_get_title_from_url)
+        patcher = patch('loomworks.addons.link_tracker.models.link_tracker.LinkTracker._get_title_from_url', wraps=_get_title_from_url)
         self.startPatcher(patcher)
 
     def test_01_test_ui(self):

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data noupdate="1">
 
         <!-- Studio Module Category -->
@@ -34,4 +34,4 @@
         </record>
 
     </data>
-</odoo>
+</loomworks>

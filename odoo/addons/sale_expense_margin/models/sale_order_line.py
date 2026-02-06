@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models, fields
+from loomworks import api, models, fields
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"

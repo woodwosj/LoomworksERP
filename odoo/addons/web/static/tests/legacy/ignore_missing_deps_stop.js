@@ -1,3 +1,3 @@
-// @odoo-module ignore
+// @loomworks-module ignore
 
 window.__odooIgnoreMissingDependencies = false;

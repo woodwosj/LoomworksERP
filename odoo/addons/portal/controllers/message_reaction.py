@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.http import request
-from odoo.addons.mail.controllers.message_reaction import MessageReactionController
-from odoo.addons.portal.utils import get_portal_partner
+from loomworks.http import request
+from loomworks.addons.mail.controllers.message_reaction import MessageReactionController
+from loomworks.addons.portal.utils import get_portal_partner
 
 
 class PortalMessageReactionController(MessageReactionController):

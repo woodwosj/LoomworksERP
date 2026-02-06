@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo.tests
+import loomworks.tests
 
-from odoo import Command
-from odoo.addons.account.tests.common import AccountTestInvoicingHttpCommon
+from loomworks import Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingHttpCommon
 
 
-@odoo.tests.tagged('post_install_l10n', 'post_install', '-at_install')
+@loomworks.tests.tagged('post_install_l10n', 'post_install', '-at_install')
 class TestUi(AccountTestInvoicingHttpCommon):
 
     @classmethod
@@ -61,7 +61,7 @@ class TestUi(AccountTestInvoicingHttpCommon):
             ('state', '=', 'draft'),
         ]).unlink()
 
-        self.start_tour("/odoo", 'account_tour', login="admin")
+        self.start_tour("/loomworks", 'account_tour', login="admin")
 
     def test_01_account_tax_groups_tour(self):
         self.env.ref('base.user_admin').write({
@@ -86,12 +86,12 @@ class TestUi(AccountTestInvoicingHttpCommon):
         })
         product.supplier_taxes_id = new_tax
 
-        self.start_tour("/odoo", 'account_tax_group', login="admin")
+        self.start_tour("/loomworks", 'account_tax_group', login="admin")
 
     def test_section_saved_on_tab_keydown_tour(self):
         self.env['res.partner'].create({
             'name': 'Partner A',
         })
-        self.start_tour('/odoo/customer-invoices', 'section_saved_on_tab_keydown_tour', login='accountman')
+        self.start_tour('/loomworks/customer-invoices', 'section_saved_on_tab_keydown_tour', login='accountman')
         invoice = self.env['account.move'].search([('move_type', '=', 'out_invoice')])
         self.assertEqual(invoice.invoice_line_ids[0].name, 'Section content')

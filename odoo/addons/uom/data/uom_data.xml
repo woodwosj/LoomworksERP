@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
+<loomworks noupdate="1">
 
     <!-- UOM Categories -->
     <record id="product_uom_categ_unit" model="uom.category">
@@ -221,4 +221,4 @@
         <field name="uom_type">reference</field>
     </record>
 
-</odoo>
+</loomworks>

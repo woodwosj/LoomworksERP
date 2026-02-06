@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo.tests
-from odoo.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
-from odoo import Command
+import loomworks.tests
+from loomworks.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
+from loomworks import Command
 
 
-@odoo.tests.tagged('post_install_l10n', 'post_install', '-at_install')
+@loomworks.tests.tagged('post_install_l10n', 'post_install', '-at_install')
 class TestUi(TestPointOfSaleHttpCommon):
     @classmethod
     def _get_main_company(cls):

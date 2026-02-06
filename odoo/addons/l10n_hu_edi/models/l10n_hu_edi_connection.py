@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from base64 import b64decode, b64encode
 import binascii
@@ -13,8 +13,8 @@ import dateutil.parser
 from lxml import etree
 import requests
 
-from odoo import _, release
-from odoo.tools import cleanup_xml_node
+from loomworks import _, release
+from loomworks.tools import cleanup_xml_node
 
 
 _logger = logging.getLogger(__name__)

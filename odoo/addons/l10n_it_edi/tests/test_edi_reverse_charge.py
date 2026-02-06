@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import namedtuple
 
-from odoo import Command, fields
-from odoo.tests import tagged
-from odoo.addons.l10n_it_edi.tests.common import TestItEdi
+from loomworks import Command, fields
+from loomworks.tests import tagged
+from loomworks.addons.l10n_it_edi.tests.common import TestItEdi
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

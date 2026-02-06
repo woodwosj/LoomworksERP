@@ -1,6 +1,6 @@
-from odoo import Command, fields
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import HttpCase, tagged
+from loomworks import Command, fields
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import HttpCase, tagged
 
 import json
 

@@ -1,5 +1,5 @@
-from odoo import http
-from odoo.addons.pos_self_order.controllers.orders import PosSelfOrderController
+from loomworks import http
+from loomworks.addons.pos_self_order.controllers.orders import PosSelfOrderController
 from werkzeug.exceptions import Unauthorized
 
 

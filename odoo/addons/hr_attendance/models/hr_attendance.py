@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import pytz
 
@@ -10,14 +10,14 @@ from operator import itemgetter
 from pytz import timezone
 from random import randint
 
-from odoo.http import request
-from odoo import models, fields, api, exceptions, _
-from odoo.addons.resource.models.utils import Intervals, sum_intervals
-from odoo.osv.expression import AND, OR
-from odoo.tools.float_utils import float_is_zero
-from odoo.exceptions import AccessError
-from odoo.tools import convert, format_duration, format_time, format_datetime
-from odoo.tools.float_utils import float_compare
+from loomworks.http import request
+from loomworks import models, fields, api, exceptions, _
+from loomworks.addons.resource.models.utils import Intervals, sum_intervals
+from loomworks.osv.expression import AND, OR
+from loomworks.tools.float_utils import float_is_zero
+from loomworks.exceptions import AccessError
+from loomworks.tools import convert, format_duration, format_time, format_datetime
+from loomworks.tools.float_utils import float_compare
 
 def get_google_maps_url(latitude, longitude):
     return "https://maps.google.com?q=%s,%s" % (latitude, longitude)

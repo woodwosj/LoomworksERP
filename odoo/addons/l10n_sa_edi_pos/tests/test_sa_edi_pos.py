@@ -1,11 +1,11 @@
 from unittest.mock import patch
 
-from odoo.tests import tagged
+from loomworks.tests import tagged
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.l10n_sa_edi.tests.common import AccountEdiTestCommon
-from odoo.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
-from odoo.addons.point_of_sale.tests.test_generic_localization import TestGenericLocalization
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.l10n_sa_edi.tests.common import AccountEdiTestCommon
+from loomworks.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
+from loomworks.addons.point_of_sale.tests.test_generic_localization import TestGenericLocalization
 
 
 @tagged('post_install', '-at_install', 'post_install_l10n')
@@ -42,7 +42,7 @@ class TestUi(TestPointOfSaleHttpCommon):
     def setUpClass(cls):
         super().setUpClass()
 
-    @patch('odoo.addons.l10n_sa_edi.models.account_journal.AccountJournal._l10n_sa_ready_to_submit_einvoices',
+    @patch('loomworks.addons.l10n_sa_edi.models.account_journal.AccountJournal._l10n_sa_ready_to_submit_einvoices',
            new=lambda self: True)
     def test_ZATCA_invoice_not_mandatory_if_settlement(self):
         """
@@ -55,7 +55,7 @@ class TestUi(TestPointOfSaleHttpCommon):
             login="pos_admin",
         )
 
-    @patch('odoo.addons.l10n_sa_edi.models.account_journal.AccountJournal._l10n_sa_ready_to_submit_einvoices',
+    @patch('loomworks.addons.l10n_sa_edi.models.account_journal.AccountJournal._l10n_sa_ready_to_submit_einvoices',
            new=lambda self: True)
     def test_ZATCA_invoice_mandatory_if_not_settlement(self):
         """

@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-from odoo.tests import freeze_time, tagged
-from odoo.addons.l10n_it_edi.tests.common import TestItEdi
+from loomworks import Command
+from loomworks.tests import freeze_time, tagged
+from loomworks.addons.l10n_it_edi.tests.common import TestItEdi
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo>
+<loomworks>
     <template id="oioubl_PaymentTermsType" inherit_id="account_edi_ubl_cii.ubl_20_PaymentTermsType" primary="True">
         <xpath expr="//*[local-name()='Amount']" position="after">
             <t xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
@@ -18,4 +18,4 @@
             <attribute name="t-if">not invoice.partner_bank_id in supplier.bank_ids</attribute>
         </xpath>
     </template>
-</odoo>
+</loomworks>

@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { queryFirst } from '@odoo/hoot-dom';
 import {

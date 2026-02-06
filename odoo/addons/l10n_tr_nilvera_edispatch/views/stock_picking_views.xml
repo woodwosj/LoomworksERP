@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <record id="vpicktree_inherit_l10n_tr_nilvera_edispatch" model="ir.ui.view">
         <field name="name">stock.picking.view.list.inherit</field>
@@ -93,4 +93,4 @@ records.action_generate_l10n_tr_edispatch_xml(is_list=True)
 records.action_mark_l10n_tr_edispatch_status()
         </field>
     </record>
-</odoo>
+</loomworks>

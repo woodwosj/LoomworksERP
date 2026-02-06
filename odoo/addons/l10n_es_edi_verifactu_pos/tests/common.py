@@ -1,7 +1,7 @@
-from odoo import Command
+from loomworks import Command
 
-from odoo.addons.l10n_es_edi_verifactu.tests.common import TestL10nEsEdiVerifactuCommon
-from odoo.addons.point_of_sale.tests.common import TestPoSCommon
+from loomworks.addons.l10n_es_edi_verifactu.tests.common import TestL10nEsEdiVerifactuCommon
+from loomworks.addons.point_of_sale.tests.common import TestPoSCommon
 
 
 class TestL10nEsEdiVerifactuPosCommon(TestL10nEsEdiVerifactuCommon, TestPoSCommon):

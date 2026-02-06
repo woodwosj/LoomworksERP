@@ -24,8 +24,8 @@ Step Types:
 - ai_decision: Let AI decide next action
 """
 
-from odoo import models, fields, api
-from odoo.exceptions import ValidationError
+from loomworks import models, fields, api
+from loomworks.exceptions import ValidationError
 import json
 import logging
 
@@ -159,8 +159,8 @@ class LoomworksSkillStep(models.Model):
     # =====================
     action_id = fields.Many2one(
         'ir.actions.actions',
-        string='Odoo Action',
-        help='Odoo action to execute (for action type)'
+        string='Loomworks Action',
+        help='Loomworks action to execute (for action type)'
     )
     action_context = fields.Text(
         string='Action Context',
@@ -349,7 +349,7 @@ class LoomworksSkillStep(models.Model):
         if not self.condition_expression:
             return True
 
-        from odoo.tools.safe_eval import safe_eval
+        from loomworks.tools.safe_eval import safe_eval
 
         try:
             return bool(safe_eval(
@@ -378,7 +378,7 @@ class LoomworksSkillStep(models.Model):
         if not self.loop_collection_expr:
             return []
 
-        from odoo.tools.safe_eval import safe_eval
+        from loomworks.tools.safe_eval import safe_eval
 
         try:
             result = safe_eval(
@@ -409,7 +409,7 @@ class LoomworksSkillStep(models.Model):
         if not self.output_transform:
             return output
 
-        from odoo.tools.safe_eval import safe_eval
+        from loomworks.tools.safe_eval import safe_eval
 
         try:
             return safe_eval(

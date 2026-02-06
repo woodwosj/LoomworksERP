@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <!-- Call this template instead of "web.assets_tests" to have the proper conditional check -->
     <template id="conditional_assets_tests" name="Tests Assets Bundle">
@@ -385,4 +385,4 @@
             <owl-component name="web.install_scoped_app" />
         </t>
     </template>
-</odoo>
+</loomworks>

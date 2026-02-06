@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.utm.models.utm_mixin import UtmMixin
-from odoo.addons.utm.tests.common import TestUTMCommon
-from odoo.tests import tagged
+from loomworks.addons.utm.models.utm_mixin import UtmMixin
+from loomworks.addons.utm.tests.common import TestUTMCommon
+from loomworks.tests import tagged
 
 
 @tagged("utm", "post_install", "-at_install")

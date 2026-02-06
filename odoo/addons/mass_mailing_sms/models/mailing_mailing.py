@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 
 from urllib.parse import urljoin
 
-from odoo import api, fields, models, _
-from odoo.addons.link_tracker.models.link_tracker import LINK_TRACKER_MIN_CODE_LENGTH
-from odoo.exceptions import UserError
-from odoo.osv import expression
+from loomworks import api, fields, models, _
+from loomworks.addons.link_tracker.models.link_tracker import LINK_TRACKER_MIN_CODE_LENGTH
+from loomworks.exceptions import UserError
+from loomworks.osv import expression
 
 _logger = logging.getLogger(__name__)
 

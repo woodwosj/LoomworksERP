@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 // Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
 // License: LGPL-3
 

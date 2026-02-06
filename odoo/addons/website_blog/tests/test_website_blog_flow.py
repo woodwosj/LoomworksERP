@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import json
 
-from odoo.exceptions import UserError
-from odoo.tests.common import users, HttpCase, tagged
-from odoo.addons.website.tools import MockRequest
-from odoo.addons.website_blog.tests.common import TestWebsiteBlogCommon
-from odoo.addons.mail.controllers.thread import ThreadController
+from loomworks.exceptions import UserError
+from loomworks.tests.common import users, HttpCase, tagged
+from loomworks.addons.website.tools import MockRequest
+from loomworks.addons.website_blog.tests.common import TestWebsiteBlogCommon
+from loomworks.addons.mail.controllers.thread import ThreadController
 
 
 class TestWebsiteBlogFlow(TestWebsiteBlogCommon):

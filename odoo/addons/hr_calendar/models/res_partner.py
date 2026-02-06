@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from pytz import UTC, timezone
 from datetime import datetime
 from collections import defaultdict
 from functools import reduce
 
-from odoo import api, models
+from loomworks import api, models
 
-from odoo.osv import expression
-from odoo.addons.resource.models.utils import Intervals
+from loomworks.osv import expression
+from loomworks.addons.resource.models.utils import Intervals
 
 
 class Partner(models.Model):

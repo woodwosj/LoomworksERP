@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo
-from odoo import fields
-from odoo.addons.point_of_sale.tests.common import TestPointOfSaleCommon
+import loomworks
+from loomworks import fields
+from loomworks.addons.point_of_sale.tests.common import TestPointOfSaleCommon
 
 
-@odoo.tests.tagged('post_install', '-at_install')
+@loomworks.tests.tagged('post_install', '-at_install')
 class TestPointOfSaleFlow(TestPointOfSaleCommon):
     def test_ship_later_lots(self):
         # open pos session

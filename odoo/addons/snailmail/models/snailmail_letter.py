@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import re
 import base64
 import io
@@ -10,11 +10,11 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.pdfgen.canvas import Canvas
 
-from odoo import fields, models, api, _
-from odoo.addons.iap.tools import iap_tools
-from odoo.exceptions import AccessError, UserError
-from odoo.tools.pdf import PdfFileReader, PdfFileWriter
-from odoo.tools.safe_eval import safe_eval
+from loomworks import fields, models, api, _
+from loomworks.addons.iap.tools import iap_tools
+from loomworks.exceptions import AccessError, UserError
+from loomworks.tools.pdf import PdfFileReader, PdfFileWriter
+from loomworks.tools.safe_eval import safe_eval
 
 DEFAULT_ENDPOINT = 'https://iap-snailmail.odoo.com'
 PRINT_ENDPOINT = '/iap/snailmail/1/print'

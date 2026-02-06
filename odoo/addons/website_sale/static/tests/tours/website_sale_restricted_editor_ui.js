@@ -1,4 +1,4 @@
-/** @odoo-modules */
+/** @loomworks-modules */
 
 import { registerWebsitePreviewTour } from '@website/js/tours/tour_utils';
 import { stepUtils } from "@web_tour/tour_service/tour_utils";

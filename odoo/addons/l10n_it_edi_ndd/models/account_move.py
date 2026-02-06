@@ -1,7 +1,7 @@
-from odoo import api, fields, models
-from odoo.tools.sql import column_exists, create_column
-from odoo.addons.l10n_it_edi_ndd.models.account_payment_methode_line import L10N_IT_PAYMENT_METHOD_SELECTION
-from odoo.addons.l10n_it_edi.models.account_move import get_text
+from loomworks import api, fields, models
+from loomworks.tools.sql import column_exists, create_column
+from loomworks.addons.l10n_it_edi_ndd.models.account_payment_methode_line import L10N_IT_PAYMENT_METHOD_SELECTION
+from loomworks.addons.l10n_it_edi.models.account_move import get_text
 
 
 class AccountMove(models.Model):

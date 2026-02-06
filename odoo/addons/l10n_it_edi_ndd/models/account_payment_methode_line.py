@@ -1,4 +1,4 @@
-from odoo import fields, models
+from loomworks import fields, models
 
 L10N_IT_PAYMENT_METHOD_SELECTION = [
     ('MP01', "MP01 - Cash"),

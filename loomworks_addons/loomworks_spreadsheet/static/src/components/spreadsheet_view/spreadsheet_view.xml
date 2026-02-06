@@ -36,7 +36,7 @@
                     <!-- Data Operations -->
                     <div class="o_toolbar_group">
                         <button class="o_toolbar_button" t-on-click="openDataSourceDialog"
-                                title="Insert Odoo Data">
+                                title="Insert Loomworks Data">
                             <i class="fa fa-database"></i>
                         </button>
                         <button class="o_toolbar_button" t-on-click="openPivotDialog"
@@ -146,13 +146,13 @@
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Insert Odoo Data</h5>
+                                <h5 class="modal-title">Insert Loomworks Data</h5>
                                 <button type="button" class="btn-close"
                                         t-on-click="closeDataSourceDialog"></button>
                             </div>
                             <div class="modal-body">
                                 <p class="text-muted">
-                                    Select an Odoo model and fields to insert data into the spreadsheet.
+                                    Select a Loomworks model and fields to insert data into the spreadsheet.
                                 </p>
                                 <!-- DataSourceDialog component would go here -->
                             </div>

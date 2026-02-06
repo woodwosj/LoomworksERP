@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import math
 from datetime import time
 from itertools import chain
 from pytz import utc
 
-from odoo import fields
-from odoo.osv.expression import normalize_domain, is_leaf, NOT_OPERATOR
-from odoo.tools.float_utils import float_round
+from loomworks import fields
+from loomworks.osv.expression import normalize_domain, is_leaf, NOT_OPERATOR
+from loomworks.tools.float_utils import float_round
 
 # Default hour per day value. The one should
 # only be used when the one from the calendar

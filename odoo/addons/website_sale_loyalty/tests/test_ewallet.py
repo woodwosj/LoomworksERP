@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import http, Command
-from odoo.tests import tagged, HttpCase
-from odoo.addons.website.tools import MockRequest
-from odoo.addons.website_sale_loyalty.controllers.main import WebsiteSale
-from odoo.addons.website_sale.tests.common import WebsiteSaleCommon
+from loomworks import http, Command
+from loomworks.tests import tagged, HttpCase
+from loomworks.addons.website.tools import MockRequest
+from loomworks.addons.website_sale_loyalty.controllers.main import WebsiteSale
+from loomworks.addons.website_sale.tests.common import WebsiteSaleCommon
 
 @tagged('post_install', '-at_install')
 class TestEwallet(HttpCase, WebsiteSaleCommon):

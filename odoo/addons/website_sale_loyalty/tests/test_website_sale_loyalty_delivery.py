@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-from odoo.tests import HttpCase, tagged
-from odoo.exceptions import ValidationError
+from loomworks import Command
+from loomworks.tests import HttpCase, tagged
+from loomworks.exceptions import ValidationError
 
-from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.website.tools import MockRequest
-from odoo.addons.website_sale.tests.common import WebsiteSaleCommon
-from odoo.addons.website_sale_loyalty.controllers.main import WebsiteSale
-from odoo.addons.website_sale_loyalty.controllers.delivery import WebsiteSaleLoyaltyDelivery
+from loomworks.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.website.tools import MockRequest
+from loomworks.addons.website_sale.tests.common import WebsiteSaleCommon
+from loomworks.addons.website_sale_loyalty.controllers.main import WebsiteSale
+from loomworks.addons.website_sale_loyalty.controllers.delivery import WebsiteSaleLoyaltyDelivery
 
 
 @tagged('post_install', '-at_install')

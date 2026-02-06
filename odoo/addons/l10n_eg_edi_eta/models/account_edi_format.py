@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 
 import json
@@ -8,10 +8,10 @@ import requests
 from werkzeug.urls import url_quote
 from base64 import b64encode
 from json import JSONDecodeError
-from odoo.addons.account.tools import LegacyHTTPAdapter
+from loomworks.addons.account.tools import LegacyHTTPAdapter
 
-from odoo import api, models, _
-from odoo.tools.float_utils import json_float_round
+from loomworks import api, models, _
+from loomworks.tools.float_utils import json_float_round
 
 _logger = logging.getLogger(__name__)
 

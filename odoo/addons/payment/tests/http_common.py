@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 from contextlib import contextmanager
@@ -7,9 +7,9 @@ from uuid import uuid4
 from lxml import etree, objectify
 from werkzeug import urls
 
-from odoo.tests import HttpCase, JsonRpcException
+from loomworks.tests import HttpCase, JsonRpcException
 
-from odoo.addons.payment.tests.common import PaymentCommon
+from loomworks.addons.payment.tests.common import PaymentCommon
 
 
 class PaymentHttpCommon(PaymentCommon, HttpCase):

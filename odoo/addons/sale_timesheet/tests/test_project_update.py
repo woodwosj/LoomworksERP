@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from freezegun import freeze_time
 
-from odoo.tests import tagged
-from odoo.tools import format_amount
-from odoo.addons.project.tests.test_project_update_flow import TestProjectUpdate
+from loomworks.tests import tagged
+from loomworks.tools import format_amount
+from loomworks.addons.project.tests.test_project_update_flow import TestProjectUpdate
 
 @tagged('-at_install', 'post_install')
 class TestProjectUpdateSaleTimesheet(TestProjectUpdate):

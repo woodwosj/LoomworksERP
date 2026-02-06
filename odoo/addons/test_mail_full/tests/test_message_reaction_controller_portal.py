@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo
-from odoo.addons.mail.tests.test_message_reaction_controller import (
+import loomworks
+from loomworks.addons.mail.tests.test_message_reaction_controller import (
     TestMessageReactionControllerCommon,
 )
 
 
-@odoo.tests.tagged("-at_install", "post_install")
+@loomworks.tests.tagged("-at_install", "post_install")
 class TestPortalMessageReactionController(TestMessageReactionControllerCommon):
     def test_message_reaction_portal_no_partner(self):
         """Test access of message reaction for portal without partner."""

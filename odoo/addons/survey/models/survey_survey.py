@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import random
 import uuid
@@ -7,10 +7,10 @@ from collections import defaultdict
 
 import werkzeug
 
-from odoo import api, exceptions, fields, models, _
-from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.osv import expression
-from odoo.tools import is_html_empty
+from loomworks import api, exceptions, fields, models, _
+from loomworks.exceptions import AccessError, UserError, ValidationError
+from loomworks.osv import expression
+from loomworks.tools import is_html_empty
 
 
 class Survey(models.Model):

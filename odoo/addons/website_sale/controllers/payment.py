@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from psycopg2.errors import LockNotAvailable
 
-from odoo import _
-from odoo.exceptions import AccessError, MissingError, UserError, ValidationError
-from odoo.fields import Command
-from odoo.http import request, route
-from odoo.tools import SQL
+from loomworks import _
+from loomworks.exceptions import AccessError, MissingError, UserError, ValidationError
+from loomworks.fields import Command
+from loomworks.http import request, route
+from loomworks.tools import SQL
 
-from odoo.addons.payment.controllers import portal as payment_portal
+from loomworks.addons.payment.controllers import portal as payment_portal
 
 # TODO ANVFE part of payment routes ? /shop/payment ? express_checkout ?
 

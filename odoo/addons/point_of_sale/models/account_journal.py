@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 # Copyright (C) 2004-2008 PC Solutions (<http://pcsol.be>). All Rights Reserved
-from odoo import fields, models, api, _
-from odoo.exceptions import ValidationError
-from odoo.addons.base.models.ir_model import MODULE_UNINSTALL_FLAG
+from loomworks import fields, models, api, _
+from loomworks.exceptions import ValidationError
+from loomworks.addons.base.models.ir_model import MODULE_UNINSTALL_FLAG
 
 
 class AccountJournal(models.Model):

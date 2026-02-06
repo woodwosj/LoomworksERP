@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { waitFor } from "@odoo/hoot-dom";
 import { registry } from "@web/core/registry";
@@ -14,7 +14,7 @@ const todayDate = function () {
 };
 
 registry.category("web_tour.tours").add("calendar_appointments_hour_tour", {
-    url: "/odoo",
+    url: "/loomworks",
     steps: () => [
         stepUtils.showAppsMenuItem(),
         {

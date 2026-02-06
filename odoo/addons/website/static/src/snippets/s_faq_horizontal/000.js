@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import {extraMenuUpdateCallbacks} from "@website/js/content/menu";
 import publicWidget from "@web/legacy/js/public/public_widget";

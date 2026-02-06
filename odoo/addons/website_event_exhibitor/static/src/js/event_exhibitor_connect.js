@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { debounce } from "@web/core/utils/timing";
 import publicWidget from "@web/legacy/js/public/public_widget";

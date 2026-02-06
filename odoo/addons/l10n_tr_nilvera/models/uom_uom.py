@@ -1,4 +1,4 @@
-from odoo import models
+from loomworks import models
 
 UOM_TO_UNECE_CODE = {
     'l10n_tr_nilvera.product_uom_pk': 'PK',

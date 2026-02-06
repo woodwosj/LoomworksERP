@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="view_company_l10n_cl_form" model="ir.ui.view">
             <field name="model">res.company</field>
@@ -14,4 +14,4 @@
             </field>
         </record>
     </data>
-</odoo>
+</loomworks>

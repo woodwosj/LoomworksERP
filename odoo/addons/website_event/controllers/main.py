@@ -8,13 +8,13 @@ from ast import literal_eval
 from collections import Counter
 from werkzeug.exceptions import NotFound
 
-from odoo import fields, http, _
-from odoo.addons.website.controllers.main import QueryURL
-from odoo.http import request
-from odoo.osv import expression
-from odoo.tools.misc import get_lang
-from odoo.tools import lazy
-from odoo.exceptions import UserError
+from loomworks import fields, http, _
+from loomworks.addons.website.controllers.main import QueryURL
+from loomworks.http import request
+from loomworks.osv import expression
+from loomworks.tools.misc import get_lang
+from loomworks.tools import lazy
+from loomworks.exceptions import UserError
 
 class WebsiteEventController(http.Controller):
 

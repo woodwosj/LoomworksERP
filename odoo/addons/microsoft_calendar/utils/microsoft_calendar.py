@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import requests
 import json
@@ -7,9 +7,9 @@ import logging
 
 from werkzeug import urls
 
-from odoo import fields
-from odoo.addons.microsoft_calendar.utils.microsoft_event import MicrosoftEvent
-from odoo.addons.microsoft_account.models.microsoft_service import TIMEOUT, RESOURCE_NOT_FOUND_STATUSES
+from loomworks import fields
+from loomworks.addons.microsoft_calendar.utils.microsoft_event import MicrosoftEvent
+from loomworks.addons.microsoft_account.models.microsoft_service import TIMEOUT, RESOURCE_NOT_FOUND_STATUSES
 
 _logger = logging.getLogger(__name__)
 

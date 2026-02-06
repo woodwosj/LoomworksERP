@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import io
-from odoo import api, models
-from odoo.tools.pdf import OdooPdfFileReader, OdooPdfFileWriter
+from loomworks import api, models
+from loomworks.tools.pdf import OdooPdfFileReader, OdooPdfFileWriter
 from pathlib import Path
 from reportlab.graphics.shapes import Drawing as ReportLabDrawing, Image as ReportLabImage
 from reportlab.lib.units import mm

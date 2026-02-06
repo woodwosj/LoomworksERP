@@ -1,8 +1,8 @@
 from contextlib import contextmanager
 from requests import PreparedRequest, Response, Session
 
-from odoo.exceptions import ValidationError
-from odoo.tests.common import tagged, TransactionCase, freeze_time
+from loomworks.exceptions import ValidationError
+from loomworks.tests.common import tagged, TransactionCase, freeze_time
 
 ID_CLIENT = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 FAKE_UUID = 'yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy'

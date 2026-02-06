@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from ast import literal_eval
 from lxml import etree
 
-import odoo.tests
+import loomworks.tests
 
 
-@odoo.tests.tagged('-at_install', 'post_install')
-class TestUi(odoo.tests.HttpCase):
+@loomworks.tests.tagged('-at_install', 'post_install')
+class TestUi(loomworks.tests.HttpCase):
     def test_set_defaults(self):
         """Tests the "Set Defaults" feature of the debug menu on the res.partner form.
 
@@ -31,7 +31,7 @@ class TestUi(odoo.tests.HttpCase):
         ]).unlink()
         self.assertEqual(self.env['res.partner'].with_context(**action_context).new().company_type, "company")
 
-        self.start_tour("/odoo", 'debug_menu_set_defaults', login="admin")
+        self.start_tour("/loomworks", 'debug_menu_set_defaults', login="admin")
 
     def test_vat_label_string(self):
         """ Test changing the vat_label field of the user company_id.

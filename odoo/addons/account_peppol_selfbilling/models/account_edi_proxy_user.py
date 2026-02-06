@@ -1,6 +1,6 @@
 from lxml import etree
 
-from odoo import models
+from loomworks import models
 
 
 class AccountEdiProxyClientUser(models.Model):

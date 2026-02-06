@@ -1,6 +1,6 @@
-from odoo.addons.sale_timesheet.tests.common import TestCommonSaleTimesheet
-from odoo.tests import tagged
-from odoo import Command
+from loomworks.addons.sale_timesheet.tests.common import TestCommonSaleTimesheet
+from loomworks.tests import tagged
+from loomworks import Command
 
 
 @tagged('post_install', '-at_install')

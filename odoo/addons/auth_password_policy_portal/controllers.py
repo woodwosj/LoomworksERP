@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo.http import request
-from odoo.addons.portal.controllers.portal import CustomerPortal
+from loomworks.http import request
+from loomworks.addons.portal.controllers.portal import CustomerPortal
 
 class CustomerPortalPasswordPolicy(CustomerPortal):
     def _prepare_portal_layout_values(self):

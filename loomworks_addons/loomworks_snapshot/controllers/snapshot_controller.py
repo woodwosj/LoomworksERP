@@ -21,8 +21,8 @@ Endpoints:
 - POST /snapshot/rollback/<operation_id> - Rollback AI operation
 """
 
-from odoo import http
-from odoo.http import request, Response
+from loomworks import http
+from loomworks.http import request, Response
 import json
 import logging
 

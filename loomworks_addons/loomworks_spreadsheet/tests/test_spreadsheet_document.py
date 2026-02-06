@@ -6,7 +6,7 @@ Tests for Spreadsheet Document Model.
 """
 
 import json
-from odoo.tests.common import TransactionCase
+from loomworks.tests.common import TransactionCase
 
 
 class TestSpreadsheetDocument(TransactionCase):

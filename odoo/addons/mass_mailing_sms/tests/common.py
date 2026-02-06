@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import random
 import re
 import werkzeug
 
-from odoo.tools import mail
-from odoo.addons.link_tracker.tests.common import MockLinkTracker
-from odoo.addons.mass_mailing.tests.common import MassMailCommon
-from odoo.addons.sms.tests.common import SMSCase, SMSCommon
+from loomworks.tools import mail
+from loomworks.addons.link_tracker.tests.common import MockLinkTracker
+from loomworks.addons.mass_mailing.tests.common import MassMailCommon
+from loomworks.addons.sms.tests.common import SMSCase, SMSCommon
 
 
 class MassSMSCase(SMSCase, MockLinkTracker):

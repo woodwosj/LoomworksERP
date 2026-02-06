@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 
-from odoo import Command, fields
-from odoo.addons.website_event_sale.tests.common import TestWebsiteEventSaleCommon
-from odoo.addons.base.tests.common import HttpCaseWithUserPortal
-from odoo.tests.common import tagged
+from loomworks import Command, fields
+from loomworks.addons.website_event_sale.tests.common import TestWebsiteEventSaleCommon
+from loomworks.addons.base.tests.common import HttpCaseWithUserPortal
+from loomworks.tests.common import tagged
 
 
 
@@ -85,4 +85,4 @@ class TestWebsiteEventBoothSale(HttpCaseWithUserPortal, TestWebsiteEventSaleComm
             'state_id': self.env.ref('base.state_us_39').id,
             'phone': '+1 555-555-5555',
         })
-        self.start_tour("/odoo", 'event_booth_sale_pricelists_different_currencies', login='admin')
+        self.start_tour("/loomworks", 'event_booth_sale_pricelists_different_currencies', login='admin')

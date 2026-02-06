@@ -1,6 +1,6 @@
-from odoo import Command
-from odoo.tools import misc
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks import Command
+from loomworks.tools import misc
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 class JoEdiCommon(AccountTestInvoicingCommon):

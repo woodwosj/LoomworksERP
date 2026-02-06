@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo auto_sequence="1">
+<loomworks auto_sequence="1">
     <!-- PD -->
     <record id="tax_report_pd" model="account.report">
         <field name="name">Slovenia VAT RC (PD-O)</field>
@@ -25,4 +25,4 @@
             </record>
         </field>
     </record>
-</odoo>
+</loomworks>

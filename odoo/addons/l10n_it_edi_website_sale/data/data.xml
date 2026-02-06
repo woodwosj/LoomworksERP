@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <function model="ir.model.fields" name="formbuilder_whitelist">
             <value>res.partner</value>
@@ -9,4 +9,4 @@
             ]"/>
         </function>
     </data>
-</odoo>
+</loomworks>

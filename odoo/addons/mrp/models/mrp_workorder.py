@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from collections import defaultdict
 import json
 
-from odoo import api, fields, models, _
-from odoo.addons.resource.models.utils import Intervals, sum_intervals
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import float_compare, format_datetime, float_is_zero, float_round
+from loomworks import api, fields, models, _
+from loomworks.addons.resource.models.utils import Intervals, sum_intervals
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools import float_compare, format_datetime, float_is_zero, float_round
 
 
 class MrpWorkorder(models.Model):

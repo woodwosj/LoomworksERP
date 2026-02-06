@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from freezegun import freeze_time
 
-from odoo import fields
-from odoo.addons.hr.tests.test_mail_activity_plan import ActivityScheduleHRCase
-from odoo.tests import tagged, users
+from loomworks import fields
+from loomworks.addons.hr.tests.test_mail_activity_plan import ActivityScheduleHRCase
+from loomworks.tests import tagged, users
 
 
 @tagged('mail_activity', 'mail_activity_plan')

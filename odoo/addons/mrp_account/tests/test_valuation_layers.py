@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 """ Implementation of "INVENTORY VALUATION TESTS (With valuation layers)" spreadsheet. """
 
-from odoo.fields import Command
-from odoo.addons.stock_account.tests.test_stockvaluationlayer import TestStockValuationCommon
-from odoo.addons.stock_account.tests.test_stockvaluation import TestStockValuationBase
-from odoo.tests import Form
-from odoo.tests.common import tagged
+from loomworks.fields import Command
+from loomworks.addons.stock_account.tests.test_stockvaluationlayer import TestStockValuationCommon
+from loomworks.addons.stock_account.tests.test_stockvaluation import TestStockValuationBase
+from loomworks.tests import Form
+from loomworks.tests.common import tagged
 
 
 class TestMrpValuationCommon(TestStockValuationCommon):

@@ -13,7 +13,7 @@ Registers AI tools for dashboard creation and management.
 Allows natural language dashboard generation via Claude AI.
 """
 
-from odoo import api, models
+from loomworks import api, models
 import json
 import logging
 

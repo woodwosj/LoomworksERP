@@ -13,7 +13,7 @@ Filters allow users to dynamically filter dashboard data without editing
 widget configurations. A filter affects all connected widgets.
 """
 
-from odoo import api, fields, models
+from loomworks import api, fields, models
 import json
 import logging
 

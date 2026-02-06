@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.api import Environment
-import odoo.tests
-from odoo.tools import html2plaintext
+from loomworks.api import Environment
+import loomworks.tests
+from loomworks.tools import html2plaintext
 
-from odoo.addons.website.tools import MockRequest
-from odoo.addons.website_hr_recruitment.controllers.main import WebsiteHrRecruitment
+from loomworks.addons.website.tools import MockRequest
+from loomworks.addons.website_hr_recruitment.controllers.main import WebsiteHrRecruitment
 
-@odoo.tests.tagged('post_install', '-at_install')
-class TestWebsiteHrRecruitmentForm(odoo.tests.HttpCase):
+@loomworks.tests.tagged('post_install', '-at_install')
+class TestWebsiteHrRecruitmentForm(loomworks.tests.HttpCase):
     def test_tour(self):
         department = self.env['hr.department'].create({'name': 'guru team'})
         job_guru = self.env['hr.job'].create({
@@ -26,7 +26,7 @@ class TestWebsiteHrRecruitmentForm(odoo.tests.HttpCase):
 
         self.start_tour(self.env['website'].get_client_action_url('/jobs'), 'website_hr_recruitment_tour_edit_form', login='admin')
 
-        with odoo.tests.RecordCapturer(self.env['hr.applicant'], []) as capt:
+        with loomworks.tests.RecordCapturer(self.env['hr.applicant'], []) as capt:
             self.start_tour("/", 'website_hr_recruitment_tour')
 
         # check result

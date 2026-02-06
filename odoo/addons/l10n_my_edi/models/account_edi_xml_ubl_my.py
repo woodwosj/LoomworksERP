@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 
@@ -6,8 +6,8 @@ from datetime import datetime
 from pytz import UTC
 from lxml import etree
 
-from odoo import _, api, models
-from odoo.addons.account_edi_ubl_cii.models.account_edi_xml_ubl_20 import UBL_NAMESPACES
+from loomworks import _, api, models
+from loomworks.addons.account_edi_ubl_cii.models.account_edi_xml_ubl_20 import UBL_NAMESPACES
 
 # Far from ideal, but no better solution yet.
 COUNTRY_CODE_MAP = {

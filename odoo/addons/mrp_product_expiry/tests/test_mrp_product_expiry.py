@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
-from odoo.addons.stock.tests.common import TestStockCommon
-from odoo.tests import Form
-from odoo.exceptions import UserError
+from loomworks.addons.stock.tests.common import TestStockCommon
+from loomworks.tests import Form
+from loomworks.exceptions import UserError
 
 
 class TestStockLot(TestStockCommon):

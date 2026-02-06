@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data noupdate="0">
         <!-- Default FSM Project -->
         <record id="project_fsm_default" model="project.project">
@@ -156,4 +156,4 @@ Fail - Replacement recommended</field>
             <field name="sequence">80</field>
         </record>
     </data>
-</odoo>
+</loomworks>

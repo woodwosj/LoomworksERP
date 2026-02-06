@@ -1,10 +1,10 @@
 import base64
 
-from odoo import fields
-from odoo.tests import tagged
-from odoo.tools import file_open
+from loomworks import fields
+from loomworks.tests import tagged
+from loomworks.tools import file_open
 
-from odoo.addons.stock.tests.common import TestStockCommon
+from loomworks.addons.stock.tests.common import TestStockCommon
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import contextlib
@@ -11,10 +11,10 @@ from markupsafe import Markup
 from urllib.parse import parse_qs, urlparse
 from werkzeug.urls import url_encode
 
-from odoo import _
-from odoo.exceptions import ValidationError
-from odoo.http import request
-from odoo.tools import image_process
+from loomworks import _
+from loomworks.exceptions import ValidationError
+from loomworks.http import request
+from loomworks.tools import image_process
 
 logger = logging.getLogger(__name__)
 

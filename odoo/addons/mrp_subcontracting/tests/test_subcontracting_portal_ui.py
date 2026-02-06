@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import Command
-from odoo.tests import Form, HttpCase, tagged
+from loomworks import Command
+from loomworks.tests import Form, HttpCase, tagged
 
 
 @tagged('post_install', '-at_install')

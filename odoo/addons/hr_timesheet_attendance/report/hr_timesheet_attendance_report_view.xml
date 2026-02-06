@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="view_hr_timesheet_attendance_report_search" model="ir.ui.view">
             <field name="name">Search for HR timesheet attendance report</field>
@@ -90,4 +90,4 @@
                   action="action_hr_timesheet_attendance_report"
                   name="Timesheets / Attendance Analysis"/>
     </data>
-</odoo>
+</loomworks>

@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-import odoo.tests
-from odoo.tools import mute_logger
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+import loomworks.tests
+from loomworks.tools import mute_logger
 from unittest.mock import patch
 
 
-@odoo.tests.common.tagged('post_install', '-at_install')
-class TestWebsiteControllerArgs(odoo.tests.HttpCase):
+@loomworks.tests.common.tagged('post_install', '-at_install')
+class TestWebsiteControllerArgs(loomworks.tests.HttpCase):
 
-    @mute_logger('odoo.http')
+    @mute_logger('loomworks.http')
     def test_crawl_args(self):
         req = self.url_open('/ignore_args/converter/valueA/?b=valueB&c=valueC')
         self.assertEqual(req.status_code, 200)
@@ -39,8 +39,8 @@ class TestWebsiteControllerArgs(odoo.tests.HttpCase):
                              "Model converter record does not exist, return a 404.")
 
 
-@odoo.tests.common.tagged('post_install', '-at_install')
-class TestWebsiteControllers(odoo.tests.TransactionCase):
+@loomworks.tests.common.tagged('post_install', '-at_install')
+class TestWebsiteControllers(loomworks.tests.TransactionCase):
 
     def test_01_sitemap(self):
         website = self.env['website'].browse(1)

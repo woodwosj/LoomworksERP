@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <!-- better support for long company name -->
         <template id="report_statement_internal_layout" inherit_id="web.internal_layout" primary="True">
@@ -131,4 +131,4 @@
             </t>
         </template>
     </data>
-</odoo>
+</loomworks>

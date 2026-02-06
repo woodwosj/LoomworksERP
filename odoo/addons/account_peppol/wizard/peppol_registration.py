@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import contextlib
 try:
     import phonenumbers
 except ImportError:
     phonenumbers = None
 
-from odoo import _, api, fields, models, modules
-from odoo.exceptions import UserError, ValidationError
+from loomworks import _, api, fields, models, modules
+from loomworks.exceptions import UserError, ValidationError
 
-from odoo.addons.account_edi_proxy_client.models.account_edi_proxy_user import AccountEdiProxyError
-from odoo.addons.account_peppol.tools.demo_utils import handle_demo
+from loomworks.addons.account_edi_proxy_client.models.account_edi_proxy_user import AccountEdiProxyError
+from loomworks.addons.account_peppol.tools.demo_utils import handle_demo
 
 
 class PeppolRegistration(models.TransientModel):

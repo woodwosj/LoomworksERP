@@ -1,9 +1,9 @@
 import time
 
-from odoo import Command
-from odoo.exceptions import UserError
-from odoo.tests import tagged, freeze_time
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks import Command
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged, freeze_time
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 @freeze_time('2023-12-31')

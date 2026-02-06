@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data noupdate="1">
         <record id="cron_auto_checks_the_polish_invoice_status" model="ir.cron">
             <field name="name">Polish eInvoice: automatically check the status of the invoice in ksef</field>
@@ -13,4 +13,4 @@
             <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 22:00:00')"/>
         </record>
     </data>
-</odoo>
+</loomworks>

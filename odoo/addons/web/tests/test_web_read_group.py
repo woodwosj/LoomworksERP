@@ -1,5 +1,5 @@
-from odoo import fields
-from odoo.tests import common
+from loomworks import fields
+from loomworks.tests import common
 
 
 @common.tagged('post_install', '-at_install')

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import tagged
-from odoo.addons.sale.tests.product_configurator_common import TestProductConfiguratorCommon
-from odoo.addons.base.tests.common import HttpCaseWithUserPortal
+from loomworks.tests import tagged
+from loomworks.addons.sale.tests.product_configurator_common import TestProductConfiguratorCommon
+from loomworks.addons.base.tests.common import HttpCaseWithUserPortal
 
 @tagged('post_install', '-at_install')
 class TestWebsiteSaleStockProductConfigurator(TestProductConfiguratorCommon, HttpCaseWithUserPortal):

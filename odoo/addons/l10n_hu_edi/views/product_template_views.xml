@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <record id="product_template_form_view_l10n_hu_edi" model="ir.ui.view">
         <field name="name">product.template.common.form.l10n_hu_edi</field>
@@ -19,4 +19,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

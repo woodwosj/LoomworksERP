@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { WebsiteSale } from '@website_sale/js/website_sale';
 

@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import  _, api, fields, models
-from odoo.exceptions import UserError
+from loomworks import  _, api, fields, models
+from loomworks.exceptions import UserError
 from lxml import etree
-from odoo.tools import cleanup_xml_node
+from loomworks.tools import cleanup_xml_node
 
 
 class EfakturDocument(models.Model):

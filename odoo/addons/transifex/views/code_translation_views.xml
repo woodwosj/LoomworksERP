@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="transifex_code_translation_tree_view" model="ir.ui.view">
         <field name="name">transifex.code.translation.list</field>
         <field name="model">transifex.code.translation</field>
@@ -44,4 +44,4 @@
     </record>
     <menuitem action="action_code_translations" id="menu_transifex_code_translations" parent="base.menu_translation_app"/>
 
-</odoo>
+</loomworks>

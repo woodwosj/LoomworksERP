@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 /**
  * View Designer Component - Visual editor for view layouts.
  *

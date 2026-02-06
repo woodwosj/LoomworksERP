@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 
-from odoo import Command
-from odoo.tests import tagged
-from odoo.tools import float_round
+from loomworks import Command
+from loomworks.tests import tagged
+from loomworks.tools import float_round
 
-from odoo.addons.project.tests.test_project_profitability import TestProjectProfitabilityCommon
-from odoo.addons.purchase.tests.test_purchase_invoice import TestPurchaseToInvoiceCommon
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tools.float_utils import float_compare
+from loomworks.addons.project.tests.test_project_profitability import TestProjectProfitabilityCommon
+from loomworks.addons.purchase.tests.test_purchase_invoice import TestPurchaseToInvoiceCommon
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tools.float_utils import float_compare
 
 
 @tagged('-at_install', 'post_install')

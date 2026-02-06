@@ -1,5 +1,5 @@
-from odoo import api, fields, models
-from odoo.exceptions import UserError
+from loomworks import api, fields, models
+from loomworks.exceptions import UserError
 
 
 class ResCompany(models.Model):

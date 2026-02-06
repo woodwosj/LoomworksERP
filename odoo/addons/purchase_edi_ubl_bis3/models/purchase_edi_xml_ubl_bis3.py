@@ -1,7 +1,7 @@
 from lxml import etree
 
-from odoo import models, _
-from odoo.tools import html2plaintext, cleanup_xml_node
+from loomworks import models, _
+from loomworks.tools import html2plaintext, cleanup_xml_node
 
 
 class PurchaseEdiXmlUBLBIS3(models.AbstractModel):

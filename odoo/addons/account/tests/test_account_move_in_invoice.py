@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=bad-whitespace
 from freezegun import freeze_time
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import Form, tagged
-from odoo import fields, Command
-from odoo.osv import expression
-from odoo.exceptions import ValidationError, UserError
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import Form, tagged
+from loomworks import fields, Command
+from loomworks.osv import expression
+from loomworks.exceptions import ValidationError, UserError
 from datetime import date
 
 from collections import defaultdict

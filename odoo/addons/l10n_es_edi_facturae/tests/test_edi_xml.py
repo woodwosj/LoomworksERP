@@ -8,11 +8,11 @@ from unittest.mock import patch
 import lxml
 from freezegun import freeze_time
 
-from odoo import Command, fields
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.exceptions import UserError
-from odoo.tests import tagged
-from odoo.tools import file_open
+from loomworks import Command, fields
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
+from loomworks.tools import file_open
 
 _logger = logging.getLogger(__name__)
 
@@ -25,7 +25,7 @@ def _compute_is_valid(self):
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
-@patch('odoo.addons.certificate.models.certificate.Certificate._compute_is_valid', _compute_is_valid)
+@patch('loomworks.addons.certificate.models.certificate.Certificate._compute_is_valid', _compute_is_valid)
 class TestEdiFacturaeXmls(AccountTestInvoicingCommon):
     @classmethod
     @AccountTestInvoicingCommon.setup_country('es')
@@ -100,8 +100,8 @@ class TestEdiFacturaeXmls(AccountTestInvoicingCommon):
 
         cls.password = "test"
 
-        cls.certificate_module = "odoo.addons.certificate.models.certificate"
-        cls.move_module = "odoo.addons.l10n_es_edi_facturae.models.account_move"
+        cls.certificate_module = "loomworks.addons.certificate.models.certificate"
+        cls.move_module = "loomworks.addons.l10n_es_edi_facturae.models.account_move"
         with freeze_time(cls.frozen_today), patch(f"{cls.certificate_module}.fields.datetime.now", lambda x=None: cls.frozen_today):
             cls.certificate = cls.env["certificate.certificate"].create({
                 'name': 'Test ES certificate',
@@ -188,7 +188,7 @@ class TestEdiFacturaeXmls(AccountTestInvoicingCommon):
         random.seed(42)
         with freeze_time(self.frozen_today), \
                 patch(f"{self.certificate_module}.fields.datetime.now", lambda x=None: self.frozen_today), \
-                patch('odoo.addons.certificate.models.certificate.Certificate._compute_is_valid', _compute_is_valid), \
+                patch('loomworks.addons.certificate.models.certificate.Certificate._compute_is_valid', _compute_is_valid), \
                 patch(f"{self.move_module}.sha1", lambda x: sha1()):
             invoice = self.create_invoice(partner_id=self.partner_a.id, move_type='out_invoice', invoice_line_ids=[{'price_unit': 100.0, 'tax_ids': [self.tax.id]}])
             invoice.action_post()

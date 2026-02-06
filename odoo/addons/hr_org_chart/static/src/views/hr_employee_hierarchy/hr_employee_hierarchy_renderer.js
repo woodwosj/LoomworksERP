@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Avatar } from "@mail/views/web/fields/avatar/avatar";
 

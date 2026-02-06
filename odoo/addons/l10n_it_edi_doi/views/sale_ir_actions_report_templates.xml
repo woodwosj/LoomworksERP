@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
         <p id="fiscal_position_remark" position="after">
             <div t-if="doc.l10n_it_edi_doi_id">
@@ -7,4 +7,4 @@
             </div>
         </p>
     </template>
-</odoo>
+</loomworks>

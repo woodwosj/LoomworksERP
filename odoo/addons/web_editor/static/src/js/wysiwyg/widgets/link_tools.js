@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Link } from "./link";
 import { ColorPalette } from '@web_editor/js/wysiwyg/widgets/color_palette';

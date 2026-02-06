@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 /**
  * Univer Wrapper for Loomworks Spreadsheet
  *

@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from werkzeug.urls import url_parse
 
-from odoo.tests.common import HttpCase
+from loomworks.tests.common import HttpCase
 
 
 class TestWebRedirect(HttpCase):
@@ -19,7 +19,7 @@ class TestWebRedirect(HttpCase):
 
     def test_web_route_redirect_param(self):
         # This test if for the new routes with /odoo, pathname and query params
-        web_response = self.url_open('/odoo/action-887?cids=1')
+        web_response = self.url_open('/loomworks/action-887?cids=1')
         web_response.raise_for_status()
         response_url_query = url_parse(web_response.url).query
 

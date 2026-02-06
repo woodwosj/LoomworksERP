@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { CorePlugin, UIPlugin } from "@odoo/o-spreadsheet";
 

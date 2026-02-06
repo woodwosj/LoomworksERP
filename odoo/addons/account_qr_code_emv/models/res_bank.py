@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 
-from odoo import _, api, fields, models
-from odoo.tools.misc import remove_accents
-from odoo.addons.account_qr_code_emv.const import CURRENCY_MAPPING
+from loomworks import _, api, fields, models
+from loomworks.tools.misc import remove_accents
+from loomworks.addons.account_qr_code_emv.const import CURRENCY_MAPPING
 
 
 class ResPartnerBank(models.Model):

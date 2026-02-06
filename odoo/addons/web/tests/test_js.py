@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 from contextlib import suppress
 
-import odoo.tests
-from odoo.tools.misc import file_open
+import loomworks.tests
+from loomworks.tools.misc import file_open
 from werkzeug.urls import url_quote_plus
 
 RE_FORBIDDEN_STATEMENTS = re.compile(r'test.*\.(only|debug)\(')
@@ -46,8 +46,8 @@ def _get_filters(test_params):
             filters.append((part_sign, part))
     return sorted(filters)
 
-@odoo.tests.tagged('post_install', '-at_install')
-class QunitCommon(odoo.tests.HttpCase):
+@loomworks.tests.tagged('post_install', '-at_install')
+class QunitCommon(loomworks.tests.HttpCase):
 
     def setUp(self):
         super().setUp()
@@ -96,8 +96,8 @@ class QunitCommon(odoo.tests.HttpCase):
             self.assertNotRegex('utils > bl1', f)
             self.assertNotRegex('utils > bl2', f)
 
-@odoo.tests.tagged('post_install', '-at_install')
-class HOOTCommon(odoo.tests.HttpCase):
+@loomworks.tests.tagged('post_install', '-at_install')
+class HOOTCommon(loomworks.tests.HttpCase):
 
     def setUp(self):
         super().setUp()
@@ -139,20 +139,20 @@ class HOOTCommon(odoo.tests.HttpCase):
         self._test_params = [('-', '-@web/core/autocomplete,-@web/core/autocomplete2')]
         self.assertEqual(self.get_hoot_filters(), '&id=69a6561d&id=cb246db5')
 
-@odoo.tests.tagged('post_install', '-at_install')
+@loomworks.tests.tagged('post_install', '-at_install')
 class WebSuite(QunitCommon, HOOTCommon):
 
-    @odoo.tests.no_retry
+    @loomworks.tests.no_retry
     def test_unit_desktop(self):
         # Unit tests suite (desktop)
         self.browser_js(f'/web/tests?headless&loglevel=2&preset=desktop&timeout=15000{self.hoot_filters}', "", "", login='admin', timeout=1800, success_signal="[HOOT] Test suite succeeded", error_checker=unit_test_error_checker)
 
-    @odoo.tests.no_retry
+    @loomworks.tests.no_retry
     def test_hoot(self):
         # HOOT tests suite
         self.browser_js(f'/web/static/lib/hoot/tests/index.html?headless&loglevel=2{self.hoot_filters}', "", "", login='admin', timeout=1800, success_signal="[HOOT] Test suite succeeded", error_checker=unit_test_error_checker)
 
-    @odoo.tests.no_retry
+    @loomworks.tests.no_retry
     def test_qunit_desktop(self):
         # ! DEPRECATED
         self.browser_js(f'/web/tests/legacy?mod=web{self.qunit_filters}', "", "", login='admin', timeout=1800, success_signal="QUnit test suite done.", error_checker=qunit_error_checker)
@@ -201,12 +201,12 @@ class WebSuite(QunitCommon, HOOTCommon):
                         self.fail("`QUnit.only()` or `QUnit.debug()` used in file %r" % asset['url'])
 
 
-@odoo.tests.tagged('post_install', '-at_install')
+@loomworks.tests.tagged('post_install', '-at_install')
 class MobileWebSuite(QunitCommon, HOOTCommon):
     browser_size = '375x667'
     touch_enabled = True
 
-    @odoo.tests.no_retry
+    @loomworks.tests.no_retry
     def test_unit_mobile(self):
         # Unit tests suite (mobile)
         self.browser_js(f'/web/tests?headless&loglevel=2&preset=mobile&tag=-headless&timeout=15000{self.hoot_filters}', "", "", login='admin', timeout=1800, success_signal="[HOOT] Test suite succeeded", error_checker=unit_test_error_checker)

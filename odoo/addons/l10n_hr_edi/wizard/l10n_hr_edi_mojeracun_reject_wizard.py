@@ -1,6 +1,6 @@
 import pytz
 
-from odoo import api, fields, models
+from loomworks import api, fields, models
 
 from ..tools import _mer_api_reject_with_id, _mer_api_update_document_process_status
 

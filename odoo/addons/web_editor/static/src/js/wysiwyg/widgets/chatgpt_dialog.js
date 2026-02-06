@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Component, useState, markup, onWillDestroy, status } from "@odoo/owl";
 import { Dialog } from "@web/core/dialog/dialog";

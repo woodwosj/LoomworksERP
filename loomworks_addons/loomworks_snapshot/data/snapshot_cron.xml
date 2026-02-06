@@ -7,7 +7,7 @@
     Loomworks modifications copyright: Loomworks
     License: LGPL-3
 -->
-<odoo>
+<loomworks>
     <data noupdate="1">
 
         <!-- Scheduled Action: Run Due Snapshot Schedules -->
@@ -59,4 +59,4 @@
         </record>
 
     </data>
-</odoo>
+</loomworks>

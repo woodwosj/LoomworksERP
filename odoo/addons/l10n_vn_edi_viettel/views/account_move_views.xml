@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="view_invoice_form_inherit_l10n_vn_edi" model="ir.ui.view">
         <field name="name">account.move.form.inherit.l10n_vn_edi</field>
         <field name="model">account.move</field>
@@ -79,4 +79,4 @@
                 action = records.action_l10n_vn_edi_update_payment_status()
         </field>
     </record>
-</odoo>
+</loomworks>

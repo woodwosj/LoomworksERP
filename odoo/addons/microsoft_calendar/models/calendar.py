@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import pytz
@@ -8,11 +8,11 @@ from datetime import datetime, timedelta
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models, _
-from odoo.osv import expression
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import email_normalize
-from odoo.osv import expression
+from loomworks import api, fields, models, _
+from loomworks.osv import expression
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools import email_normalize
+from loomworks.osv import expression
 
 ATTENDEE_CONVERTER_O2M = {
     'needsAction': 'notresponded',
@@ -107,7 +107,7 @@ class Meeting(models.Model):
             if not sender_sync_status and current_sync_status:
                 raise ValidationError(
                     _("For having a different organizer in your event, it is necessary that "
-                      "the organizer have its Odoo Calendar synced with Outlook Calendar."))
+                      "the organizer have its Loomworks Calendar synced with Outlook Calendar."))
             elif sender_sync_status and not partner_included:
                 raise ValidationError(
                     _("It is necessary adding the proposed organizer as attendee before saving the event."))
@@ -155,7 +155,7 @@ class Meeting(models.Model):
             # If any event is not synced, suggest deleting it in Odoo and recreating it in Outlook.
             error_msg = _(
                 "Due to an Outlook Calendar limitation, recurrence updates must be done directly in Outlook Calendar.\n"
-                "If this recurrence is not shown in Outlook Calendar, you must delete it in Odoo Calendar and recreate it in Outlook Calendar.")
+                "If this recurrence is not shown in Outlook Calendar, you must delete it in Loomworks Calendar and recreate it in Outlook Calendar.")
 
         raise UserError(error_msg)
 
@@ -639,7 +639,7 @@ class Meeting(models.Model):
                               for event in invalid_event_ids]
             invalid_events = '\n'.join(invalid_events)
             details = "(%d/%d)" % (list_length_limit, total_invalid_events) if list_length_limit < total_invalid_events else "(%d)" % total_invalid_events
-            raise ValidationError(_("For a correct synchronization between Odoo and Outlook Calendar, "
+            raise ValidationError(_("For a correct synchronization between Loomworks ERP and Outlook Calendar, "
                                     "all attendees must have an email address. However, some events do "
                                     "not respect this condition. As long as the events are incorrect, "
                                     "the calendars will not be synchronized."

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import models
-from odoo.exceptions import UserError
-from odoo.tools.translate import _
+from loomworks import models
+from loomworks.exceptions import UserError
+from loomworks.tools.translate import _
 
 
 class MailActivitySchedule(models.TransientModel):

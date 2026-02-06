@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import re
 
-from odoo import models, fields, api, _
-from odoo.addons.mail.tools.mail_validation import mail_validate
-from odoo.exceptions import ValidationError
-from odoo.tools import float_repr
+from loomworks import models, fields, api, _
+from loomworks.addons.mail.tools.mail_validation import mail_validate
+from loomworks.exceptions import ValidationError
+from loomworks.tools import float_repr
 
 
 class ResPartnerBank(models.Model):

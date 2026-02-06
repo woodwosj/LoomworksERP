@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import json
 
-from odoo.tests import tagged
+from loomworks.tests import tagged
 
-from odoo.addons.survey.controllers.main import Survey
-from odoo.addons.survey.tests import common
-from odoo.addons.website.tools import MockRequest
+from loomworks.addons.survey.controllers.main import Survey
+from loomworks.addons.survey.tests import common
+from loomworks.addons.website.tools import MockRequest
 
 
 @tagged("is_query_count")

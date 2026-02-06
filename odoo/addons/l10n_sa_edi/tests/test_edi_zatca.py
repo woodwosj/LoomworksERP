@@ -1,16 +1,16 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import base64
 
 from datetime import datetime
 from freezegun import freeze_time
 from lxml import etree
 from pytz import timezone
-from odoo import Command
+from loomworks import Command
 
-from odoo.exceptions import ValidationError, UserError
-from odoo.tests import tagged
-from odoo.tools import misc
-from odoo.addons.l10n_sa_edi.tests.common import TestSaEdiCommon
+from loomworks.exceptions import ValidationError, UserError
+from loomworks.tests import tagged
+from loomworks.tools import misc
+from loomworks.addons.l10n_sa_edi.tests.common import TestSaEdiCommon
 
 
 @tagged('post_install_l10n', '-at_install', 'post_install')

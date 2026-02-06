@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 from datetime import datetime, date, time, timezone, timedelta
 from dateutil.relativedelta import relativedelta
 import pytz
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools.float_utils import float_round
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools.float_utils import float_round
 
-from odoo.addons.resource.models.utils import HOURS_PER_DAY
+from loomworks.addons.resource.models.utils import HOURS_PER_DAY
 
 
 class HrEmployeeBase(models.AbstractModel):

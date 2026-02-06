@@ -22,8 +22,8 @@ Execution States:
 - rolled_back: Rolled back due to failure
 """
 
-from odoo import models, fields, api
-from odoo.exceptions import UserError
+from loomworks import models, fields, api
+from loomworks.exceptions import UserError
 import json
 import logging
 from datetime import datetime

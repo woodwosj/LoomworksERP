@@ -12,19 +12,19 @@
 # Then the following command should run:
 #   $ gunicorn odoo:service.wsgi_server.application -c openerp-wsgi.py
 
-import odoo
+import loomworks
 
 #----------------------------------------------------------
 # Common
 #----------------------------------------------------------
 
 # Equivalent of --load command-line option
-odoo.conf.server_wide_modules = ['base', 'web']
-conf = odoo.tools.config
+loomworks.conf.server_wide_modules = ['base', 'web']
+conf = loomworks.tools.config
 
 # Path to the OpenERP Addons repository (comma-separated for
 # multiple locations)
-#conf['addons_path'] = './odoo/addons,./addons'
+#conf['addons_path'] = './loomworks/addons,./addons'
 
 # Optional database config if not using local socket
 #conf['db_name'] = 'mycompany'
@@ -36,9 +36,9 @@ conf = odoo.tools.config
 #----------------------------------------------------------
 # Generic WSGI handlers application
 #----------------------------------------------------------
-application = odoo.http.root
+application = loomworks.http.root
 
-odoo.service.server.load_server_wide_modules()
+loomworks.service.server.load_server_wide_modules()
 
 #----------------------------------------------------------
 # Gunicorn

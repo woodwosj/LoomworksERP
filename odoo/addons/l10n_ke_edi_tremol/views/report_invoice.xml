@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="l10n_ke_invoice" inherit_id="account.report_invoice_document">
         <xpath expr="//div[@id='qrcode']" position="before">
             <div t-if="o.country_code == 'KE' and o.l10n_ke_cu_invoice_number" id="l10n_ke_control_unit_information" style="page-break-inside:avoid;">
@@ -29,4 +29,4 @@
             </div>
         </xpath>
     </template>
-</odoo>
+</loomworks>

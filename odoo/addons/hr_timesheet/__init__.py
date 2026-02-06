@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from . import controllers
 from . import models
 from . import report
 from . import wizard
 
-from odoo import fields
+from loomworks import fields
 
-from odoo.addons.project import _check_exists_collaborators_for_project_sharing
-from odoo.tools.sql import SQL
+from loomworks.addons.project import _check_exists_collaborators_for_project_sharing
+from loomworks.tools.sql import SQL
 
 
 def create_internal_project(env):

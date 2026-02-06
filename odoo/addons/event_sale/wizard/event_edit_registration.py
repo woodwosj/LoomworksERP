@@ -2,8 +2,8 @@
 
 from collections import Counter, defaultdict
 
-from odoo import models, fields, api
-from odoo.exceptions import ValidationError
+from loomworks import models, fields, api
+from loomworks.exceptions import ValidationError
 
 
 class RegistrationEditor(models.TransientModel):

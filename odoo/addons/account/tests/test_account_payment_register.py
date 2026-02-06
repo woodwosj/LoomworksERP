@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.exceptions import UserError
-from odoo.tests import tagged, users
-from odoo import fields, Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged, users
+from loomworks import fields, Command
 from dateutil.relativedelta import relativedelta
 from itertools import product
 from unittest.mock import patch
 
-from odoo import fields, Command
-from odoo.exceptions import UserError
-from odoo.tests import tagged, Form
-from odoo.tests.common import Like
+from loomworks import fields, Command
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged, Form
+from loomworks.tests.common import Like
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.payment.tests.common import PaymentCommon
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.payment.tests.common import PaymentCommon
 
 
 @tagged('post_install', '-at_install')
@@ -873,7 +873,7 @@ class TestAccountPaymentRegister(AccountTestInvoicingCommon, PaymentCommon):
                                .with_context(active_model='account.move', active_ids=self.out_invoice_4.ids)\
                                .create({'payment_token_id': payment_token.id})
         with patch(
-            'odoo.addons.sale.models.payment_transaction.PaymentTransaction'
+            'loomworks.addons.sale.models.payment_transaction.PaymentTransaction'
             '._send_invoice'
         ) as patched:
             payment_register._create_payments()

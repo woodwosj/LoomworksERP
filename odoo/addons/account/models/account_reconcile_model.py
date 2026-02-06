@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, Command, tools, _
-from odoo.exceptions import UserError, ValidationError
+from loomworks import api, fields, models, Command, tools, _
+from loomworks.exceptions import UserError, ValidationError
 import re
 from math import copysign
 from collections import defaultdict

@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { Component, useRef, onPatched } from "@odoo/owl";
 

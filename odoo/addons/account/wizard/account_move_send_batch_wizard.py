@@ -1,7 +1,7 @@
 from collections import Counter
 
-from odoo import _, api, Command, fields, models
-from odoo.exceptions import RedirectWarning, UserError
+from loomworks import _, api, Command, fields, models
+from loomworks.exceptions import RedirectWarning, UserError
 
 
 class AccountMoveSendBatchWizard(models.TransientModel):

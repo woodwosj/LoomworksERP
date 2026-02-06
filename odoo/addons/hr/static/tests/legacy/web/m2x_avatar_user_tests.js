@@ -1,4 +1,4 @@
-/* @odoo-module */
+/* @loomworks-module */
 
 import { start } from "@mail/../tests/helpers/test_utils";
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";

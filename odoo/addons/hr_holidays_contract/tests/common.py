@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import datetime
 
-from odoo.tests.common import TransactionCase
-from odoo import Command
-from odoo.fields import Datetime
+from loomworks.tests.common import TransactionCase
+from loomworks import Command
+from loomworks.fields import Datetime
 
 class TestHolidayContract(TransactionCase):
 

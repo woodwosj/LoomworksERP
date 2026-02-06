@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { setupViewRegistries } from "@web/../tests/views/helpers";
 import { createWebClient, doAction } from "@web/../tests/webclient/helpers";

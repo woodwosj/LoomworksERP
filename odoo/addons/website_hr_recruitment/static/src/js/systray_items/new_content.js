@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { NewContentModal, MODULE_STATUS } from '@website/systray_items/new_content';
 import { rpc } from "@web/core/network/rpc";

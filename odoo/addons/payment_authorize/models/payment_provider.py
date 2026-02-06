@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 import logging
 import pprint
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
-from odoo.fields import Command
+from loomworks import _, api, fields, models
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.fields import Command
 
-from odoo.addons.payment_authorize import const
-from odoo.addons.payment_authorize.models.authorize_request import AuthorizeAPI
+from loomworks.addons.payment_authorize import const
+from loomworks.addons.payment_authorize.models.authorize_request import AuthorizeAPI
 
 _logger = logging.getLogger(__name__)
 
@@ -28,7 +28,7 @@ class PaymentProvider(models.Model):
         string="API Signature Key", required_if_provider='authorize', groups='base.group_system')
     authorize_client_key = fields.Char(
         string="API Client Key",
-        help="The public client key. To generate directly from Odoo or from Authorize.Net backend.")
+        help="The public client key. To generate directly from Loomworks or from Authorize.Net backend.")
 
     # === CONSTRAINT METHODS ===#
 

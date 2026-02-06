@@ -1,5 +1,5 @@
-from odoo.addons.portal.controllers import portal
-from odoo.http import request
+from loomworks.addons.portal.controllers import portal
+from loomworks.http import request
 
 class CustomerPortal(portal.CustomerPortal):
 

@@ -3,8 +3,8 @@
 
 from datetime import date, timedelta
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
 
 
 class HrPayslipRun(models.Model):

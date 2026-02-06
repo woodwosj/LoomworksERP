@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import http
-from odoo.http import request
-from odoo.tools import html2plaintext
+from loomworks import http
+from loomworks.http import request
+from loomworks.tools import html2plaintext
 
 from .mail_plugin import MailPluginController
 
@@ -37,7 +37,7 @@ class CrmClient(MailPluginController):
         """
         server_action = http.request.env.ref("crm_mail_plugin.lead_creation_prefilled_action")
         return request.redirect(
-            '/odoo/action-%s?partner_id=%s' % (server_action.id, int(partner_id)))
+            '/loomworks/action-%s?partner_id=%s' % (server_action.id, int(partner_id)))
 
     @http.route('/mail_plugin/lead/create', type='json', auth='outlook', cors="*")
     def crm_lead_create(self, partner_id, email_body, email_subject):
@@ -60,5 +60,5 @@ class CrmClient(MailPluginController):
             for supporting older versions
         """
         action = http.request.env.ref("crm.crm_lead_view_form")
-        url = '/odoo/action-%s/%s?edit=1' % (action.id, lead_id)
+        url = '/loomworks/action-%s/%s?edit=1' % (action.id, lead_id)
         return request.redirect(url)

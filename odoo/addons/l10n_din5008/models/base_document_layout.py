@@ -2,7 +2,7 @@ from markupsafe import Markup
 import re
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, models, fields
+from loomworks import api, models, fields
 
 
 class BaseDocumentLayout(models.TransientModel):

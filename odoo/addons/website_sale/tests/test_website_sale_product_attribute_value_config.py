@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.fields import Command
-from odoo.tests import tagged
+from loomworks.fields import Command
+from loomworks.tests import tagged
 
-from odoo.addons.sale.tests.test_sale_product_attribute_value_config import TestSaleProductAttributeValueCommon
+from loomworks.addons.sale.tests.test_sale_product_attribute_value_config import TestSaleProductAttributeValueCommon
 
 
 @tagged('post_install', '-at_install', 'product_attribute')

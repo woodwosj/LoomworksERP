@@ -3,7 +3,7 @@
 
 import logging
 from datetime import datetime, timedelta, time
-from odoo import fields
+from loomworks import fields
 import pytz
 
 _logger = logging.getLogger(__name__)

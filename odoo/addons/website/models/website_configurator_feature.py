@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import ValidationError
+from loomworks import api, fields, models, tools, _
+from loomworks.exceptions import ValidationError
 
 
 class WebsiteConfiguratorFeature(models.Model):

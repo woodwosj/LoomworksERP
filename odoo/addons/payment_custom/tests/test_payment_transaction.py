@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import unittest
 
-from odoo import Command, fields
-from odoo.tests import tagged
+from loomworks import Command, fields
+from loomworks.tests import tagged
 
-from odoo.addons.payment.tests.common import PaymentCommon
+from loomworks.addons.payment.tests.common import PaymentCommon
 
 
 @tagged('-at_install', 'post_install')

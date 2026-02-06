@@ -2,8 +2,8 @@
 # Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
 
 import json
-from odoo.tests import TransactionCase, tagged
-from odoo.exceptions import ValidationError, UserError
+from loomworks.tests import TransactionCase, tagged
+from loomworks.exceptions import ValidationError, UserError
 
 
 @tagged('post_install', '-at_install', 'loomworks_skills')

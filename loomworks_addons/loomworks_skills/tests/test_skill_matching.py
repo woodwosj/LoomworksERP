@@ -2,7 +2,7 @@
 # Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
 
 import json
-from odoo.tests import TransactionCase, tagged
+from loomworks.tests import TransactionCase, tagged
 
 
 @tagged('post_install', '-at_install', 'loomworks_skills')
@@ -209,7 +209,7 @@ class TestIntentMatcherAlgorithms(TransactionCase):
         super().setUpClass()
         # Import the IntentMatcher class for direct testing
         try:
-            from odoo.addons.loomworks_skills.services.skill_matching_service import IntentMatcher
+            from loomworks.addons.loomworks_skills.services.skill_matching_service import IntentMatcher
             cls.IntentMatcher = IntentMatcher
         except ImportError:
             cls.IntentMatcher = None

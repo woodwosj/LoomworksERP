@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import threading
 
-from odoo.addons.iap.tools import iap_tools
-from odoo import api, fields, models, _
-from odoo.tools.mail import email_domain_extract, url_domain_extract
+from loomworks.addons.iap.tools import iap_tools
+from loomworks import api, fields, models, _
+from loomworks.tools.mail import email_domain_extract, url_domain_extract
 
 _logger = logging.getLogger(__name__)
 

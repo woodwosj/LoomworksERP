@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 
@@ -6,13 +6,13 @@ import hashlib
 import pytz
 import threading
 
-from odoo import fields, models, api, _
-from odoo.addons.base.models.res_partner import _tz_get
-from odoo.exceptions import UserError
-from odoo.tools import split_every, SQL
-from odoo.tools.misc import _format_time_ago
-from odoo.http import request
-from odoo.osv import expression
+from loomworks import fields, models, api, _
+from loomworks.addons.base.models.res_partner import _tz_get
+from loomworks.exceptions import UserError
+from loomworks.tools import split_every, SQL
+from loomworks.tools.misc import _format_time_ago
+from loomworks.http import request
+from loomworks.osv import expression
 
 
 class WebsiteTrack(models.Model):

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="section_CD" model="account.report">
         <field name="name">Sections C and D</field>
         <field name="country_id" ref="base.ug"/>
@@ -615,4 +615,4 @@
         <field name="use_sections" eval="True"/>
         <field name="section_report_ids" eval="[Command.set([ref('section_CD'), ref('section_F')])]"/>
     </record>
-</odoo>
+</loomworks>

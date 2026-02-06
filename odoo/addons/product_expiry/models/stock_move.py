@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import datetime
 import dateutil.parser as dparser
 from re import findall as re_findall
 
-from odoo import fields, models
-from odoo.tools import get_lang
+from loomworks import fields, models
+from loomworks.tools import get_lang
 
 
 class StockMove(models.Model):

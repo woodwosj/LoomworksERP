@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import datetime
 import logging
 
 from psycopg2 import OperationalError
 
-from odoo import _, api, fields, models, tools
-from odoo.addons.iap.tools import iap_tools
+from loomworks import _, api, fields, models, tools
+from loomworks.addons.iap.tools import iap_tools
 
 _logger = logging.getLogger(__name__)
 

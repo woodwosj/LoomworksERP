@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<odoo>
+<loomworks>
     <data>
         <record id="view_partner_form_inherit_l10n_fi" model="ir.ui.view">
             <field name="name">res.partner.form.inherit.l10n_fi</field>
@@ -15,4 +15,4 @@
             </field>
         </record>
     </data>
-</odoo>
+</loomworks>

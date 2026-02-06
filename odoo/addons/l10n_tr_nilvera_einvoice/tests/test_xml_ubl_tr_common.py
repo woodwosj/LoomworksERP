@@ -1,7 +1,7 @@
 from freezegun import freeze_time
 
-from odoo import Command
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks import Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 class TestUBLTRCommon(AccountTestInvoicingCommon):

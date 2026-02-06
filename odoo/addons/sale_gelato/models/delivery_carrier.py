@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from loomworks import _, api, fields, models
+from loomworks.exceptions import UserError
 
-from odoo.addons.sale_gelato import const, utils
+from loomworks.addons.sale_gelato import const, utils
 
 
 class ProviderGelato(models.Model):
@@ -72,7 +72,7 @@ class ProviderGelato(models.Model):
         # Fetch the delivery price from Gelato.
         payload = {
             'orderReferenceId': order.id,
-            'customerReferenceId': f'Odoo Partner #{order.partner_id.id}',
+            'customerReferenceId': f'Loomworks Partner #{order.partner_id.id}',
             'currency': order.currency_id.name,
             'allowMultipleQuotes': 'true',
             'products': order._gelato_prepare_items_payload(),

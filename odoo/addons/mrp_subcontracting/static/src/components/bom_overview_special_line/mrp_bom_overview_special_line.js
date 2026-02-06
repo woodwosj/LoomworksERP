@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { patch } from "@web/core/utils/patch";
 import { useService } from "@web/core/utils/hooks";

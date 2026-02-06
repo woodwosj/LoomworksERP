@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <record id="l10n_in_withholding_entry_form_action" model="ir.actions.act_window">
         <field name="name">Create TDS Entry</field>
@@ -51,4 +51,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

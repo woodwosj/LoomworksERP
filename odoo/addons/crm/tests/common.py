@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from ast import literal_eval
 from contextlib import contextmanager
 from datetime import timedelta
 from unittest.mock import patch
 
-from odoo.addons.crm.models.crm_lead import PARTNER_ADDRESS_FIELDS_TO_SYNC
-from odoo.addons.mail.tests.common import MailCase, mail_new_test_user
-from odoo.addons.phone_validation.tools import phone_validation
-from odoo.addons.sales_team.tests.common import TestSalesCommon
-from odoo.fields import Datetime
-from odoo import models, tools
+from loomworks.addons.crm.models.crm_lead import PARTNER_ADDRESS_FIELDS_TO_SYNC
+from loomworks.addons.mail.tests.common import MailCase, mail_new_test_user
+from loomworks.addons.phone_validation.tools import phone_validation
+from loomworks.addons.sales_team.tests.common import TestSalesCommon
+from loomworks.fields import Datetime
+from loomworks import models, tools
 
 INCOMING_EMAIL = """Return-Path: {return_path}
 X-Original-To: {to}
@@ -582,7 +582,7 @@ class TestLeadConvertCommon(TestCrmCommon):
 
         cls.lead_1.write({'date_open': Datetime.from_string('2020-01-15 11:30:00')})
 
-        cls.crm_lead_dt_patcher = patch('odoo.addons.crm.models.crm_lead.fields.Datetime', wraps=Datetime)
+        cls.crm_lead_dt_patcher = patch('loomworks.addons.crm.models.crm_lead.fields.Datetime', wraps=Datetime)
         cls.crm_lead_dt_mock = cls.startClassPatcher(cls.crm_lead_dt_patcher)
 
     @classmethod

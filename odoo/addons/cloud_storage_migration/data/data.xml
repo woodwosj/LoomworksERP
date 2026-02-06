@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data noupdate="1">
         <!-- Max file size for migration (default 1GB) -->
         <record id="cloud_storage_migration_max_file_size" model="ir.config_parameter">
@@ -29,5 +29,5 @@
             <field name="value">0</field>
         </record>
     </data>
-</odoo>
+</loomworks>
 

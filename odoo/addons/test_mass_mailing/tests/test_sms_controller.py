@@ -1,5 +1,5 @@
-from odoo.addons.test_mass_mailing.tests.common import TestMassSMSCommon
-from odoo.tools import mute_logger
+from loomworks.addons.test_mass_mailing.tests.common import TestMassSMSCommon
+from loomworks.tools import mute_logger
 
 
 class TestSmsController(TestMassSMSCommon):
@@ -24,7 +24,7 @@ class TestSmsController(TestMassSMSCommon):
         )
         return all_traces
 
-    @mute_logger("odoo.addons.base.models.ir_http")
+    @mute_logger("loomworks.addons.base.models.ir_http")
     def test_webhook_update_traces_pending_to_sent(self):
         all_traces = self._send_sms_immediately_and_assert_traces()
         first_two_traces = all_traces[:2]
@@ -34,7 +34,7 @@ class TestSmsController(TestMassSMSCommon):
         self.assertEqual(set(first_two_traces.mapped('trace_status')), {'sent'})
         self.assertEqual(set(other_traces.mapped('trace_status')), {'pending'})
 
-    @mute_logger("odoo.addons.base.models.ir_http")
+    @mute_logger("loomworks.addons.base.models.ir_http")
     def test_webhook_update_traces_process_to_pending(self):
         self.assertEqual(self.mailing_sms.state, 'draft')
         all_traces = self._send_sms_immediately_and_assert_traces(moderated=True)
@@ -44,7 +44,7 @@ class TestSmsController(TestMassSMSCommon):
         self.assertEqual(set(all_traces.mapped('trace_status')), {'pending'})
         self.assertEqual(self.mailing_sms.state, 'done')
 
-    @mute_logger("odoo.addons.base.models.ir_http")
+    @mute_logger("loomworks.addons.base.models.ir_http")
     def test_webhook_update_traces_sent_to_bounce_and_failed(self):
         all_traces = self._send_sms_immediately_and_assert_traces()
         trace_1, trace_2 = all_traces[:2]

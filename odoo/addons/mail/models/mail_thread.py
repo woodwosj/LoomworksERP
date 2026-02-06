@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import ast
 import base64
@@ -28,20 +28,20 @@ from markupsafe import Markup, escape
 from requests import Session
 from werkzeug import urls
 
-from odoo import _, api, exceptions, fields, models, Command
-from odoo.addons.mail.tools.discuss import Store
-from odoo.addons.mail.tools.web_push import (
+from loomworks import _, api, exceptions, fields, models, Command
+from loomworks.addons.mail.tools.discuss import Store
+from loomworks.addons.mail.tools.web_push import (
     push_to_end_point, DeviceUnreachableError,
     ENCRYPTION_BLOCK_OVERHEAD, ENCRYPTION_HEADER_SIZE, MAX_PAYLOAD_SIZE
 )
-from odoo.exceptions import MissingError, AccessError
-from odoo.osv import expression
-from odoo.tools import (
+from loomworks.exceptions import MissingError, AccessError
+from loomworks.osv import expression
+from loomworks.tools import (
     is_html_empty, html_escape, html2plaintext, parse_contact_from_email,
     clean_context, split_every, Query, SQL, email_normalize_all,
     ormcache, is_list_of,
 )
-from odoo.tools.mail import (
+from loomworks.tools.mail import (
     append_content_to_html, decode_message_header, email_normalize, email_split,
     email_split_and_format, formataddr, html_sanitize,
     generate_tracking_message_id,

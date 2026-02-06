@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { _t } from "@web/core/l10n/translation";
 import { pick } from "@web/core/utils/objects";
@@ -145,7 +145,7 @@ options.registry.facebookPage = options.Class.extend({
      * @private
      */
     _checkURL: function () {
-        const defaultURL = 'https://www.facebook.com/Odoo';
+        const defaultURL = 'https://www.facebook.com/Loomworks';
         // Patterns matched by the regex (all relate to existing pages,
         // in spite of the URLs containing "profile.php" or "people"):
         // - https://www.facebook.com/<pagewithaname>

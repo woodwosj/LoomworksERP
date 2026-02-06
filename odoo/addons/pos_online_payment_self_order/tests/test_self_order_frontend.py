@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from unittest.mock import patch
 
-import odoo.tests
-from odoo import Command
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.pos_online_payment.tests.online_payment_common import OnlinePaymentCommon
-from odoo.addons.pos_self_order.tests.self_order_common_test import SelfOrderCommonTest
-from odoo.addons.pos_restaurant.tests.test_frontend import TestFrontendCommon
+import loomworks.tests
+from loomworks import Command
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.pos_online_payment.tests.online_payment_common import OnlinePaymentCommon
+from loomworks.addons.pos_self_order.tests.self_order_common_test import SelfOrderCommonTest
+from loomworks.addons.pos_restaurant.tests.test_frontend import TestFrontendCommon
 
 
-@odoo.tests.tagged("post_install", "-at_install")
+@loomworks.tests.tagged("post_install", "-at_install")
 class TestSelfOrderFrontendMobile(SelfOrderCommonTest):
     pass
 
-@odoo.tests.tagged("post_install", "-at_install")
+@loomworks.tests.tagged("post_install", "-at_install")
 class TestUi(TestFrontendCommon, OnlinePaymentCommon):
     @classmethod
     def setUpClass(cls):

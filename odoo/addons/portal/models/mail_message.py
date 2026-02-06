@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import models
-from odoo.http import request
-from odoo.tools import format_datetime, groupby
-from odoo.addons.portal.utils import get_portal_partner
+from loomworks import models
+from loomworks.http import request
+from loomworks.tools import format_datetime, groupby
+from loomworks.addons.portal.utils import get_portal_partner
 
 
 class MailMessage(models.Model):

@@ -1,21 +1,21 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import time
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
 
-from odoo import Command
-from odoo.tools import mute_logger
+from loomworks import Command
+from loomworks.tools import mute_logger
 
-from odoo.addons.hr_holidays.tests.common import TestHrHolidaysCommon
-from odoo.addons.mail.tests.common import MailCase
+from loomworks.addons.hr_holidays.tests.common import TestHrHolidaysCommon
+from loomworks.addons.mail.tests.common import MailCase
 
 
 class TestHolidaysMail(TestHrHolidaysCommon, MailCase):
     """Test that mails are correctly sent when a timeoff is taken"""
 
-    @mute_logger('odoo.addons.base.models.ir_model', 'odoo.models')
+    @mute_logger('loomworks.addons.base.models.ir_model', 'loomworks.models')
     def test_email_sent_when_approved(self):
         """ Testing leave request flow: limited type of leave request """
         with freeze_time('2022-01-15'):

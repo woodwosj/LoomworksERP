@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import re
 
-from odoo import api, models
-from odoo.tools import misc
-from odoo.addons.base.models.assetsbundle import EXTENSIONS
+from loomworks import api, models
+from loomworks.tools import misc
+from loomworks.addons.base.models.assetsbundle import EXTENSIONS
 
 _match_asset_file_url_regex = re.compile(r"^(/_custom/([^/]+))?/(\w+)/([/\w]+\.\w+)$")
 

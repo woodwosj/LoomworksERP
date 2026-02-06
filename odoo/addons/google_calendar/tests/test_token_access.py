@@ -1,6 +1,6 @@
-from odoo import fields, Command
-from odoo.exceptions import AccessError
-from odoo.tests.common import TransactionCase
+from loomworks import fields, Command
+from loomworks.exceptions import AccessError
+from loomworks.tests.common import TransactionCase
 
 class TestTokenAccess(TransactionCase):
 

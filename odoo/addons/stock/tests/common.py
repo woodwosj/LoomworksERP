@@ -2,8 +2,8 @@
 
 import re
 
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.product.tests.common import TestProductCommon
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.product.tests.common import TestProductCommon
 
 
 class TestStockCommon(TestProductCommon):

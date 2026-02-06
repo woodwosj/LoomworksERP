@@ -6,8 +6,8 @@
 # Loomworks modifications copyright: Loomworks
 # License: LGPL-3
 
-from odoo import models, fields, api
-from odoo.exceptions import UserError
+from loomworks import models, fields, api
+from loomworks.exceptions import UserError
 import json
 import re
 import uuid
@@ -110,7 +110,7 @@ class AISession(models.Model):
     )
     last_model_context = fields.Char(
         string='Last Active Model',
-        help='The Odoo model user was working with'
+        help='The Loomworks model user was working with'
     )
     last_record_ids = fields.Char(
         string='Last Record IDs (JSON)',

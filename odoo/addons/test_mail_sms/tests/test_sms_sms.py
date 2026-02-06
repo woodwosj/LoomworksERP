@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 from unittest.mock import DEFAULT
 
-from odoo import exceptions
-from odoo.addons.link_tracker.tests.common import MockLinkTracker
-from odoo.addons.sms.models.sms_sms import SmsSms as SmsModel
-from odoo.addons.sms.tests.common import SMSCommon
-from odoo.tests import tagged
+from loomworks import exceptions
+from loomworks.addons.link_tracker.tests.common import MockLinkTracker
+from loomworks.addons.sms.models.sms_sms import SmsSms as SmsModel
+from loomworks.addons.sms.tests.common import SMSCommon
+from loomworks.tests import tagged
 
 
 @tagged('link_tracker')

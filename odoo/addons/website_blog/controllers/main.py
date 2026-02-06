@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import werkzeug
 import itertools
@@ -7,12 +7,12 @@ import pytz
 import babel.dates
 from collections import defaultdict
 
-from odoo import http, fields, tools, models
-from odoo.addons.website.controllers.main import QueryURL
-from odoo.http import request
-from odoo.tools import html2plaintext
-from odoo.tools.misc import get_lang
-from odoo.tools import sql
+from loomworks import http, fields, tools, models
+from loomworks.addons.website.controllers.main import QueryURL
+from loomworks.http import request
+from loomworks.tools import html2plaintext
+from loomworks.tools.misc import get_lang
+from loomworks.tools import sql
 
 
 class WebsiteBlog(http.Controller):

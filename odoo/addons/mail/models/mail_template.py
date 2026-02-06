@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import itertools
 import logging
 from ast import literal_eval
 
-from odoo import _, api, fields, models, tools, Command
-from odoo.osv import expression
-from odoo.exceptions import ValidationError, UserError
-from odoo.tools import is_html_empty
-from odoo.tools.safe_eval import safe_eval, time
+from loomworks import _, api, fields, models, tools, Command
+from loomworks.osv import expression
+from loomworks.exceptions import ValidationError, UserError
+from loomworks.tools import is_html_empty
+from loomworks.tools.safe_eval import safe_eval, time
 
 _logger = logging.getLogger(__name__)
 
@@ -83,7 +83,7 @@ class MailTemplate(models.Model):
     scheduled_date = fields.Char('Scheduled Date', help="If set, the queue manager will send the email after the date. If not set, the email will be send as soon as possible. You can use dynamic expression.")
     auto_delete = fields.Boolean(
         'Auto Delete', default=True,
-        help="This option permanently removes any track of email after it's been sent, including from the Technical menu in the Settings, in order to preserve storage space of your Odoo database.")
+        help="This option permanently removes any track of email after it's been sent, including from the Technical menu in the Settings, in order to preserve storage space of your Loomworks database.")
     # contextual action
     ref_ir_act_window = fields.Many2one('ir.actions.act_window', 'Sidebar action', readonly=True, copy=False,
                                         help="Sidebar action to make this template available on records "

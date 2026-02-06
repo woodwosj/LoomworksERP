@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo auto_sequence="1">
+<loomworks auto_sequence="1">
     <record id="tax_annual_report_vat_vf" model="account.report">
         <field name="name">VF VAT Report</field>
         <field name="sequence">1</field>
@@ -819,4 +819,4 @@
             </record>
         </field>
     </record>
-</odoo>
+</loomworks>

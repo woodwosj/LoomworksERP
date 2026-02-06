@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
 from unittest.mock import patch
 
-from odoo.addons.google_calendar.utils.google_event import GoogleEvent
-from odoo.addons.google_calendar.utils.google_calendar import GoogleCalendarService
-from odoo.addons.google_calendar.models.res_users import User
-from odoo.addons.google_calendar.tests.test_sync_common import TestSyncGoogle, patch_api
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.tests.common import users, warmup
-from odoo.tests import tagged
-from odoo import tools
+from loomworks.addons.google_calendar.utils.google_event import GoogleEvent
+from loomworks.addons.google_calendar.utils.google_calendar import GoogleCalendarService
+from loomworks.addons.google_calendar.models.res_users import User
+from loomworks.addons.google_calendar.tests.test_sync_common import TestSyncGoogle, patch_api
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.tests.common import users, warmup
+from loomworks.tests import tagged
+from loomworks import tools
 
 from .test_token_access import TestTokenAccess
 

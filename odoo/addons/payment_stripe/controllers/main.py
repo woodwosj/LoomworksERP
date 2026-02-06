@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import hashlib
 import hmac
@@ -8,14 +8,14 @@ from datetime import datetime
 
 from werkzeug.exceptions import Forbidden
 
-from odoo import http
-from odoo.exceptions import ValidationError
-from odoo.http import request
-from odoo.tools import file_open, mute_logger
+from loomworks import http
+from loomworks.exceptions import ValidationError
+from loomworks.http import request
+from loomworks.tools import file_open, mute_logger
 
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.payment_stripe import utils as stripe_utils
-from odoo.addons.payment_stripe.const import CURRENCY_DECIMALS, HANDLED_WEBHOOK_EVENTS
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.payment_stripe import utils as stripe_utils
+from loomworks.addons.payment_stripe.const import CURRENCY_DECIMALS, HANDLED_WEBHOOK_EVENTS
 
 _logger = logging.getLogger(__name__)
 

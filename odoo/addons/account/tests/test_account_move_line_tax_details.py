@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #pylint: disable=too-many-lines
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import tagged
-from odoo import Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import tagged
+from loomworks import Command
 
 
 @tagged('post_install', '-at_install')

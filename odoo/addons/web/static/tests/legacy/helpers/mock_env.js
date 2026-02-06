@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/helpers/mock_env default=false */
+/** @loomworks-module alias=@web/../tests/helpers/mock_env default=false */
 
 import { SERVICES_METADATA } from "@web/core/utils/hooks";
 import { registry } from "@web/core/registry";

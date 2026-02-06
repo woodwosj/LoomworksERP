@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <data>
         <template id="report_invoice_document" inherit_id="account.report_invoice_document">
             <xpath expr="//div[@id='qrcode']" position="after">
@@ -12,4 +12,4 @@
             </xpath>
         </template>
     </data>
-</odoo>
+</loomworks>

@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 from pytz import timezone, utc
 
-from odoo import api, models
+from loomworks import api, models
 
 
 class ResourceCalendarLeaves(models.Model):

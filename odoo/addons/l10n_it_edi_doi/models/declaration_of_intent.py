@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.tools.misc import formatLang
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
+from loomworks.tools.misc import formatLang
 
 
 class L10nItDeclarationOfIntent(models.Model):

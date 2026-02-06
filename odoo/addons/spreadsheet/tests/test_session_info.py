@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import json
 from uuid import uuid4
 
-from odoo.tests import common
+from loomworks.tests import common
 
 
 class TestSessionInfo(common.HttpCase):

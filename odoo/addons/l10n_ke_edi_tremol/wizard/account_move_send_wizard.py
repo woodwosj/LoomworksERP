@@ -1,5 +1,5 @@
-from odoo import models
-from odoo.exceptions import UserError
+from loomworks import models
+from loomworks.exceptions import UserError
 
 
 class AccountMoveSendWizard(models.TransientModel):

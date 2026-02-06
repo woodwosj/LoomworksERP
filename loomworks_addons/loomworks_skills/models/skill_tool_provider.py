@@ -20,7 +20,7 @@ This module registers AI tools for skill-related operations:
 These tools enable the AI assistant to work with skills programmatically.
 """
 
-from odoo import api, models
+from loomworks import api, models
 import json
 import logging
 

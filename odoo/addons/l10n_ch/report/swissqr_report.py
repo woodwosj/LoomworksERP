@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from odoo import api, models
+from loomworks import api, models
 
 class ReportSwissQR(models.AbstractModel):
     _name = 'report.l10n_ch.qr_report_main'

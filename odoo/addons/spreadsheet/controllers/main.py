@@ -1,8 +1,8 @@
 import logging
 
 
-from odoo import http
-from odoo.http import request, Controller
+from loomworks import http
+from loomworks.http import request, Controller
 
 logger = logging.getLogger(__name__)
 

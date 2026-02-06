@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <!-- Document Type -->
     <record id="type_tax_invoice_sub_type_supply" model="l10n.in.ewaybill.type">
         <field name="name">Tax Invoice</field>
@@ -72,4 +72,4 @@
         <field name="active" eval="True"/>
     </record>
 
-</odoo>
+</loomworks>

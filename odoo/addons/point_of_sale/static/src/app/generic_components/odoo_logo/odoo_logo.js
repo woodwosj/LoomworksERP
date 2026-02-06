@@ -1,7 +1,7 @@
 import { Component } from "@odoo/owl";
 
-export class OdooLogo extends Component {
-    static template = "point_of_sale.OdooLogo";
+export class LoomworksLogo extends Component {
+    static template = "point_of_sale.LoomworksLogo";
     static props = {
         class: { type: String, optional: true },
         style: { type: String, optional: true },

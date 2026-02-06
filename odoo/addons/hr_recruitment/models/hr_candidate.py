@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 
-from odoo.addons.hr_recruitment.models.hr_applicant import AVAILABLE_PRIORITIES
+from loomworks.addons.hr_recruitment.models.hr_applicant import AVAILABLE_PRIORITIES
 
-from odoo import api, models, fields, SUPERUSER_ID, tools, _
-from odoo.exceptions import UserError
-from odoo.osv import expression
+from loomworks import api, models, fields, SUPERUSER_ID, tools, _
+from loomworks.exceptions import UserError
+from loomworks.osv import expression
 
 
 class HrCandidate(models.Model):

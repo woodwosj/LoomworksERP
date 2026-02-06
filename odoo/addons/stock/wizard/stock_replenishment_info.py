@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import babel.dates
 from json import dumps
@@ -7,11 +7,11 @@ from datetime import datetime, time
 from dateutil.relativedelta import relativedelta
 
 
-from odoo import api, fields, models, SUPERUSER_ID, _
-from odoo.osv.expression import AND
-from odoo.tools.date_utils import get_month, subtract
-from odoo.tools.float_utils import float_compare
-from odoo.tools.misc import get_lang, format_date
+from loomworks import api, fields, models, SUPERUSER_ID, _
+from loomworks.osv.expression import AND
+from loomworks.tools.date_utils import get_month, subtract
+from loomworks.tools.float_utils import float_compare
+from loomworks.tools.misc import get_lang, format_date
 
 
 class StockReplenishmentInfo(models.TransientModel):

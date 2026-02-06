@@ -1,4 +1,4 @@
-<odoo noupdate="1">
+<loomworks noupdate="1">
 <!--
     Earnings regimenes according to scale:
 -->
@@ -144,4 +144,4 @@
         <field name="excess_amount">852000</field>
     </record>
 
-</odoo>
+</loomworks>

@@ -4,10 +4,10 @@ from contextlib import contextmanager, nullcontext
 from freezegun import freeze_time
 from unittest import mock
 
-from odoo.addons.point_of_sale.models.pos_order import PosOrder
-from odoo.exceptions import UserError
-from odoo.tests import tagged
-from odoo.tools import mute_logger
+from loomworks.addons.point_of_sale.models.pos_order import PosOrder
+from loomworks.exceptions import UserError
+from loomworks.tests import tagged
+from loomworks.tools import mute_logger
 
 from .common import TestL10nEsEdiVerifactuPosCommon
 
@@ -48,14 +48,14 @@ class TestL10nEsEdiVerifactuPosOrder(TestL10nEsEdiVerifactuPosCommon):
             order_data['date_order'] = date_order
         name_patch = nullcontext()
         if name:
-            name_function_path = 'odoo.addons.point_of_sale.models.pos_order.PosOrder._compute_order_name'
+            name_function_path = 'loomworks.addons.point_of_sale.models.pos_order.PosOrder._compute_order_name'
             name_patch = mock.patch(name_function_path, return_value=name)
 
         # In case the Veri*Factu document is created for the invoice of the pos order:
         # We have to fix the record identifier related fields on the created invoice
         prepare_invoice_vals_patch = nullcontext()
         if account_move:
-            prepare_invoice_vals_function_path = 'odoo.addons.point_of_sale.models.pos_order.PosOrder._prepare_invoice_vals'
+            prepare_invoice_vals_function_path = 'loomworks.addons.point_of_sale.models.pos_order.PosOrder._prepare_invoice_vals'
             original_prepare_invoice_vals = PosOrder._prepare_invoice_vals
 
             def _patched_prepare_invoice_vals(self):
@@ -111,7 +111,7 @@ class TestL10nEsEdiVerifactuPosOrder(TestL10nEsEdiVerifactuPosCommon):
     def test_error_above_simplified_limit(self):
         with self.with_pos_session():
             with self.assertRaisesRegex(UserError, "The order needs to be invoiced since its total amount is above 400.0€."), \
-                 mute_logger('odoo.addons.point_of_sale.models.pos_order'):
+                 mute_logger('loomworks.addons.point_of_sale.models.pos_order'):
                 self._create_order({
                     'pos_order_lines_ui_args': [
                         (self.product, 10.0),

@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { setSelection } from '../../src/OdooEditor.js';
 import { Powerbox } from '../../src/powerbox/Powerbox.js';

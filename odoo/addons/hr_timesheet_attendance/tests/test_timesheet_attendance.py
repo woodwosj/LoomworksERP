@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 
-from odoo.tests import tagged
-from odoo.addons.hr_timesheet.tests.test_timesheet import TestCommonTimesheet
+from loomworks.tests import tagged
+from loomworks.addons.hr_timesheet.tests.test_timesheet import TestCommonTimesheet
 
 @tagged('post_install', '-at_install')
 class TestTimesheetAttendance(TestCommonTimesheet):

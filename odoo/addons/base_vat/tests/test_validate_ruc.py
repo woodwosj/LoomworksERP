@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo.tests.common import TransactionCase, tagged
-from odoo._monkeypatches.stdnum import new_get_soap_client
-from odoo.exceptions import ValidationError
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks.tests.common import TransactionCase, tagged
+from loomworks._monkeypatches.stdnum import new_get_soap_client
+from loomworks.exceptions import ValidationError
 from unittest.mock import patch
 
 import stdnum.eu.vat
@@ -52,7 +52,7 @@ class TestStructure(TransactionCase):
         })
 
         # reactivate it and correct the vat number
-        with patch('odoo.addons.base_vat.models.res_partner.check_vies', type(self)._vies_check_func):
+        with patch('loomworks.addons.base_vat.models.res_partner.check_vies', type(self)._vies_check_func):
             self.env.user.company_id.vat_check_vies = True
             with self.assertRaises(ValidationError), self.env.cr.savepoint():
                 company.vat = "BE0987654321"  # VIES refused, don't fallback on other check

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import base64
@@ -8,16 +8,16 @@ import io
 from PIL import Image
 from contextlib import contextmanager
 from unittest.mock import patch
-from odoo import Command, api
+from loomworks import Command, api
 
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
-from odoo.tests import tagged
-from odoo.addons.account.tests.common import TestTaxCommon, AccountTestInvoicingHttpCommon
-from odoo.addons.point_of_sale.tests.common_setup_methods import setup_product_combo_items
+from loomworks.tools import DEFAULT_SERVER_DATE_FORMAT
+from loomworks.tests import tagged
+from loomworks.addons.account.tests.common import TestTaxCommon, AccountTestInvoicingHttpCommon
+from loomworks.addons.point_of_sale.tests.common_setup_methods import setup_product_combo_items
 from datetime import date, timedelta
-from odoo.addons.point_of_sale.tests.common import archive_products
-from odoo.exceptions import UserError
-from odoo.addons.point_of_sale.models.pos_config import PosConfig
+from loomworks.addons.point_of_sale.tests.common import archive_products
+from loomworks.exceptions import UserError
+from loomworks.addons.point_of_sale.models.pos_config import PosConfig
 
 _logger = logging.getLogger(__name__)
 

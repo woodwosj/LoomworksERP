@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 import werkzeug
 
-from odoo import http
-from odoo.http import request
-from odoo.addons.portal.controllers.web import Home
-from odoo.exceptions import UserError, ValidationError, AccessError, MissingError, AccessDenied
+from loomworks import http
+from loomworks.http import request
+from loomworks.addons.portal.controllers.web import Home
+from loomworks.exceptions import UserError, ValidationError, AccessError, MissingError, AccessDenied
 
 
 class WebsiteTest(Home):

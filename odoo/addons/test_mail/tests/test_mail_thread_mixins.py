@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import exceptions, tools
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.addons.mail.tests.mail_tracking_duration_mixin_case import MailTrackingDurationMixinCase
-from odoo.addons.test_mail.tests.common import TestRecipients
-from odoo.tests.common import tagged, users
-from odoo.tools import mute_logger
+from loomworks import exceptions, tools
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.addons.mail.tests.mail_tracking_duration_mixin_case import MailTrackingDurationMixinCase
+from loomworks.addons.test_mail.tests.common import TestRecipients
+from loomworks.tests.common import tagged, users
+from loomworks.tools import mute_logger
 
 
 @tagged('mail_thread', 'mail_track', 'is_query_count')
@@ -29,7 +29,7 @@ class TestMailTrackingDurationMixin(MailTrackingDurationMixinCase):
 @tagged('mail_thread', 'mail_blacklist')
 class TestMailThread(MailCommon, TestRecipients):
 
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     def test_blacklist_mixin_email_normalized(self):
         """ Test email_normalized and is_blacklisted fields behavior, notably
         when dealing with encapsulated email fields and multi-email input. """
@@ -83,7 +83,7 @@ class TestMailThread(MailCommon, TestRecipients):
 class TestMailThreadCC(MailCommon):
 
     @users("employee")
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_suggested_recipients_mail_cc(self):
         """ MailThreadCC mixin adds its own suggested recipients management
         coming from CC (carbon copy) management. """

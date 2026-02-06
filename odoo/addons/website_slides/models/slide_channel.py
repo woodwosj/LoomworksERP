@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import ast
 import logging
@@ -9,10 +9,10 @@ from collections import defaultdict
 from dateutil.relativedelta import relativedelta
 from markupsafe import Markup
 
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.osv import expression
-from odoo.tools import is_html_empty
+from loomworks import api, fields, models, tools, _
+from loomworks.exceptions import AccessError, UserError, ValidationError
+from loomworks.osv import expression
+from loomworks.tools import is_html_empty
 
 _logger = logging.getLogger(__name__)
 

@@ -5,8 +5,8 @@ from datetime import timedelta
 from lxml import etree
 from requests import RequestException
 
-from odoo import api, fields, models, Command
-from odoo.addons.l10n_gr_edi.models.preferred_classification import INVOICE_TYPES_HAVE_EXPENSE
+from loomworks import api, fields, models, Command
+from loomworks.addons.l10n_gr_edi.models.preferred_classification import INVOICE_TYPES_HAVE_EXPENSE
 
 NS_MYDATA = {"ns": "http://www.aade.gr/myDATA/invoice/v1.0"}
 

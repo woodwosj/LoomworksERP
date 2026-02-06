@@ -4,12 +4,12 @@ from unittest.mock import patch
 from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
 
-from odoo.tests import tagged
-from odoo.tools import file_open
+from loomworks.tests import tagged
+from loomworks.tools import file_open
 
-from odoo.addons.l10n_ro_edi.tests.test_xml_ubl_ro import TestUBLROCommon
+from loomworks.addons.l10n_ro_edi.tests.test_xml_ubl_ro import TestUBLROCommon
 
-from odoo.addons.l10n_ro_efactura_synchronize.models.account_move import HOLDING_DAYS
+from loomworks.addons.l10n_ro_efactura_synchronize.models.account_move import HOLDING_DAYS
 
 
 def _patch_request_ciusro_download_answer(company, key_download, session):
@@ -133,7 +133,7 @@ def _patch_request_ciusro_synchronize_invoices(self, company, session, nb_days=1
     }
 
 
-@patch('odoo.addons.l10n_ro_efactura_synchronize.models.ciusro_document.L10nRoEdiDocument._request_ciusro_synchronize_invoices', new=_patch_request_ciusro_synchronize_invoices)
+@patch('loomworks.addons.l10n_ro_efactura_synchronize.models.ciusro_document.L10nRoEdiDocument._request_ciusro_synchronize_invoices', new=_patch_request_ciusro_synchronize_invoices)
 @tagged('post_install_l10n', 'post_install', '-at_install')
 class TestUBLROSynchronize(TestUBLROCommon):
 

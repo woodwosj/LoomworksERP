@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <record id="hr_leave_view_form_inherit" model="ir.ui.view">
         <field name="name">hr.leave.view.form.inherit</field>
@@ -17,4 +17,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

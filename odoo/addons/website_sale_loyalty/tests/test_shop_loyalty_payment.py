@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import date, timedelta
 from freezegun import freeze_time
 
-from odoo import Command
-from odoo.tests import JsonRpcException, tagged
-from odoo.tools import mute_logger
+from loomworks import Command
+from loomworks.tests import JsonRpcException, tagged
+from loomworks.tools import mute_logger
 
-from odoo.addons.payment.tests.http_common import PaymentHttpCommon
-from odoo.addons.sale_loyalty.tests.common import TestSaleCouponCommon
+from loomworks.addons.payment.tests.http_common import PaymentHttpCommon
+from loomworks.addons.sale_loyalty.tests.common import TestSaleCouponCommon
 
 
 @tagged('post_install', '-at_install')
@@ -23,7 +23,7 @@ class TestShopLoyaltyPayment(PaymentHttpCommon, TestSaleCouponCommon):
             cls.website = cls.env.ref('website.default_website')
             cls.website.company_id = cls.env.company
 
-    @mute_logger('odoo.http')
+    @mute_logger('loomworks.http')
     def test_expired_reward_validation(self):
         """Ensure payments don't process if any applied reward is no longer valid."""
         order = self.empty_order

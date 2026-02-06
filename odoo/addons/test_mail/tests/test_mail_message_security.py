@@ -3,13 +3,13 @@ import base64
 from markupsafe import Markup
 from unittest.mock import patch
 
-from odoo import SUPERUSER_ID
-from odoo.addons.mail.tests.common import mail_new_test_user, MailCommon
-from odoo.addons.test_mail.models.mail_test_access import MailTestAccess
-from odoo.addons.test_mail.models.test_mail_models import MailTestSimple
-from odoo.exceptions import AccessError
-from odoo.tools import mute_logger
-from odoo.tests import HttpCase, tagged
+from loomworks import SUPERUSER_ID
+from loomworks.addons.mail.tests.common import mail_new_test_user, MailCommon
+from loomworks.addons.test_mail.models.mail_test_access import MailTestAccess
+from loomworks.addons.test_mail.models.test_mail_models import MailTestSimple
+from loomworks.exceptions import AccessError
+from loomworks.tools import mute_logger
+from loomworks.tests import HttpCase, tagged
 
 
 class MessageAccessCommon(MailCommon, HttpCase):
@@ -75,7 +75,7 @@ class MessageAccessCommon(MailCommon, HttpCase):
 @tagged('mail_message', 'security', 'post_install', '-at_install')
 class TestMailMessageAccess(MessageAccessCommon):
 
-    @mute_logger('odoo.addons.base.models.ir_model', 'odoo.addons.base.models.ir_rule')
+    @mute_logger('loomworks.addons.base.models.ir_model', 'loomworks.addons.base.models.ir_rule')
     def test_assert_initial_values(self):
         """ Just ensure tests data """
         for record in (
@@ -146,7 +146,7 @@ class TestMailMessageAccess(MessageAccessCommon):
     #  - notified of parent message
     # ------------------------------------------------------------
 
-    @mute_logger('odoo.addons.base.models.ir_rule')
+    @mute_logger('loomworks.addons.base.models.ir_rule')
     def test_access_create(self):
         """ Test 'group_user' creation rules """
         # prepare 'notified of parent' condition
@@ -284,7 +284,7 @@ class TestMailMessageAccess(MessageAccessCommon):
                             'body': 'Test',
                         })
 
-    @mute_logger('odoo.addons.base.models.ir_rule')
+    @mute_logger('loomworks.addons.base.models.ir_rule')
     def test_access_create_portal(self):
         """ Test group_portal creation rules """
         # prepare 'notified of parent' condition
@@ -350,7 +350,7 @@ class TestMailMessageAccess(MessageAccessCommon):
                 'subtype_id': self.env.ref('mail.mt_comment').id,
             })
 
-    @mute_logger('odoo.addons.base.models.ir_model', 'odoo.addons.base.models.ir_rule')
+    @mute_logger('loomworks.addons.base.models.ir_model', 'loomworks.addons.base.models.ir_rule')
     def test_access_create_public(self):
         """ Public can never create messages """
         for record in [
@@ -367,7 +367,7 @@ class TestMailMessageAccess(MessageAccessCommon):
                         'body': 'Test',
                     })
 
-    @mute_logger('odoo.tests')
+    @mute_logger('loomworks.tests')
     def test_access_create_wo_parent_access(self):
         """ Purpose is to test posting a message on a record whose first message / parent
         is not accessible by current user. This cause issues notably when computing
@@ -699,7 +699,7 @@ class TestMailMessageAccess(MessageAccessCommon):
                 if msg_vals:
                     msg.write(original_vals)
 
-    @mute_logger('odoo.addons.base.models.ir_rule')
+    @mute_logger('loomworks.addons.base.models.ir_rule')
     def test_access_write_envelope(self):
         """ Test updating message envelope require some privileges """
         message = self.record_internal.with_user(self.user_employee).message_ids[0]
@@ -715,7 +715,7 @@ class TestMailMessageAccess(MessageAccessCommon):
             (0, 0, {'res_partner_id': self.user_portal_2.partner_id.id})
         ]})
 
-    @mute_logger('odoo.addons.base.models.ir_rule')
+    @mute_logger('loomworks.addons.base.models.ir_rule')
     def test_access_write_portal_notification(self):
         """ Test updating message notification content as portal user """
         self.record_followers.message_subscribe(self.user_portal.partner_id.ids)
@@ -885,7 +885,7 @@ class TestMessageSubModelAccess(MessageAccessCommon):
         # Test: Employee has access to attachment, ok because they can read message
         attachment.with_user(self.user_employee).read(['name', 'datas'])
 
-    @mute_logger('odoo.addons.base.models.ir_model', 'odoo.addons.base.models.ir_rule')
+    @mute_logger('loomworks.addons.base.models.ir_model', 'loomworks.addons.base.models.ir_rule')
     def test_mail_follower(self):
         """ Read access check on sub entities of mail.message """
         internal_record = self.record_internal.with_user(self.user_employee)
@@ -906,7 +906,7 @@ class TestMessageSubModelAccess(MessageAccessCommon):
             follower.write({'partner_id': self.user_admin.partner_id.id})
         follower.with_user(self.user_admin).write({'partner_id': self.user_admin.partner_id.id})
 
-    @mute_logger('odoo.addons.base.models.ir_rule')
+    @mute_logger('loomworks.addons.base.models.ir_rule')
     def test_mail_notification(self):
         """ Limit update of notifications for internal users """
         internal_record = self.record_internal.with_user(self.user_admin)
@@ -933,7 +933,7 @@ class TestMessageSubModelAccess(MessageAccessCommon):
         with self.assertRaises(AccessError):
             notif_own.write({'res_partner_id': self.user_admin.partner_id.id})
 
-    @mute_logger('odoo.addons.base.models.ir_model')
+    @mute_logger('loomworks.addons.base.models.ir_model')
     def test_mail_notification_portal(self):
         """ In any case, portal should not modify notifications """
         with self.assertRaises(AccessError):

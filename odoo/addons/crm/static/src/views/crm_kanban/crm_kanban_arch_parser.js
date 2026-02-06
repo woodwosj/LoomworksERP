@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { KanbanArchParser } from "@web/views/kanban/kanban_arch_parser";
 import { extractAttributes } from "@web/core/utils/xml";

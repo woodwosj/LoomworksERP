@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { OdooEditor } from "@web_editor/js/editor/odoo-editor/src/OdooEditor";
 import { patch } from "@web/core/utils/patch";

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 
-from odoo import fields
-from odoo.addons.event_product.tests.common import TestEventProductCommon
-from odoo.addons.sales_team.tests.common import TestSalesCommon
+from loomworks import fields
+from loomworks.addons.event_product.tests.common import TestEventProductCommon
+from loomworks.addons.sales_team.tests.common import TestSalesCommon
 
 
 class TestEventSaleCommon(TestEventProductCommon, TestSalesCommon):

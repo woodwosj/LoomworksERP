@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import contextlib
@@ -17,21 +17,21 @@ from lxml import html
 from random import randint
 from unittest.mock import patch
 
-from odoo.addons.base.models.ir_mail_server import IrMailServer
-from odoo import fields
-from odoo.addons.base.tests.common import MockSmtplibCase
-from odoo.addons.bus.models.bus import ImBus, json_dump
-from odoo.addons.mail.models.mail_mail import MailMail
-from odoo.addons.mail.models.mail_message import Message
-from odoo.addons.mail.models.mail_notification import MailNotification
-from odoo.addons.mail.models.res_users import Users
-from odoo.addons.mail.tools.discuss import Store
-from odoo.tests import common, RecordCapturer, new_test_user
-from odoo.tools import mute_logger
-from odoo.tools.mail import (
+from loomworks.addons.base.models.ir_mail_server import IrMailServer
+from loomworks import fields
+from loomworks.addons.base.tests.common import MockSmtplibCase
+from loomworks.addons.bus.models.bus import ImBus, json_dump
+from loomworks.addons.mail.models.mail_mail import MailMail
+from loomworks.addons.mail.models.mail_message import Message
+from loomworks.addons.mail.models.mail_notification import MailNotification
+from loomworks.addons.mail.models.res_users import Users
+from loomworks.addons.mail.tools.discuss import Store
+from loomworks.tests import common, RecordCapturer, new_test_user
+from loomworks.tools import mute_logger
+from loomworks.tools.mail import (
     email_normalize, email_split_and_format_normalize, formataddr
 )
-from odoo.tools.translate import code_translations
+from loomworks.tools.translate import code_translations
 
 _logger = logging.getLogger(__name__)
 
@@ -1697,7 +1697,7 @@ class MailCommon(common.TransactionCase, MailCase):
         """
         # activate translations
         cls.env['res.lang']._activate_lang(lang_code)
-        with mute_logger("odoo.addons.base.models.ir_module", "odoo.tools.translate"):
+        with mute_logger("loomworks.addons.base.models.ir_module", "loomworks.tools.translate"):
             cls.env.ref('base.module_base')._update_translations([lang_code])
             cls.env.ref('base.module_mail')._update_translations([lang_code])
             cls.env.ref('base.module_test_mail')._update_translations([lang_code])
@@ -1821,5 +1821,5 @@ def freeze_all_time(dt=None):
     """
     if not dt:
         dt = fields.Datetime.now()
-    with patch('odoo.sql_db.Cursor.now', return_value=dt), freeze_time(dt):
+    with patch('loomworks.sql_db.Cursor.now', return_value=dt), freeze_time(dt):
         yield

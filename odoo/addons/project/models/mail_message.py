@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import models
-from odoo.tools.sql import create_index
+from loomworks import models
+from loomworks.tools.sql import create_index
 
 
 class MailMessage(models.Model):

@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { OdooViewsDataSource } from "@spreadsheet/data_sources/odoo_views_data_source";
 import { EvaluationError } from "@odoo/o-spreadsheet";

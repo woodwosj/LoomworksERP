@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 # pylint: skip-file
 
 from __future__ import print_function
@@ -29,8 +29,8 @@ try:
 except ImportError:
     usb = None
 
-from odoo import http, _
-from odoo.addons.hw_drivers.controllers import proxy
+from loomworks import http, _
+from loomworks.addons.hw_drivers.controllers import proxy
 
 _logger = logging.getLogger(__name__)
 

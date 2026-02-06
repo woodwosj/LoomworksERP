@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo
-from odoo.tests import JsonRpcException
-from odoo.addons.mail.tests.test_controller_common import TestControllerCommon
+import loomworks
+from loomworks.tests import JsonRpcException
+from loomworks.addons.mail.tests.test_controller_common import TestControllerCommon
 
 
 class MessagePostSubTestData:
@@ -40,7 +40,7 @@ class MessagePostSubTestData:
         self.exp_emails = exp_emails
 
 
-@odoo.tests.tagged("-at_install", "post_install")
+@loomworks.tests.tagged("-at_install", "post_install")
 class TestThreadControllerCommon(TestControllerCommon):
     def _execute_message_post_subtests(self, record, tests: list[MessagePostSubTestData]):
         for test in tests:
@@ -81,7 +81,7 @@ class TestThreadControllerCommon(TestControllerCommon):
         )
 
 
-@odoo.tests.tagged("-at_install", "post_install")
+@loomworks.tests.tagged("-at_install", "post_install")
 class TestThreadController(TestThreadControllerCommon):
     def test_partner_message_post_access(self):
         """Test access of message_post on partner record."""

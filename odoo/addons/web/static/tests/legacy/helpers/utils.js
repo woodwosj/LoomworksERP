@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/helpers/utils default=false */
+/** @loomworks-module alias=@web/../tests/helpers/utils default=false */
 
 import { getTemplate } from "@web/core/templates";
 import { browser } from "@web/core/browser/browser";

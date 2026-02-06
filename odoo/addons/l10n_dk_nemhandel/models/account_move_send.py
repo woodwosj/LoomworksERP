@@ -1,8 +1,8 @@
 from base64 import b64encode
 from datetime import timedelta
 
-from odoo import _, fields, models
-from odoo.exceptions import UserError
+from loomworks import _, fields, models
+from loomworks.exceptions import UserError
 
 
 class AccountMoveSend(models.AbstractModel):

@@ -10,7 +10,7 @@
 Upwork AI Tool Provider - Registers AI tools for Upwork operations.
 """
 
-from odoo import api, models, _
+from loomworks import api, models, _
 import logging
 
 _logger = logging.getLogger(__name__)

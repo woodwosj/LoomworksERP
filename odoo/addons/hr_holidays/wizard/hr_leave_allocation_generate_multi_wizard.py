@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models
-from odoo.addons.resource.models.utils import HOURS_PER_DAY
+from loomworks import _, api, fields, models
+from loomworks.addons.resource.models.utils import HOURS_PER_DAY
 
 
 class HrLeaveAllocationGenerateMultiWizard(models.TransientModel):

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <template id="authorization_error" name="Authorization Error">
         <!-- Variables description:
@@ -10,7 +10,7 @@
             <div class="wrap">
                 <div class="container">
                     <h1>An error occurred</h1>
-                    <p>An error occurred while linking your Razorpay account with Odoo.</p>
+                    <p>An error occurred while linking your Razorpay account with Loomworks ERP.</p>
                     <p><t t-out="error_message"/></p>
                     <a t-att-href="provider_url" class="btn btn-primary mt-2">
                         Back to the Razorpay provider
@@ -20,4 +20,4 @@
         </t>
     </template>
 
-</odoo>
+</loomworks>

@@ -3,11 +3,11 @@
 from contextlib import contextmanager
 from unittest.mock import patch
 
-from odoo import exceptions
-from odoo.addons.crm.models.crm_lead import Lead
-from odoo.addons.crm_iap_mine.models.crm_iap_lead_mining_request import CRMLeadMiningRequest
-from odoo.addons.iap.tests.common import MockIAPEnrich
-from odoo.addons.iap.tools import iap_tools
+from loomworks import exceptions
+from loomworks.addons.crm.models.crm_lead import Lead
+from loomworks.addons.crm_iap_mine.models.crm_iap_lead_mining_request import CRMLeadMiningRequest
+from loomworks.addons.iap.tests.common import MockIAPEnrich
+from loomworks.addons.iap.tools import iap_tools
 
 
 class MockIAPReveal(MockIAPEnrich):

@@ -4,8 +4,8 @@ from datetime import datetime
 import requests
 from lxml import etree
 
-from odoo import _, api, models
-from odoo.addons.l10n_ro_edi.models.ciusro_document import (
+from loomworks import _, api, models
+from loomworks.addons.l10n_ro_edi.models.ciusro_document import (
     make_efactura_request,
 )
 

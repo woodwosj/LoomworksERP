@@ -8,16 +8,16 @@ from dateutil.relativedelta import relativedelta
 from math import ceil
 from pytz import timezone, UTC
 
-from odoo.addons.base.models.ir_model import MODULE_UNINSTALL_FLAG
+from loomworks.addons.base.models.ir_model import MODULE_UNINSTALL_FLAG
 
-from odoo import api, Command, fields, models, tools
-from odoo.addons.base.models.res_partner import _tz_get
-from odoo.addons.resource.models.utils import float_to_time, HOURS_PER_DAY, Intervals
-from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.tools.float_utils import float_round, float_compare
-from odoo.tools.misc import clean_context, format_date
-from odoo.tools.translate import _
-from odoo.osv import expression
+from loomworks import api, Command, fields, models, tools
+from loomworks.addons.base.models.res_partner import _tz_get
+from loomworks.addons.resource.models.utils import float_to_time, HOURS_PER_DAY, Intervals
+from loomworks.exceptions import AccessError, UserError, ValidationError
+from loomworks.tools.float_utils import float_round, float_compare
+from loomworks.tools.misc import clean_context, format_date
+from loomworks.tools.translate import _
+from loomworks.osv import expression
 
 _logger = logging.getLogger(__name__)
 

@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from ast import literal_eval
 
 from lxml import etree
 
-from odoo import SUPERUSER_ID, _, api, fields, models
-from odoo.exceptions import ValidationError
-from odoo.http import request
-from odoo.osv import expression
+from loomworks import SUPERUSER_ID, _, api, fields, models
+from loomworks.exceptions import ValidationError
+from loomworks.http import request
+from loomworks.osv import expression
 
 
 class website_form_config(models.Model):

@@ -1,10 +1,10 @@
 import logging
 import requests
 
-from odoo import _, fields, models
-from odoo.addons.phone_validation.tools import phone_validation
-from odoo.addons.sms_twilio.tools.sms_twilio import get_twilio_from_number
-from odoo.exceptions import UserError
+from loomworks import _, fields, models
+from loomworks.addons.phone_validation.tools import phone_validation
+from loomworks.addons.sms_twilio.tools.sms_twilio import get_twilio_from_number
+from loomworks.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
@@ -75,7 +75,7 @@ class SmsTwilioAccountManage(models.TransientModel):
         if not self.test_number:
             raise UserError(_("Please set the number to which you want to send a test SMS."))
         composer = self.env['sms.composer'].create({
-            'body': _("This is a test SMS from Odoo"),
+            'body': _("This is a test SMS from Loomworks"),
             'composition_mode': 'numbers',
             'numbers': self.test_number,
         })

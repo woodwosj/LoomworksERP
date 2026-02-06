@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import codecs
@@ -23,11 +23,11 @@ import requests
 from PIL import Image
 
 from collections import defaultdict
-from odoo import api, fields, models
-from odoo.exceptions import UserError
-from odoo.tools.translate import _
-from odoo.tools.mimetypes import guess_mimetype
-from odoo.tools import config, DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT, parse_version
+from loomworks import api, fields, models
+from loomworks.exceptions import UserError
+from loomworks.tools.translate import _
+from loomworks.tools.mimetypes import guess_mimetype
+from loomworks.tools import config, DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT, parse_version
 
 FIELDS_RECURSION_LIMIT = 3
 ERROR_PREVIEW_BYTES = 200

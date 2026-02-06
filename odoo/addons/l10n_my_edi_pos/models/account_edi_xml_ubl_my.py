@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import datetime
 
 from pytz import UTC
 
-from odoo import api, models
-from odoo.addons.l10n_my_edi.models.account_edi_xml_ubl_my import COUNTRY_CODE_MAP
+from loomworks import api, models
+from loomworks.addons.l10n_my_edi.models.account_edi_xml_ubl_my import COUNTRY_CODE_MAP
 
 
 class AccountEdiXmlUBLMyInvoisMY(models.AbstractModel):

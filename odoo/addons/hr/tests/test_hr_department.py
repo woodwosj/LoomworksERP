@@ -1,4 +1,4 @@
-from odoo.addons.hr.tests.test_multi_company import TestMultiCompany
+from loomworks.addons.hr.tests.test_multi_company import TestMultiCompany
 
 
 class TestHrDepartment(TestMultiCompany):

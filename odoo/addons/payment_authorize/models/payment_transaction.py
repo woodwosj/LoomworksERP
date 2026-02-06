@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import pprint
 
-from odoo import _, models
-from odoo.exceptions import UserError, ValidationError
+from loomworks import _, models
+from loomworks.exceptions import UserError, ValidationError
 
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.payment_authorize.models.authorize_request import AuthorizeAPI
-from odoo.addons.payment_authorize.const import PAYMENT_METHODS_MAPPING, TRANSACTION_STATUS_MAPPING
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.payment_authorize.models.authorize_request import AuthorizeAPI
+from loomworks.addons.payment_authorize.const import PAYMENT_METHODS_MAPPING, TRANSACTION_STATUS_MAPPING
 
 
 _logger = logging.getLogger(__name__)

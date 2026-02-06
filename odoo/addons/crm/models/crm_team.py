@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import datetime
 import logging
@@ -9,10 +9,10 @@ import threading
 from ast import literal_eval
 from markupsafe import Markup
 
-from odoo import api, exceptions, fields, models, _
-from odoo.osv import expression
-from odoo.tools import float_compare, float_round, SQL
-from odoo.tools.safe_eval import safe_eval
+from loomworks import api, exceptions, fields, models, _
+from loomworks.osv import expression
+from loomworks.tools import float_compare, float_round, SQL
+from loomworks.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
 

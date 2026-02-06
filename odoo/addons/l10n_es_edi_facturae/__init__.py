@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import csv
 
-from odoo.tools import file_open
+from loomworks.tools import file_open
 from . import models
 from . import wizard
 

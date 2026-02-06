@@ -1,4 +1,4 @@
-/** @odoo-module alias=@mail/../tests/helpers/command default=false */
+/** @loomworks-module alias=@mail/../tests/helpers/command default=false */
 
 export class Command {
     /**

@@ -168,7 +168,7 @@ beforeEach(() => {
     patchWithCleanup(browser.location, {
         origin: "http://example.com",
     });
-    redirect("/odoo");
+    redirect("/loomworks");
 });
 
 test(`basic action as App`, async () => {

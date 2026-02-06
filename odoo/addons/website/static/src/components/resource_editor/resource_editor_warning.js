@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { EditHeadBodyDialog } from "../edit_head_body_dialog/edit_head_body_dialog";
 import { Component, useState } from "@odoo/owl";

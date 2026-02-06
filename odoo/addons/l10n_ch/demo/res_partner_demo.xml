@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="res_partner_ch_qr" model="res.partner">
         <field name="name">Easy Clean Lausanne</field>
         <field eval="[Command.set([ref('base.res_partner_category_11')])]" name="category_id"/>
@@ -19,4 +19,4 @@
             <field name="acc_number">CH11 3000 5228 1308 3501 F</field>
             <field name="partner_id" ref="l10n_ch.res_partner_ch_qr"/>
     </record>
-</odoo>
+</loomworks>

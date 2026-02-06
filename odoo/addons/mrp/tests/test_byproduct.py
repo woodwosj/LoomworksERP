@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.fields import Command
-from odoo.tests import Form
-from odoo.tests import common
-from odoo.exceptions import ValidationError
+from loomworks.fields import Command
+from loomworks.tests import Form
+from loomworks.tests import common
+from loomworks.exceptions import ValidationError
 
 
 class TestMrpByProduct(common.TransactionCase):

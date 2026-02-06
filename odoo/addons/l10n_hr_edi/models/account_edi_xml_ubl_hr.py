@@ -2,8 +2,8 @@
 # Updated to work with but doesn't entirely follow the full structure of the UBL rework
 # implemented in commit a3c6e5abe0d964f0768de68d526905ae3dccac8a
 
-from odoo import fields, models
-from odoo.tools import html2plaintext
+from loomworks import fields, models
+from loomworks.tools import html2plaintext
 from lxml import etree
 
 

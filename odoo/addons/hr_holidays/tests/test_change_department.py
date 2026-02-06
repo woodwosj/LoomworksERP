@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import date
 from dateutil.relativedelta import relativedelta, MO, FR
 
-from odoo.addons.hr_holidays.tests.common import TestHrHolidaysCommon
+from loomworks.addons.hr_holidays.tests.common import TestHrHolidaysCommon
 
 
 class TestChangeDepartment(TestHrHolidaysCommon):

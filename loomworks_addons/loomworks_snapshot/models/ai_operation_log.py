@@ -31,8 +31,8 @@ References:
 - design.md: Decision 2 - Snapshot Strategy
 """
 
-from odoo import models, fields, api
-from odoo.exceptions import UserError
+from loomworks import models, fields, api
+from loomworks.exceptions import UserError
 import json
 import logging
 import re

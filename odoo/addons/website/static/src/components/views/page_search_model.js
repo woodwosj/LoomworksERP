@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { useService } from "@web/core/utils/hooks";
 import { Domain } from '@web/core/domain';

@@ -1,4 +1,4 @@
-/** @odoo-modules */
+/** @loomworks-modules */
 
 import { registry } from "@web/core/registry";
 

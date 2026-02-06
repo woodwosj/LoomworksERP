@@ -1,4 +1,4 @@
-// @odoo-module ignore
+// @loomworks-module ignore
 
 odoo.loader.bus.addEventListener("module-started", (e) => {
     if (e.detail.moduleName === "@web_editor/js/frontend/loadWysiwygFromTextarea") {

@@ -3,7 +3,7 @@
     Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
     License: LGPL-3
 -->
-<odoo>
+<loomworks>
 
     <!-- AI Operation Log Form View -->
     <record id="loomworks_ai_operation_log_view_form" model="ir.ui.view">
@@ -131,4 +131,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

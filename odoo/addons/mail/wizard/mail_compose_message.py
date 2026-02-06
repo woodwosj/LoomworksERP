@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import ast
 import base64
 import datetime
 import json
 
-from odoo import _, api, fields, models, Command, tools
-from odoo.exceptions import UserError, ValidationError
-from odoo.osv import expression
-from odoo.tools.mail import is_html_empty, email_normalize, email_split_and_format
-from odoo.addons.mail.tools.parser import parse_res_ids
+from loomworks import _, api, fields, models, Command, tools
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.osv import expression
+from loomworks.tools.mail import is_html_empty, email_normalize, email_split_and_format
+from loomworks.addons.mail.tools.parser import parse_res_ids
 
 
 def _reopen(self, res_id, model, context=None):
@@ -166,7 +166,7 @@ class MailComposer(models.TransientModel):
     auto_delete = fields.Boolean(
         'Delete Emails',
         compute="_compute_auto_delete", readonly=False, store=True, compute_sudo=False,
-        help='This option permanently removes any track of email after it\'s been sent, including from the Technical menu in the Settings, in order to preserve storage space of your Odoo database.')
+        help='This option permanently removes any track of email after it\'s been sent, including from the Technical menu in the Settings, in order to preserve storage space of your Loomworks database.')
     auto_delete_keep_log = fields.Boolean(
         'Keep Message Copy',
         compute="_compute_auto_delete_keep_log", readonly=False, store=True,

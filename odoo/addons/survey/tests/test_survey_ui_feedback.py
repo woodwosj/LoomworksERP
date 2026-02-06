@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo.tests
-from odoo import Command
-from odoo.addons.base.tests.common import HttpCaseWithUserDemo
+import loomworks.tests
+from loomworks import Command
+from loomworks.addons.base.tests.common import HttpCaseWithUserDemo
 
 
-@odoo.tests.common.tagged('post_install', '-at_install')
+@loomworks.tests.common.tagged('post_install', '-at_install')
 class TestUiFeedback(HttpCaseWithUserDemo):
 
     def setUp(self):

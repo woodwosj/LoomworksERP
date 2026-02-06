@@ -1,4 +1,4 @@
-/** @odoo-module alias=@mail/../tests/helpers/model_definitions_setup default=false */
+/** @loomworks-module alias=@mail/../tests/helpers/model_definitions_setup default=false */
 
 import {
     addFakeModel,

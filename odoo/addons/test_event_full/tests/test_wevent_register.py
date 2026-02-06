@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from freezegun import freeze_time
 
-from odoo import tests
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.test_event_full.tests.common import TestWEventCommon
+from loomworks import tests
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.test_event_full.tests.common import TestWEventCommon
 
 
 @tests.common.tagged('event_online', 'post_install', '-at_install')

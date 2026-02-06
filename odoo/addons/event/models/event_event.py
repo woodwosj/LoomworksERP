@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import pytz
@@ -9,14 +9,14 @@ import urllib.parse
 from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 
-from odoo import _, api, Command, fields, models, tools
-from odoo.addons.base.models.res_partner import _tz_get
-from odoo.exceptions import UserError, ValidationError
-from odoo.osv import expression
-from odoo.tools import format_date, format_datetime, format_time, frozendict
-from odoo.tools.mail import is_html_empty, html_to_inner_content
-from odoo.tools.misc import formatLang
-from odoo.tools.translate import html_translate
+from loomworks import _, api, Command, fields, models, tools
+from loomworks.addons.base.models.res_partner import _tz_get
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.osv import expression
+from loomworks.tools import format_date, format_datetime, format_time, frozendict
+from loomworks.tools.mail import is_html_empty, html_to_inner_content
+from loomworks.tools.misc import formatLang
+from loomworks.tools.translate import html_translate
 
 _logger = logging.getLogger(__name__)
 
@@ -110,7 +110,7 @@ class EventEvent(models.Model):
         return result
 
     def get_kiosk_url(self):
-        return self.get_base_url() + "/odoo/registration-desk"
+        return self.get_base_url() + "/loomworks/registration-desk"
 
     def _get_default_stage_id(self):
         return self.env['event.stage'].search([], limit=1)
@@ -808,4 +808,4 @@ class EventEvent(models.Model):
 
     def _get_printing_sponsor_text(self):
         sponsor_text = self.env['ir.config_parameter'].sudo().get_param('event.badge_printing_sponsor_text')
-        return sponsor_text or "Powered by Odoo"
+        return sponsor_text or "Powered by Loomworks"

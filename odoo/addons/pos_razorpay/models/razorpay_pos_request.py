@@ -1,7 +1,7 @@
 import requests
 import logging
 
-from odoo import _
+from loomworks import _
 REQUEST_TIMEOUT = 10
 
 _logger = logging.getLogger(__name__)

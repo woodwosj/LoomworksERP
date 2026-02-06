@@ -1,5 +1,5 @@
-from odoo import _, api, models
-from odoo.exceptions import UserError
+from loomworks import _, api, models
+from loomworks.exceptions import UserError
 
 l10n_tr_official_code_categories = [
     "res_partner_category_hizmetno",

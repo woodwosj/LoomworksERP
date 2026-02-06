@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 /**
  * @typedef {import("@web/webclient/actions/action_service").ActionOptions} ActionOptions

@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
-from odoo.tools import float_round, format_list
+from loomworks import _, api, fields, models
+from loomworks.exceptions import ValidationError
+from loomworks.tools import float_round, format_list
 
-from odoo.addons.base.models.res_partner import WARNING_HELP, WARNING_MESSAGE
+from loomworks.addons.base.models.res_partner import WARNING_HELP, WARNING_MESSAGE
 
 
 class ProductTemplate(models.Model):

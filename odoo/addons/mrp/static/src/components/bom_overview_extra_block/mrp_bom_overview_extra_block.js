@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { useBus } from "@web/core/utils/hooks";
 import { BomOverviewLine } from "../bom_overview_line/mrp_bom_overview_line";

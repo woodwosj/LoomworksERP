@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
+from loomworks import api, fields, models, _
 
-from odoo.exceptions import ValidationError, UserError
-from odoo.osv.expression import AND
+from loomworks.exceptions import ValidationError, UserError
+from loomworks.osv.expression import AND
 
 
 class LunchOrder(models.Model):

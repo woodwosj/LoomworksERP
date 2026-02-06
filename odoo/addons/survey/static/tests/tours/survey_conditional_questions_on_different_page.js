@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { registry } from "@web/core/registry";
 import { expectHiddenQuestion } from "@survey/../tests/tours/survey_chained_conditional_questions";

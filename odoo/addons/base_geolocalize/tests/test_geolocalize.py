@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo.tests import TransactionCase
-from odoo.exceptions import UserError
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks.tests import TransactionCase
+from loomworks.exceptions import UserError
 from unittest.mock import patch
 
-import odoo.tests
+import loomworks.tests
 
 
-@odoo.tests.tagged('external', '-standard')
+@loomworks.tests.tagged('external', '-standard')
 class TestGeoLocalize(TransactionCase):
 
     def test_default_openstreetmap(self):
@@ -36,7 +36,7 @@ class TestGeoLocalize(TransactionCase):
         self.assertFalse(test_partner.date_localization)
 
 
-@odoo.tests.tagged('-at_install', 'post_install')
+@loomworks.tests.tagged('-at_install', 'post_install')
 class TestPartnerGeoLocalization(TransactionCase):
 
     def test_geo_localization_notification(self):

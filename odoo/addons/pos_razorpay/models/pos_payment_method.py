@@ -1,5 +1,5 @@
-from odoo.exceptions import UserError
-from odoo import fields, models, api, _
+from loomworks.exceptions import UserError
+from loomworks import fields, models, api, _
 
 from .razorpay_pos_request import RazorpayPosRequest
 

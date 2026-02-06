@@ -1,16 +1,16 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import pprint
 
 from werkzeug import urls
 
-from odoo import _, models
-from odoo.exceptions import ValidationError
+from loomworks import _, models
+from loomworks.exceptions import ValidationError
 
-from odoo.addons.payment.const import CURRENCY_MINOR_UNITS
-from odoo.addons.payment_mollie import const
-from odoo.addons.payment_mollie.controllers.main import MollieController
+from loomworks.addons.payment.const import CURRENCY_MINOR_UNITS
+from loomworks.addons.payment_mollie import const
+from loomworks.addons.payment_mollie.controllers.main import MollieController
 
 _logger = logging.getLogger(__name__)
 

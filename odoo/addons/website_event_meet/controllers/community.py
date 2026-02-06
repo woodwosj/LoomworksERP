@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 from werkzeug.exceptions import Forbidden, NotFound
 
-from odoo import exceptions, http
-from odoo.http import request
-from odoo.addons.website_event.controllers.community import EventCommunityController
-from odoo.osv import expression
+from loomworks import exceptions, http
+from loomworks.http import request
+from loomworks.addons.website_event.controllers.community import EventCommunityController
+from loomworks.osv import expression
 
 _logger = logging.getLogger(__name__)
 

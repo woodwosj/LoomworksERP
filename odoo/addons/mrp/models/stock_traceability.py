@@ -1,4 +1,4 @@
-from odoo import models, api
+from loomworks import models, api
 
 class MrpStockReport(models.TransientModel):
     _inherit = 'stock.traceability.report'

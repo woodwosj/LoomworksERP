@@ -128,7 +128,7 @@
                            t-model="state.domain"
                            placeholder="[('active', '=', True)]"/>
                     <small class="text-muted">
-                        Use Odoo domain syntax to filter records
+                        Use Loomworks domain syntax to filter records
                     </small>
                 </div>
 

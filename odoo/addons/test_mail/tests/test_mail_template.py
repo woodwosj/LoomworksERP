@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import datetime
@@ -7,10 +7,10 @@ import datetime
 from freezegun import freeze_time
 from unittest.mock import patch
 
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.addons.test_mail.tests.common import TestRecipients
-from odoo.tests import tagged, users, warmup
-from odoo.tools import mute_logger, safe_eval
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.addons.test_mail.tests.common import TestRecipients
+from loomworks.tests import tagged, users, warmup
+from loomworks.tools import mute_logger, safe_eval
 
 
 class TestMailTemplateCommon(MailCommon, TestRecipients):
@@ -80,7 +80,7 @@ class TestMailTemplate(TestMailTemplateCommon):
         self.assertEqual(action.name, 'Send Mail (%s)' % self.test_template.name)
         self.assertEqual(action.binding_model_id.model, 'mail.test.lang')
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     @users('employee')
     def test_template_schedule_email(self):
         """ Test scheduling email sending from template. """
@@ -120,7 +120,7 @@ class TestMailTemplate(TestMailTemplateCommon):
         self.assertFalse(mail.scheduled_date)
         self.assertEqual(mail.state, 'outgoing')
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_template_send_mail_body(self):
         """ Test that the body and body_html is set correctly in 'mail.mail'
         when sending an email from mail.template """
@@ -187,7 +187,7 @@ class TestMailTemplateLanguages(TestMailTemplateCommon):
         # warm up group access cache: 5 queries + 1 query per user
         self.user_employee.has_group('base.group_user')
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     @warmup
     def test_template_send_email(self):
         """ Test 'send_email' on template on a given record, used notably as
@@ -205,7 +205,7 @@ class TestMailTemplateLanguages(TestMailTemplateCommon):
         self.assertEqual(mail.recipient_ids, self.partner_2 | self.user_admin.partner_id)
         self.assertEqual(mail.subject, f'EnglishSubject for {self.test_record.name}')
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     @warmup
     def test_template_send_email_nolayout(self):
         """ Test without layout, just to check impact """
@@ -223,7 +223,7 @@ class TestMailTemplateLanguages(TestMailTemplateCommon):
         self.assertEqual(mail.recipient_ids, self.partner_2 | self.user_admin.partner_id)
         self.assertEqual(mail.subject, f'EnglishSubject for {self.test_record.name}')
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     @warmup
     def test_template_send_email_batch(self):
         """ Test 'send_email' on template in batch """
@@ -245,7 +245,7 @@ class TestMailTemplateLanguages(TestMailTemplateCommon):
             else:
                 self.assertEqual(mail.subject, f'SpanishSubject for {record.name}')
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     @warmup
     def test_template_send_email_wreport(self):
         """ Test 'send_email' on template on a given record, used notably as
@@ -262,7 +262,7 @@ class TestMailTemplateLanguages(TestMailTemplateCommon):
         self.assertEqual(mail.recipient_ids, self.partner_2 | self.user_admin.partner_id)
         self.assertEqual(mail.subject, f'EnglishSubject for {self.test_record.name}')
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     @warmup
     def test_template_send_email_wreport_batch(self):
         """ Test 'send_email' on template in batch with dynamic reports """
@@ -299,7 +299,7 @@ class TestMailTemplateLanguages(TestMailTemplateCommon):
                 self.assertEqual(mail.body_html,
                          f'<body><p>SpanishBody for {record.name}</p> Spanish Layout para Spanish Model Description</body>')
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_template_send_email_wreport_batch_scalability(self):
         """ Test 'send_email' on template in batch, using configuration parameter
         for batch rendering. """
@@ -342,7 +342,7 @@ class TestMailTemplateLanguages(TestMailTemplateCommon):
                     else:
                         self.assertEqual(mail.subject, f'SpanishSubject for {record.name}')
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_template_translation_lang(self):
         """ Test template rendering using lang defined directly on the record """
         test_record = self.test_record.with_env(self.env)
@@ -357,7 +357,7 @@ class TestMailTemplateLanguages(TestMailTemplateCommon):
                          f'<body><p>SpanishBody for {self.test_record.name}</p> Spanish Layout para Spanish Model Description</body>')
         self.assertEqual(mail.subject, f'SpanishSubject for {self.test_record.name}')
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     @warmup
     def test_template_translation_partner_lang(self):
         """ Test template rendering using lang defined on a sub-record aka

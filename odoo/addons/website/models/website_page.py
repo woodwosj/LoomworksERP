@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 from collections import Counter
 
-from odoo.addons.website.tools import text_from_html
-from odoo import api, fields, models
-from odoo.osv import expression
-from odoo.tools import escape_psql, SQL
-from odoo.tools.translate import _
+from loomworks.addons.website.tools import text_from_html
+from loomworks import api, fields, models
+from loomworks.osv import expression
+from loomworks.tools import escape_psql, SQL
+from loomworks.tools.translate import _
 
 
 class Page(models.Model):

@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/mobile/webclient/burger_menu/burger_user_menu_tests default=false */
+/** @loomworks-module alias=@web/../tests/mobile/webclient/burger_menu/burger_user_menu_tests default=false */
 
 import { ormService } from "@web/core/orm_service";
 import { registry } from "@web/core/registry";

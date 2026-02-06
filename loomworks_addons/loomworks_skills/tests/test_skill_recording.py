@@ -4,8 +4,8 @@
 import json
 from datetime import datetime, timedelta
 from unittest.mock import patch, MagicMock
-from odoo.tests import TransactionCase, tagged
-from odoo.exceptions import UserError
+from loomworks.tests import TransactionCase, tagged
+from loomworks.exceptions import UserError
 
 
 @tagged('post_install', '-at_install', 'loomworks_skills')

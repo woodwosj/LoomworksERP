@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 import { queryAll, queryOne } from "@odoo/hoot-dom";
 
 /**

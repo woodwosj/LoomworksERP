@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
     <!-- Action to open migration cron job -->
     <record id="action_cloud_storage_migration_cron" model="ir.actions.act_window">
         <field name="name">Cloud Storage Migration Cron</field>
@@ -48,4 +48,4 @@
             </xpath>
         </field>
     </record>
-</odoo>
+</loomworks>

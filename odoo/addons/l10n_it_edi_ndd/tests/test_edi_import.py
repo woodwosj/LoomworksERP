@@ -1,6 +1,6 @@
-from odoo import fields
-from odoo.tests import tagged
-from odoo.addons.l10n_it_edi.tests.common import TestItEdi
+from loomworks import fields
+from loomworks.tests import tagged
+from loomworks.addons.l10n_it_edi.tests.common import TestItEdi
 
 import logging
 

@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import werkzeug
 import werkzeug.utils
 import werkzeug.exceptions
 
-from odoo import _
-from odoo import http
-from odoo.exceptions import AccessError
-from odoo.http import request
-from odoo.osv import expression
+from loomworks import _
+from loomworks import http
+from loomworks.exceptions import AccessError
+from loomworks.http import request
+from loomworks.osv import expression
 
-from odoo.addons.website_slides.controllers.main import WebsiteSlides
+from loomworks.addons.website_slides.controllers.main import WebsiteSlides
 
 
 class WebsiteSlidesSurvey(WebsiteSlides):

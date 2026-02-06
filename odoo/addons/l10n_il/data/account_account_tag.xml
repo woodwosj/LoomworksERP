@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="account_tag_retention_tax_vendor_account" model="account.account.tag">
         <field name="name">Withholding Vendor Tax Account</field>
     </record>
@@ -20,4 +20,4 @@
         <field name="name">Withholding Customers Tax Account</field>
     </record>
 
-</odoo>
+</loomworks>

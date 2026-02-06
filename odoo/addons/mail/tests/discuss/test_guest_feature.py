@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
-from odoo.tests import tagged
-from odoo.addons.bus.tests.common import WebsocketCase
-from odoo.addons.mail.tests.common import MailCommon
+from loomworks.tests import tagged
+from loomworks.addons.bus.tests.common import WebsocketCase
+from loomworks.addons.mail.tests.common import MailCommon
 
 
 @tagged("post_install", "-at_install")

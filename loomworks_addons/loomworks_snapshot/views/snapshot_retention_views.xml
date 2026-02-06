@@ -7,7 +7,7 @@
     Loomworks modifications copyright: Loomworks
     License: LGPL-3
 -->
-<odoo>
+<loomworks>
     <!-- Snapshot Retention Tree View -->
     <record id="view_snapshot_retention_tree" model="ir.ui.view">
         <field name="name">loomworks.snapshot.retention.tree</field>
@@ -144,4 +144,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

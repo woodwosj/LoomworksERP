@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <record model="accounting.assert.test" id="account_test_01">
         <field name="sequence">1</field>
@@ -137,4 +137,4 @@ if result:
   result.insert(0,_('* Here is the list of inactive partners and movement lines that are not correct: '))
 ]]></field>
     </record> -->
-</odoo>
+</loomworks>

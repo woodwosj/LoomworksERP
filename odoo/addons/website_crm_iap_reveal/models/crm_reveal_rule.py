@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import datetime
 import itertools
@@ -7,11 +7,11 @@ import logging
 import re
 from dateutil.relativedelta import relativedelta
 
-import odoo
-from odoo import api, fields, models, tools, _
-from odoo.addons.iap.tools import iap_tools
-from odoo.addons.crm.models import crm_stage
-from odoo.exceptions import ValidationError
+import loomworks
+from loomworks import api, fields, models, tools, _
+from loomworks.addons.iap.tools import iap_tools
+from loomworks.addons.crm.models import crm_stage
+from loomworks.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -36,7 +36,7 @@ class CRMRevealRule(models.Model):
                                    'Rules with a lower sequence number will be processed first.')
 
     # Company Criteria Filter
-    industry_tag_ids = fields.Many2many('crm.iap.lead.industry', string='Industries', help='Leave empty to always match. Odoo will not create lead if no match')
+    industry_tag_ids = fields.Many2many('crm.iap.lead.industry', string='Industries', help='Leave empty to always match. Loomworks will not create lead if no match')
     filter_on_size = fields.Boolean(string="Filter on Size", default=True, help="Filter companies based on their size.")
     company_size_min = fields.Integer(string='Company Size', default=0)
     company_size_max = fields.Integer(default=1000)
@@ -373,7 +373,7 @@ class CRMRevealRule(models.Model):
 
         template_values = result['reveal_data']
         template_values.update({
-            'flavor_text': _("Opportunity created by Odoo Lead Generation"),
+            'flavor_text': _("Opportunity created by Loomworks Lead Generation"),
             'people_data': result.get('people_data'),
         })
         lead.message_post_with_source(

@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import tagged
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import tagged
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

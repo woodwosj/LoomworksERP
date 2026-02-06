@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.fields import Command
-from odoo.tests import HttpCase, tagged
+from loomworks.fields import Command
+from loomworks.tests import HttpCase, tagged
 
 
 @tagged('-at_install', 'post_install')

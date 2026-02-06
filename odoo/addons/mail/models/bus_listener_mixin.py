@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import models
-from odoo.addons.mail.tools.discuss import Store
+from loomworks import models
+from loomworks.addons.mail.tools.discuss import Store
 
 
 class BusListenerMixin(models.AbstractModel):

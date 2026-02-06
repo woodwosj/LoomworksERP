@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import heapq
 import logging
 from collections import namedtuple
@@ -8,11 +8,11 @@ from collections import defaultdict
 from markupsafe import escape
 from psycopg2 import Error
 
-from odoo import _, api, fields, models, SUPERUSER_ID
-from odoo.exceptions import UserError, ValidationError
-from odoo.osv import expression
-from odoo.tools import SQL, check_barcode_encoding, format_list, groupby
-from odoo.tools.float_utils import float_compare, float_is_zero
+from loomworks import _, api, fields, models, SUPERUSER_ID
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.osv import expression
+from loomworks.tools import SQL, check_barcode_encoding, format_list, groupby
+from loomworks.tools.float_utils import float_compare, float_is_zero
 
 _logger = logging.getLogger(__name__)
 

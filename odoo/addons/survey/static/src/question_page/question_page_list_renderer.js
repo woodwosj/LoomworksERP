@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { makeContext } from "@web/core/context";
 import { ListRenderer } from "@web/views/list/list_renderer";

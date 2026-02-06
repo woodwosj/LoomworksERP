@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import models, _
-from odoo.tools import float_is_zero
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import models, _
+from loomworks.tools import float_is_zero
 
 ANZ_TAX_CATEGORIES = {'S', 'E', 'Z', 'G', 'O'}
 

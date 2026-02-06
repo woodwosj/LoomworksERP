@@ -1,7 +1,7 @@
-from odoo import Command
-from odoo.tests.common import tagged
+from loomworks import Command
+from loomworks.tests.common import tagged
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 @tagged("-at_install", "post_install", "post_install_l10n")

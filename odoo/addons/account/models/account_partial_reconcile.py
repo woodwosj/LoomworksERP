@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models, _, Command
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import frozendict
+from loomworks import api, fields, models, _, Command
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools import frozendict
 
 from datetime import date
 

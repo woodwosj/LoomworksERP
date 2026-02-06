@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime as dt, time
 from datetime import timedelta as td
 from dateutil.relativedelta import relativedelta
 from json import loads
 
-from odoo import SUPERUSER_ID, Command, fields
-from odoo.fields import Date
-from odoo.tests import Form, tagged, freeze_time
-from odoo.tests.common import TransactionCase
-from odoo.tools import format_date
-from odoo.tools.date_utils import add
-from odoo.exceptions import UserError, ValidationError
+from loomworks import SUPERUSER_ID, Command, fields
+from loomworks.fields import Date
+from loomworks.tests import Form, tagged, freeze_time
+from loomworks.tests.common import TransactionCase
+from loomworks.tools import format_date
+from loomworks.tools.date_utils import add
+from loomworks.exceptions import UserError, ValidationError
 
 
 @tagged('post_install', '-at_install')

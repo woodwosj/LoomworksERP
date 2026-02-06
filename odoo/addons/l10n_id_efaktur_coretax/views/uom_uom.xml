@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="product_uom_categ_form_view_inherit_coretax" model="ir.ui.view">
         <field name="name">uom.category.form.inherit.coretax</field>
         <field name="model">uom.category</field>
@@ -21,4 +21,4 @@
             </xpath>
         </field>
     </record>
-</odoo>
+</loomworks>

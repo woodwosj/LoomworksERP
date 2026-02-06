@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.portal.controllers import portal
-from odoo.http import request
+from loomworks.addons.portal.controllers import portal
+from loomworks.http import request
 
 
 class CustomerPortal(portal.CustomerPortal):

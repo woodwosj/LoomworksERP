@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo.tests
+import loomworks.tests
 
-@odoo.tests.tagged("post_install", "-at_install")
-class TestOdooEditor(odoo.tests.HttpCase):
+@loomworks.tests.tagged("post_install", "-at_install")
+class TestOdooEditor(loomworks.tests.HttpCase):
 
     def test_odoo_editor_suite(self):
         self.browser_js('/web_editor/tests', "", "", login='admin', timeout=1800)

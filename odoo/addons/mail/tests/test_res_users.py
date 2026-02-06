@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from psycopg2 import IntegrityError
 from unittest.mock import patch
 
-from odoo.addons.base.models.res_users import Users
-from odoo.addons.mail.tests.common import MailCommon, mail_new_test_user
-from odoo.addons.base.tests.common import HttpCaseWithUserDemo
-from odoo.tests import RecordCapturer, tagged, users
-from odoo.tools import mute_logger
+from loomworks.addons.base.models.res_users import Users
+from loomworks.addons.mail.tests.common import MailCommon, mail_new_test_user
+from loomworks.addons.base.tests.common import HttpCaseWithUserDemo
+from loomworks.tests import RecordCapturer, tagged, users
+from loomworks.tools import mute_logger
 
 
 @tagged('-at_install', 'post_install', 'mail_tools', 'res_users')
@@ -46,7 +46,7 @@ class TestNotifySecurityUpdate(MailCommon):
 @tagged('-at_install', 'post_install', 'mail_tools', 'res_users')
 class TestUser(MailCommon):
 
-    @mute_logger('odoo.sql_db')
+    @mute_logger('loomworks.sql_db')
     def test_notification_type_constraint(self):
         with self.assertRaises(IntegrityError, msg='Portal user can not receive notification in Odoo'):
             mail_new_test_user(
@@ -153,7 +153,7 @@ class TestUserTours(HttpCaseWithUserDemo):
         # avoid 'reload_context' action in the middle of the tour to ease steps and form save checks
         with patch.object(Users, 'preference_save', lambda self: True):
             self.start_tour(
-                "/odoo",
+                "/loomworks",
                 "mail/static/tests/tours/user_modify_own_profile_tour.js",
                 login="demo",
             )

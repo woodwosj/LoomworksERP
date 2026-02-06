@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { waitFor } from "@odoo/hoot-dom";
 import { rpc } from "@web/core/network/rpc";
@@ -11,7 +11,7 @@ function openRoot() {
         trigger: 'body',
         run() {
             document.querySelector("body").classList.add("wait");
-            window.location = '/odoo';
+            window.location = '/loomworks';
         },
         expectUnloadPage: true,
     }, {
@@ -68,7 +68,7 @@ function closeProfileDialog({content, totp_state}) {
 }
 
 registry.category("web_tour.tours").add('totp_tour_setup', {
-    url: '/odoo',
+    url: '/loomworks',
     steps: () => [
 ...openUserProfileAtSecurityTab(),
 {
@@ -303,7 +303,7 @@ registry.category("web_tour.tours").add('totp_login_disabled', {
 ]});
 
 registry.category("web_tour.tours").add('totp_admin_disables', {
-    url: '/odoo',
+    url: '/loomworks',
     steps: () => [stepUtils.showAppsMenuItem(), {
     content: 'Go to settings',
     trigger: '[data-menu-xmlid="base.menu_administration"]',

@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { rpc } from "@web/core/network/rpc";
 import { TextField } from '@web/views/fields/text/text_field';

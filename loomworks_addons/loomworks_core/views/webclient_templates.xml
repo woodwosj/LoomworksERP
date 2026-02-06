@@ -7,11 +7,18 @@
     Loomworks modifications copyright: Loomworks
     License: LGPL-3
 -->
-<odoo>
+<loomworks>
     <!-- Override favicon in web.layout -->
     <template id="loomworks_favicon" inherit_id="web.layout" name="Loomworks Favicon">
         <xpath expr="//link[@type='image/x-icon']" position="attributes">
             <attribute name="t-att-href">x_icon or '/loomworks_core/static/src/img/loomworks_favicon.ico'</attribute>
+        </xpath>
+    </template>
+
+    <!-- Override page title in web.layout -->
+    <template id="loomworks_title" inherit_id="web.layout" name="Loomworks Title">
+        <xpath expr="//title" position="attributes">
+            <attribute name="t-esc">title or 'Loomworks ERP'</attribute>
         </xpath>
     </template>
 
@@ -22,5 +29,26 @@
             <attribute name="alt">Loomworks ERP</attribute>
             <attribute name="style">max-height: 80px; max-width: 100%; width: auto</attribute>
         </xpath>
+        <!-- Replace "Powered by Odoo" with "Powered by Loomworks" -->
+        <xpath expr="//div[hasclass('text-center','small','mt-4')]/a[last()]" position="replace">
+            <a href="https://www.loomworks.solutions?utm_source=db&amp;utm_medium=auth" target="_blank">Powered by <span>Loomworks</span></a>
+        </xpath>
     </template>
-</odoo>
+
+    <!-- Override brand promotion message -->
+    <template id="loomworks_brand_promotion" inherit_id="web.brand_promotion_message" name="Loomworks Brand Promotion">
+        <xpath expr="//t[@t-set='odoo_logo']/a" position="replace">
+            <a target="_blank" t-attf-href="https://www.loomworks.solutions?utm_source=db&amp;utm_medium=#{_utm_medium}" class="badge text-bg-light">
+                <img alt="Loomworks" src="/loomworks_core/static/src/img/loomworks_logo.png" width="62" height="20" style="width: auto; height: 1em; vertical-align: baseline;"/>
+            </a>
+        </xpath>
+    </template>
+
+    <!-- Override webclient_bootstrap apple-touch-icon -->
+    <template id="loomworks_webclient_bootstrap" inherit_id="web.webclient_bootstrap" name="Loomworks Webclient Bootstrap">
+        <xpath expr="//link[@rel='apple-touch-icon']" position="attributes">
+            <attribute name="href">/loomworks_core/static/src/img/loomworks_icon.png</attribute>
+        </xpath>
+    </template>
+
+</loomworks>

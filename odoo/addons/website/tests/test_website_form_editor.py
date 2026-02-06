@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.exceptions import ValidationError
-from odoo.http import request
-from odoo.tests.common import TransactionCase, tagged
+from loomworks.exceptions import ValidationError
+from loomworks.http import request
+from loomworks.tests.common import TransactionCase, tagged
 
-from odoo.addons.base.tests.common import HttpCaseWithUserPortal
-from odoo.addons.website.controllers.form import WebsiteForm
-from odoo.addons.website.tools import MockRequest
+from loomworks.addons.base.tests.common import HttpCaseWithUserPortal
+from loomworks.addons.website.controllers.form import WebsiteForm
+from loomworks.addons.website.tools import MockRequest
 
 
 @tagged('post_install', '-at_install')
@@ -26,7 +26,7 @@ class TestWebsiteFormEditor(HttpCaseWithUserPortal):
         self.start_tour('/', 'website_form_editor_tour_results', login="admin")
 
     def test_website_form_contact_us_edition_with_email(self):
-        self.start_tour('/odoo', 'website_form_contactus_edition_with_email', login="admin")
+        self.start_tour('/loomworks', 'website_form_contactus_edition_with_email', login="admin")
         self.start_tour('/contactus', 'website_form_contactus_submit', login="portal")
         mail = self.env['mail.mail'].search([], order='id desc', limit=1)
         self.assertEqual(
@@ -36,7 +36,7 @@ class TestWebsiteFormEditor(HttpCaseWithUserPortal):
 
     def test_website_form_contact_us_edition_no_email(self):
         self.env.company.email = 'website_form_contactus_edition_no_email@mail.com'
-        self.start_tour('/odoo', 'website_form_contactus_edition_no_email', login="admin")
+        self.start_tour('/loomworks', 'website_form_contactus_edition_no_email', login="admin")
         self.start_tour('/contactus', 'website_form_contactus_submit', login="portal")
         mail = self.env['mail.mail'].search([], order='id desc', limit=1)
         self.assertEqual(

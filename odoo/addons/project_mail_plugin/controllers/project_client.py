@@ -1,6 +1,6 @@
 
-from odoo import Command, http, _
-from odoo.http import request
+from loomworks import Command, http, _
+from loomworks.http import request
 
 
 class ProjectClient(http.Controller):

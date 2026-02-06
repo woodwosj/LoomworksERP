@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { registry } from "@web/core/registry";
@@ -145,7 +145,7 @@ export class PosKanbanRenderer extends KanbanRenderer {
     }
 
     createNewProducts() {
-        window.open("/odoo/action-point_of_sale.action_client_product_menu", "_self");
+        window.open("/loomworks/action-point_of_sale.action_client_product_menu", "_self");
     }
 
     showTopBorder() {

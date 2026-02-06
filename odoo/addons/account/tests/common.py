@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import fields, Command
-from odoo.models import BaseModel
-from odoo.tests import Form, HttpCase, new_test_user, save_test_file
-from odoo.tools import config, file_path, file_open
-from odoo.tools.float_utils import float_round
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import fields, Command
+from loomworks.models import BaseModel
+from loomworks.tests import Form, HttpCase, new_test_user, save_test_file
+from loomworks.tools import config, file_path, file_open
+from loomworks.tools.float_utils import float_round
 
-from odoo.addons.product.tests.common import ProductCommon
+from loomworks.addons.product.tests.common import ProductCommon
 
 import json
 import base64

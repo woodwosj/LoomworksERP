@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { insertSnippet, registerWebsitePreviewTour } from "@website/js/tours/tour_utils";
 

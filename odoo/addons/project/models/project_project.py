@@ -1,17 +1,17 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import ast
 import json
 from datetime import timedelta
 
-from odoo import api, Command, fields, models
-from odoo.addons.mail.tools.discuss import Store
-from odoo.addons.rating.models import rating_data
-from odoo.exceptions import UserError
-from odoo.osv.expression import AND
-from odoo.tools import get_lang, SQL
-from odoo.tools.misc import unquote
-from odoo.tools.translate import _
+from loomworks import api, Command, fields, models
+from loomworks.addons.mail.tools.discuss import Store
+from loomworks.addons.rating.models import rating_data
+from loomworks.exceptions import UserError
+from loomworks.osv.expression import AND
+from loomworks.tools import get_lang, SQL
+from loomworks.tools.misc import unquote
+from loomworks.tools.translate import _
 from .project_update import STATUS_COLOR
 from .project_task import CLOSED_STATES
 

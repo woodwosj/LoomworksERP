@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import date, timedelta
 from unittest.mock import patch
 
-from odoo import Command
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.tests import tagged
 
-from odoo.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
-from odoo.addons.point_of_sale.tests.common_setup_methods import setup_product_combo_items
+from loomworks.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
+from loomworks.addons.point_of_sale.tests.common_setup_methods import setup_product_combo_items
 
 
 @tagged("post_install", "-at_install")

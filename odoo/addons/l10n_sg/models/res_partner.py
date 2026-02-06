@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models
+from loomworks import fields, models
 
 class ResPartner(models.Model):
     _name = 'res.partner'

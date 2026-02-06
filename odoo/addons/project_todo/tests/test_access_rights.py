@@ -1,6 +1,6 @@
-from odoo.tests.common import users
-from odoo.exceptions import AccessError
-from odoo.addons.project.tests.test_access_rights import TestAccessRights
+from loomworks.tests.common import users
+from loomworks.exceptions import AccessError
+from loomworks.addons.project.tests.test_access_rights import TestAccessRights
 
 class TestAccessRightsTodo(TestAccessRights):
     @classmethod

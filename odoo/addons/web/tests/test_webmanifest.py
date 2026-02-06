@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.base.tests.common import HttpCaseWithUserDemo
-from odoo.tests.common import tagged
+from loomworks.addons.base.tests.common import HttpCaseWithUserDemo
+from loomworks.tests.common import tagged
 
 
 @tagged("-at_install", "post_install")
@@ -21,8 +21,8 @@ class WebManifestRoutesTest(HttpCaseWithUserDemo):
         self.assertEqual(response.headers["Content-Type"], "application/manifest+json")
         data = response.json()
         self.assertEqual(data["name"], "Odoo")
-        self.assertEqual(data["scope"], "/odoo")
-        self.assertEqual(data["start_url"], "/odoo")
+        self.assertEqual(data["scope"], "/loomworks")
+        self.assertEqual(data["start_url"], "/loomworks")
         self.assertEqual(data["display"], "standalone")
         self.assertEqual(data["background_color"], "#714B67")
         self.assertEqual(data["theme_color"], "#714B67")
@@ -36,7 +36,7 @@ class WebManifestRoutesTest(HttpCaseWithUserDemo):
             self.assertGreater(len(shortcut["name"]), 0)
             self.assertGreater(len(shortcut["description"]), 0)
             self.assertGreater(len(shortcut["icons"]), 0)
-            self.assertTrue(shortcut["url"].startswith("/odoo?menu_id="))
+            self.assertTrue(shortcut["url"].startswith("/loomworks?menu_id="))
 
     def test_webmanifest_unauthenticated(self):
         """
@@ -47,8 +47,8 @@ class WebManifestRoutesTest(HttpCaseWithUserDemo):
         self.assertEqual(response.headers["Content-Type"], "application/manifest+json")
         data = response.json()
         self.assertEqual(data["name"], "Odoo")
-        self.assertEqual(data["scope"], "/odoo")
-        self.assertEqual(data["start_url"], "/odoo")
+        self.assertEqual(data["scope"], "/loomworks")
+        self.assertEqual(data["start_url"], "/loomworks")
         self.assertEqual(data["display"], "standalone")
         self.assertEqual(data["background_color"], "#714B67")
         self.assertEqual(data["theme_color"], "#714B67")
@@ -83,13 +83,13 @@ class WebManifestRoutesTest(HttpCaseWithUserDemo):
         response = self.url_open("/web/service-worker.js")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.headers["Content-Type"], "text/javascript")
-        self.assertEqual(response.headers["Service-Worker-Allowed"], "/odoo")
+        self.assertEqual(response.headers["Service-Worker-Allowed"], "/loomworks")
 
     def test_offline_url(self):
         """
         This route returns the offline page
         """
-        response = self.url_open("/odoo/offline")
+        response = self.url_open("/loomworks/offline")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.headers["Content-Type"], "text/html; charset=utf-8")
 
@@ -102,7 +102,7 @@ class WebManifestRoutesTest(HttpCaseWithUserDemo):
         response = self.url_open("/web/static/img/odoo-icon-ios.png")
         self.assertEqual(response.status_code, 200)
 
-        document = self.url_open("/odoo")
+        document = self.url_open("/loomworks")
         self.assertIn(
             '<link rel="apple-touch-icon" href="/web/static/img/odoo-icon-ios.png"/>', document.text,
             "Icon for iOS is present in the head of the document.",

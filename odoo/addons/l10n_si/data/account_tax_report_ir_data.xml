@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo auto_sequence="1">
+<loomworks auto_sequence="1">
     <!-- IR -->
     <record id="tax_report_ir" model="account.report">
         <field name="name">Payable VAT (IR)</field>
@@ -469,4 +469,4 @@
             </record>
         </field>
     </record>
-</odoo>
+</loomworks>

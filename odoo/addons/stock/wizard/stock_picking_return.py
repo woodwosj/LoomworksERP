@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, Command, fields, models
-from odoo.exceptions import UserError
-from odoo.tools.float_utils import float_round, float_is_zero
+from loomworks import _, api, Command, fields, models
+from loomworks.exceptions import UserError
+from loomworks.tools.float_utils import float_round, float_is_zero
 
 
 class ReturnPickingLine(models.TransientModel):

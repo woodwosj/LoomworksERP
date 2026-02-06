@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields, api, _
-from odoo.tools.pdf import OdooPdfFileReader
-from odoo.osv import expression
-from odoo.tools import html_escape
-from odoo.exceptions import RedirectWarning
+from loomworks import models, fields, api, _
+from loomworks.tools.pdf import OdooPdfFileReader
+from loomworks.osv import expression
+from loomworks.tools import html_escape
+from loomworks.exceptions import RedirectWarning
 
 from lxml import etree
 from struct import error as StructError

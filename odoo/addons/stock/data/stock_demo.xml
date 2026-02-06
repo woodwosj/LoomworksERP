@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data noupdate="1">
 
         <record id="base.user_demo" model="res.users">
@@ -182,4 +182,4 @@
         </record>
 
     </data>
-</odoo>
+</loomworks>

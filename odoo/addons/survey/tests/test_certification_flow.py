@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 
-from odoo import Command
-from odoo.addons.base.models.ir_mail_server import IrMailServer
-from odoo.addons.survey.tests import common
-from odoo.tests import tagged
-from odoo.tests.common import HttpCase
+from loomworks import Command
+from loomworks.addons.base.models.ir_mail_server import IrMailServer
+from loomworks.addons.survey.tests import common
+from loomworks.tests import tagged
+from loomworks.tests.common import HttpCase
 
 
 @tagged('-at_install', 'post_install', 'functional')

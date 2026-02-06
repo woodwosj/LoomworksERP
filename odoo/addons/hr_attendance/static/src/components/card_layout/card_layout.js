@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Component, useState, onWillUnmount } from "@odoo/owl";
 

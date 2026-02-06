@@ -1,5 +1,5 @@
-from odoo import api, models, fields, _
-from odoo.exceptions import ValidationError
+from loomworks import api, models, fields, _
+from loomworks.exceptions import ValidationError
 
 
 class ResPartner(models.Model):

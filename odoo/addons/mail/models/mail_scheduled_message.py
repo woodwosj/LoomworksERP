@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 import threading
 from collections import defaultdict
 from markupsafe import Markup
 
-from odoo import _, api, fields, models
-from odoo.addons.mail.tools.discuss import Store
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools.misc import clean_context
+from loomworks import _, api, fields, models
+from loomworks.addons.mail.tools.discuss import Store
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools.misc import clean_context
 
 import logging
 

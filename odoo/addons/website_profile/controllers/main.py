@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import werkzeug
@@ -11,10 +11,10 @@ import math
 from dateutil.relativedelta import relativedelta
 from operator import itemgetter
 
-from odoo import _, fields, http, tools
-from odoo.exceptions import UserError
-from odoo.http import request
-from odoo.osv import expression
+from loomworks import _, fields, http, tools
+from loomworks.exceptions import UserError
+from loomworks.http import request
+from loomworks.osv import expression
 
 
 class WebsiteProfile(http.Controller):

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <!-- App Models Action (for button box) - must be before form view -->
     <record id="action_studio_app_models" model="ir.actions.act_window">
@@ -209,4 +209,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

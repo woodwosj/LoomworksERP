@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 from contextlib import contextmanager
 from unittest.mock import patch
 
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.http import request
-from odoo.tests.common import HttpCase
-from odoo import SUPERUSER_ID
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.http import request
+from loomworks.tests.common import HttpCase
+from loomworks import SUPERUSER_ID
 
 
 @contextmanager
@@ -23,7 +23,7 @@ def mock_auth_method_outlook(login):
         request.update_env(user=request.env['res.users'].with_user(SUPERUSER_ID).search([('login', '=', login)], limit=1))
 
     with patch(
-            'odoo.addons.mail_plugin.models.ir_http.IrHttp'
+            'loomworks.addons.mail_plugin.models.ir_http.IrHttp'
             '._auth_method_outlook',
             new=patched_auth_method_outlook):
         yield
@@ -54,7 +54,7 @@ class TestMailPluginControllerCommon(HttpCase):
         }
 
         with patch(
-            "odoo.addons.mail_plugin.controllers.mail_plugin.MailPluginController"
+            "loomworks.addons.mail_plugin.controllers.mail_plugin.MailPluginController"
             "._iap_enrich",
             new=patched_iap_enrich,
         ):
@@ -84,7 +84,7 @@ class TestMailPluginControllerCommon(HttpCase):
         }
 
         with patch(
-            "odoo.addons.mail_plugin.controllers.mail_plugin.MailPluginController"
+            "loomworks.addons.mail_plugin.controllers.mail_plugin.MailPluginController"
             "._iap_enrich",
             new=patched_iap_enrich,
         ):

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from odoo.exceptions import AccessError
-from odoo.tests import tagged
-from odoo.tests.common import users
+from loomworks.exceptions import AccessError
+from loomworks.tests import tagged
+from loomworks.tests.common import users
 
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.project.tests.test_project_base import TestProjectCommon
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.project.tests.test_project_base import TestProjectCommon
 
 @tagged('-at_install', 'post_install')
 class TestProjectUpdateAccessRights(TestProjectCommon):

@@ -1,10 +1,10 @@
-from odoo import api, Command, fields, models, _
-from odoo.exceptions import UserError, ValidationError
+from loomworks import api, Command, fields, models, _
+from loomworks.exceptions import UserError, ValidationError
 
 from xmlrpc.client import MAXINT
 
-from odoo.tools import create_index, SQL
-from odoo.tools.misc import str2bool
+from loomworks.tools import create_index, SQL
+from loomworks.tools.misc import str2bool
 
 
 class AccountBankStatementLine(models.Model):

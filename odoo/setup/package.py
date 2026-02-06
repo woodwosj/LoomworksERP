@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import argparse
 import logging
@@ -370,8 +370,8 @@ class DockerRpm(Docker):
             'su postgres -c "createuser -s odoo"',
             'su odoo -c "createdb mycompany"',
             'dnf install -d 0 -e 0 /data/src/odoo_%s.%s.rpm -y' % (VERSION, TSTAMP),
-            'su odoo -s /bin/bash -c "odoo -c /etc/odoo/odoo.conf -d mycompany -i base --stop-after-init"',
-            'su odoo -s /bin/bash -c "odoo -c /etc/odoo/odoo.conf -d mycompany --pidfile=/data/src/odoo.pid"',
+            'su odoo -s /bin/bash -c "odoo -c /etc/loomworks/loomworks.conf -d mycompany -i base --stop-after-init"',
+            'su odoo -s /bin/bash -c "odoo -c /etc/loomworks/loomworks.conf -d mycompany --pidfile=/data/src/odoo.pid"',
         ]
         self.run(' && '.join(cmds), args.build_dir, 'odoo-rpm-test-%s' % TSTAMP, user='root', detach=True, exposed_port=8069, timeout=300)
         self.test_odoo()

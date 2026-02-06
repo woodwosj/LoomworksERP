@@ -6,12 +6,12 @@ import base64
 import json
 import random
 
-from odoo import models, api, _, fields, Command, tools
-from odoo.exceptions import UserError
-from odoo.osv import expression
-from odoo.release import version
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF, SQL
-from odoo.tools.misc import formatLang, format_date as odoo_format_date, get_lang
+from loomworks import models, api, _, fields, Command, tools
+from loomworks.exceptions import UserError
+from loomworks.osv import expression
+from loomworks.release import version
+from loomworks.tools import DEFAULT_SERVER_DATE_FORMAT as DF, SQL
+from loomworks.tools.misc import formatLang, format_date as odoo_format_date, get_lang
 
 
 def group_by_journal(vals_list):

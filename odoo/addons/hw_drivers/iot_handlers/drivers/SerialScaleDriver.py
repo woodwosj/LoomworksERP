@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import re
@@ -7,10 +7,10 @@ import serial
 import threading
 import time
 
-from odoo import http
-from odoo.addons.hw_drivers.controllers.proxy import proxy_drivers
-from odoo.addons.hw_drivers.event_manager import event_manager
-from odoo.addons.hw_drivers.iot_handlers.drivers.SerialBaseDriver import SerialDriver, SerialProtocol, serial_connection
+from loomworks import http
+from loomworks.addons.hw_drivers.controllers.proxy import proxy_drivers
+from loomworks.addons.hw_drivers.event_manager import event_manager
+from loomworks.addons.hw_drivers.iot_handlers.drivers.SerialBaseDriver import SerialDriver, SerialProtocol, serial_connection
 
 
 _logger = logging.getLogger(__name__)

@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { CharField, charField } from "@web/views/fields/char/char_field";
 import { registry } from "@web/core/registry";

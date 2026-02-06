@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { LocationList } from '@delivery/js/location_selector/location_list/location_list';
 import { MapContainer } from '@delivery/js/location_selector/map_container/map_container';

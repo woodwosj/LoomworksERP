@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from base64 import b64encode
 from decorator import decorator
 import uuid
 
-from odoo import _, fields, modules
-from odoo.tools.misc import file_open
+from loomworks import _, fields, modules
+from loomworks.tools.misc import file_open
 
 DEMO_BILL_PATH = 'account_peppol/tools/demo_bill'
 DEMO_ENC_KEY = 'account_peppol/tools/enc_key'

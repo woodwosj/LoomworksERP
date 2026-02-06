@@ -1,6 +1,6 @@
 import requests
 
-from odoo import models, fields, _, api, modules, tools
+from loomworks import models, fields, _, api, modules, tools
 
 
 class AccountMove(models.Model):

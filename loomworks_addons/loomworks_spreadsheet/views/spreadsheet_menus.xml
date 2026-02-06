@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <!-- Spreadsheet Menu Structure -->
 
     <!-- Main Menu -->
@@ -51,4 +51,4 @@
               action="action_spreadsheet_chart"
               sequence="30"/>
 
-</odoo>
+</loomworks>

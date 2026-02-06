@@ -13,7 +13,7 @@ This model stores per-field settings like visibility, widget, labels,
 and positioning within a Studio-customized view.
 """
 
-from odoo import api, models, fields
+from loomworks import api, models, fields
 
 
 class StudioViewField(models.Model):

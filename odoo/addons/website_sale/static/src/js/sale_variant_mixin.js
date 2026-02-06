@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { KeepLast } from "@web/core/utils/concurrency";
 import { memoize, uniqueId } from "@web/core/utils/functions";

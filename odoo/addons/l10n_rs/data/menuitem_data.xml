@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <menuitem
             id="account_reports_rs_statements_menu"
             name="Serbia"
@@ -7,4 +7,4 @@
             sequence="0"
             groups="account.group_account_readonly"
     />
-</odoo>
+</loomworks>

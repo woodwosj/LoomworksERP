@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.fields import first, Command
-from odoo.tests import tagged, TransactionCase
-from odoo.tools import float_compare
+from loomworks.fields import first, Command
+from loomworks.tests import tagged, TransactionCase
+from loomworks.tools import float_compare
 
 
 @tagged('post_install', '-at_install')

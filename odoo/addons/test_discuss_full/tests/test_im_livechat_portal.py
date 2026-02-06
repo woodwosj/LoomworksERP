@@ -1,5 +1,5 @@
-from odoo import Command, tests
-from odoo.addons.website_livechat.tests.test_chatbot_ui import TestLivechatChatbotUI
+from loomworks import Command, tests
+from loomworks.addons.website_livechat.tests.test_chatbot_ui import TestLivechatChatbotUI
 
 
 @tests.common.tagged("post_install", "-at_install")

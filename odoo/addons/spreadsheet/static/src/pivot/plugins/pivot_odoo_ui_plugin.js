@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { OdooUIPlugin } from "@spreadsheet/plugins";
 import { helpers } from "@odoo/o-spreadsheet";

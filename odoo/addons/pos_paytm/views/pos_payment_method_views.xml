@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="pos_payment_method_view_form_inherit_pos_paytm" model="ir.ui.view">
         <field name="name">pos.payment.method.form.inherit.paytm</field>
         <field name="model">pos.payment.method</field>
@@ -16,4 +16,4 @@
             </xpath>
         </field>
     </record>
-</odoo>
+</loomworks>

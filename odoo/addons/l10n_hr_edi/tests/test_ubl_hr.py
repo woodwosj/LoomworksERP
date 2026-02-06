@@ -1,8 +1,8 @@
-from odoo import Command
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.l10n_hr_edi.tests.test_hr_edi_common import TestL10nHrEdiCommon
-from odoo.tests import tagged
-from odoo.tools import misc
+from loomworks import Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.l10n_hr_edi.tests.test_hr_edi_common import TestL10nHrEdiCommon
+from loomworks.tests import tagged
+from loomworks.tools import misc
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install', 'l10n_hr_edi_xml')

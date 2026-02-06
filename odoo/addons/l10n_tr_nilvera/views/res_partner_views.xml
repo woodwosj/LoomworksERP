@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <record id="view_partner_property_form_inherit_ubl_tr" model="ir.ui.view">
         <field name="name">res.partner.property.form.inherit.ubl.tr</field>
         <field name="model">res.partner</field>
@@ -22,4 +22,4 @@
             </xpath>
         </field>
     </record>
-</odoo>
+</loomworks>

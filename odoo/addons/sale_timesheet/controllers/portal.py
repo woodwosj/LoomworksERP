@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from werkzeug.exceptions import NotFound
 
-from odoo import http, _
-from odoo.exceptions import AccessError, MissingError
-from odoo.http import request
-from odoo.osv import expression
+from loomworks import http, _
+from loomworks.exceptions import AccessError, MissingError
+from loomworks.http import request
+from loomworks.osv import expression
 
-from odoo.addons.account.controllers.portal import PortalAccount
-from odoo.addons.hr_timesheet.controllers.portal import TimesheetCustomerPortal
-from odoo.addons.portal.controllers.portal import pager as portal_pager
-from odoo.addons.project.controllers.portal import ProjectCustomerPortal
+from loomworks.addons.account.controllers.portal import PortalAccount
+from loomworks.addons.hr_timesheet.controllers.portal import TimesheetCustomerPortal
+from loomworks.addons.portal.controllers.portal import pager as portal_pager
+from loomworks.addons.project.controllers.portal import ProjectCustomerPortal
 
 
 class PortalProjectAccount(PortalAccount, ProjectCustomerPortal):

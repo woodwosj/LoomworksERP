@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from ast import literal_eval
 import logging
@@ -8,11 +8,11 @@ from collections import defaultdict, Counter
 from datetime import date, datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models, _
-from odoo.exceptions import AccessError
-from odoo.tools import is_html_empty
-from odoo.tools.misc import clean_context, get_lang, groupby
-from odoo.addons.mail.tools.discuss import Store
+from loomworks import api, fields, models, _
+from loomworks.exceptions import AccessError
+from loomworks.tools import is_html_empty
+from loomworks.tools.misc import clean_context, get_lang, groupby
+from loomworks.addons.mail.tools.discuss import Store
 
 _logger = logging.getLogger(__name__)
 

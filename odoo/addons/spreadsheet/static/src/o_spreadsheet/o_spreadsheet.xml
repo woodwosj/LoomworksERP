@@ -5,7 +5,7 @@
  @date 2026-01-21T11:12:34.032Z
  @hash 0c9401570
 -->
-<odoo>
+<loomworks>
   <t t-name="o-spreadsheet-ActionButton">
     <span
       t-if="isVisible"
@@ -6121,4 +6121,4 @@
       </div>
     </t>
   </t>
-</odoo>
+</loomworks>

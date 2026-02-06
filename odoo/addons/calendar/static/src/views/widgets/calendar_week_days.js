@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { registry } from "@web/core/registry";
 import { WeekDays, weekDays } from "@web/views/widgets/week_days/week_days";

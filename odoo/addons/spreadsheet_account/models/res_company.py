@@ -1,6 +1,6 @@
-from odoo import models, api, fields
+from loomworks import models, api, fields
 
-from odoo.tools import date_utils
+from loomworks.tools import date_utils
 
 
 class ResCompany(models.Model):

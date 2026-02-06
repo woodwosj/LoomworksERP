@@ -6,10 +6,10 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from werkzeug.urls import url_join
 
-from odoo import fields, models, api, _
-from odoo.exceptions import UserError, ValidationError
-from odoo.http import request
-from odoo.tools.safe_eval import json
+from loomworks import fields, models, api, _
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.http import request
+from loomworks.tools.safe_eval import json
 
 
 class ResCompany(models.Model):

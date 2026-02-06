@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from markupsafe import Markup
 from unittest.mock import patch
@@ -6,9 +6,9 @@ from unittest.mock import patch
 import io
 import requests
 
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.addons.mail.tools import link_preview
-from odoo.tests.common import tagged
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.addons.mail.tools import link_preview
+from loomworks.tests.common import tagged
 
 
 @tagged("mail_link_preview", "mail_message", "post_install", "-at_install")

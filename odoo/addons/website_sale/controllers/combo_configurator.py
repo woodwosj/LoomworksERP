@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import _
-from odoo.exceptions import UserError
-from odoo.http import request, route
-from odoo.tools.image import image_data_uri
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import _
+from loomworks.exceptions import UserError
+from loomworks.http import request, route
+from loomworks.tools.image import image_data_uri
 
-from odoo.addons.sale.controllers.combo_configurator import SaleComboConfiguratorController
-from odoo.addons.website_sale.controllers.main import WebsiteSale
+from loomworks.addons.sale.controllers.combo_configurator import SaleComboConfiguratorController
+from loomworks.addons.website_sale.controllers.main import WebsiteSale
 
 
 class WebsiteSaleComboConfiguratorController(SaleComboConfiguratorController, WebsiteSale):

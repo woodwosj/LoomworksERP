@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { _t } from "@web/core/l10n/translation";
 import { scrollTo } from "@web_editor/js/common/scrolling";
@@ -29,7 +29,7 @@ publicWidget.registry.websiteBlog = publicWidget.Widget.extend({
         const emptyTagEl = this.el.querySelector(".o_wblog_sidebar_block #edit-in-backend");
         if (blogPostTitleEl && emptyTagEl) {
             const id = blogPostTitleEl.dataset.blogId;
-            emptyTagEl.href = `/odoo/website/blog.post/${id}`;
+            emptyTagEl.href = `/loomworks/website/blog.post/${id}`;
         }
         return this._super.apply(this, arguments);
     },

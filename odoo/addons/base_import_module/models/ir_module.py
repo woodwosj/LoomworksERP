@@ -13,14 +13,14 @@ from collections import defaultdict
 from io import BytesIO
 from os.path import join as opj
 
-from odoo import api, fields, models, _
-from odoo.exceptions import AccessDenied, AccessError, UserError
-from odoo.http import request
-from odoo.modules.module import adapt_version, MANIFEST_NAMES
-from odoo.osv.expression import is_leaf
-from odoo.release import major_version
-from odoo.tools import convert_csv_import, convert_sql_import, convert_xml_import, exception_to_unicode
-from odoo.tools import file_open, file_open_temporary_directory, ormcache
+from loomworks import api, fields, models, _
+from loomworks.exceptions import AccessDenied, AccessError, UserError
+from loomworks.http import request
+from loomworks.modules.module import adapt_version, MANIFEST_NAMES
+from loomworks.osv.expression import is_leaf
+from loomworks.release import major_version
+from loomworks.tools import convert_csv_import, convert_sql_import, convert_xml_import, exception_to_unicode
+from loomworks.tools import file_open, file_open_temporary_directory, ormcache
 
 _logger = logging.getLogger(__name__)
 
@@ -101,7 +101,7 @@ class IrModule(models.Model):
             to_install = known_mods.filtered(lambda mod: mod.name in unmet_dependencies)
             to_install.button_immediate_install()
         elif 'web_studio' not in installed_mods and _is_studio_custom(path):
-            raise UserError(_("Studio customizations require the Odoo Studio app."))
+            raise UserError(_("Studio customizations require the Loomworks Studio app."))
 
         mod = known_mods_names.get(module)
         if mod:

@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import CourseJoin from "@website_slides/js/slides_course_join";
 import wUtils from "@website/js/utils";

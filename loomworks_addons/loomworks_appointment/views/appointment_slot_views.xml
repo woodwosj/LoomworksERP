@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <!-- Appointment Slot Tree View -->
     <record id="appointment_slot_view_tree" model="ir.ui.view">
@@ -94,4 +94,4 @@
         <field name="view_mode">list,form</field>
     </record>
 
-</odoo>
+</loomworks>

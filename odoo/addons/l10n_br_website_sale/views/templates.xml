@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <template id="address" inherit_id="website_sale.address">
         <div id="div_vat" position="before">
@@ -89,4 +89,4 @@
             <attribute name="t-attf-class" add="#{'border-top' if website.company_id.country_code != 'BR' else ''}" separator=" "/>
         </tr>
     </template>
-</odoo>
+</loomworks>

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 
-from odoo.addons.event.tests.common import EventCase
-from odoo.addons.phone_validation.tools import phone_validation
-from odoo.addons.sms.tests.common import SMSCase
-from odoo.tests import tagged, users
+from loomworks.addons.event.tests.common import EventCase
+from loomworks.addons.phone_validation.tools import phone_validation
+from loomworks.addons.sms.tests.common import SMSCase
+from loomworks.tests import tagged, users
 
 
 @tagged('event_mail', 'post_install', '-at_install')

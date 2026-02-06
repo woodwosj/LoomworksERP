@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 // The goal of this patch is to handle some website-specific behavior when
 // executing editor commands on DOM elements.

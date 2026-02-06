@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models, _, Command
-from odoo.osv import expression
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import frozendict, groupby, html2plaintext, is_html_empty, split_every
-from odoo.tools.float_utils import float_is_zero, float_repr, float_round, float_compare
-from odoo.tools.misc import clean_context, formatLang
-from odoo.tools.translate import html_translate
+from loomworks import api, fields, models, _, Command
+from loomworks.osv import expression
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools import frozendict, groupby, html2plaintext, is_html_empty, split_every
+from loomworks.tools.float_utils import float_is_zero, float_repr, float_round, float_compare
+from loomworks.tools.misc import clean_context, formatLang
+from loomworks.tools.translate import html_translate
 
 from collections import defaultdict
 from markupsafe import Markup

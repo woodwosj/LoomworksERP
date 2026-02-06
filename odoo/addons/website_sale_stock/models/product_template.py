@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
-from odoo.http import request
-from odoo.tools.translate import html_translate
+from loomworks import api, fields, models
+from loomworks.http import request
+from loomworks.tools.translate import html_translate
 
-from odoo.addons.website.models import ir_http
+from loomworks.addons.website.models import ir_http
 
 
 class ProductTemplate(models.Model):

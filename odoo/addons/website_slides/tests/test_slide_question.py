@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import Command
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import Command
 
-from odoo.addons.website_slides.tests import common as slides_common
-from odoo.tests.common import users
+from loomworks.addons.website_slides.tests import common as slides_common
+from loomworks.tests.common import users
 
 class TestSlideQuestionManagement(slides_common.SlidesCase):
 

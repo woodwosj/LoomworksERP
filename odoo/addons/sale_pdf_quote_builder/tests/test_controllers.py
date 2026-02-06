@@ -1,13 +1,13 @@
-from odoo import http
-from odoo.tests import HttpCase, tagged
-from odoo.tools import mute_logger
-from odoo.tools.misc import file_open
+from loomworks import http
+from loomworks.tests import HttpCase, tagged
+from loomworks.tools import mute_logger
+from loomworks.tools.misc import file_open
 
 
 @tagged("-at_install", "post_install")
 class TestUpload(HttpCase):
 
-    @mute_logger("odoo.addons.sale_pdf_quote_builder.controllers.quotation_document", "odoo.http")
+    @mute_logger("loomworks.addons.sale_pdf_quote_builder.controllers.quotation_document", "loomworks.http")
     def test_wrong_pdf(self):
         self.authenticate("admin", "admin")
         data = {'csrf_token': http.Request.csrf_token(self)}

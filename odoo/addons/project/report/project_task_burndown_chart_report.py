@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
-from odoo.tools import SQL
-from odoo.addons.resource.models.utils import filter_domain_leaf
+from loomworks import _, api, fields, models
+from loomworks.exceptions import UserError
+from loomworks.tools import SQL
+from loomworks.addons.resource.models.utils import filter_domain_leaf
 
 
 class ReportProjectTaskBurndownChart(models.AbstractModel):

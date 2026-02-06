@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import ldap
 import logging
 from ldap.filter import filter_format
 
-from odoo import _, fields, models, tools
-from odoo.exceptions import AccessDenied
-from odoo.tools.misc import str2bool
+from loomworks import _, fields, models, tools
+from loomworks.exceptions import AccessDenied
+from loomworks.tools.misc import str2bool
 
 _logger = logging.getLogger(__name__)
 
@@ -235,7 +235,7 @@ class CompanyLDAP(models.Model):
             if res[1]:
                 return res[0]
         elif conf['create_user']:
-            _logger.debug("Creating new Odoo user \"%s\" from LDAP" % login)
+            _logger.debug("Creating new Loomworks user \"%s\" from LDAP" % login)
             values = self._map_ldap_attributes(conf, login, ldap_entry)
             SudoUser = self.env['res.users'].sudo().with_context(no_reset_password=True)
             if conf['user']:

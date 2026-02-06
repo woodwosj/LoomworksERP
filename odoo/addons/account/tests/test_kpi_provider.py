@@ -1,5 +1,5 @@
-from odoo import Command
-from odoo.tests import tagged, TransactionCase
+from loomworks import Command
+from loomworks.tests import tagged, TransactionCase
 
 
 @tagged('post_install', '-at_install')

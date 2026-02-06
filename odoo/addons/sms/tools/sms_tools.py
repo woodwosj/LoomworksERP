@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 
 import markupsafe
 
-from odoo.tools import html_escape
-from odoo.tools.mail import create_link, TEXT_URL_REGEX
+from loomworks.tools import html_escape
+from loomworks.tools.mail import create_link, TEXT_URL_REGEX
 
 
 def sms_content_to_rendered_html(text):

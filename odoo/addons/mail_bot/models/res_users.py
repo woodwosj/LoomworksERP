@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from markupsafe import Markup
 
-from odoo import models, fields, _
+from loomworks import models, fields, _
 
 class Users(models.Model):
     _inherit = 'res.users'
@@ -17,7 +17,7 @@ class Users(models.Model):
             ('onboarding_canned', 'Onboarding canned'),
             ('idle', 'Idle'),
             ('disabled', 'Disabled'),
-        ], string="OdooBot Status", readonly=True, required=False)  # keep track of the state: correspond to the code of the last message sent
+        ], string="LoomBot Status", readonly=True, required=False)  # keep track of the state: correspond to the code of the last message sent
     odoobot_failed = fields.Boolean(readonly=True)
 
     @property
@@ -35,7 +35,7 @@ class Users(models.Model):
         channel = self.env['discuss.channel'].channel_get([odoobot_id, self.partner_id.id])
         message = Markup("%s<br/>%s<br/><b>%s</b> <span class=\"o_odoobot_command\">:)</span>") % (
             _("Hello,"),
-            _("Odoo's chat helps employees collaborate efficiently. I'm here to help you discover its features."),
+            _("Loomworks ERP's chat helps employees collaborate efficiently. I'm here to help you discover its features."),
             _("Try to send me an emoji")
         )
         channel.sudo().message_post(

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 
-from odoo.addons.base.tests.test_ir_cron import CronMixinCase
-from odoo.addons.sms.tests.common import SMSCommon
-from odoo.addons.test_mail_sms.tests.common import TestSMSRecipients
-from odoo.tests import tagged
+from loomworks.addons.base.tests.test_ir_cron import CronMixinCase
+from loomworks.addons.sms.tests.common import SMSCommon
+from loomworks.addons.test_mail_sms.tests.common import TestSMSRecipients
+from loomworks.tests import tagged
 
 
 @tagged('sms_post')

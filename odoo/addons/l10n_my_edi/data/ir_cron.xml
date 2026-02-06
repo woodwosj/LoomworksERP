@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<odoo>
+<loomworks>
     <data>
         <record id="ir_cron_myinvois_sync" model="ir.cron">
             <field name="name">MyInvois: Synchronization</field>
@@ -11,4 +11,4 @@
             <field name="nextcall" eval="(DateTime.now() + timedelta(hours=1))"/>
         </record>
     </data>
-</odoo>
+</loomworks>

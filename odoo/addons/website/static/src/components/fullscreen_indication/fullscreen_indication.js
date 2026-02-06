@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { useBus } from "@web/core/utils/hooks";
 import { EventBus, Component, useState, markup } from "@odoo/owl";

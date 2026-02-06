@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models
-from odoo.tools.sql import drop_view_if_exists, SQL
+from loomworks import fields, models
+from loomworks.tools.sql import drop_view_if_exists, SQL
 
 
 class FleetReport(models.Model):

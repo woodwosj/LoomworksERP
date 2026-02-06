@@ -4,7 +4,7 @@ import hmac
 
 from werkzeug.urls import url_join
 
-from odoo.addons.phone_validation.tools import phone_validation
+from loomworks.addons.phone_validation.tools import phone_validation
 
 
 def get_twilio_from_number(company, to_number):

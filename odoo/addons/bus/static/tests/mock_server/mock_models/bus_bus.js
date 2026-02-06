@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { getWebSocketWorker } from "@bus/../tests/mock_websocket";
 import { models } from "@web/../tests/web_test_helpers";

@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 
-from odoo import _, models
-from odoo.exceptions import ValidationError
-from odoo.http import request
+from loomworks import _, models
+from loomworks.exceptions import ValidationError
+from loomworks.http import request
 
 
 class SaleOrder(models.Model):

@@ -1,6 +1,6 @@
-from odoo import tools, fields, Command
-from odoo.tests.common import tagged
-from odoo.addons.l10n_hu_edi.tests.common import L10nHuEdiTestCommon
+from loomworks import tools, fields, Command
+from loomworks.tests.common import tagged
+from loomworks.addons.l10n_hu_edi.tests.common import L10nHuEdiTestCommon
 
 from freezegun import freeze_time
 import base64

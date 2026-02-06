@@ -1,17 +1,17 @@
 
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import binascii
 import json
 
-import odoo.tests
-from odoo.tests.common import HttpCase, new_test_user
-from odoo.tools.json import scriptsafe as json_safe
+import loomworks.tests
+from loomworks.tests.common import HttpCase, new_test_user
+from loomworks.tools.json import scriptsafe as json_safe
 from unittest.mock import patch
-from odoo.addons.mail.tools import link_preview
+from loomworks.addons.mail.tools import link_preview
 
 
-@odoo.tests.tagged('-at_install', 'post_install')
+@loomworks.tests.tagged('-at_install', 'post_install')
 class TestController(HttpCase):
 
     @classmethod
@@ -177,7 +177,7 @@ class TestController(HttpCase):
             '/html_editor/link_preview_internal',
             data=json_safe.dumps({
                 "params": {
-                    "preview_url": _get_full_url(f"/odoo/users/{self.portal_user.id}"),
+                    "preview_url": _get_full_url(f"/loomworks/users/{self.portal_user.id}"),
                 }
             }),
             headers=self.headers
@@ -190,7 +190,7 @@ class TestController(HttpCase):
             '/html_editor/link_preview_internal',
             data=json_safe.dumps({
                 "params": {
-                    "preview_url": _get_full_url("/odoo/actionInvalid/1"),
+                    "preview_url": _get_full_url("/loomworks/actionInvalid/1"),
                 }
             }),
             headers=self.headers
@@ -203,7 +203,7 @@ class TestController(HttpCase):
             '/html_editor/link_preview_internal',
             data=json_safe.dumps({
                 "params": {
-                    "preview_url": _get_full_url("/odoo/users/9999"),
+                    "preview_url": _get_full_url("/loomworks/users/9999"),
                 }
             }),
             headers=self.headers
@@ -272,7 +272,7 @@ class TestController(HttpCase):
             '/html_editor/link_preview_internal',
             data=json_safe.dumps({
                 "params": {
-                    "preview_url": _get_full_url(f"/odoo/res.users/{self.portal_user.id}"),
+                    "preview_url": _get_full_url(f"/loomworks/res.users/{self.portal_user.id}"),
                 }
             }),
             headers=self.headers
@@ -286,7 +286,7 @@ class TestController(HttpCase):
             '/html_editor/link_preview_internal',
             data=json_safe.dumps({
                 "params": {
-                    "preview_url": _get_full_url("/odoo/mail.thread/1"),
+                    "preview_url": _get_full_url("/loomworks/mail.thread/1"),
                 }
             }),
             headers=self.headers

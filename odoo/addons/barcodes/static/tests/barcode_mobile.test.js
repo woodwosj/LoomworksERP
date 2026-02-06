@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { beforeEach, expect, test } from "@odoo/hoot";
 import { barcodeService } from "@barcodes/barcode_service";

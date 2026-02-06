@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 from unittest.mock import Mock, patch
 
-from odoo.addons.iap.tools import iap_tools
-from odoo.addons.mail_plugin.tests.common import TestMailPluginControllerCommon, mock_auth_method_outlook
-from odoo.exceptions import AccessError
+from loomworks.addons.iap.tools import iap_tools
+from loomworks.addons.mail_plugin.tests.common import TestMailPluginControllerCommon, mock_auth_method_outlook
+from loomworks.exceptions import AccessError
 
 
 class TestMailPluginController(TestMailPluginControllerCommon):
@@ -46,7 +46,7 @@ class TestMailPluginController(TestMailPluginControllerCommon):
         mocked_request_enrich = Mock()
 
         with patch(
-            "odoo.addons.iap.models.iap_enrich_api.IapEnrichAPI"
+            "loomworks.addons.iap.models.iap_enrich_api.IapEnrichAPI"
             "._request_enrich",
             new=mocked_request_enrich,
         ):

@@ -1,5 +1,5 @@
 import json
-from odoo.tests.common import RecordCapturer, HttpCase, new_test_user
+from loomworks.tests.common import RecordCapturer, HttpCase, new_test_user
 
 
 class TestPropertiesExportImport(HttpCase):

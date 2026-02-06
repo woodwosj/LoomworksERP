@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.fields import Command
-from odoo.tests import tagged
+from loomworks.fields import Command
+from loomworks.tests import tagged
 
-from odoo.addons.project.tests.test_project_base import TestProjectCommon
+from loomworks.addons.project.tests.test_project_base import TestProjectCommon
 
 
 @tagged('-at_install', 'post_install')

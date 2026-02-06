@@ -6,8 +6,8 @@
 # Loomworks modifications copyright: Loomworks
 # License: LGPL-3
 
-from odoo import models, fields, api
-from odoo.exceptions import AccessError, UserError
+from loomworks import models, fields, api
+from loomworks.exceptions import AccessError, UserError
 import json
 import time
 from contextlib import contextmanager

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
     <record id="action_sinvoice_template" model="ir.actions.act_window">
         <field name="name">Templates</field>
         <field name="res_model">l10n_vn_edi_viettel.sinvoice.template</field>
@@ -35,4 +35,4 @@
         <menuitem id="l10n_vn_edi_sinvoice_templates" action="action_sinvoice_template"/>
         <menuitem id="l10n_vn_edi_sinvoice_symbols" action="action_sinvoice_symbol"/>
     </menuitem>
-</odoo>
+</loomworks>

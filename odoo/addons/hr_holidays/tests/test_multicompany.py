@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import date, datetime
 
-from odoo import tests
-from odoo.addons.hr_holidays.tests.common import TestHrHolidaysCommon
+from loomworks import tests
+from loomworks.addons.hr_holidays.tests.common import TestHrHolidaysCommon
 
 
 @tests.tagged('post_install', '-at_install')

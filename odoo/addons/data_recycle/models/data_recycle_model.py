@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import ast
 
 from collections import defaultdict
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.tools import config, split_every
-from odoo.osv import expression
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
+from loomworks.tools import config, split_every
+from loomworks.osv import expression
 
 # When recycle_mode = automatic, _recycle_records calls action_validate.
 # This is quite slow so requires smaller batch size.

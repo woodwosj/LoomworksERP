@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import datetime
 from freezegun import freeze_time
 from dateutil.relativedelta import relativedelta
 
-from odoo.tests import Form, tagged
+from loomworks.tests import Form, tagged
 
-from odoo.addons.hr_holidays.tests.common import TestHrHolidaysCommon
+from loomworks.addons.hr_holidays.tests.common import TestHrHolidaysCommon
 
 
 @tagged('post_install', '-at_install', 'accruals')

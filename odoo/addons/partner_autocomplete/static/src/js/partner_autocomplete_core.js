@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 /* global checkVATNumber */
 
 import { loadJS } from "@web/core/assets";

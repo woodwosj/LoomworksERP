@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data noupdate="1">
         <record id="demo_l10n_pl_partner_a" model="res.partner">
             <field name="name">Polskie Pierogi Sp. z o.o.</field>
@@ -12,4 +12,4 @@
         </record>
         <function model="ir.config_parameter" name="set_param" eval="('l10n_pl_edi_ksef.mode', 'test')"/>
     </data>
-</odoo>
+</loomworks>

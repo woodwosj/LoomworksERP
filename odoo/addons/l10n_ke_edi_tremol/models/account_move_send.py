@@ -1,4 +1,4 @@
-from odoo import _, models, api
+from loomworks import _, models, api
 
 
 class AccountMoveSend(models.AbstractModel):

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from markupsafe import Markup
 
-from odoo import api, fields, models, _
-from odoo.addons.mail.tools.parser import parse_res_ids
-from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.tools import html2plaintext
-from odoo.tools.misc import clean_context, format_date
-from odoo.osv import expression
+from loomworks import api, fields, models, _
+from loomworks.addons.mail.tools.parser import parse_res_ids
+from loomworks.exceptions import AccessError, UserError, ValidationError
+from loomworks.tools import html2plaintext
+from loomworks.tools.misc import clean_context, format_date
+from loomworks.osv import expression
 
 
 class MailActivitySchedule(models.TransientModel):

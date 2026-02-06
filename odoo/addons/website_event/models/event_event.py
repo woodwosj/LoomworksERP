@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from ast import literal_eval
 from dateutil.relativedelta import relativedelta
@@ -9,10 +9,10 @@ import werkzeug.urls
 from markupsafe import Markup
 from pytz import utc, timezone
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError, ValidationError
-from odoo.osv import expression
-from odoo.tools.misc import get_lang, format_date
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.osv import expression
+from loomworks.tools.misc import get_lang, format_date
 
 GOOGLE_CALENDAR_URL = 'https://www.google.com/calendar/render?'
 

@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import warnings
 import base64
@@ -7,12 +7,12 @@ from dateutil.relativedelta import relativedelta
 from operator import itemgetter
 from werkzeug.urls import url_encode
 
-from odoo import http, _
-from odoo.addons.website.controllers.form import WebsiteForm
-from odoo.osv.expression import AND
-from odoo.http import request
-from odoo.tools import email_normalize, escape_psql
-from odoo.tools.misc import groupby
+from loomworks import http, _
+from loomworks.addons.website.controllers.form import WebsiteForm
+from loomworks.osv.expression import AND
+from loomworks.http import request
+from loomworks.tools import email_normalize, escape_psql
+from loomworks.tools.misc import groupby
 
 
 class WebsiteHrRecruitment(WebsiteForm):

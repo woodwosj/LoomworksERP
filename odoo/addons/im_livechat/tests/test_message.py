@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from freezegun import freeze_time
 from markupsafe import Markup
 
-from odoo import Command, fields
-from odoo.exceptions import AccessError
-from odoo.tools.misc import limited_field_access_token
-from odoo.tests.common import users, tagged
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.addons.mail.tools.discuss import Store
-from odoo.addons.im_livechat.tests.chatbot_common import ChatbotCase
+from loomworks import Command, fields
+from loomworks.exceptions import AccessError
+from loomworks.tools.misc import limited_field_access_token
+from loomworks.tests.common import users, tagged
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.addons.mail.tools.discuss import Store
+from loomworks.addons.im_livechat.tests.chatbot_common import ChatbotCase
 
 
 @tagged('post_install', '-at_install')

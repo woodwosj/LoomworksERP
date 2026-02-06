@@ -1,7 +1,7 @@
 import logging
 
-from odoo import api, fields, models, tools
-from odoo.exceptions import UserError, ValidationError
+from loomworks import api, fields, models, tools
+from loomworks.exceptions import UserError, ValidationError
 
 from ..tools import (
     _mer_api_query_inbox,

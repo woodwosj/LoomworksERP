@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from copy import deepcopy
 
-from odoo import fields, models, api, Command
-from odoo.tools import float_compare
+from loomworks import fields, models, api, Command
+from loomworks.tools import float_compare
 
 
 class HrExpenseSplit(models.TransientModel):

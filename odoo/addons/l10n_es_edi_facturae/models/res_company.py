@@ -1,4 +1,4 @@
-from odoo import _, fields, models
+from loomworks import _, fields, models
 
 
 class Company(models.Model):
@@ -34,7 +34,7 @@ class Company(models.Model):
                     'name': _("Settings"),
                     'type': 'ir.actions.act_url',
                     'target': 'self',
-                    'url': '/odoo/settings#certificates_settings',
+                    'url': '/loomworks/settings#certificates_settings',
                 },
             }
         return errors

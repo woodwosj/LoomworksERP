@@ -19,8 +19,8 @@ Based on Odoo 18 controller patterns:
 https://www.odoo.com/documentation/18.0/developer/reference/backend/http.html
 """
 
-from odoo import http
-from odoo.http import request, Response
+from loomworks import http
+from loomworks.http import request, Response
 import json
 import logging
 

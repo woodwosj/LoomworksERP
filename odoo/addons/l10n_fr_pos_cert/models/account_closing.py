@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import datetime, timedelta
 
-from odoo import models, api, fields
-from odoo.fields import Datetime as FieldDateTime
+from loomworks import models, api, fields
+from loomworks.fields import Datetime as FieldDateTime
 from dateutil.relativedelta import relativedelta
-from odoo.tools.translate import _
-from odoo.exceptions import UserError
-from odoo.osv.expression import AND
+from loomworks.tools.translate import _
+from loomworks.exceptions import UserError
+from loomworks.osv.expression import AND
 
 
 class AccountClosing(models.Model):

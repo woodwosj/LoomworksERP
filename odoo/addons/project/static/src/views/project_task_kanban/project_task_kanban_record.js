@@ -1,4 +1,4 @@
-/* @odoo-module */
+/* @loomworks-module */
 
 import { KanbanRecord } from "@web/views/kanban/kanban_record";
 import { useState } from "@odoo/owl";

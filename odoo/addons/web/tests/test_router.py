@@ -1,5 +1,5 @@
-from odoo.tests.common import TransactionCase
-from odoo.addons.web.controllers.utils import get_action_triples, get_action
+from loomworks.tests.common import TransactionCase
+from loomworks.addons.web.controllers.utils import get_action_triples, get_action
 
 
 class TestWebRouter(TransactionCase):

@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 import { makeDraggableHook } from "@web/core/utils/draggable_hook_builder";
 import { pick } from "@web/core/utils/objects";
 import { reactive } from "@odoo/owl";

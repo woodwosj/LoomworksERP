@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <template id="mydata_invoice">
         <InvoicesDoc xmlns="http://www.aade.gr/myDATA/invoice/v1.0"
@@ -102,4 +102,4 @@
         </ecls:ExpensesClassificationsDoc>
     </template>
 
-</odoo>
+</loomworks>

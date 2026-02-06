@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import json
 
-from odoo import http
-from odoo.addons.website.controllers.form import WebsiteForm
-from odoo.http import request
+from loomworks import http
+from loomworks.addons.website.controllers.form import WebsiteForm
+from loomworks.http import request
 
 
 class ContactController(WebsiteForm):

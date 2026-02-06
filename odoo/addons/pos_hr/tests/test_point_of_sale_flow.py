@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 
-import odoo
-from odoo.addons.point_of_sale.tests.common import TestPointOfSaleCommon
-from odoo.exceptions import UserError
+import loomworks
+from loomworks.addons.point_of_sale.tests.common import TestPointOfSaleCommon
+from loomworks.exceptions import UserError
 
 
-@odoo.tests.tagged('post_install', '-at_install')
+@loomworks.tests.tagged('post_install', '-at_install')
 class TestPointOfSaleFlow(TestPointOfSaleCommon):
     def test_pos_hr_session_name_gap(self):
         self.pos_config.open_ui()

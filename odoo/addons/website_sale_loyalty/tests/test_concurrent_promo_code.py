@@ -2,11 +2,11 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 from psycopg2 import OperationalError
 
-from odoo import SUPERUSER_ID, api
-from odoo.modules.registry import Registry
-from odoo.tests import tagged
-from odoo.tests.common import BaseCase, get_db_name
-from odoo.tools import mute_logger
+from loomworks import SUPERUSER_ID, api
+from loomworks.modules.registry import Registry
+from loomworks.tests import tagged
+from loomworks.tests.common import BaseCase, get_db_name
+from loomworks.tools import mute_logger
 
 
 @tagged('-standard', '-at_install', 'post_install', 'database_breaking')
@@ -98,7 +98,7 @@ class TestConcurrencyPromoCode(BaseCase):
                 })
         cls.addClassCleanup(reset)
 
-    @mute_logger('odoo.sql_db')
+    @mute_logger('loomworks.sql_db')
     def test_lock_concurrent_promo_code(self):
         """ Test that two cursors cannot lock the same row simultaneously """
 

@@ -1,4 +1,4 @@
-from odoo.fields import Command
+from loomworks.fields import Command
 
 
 def setup_product_combo_items(self):

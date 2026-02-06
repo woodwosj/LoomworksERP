@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import hashlib
 from collections import OrderedDict
 from werkzeug.urls import url_quote
 from markupsafe import Markup
 
-from odoo import api, models, fields
-from odoo.tools import html_escape as escape
+from loomworks import api, models, fields
+from loomworks.tools import html_escape as escape
 
 
 class Image(models.AbstractModel):

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
+<loomworks noupdate="1">
 
     <!-- Signature Field Types -->
     <record id="sign_item_type_signature" model="sign.item.type">
@@ -98,4 +98,4 @@
         <field name="default_height">4.0</field>
     </record>
 
-</odoo>
+</loomworks>

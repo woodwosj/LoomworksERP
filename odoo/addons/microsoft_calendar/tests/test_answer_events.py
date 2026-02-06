@@ -2,11 +2,11 @@
 from unittest.mock import patch, ANY
 from datetime import datetime, timedelta
 
-from odoo.addons.microsoft_calendar.utils.microsoft_calendar import MicrosoftCalendarService
-from odoo.addons.microsoft_calendar.utils.microsoft_event import MicrosoftEvent
-from odoo.addons.microsoft_calendar.models.res_users import User
-from odoo.addons.microsoft_calendar.tests.common import TestCommon, mock_get_token, _modified_date_in_the_future, patch_api
-from odoo.tests import users
+from loomworks.addons.microsoft_calendar.utils.microsoft_calendar import MicrosoftCalendarService
+from loomworks.addons.microsoft_calendar.utils.microsoft_event import MicrosoftEvent
+from loomworks.addons.microsoft_calendar.models.res_users import User
+from loomworks.addons.microsoft_calendar.tests.common import TestCommon, mock_get_token, _modified_date_in_the_future, patch_api
+from loomworks.tests import users
 
 import json
 from freezegun import freeze_time

@@ -5,11 +5,11 @@ from unittest.mock import patch, MagicMock
 from contextlib import contextmanager
 from freezegun import freeze_time
 
-from odoo import fields
+from loomworks import fields
 
-from odoo.tests.common import HttpCase
+from loomworks.tests.common import HttpCase
 
-from odoo.addons.microsoft_calendar.models.microsoft_sync import MicrosoftSync
+from loomworks.addons.microsoft_calendar.models.microsoft_sync import MicrosoftSync
 
 def mock_get_token(user):
     return f"TOKEN_FOR_USER_{user.id}"

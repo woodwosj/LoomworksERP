@@ -2,7 +2,7 @@ import base64
 import pytz
 from datetime import date, datetime
 
-from odoo import _, api, exceptions, fields, models, modules
+from loomworks import _, api, exceptions, fields, models, modules
 
 from .card_template import TEMPLATE_DIMENSIONS
 

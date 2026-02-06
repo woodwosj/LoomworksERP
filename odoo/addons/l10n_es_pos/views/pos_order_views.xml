@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<odoo>
+<loomworks>
     <!-- POS order form -->
     <record id="view_pos_pos_form_simplified_invoice" model="ir.ui.view">
         <field name="name">pos.order.form</field>
@@ -21,4 +21,4 @@
             </field>
         </field>
     </record>
-</odoo>
+</loomworks>

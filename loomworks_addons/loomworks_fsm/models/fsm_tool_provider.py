@@ -7,7 +7,7 @@ FSM AI Tool Provider - Registers AI tools for field service operations.
 Implements the M4 resolution pattern from PATCH_NOTES_M1_M4.md.
 """
 
-from odoo import api, models
+from loomworks import api, models
 
 
 class FSMToolProvider(models.AbstractModel):

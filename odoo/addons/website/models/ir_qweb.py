@@ -1,17 +1,17 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import re
 import logging
 
 from collections import OrderedDict
 from urllib3.util import parse_url
 
-from odoo import models
-from odoo.http import request
-from odoo.tools import lazy
-from odoo.addons.base.models.assetsbundle import AssetsBundle
-from odoo.osv import expression
-from odoo.addons.website.models import ir_http
-from odoo.exceptions import AccessError
+from loomworks import models
+from loomworks.http import request
+from loomworks.tools import lazy
+from loomworks.addons.base.models.assetsbundle import AssetsBundle
+from loomworks.osv import expression
+from loomworks.addons.website.models import ir_http
+from loomworks.exceptions import AccessError
 
 
 _logger = logging.getLogger(__name__)

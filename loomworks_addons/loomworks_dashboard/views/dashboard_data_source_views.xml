@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <!-- Dashboard Data Source Tree View -->
     <record id="view_dashboard_data_source_tree" model="ir.ui.view">
@@ -139,4 +139,4 @@
         <field name="context">{'search_default_active': 1}</field>
     </record>
 
-</odoo>
+</loomworks>

@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
-from odoo import fields, http
-from odoo.addons.base.tests.common import HttpCaseWithUserDemo, HttpCaseWithUserPortal
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.website_event.tests.common import TestEventOnlineCommon, OnlineEventCase
-from odoo.exceptions import AccessError
-from odoo.tests import HttpCase, tagged
-from odoo.tools import mute_logger
-from odoo.tests.common import users
+from loomworks import fields, http
+from loomworks.addons.base.tests.common import HttpCaseWithUserDemo, HttpCaseWithUserPortal
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.website_event.tests.common import TestEventOnlineCommon, OnlineEventCase
+from loomworks.exceptions import AccessError
+from loomworks.tests import HttpCase, tagged
+from loomworks.tools import mute_logger
+from loomworks.tests.common import users
 
 class TestEventRegisterUTM(HttpCase, TestEventOnlineCommon):
     def test_event_registration_utm_values(self):
@@ -238,7 +238,7 @@ class TestWebsiteAccess(HttpCaseWithUserDemo, OnlineEventCase):
         self.assertTrue(published_events[0].name in resp.text, 'Event user must see the unpublished events.')
         self.assertTrue(unpublished_events[0].name in resp.text, 'Event user must see the published events.')
 
-    @mute_logger('odoo.http')
+    @mute_logger('loomworks.http')
     def test_website_access_portal(self):
         """ Portal users access only published events """
         self.authenticate('user_portal', 'user_portal')
@@ -254,7 +254,7 @@ class TestWebsiteAccess(HttpCaseWithUserDemo, OnlineEventCase):
         self.assertTrue(published_events[0].name in resp.text, 'Portal must see the published events.')
         self.assertFalse(unpublished_events[0].name in resp.text, 'Portal should not see the unpublished events.')
 
-    @mute_logger('odoo.http')
+    @mute_logger('loomworks.http')
     def test_website_access_public(self):
         """ Public users access only published events """
         published_events = self.events.filtered(lambda event: event.website_published)

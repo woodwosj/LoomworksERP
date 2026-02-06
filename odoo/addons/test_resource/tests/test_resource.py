@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import date, datetime
 from freezegun import freeze_time
 from pytz import timezone, utc
 
-from odoo import fields
-from odoo.exceptions import ValidationError
-from odoo.addons.resource.models.utils import Intervals, sum_intervals
-from odoo.addons.test_resource.tests.common import TestResourceCommon
-from odoo.tests.common import TransactionCase
+from loomworks import fields
+from loomworks.exceptions import ValidationError
+from loomworks.addons.resource.models.utils import Intervals, sum_intervals
+from loomworks.addons.test_resource.tests.common import TestResourceCommon
+from loomworks.tests.common import TransactionCase
 
 
 def datetime_tz(year, month, day, hour=0, minute=0, second=0, microsecond=0, tzinfo=None):

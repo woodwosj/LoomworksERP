@@ -1,18 +1,18 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import pytz
 import uuid
 from datetime import datetime, timedelta
 from functools import wraps
 
-from odoo.tools import consteq
-from odoo import _, api, fields, models
-from odoo.http import request
-from odoo.addons.base.models.res_partner import _tz_get
-from odoo.exceptions import UserError
-from odoo.tools.misc import limited_field_access_token
-from odoo.addons.bus.websocket import wsrequest
-from odoo.addons.mail.tools.discuss import Store
+from loomworks.tools import consteq
+from loomworks import _, api, fields, models
+from loomworks.http import request
+from loomworks.addons.base.models.res_partner import _tz_get
+from loomworks.exceptions import UserError
+from loomworks.tools.misc import limited_field_access_token
+from loomworks.addons.bus.websocket import wsrequest
+from loomworks.addons.mail.tools.discuss import Store
 
 
 def add_guest_to_context(func):

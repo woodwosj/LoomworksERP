@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 # -*- coding: utf-8 -*-
 
-from odoo.addons.mrp.tests.common import TestMrpCommon
-from odoo.tests import tagged, Form, HttpCase
+from loomworks.addons.mrp.tests.common import TestMrpCommon
+from loomworks.tests import tagged, Form, HttpCase
 
 
 @tagged('post_install', '-at_install')
@@ -45,7 +45,7 @@ class TestTourManualConsumption(HttpCase):
         self.assertEqual(move_nt.quantity, 0)
         self.assertFalse(move_nt.picked)
 
-        url = f"/odoo/action-mrp.mrp_production_action/{mo.id}"
+        url = f"/loomworks/action-mrp.mrp_production_action/{mo.id}"
         self.start_tour(url, "test_mrp_manual_consumption_02", login="admin", timeout=100)
 
         self.assertEqual(move_nt.manual_consumption, True)

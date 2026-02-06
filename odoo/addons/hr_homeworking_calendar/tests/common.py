@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.tests import common
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.tests import common
 
 
 class TestHrHomeworkingCommon(common.TransactionCase):

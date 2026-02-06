@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from freezegun import freeze_time
 from unittest.mock import patch
 
-from odoo.addons.website_forum.tests.common import TestForumCommon
-from odoo.tests import tagged
+from loomworks.addons.website_forum.tests.common import TestForumCommon
+from loomworks.tests import tagged
 
 
 @tagged('post_install', '-at_install')

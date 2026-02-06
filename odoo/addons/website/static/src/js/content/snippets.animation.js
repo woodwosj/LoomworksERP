@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 /**
  * Provides a way to start JS code for snippets' initialization and animations.

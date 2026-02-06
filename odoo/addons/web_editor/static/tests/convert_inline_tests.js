@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 import convertInline from '@web_editor/js/backend/convert_inline';
 import {getGridHtml, getTableHtml, getRegularGridHtml, getRegularTableHtml, getTdHtml, removeComments} from '@web_editor/../tests/test_utils';
 import { unformat } from '@web_editor/js/editor/odoo-editor/test/utils';

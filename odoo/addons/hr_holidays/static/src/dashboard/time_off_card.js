@@ -1,4 +1,4 @@
-/* @odoo-module */
+/* @loomworks-module */
 
 import { usePopover } from "@web/core/popover/popover_hook";
 import { user } from "@web/core/user";

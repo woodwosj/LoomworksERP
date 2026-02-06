@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { FileInput } from '@web/core/file_input/file_input';
 

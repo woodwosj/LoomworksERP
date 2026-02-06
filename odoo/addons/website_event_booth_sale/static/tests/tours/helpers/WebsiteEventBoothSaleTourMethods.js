@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
     import { changePricelist, checkPriceCart } from "@website_event_sale/../tests/tours/helpers/WebsiteEventSaleTourMethods";
 

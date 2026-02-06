@@ -2,7 +2,7 @@
 
 import time
 
-from odoo.tests.common import tagged, TransactionCase
+from loomworks.tests.common import tagged, TransactionCase
 
 
 @tagged('jesaispas')

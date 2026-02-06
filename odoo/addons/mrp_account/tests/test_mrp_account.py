@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
 
-from odoo.addons.mail.tests.common import MailCase
-from odoo.addons.mrp.tests.common import TestMrpCommon
-from odoo.addons.stock_account.tests.test_account_move import TestAccountMoveStockCommon
-from odoo.tests import Form, tagged
-from odoo.tests.common import new_test_user
-from odoo import fields, Command
+from loomworks.addons.mail.tests.common import MailCase
+from loomworks.addons.mrp.tests.common import TestMrpCommon
+from loomworks.addons.stock_account.tests.test_account_move import TestAccountMoveStockCommon
+from loomworks.tests import Form, tagged
+from loomworks.tests.common import new_test_user
+from loomworks import fields, Command
 
 
 class TestMrpAccount(TestMrpCommon, MailCase):

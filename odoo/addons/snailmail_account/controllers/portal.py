@@ -1,5 +1,5 @@
-from odoo import _
-from odoo.addons.portal.controllers.portal import CustomerPortal
+from loomworks import _
+from loomworks.addons.portal.controllers.portal import CustomerPortal
 
 
 class PortalAccount(CustomerPortal):

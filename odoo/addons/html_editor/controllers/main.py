@@ -9,14 +9,14 @@ import requests
 from os.path import join as opj
 from urllib.parse import urlparse
 
-from odoo import _, http, tools, SUPERUSER_ID
-from odoo.addons.html_editor.tools import get_video_url_data
-from odoo.exceptions import UserError, MissingError, AccessError
-from odoo.http import request
-from odoo.tools.mimetypes import guess_mimetype
-from odoo.tools.misc import file_open
-from odoo.addons.iap.tools import iap_tools
-from odoo.addons.mail.tools import link_preview
+from loomworks import _, http, tools, SUPERUSER_ID
+from loomworks.addons.html_editor.tools import get_video_url_data
+from loomworks.exceptions import UserError, MissingError, AccessError
+from loomworks.http import request
+from loomworks.tools.mimetypes import guess_mimetype
+from loomworks.tools.misc import file_open
+from loomworks.addons.iap.tools import iap_tools
+from loomworks.addons.mail.tools import link_preview
 from lxml import html
 
 from ..models.ir_attachment import SUPPORTED_IMAGE_MIMETYPES
@@ -598,7 +598,7 @@ class HTML_Editor(http.Controller):
             if not (
                 last_segment.isnumeric()
                 and (
-                    parsed_preview_url.path.startswith("/odoo")
+                    parsed_preview_url.path.startswith("/loomworks")
                     or parsed_preview_url.path.startswith("/web")
                     or parsed_preview_url.path.startswith("/@/")
                 )

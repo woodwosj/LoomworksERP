@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { afterEach, beforeEach, describe, expect, test } from "@odoo/hoot";
 import { advanceTime, animationFrame, queryFirst } from "@odoo/hoot-dom";

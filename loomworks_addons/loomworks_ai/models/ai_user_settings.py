@@ -19,7 +19,7 @@ used for AI training.
 Based on: FEATURE_CONTEXTUAL_AI_NAVBAR.md
 """
 
-from odoo import models, fields, api
+from loomworks import models, fields, api
 
 
 class AIUserSettings(models.Model):
@@ -138,14 +138,14 @@ class AIUserSettings(models.Model):
     def _check_max_suggestions(self):
         for settings in self:
             if settings.max_suggestions_per_session < 0:
-                from odoo.exceptions import ValidationError
+                from loomworks.exceptions import ValidationError
                 raise ValidationError('Max suggestions cannot be negative')
 
     @api.constrains('cooldown_seconds')
     def _check_cooldown(self):
         for settings in self:
             if settings.cooldown_seconds < 0:
-                from odoo.exceptions import ValidationError
+                from loomworks.exceptions import ValidationError
                 raise ValidationError('Cooldown cannot be negative')
 
     # =========================================================================

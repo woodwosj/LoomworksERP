@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests.common import tagged, HttpCase
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests.common import tagged, HttpCase
 
 
 @tagged('post_install', '-at_install')
@@ -9,7 +9,7 @@ class TestUi(AccountTestInvoicingCommon, HttpCase):
 
     def test_01_sale_tour(self):
         self.env['res.partner'].create({'name': 'Agrolait', 'email': 'agro@lait.be'})
-        self.start_tour("/odoo", 'sale_tour', login="admin")
+        self.start_tour("/loomworks", 'sale_tour', login="admin")
 
     def test_04_portal_sale_signature_without_name_tour(self):
         """The goal of this test is to make sure the portal user can sign SO even witout a name."""

@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import date, timedelta
 
-from odoo import Command
-from odoo.fields import Date
-from odoo.tools import float_is_zero
-from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.addons.hr_timesheet.tests.test_timesheet import TestCommonTimesheet
-from odoo.addons.sale_timesheet.tests.common import TestCommonSaleTimesheet
-from odoo.tests import Form, tagged, new_test_user
+from loomworks import Command
+from loomworks.fields import Date
+from loomworks.tools import float_is_zero
+from loomworks.exceptions import AccessError, UserError, ValidationError
+from loomworks.addons.hr_timesheet.tests.test_timesheet import TestCommonTimesheet
+from loomworks.addons.sale_timesheet.tests.common import TestCommonSaleTimesheet
+from loomworks.tests import Form, tagged, new_test_user
 
 @tagged('-at_install', 'post_install')
 class TestSaleTimesheet(TestCommonSaleTimesheet):

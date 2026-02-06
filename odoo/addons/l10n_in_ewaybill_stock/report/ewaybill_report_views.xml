@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="paperformat_ewaybill" model="report.paperformat">
             <field name="name">A4 - ewaybill</field>
@@ -29,4 +29,4 @@
             <field name="binding_type">report</field>
         </record>
     </data>
-</odoo>
+</loomworks>

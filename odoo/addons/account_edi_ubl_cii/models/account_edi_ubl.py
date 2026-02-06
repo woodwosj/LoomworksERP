@@ -1,6 +1,6 @@
-from odoo import _, models
-from odoo.addons.account_edi_ubl_cii.models.account_edi_common import FloatFmt
-from odoo.tools import frozendict
+from loomworks import _, models
+from loomworks.addons.account_edi_ubl_cii.models.account_edi_common import FloatFmt
+from loomworks.tools import frozendict
 
 
 class AccountEdiUBL(models.AbstractModel):

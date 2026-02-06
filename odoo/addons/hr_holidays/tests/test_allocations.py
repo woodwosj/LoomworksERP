@@ -2,10 +2,10 @@ from datetime import date, timedelta
 
 from freezegun import freeze_time
 
-from odoo.exceptions import ValidationError
-from odoo.tests import Form, tagged, users
+from loomworks.exceptions import ValidationError
+from loomworks.tests import Form, tagged, users
 
-from odoo.addons.hr_holidays.tests.common import TestHrHolidaysCommon
+from loomworks.addons.hr_holidays.tests.common import TestHrHolidaysCommon
 
 
 @tagged('allocation')

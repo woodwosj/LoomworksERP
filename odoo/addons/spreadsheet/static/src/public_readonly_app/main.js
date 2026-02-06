@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 import { App, whenReady } from "@odoo/owl";
 import { PublicReadonlySpreadsheet } from "./public_readonly";
 import { getTemplate } from "@web/core/templates";

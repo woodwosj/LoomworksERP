@@ -1,6 +1,6 @@
-from odoo import _, api, fields, models
+from loomworks import _, api, fields, models
 
-from odoo.exceptions import ValidationError
+from loomworks.exceptions import ValidationError
 
 
 class ProductProduct(models.Model):

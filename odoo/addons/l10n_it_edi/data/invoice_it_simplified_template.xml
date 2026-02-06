@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <template id="account_invoice_line_it_simplified_FatturaPA">
             <DatiBeniServizi>
@@ -107,4 +107,4 @@
             </p:FatturaElettronicaSemplificata>
         </template>
     </data>
-</odoo>
+</loomworks>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
 
         <!--
@@ -76,7 +76,7 @@
                 <body>
                      <div class="main" style="opacity: 1;">
                         <h1 class="channel_name"><t t-esc="channel.name"/></h1>
-                        <div>Website Live Chat Powered by <strong>Odoo</strong>.</div>
+                        <div>Website Live Chat Powered by <strong>Loomworks</strong>.</div>
                     </div>
                 </body>
             </html>
@@ -113,4 +113,4 @@
 
 
     </data>
-</odoo>
+</loomworks>

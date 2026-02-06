@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 
-from odoo.addons.test_event_full.tests.common import TestEventFullCommon
-from odoo.exceptions import AccessError
-from odoo.tests import tagged
-from odoo.tests.common import users
-from odoo.tools import mute_logger
+from loomworks.addons.test_event_full.tests.common import TestEventFullCommon
+from loomworks.exceptions import AccessError
+from loomworks.tests import tagged
+from loomworks.tests.common import users
+from loomworks.tools import mute_logger
 
 
 @tagged('security')
 class TestEventSecurity(TestEventFullCommon):
 
     @users('user_employee')
-    @mute_logger('odoo.models.unlink', 'odoo.addons.base.models.ir_model')
+    @mute_logger('loomworks.models.unlink', 'loomworks.addons.base.models.ir_model')
     def test_event_access_employee(self):
         # Event: read ok
         event = self.test_event.with_user(self.env.user)
@@ -51,7 +51,7 @@ class TestEventSecurity(TestEventFullCommon):
             self.env['event.registration'].search([])
 
     @users('user_eventregistrationdesk')
-    @mute_logger('odoo.models.unlink', 'odoo.addons.base.models.ir_model')
+    @mute_logger('loomworks.models.unlink', 'loomworks.addons.base.models.ir_model')
     def test_event_access_event_registration(self):
         # Event: read ok
         event = self.test_event.with_user(self.env.user)
@@ -73,7 +73,7 @@ class TestEventSecurity(TestEventFullCommon):
             registration.unlink()
 
     @users('user_eventuser')
-    @mute_logger('odoo.models.unlink', 'odoo.addons.base.models.ir_model')
+    @mute_logger('loomworks.models.unlink', 'loomworks.addons.base.models.ir_model')
     def test_event_access_event_user(self):
         # Event
         event = self.test_event.with_user(self.env.user)
@@ -99,7 +99,7 @@ class TestEventSecurity(TestEventFullCommon):
             })
 
     @users('user_eventmanager')
-    @mute_logger('odoo.models.unlink', 'odoo.addons.base.models.ir_model')
+    @mute_logger('loomworks.models.unlink', 'loomworks.addons.base.models.ir_model')
     def test_event_access_event_manager(self):
         # Event Type
         event_type = self.env['event.type'].create({

@@ -12,7 +12,7 @@ Upwork Proposal model - Manages proposals sent via Upwork.
 
 import logging
 
-from odoo import api, fields, models, _
+from loomworks import api, fields, models, _
 
 _logger = logging.getLogger(__name__)
 
@@ -45,7 +45,7 @@ class UpworkProposal(models.Model):
     )
     module_list = fields.Char(
         string='Relevant Modules',
-        help='Comma-separated list of Odoo modules relevant to this proposal.',
+        help='Comma-separated list of Loomworks modules relevant to this proposal.',
     )
     client_industry = fields.Char(
         string='Client Industry',

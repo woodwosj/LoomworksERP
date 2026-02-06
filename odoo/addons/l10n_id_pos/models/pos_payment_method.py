@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo.exceptions import UserError
-from odoo import _, models
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks.exceptions import UserError
+from loomworks import _, models
 
 
 class PosPaymentMethod(models.Model):

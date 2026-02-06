@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.account_check_printing.models.account_payment import INV_LINES_PER_STUB
-from odoo.tests import tagged
-from odoo.tools.misc import NON_BREAKING_SPACE
-from odoo import Command
-from odoo.exceptions import ValidationError
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.account_check_printing.models.account_payment import INV_LINES_PER_STUB
+from loomworks.tests import tagged
+from loomworks.tools.misc import NON_BREAKING_SPACE
+from loomworks import Command
+from loomworks.exceptions import ValidationError
 
 import math
 

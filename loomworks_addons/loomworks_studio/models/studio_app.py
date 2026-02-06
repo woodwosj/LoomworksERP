@@ -18,8 +18,8 @@ import json
 import logging
 from datetime import datetime
 
-from odoo import api, models, fields, _
-from odoo.exceptions import ValidationError, UserError
+from loomworks import api, models, fields, _
+from loomworks.exceptions import ValidationError, UserError
 
 _logger = logging.getLogger(__name__)
 

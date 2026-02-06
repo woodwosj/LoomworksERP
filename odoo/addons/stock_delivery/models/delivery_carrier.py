@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, fields, models
+from loomworks import _, fields, models
 
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools.float_utils import float_round
-from odoo.tools.misc import groupby
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools.float_utils import float_round
+from loomworks.tools.misc import groupby
 
 from .delivery_request_objects import DeliveryCommodity, DeliveryPackage
 

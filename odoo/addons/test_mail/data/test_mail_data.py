@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 MAIL_TEMPLATE = """Return-Path: {return_path}
 To: {to}
@@ -843,7 +843,7 @@ From: "Test" <noreply+srglvrz-gmail.com@mycompany.example.com>
 Reply-To: "MY COMPANY" <info@mycompany.example.com>
 To: "Test" <test@anothercompany.example.com>
 Date: Tue, 24 Dec 2019 10:32:05 -0000
-X-Odoo-Objects: account.invoice-19177
+X-Loomworks-Objects: account.invoice-19177
 
 --16063919151.b32bE0eD.7--"""
 
@@ -1164,7 +1164,7 @@ From: Mitchell Admin <admin@yourcompany.example.com>
 Reply-To: YourCompany Research & Development <aaa+catchall@test.ironsky>
 To: Raoul <{email_from}>
 Date: Mon, 15 Apr 2019 13:40:24 -0000
-X-Odoo-Objects: project.project-3, ,project.task-32
+X-Loomworks-Objects: project.project-3, ,project.task-32
 X-Spam-Status: No, score=-2.0 required=5.0 tests=ALL_TRUSTED,BAYES_00,
     DKIM_ADSP_NXDOMAIN,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE
     shortcircuit=no autolearn=no autolearn_force=no version=3.4.2
@@ -1281,7 +1281,7 @@ Reply-To: "SO/11" <catchall@xxx.odoo.com=
 >
 To: "rdesfrdgtfdrfesd@outlook.com" <rdesfrdgtfdrfesd@outlook.com>
 Date: Tue, 29 Feb 2023 06:09:06 -0000
-X-Odoo-Objects: sale.order-11
+X-Loomworks-Objects: sale.order-11
 MIME-Version: 1.0
 Content-Type: multipart/mixed; boundary=3D"=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D5706316606908750110=3D=3D"

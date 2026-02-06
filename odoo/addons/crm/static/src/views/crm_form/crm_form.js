@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { checkRainbowmanMessage } from "@crm/views/check_rainbowman_message";
 import { registry } from "@web/core/registry";

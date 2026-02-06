@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from __future__ import annotations
 from typing import List, Dict
-from odoo import api, models, fields
-from odoo.osv.expression import AND
+from loomworks import api, models, fields
+from loomworks.osv.expression import AND
 
 
 class ProductTemplate(models.Model):

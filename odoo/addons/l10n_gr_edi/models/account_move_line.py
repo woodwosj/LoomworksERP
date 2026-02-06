@@ -1,6 +1,6 @@
-from odoo import api, fields, models
+from loomworks import api, fields, models
 
-from odoo.addons.l10n_gr_edi.models.preferred_classification import (
+from loomworks.addons.l10n_gr_edi.models.preferred_classification import (
     CLASSIFICATION_CATEGORY_SELECTION,
     CLASSIFICATION_MAP,
     CLASSIFICATION_TYPE_SELECTION,
@@ -8,7 +8,7 @@ from odoo.addons.l10n_gr_edi.models.preferred_classification import (
     TAX_EXEMPTION_CATEGORY_SELECTION,
     TYPES_WITH_SEND_EXPENSE,
 )
-from odoo.tools.sql import column_exists, create_column
+from loomworks.tools.sql import column_exists, create_column
 
 
 class AccountMoveLine(models.Model):

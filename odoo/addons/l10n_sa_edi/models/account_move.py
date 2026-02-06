@@ -1,8 +1,8 @@
 import base64
 import uuid
 from markupsafe import Markup
-from odoo import _, fields, models, api
-from odoo.tools import float_repr
+from loomworks import _, fields, models, api
+from loomworks.tools import float_repr
 from datetime import datetime
 from base64 import b64decode, b64encode
 from lxml import etree

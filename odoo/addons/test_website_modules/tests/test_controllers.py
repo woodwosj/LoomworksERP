@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from base64 import b64encode
 
-from odoo import Command, tests
-from odoo.addons.base.tests.common import HttpCaseWithUserDemo, HttpCaseWithUserPortal
-from odoo.tools import mute_logger
-from odoo.tools.json import scriptsafe as json_safe
+from loomworks import Command, tests
+from loomworks.addons.base.tests.common import HttpCaseWithUserDemo, HttpCaseWithUserPortal
+from loomworks.tools import mute_logger
+from loomworks.tools.json import scriptsafe as json_safe
 
 
 @tests.tagged('-at_install', 'post_install')
@@ -62,7 +62,7 @@ class TestWebEditorController(HttpCaseWithUserDemo, HttpCaseWithUserPortal):
                 Command.link(self.env.ref('base.group_user').id),
             ]
         })
-        with mute_logger('odoo.http'):
+        with mute_logger('loomworks.http'):
             json = modify('demo', 'page-demofail.gif', True)
         self.assertFalse(json.get('result'), "Expect no URL when called with insufficient rights")
 
@@ -75,7 +75,7 @@ class TestWebEditorController(HttpCaseWithUserDemo, HttpCaseWithUserPortal):
                 Command.link(self.env.ref('event.group_event_manager').id),
             ]
         })
-        with mute_logger('odoo.http'):
+        with mute_logger('loomworks.http'):
             json = modify('demo', 'page-demofail2.gif', True)
         self.assertFalse(json.get('result'), "Expect no URL when called with insufficient rights")
 
@@ -95,9 +95,9 @@ class TestWebEditorController(HttpCaseWithUserDemo, HttpCaseWithUserPortal):
         attachment.url = False  # Reset previous value
 
         # Portal user cannot modify page
-        with mute_logger('odoo.http'):
+        with mute_logger('loomworks.http'):
             json = modify('portal', 'page-portalfail.gif', True)
-        self.assertEqual('odoo.exceptions.AccessError', json['error']['data']['name'], "Expect access error")
+        self.assertEqual('loomworks.exceptions.AccessError', json['error']['data']['name'], "Expect access error")
 
         event = self.env['event.event'].create({'name': 'Event'})
         attachment.res_model = 'event.event'
@@ -113,7 +113,7 @@ class TestWebEditorController(HttpCaseWithUserDemo, HttpCaseWithUserPortal):
                 Command.link(self.env.ref('base.group_user').id),
             ]
         })
-        with mute_logger('odoo.http'):
+        with mute_logger('loomworks.http'):
             json = modify('demo', 'event-demofail.gif', True)
         self.assertFalse(json.get('result'), "Expect no URL when called with insufficient rights")
 
@@ -126,7 +126,7 @@ class TestWebEditorController(HttpCaseWithUserDemo, HttpCaseWithUserPortal):
                 Command.link(self.env.ref('sales_team.group_sale_manager').id),
             ]
         })
-        with mute_logger('odoo.http'):
+        with mute_logger('loomworks.http'):
             json = modify('demo', 'event-demofail2.gif', True)
         self.assertFalse(json.get('result'), "Expect no URL when called with insufficient rights")
 
@@ -149,11 +149,11 @@ class TestWebEditorController(HttpCaseWithUserDemo, HttpCaseWithUserPortal):
                 Command.link(self.env.ref('website.group_website_designer').id),
             ]
         })
-        with mute_logger('odoo.http'):
+        with mute_logger('loomworks.http'):
             json = modify('demo', 'event-demofail3.gif', True)
         self.assertFalse(json.get('result'), "Expect no URL when called with insufficient rights")
 
         # Portal user cannot modify event
-        with mute_logger('odoo.http'):
+        with mute_logger('loomworks.http'):
             json = modify('portal', 'event-portalfail.gif', True)
-        self.assertEqual('odoo.exceptions.AccessError', json['error']['data']['name'], "Expect access error")
+        self.assertEqual('loomworks.exceptions.AccessError', json['error']['data']['name'], "Expect access error")

@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.models import Command
-from odoo.tests.common import JsonRpcException, tagged
-from odoo.tools import mute_logger
+from loomworks.models import Command
+from loomworks.tests.common import JsonRpcException, tagged
+from loomworks.tools import mute_logger
 
-from odoo.addons.payment.tests.http_common import PaymentHttpCommon
-from odoo.addons.website.tools import MockRequest
+from loomworks.addons.payment.tests.http_common import PaymentHttpCommon
+from loomworks.addons.website.tools import MockRequest
 
 
 @tagged('post_install', '-at_install')
@@ -55,12 +55,12 @@ class WebsiteSaleCartPayment(PaymentHttpCommon):
                         f"the linked order.",
                 )
 
-    @mute_logger('odoo.http')
+    @mute_logger('loomworks.http')
     def test_transaction_route_rejects_unexpected_kwarg(self):
         url = self._build_url(f'/shop/payment/transaction/{self.order.id}')
         route_kwargs = {
             'access_token': self.order._portal_ensure_token(),
             'partner_id': self.partner.id,  # This should be rejected.
         }
-        with self.assertRaises(JsonRpcException, msg='odoo.exceptions.ValidationError'):
+        with self.assertRaises(JsonRpcException, msg='loomworks.exceptions.ValidationError'):
             self.make_jsonrpc_request(url, route_kwargs)

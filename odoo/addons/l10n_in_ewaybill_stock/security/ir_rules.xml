@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 
-<odoo>
+<loomworks>
     <data noupdate="1">
         <record model="ir.rule" id="l10n_in_ewaybill_comp_rule">
             <field name="name">L10nIn Ewaybill multi-company</field>
@@ -8,4 +8,4 @@
             <field name="domain_force">[('company_id', 'in', company_ids)]</field>
         </record>
     </data>
-</odoo>
+</loomworks>

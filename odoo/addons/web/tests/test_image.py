@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import io
 import base64
@@ -9,8 +9,8 @@ from freezegun import freeze_time
 from PIL import Image
 from werkzeug.urls import url_unquote_plus
 
-from odoo.tools.misc import limited_field_access_token
-from odoo.tests.common import HttpCase, tagged
+from loomworks.tools.misc import limited_field_access_token
+from loomworks.tests.common import HttpCase, tagged
 
 
 @tagged('-at_install', 'post_install')

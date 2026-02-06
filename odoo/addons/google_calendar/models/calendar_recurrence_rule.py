@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 import logging
 
-from odoo import api, models, Command
-from odoo.tools import email_normalize
+from loomworks import api, models, Command
+from loomworks.tools import email_normalize
 
-from odoo.addons.google_calendar.utils.google_calendar import GoogleCalendarService
+from loomworks.addons.google_calendar.utils.google_calendar import GoogleCalendarService
 
 _logger = logging.getLogger(__name__)
 

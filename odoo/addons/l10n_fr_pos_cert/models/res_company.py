@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import models, api, fields, _
-from odoo.exceptions import UserError
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import models, api, fields, _
+from loomworks.exceptions import UserError
 from datetime import datetime
-from odoo.fields import Datetime, Date
-from odoo.tools.misc import format_date
+from loomworks.fields import Datetime, Date
+from loomworks.tools.misc import format_date
 import pytz
 
 

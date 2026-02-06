@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
-from odoo import fields
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.addons.stock.tests.common import TestStockCommon
-from odoo.tests import Form
+from loomworks import fields
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.addons.stock.tests.common import TestStockCommon
+from loomworks.tests import Form
 
 
 class TestStockLot(TestStockCommon):

@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo.tests import tagged
-from odoo.tests.common import HttpCase
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks.tests import tagged
+from loomworks.tests.common import HttpCase
 
 
 @tagged('post_install', '-at_install')

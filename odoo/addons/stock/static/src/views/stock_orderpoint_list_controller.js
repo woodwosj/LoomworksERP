@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { ListController } from '@web/views/list/list_controller';
 import { Dropdown } from "@web/core/dropdown/dropdown";

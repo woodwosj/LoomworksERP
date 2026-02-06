@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { Component, onMounted, useState, useRef } from "@odoo/owl";
 import { isBarcodeScannerSupported } from "@web/core/barcode/barcode_video_scanner";

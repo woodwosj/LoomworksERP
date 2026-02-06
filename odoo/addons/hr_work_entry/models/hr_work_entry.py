@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import itertools
 from collections import defaultdict
@@ -6,10 +6,10 @@ from contextlib import contextmanager
 
 from dateutil.relativedelta import relativedelta
 from psycopg2 import OperationalError
-from odoo.exceptions import UserError
+from loomworks.exceptions import UserError
 
-from odoo import _, api, fields, models, tools
-from odoo.osv import expression
+from loomworks import _, api, fields, models, tools
+from loomworks.osv import expression
 
 
 class HrWorkEntry(models.Model):

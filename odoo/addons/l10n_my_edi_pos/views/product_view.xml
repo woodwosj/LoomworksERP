@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="myinvois_product_product_view_form_normalized_pos" model="ir.ui.view">
         <field name="name">myinvois.product.product.view.form.normalized.inherit</field>
         <field name="model">product.product</field>
@@ -10,4 +10,4 @@
             </xpath>
         </field>
     </record>
-</odoo>
+</loomworks>

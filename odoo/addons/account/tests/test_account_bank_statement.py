@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import tagged
-from odoo.exceptions import ValidationError, UserError
-from odoo import fields, Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import tagged
+from loomworks.exceptions import ValidationError, UserError
+from loomworks import fields, Command
 
 import base64
 

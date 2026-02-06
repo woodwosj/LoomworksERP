@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
-from odoo.tools import float_round
-from odoo.exceptions import ValidationError
+from loomworks import models, fields, api, _
+from loomworks.tools import float_round
+from loomworks.exceptions import ValidationError
 
 
 class AccountCashRounding(models.Model):

@@ -10,7 +10,7 @@
 Upwork Milestone model - Represents milestones on fixed-price contracts.
 """
 
-from odoo import api, fields, models
+from loomworks import api, fields, models
 
 
 class UpworkMilestone(models.Model):

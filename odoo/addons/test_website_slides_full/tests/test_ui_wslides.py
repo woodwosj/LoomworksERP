@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from dateutil.relativedelta import relativedelta
-from odoo.fields import Datetime
-from odoo import tests
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.website_slides.tests.test_ui_wslides import TestUICommon
+from loomworks.fields import Datetime
+from loomworks import tests
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.website_slides.tests.test_ui_wslides import TestUICommon
 
 
 @tests.common.tagged('post_install', '-at_install')

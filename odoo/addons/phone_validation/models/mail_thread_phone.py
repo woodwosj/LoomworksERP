@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 
-from odoo import api, fields, models, _
-from odoo.exceptions import AccessError, UserError
-from odoo.osv import expression
-from odoo.tools import create_index
+from loomworks import api, fields, models, _
+from loomworks.exceptions import AccessError, UserError
+from loomworks.osv import expression
+from loomworks.tools import create_index
 
 PHONE_REGEX_PATTERN = r'[\s\\./\(\)\-]'
 

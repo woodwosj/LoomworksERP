@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 
-from odoo import Command, fields
-from odoo.addons.event_booth_sale.tests.common import TestEventBoothSaleCommon
-from odoo.addons.sales_team.tests.common import TestSalesCommon
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests.common import tagged, users
-from odoo.tools import float_compare
+from loomworks import Command, fields
+from loomworks.addons.event_booth_sale.tests.common import TestEventBoothSaleCommon
+from loomworks.addons.sales_team.tests.common import TestSalesCommon
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests.common import tagged, users
+from loomworks.tools import float_compare
 
 
 class TestEventBoothSaleWData(TestEventBoothSaleCommon, TestSalesCommon):

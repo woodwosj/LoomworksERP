@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.http import request
-from odoo.addons.mass_mailing.controllers import main
+from loomworks.http import request
+from loomworks.addons.mass_mailing.controllers import main
 
 
 class MassMailController(main.MassMailController):

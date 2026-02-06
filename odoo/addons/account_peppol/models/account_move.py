@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.addons.account.models.company import PEPPOL_MAILING_COUNTRIES
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
+from loomworks.addons.account.models.company import PEPPOL_MAILING_COUNTRIES
 
 
 class AccountMove(models.Model):

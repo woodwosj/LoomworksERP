@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo.tests
+import loomworks.tests
 
-from odoo.tests import Form
+from loomworks.tests import Form
 
-from odoo.addons.product_matrix.tests.common import TestMatrixCommon
+from loomworks.addons.product_matrix.tests.common import TestMatrixCommon
 
 
-@odoo.tests.tagged('post_install', '-at_install')
+@loomworks.tests.tagged('post_install', '-at_install')
 class TestPurchaseMatrixUi(TestMatrixCommon):
 
     def test_purchase_matrix_ui(self):
-        self.start_tour("/odoo", 'purchase_matrix_tour', login="admin")
+        self.start_tour("/loomworks", 'purchase_matrix_tour', login="admin")
 
         # Ensures some dynamic create variants have been created by the matrix
         # Ensures a PO has been created with exactly x lines ...

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<odoo>
+<loomworks>
     <data>
         <record id="livechat_channel_session_6" model="discuss.channel">
             <field name="channel_type">livechat</field>
@@ -83,4 +83,4 @@
         <function model="discuss.channel" name="rating_apply"
             eval="([ref('im_livechat.livechat_channel_session_6')], 5, 'LIVECHAT_6', None, 'Good Job')"/>
     </data>
-</odoo>
+</loomworks>

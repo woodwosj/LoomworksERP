@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
 
-from odoo import http
-from odoo.http import request
+from loomworks import http
+from loomworks.http import request
 
 
 class PlmController(http.Controller):

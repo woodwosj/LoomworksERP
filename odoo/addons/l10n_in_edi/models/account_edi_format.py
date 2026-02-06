@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 import json
@@ -9,10 +9,10 @@ import markupsafe
 from collections import defaultdict
 from markupsafe import Markup
 
-from odoo import models, fields, api, _
-from odoo.tools import html_escape, float_is_zero, float_compare
-from odoo.exceptions import AccessError, ValidationError
-from odoo.addons.iap import jsonrpc
+from loomworks import models, fields, api, _
+from loomworks.tools import html_escape, float_is_zero, float_compare
+from loomworks.exceptions import AccessError, ValidationError
+from loomworks.addons.iap import jsonrpc
 import logging
 
 _logger = logging.getLogger(__name__)

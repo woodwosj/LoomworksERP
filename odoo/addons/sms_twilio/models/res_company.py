@@ -1,9 +1,9 @@
 import re
 
-from odoo import fields, models, _
-from odoo.exceptions import UserError
+from loomworks import fields, models, _
+from loomworks.exceptions import UserError
 
-from odoo.addons.sms_twilio.tools.sms_api import SmsApiTwilio
+from loomworks.addons.sms_twilio.tools.sms_api import SmsApiTwilio
 
 
 class ResCompany(models.Model):

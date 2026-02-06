@@ -1,7 +1,7 @@
-from odoo.addons.point_of_sale.tests.common import TestPointOfSaleCommon
-from odoo.addons.account_edi.tests.common import AccountTestInvoicingCommon
-from odoo.tests import tagged
-from odoo import fields
+from loomworks.addons.point_of_sale.tests.common import TestPointOfSaleCommon
+from loomworks.addons.account_edi.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import tagged
+from loomworks import fields
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

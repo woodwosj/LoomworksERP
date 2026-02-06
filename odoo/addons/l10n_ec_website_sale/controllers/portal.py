@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.portal.controllers.portal import CustomerPortal
-from odoo.http import request
+from loomworks.addons.portal.controllers.portal import CustomerPortal
+from loomworks.http import request
 
 
 class CustomerPortalEcuador(CustomerPortal):

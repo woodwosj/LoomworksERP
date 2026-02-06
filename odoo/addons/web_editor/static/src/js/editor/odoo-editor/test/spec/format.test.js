@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { isSelectionFormat } from '../../src/utils/utils.js';
 import { BasicEditor, testEditor, setTestSelection, Direction, unformat, insertText, triggerEvent } from '../utils.js';

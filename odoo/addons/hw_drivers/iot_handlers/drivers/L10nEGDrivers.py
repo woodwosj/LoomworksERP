@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import base64
 import logging
 import platform
@@ -7,8 +7,8 @@ import json
 
 from passlib.context import CryptContext
 
-from odoo import http
-from odoo.tools.config import config
+from loomworks import http
+from loomworks.tools.config import config
 
 _logger = logging.getLogger(__name__)
 

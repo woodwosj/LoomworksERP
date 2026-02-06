@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="sale_order_portal_content_brazil" inherit_id="sale.sale_order_portal_content" primary="True">
         <!-- hide the taxes th -->
         <th id="taxes_header" position="replace"/>
@@ -20,4 +20,4 @@
             </table>
         </xpath>
     </template>
-</odoo>
+</loomworks>

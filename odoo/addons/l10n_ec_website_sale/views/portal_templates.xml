@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <!-- FIXME JCO should be in the base loca module, it's portal content, not eCommerce -->
     <template id="partner_info" name="Ecuadorian partner">
 
@@ -42,4 +42,4 @@
         </label>
     </template>
 
-</odoo>
+</loomworks>

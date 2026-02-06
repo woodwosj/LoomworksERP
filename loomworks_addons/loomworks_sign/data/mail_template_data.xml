@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
+<loomworks noupdate="1">
 
     <!-- Signature Request Email Template -->
     <record id="mail_template_signature_request" model="mail.template">
@@ -115,4 +115,4 @@
         <field name="auto_delete" eval="True"/>
     </record>
 
-</odoo>
+</loomworks>

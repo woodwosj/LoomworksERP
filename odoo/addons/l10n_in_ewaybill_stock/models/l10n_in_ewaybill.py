@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import json
@@ -10,9 +10,9 @@ from datetime import datetime
 
 import psycopg2.errors
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
-from odoo.addons.l10n_in_ewaybill_stock.tools.ewaybill_api import EWayBillApi, EWayBillError
+from loomworks import _, api, fields, models
+from loomworks.exceptions import UserError
+from loomworks.addons.l10n_in_ewaybill_stock.tools.ewaybill_api import EWayBillApi, EWayBillError
 
 
 _logger = logging.getLogger(__name__)

@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo
+import loomworks
 from uuid import uuid4
 
-from odoo.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
-from odoo.addons.point_of_sale.tests.common import TestPoSCommon
-from odoo.tests import Form
-from odoo import fields, Command
-from odoo.tools import format_date
+from loomworks.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
+from loomworks.addons.point_of_sale.tests.common import TestPoSCommon
+from loomworks.tests import Form
+from loomworks import fields, Command
+from loomworks.tools import format_date
 
-@odoo.tests.tagged('post_install', '-at_install')
+@loomworks.tests.tagged('post_install', '-at_install')
 class TestPoSSale(TestPointOfSaleHttpCommon):
     def test_settle_order_with_kit(self):
         if not self.env["ir.module.module"].search([("name", "=", "mrp"), ("state", "=", "installed")]):
@@ -93,14 +93,14 @@ class TestPoSSale(TestPointOfSaleHttpCommon):
             'available_in_pos': True,
             'is_storable': True,
             'lst_price': 10,
-            'taxes_id': [odoo.Command.clear()],
+            'taxes_id': [loomworks.Command.clear()],
         })
         product2 = self.env['product.product'].create({
             'name': 'product2',
             'available_in_pos': True,
             'is_storable': True,
             'lst_price': 11,
-            'taxes_id': [odoo.Command.clear()],
+            'taxes_id': [loomworks.Command.clear()],
         })
         partner_1 = self.env['res.partner'].create({'name': 'Test Partner 1'})
         partner_2 = self.env['res.partner'].create({'name': 'Test Partner 2'})
@@ -1211,12 +1211,12 @@ class TestPoSSale(TestPointOfSaleHttpCommon):
             'available_in_pos': True,
             'is_storable': True,
             'lst_price': 10,
-            'taxes_id': [odoo.Command.clear()],
+            'taxes_id': [loomworks.Command.clear()],
         })
         partner_1 = self.env['res.partner'].create({'name': 'Test Partner 1'})
         order = self.env['sale.order'].create({
             'partner_id': partner_1.id,
-            'order_line': [odoo.Command.create({'product_id': product1.id})],
+            'order_line': [loomworks.Command.create({'product_id': product1.id})],
         })
         self.main_pos_config.open_ui()
         self.start_pos_tour('PoSSettleQuotation', login="accountman")
@@ -1614,7 +1614,7 @@ class TestPoSSale(TestPointOfSaleHttpCommon):
         self.main_pos_config.write({
             'tax_regime_selection': False,
             'default_fiscal_position_id': False,
-            'fiscal_position_ids': [odoo.Command.clear()],
+            'fiscal_position_ids': [loomworks.Command.clear()],
         })
         self.assertEqual(sale_a.fiscal_position_id, fp_1, "Sale order should have the fiscal position of the partner")
         self.assertEqual(sale_a.amount_total, 20, "Sale order amount should be 20 with the tax override 1")
@@ -2165,7 +2165,7 @@ class TestPoSSale(TestPointOfSaleHttpCommon):
         self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'test_settle_groupable_lot_total_amount', login="accountman")
 
 
-@odoo.tests.tagged('post_install', '-at_install')
+@loomworks.tests.tagged('post_install', '-at_install')
 class TestPosSaleAccount(TestPoSCommon):
     def test_repair_cogs(self):
         if not self.env['ir.module.module'].search([('name', '=', 'repair'), ('state', '=', 'installed')], limit=1):

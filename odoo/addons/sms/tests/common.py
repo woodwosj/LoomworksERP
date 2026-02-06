@@ -4,12 +4,12 @@ from contextlib import contextmanager
 from freezegun import freeze_time
 from unittest.mock import patch
 
-from odoo import exceptions, tools
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.addons.phone_validation.tools import phone_validation
-from odoo.addons.sms.models.sms_sms import SmsSms
-from odoo.addons.sms.tools.sms_api import SmsApi
-from odoo.tests import common
+from loomworks import exceptions, tools
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.addons.phone_validation.tools import phone_validation
+from loomworks.addons.sms.models.sms_sms import SmsSms
+from loomworks.addons.sms.tools.sms_api import SmsApi
+from loomworks.tests import common
 
 
 class MockSMS(common.HttpCase):
@@ -328,7 +328,7 @@ class SMSCase(MockSMS):
         if messages is not None:
             sanitize_tags = {**tools.mail.SANITIZE_TAGS}
             sanitize_tags['remove_tags'] = [*sanitize_tags['remove_tags'] + ['a']]
-            with patch('odoo.tools.mail.SANITIZE_TAGS', sanitize_tags):
+            with patch('loomworks.tools.mail.SANITIZE_TAGS', sanitize_tags):
                 for message in messages:
                     self.assertEqual(content, tools.html2plaintext(tools.html_sanitize(message.body)).rstrip('\n'))
 

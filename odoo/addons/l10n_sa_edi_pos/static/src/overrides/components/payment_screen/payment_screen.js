@@ -19,7 +19,7 @@ patch(PaymentScreen.prototype, {
             order.isInvoiceMandatoryForSA
         ) {
             const orderError = _t("%s by going to Backend > Orders > Invoice", order.pos_reference);
-            const href = `/odoo/customer-invoices/${this.currentOrder?.raw?.account_move}`;
+            const href = `/loomworks/customer-invoices/${this.currentOrder?.raw?.account_move}`;
             const link = markup(
                 `<a target="_blank" href=${href} class="text-info fw-bolder">${_t("Invoice")}</a>`
             );

@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import api, fields, models, _
+from loomworks.exceptions import ValidationError
 from stdnum.in_ import pan, gstin
 
 class ResCompany(models.Model):

@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { assertCartContains } from '@website_sale/js/tours/tour_utils';
 import { registerWebsitePreviewTour, clickOnEditAndWaitEditMode, clickOnSnippet, insertSnippet, selectElementInWeSelectWidget, clickOnSave, clickOnElement } from '@website/js/tours/tour_utils';

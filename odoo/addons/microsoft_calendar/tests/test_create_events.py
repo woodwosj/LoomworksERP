@@ -2,15 +2,15 @@ from unittest.mock import patch, call
 from datetime import timedelta, datetime
 from freezegun import freeze_time
 
-from odoo import Command, fields
+from loomworks import Command, fields
 
-from odoo.addons.mail.tests.common import MailCommon, mail_new_test_user
-from odoo.addons.microsoft_calendar.utils.microsoft_calendar import MicrosoftCalendarService
-from odoo.addons.microsoft_calendar.utils.microsoft_event import MicrosoftEvent
-from odoo.addons.microsoft_calendar.models.res_users import User
-from odoo.addons.microsoft_calendar.tests.common import TestCommon, mock_get_token, _modified_date_in_the_future
-from odoo.exceptions import ValidationError, UserError
-from odoo.tests.common import tagged
+from loomworks.addons.mail.tests.common import MailCommon, mail_new_test_user
+from loomworks.addons.microsoft_calendar.utils.microsoft_calendar import MicrosoftCalendarService
+from loomworks.addons.microsoft_calendar.utils.microsoft_event import MicrosoftEvent
+from loomworks.addons.microsoft_calendar.models.res_users import User
+from loomworks.addons.microsoft_calendar.tests.common import TestCommon, mock_get_token, _modified_date_in_the_future
+from loomworks.exceptions import ValidationError, UserError
+from loomworks.tests.common import tagged
 
 
 @tagged('post_install', '-at_install')

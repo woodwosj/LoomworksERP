@@ -1,4 +1,4 @@
-from odoo.tools import sql
+from loomworks.tools import sql
 
 
 def migrate(cr, version):

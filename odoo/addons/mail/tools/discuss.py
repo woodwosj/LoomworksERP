@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import os
 from collections import defaultdict
 from datetime import date, datetime
 
-from odoo import fields, models
-from odoo.tools import groupby
+from loomworks import fields, models
+from loomworks.tools import groupby
 
 
 def get_twilio_credentials(env) -> (str, str):

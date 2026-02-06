@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 
-from odoo import fields
-from odoo.tests import Form, TransactionCase
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from loomworks import fields
+from loomworks.tests import Form, TransactionCase
+from loomworks.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
 class TestOnchangeProductId(TransactionCase):

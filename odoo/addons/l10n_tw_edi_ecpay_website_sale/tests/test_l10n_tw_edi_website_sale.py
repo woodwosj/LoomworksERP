@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 
-from odoo.tests.common import HttpCase, tagged
-from odoo.exceptions import UserError
+from loomworks.tests.common import HttpCase, tagged
+from loomworks.exceptions import UserError
 
-CALL_API_METHOD = 'odoo.addons.l10n_tw_edi_ecpay_website_sale.controllers.main.call_ecpay_api'
+CALL_API_METHOD = 'loomworks.addons.l10n_tw_edi_ecpay_website_sale.controllers.main.call_ecpay_api'
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

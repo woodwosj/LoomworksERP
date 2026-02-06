@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 from stdnum.util import clean
 
-from odoo import api, fields, models, _
-from odoo.addons.base.models.res_bank import sanitize_account_number
-from odoo.addons.base_iban.models.res_partner_bank import normalize_iban, pretty_iban, validate_iban
-from odoo.exceptions import ValidationError
-from odoo.tools import LazyTranslate, street_split
-from odoo.tools.misc import mod10r
+from loomworks import api, fields, models, _
+from loomworks.addons.base.models.res_bank import sanitize_account_number
+from loomworks.addons.base_iban.models.res_partner_bank import normalize_iban, pretty_iban, validate_iban
+from loomworks.exceptions import ValidationError
+from loomworks.tools import LazyTranslate, street_split
+from loomworks.tools.misc import mod10r
 
 _lt = LazyTranslate(__name__)
 

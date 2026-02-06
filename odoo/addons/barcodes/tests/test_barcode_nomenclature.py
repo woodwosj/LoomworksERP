@@ -1,5 +1,5 @@
-from odoo.exceptions import ValidationError
-from odoo.tests import common
+from loomworks.exceptions import ValidationError
+from loomworks.tests import common
 
 
 class TestBarcodeNomenclature(common.TransactionCase):

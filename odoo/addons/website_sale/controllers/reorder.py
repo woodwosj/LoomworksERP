@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.exceptions import AccessError, MissingError
-from odoo.http import request, route
+from loomworks.exceptions import AccessError, MissingError
+from loomworks.http import request, route
 
-from odoo.addons.sale.controllers import portal as sale_portal
+from loomworks.addons.sale.controllers import portal as sale_portal
 
 
 class CustomerPortal(sale_portal.CustomerPortal):

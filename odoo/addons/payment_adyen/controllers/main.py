@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import binascii
@@ -10,13 +10,13 @@ import pprint
 from werkzeug import urls
 from werkzeug.exceptions import Forbidden
 
-from odoo import _, http, release
-from odoo.exceptions import ValidationError
-from odoo.http import request
-from odoo.tools import py_to_js_locale
+from loomworks import _, http, release
+from loomworks.exceptions import ValidationError
+from loomworks.http import request
+from loomworks.tools import py_to_js_locale
 
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.payment_adyen import utils as adyen_utils
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.payment_adyen import utils as adyen_utils
 
 _logger = logging.getLogger(__name__)
 
@@ -101,9 +101,9 @@ class AdyenController(http.Controller):
             },
             'applicationInfo': {
                 'externalPlatform': {
-                    'name': 'Odoo',
+                    'name': 'Loomworks ERP',
                     'version': release.version,
-                    'integrator': 'Odoo SA',
+                    'integrator': 'Loomworks',
                 }
             },
             'countryCode': partner_country_code,  # ISO 3166-1 alpha-2 (e.g.: 'BE')

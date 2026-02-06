@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import tagged
-from odoo.tools import mute_logger
+from loomworks.tests import tagged
+from loomworks.tools import mute_logger
 
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.payment_aps.controllers.main import APSController
-from odoo.addons.payment_aps.tests.common import APSCommon
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.payment_aps.controllers.main import APSController
+from loomworks.addons.payment_aps.tests.common import APSCommon
 
 
 @tagged('post_install', '-at_install')
@@ -41,7 +41,7 @@ class TestPaymentTransaction(APSCommon):
         }
         self.assertEqual(tx._get_specific_rendering_values(None), expected_values)
 
-    @mute_logger('odoo.addons.payment.models.payment_transaction')
+    @mute_logger('loomworks.addons.payment.models.payment_transaction')
     def test_no_input_missing_from_redirect_form(self):
         """ Test that the no key is not omitted from the rendering values. """
         tx = self._create_transaction(flow='redirect')

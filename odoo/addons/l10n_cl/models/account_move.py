@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import re
 
-from odoo.exceptions import ValidationError
-from odoo import models, fields, api, _
-from odoo.tools.misc import formatLang
-from odoo.tools.float_utils import float_repr, float_round
+from loomworks.exceptions import ValidationError
+from loomworks import models, fields, api, _
+from loomworks.tools.misc import formatLang
+from loomworks.tools.float_utils import float_repr, float_round
 
 SII_VAT = '60805000-0'
 

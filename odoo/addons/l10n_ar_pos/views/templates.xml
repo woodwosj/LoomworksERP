@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<odoo>
+<loomworks>
 
     <template id="ticket_validation_screen" inherit_id="point_of_sale.ticket_validation_screen">
 
@@ -28,4 +28,4 @@
 
     </template>
 
-</odoo>
+</loomworks>

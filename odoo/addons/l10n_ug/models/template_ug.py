@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models
-from odoo.addons.account.models.chart_template import template
+from loomworks import models
+from loomworks.addons.account.models.chart_template import template
 
 
 class AccountChartTemplate(models.AbstractModel):

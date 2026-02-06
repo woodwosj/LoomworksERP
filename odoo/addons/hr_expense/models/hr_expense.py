@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 from markupsafe import Markup
 import werkzeug
 
-from odoo import api, fields, Command, models, _
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import email_split, float_repr, float_round, is_html_empty
+from loomworks import api, fields, Command, models, _
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools import email_split, float_repr, float_round, is_html_empty
 
 
 class HrExpense(models.Model):

@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
 from freezegun import freeze_time
 from unittest.mock import patch, PropertyMock
 
-from odoo import fields
-from odoo.tools.misc import limited_field_access_token
-from odoo.addons.im_livechat.tests.common import TestImLivechatCommon
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.tests import new_test_user, tagged
+from loomworks import fields
+from loomworks.tools.misc import limited_field_access_token
+from loomworks.addons.im_livechat.tests.common import TestImLivechatCommon
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.tests import new_test_user, tagged
 
 
 @tagged("post_install", "-at_install")
@@ -30,7 +30,7 @@ class TestGetDiscussChannel(TestImLivechatCommon, MailCommon):
 
         # ensure visitor info are correct with anonymous
         operator = self.operators[0]
-        with patch('odoo.http.GeoIP.country_code', new_callable=PropertyMock(return_value=belgium.code)):
+        with patch('loomworks.http.GeoIP.country_code', new_callable=PropertyMock(return_value=belgium.code)):
             data = self.make_jsonrpc_request(
                 '/im_livechat/get_session',
                 {

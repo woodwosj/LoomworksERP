@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.pos_restaurant.tests.test_frontend import TestFrontend
-from odoo.tests import tagged
-from odoo import Command
+from loomworks.addons.pos_restaurant.tests.test_frontend import TestFrontend
+from loomworks.tests import tagged
+from loomworks import Command
 
 
 @tagged("post_install", "-at_install")

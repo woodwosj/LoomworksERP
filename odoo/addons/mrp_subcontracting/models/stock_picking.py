@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from collections import defaultdict
 from datetime import timedelta
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.tools.float_utils import float_compare
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
+from loomworks.tools.float_utils import float_compare
 from dateutil.relativedelta import relativedelta
 
 

@@ -1,5 +1,5 @@
-from odoo import api, models, fields
-from odoo.tools.sql import column_exists, create_column
+from loomworks import api, models, fields
+from loomworks.tools.sql import column_exists, create_column
 
 
 class AccountMoveLine(models.Model):

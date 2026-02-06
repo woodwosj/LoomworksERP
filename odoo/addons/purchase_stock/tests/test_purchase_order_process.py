@@ -1,6 +1,6 @@
-from odoo import Command, fields
-from odoo.tests import tagged
-from odoo.tools import float_compare
+from loomworks import Command, fields
+from loomworks.tests import tagged
+from loomworks.tools import float_compare
 from .common import PurchaseTestCommon
 
 

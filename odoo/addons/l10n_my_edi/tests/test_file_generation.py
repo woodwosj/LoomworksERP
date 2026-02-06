@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import datetime
 
 from freezegun import freeze_time
 from lxml import etree
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tools import file_open, cleanup_xml_node
-from odoo.tests import tagged
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tools import file_open, cleanup_xml_node
+from loomworks.tests import tagged
 
 NS_MAP = {
     'cac': 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',

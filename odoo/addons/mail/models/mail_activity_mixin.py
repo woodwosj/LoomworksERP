@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 
 import logging
 import pytz
 
-from odoo import api, fields, models
-from odoo.osv import expression
-from odoo.tools import SQL
+from loomworks import api, fields, models
+from loomworks.osv import expression
+from loomworks.tools import SQL
 
 _logger = logging.getLogger(__name__)
 

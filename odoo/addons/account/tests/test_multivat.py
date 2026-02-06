@@ -1,11 +1,11 @@
 
 from unittest.mock import patch
 
-from odoo import Command
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.tests import tagged
 
-from odoo.addons.account.models.chart_template import AccountChartTemplate
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.account.models.chart_template import AccountChartTemplate
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 def _get_chart_template_mapping(self, get_all=False):

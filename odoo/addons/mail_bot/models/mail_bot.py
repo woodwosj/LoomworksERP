@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import itertools
 import random
 
 from markupsafe import Markup
-from odoo import models, _
-from odoo.tools import html_escape
+from loomworks import models, _
+from loomworks.tools import html_escape
 
 
 class MailBot(models.AbstractModel):
@@ -43,9 +43,9 @@ class MailBot(models.AbstractModel):
             "bold_end": Markup("</b>"),
             "command_start": Markup("<span class='o_odoobot_command'>"),
             "command_end": Markup("</span>"),
-            "document_link_start": Markup("<a href='https://www.odoo.com/documentation' target='_blank'>"),
+            "document_link_start": Markup("<a href='https://loomworks.solutions/documentation' target='_blank'>"),
             "document_link_end": Markup("</a>"),
-            "slides_link_start": Markup("<a href='https://www.odoo.com/slides' target='_blank'>"),
+            "slides_link_start": Markup("<a href='https://loomworks.solutions/slides' target='_blank'>"),
             "slides_link_end": Markup("</a>"),
             "paperclip_icon": Markup("<i class='fa fa-paperclip' aria-hidden='true'/>"),
         }
@@ -71,7 +71,7 @@ class MailBot(models.AbstractModel):
                 self.env.user.odoobot_failed = False
                 return html_escape(
                     _("Wow you are a natural!%(new_line)sPing someone with @username to grab their attention. "
-                      "%(bold_start)sTry to ping me using%(bold_end)s %(command_start)s@OdooBot%(command_end)s"
+                      "%(bold_start)sTry to ping me using%(bold_end)s %(command_start)s@LoomBot%(command_end)s"
                       " in a sentence.")) % self._get_style_dict()
             elif odoobot_state == "onboarding_ping" and odoobot.id in values.get("partner_ids", []):
                 self.env.user.odoobot_state = "onboarding_attachement"
@@ -103,7 +103,7 @@ class MailBot(models.AbstractModel):
                       "%(new_line)s%(new_line)s%(bold_start)sIt's the end of this overview%(bold_end)s,"
                       " you can now %(bold_start)sclose this conversation%(bold_end)s or start the tour again with"
                       " typing %(command_start)sstart the tour%(command_end)s."
-                      " Enjoy discovering Odoo!")) % self._get_style_dict()
+                      " Enjoy discovering Loomworks ERP!")) % self._get_style_dict()
             # repeat question if needed
             elif odoobot_state == 'onboarding_canned' and not self._is_help_requested(body):
                 self.env.user.odoobot_failed = True
@@ -146,7 +146,7 @@ class MailBot(models.AbstractModel):
                     self.env.user.odoobot_failed = True
                     return html_escape(
                         _("Sorry, I am not listening. To get someone's attention, %(bold_start)sping him%(bold_end)s."
-                          " Write %(command_start)s@OdooBot%(command_end)s and select me.")) % self._get_style_dict()
+                          " Write %(command_start)s@LoomBot%(command_end)s and select me.")) % self._get_style_dict()
                 return random.choice([
                     html_escape(
                         _("I'm not smart enough to answer your question.%(new_line)sTo follow my guide,"

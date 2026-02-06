@@ -2,35 +2,35 @@
 
 set -e
 
-ODOO_CONFIGURATION_FILE=/etc/odoo/odoo.conf
-ODOO_GROUP="odoo"
-ODOO_DATA_DIR=/var/lib/odoo
-ODOO_LOG_DIR=/var/log/odoo
-ODOO_USER="odoo"
+LOOMWORKS_CONFIGURATION_FILE=/etc/loomworks/loomworks.conf
+LOOMWORKS_GROUP="loomworks"
+LOOMWORKS_DATA_DIR=/var/lib/loomworks
+LOOMWORKS_LOG_DIR=/var/log/loomworks
+LOOMWORKS_USER="loomworks"
 GSFONTS_DIR=/usr/share/fonts/type1/gsfonts
 
 case "${1}" in
     configure)
-        if ! getent passwd | grep -q "^odoo:"; then
-            adduser --system --home $ODOO_DATA_DIR --quiet --group $ODOO_USER
+        if ! getent passwd | grep -q "^loomworks:"; then
+            adduser --system --home $LOOMWORKS_DATA_DIR --quiet --group $LOOMWORKS_USER
             # Data dir
-            chown $ODOO_USER:$ODOO_GROUP $ODOO_DATA_DIR
+            chown $LOOMWORKS_USER:$LOOMWORKS_GROUP $LOOMWORKS_DATA_DIR
         fi
-        # Register "$ODOO_USER" as a postgres user with "Create DB" role attribute
-        su - postgres -c "createuser -d -R -S $ODOO_USER" 2> /dev/null || true
+        # Register "$LOOMWORKS_USER" as a postgres user with "Create DB" role attribute
+        su - postgres -c "createuser -d -R -S $LOOMWORKS_USER" 2> /dev/null || true
         # Configuration file
-        chown $ODOO_USER:$ODOO_GROUP $ODOO_CONFIGURATION_FILE
-        chmod 0640 $ODOO_CONFIGURATION_FILE
+        chown $LOOMWORKS_USER:$LOOMWORKS_GROUP $LOOMWORKS_CONFIGURATION_FILE
+        chmod 0640 $LOOMWORKS_CONFIGURATION_FILE
         # Log
-        mkdir -p $ODOO_LOG_DIR
-        chown $ODOO_USER:$ODOO_GROUP $ODOO_LOG_DIR
-        chmod 0750 $ODOO_LOG_DIR
+        mkdir -p $LOOMWORKS_LOG_DIR
+        chown $LOOMWORKS_USER:$LOOMWORKS_GROUP $LOOMWORKS_LOG_DIR
+        chmod 0750 $LOOMWORKS_LOG_DIR
         	# work around https://bugs.debian.org/1059326
 
         if ! [ -e ${GSFONTS_DIR}/n021003l.pfb ] ; then
             if ! [ -d ${GSFONTS_DIR} ] ; then
                 mkdir ${GSFONTS_DIR}
-                touch ${GSFONTS_DIR}/.created-by-odoo-package
+                touch ${GSFONTS_DIR}/.created-by-loomworks-package
             fi
             ln -s /usr/share/fonts/X11/Type1/C059-Roman.pfb ${GSFONTS_DIR}/n021003l.pfb
         fi

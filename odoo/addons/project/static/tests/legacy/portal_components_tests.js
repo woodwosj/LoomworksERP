@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import {

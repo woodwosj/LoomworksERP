@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<odoo>
+<loomworks>
     <record id="partner_demo_company_cy" model="res.partner">
         <field name="name">CY Company</field>
         <field name="vat">CY10259033P</field>
@@ -39,4 +39,4 @@
         <value model="res.company" eval="obj().env.ref('l10n_cy.demo_company_cy')"/>
         <value name="install_demo" eval="True"/>
     </function>
-</odoo>
+</loomworks>

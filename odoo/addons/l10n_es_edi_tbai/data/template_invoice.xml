@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<odoo>
+<loomworks>
     <data>
         <template id="template_invoice_main_post">
             <T:TicketBai xmlns:T="urn:ticketbai:emision">
@@ -264,4 +264,4 @@
             </ds:Signature>
         </template>
     </data>
-</odoo>
+</loomworks>

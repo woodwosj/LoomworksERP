@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-from odoo.addons.event_booth.tests.common import TestEventBoothCommon
+from loomworks import Command
+from loomworks.addons.event_booth.tests.common import TestEventBoothCommon
 
 
 class TestEventBoothSaleCommon(TestEventBoothCommon):

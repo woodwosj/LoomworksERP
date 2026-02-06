@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 import time
 
-from odoo.fields import Command, first
-from odoo.tools import float_compare
+from loomworks.fields import Command, first
+from loomworks.tools import float_compare
 
-from odoo.addons.product.tests.common import ProductCommon
+from loomworks.addons.product.tests.common import ProductCommon
 
 
 class TestProductPricelist(ProductCommon):

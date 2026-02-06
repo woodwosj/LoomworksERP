@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo import _, api, models
-from odoo.exceptions import UserError
-from odoo.tools import split_every
+from loomworks import _, api, models
+from loomworks.exceptions import UserError
+from loomworks.tools import split_every
 
 
 class AccountTax(models.Model):

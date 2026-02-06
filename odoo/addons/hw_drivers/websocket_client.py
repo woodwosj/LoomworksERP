@@ -7,8 +7,8 @@ import websocket
 
 from threading import Thread
 
-from odoo.addons.hw_drivers import main
-from odoo.addons.hw_drivers.tools import helpers
+from loomworks.addons.hw_drivers import main
+from loomworks.addons.hw_drivers.tools import helpers
 
 _logger = logging.getLogger(__name__)
 websocket.enableTrace(True, level=logging.getLevelName(_logger.getEffectiveLevel()))

@@ -1,9 +1,9 @@
-from odoo import tools
-from odoo.exceptions import UserError
-from odoo.tests.common import tagged
-from odoo.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
-from odoo.addons.l10n_hu_edi.tests.common import L10nHuEdiTestCommon
-from odoo.addons.l10n_hu_edi.models.l10n_hu_edi_connection import L10nHuEdiConnection, L10nHuEdiConnectionError
+from loomworks import tools
+from loomworks.exceptions import UserError
+from loomworks.tests.common import tagged
+from loomworks.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
+from loomworks.addons.l10n_hu_edi.tests.common import L10nHuEdiTestCommon
+from loomworks.addons.l10n_hu_edi.models.l10n_hu_edi_connection import L10nHuEdiConnection, L10nHuEdiConnectionError
 
 from unittest import skipIf, mock
 import contextlib

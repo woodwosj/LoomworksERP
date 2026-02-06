@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, _
-from odoo.addons.sms.tools.sms_api import ERROR_MESSAGES, SmsApi
-from odoo.exceptions import ValidationError
+from loomworks import fields, models, _
+from loomworks.addons.sms.tools.sms_api import ERROR_MESSAGES, SmsApi
+from loomworks.exceptions import ValidationError
 
 
 class SMSAccountPhone(models.TransientModel):

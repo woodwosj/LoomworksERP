@@ -22,7 +22,7 @@ Usage:
     result = service.execute_skill(skill, context, params)
 """
 
-from odoo.exceptions import UserError, ValidationError
+from loomworks.exceptions import UserError, ValidationError
 from .rollback_manager import RollbackManager
 from .step_executor import StepExecutor
 import json

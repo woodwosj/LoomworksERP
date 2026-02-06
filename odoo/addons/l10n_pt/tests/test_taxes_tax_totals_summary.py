@@ -1,7 +1,7 @@
-from odoo import Command
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.account.tests.test_taxes_tax_totals_summary import TestTaxesTaxTotalsSummary
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.account.tests.test_taxes_tax_totals_summary import TestTaxesTaxTotalsSummary
+from loomworks.tests import tagged
 
 
 @tagged('post_install', '-at_install', 'post_install_l10n')

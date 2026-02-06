@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 from base64 import b64encode
@@ -7,15 +7,15 @@ from unittest.mock import patch
 
 from werkzeug.datastructures import FileStorage
 
-from odoo import Command
-from odoo.exceptions import ValidationError
-from odoo.http import Response
-from odoo.tests import Form, tagged
-from odoo.tools.misc import file_open
+from loomworks import Command
+from loomworks.exceptions import ValidationError
+from loomworks.http import Response
+from loomworks.tests import Form, tagged
+from loomworks.tools.misc import file_open
 
-from odoo.addons.base.tests.common import BaseUsersCommon
-from odoo.addons.sale_management.tests.common import SaleManagementCommon
-from odoo.addons.sale_pdf_quote_builder.controllers.quotation_document import (
+from loomworks.addons.base.tests.common import BaseUsersCommon
+from loomworks.addons.sale_management.tests.common import SaleManagementCommon
+from loomworks.addons.sale_pdf_quote_builder.controllers.quotation_document import (
     QuotationDocumentController
 )
 from .files import forms_pdf, plain_pdf
@@ -285,7 +285,7 @@ class TestPDFQuoteBuilder(BaseUsersCommon, SaleManagementCommon):
         if 'website' not in self.env:
             self.skipTest("Module `website` not found")
         else:
-            from odoo.addons.website.tools import MockRequest  # noqa: PLC0415
+            from loomworks.addons.website.tools import MockRequest  # noqa: PLC0415
 
         allowed_company_ids = [self.alt_company.id, self.env.company.id]
 
@@ -322,7 +322,7 @@ class TestPDFQuoteBuilder(BaseUsersCommon, SaleManagementCommon):
         if 'website' not in self.env:
             self.skipTest("Module `website` not found")
         else:
-            from odoo.addons.website.tools import MockRequest  # noqa: PLC0415
+            from loomworks.addons.website.tools import MockRequest  # noqa: PLC0415
 
         allowed_company_ids = [self.alt_company.id, self.env.company.id]
 
@@ -360,7 +360,7 @@ class TestPDFQuoteBuilder(BaseUsersCommon, SaleManagementCommon):
     def _test_custom_content_kanban_like(self):
         # TODO VCR finish tour and uncomment
         self.start_tour(
-            f'/odoo/sales/{self.sale_order.id}',
+            f'/loomworks/sales/{self.sale_order.id}',
             'custom_content_kanban_like_tour',
             login='admin',
         )

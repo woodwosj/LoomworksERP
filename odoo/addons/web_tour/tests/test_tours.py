@@ -1,6 +1,6 @@
-from odoo.tests import tagged
-from odoo import Command
-from odoo.addons.base.tests.common import BaseCommon
+from loomworks.tests import tagged
+from loomworks import Command
+from loomworks.addons.base.tests.common import BaseCommon
 from markupsafe import Markup
 
 

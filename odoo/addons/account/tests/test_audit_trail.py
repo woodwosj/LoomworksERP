@@ -1,7 +1,7 @@
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.exceptions import UserError
-from odoo.fields import Command
-from odoo.tests import tagged, new_test_user
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.exceptions import UserError
+from loomworks.fields import Command
+from loomworks.tests import tagged, new_test_user
 
 
 @tagged('post_install', '-at_install')

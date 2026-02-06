@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from markupsafe import Markup
 
 from .test_project_base import TestProjectCommon
-from odoo import Command
-from odoo.tools import mute_logger
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.exceptions import AccessError
+from loomworks import Command
+from loomworks.tools import mute_logger
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.exceptions import AccessError
 
 
 EMAIL_TPL = """Return-Path: <whatever-2a840@postmaster.twitter.com>
@@ -79,7 +79,7 @@ class TestProjectFlow(TestProjectCommon, MailCommon):
         self.assertIn("<p>Test</p>", str(self._new_mails.body), "Stage tracking email should be sent to authors")
         self.assertEqual(self._new_mails.partner_ids, self.user_portal.partner_id, "Stage tracking email should be sent to authors")
 
-    @mute_logger('odoo.addons.mail.models.mail_thread')
+    @mute_logger('loomworks.addons.mail.models.mail_thread')
     def test_task_process_without_stage(self):
         # Do: incoming mail from an unknown partner on an alias creates a new task 'Frogs'
         task = self.format_and_process(
@@ -106,7 +106,7 @@ class TestProjectFlow(TestProjectCommon, MailCommon):
         self.assertEqual(task.project_id, self.project_pigs, 'project_task: incorrect project')
         self.assertEqual(task.stage_id.sequence, False, "project_task: shouldn't have a stage, i.e. sequence=False")
 
-    @mute_logger('odoo.addons.mail.models.mail_thread')
+    @mute_logger('loomworks.addons.mail.models.mail_thread')
     def test_task_process_with_stages(self):
         # Do: incoming mail from an unknown partner on an alias creates a new task 'Cats'
         task = self.format_and_process(
@@ -133,7 +133,7 @@ class TestProjectFlow(TestProjectCommon, MailCommon):
         self.assertEqual(task.project_id, self.project_goats, 'project_task: incorrect project')
         self.assertEqual(task.stage_id.sequence, 1, "project_task: should have a stage with sequence=1")
 
-    @mute_logger('odoo.addons.mail.models.mail_thread')
+    @mute_logger('loomworks.addons.mail.models.mail_thread')
     def test_task_from_email_alias(self):
         # Do: incoming mail from a known partner email on an alias creates a new task 'Super Frog'
         task = self.format_and_process(
@@ -169,7 +169,7 @@ class TestProjectFlow(TestProjectCommon, MailCommon):
             'The task description should be the email content.',
         )
 
-    @mute_logger('odoo.addons.mail.models.mail_thread')
+    @mute_logger('loomworks.addons.mail.models.mail_thread')
     def test_task_creation_from_mail(self):
         server = self.env['fetchmail.server'].create({
             'name': 'Test server',
@@ -194,7 +194,7 @@ class TestProjectFlow(TestProjectCommon, MailCommon):
         self.assertEqual(task.name, "In a cage")
         self.assertEqual(task.project_id, self.project_pigs)
 
-    @mute_logger('odoo.addons.mail.models.mail_thread')
+    @mute_logger('loomworks.addons.mail.models.mail_thread')
     def test_auto_create_partner(self):
         email = 'unknown@test.com'
         new_partner = self.env['res.partner'].search([('email', '=', email)])

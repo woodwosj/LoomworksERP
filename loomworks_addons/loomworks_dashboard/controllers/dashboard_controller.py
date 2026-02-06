@@ -16,9 +16,9 @@ Provides HTTP endpoints for:
 - AI-powered dashboard generation
 """
 
-from odoo import http
-from odoo.http import request, Response
-from odoo.exceptions import AccessError, UserError
+from loomworks import http
+from loomworks.http import request, Response
+from loomworks.exceptions import AccessError, UserError
 import json
 import logging
 

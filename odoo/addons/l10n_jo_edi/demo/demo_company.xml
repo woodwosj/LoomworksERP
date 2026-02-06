@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="base.demo_company_jo" model="res.company">
             <field name="l10n_jo_edi_sequence_income_source">12345</field>
@@ -8,4 +8,4 @@
             <field name="l10n_jo_edi_taxpayer_type">sales</field>
         </record>
     </data>
-</odoo>
+</loomworks>

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import itertools
 
@@ -12,15 +12,15 @@ from dateutil.relativedelta import relativedelta
 from dateutil.rrule import rrule, DAILY
 from pytz import timezone, utc
 
-from odoo import api, fields, models, _
-from odoo.addons.base.models.res_partner import _tz_get
-from odoo.exceptions import ValidationError
-from odoo.osv import expression
-from odoo.tools.float_utils import float_round
+from loomworks import api, fields, models, _
+from loomworks.addons.base.models.res_partner import _tz_get
+from loomworks.exceptions import ValidationError
+from loomworks.osv import expression
+from loomworks.tools.float_utils import float_round
 
-from odoo.tools import date_utils, ormcache
+from loomworks.tools import date_utils, ormcache
 from .utils import Intervals, float_to_time, make_aware, datetime_to_string, string_to_datetime
-from odoo.addons.hr_work_entry_contract.models.hr_work_intervals import WorkIntervals
+from loomworks.addons.hr_work_entry_contract.models.hr_work_intervals import WorkIntervals
 
 
 class ResourceCalendar(models.Model):

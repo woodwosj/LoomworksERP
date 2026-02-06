@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import api, Command, models, fields
-from odoo.http import request
-from odoo.tools import email_normalize, get_lang, html2plaintext, is_html_empty, plaintext2html
-from odoo.exceptions import ValidationError
+from loomworks import api, Command, models, fields
+from loomworks.http import request
+from loomworks.tools import email_normalize, get_lang, html2plaintext, is_html_empty, plaintext2html
+from loomworks.exceptions import ValidationError
 
 
 class ChatbotScript(models.Model):

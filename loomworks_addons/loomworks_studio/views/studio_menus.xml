@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <!-- Main Studio Menu -->
     <menuitem id="menu_studio_root"
@@ -45,4 +45,4 @@
               action="action_studio_models"
               sequence="30"/>
 
-</odoo>
+</loomworks>

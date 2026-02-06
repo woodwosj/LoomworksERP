@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import tagged
+from loomworks.tests import tagged
 
-from odoo.addons.event_booth_sale.tests.common import TestEventBoothSaleCommon
-from odoo.addons.website_event_sale.tests.common import TestWebsiteEventSaleCommon
-from odoo.addons.website_sale.controllers.main import WebsiteSale
+from loomworks.addons.event_booth_sale.tests.common import TestEventBoothSaleCommon
+from loomworks.addons.website_event_sale.tests.common import TestWebsiteEventSaleCommon
+from loomworks.addons.website_sale.controllers.main import WebsiteSale
 
 
 @tagged('post_install', '-at_install')

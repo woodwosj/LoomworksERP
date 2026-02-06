@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
@@ -7,7 +7,7 @@ import { stepUtils } from "@web_tour/tour_service/tour_utils";
 import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add('crm_tour', {
-    url: "/odoo",
+    url: "/loomworks",
     steps: () => [stepUtils.showAppsMenuItem(), {
     isActive: ["community"],
     trigger: '.o_app[data-menu-xmlid="crm.crm_menu_root"]',
@@ -100,7 +100,7 @@ registry.category("web_tour.tours").add('crm_tour', {
     run: "click",
 }, {
     trigger: ".breadcrumb-item:not(.active):first",
-    content: _t("Click on the breadcrumb to go back to your Pipeline. Odoo will save all modifications as you navigate."),
+    content: _t("Click on the breadcrumb to go back to your Pipeline. Loomworks will save all modifications as you navigate."),
     tooltipPosition: "bottom",
     run: "click .breadcrumb-item:not(.active):last",
 }]});

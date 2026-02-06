@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 /*global L*/
 
 import { Component, useEffect, useRef } from '@odoo/owl';

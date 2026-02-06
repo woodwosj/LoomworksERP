@@ -1,5 +1,5 @@
-from odoo import models, api, fields, _
-from odoo.exceptions import UserError
+from loomworks import models, api, fields, _
+from loomworks.exceptions import UserError
 
 
 class L10nLatamDocumentType(models.Model):

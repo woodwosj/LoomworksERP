@@ -42,7 +42,7 @@ Research Sources:
 - Dynamic Tool Updates in MCP: https://spring.io/blog/2025/05/04/spring-ai-dynamic-tool-updates-with-mcp/
 """
 
-from odoo import api, models, fields
+from loomworks import api, models, fields
 import json
 import logging
 

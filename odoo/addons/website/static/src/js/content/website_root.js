@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { loadJS } from "@web/core/assets";
 import { _t } from "@web/core/l10n/translation";
@@ -120,7 +120,7 @@ export const WebsiteRoot = publicRootData.PublicRoot.extend({
                         this.notification.add(
                             markup(`<div>
                                 <span>${message}</span><br/>
-                                <a href="/odoo/action-website.action_website_configuration">${urlTitle}</a>
+                                <a href="/loomworks/action-website.action_website_configuration">${urlTitle}</a>
                             </div>`),
                             { type: 'warning', sticky: true }
                         );

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import configparser
 import contextlib
@@ -25,9 +25,9 @@ from threading import Thread, Lock
 import time
 import zipfile
 
-from odoo import http, release, service
-from odoo.tools.func import lazy_property
-from odoo.tools.misc import file_path
+from loomworks import http, release, service
+from loomworks.tools.func import lazy_property
+from loomworks.tools.misc import file_path
 
 lock = Lock()
 _logger = logging.getLogger(__name__)
@@ -243,7 +243,7 @@ def check_image():
 
 def save_conf_server(url, token, db_uuid, enterprise_code, db_name=None):
     """
-    Save server configurations in odoo.conf
+    Save server configurations in loomworks.conf
     :param url: The URL of the server
     :param token: The token to authenticate the server
     :param db_uuid: The database UUID
@@ -449,18 +449,18 @@ def load_certificate():
     response_body = json.loads(response.data.decode())
     server_error = response_body.get('error')
     if server_error:
-        _logger.error("A server error received from odoo.com while trying to get the certificate: %s", server_error)
+        _logger.error("A server error received from loomworks.com while trying to get the certificate: %s", server_error)
         return server_error
 
     result = response_body.get('result', {})
     certificate_error = result.get('error')
     if certificate_error:
-        _logger.error("An error received from odoo.com while trying to get the certificate: %s", certificate_error)
+        _logger.error("An error received from loomworks.com while trying to get the certificate: %s", certificate_error)
         return certificate_error
 
     if not result.get('x509_pem') or not result.get('private_key_pem'):
-        _logger.error("The certificate received from odoo.com is not valid.")
-        return "The certificate received from odoo.com is not valid, try restarting."
+        _logger.error("The certificate received from loomworks.com is not valid.")
+        return "The certificate received from loomworks.com is not valid, try restarting."
 
     update_conf({'subject': result['subject_cn']})
     if platform.system() == 'Linux':
@@ -522,7 +522,7 @@ def download_iot_handlers(auto=True):
             _logger.exception('Could not reach configured server to download IoT handlers')
 
 def compute_iot_handlers_addon_name(handler_kind, handler_file_name):
-    return "odoo.addons.hw_drivers.iot_handlers.{handler_kind}.{handler_name}".\
+    return "loomworks.addons.hw_drivers.iot_handlers.{handler_kind}.{handler_name}".\
         format(handler_kind=handler_kind, handler_name=handler_file_name.removesuffix('.py'))
 
 def load_iot_handlers():
@@ -648,36 +648,36 @@ def get_hostname():
 
 def update_conf(values, section='iot.box'):
     """
-    Update odoo.conf with the given key and value.
+    Update loomworks.conf with the given key and value.
     :param values: The dictionary of key-value pairs to update the config with.
     :param section: The section to update the key-value pairs in (Default: iot.box).
     """
     with writable():
-        _logger.debug("Updating odoo.conf with values: %s", values)
+        _logger.debug("Updating loomworks.conf with values: %s", values)
         conf = get_conf()
         get_conf.cache_clear()  # Clear the cache to get the updated config
 
         if not conf.has_section(section):
-            _logger.debug("Creating new section '%s' in odoo.conf", section)
+            _logger.debug("Creating new section '%s' in loomworks.conf", section)
             conf.add_section(section)
 
         for key, value in values.items():
             conf.set(section, key, value) if value else conf.remove_option(section, key)
 
-        with open(path_file("odoo.conf"), "w", encoding='utf-8') as f:
+        with open(path_file("loomworks.conf"), "w", encoding='utf-8') as f:
             conf.write(f)
 
 
 @cache
 def get_conf(key=None, section='iot.box'):
     """
-    Get the value of the given key from odoo.conf, or the full config if no key is provided.
+    Get the value of the given key from loomworks.conf, or the full config if no key is provided.
     :param key: The key to get the value of.
     :param section: The section to get the key from (Default: iot.box).
     :return: The value of the key provided or None if it doesn't exist, or full conf object if no key is provided.
     """
     conf = configparser.ConfigParser()
-    conf.read(path_file("odoo.conf"))
+    conf.read(path_file("loomworks.conf"))
 
     return conf.get(section, key, fallback=None) if key else conf  # Return the key's value or the configparser object
 

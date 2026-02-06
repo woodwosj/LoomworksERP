@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/mobile/webclient/settings_form_view_tests default=false */
+/** @loomworks-module alias=@web/../tests/mobile/webclient/settings_form_view_tests default=false */
 
 import { getFixture, mockTimeout, nextTick } from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";

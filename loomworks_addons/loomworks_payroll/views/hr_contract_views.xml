@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <!-- Extend Contract Form View for Payroll Fields -->
     <record id="hr_contract_view_form_payroll" model="ir.ui.view">
         <field name="name">hr.contract.form.payroll</field>
@@ -38,4 +38,4 @@
             </xpath>
         </field>
     </record>
-</odoo>
+</loomworks>

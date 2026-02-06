@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import tagged
+from loomworks.tests import tagged
 
-from odoo.addons.project_hr_expense.tests.test_project_profitability import TestProjectHrExpenseProfitabilityCommon
-from odoo.addons.sale.tests.common import TestSaleCommon
-from odoo.addons.sale_project.tests.test_project_profitability import TestProjectProfitabilityCommon
+from loomworks.addons.project_hr_expense.tests.test_project_profitability import TestProjectHrExpenseProfitabilityCommon
+from loomworks.addons.sale.tests.common import TestSaleCommon
+from loomworks.addons.sale_project.tests.test_project_profitability import TestProjectProfitabilityCommon
 
 
 @tagged('-at_install', 'post_install')

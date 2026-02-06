@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { getFixture } from "@web/../tests/helpers/utils";
 import { createWebClient, doAction } from "@web/../tests/webclient/helpers";

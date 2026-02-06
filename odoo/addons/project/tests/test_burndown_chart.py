@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from freezegun import freeze_time
 from datetime import datetime
 
-from odoo import Command
-from odoo.osv.expression import AND, OR
-from odoo.tests.common import tagged, HttpCase
+from loomworks import Command
+from loomworks.osv.expression import AND, OR
+from loomworks.tests.common import tagged, HttpCase
 from .test_project_base import TestProjectCommon
 
 
@@ -434,4 +434,4 @@ class TestBurndownChartTour(HttpCase, TestBurndownChartCommon):
 
     def test_burndown_chart_tour(self):
         # Test customizing personal stages as a project user
-        self.start_tour('/odoo', 'burndown_chart_tour', login="admin")
+        self.start_tour('/loomworks', 'burndown_chart_tour', login="admin")

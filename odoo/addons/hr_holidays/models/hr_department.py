@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timezone
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models
-from odoo.osv import expression
+from loomworks import api, fields, models
+from loomworks.osv import expression
 import ast
 
 

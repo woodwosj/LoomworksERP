@@ -1,8 +1,8 @@
 from markupsafe import Markup
 
-from odoo.fields import Command
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import tagged
+from loomworks.fields import Command
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import tagged
 from unittest.mock import patch
 from freezegun import freeze_time
 
@@ -83,7 +83,7 @@ class TestQris(AccountTestInvoicingCommon):
         """
 
         with patch(
-            'odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.success_qris_get
+            'loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.success_qris_get
         ) as patched:
             # QR code shouldn't be generated without the context.
             result = self.qris_qr_invoice._generate_qr_code()
@@ -103,7 +103,7 @@ class TestQris(AccountTestInvoicingCommon):
             patched.assert_called_once()
 
         with patch(
-                'odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.success_qris_get
+                'loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.success_qris_get
         ) as patched:
             # Check the API is not called again, as it should reuse the existing QR until it is expired
             self.qris_qr_invoice.with_context({'is_online_qr': True})._generate_qr_code()
@@ -117,7 +117,7 @@ class TestQris(AccountTestInvoicingCommon):
             self.assertEqual(len(self.qris_qr_invoice.l10n_id_qris_transaction_ids), 2)
 
         with patch(
-            'odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.success_qris_get_second
+            'loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.success_qris_get_second
         ):
             self.qris_qr_invoice.l10n_id_qris_transaction_ids[-1]['qris_creation_datetime'] = '2024-02-27 03:00:00'
             self.qris_qr_invoice.with_context({'is_online_qr': True})._generate_qr_code()
@@ -135,12 +135,12 @@ class TestQris(AccountTestInvoicingCommon):
         """ If API return unpaid status """
 
         with patch(
-            'odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.success_qris_get
+            'loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.success_qris_get
         ):
             self.qris_qr_invoice.with_context({'is_online_qr': True})._generate_qr_code()
 
         with patch(
-            'odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.qris_status_fail
+            'loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.qris_status_fail
         ):
             self.qris_qr_invoice.action_l10n_id_update_payment_status()
             self.assertEqual(self.qris_qr_invoice.payment_state, 'not_paid')
@@ -150,12 +150,12 @@ class TestQris(AccountTestInvoicingCommon):
         """ If API returns 'paid' status """
 
         with patch(
-            'odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.success_qris_get
+            'loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.success_qris_get
         ):
             self.qris_qr_invoice.with_context({'is_online_qr': True})._generate_qr_code()
 
         with patch(
-            'odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.qris_status_success
+            'loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.qris_status_success
         ):
             self.qris_qr_invoice.action_l10n_id_update_payment_status()
             self.assertEqual(self.qris_qr_invoice.payment_state, self.env['account.move']._get_invoice_in_payment_state())
@@ -171,12 +171,12 @@ class TestQris(AccountTestInvoicingCommon):
     def test_gc_no_remove_transactions_unpaid_within_30(self):
         # Case 2: Unsuccessful, latest transaction is < 30 minutes, should avoid garbage-collection
         with patch(
-            'odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.success_qris_get
+            'loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.success_qris_get
         ):
             self.qris_qr_invoice.with_context({'is_online_qr': True})._generate_qr_code()
 
         with patch(
-            'odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.qris_status_fail
+            'loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.qris_status_fail
         ):
             self.qris_qr_invoice.action_l10n_id_update_payment_status()
             self.assertEqual(self.env['l10n_id.qris.transaction'].search_count([]), 1)
@@ -187,7 +187,7 @@ class TestQris(AccountTestInvoicingCommon):
     def test_gc_remove_transactions_unpaid_after_30(self):
         # Case 3: Unsuccessful, latest transaction is > 30 minutes, should be garbage-collected
         with patch(
-            'odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.success_qris_get
+            'loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', return_value=self.success_qris_get
         ):
             self.qris_qr_invoice.with_context({'is_online_qr': True})._generate_qr_code()
             self.assertEqual(self.env['l10n_id.qris.transaction'].search_count([]), 1)

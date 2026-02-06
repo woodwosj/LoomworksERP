@@ -19,7 +19,7 @@ This provider registers Studio-specific tools that allow AI agents to:
 import json
 import logging
 
-from odoo import api, models
+from loomworks import api, models
 
 _logger = logging.getLogger(__name__)
 

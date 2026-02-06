@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <template inherit_id="account.report_payment_receipt_document" id="report_payment_receipt_document">
         <xpath expr="//table" position="before">
             <t t-if="o.l10n_ar_withholding_ids">
@@ -33,4 +33,4 @@
             </t>
         </xpath>
     </template>
-</odoo>
+</loomworks>

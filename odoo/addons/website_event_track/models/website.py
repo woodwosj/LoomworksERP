@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 
 import base64
 
-from odoo import api, fields, models
-from odoo.exceptions import ValidationError
-from odoo.tools.image import ImageProcess
-from odoo.tools.translate import _
+from loomworks import api, fields, models
+from loomworks.exceptions import ValidationError
+from loomworks.tools.image import ImageProcess
+from loomworks.tools.translate import _
 
 
 class Website(models.Model):

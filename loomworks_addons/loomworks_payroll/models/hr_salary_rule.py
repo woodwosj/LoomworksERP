@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools.safe_eval import safe_eval, datetime, dateutil, time
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools.safe_eval import safe_eval, datetime, dateutil, time
 import logging
 
 _logger = logging.getLogger(__name__)

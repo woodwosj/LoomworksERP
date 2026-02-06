@@ -1084,8 +1084,8 @@ test("many2one in non edit mode (with value)", async () => {
     });
 
     expect("a.o_form_uri").toHaveCount(2);
-    expect("div[name=res_trululu] a.o_form_uri").toHaveAttribute("href", "/odoo/res.partner/1");
-    expect("div[name=trululu] a.o_form_uri").toHaveAttribute("href", "/odoo/m-partner/4");
+    expect("div[name=res_trululu] a.o_form_uri").toHaveAttribute("href", "/loomworks/res.partner/1");
+    expect("div[name=trululu] a.o_form_uri").toHaveAttribute("href", "/loomworks/m-partner/4");
 });
 
 test("many2one in non edit mode (without value)", async () => {

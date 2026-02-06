@@ -1,16 +1,16 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 from urllib.parse import urlencode
 from uuid import uuid4
 
-from odoo import _, models
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import float_round
+from loomworks import _, models
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools import float_round
 
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.payment_nuvei import const
-from odoo.addons.payment_nuvei.controllers.main import NuveiController
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.payment_nuvei import const
+from loomworks.addons.payment_nuvei.controllers.main import NuveiController
 
 
 _logger = logging.getLogger(__name__)

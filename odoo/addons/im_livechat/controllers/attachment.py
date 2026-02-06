@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from werkzeug.exceptions import NotFound
 
-from odoo import _
-from odoo.http import route, request
-from odoo.addons.mail.controllers.attachment import AttachmentController
-from odoo.exceptions import AccessError
-from odoo.addons.mail.models.discuss.mail_guest import add_guest_to_context
+from loomworks import _
+from loomworks.http import route, request
+from loomworks.addons.mail.controllers.attachment import AttachmentController
+from loomworks.exceptions import AccessError
+from loomworks.addons.mail.models.discuss.mail_guest import add_guest_to_context
 
 
 class LivechatAttachmentController(AttachmentController):

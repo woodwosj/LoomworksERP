@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <template id="certification_report_view_general">
             <!-- Style classes to be applied to '#o_survey_certification': [no class](purple), gold, blue -->
@@ -81,4 +81,4 @@
             </t>
         </template>
     </data>
-</odoo>
+</loomworks>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record model='l10n_latam.document.type' id='document_type01'>
         <field name='sequence'>10</field>
         <field name='code'>01</field>
@@ -540,4 +540,4 @@
         <field name='doc_code_prefix'>N</field>
         <field name='internal_type'>debit_note</field>
     </record>
-</odoo>
+</loomworks>

@@ -2300,7 +2300,7 @@ export class PosStore extends Reactive {
     }
 
     redirectToBackend() {
-        window.location = "/odoo/action-point_of_sale.action_client_pos_menu";
+        window.location = "/loomworks/action-point_of_sale.action_client_pos_menu";
     }
 
     getDisplayDeviceIP() {

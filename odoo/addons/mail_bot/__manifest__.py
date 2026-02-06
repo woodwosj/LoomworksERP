@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'OdooBot',
+    'name': 'LoomBot',
     'version': '1.2',
     'category': 'Productivity/Discuss',
-    'summary': 'Add OdooBot in discussions',
-    'website': 'https://www.odoo.com/app/discuss',
+    'summary': 'Add LoomBot in discussions',
+    'website': 'https://loomworks.solutions/app/discuss',
     'depends': ['mail'],
     'auto_install': True,
     'installable': True,

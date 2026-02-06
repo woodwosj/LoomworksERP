@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <record id="base.partner_ri" model="res.partner" forcecreate="1">
         <field name="name">(AR) Responsable Inscripto</field>
@@ -66,4 +66,4 @@
 
     </data>
 
-</odoo>
+</loomworks>

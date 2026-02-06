@@ -1,5 +1,5 @@
-from odoo import models, Command, api, _
-from odoo.addons.account.models.chart_template import template
+from loomworks import models, Command, api, _
+from loomworks.addons.account.models.chart_template import template
 
 
 class AccountChartTemplate(models.AbstractModel):

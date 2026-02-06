@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 from contextlib import contextmanager
@@ -8,14 +8,14 @@ import pytz
 from dateutil.parser import parse
 from datetime import timedelta
 
-from odoo import api, fields, models
-from odoo.modules.registry import Registry
-from odoo.osv import expression
-from odoo.sql_db import BaseCursor
+from loomworks import api, fields, models
+from loomworks.modules.registry import Registry
+from loomworks.osv import expression
+from loomworks.sql_db import BaseCursor
 
-from odoo.addons.microsoft_calendar.utils.microsoft_event import MicrosoftEvent
-from odoo.addons.microsoft_calendar.utils.microsoft_calendar import MicrosoftCalendarService
-from odoo.addons.microsoft_account.models.microsoft_service import TIMEOUT
+from loomworks.addons.microsoft_calendar.utils.microsoft_event import MicrosoftEvent
+from loomworks.addons.microsoft_calendar.utils.microsoft_calendar import MicrosoftCalendarService
+from loomworks.addons.microsoft_account.models.microsoft_service import TIMEOUT
 
 _logger = logging.getLogger(__name__)
 

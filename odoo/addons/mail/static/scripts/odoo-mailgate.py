@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 #
 # odoo-mailgate
 #
@@ -23,11 +23,11 @@ import xmlrpclib
 
 def main():
     op = optparse.OptionParser(usage='usage: %prog [options]', version='%prog v1.2')
-    op.add_option("-d", "--database", dest="database", help="Odoo database name (default: %default)", default='odoo')
-    op.add_option("-u", "--userid", dest="userid", help="Odoo user id to connect with (default: %default)", default=1, type=int)
-    op.add_option("-p", "--password", dest="password", help="Odoo user password (default: %default)", default='admin')
-    op.add_option("--host", dest="host", help="Odoo host (default: %default)", default='localhost')
-    op.add_option("--port", dest="port", help="Odoo port (default: %default)", default=8069, type=int)
+    op.add_option("-d", "--database", dest="database", help="Loomworks database name (default: %default)", default='odoo')
+    op.add_option("-u", "--userid", dest="userid", help="Loomworks user id to connect with (default: %default)", default=1, type=int)
+    op.add_option("-p", "--password", dest="password", help="Loomworks user password (default: %default)", default='admin')
+    op.add_option("--host", dest="host", help="Loomworks host (default: %default)", default='localhost')
+    op.add_option("--port", dest="port", help="Loomworks port (default: %default)", default=8069, type=int)
     (o, args) = op.parse_args()
 
     try:

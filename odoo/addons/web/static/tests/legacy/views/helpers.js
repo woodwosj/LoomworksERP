@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/views/helpers default=false */
+/** @loomworks-module alias=@web/../tests/views/helpers default=false */
 
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import { getFixture, mount, nextTick } from "@web/../tests/helpers/utils";

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
     <record id="se_partner_address_form" model="ir.ui.view">
         <field name="name">se.partner.form.address</field>
         <field name="model">res.partner</field>
@@ -31,4 +31,4 @@
         <field name="address_view_id" ref="se_partner_address_form" />
         <field name="address_format" eval="'%(street)s\n%(street2)s\n%(zip)s %(city)s %(state_code)s\n%(country_name)s'"/>
     </record>
-</odoo>
+</loomworks>

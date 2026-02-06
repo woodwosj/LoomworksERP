@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.purchase_requisition.tests.common import TestPurchaseRequisitionCommon
-from odoo.tests import Form
-from odoo import Command
+from loomworks.addons.purchase_requisition.tests.common import TestPurchaseRequisitionCommon
+from loomworks.tests import Form
+from loomworks import Command
 
 
 class TestPurchaseRequisitionStock(TestPurchaseRequisitionCommon):

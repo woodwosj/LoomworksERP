@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="report_repairorder" inherit_id="repair.report_repairorder">
         <xpath expr="//t[@t-set='o']" position="after">
             <t t-set="din5008_document_information">
@@ -29,4 +29,4 @@
             </t>
         </xpath>
     </template>
-</odoo>
+</loomworks>

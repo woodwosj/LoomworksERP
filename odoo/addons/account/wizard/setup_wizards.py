@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import date, timedelta
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from loomworks import _, api, fields, models
+from loomworks.exceptions import ValidationError
 
 
 class FinancialYearOpeningWizard(models.TransientModel):
@@ -13,7 +13,7 @@ class FinancialYearOpeningWizard(models.TransientModel):
 
     company_id = fields.Many2one(comodel_name='res.company', required=True)
     opening_move_posted = fields.Boolean(string='Opening Move Posted', compute='_compute_opening_move_posted')
-    opening_date = fields.Date(string='Opening Date', required=True, related='company_id.account_opening_date', help="Date from which the accounting is managed in Odoo. It is the date of the opening entry.", readonly=False)
+    opening_date = fields.Date(string='Opening Date', required=True, related='company_id.account_opening_date', help="Date from which the accounting is managed in Loomworks. It is the date of the opening entry.", readonly=False)
     fiscalyear_last_day = fields.Integer(related="company_id.fiscalyear_last_day", required=True, readonly=False,
                                          help="The last day of the month will be used if the chosen day doesn't exist.")
     fiscalyear_last_month = fields.Selection(related="company_id.fiscalyear_last_month", readonly=False,

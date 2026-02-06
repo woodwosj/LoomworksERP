@@ -1,4 +1,4 @@
-<odoo>
+<loomworks>
     <record id="account_move_view_form_inherit_l10n_in_withholding" model="ir.ui.view">
         <field name="name">account.move.form.inherit.l10n_in_withholding</field>
         <field name="model">account.move</field>
@@ -40,4 +40,4 @@
             </xpath>
         </field>
     </record>
-</odoo>
+</loomworks>

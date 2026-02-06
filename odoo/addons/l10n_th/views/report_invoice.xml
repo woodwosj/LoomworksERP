@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="report_invoice_document" inherit_id="account.report_invoice_document" primary="True">
         <xpath expr="//div[@name='address_not_same_as_shipping']//span[@t-field='o.partner_id.vat']" position="after">
             <span t-esc="o.partner_id.l10n_th_branch_name"/>
@@ -46,4 +46,4 @@
                t-lang="lang"/>
         </xpath>
     </template>
-</odoo>
+</loomworks>

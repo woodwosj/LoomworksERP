@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!--Bizkaia uses an extra layer to send TicketBAI invoices, called LROE 
     see https://www.batuz.eus/es/documentacion-tecnica -->
-<odoo>
+<loomworks>
     <data>
         <template id="template_LROE_240_main">
             <lrpjfecsgap:LROEPJ240FacturasEmitidasConSGAltaPeticion
@@ -198,4 +198,4 @@
                     </t>
         </template>
     </data>
-</odoo>
+</loomworks>

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import json
 import logging
 
@@ -9,13 +9,13 @@ import werkzeug.exceptions
 import werkzeug.urls
 import werkzeug.wrappers
 
-from odoo import _, http, tools
-from odoo.addons.website.models.ir_http import sitemap_qs2dom
-from odoo.addons.website_profile.controllers.main import WebsiteProfile
-from odoo.exceptions import AccessError, UserError
-from odoo.http import request
-from odoo.osv import expression
-from odoo.tools import is_html_empty
+from loomworks import _, http, tools
+from loomworks.addons.website.models.ir_http import sitemap_qs2dom
+from loomworks.addons.website_profile.controllers.main import WebsiteProfile
+from loomworks.exceptions import AccessError, UserError
+from loomworks.http import request
+from loomworks.osv import expression
+from loomworks.tools import is_html_empty
 
 _logger = logging.getLogger(__name__)
 

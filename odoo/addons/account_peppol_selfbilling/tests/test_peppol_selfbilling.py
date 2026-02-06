@@ -1,7 +1,7 @@
-from odoo import Command
-from odoo.tests.common import tagged, freeze_time
-from odoo.tools import file_open
-from odoo.addons.account_peppol.tests.test_peppol_messages import TestPeppolMessageCommon, FAKE_UUID
+from loomworks import Command
+from loomworks.tests.common import tagged, freeze_time
+from loomworks.tools import file_open
+from loomworks.addons.account_peppol.tests.test_peppol_messages import TestPeppolMessageCommon, FAKE_UUID
 
 
 @freeze_time('2023-01-01')

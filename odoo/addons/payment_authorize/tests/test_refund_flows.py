@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 
-from odoo.tests import tagged
-from odoo.tools import mute_logger
+from loomworks.tests import tagged
+from loomworks.tools import mute_logger
 
-from odoo.addons.payment_authorize.tests.common import AuthorizeCommon
+from loomworks.addons.payment_authorize.tests.common import AuthorizeCommon
 
 
 @tagged('post_install', '-at_install')
@@ -16,7 +16,7 @@ class TestRefundFlows(AuthorizeCommon):
         it on Odoo. """
         source_tx = self._create_transaction('direct', state='done')
         with patch(
-            'odoo.addons.payment_authorize.models.authorize_request.AuthorizeAPI'
+            'loomworks.addons.payment_authorize.models.authorize_request.AuthorizeAPI'
             '.get_transaction_details',
             return_value={'transaction': {'transactionStatus': 'voided'}},
         ):
@@ -28,7 +28,7 @@ class TestRefundFlows(AuthorizeCommon):
         a refund transaction on Odoo. """
         source_tx = self._create_transaction('direct', state='done')
         with patch(
-            'odoo.addons.payment_authorize.models.authorize_request.AuthorizeAPI'
+            'loomworks.addons.payment_authorize.models.authorize_request.AuthorizeAPI'
             '.get_transaction_details',
             return_value={'transaction': {'transactionStatus': 'refundSettledSuccessfully'}},
         ):
@@ -38,37 +38,37 @@ class TestRefundFlows(AuthorizeCommon):
         )
         self.assertTrue(refund_tx)
 
-    @mute_logger('odoo.addons.payment_authorize.models.payment_transaction')
+    @mute_logger('loomworks.addons.payment_authorize.models.payment_transaction')
     def test_refunding_authorized_tx_voids_it(self):
         """ Test that refunding a transaction that is still authorized on Authorize.net side voids
         it on Authorize.net instead of refunding it. """
         source_tx = self._create_transaction('direct', state='done')
         with patch(
-            'odoo.addons.payment_authorize.models.authorize_request.AuthorizeAPI'
+            'loomworks.addons.payment_authorize.models.authorize_request.AuthorizeAPI'
             '.get_transaction_details',
             return_value={'transaction': {'transactionStatus': 'authorizedPendingCapture'}},
         ), patch(
-            'odoo.addons.payment_authorize.models.authorize_request.AuthorizeAPI.void'
+            'loomworks.addons.payment_authorize.models.authorize_request.AuthorizeAPI.void'
         ) as void_mock, patch(
-            'odoo.addons.payment.models.payment_transaction.PaymentTransaction'
+            'loomworks.addons.payment.models.payment_transaction.PaymentTransaction'
             '._handle_notification_data'
         ):
             source_tx._send_refund_request(amount_to_refund=source_tx.amount)
         self.assertEqual(void_mock.call_count, 1)
 
-    @mute_logger('odoo.addons.payment_authorize.models.payment_transaction')
+    @mute_logger('loomworks.addons.payment_authorize.models.payment_transaction')
     def test_refunding_captured_tx_refunds_it_and_creates_refund_tx(self):
         """ Test that refunding a transaction that is captured on Authorize.net side captures it and
         create a refund transaction on Odoo. """
         source_tx = self._create_transaction('direct', state='done')
         with patch(
-            'odoo.addons.payment_authorize.models.authorize_request.AuthorizeAPI'
+            'loomworks.addons.payment_authorize.models.authorize_request.AuthorizeAPI'
             '.get_transaction_details',
             return_value={'transaction': {'transactionStatus': 'settledSuccessfully'}},
         ), patch(
-            'odoo.addons.payment_authorize.models.authorize_request.AuthorizeAPI.refund'
+            'loomworks.addons.payment_authorize.models.authorize_request.AuthorizeAPI.refund'
         ) as refund_mock, patch(
-            'odoo.addons.payment.models.payment_transaction.PaymentTransaction'
+            'loomworks.addons.payment.models.payment_transaction.PaymentTransaction'
             '._handle_notification_data'
         ):
             source_tx._send_refund_request(amount_to_refund=source_tx.amount)

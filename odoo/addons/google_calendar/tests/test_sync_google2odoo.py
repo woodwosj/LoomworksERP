@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import pytz
 from datetime import datetime, date, timedelta
 
 from dateutil.relativedelta import relativedelta
-from odoo.tests.common import new_test_user
-from odoo.exceptions import ValidationError
-from odoo.addons.google_calendar.models.res_users import User
-from odoo.addons.google_calendar.tests.test_sync_common import TestSyncGoogle, patch_api
-from odoo.addons.google_calendar.utils.google_calendar import GoogleEvent, GoogleCalendarService
-from odoo import Command, tools
+from loomworks.tests.common import new_test_user
+from loomworks.exceptions import ValidationError
+from loomworks.addons.google_calendar.models.res_users import User
+from loomworks.addons.google_calendar.tests.test_sync_common import TestSyncGoogle, patch_api
+from loomworks.addons.google_calendar.utils.google_calendar import GoogleEvent, GoogleCalendarService
+from loomworks import Command, tools
 from unittest.mock import patch
 
 

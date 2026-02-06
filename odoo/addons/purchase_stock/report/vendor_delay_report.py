@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, tools
-from odoo.osv import expression
-from odoo.tools import SQL
+from loomworks import fields, models, tools
+from loomworks.osv import expression
+from loomworks.tools import SQL
 
 
 class VendorDelayReport(models.Model):

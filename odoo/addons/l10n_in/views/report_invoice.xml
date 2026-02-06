@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="l10n_in_report_invoice_document_inherit" inherit_id="account.report_invoice_document" primary="True">
         <xpath expr="//div[@name='shipping_address_block']" position="inside">
             <div t-if="o.company_id.account_fiscal_country_id.code == 'IN' and o.partner_shipping_id.vat">
@@ -132,4 +132,4 @@
         </div>
     </template>
 
-</odoo>
+</loomworks>

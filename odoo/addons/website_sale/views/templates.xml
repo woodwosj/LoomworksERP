@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="header_cart_link" name="Header Cart Link">
         <t t-nocache="The number of products is dynamic, this rendering cannot be cached."
            t-nocache-_icon="_icon"
@@ -3084,7 +3084,7 @@
                 'bg-danger'}">
                 <div class="card-header">
                     <a role="button" groups="base.group_system" class="btn btn-sm btn-link text-white float-end" target="_blank" aria-label="Edit" title="Edit"
-                            t-attf-href="/odoo/action-payment.action_payment_provider/{{tx_sudo.provider_id.id}}">
+                            t-attf-href="/loomworks/action-payment.action_payment_provider/{{tx_sudo.provider_id.id}}">
                         <i class="fa fa-pencil"></i>
                     </a>
                     <t t-if="tx_sudo.state == 'pending'">
@@ -3439,4 +3439,4 @@
             </t>
         </xpath>
     </template>
-</odoo>
+</loomworks>

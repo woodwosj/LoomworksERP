@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { formatCurrency } from '@web/core/currency';
 import { patch } from '@web/core/utils/patch';

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
     <record model='l10n_ar.afip.responsibility.type' id='res_IVARI'>
         <field name='code'>1</field>
         <field name='name'>IVA Responsable Inscripto</field>
@@ -78,4 +78,4 @@
         <field name='code'>16</field>
         <field name='name'>Monotributo Trabajador / Independiente Promovido</field>
     </record>
-</odoo>
+</loomworks>

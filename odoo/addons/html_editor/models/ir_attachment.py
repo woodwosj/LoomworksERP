@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from urllib.parse import quote
 
-from odoo import api, models, fields
-from odoo.tools.image import base64_to_image
-from odoo.exceptions import UserError
+from loomworks import api, models, fields
+from loomworks.tools.image import base64_to_image
+from loomworks.exceptions import UserError
 
 SUPPORTED_IMAGE_MIMETYPES = {
     'image/gif': '.gif',

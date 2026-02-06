@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <!-- Spreadsheet Chart Views -->
 
     <!-- Tree View -->
@@ -61,7 +61,7 @@
                                            placeholder="e.g., A1:A10"/>
                                 </group>
                             </group>
-                            <!-- Odoo Model Source -->
+                            <!-- Loomworks Model Source -->
                             <group invisible="source_type != 'model'">
                                 <group>
                                     <field name="model_id"/>
@@ -150,4 +150,4 @@
         <field name="search_view_id" ref="spreadsheet_chart_view_search"/>
     </record>
 
-</odoo>
+</loomworks>

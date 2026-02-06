@@ -1,6 +1,6 @@
-from odoo.exceptions import ValidationError
-from odoo.tests import tagged
-from odoo.addons.account.tests.common import AccountTestInvoicingHttpCommon
+from loomworks.exceptions import ValidationError
+from loomworks.tests import tagged
+from loomworks.addons.account.tests.common import AccountTestInvoicingHttpCommon
 from unittest.mock import patch
 from freezegun import freeze_time
 
@@ -155,7 +155,7 @@ class TestPosQris(AccountTestInvoicingHttpCommon):
                 }
 
         self.main_pos_config.with_user(self.pos_user).open_ui()
-        with patch('odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', side_effect=_patched_make_qris_request):
+        with patch('loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', side_effect=_patched_make_qris_request):
             self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'PaymentScreenQRISPaymentFail', login="pos_user")
 
     def test_tour_qris_payment_success(self):
@@ -182,7 +182,7 @@ class TestPosQris(AccountTestInvoicingHttpCommon):
                     "qris_api_version_code": "2206091709"
                 }
         self.main_pos_config.with_user(self.pos_user).open_ui()
-        with patch('odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', side_effect=_patched_make_qris_request):
+        with patch('loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', side_effect=_patched_make_qris_request):
             self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'PaymentScreenQRISPaymentSuccess', login="pos_user")
 
     @freeze_time("2024-02-27 04:15:00")
@@ -211,7 +211,7 @@ class TestPosQris(AccountTestInvoicingHttpCommon):
                     "qris_api_version_code": "2206091709"
                 }
         self.main_pos_config.with_user(self.pos_user).open_ui()
-        with patch('odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', side_effect=_patched_make_qris_request) as patched:
+        with patch('loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', side_effect=_patched_make_qris_request) as patched:
             self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'PayementScreenQRISFetchQR', login="pos_user")
             self.assertEqual(patched.call_count, 1)
 
@@ -232,6 +232,6 @@ class TestPosQris(AccountTestInvoicingHttpCommon):
                 }
         self.main_pos_config.with_user(self.pos_user).open_ui()
         self.main_pos_config.current_session_id.set_opening_control(0, 'notes')
-        with patch('odoo.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', side_effect=_patched_make_qris_request) as patched:
+        with patch('loomworks.addons.l10n_id.models.res_bank._l10n_id_make_qris_request', side_effect=_patched_make_qris_request) as patched:
             self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'PayementScreenQRISChangeAmount', login="pos_user")
             self.assertEqual(patched.call_count, 2)

@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import configuratorTourUtils from '@sale/js/tours/product_configurator_tour_utils';
 

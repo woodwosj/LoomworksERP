@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.account.tests.common import AccountTestInvoicingHttpCommon
-from odoo.tests.common import tagged
+from loomworks.addons.account.tests.common import AccountTestInvoicingHttpCommon
+from loomworks.tests.common import tagged
 
 import json
 
-from odoo import http
-from odoo.tools import file_open, mute_logger
+from loomworks import http
+from loomworks.tools import file_open, mute_logger
 
 
 @tagged('post_install', '-at_install')
@@ -28,7 +28,7 @@ class TestPortalAttachment(AccountTestInvoicingHttpCommon):
 
         cls.invoice_base_url = cls.out_invoice.get_base_url()
 
-    @mute_logger('odoo.addons.http_routing.models.ir_http', 'odoo.http')
+    @mute_logger('loomworks.addons.http_routing.models.ir_http', 'loomworks.http')
     def test_01_portal_attachment(self):
         """Test the portal chatter attachment route."""
         self.partner_a.write({  # ensure an email for message_post

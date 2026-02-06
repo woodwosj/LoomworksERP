@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 import logging
@@ -7,14 +7,14 @@ import uuid
 import requests
 from werkzeug.urls import url_encode, url_join, url_parse
 
-from odoo import _, api, fields, models
-from odoo.exceptions import RedirectWarning, UserError, ValidationError
+from loomworks import _, api, fields, models
+from loomworks.exceptions import RedirectWarning, UserError, ValidationError
 
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.payment.controllers.portal import PaymentPortal
-from odoo.addons.payment_stripe import const, utils as stripe_utils
-from odoo.addons.payment_stripe.controllers.main import StripeController
-from odoo.addons.payment_stripe.controllers.onboarding import OnboardingController
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.payment.controllers.portal import PaymentPortal
+from loomworks.addons.payment_stripe import const, utils as stripe_utils
+from loomworks.addons.payment_stripe.controllers.main import StripeController
+from loomworks.addons.payment_stripe.controllers.onboarding import OnboardingController
 
 
 _logger = logging.getLogger(__name__)
@@ -33,7 +33,7 @@ class PaymentProvider(models.Model):
     stripe_webhook_secret = fields.Char(
         string="Webhook Signing Secret",
         help="If a webhook is enabled on your Stripe account, this signing secret must be set to "
-             "authenticate the messages sent from Stripe to Odoo.",
+             "authenticate the messages sent from Stripe to Loomworks.",
         groups='base.group_system')
 
     #=== COMPUTE METHODS ===#

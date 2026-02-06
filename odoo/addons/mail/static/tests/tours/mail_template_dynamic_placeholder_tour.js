@@ -3,7 +3,7 @@ import { stepUtils } from "@web_tour/tour_service/tour_utils";
 import { delay } from "@odoo/hoot-dom";
 
 registry.category("web_tour.tours").add("mail_template_dynamic_placeholder_tour", {
-    url: "/odoo",
+    url: "/loomworks",
     steps: () => [
         stepUtils.showAppsMenuItem(),
         {

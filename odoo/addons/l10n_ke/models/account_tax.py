@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from loomworks import models, fields, api
 
 
 class AccountTax(models.Model):

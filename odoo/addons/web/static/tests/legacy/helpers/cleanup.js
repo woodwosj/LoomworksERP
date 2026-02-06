@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/helpers/cleanup default=false */
+/** @loomworks-module alias=@web/../tests/helpers/cleanup default=false */
 
 // -----------------------------------------------------------------------------
 // Cleanup

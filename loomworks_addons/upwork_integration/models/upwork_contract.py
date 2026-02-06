@@ -12,7 +12,7 @@ Upwork Contract model - Represents an Upwork contract (hourly or fixed price).
 
 import logging
 
-from odoo import api, fields, models, _
+from loomworks import api, fields, models, _
 
 _logger = logging.getLogger(__name__)
 

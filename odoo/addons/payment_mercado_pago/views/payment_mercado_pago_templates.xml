@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<odoo>
+<loomworks>
 
     <template id="redirect_form">
         <!-- Mercado Pago generates a unique URL for each payment request. -->
@@ -11,4 +11,4 @@
         </form>
     </template>
 
-</odoo>
+</loomworks>

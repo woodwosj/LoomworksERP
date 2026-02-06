@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models
+from loomworks import models
 
 
 class AccountEdiXmlUBLANZ(models.AbstractModel):

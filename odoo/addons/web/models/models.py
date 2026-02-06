@@ -5,14 +5,14 @@ import base64
 import itertools
 import json
 
-from odoo import api, models
-from odoo.fields import Command
-from odoo.models import BaseModel, NewId
-from odoo.osv.expression import AND, TRUE_DOMAIN, normalize_domain
-from odoo.tools import unique, OrderedSet
-from odoo.exceptions import AccessError, UserError
+from loomworks import api, models
+from loomworks.fields import Command
+from loomworks.models import BaseModel, NewId
+from loomworks.osv.expression import AND, TRUE_DOMAIN, normalize_domain
+from loomworks.tools import unique, OrderedSet
+from loomworks.exceptions import AccessError, UserError
 from collections import defaultdict
-from odoo.tools.translate import LazyTranslate
+from loomworks.tools.translate import LazyTranslate
 
 _lt = LazyTranslate(__name__)
 SEARCH_PANEL_ERROR_MESSAGE = _lt("Too many items to display.")

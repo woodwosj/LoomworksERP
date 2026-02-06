@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 /**
  * Loomworks Planning Gantt View Enhancements
  * Extends the core Gantt view with planning-specific functionality

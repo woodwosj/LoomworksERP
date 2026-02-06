@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 from datetime import timedelta
 
-from odoo import _, api, fields, models, modules, tools
-from odoo.addons.account_edi_proxy_client.models.account_edi_proxy_user import AccountEdiProxyError
-from odoo.addons.account_peppol.tools.demo_utils import handle_demo
-from odoo.exceptions import UserError
+from loomworks import _, api, fields, models, modules, tools
+from loomworks.addons.account_edi_proxy_client.models.account_edi_proxy_user import AccountEdiProxyError
+from loomworks.addons.account_peppol.tools.demo_utils import handle_demo
+from loomworks.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 BATCH_SIZE = 50

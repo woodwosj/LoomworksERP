@@ -1,5 +1,5 @@
-from odoo.addons.crm.tests.common import TestCrmCommon
-from odoo.fields import Command
+from loomworks.addons.crm.tests.common import TestCrmCommon
+from loomworks.fields import Command
 
 
 class TestSaleCrm(TestCrmCommon):

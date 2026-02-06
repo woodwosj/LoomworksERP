@@ -1,9 +1,9 @@
 from datetime import timedelta
 
-from odoo import Command, api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.osv import expression
-from odoo.tools import format_list
+from loomworks import Command, api, fields, models, _
+from loomworks.exceptions import UserError
+from loomworks.osv import expression
+from loomworks.tools import format_list
 
 
 class AccountSecureEntries(models.TransientModel):

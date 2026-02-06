@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.website.tools import MockRequest
-from odoo.addons.website_forum.controllers.website_forum import WebsiteForum
-from odoo.addons.website_forum.tests.common import KARMA, TestForumCommon
+from loomworks.addons.website.tools import MockRequest
+from loomworks.addons.website_forum.controllers.website_forum import WebsiteForum
+from loomworks.addons.website_forum.tests.common import KARMA, TestForumCommon
 
 
 class TestForumController(TestForumCommon):

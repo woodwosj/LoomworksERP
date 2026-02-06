@@ -8,7 +8,7 @@ import logging
 import requests
 from json import JSONDecodeError
 
-from odoo.exceptions import UserError
+from loomworks.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 TIMEOUT = 30

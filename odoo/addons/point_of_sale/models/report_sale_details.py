@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import timedelta
 
 import pytz
 
-from odoo import api, fields, models, _
-from odoo.osv.expression import AND
-from odoo.tools import SQL
+from loomworks import api, fields, models, _
+from loomworks.osv.expression import AND
+from loomworks.tools import SQL
 
 
 class ReportSaleDetails(models.AbstractModel):

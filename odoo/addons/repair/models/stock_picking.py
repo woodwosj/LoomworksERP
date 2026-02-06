@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import time
 
-from odoo import _, api, fields, models
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from odoo.tools.misc import clean_context
+from loomworks import _, api, fields, models
+from loomworks.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from loomworks.tools.misc import clean_context
 
 
 class PickingType(models.Model):

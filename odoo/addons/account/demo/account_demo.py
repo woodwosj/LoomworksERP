@@ -4,9 +4,9 @@ import time
 from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models, Command
-from odoo.tools.misc import file_open, formatLang
-from odoo.exceptions import UserError, ValidationError
+from loomworks import api, fields, models, Command
+from loomworks.tools.misc import file_open, formatLang
+from loomworks.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
 

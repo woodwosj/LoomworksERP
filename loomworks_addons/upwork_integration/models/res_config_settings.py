@@ -10,8 +10,8 @@
 Extend res.config.settings with Upwork integration configuration fields.
 """
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
 
 
 class ResConfigSettings(models.TransientModel):
@@ -38,7 +38,7 @@ class ResConfigSettings(models.TransientModel):
     upwork_auto_create_timesheets = fields.Boolean(
         string='Auto-create Timesheets',
         config_parameter='upwork_integration.upwork_auto_create_timesheets',
-        help='Automatically create Odoo timesheets when syncing Upwork time logs.',
+        help='Automatically create Loomworks timesheets when syncing Upwork time logs.',
     )
     upwork_auto_create_invoices = fields.Boolean(
         string='Auto-create Invoices',

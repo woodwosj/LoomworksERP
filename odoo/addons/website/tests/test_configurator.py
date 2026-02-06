@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 
-import odoo.tests
+import loomworks.tests
 
-class TestConfiguratorCommon(odoo.tests.HttpCase):
+class TestConfiguratorCommon(loomworks.tests.HttpCase):
 
     def _theme_upgrade_upstream(self):
         # patch to prevent module install/upgrade during tests
@@ -41,13 +41,13 @@ class TestConfiguratorCommon(odoo.tests.HttpCase):
             elif '/api/olg/1/generate_placeholder' in endpoint:
                 return {"a non existing placeholder": "😠", 'Catchy Headline': 'Welcome to XXXX - Your Super test'}
 
-        iap_patch = patch('odoo.addons.iap.tools.iap_tools.iap_jsonrpc', iap_jsonrpc_mocked_configurator)
+        iap_patch = patch('loomworks.addons.iap.tools.iap_tools.iap_jsonrpc', iap_jsonrpc_mocked_configurator)
         self.startPatcher(iap_patch)
 
-        patcher = patch('odoo.addons.website.models.ir_module_module.IrModuleModule._theme_upgrade_upstream', wraps=self._theme_upgrade_upstream)
+        patcher = patch('loomworks.addons.website.models.ir_module_module.IrModuleModule._theme_upgrade_upstream', wraps=self._theme_upgrade_upstream)
         self.startPatcher(patcher)
 
-@odoo.tests.common.tagged('post_install', '-at_install')
+@loomworks.tests.common.tagged('post_install', '-at_install')
 class TestConfiguratorTranslation(TestConfiguratorCommon):
 
     def test_01_configurator_translation(self):

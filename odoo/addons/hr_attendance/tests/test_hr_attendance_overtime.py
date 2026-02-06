@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import date, datetime
 from freezegun import freeze_time
 
-from odoo.tests import Form, new_test_user
-from odoo.tests.common import tagged, TransactionCase
+from loomworks.tests import Form, new_test_user
+from loomworks.tests.common import tagged, TransactionCase
 
 @tagged('post_install', '-at_install', 'hr_attendance_overtime')
 class TestHrAttendanceOvertime(TransactionCase):

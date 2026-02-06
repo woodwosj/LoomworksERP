@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import math
 import base64
@@ -8,13 +8,13 @@ import re
 from lxml import etree
 from psycopg2.errors import LockNotAvailable
 
-from odoo import fields, models, api, _
-from odoo.http import request
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import formatLang, float_compare, float_is_zero, float_round, float_repr, cleanup_xml_node, groupby
-from odoo.tools.misc import split_every
-from odoo.addons.base_iban.models.res_partner_bank import normalize_iban
-from odoo.addons.l10n_hu_edi.models.l10n_hu_edi_connection import format_bool, L10nHuEdiConnection, L10nHuEdiConnectionError
+from loomworks import fields, models, api, _
+from loomworks.http import request
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools import formatLang, float_compare, float_is_zero, float_round, float_repr, cleanup_xml_node, groupby
+from loomworks.tools.misc import split_every
+from loomworks.addons.base_iban.models.res_partner_bank import normalize_iban
+from loomworks.addons.l10n_hu_edi.models.l10n_hu_edi_connection import format_bool, L10nHuEdiConnection, L10nHuEdiConnectionError
 
 _logger = logging.getLogger(__name__)
 
@@ -617,7 +617,7 @@ class AccountMove(models.Model):
         for processing_result in results['processing_results']:
             invoice = self.filtered(lambda m: str(m.l10n_hu_edi_batch_upload_index) == processing_result['index'])
             if not invoice:
-                _logger.error(_('Could not match NAV transaction_code %(code)s, index %(index)s to an invoice in Odoo',
+                _logger.error(_('Could not match NAV transaction_code %(code)s, index %(index)s to an invoice in Loomworks ERP',
                                 code=self[0].l10n_hu_edi_transaction_code,
                                 index=processing_result['index']))
                 continue

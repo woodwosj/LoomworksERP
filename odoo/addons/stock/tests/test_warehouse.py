@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from odoo import Command
-from odoo.addons.stock.tests.common import TestStockCommon
-from odoo.tests import Form
-from odoo.tests.common import new_test_user
+from loomworks import Command
+from loomworks.addons.stock.tests.common import TestStockCommon
+from loomworks.tests import Form
+from loomworks.tests.common import new_test_user
 
 
 class TestWarehouse(TestStockCommon):

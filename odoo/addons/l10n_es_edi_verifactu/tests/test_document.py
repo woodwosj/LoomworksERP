@@ -2,10 +2,10 @@ import datetime
 from freezegun import freeze_time
 from unittest import mock
 
-from odoo import _, Command
-from odoo.exceptions import UserError, RedirectWarning, AccessError
-from odoo.tests import tagged
-from odoo.tools import zeep
+from loomworks import _, Command
+from loomworks.exceptions import UserError, RedirectWarning, AccessError
+from loomworks.tests import tagged
+from loomworks.tools import zeep
 from .common import TestL10nEsEdiVerifactuCommon
 
 
@@ -38,7 +38,7 @@ class TestL10nEsEdiVerifactuDocument(TestL10nEsEdiVerifactuCommon):
             document.unlink()
 
     def test_generation_error(self):
-        check_function_path = 'odoo.addons.l10n_es_edi_verifactu.models.verifactu_document.L10nEsEdiVerifactuDocument._check_record_values'
+        check_function_path = 'loomworks.addons.l10n_es_edi_verifactu.models.verifactu_document.L10nEsEdiVerifactuDocument._check_record_values'
         mock_errors = ["Problem 1", "Problem 2"]
         patched_render_xml_node = mock.patch(check_function_path, return_value=mock_errors)
         invoice = self._create_dummy_invoice()

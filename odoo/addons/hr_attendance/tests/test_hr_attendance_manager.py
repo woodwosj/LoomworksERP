@@ -1,8 +1,8 @@
 # addons/hr_attendance/tests/test_hr_attendance_manager.py
 
-from odoo.tests.common import TransactionCase, tagged
-from odoo.tests import new_test_user
-from odoo.exceptions import AccessError
+from loomworks.tests.common import TransactionCase, tagged
+from loomworks.tests import new_test_user
+from loomworks.exceptions import AccessError
 
 
 @tagged('post_install', '-at_install')

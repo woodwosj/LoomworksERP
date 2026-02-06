@@ -1,19 +1,19 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import json
 import re
 from requests import Response
 from unittest.mock import patch
 
-import odoo
-from odoo.tools.misc import file_open
-from odoo.addons.cloud_storage_azure.tests.test_cloud_storage_azure import (
+import loomworks
+from loomworks.tools.misc import file_open
+from loomworks.addons.cloud_storage_azure.tests.test_cloud_storage_azure import (
     TestCloudStorageAzureCommon,
 )
-from odoo.addons.mail.tests.test_attachment_controller import TestAttachmentControllerCommon
+from loomworks.addons.mail.tests.test_attachment_controller import TestAttachmentControllerCommon
 
 
-@odoo.tests.tagged("-at_install", "post_install")
+@loomworks.tests.tagged("-at_install", "post_install")
 class TestCloudStorageAttachmentController(
     TestAttachmentControllerCommon, TestCloudStorageAzureCommon
 ):
@@ -34,13 +34,13 @@ class TestCloudStorageAttachmentController(
             return response
 
         with patch(
-            "odoo.addons.cloud_storage_azure.utils.cloud_storage_azure_utils.requests.post", post
+            "loomworks.addons.cloud_storage_azure.utils.cloud_storage_azure_utils.requests.post", post
         ):
             with file_open("addons/web/__init__.py") as file:
                 res = self.url_open(
                     url="/mail/attachment/upload",
                     data={
-                        "csrf_token": odoo.http.Request.csrf_token(self),
+                        "csrf_token": loomworks.http.Request.csrf_token(self),
                         "is_pending": True,
                         "thread_id": thread.id,
                         "thread_model": thread._name,
@@ -64,7 +64,7 @@ class TestCloudStorageAttachmentController(
                                 {
                                     "access_token": False,
                                     "checksum": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-                                    "create_date": odoo.fields.Datetime.to_string(
+                                    "create_date": loomworks.fields.Datetime.to_string(
                                         attachment.create_date
                                     ),
                                     "filename": "__init__.py",

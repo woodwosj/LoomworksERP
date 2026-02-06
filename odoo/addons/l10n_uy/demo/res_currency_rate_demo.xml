@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<odoo>
+<loomworks>
 
     <record id="rateUSD" model="res.currency.rate">
         <field name="company_id" ref="base.demo_company_uy"/>
@@ -8,4 +8,4 @@
         <field eval="('2023-03-02')" name="name"/>
     </record>
 
-</odoo>
+</loomworks>

@@ -1,4 +1,4 @@
-/** @odoo-module alias=@web/../tests/setup default=false */
+/** @loomworks-module alias=@web/../tests/setup default=false */
 
 import { assets } from "@web/core/assets";
 import { user, _makeUser } from "@web/core/user";
@@ -31,7 +31,7 @@ function forceLocaleAndTimezoneWithCleanup() {
 
 function makeMockLocation() {
     return Object.assign(document.createElement("a"), {
-        href: window.location.origin + "/odoo",
+        href: window.location.origin + "/loomworks",
         assign(url) {
             this.href = url;
         },

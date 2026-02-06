@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
@@ -8,7 +8,7 @@ import { markup } from "@odoo/owl";
 import { queryText } from "@odoo/hoot-dom";
 
 registry.category("web_tour.tours").add('sale_timesheet_tour', {
-    url: '/odoo',
+    url: '/loomworks',
     steps: () => [
         ...stepUtils.goToAppSteps("sale.sale_menu_root", "Go to the Sales App"),
         ...tourUtils.createNewSalesOrder(),

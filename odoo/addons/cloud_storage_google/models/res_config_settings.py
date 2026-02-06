@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import json
@@ -11,8 +11,8 @@ try:
 except ImportError:
     service_account = Request = None
 
-from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError, UserError
+from loomworks import models, fields, api, _
+from loomworks.exceptions import ValidationError, UserError
 
 from .ir_attachment import get_cloud_storage_google_credential
 

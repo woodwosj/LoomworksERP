@@ -1,16 +1,16 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 import logging
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import http, tests
-from odoo.addons.base.tests.common import HttpCaseWithUserPortal
-from odoo.addons.gamification.tests.common import HttpCaseGamification
-from odoo.fields import Command, Datetime
-from odoo.tools import mute_logger
-from odoo.tools.misc import file_open
+from loomworks import http, tests
+from loomworks.addons.base.tests.common import HttpCaseWithUserPortal
+from loomworks.addons.gamification.tests.common import HttpCaseGamification
+from loomworks.fields import Command, Datetime
+from loomworks.tools import mute_logger
+from loomworks.tools.misc import file_open
 
 _logger = logging.getLogger(__name__)
 
@@ -113,7 +113,7 @@ class TestUICommon(HttpCaseGamification, HttpCaseWithUserPortal):
 @tests.common.tagged('post_install', '-at_install')
 class TestUi(TestUICommon):
 
-    @mute_logger("odoo.http", "odoo.addons.base.models.ir_rule", "werkzeug")
+    @mute_logger("loomworks.http", "loomworks.addons.base.models.ir_rule", "werkzeug")
     def test_course_access_fail_redirection(self):
         """Test that the user is redirected to /slides with en error displayed instead of the standard error page."""
         self.channel.visibility = "members"

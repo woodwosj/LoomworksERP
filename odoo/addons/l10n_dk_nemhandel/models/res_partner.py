@@ -4,10 +4,10 @@ from markupsafe import Markup
 from hashlib import md5
 from urllib import parse
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from loomworks import _, api, fields, models
+from loomworks.exceptions import ValidationError
 
-from odoo.addons.l10n_dk_nemhandel.tools.demo_utils import handle_demo
+from loomworks.addons.l10n_dk_nemhandel.tools.demo_utils import handle_demo
 
 TIMEOUT = 10
 _logger = logging.getLogger(__name__)

@@ -1,4 +1,4 @@
-from odoo import api,models
+from loomworks import api,models
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'

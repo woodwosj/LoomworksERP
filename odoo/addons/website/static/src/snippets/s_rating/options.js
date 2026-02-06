@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { MediaDialog } from "@web_editor/components/media_dialog/media_dialog";
 

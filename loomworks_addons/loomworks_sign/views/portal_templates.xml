@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <!-- Portal Sign Document Page -->
     <template id="portal_sign_document" name="Sign Document">
@@ -310,4 +310,4 @@
         </t>
     </template>
 
-</odoo>
+</loomworks>

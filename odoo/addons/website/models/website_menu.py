@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import werkzeug.exceptions
 import werkzeug.urls
 
 from werkzeug.urls import url_parse
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.fields import Command
-from odoo.http import request
-from odoo.tools.translate import html_translate
+from loomworks import api, fields, models, _
+from loomworks.exceptions import UserError
+from loomworks.fields import Command
+from loomworks.http import request
+from loomworks.tools.translate import html_translate
 
 
 class Menu(models.Model):

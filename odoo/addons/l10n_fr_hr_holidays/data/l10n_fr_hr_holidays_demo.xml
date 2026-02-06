@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="l10n_fr_part_time_calendar" model="resource.calendar">
         <field name="name">Part time</field>
         <field name="company_id" eval="False"/>
@@ -77,4 +77,4 @@
         <value eval="[ref('base.user_root'), ref('base.user_admin'), ref('base.user_demo')]"/>
         <value eval="{'company_ids': [(4, ref('base.demo_company_fr'))]}"/>
     </function>
-</odoo>
+</loomworks>

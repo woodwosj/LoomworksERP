@@ -1,15 +1,15 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import contextlib
 
 from markupsafe import Markup
 
-from odoo.addons.base.models.ir_mail_server import MailDeliveryException
-from odoo.addons.mail.tests.common import mail_new_test_user, MailCommon
-from odoo.addons.mail.tools.discuss import Store
-from odoo.exceptions import UserError
-from odoo.tests.common import tagged, users, HttpCase
-from odoo.tools import is_html_empty, mute_logger, formataddr
+from loomworks.addons.base.models.ir_mail_server import MailDeliveryException
+from loomworks.addons.mail.tests.common import mail_new_test_user, MailCommon
+from loomworks.addons.mail.tools.discuss import Store
+from loomworks.exceptions import UserError
+from loomworks.tests.common import tagged, users, HttpCase
+from loomworks.tools import is_html_empty, mute_logger, formataddr
 
 
 @tagged('mail_message', 'mail_controller', 'post_install', '-at_install')
@@ -45,7 +45,7 @@ class TestMessageHelpersRobustness(MailCommon, HttpCase):
         self.deleted_record = self.test_records_simple[2]
 
         # generate crashed notifications
-        with mute_logger('odoo.addons.mail.models.mail_mail'), self.mock_mail_gateway():
+        with mute_logger('loomworks.addons.mail.models.mail_mail'), self.mock_mail_gateway():
             def _send_email(*args, **kwargs):
                 raise MailDeliveryException("Some exception")
             self.send_email_mocked.side_effect = _send_email
@@ -77,7 +77,7 @@ class TestMessageHelpersRobustness(MailCommon, HttpCase):
 
     def test_load_message_failures(self):
         self.authenticate(self.user_employee.login, self.user_employee.login)
-        with contextlib.suppress(Exception), mute_logger('odoo.http', 'odoo.sql_db'):  # suppress logged error due to readonly route doing an update
+        with contextlib.suppress(Exception), mute_logger('loomworks.http', 'loomworks.sql_db'):  # suppress logged error due to readonly route doing an update
             result = self.make_jsonrpc_request("/mail/data", {"failures": True})
         self.assertEqual(sorted(r['thread']['id'] for r in result['mail.message']), sorted(self.test_records_simple[:2].ids))
         self.assertEqual(
@@ -101,7 +101,7 @@ class TestMessageHelpersRobustness(MailCommon, HttpCase):
             'notification_status': 'exception',
             'failure_type': 'mail_email_invalid',
         })
-        with contextlib.suppress(Exception), mute_logger('odoo.http', 'odoo.sql_db'):  # suppress logged error due to readonly route doing an update
+        with contextlib.suppress(Exception), mute_logger('loomworks.http', 'loomworks.sql_db'):  # suppress logged error due to readonly route doing an update
             res = self.make_jsonrpc_request("/mail/data", {"failures": True})
             self.assertEqual(
                 sorted(t["name"] for t in res["mail.thread"]),
@@ -133,7 +133,7 @@ class TestMessageHelpersRobustness(MailCommon, HttpCase):
         deleted_message = record.message_post(body='', message_type='comment')
         self.authenticate(self.user_employee.login, self.user_employee.login)
         with self.subTest(thread_message=thread_message):
-            expected_url = self.base_url() + f'/odoo/{thread_message.model}/{thread_message.res_id}?highlight_message_id={thread_message.id}'
+            expected_url = self.base_url() + f'/loomworks/{thread_message.model}/{thread_message.res_id}?highlight_message_id={thread_message.id}'
             res = self.url_open(f'/mail/message/{thread_message.id}')
             self.assertEqual(res.url, expected_url)
         with self.subTest(deleted_message=deleted_message):
@@ -236,7 +236,7 @@ class TestMessageValues(MailCommon):
         with self.assertRaises(UserError, msg='Tracking values prevent from updating content'):
             record._message_update_content(tracking_message, '', [])
 
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     def test_mail_message_to_store_access(self):
         """
         User that doesn't have access to a record should still be able to fetch
@@ -323,7 +323,7 @@ class TestMessageValues(MailCommon):
             '<img src="/web/image/{attachment.id}?access_token={attachment.access_token}" alt="image0" width="2"></p>'.format(attachment=msg.attachment_ids[0])
         )
 
-    @mute_logger('odoo.models.unlink', 'odoo.addons.mail.models.models')
+    @mute_logger('loomworks.models.unlink', 'loomworks.addons.mail.models.models')
     @users('employee')
     def test_mail_message_values_fromto_long_name(self):
         """ Long headers may break in python if above 68 chars for certain
@@ -385,7 +385,7 @@ class TestMessageValues(MailCommon):
         self.assertEqual(msg.reply_to, f"{sanitized_alias_name}@{self.alias_domain}",
                          'Reply-To: even a long email is ok as only formataddr is problematic')
 
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     def test_mail_message_values_fromto_no_document_values(self):
         msg = self.Message.create({
             'reply_to': 'test.reply@example.com',
@@ -395,7 +395,7 @@ class TestMessageValues(MailCommon):
         self.assertEqual(msg.reply_to, 'test.reply@example.com')
         self.assertEqual(msg.email_from, 'test.from@example.com')
 
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     def test_mail_message_values_fromto_no_document(self):
         msg = self.Message.create({})
         self.assertIn('-private', msg.message_id.split('@')[0], 'mail_message: message_id for a void message should be a "private" one')
@@ -413,7 +413,7 @@ class TestMessageValues(MailCommon):
         self.assertEqual(msg.reply_to, formataddr((self.user_employee.name, self.user_employee.email)))
         self.assertEqual(msg.email_from, formataddr((self.user_employee.name, self.user_employee.email)))
 
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     def test_mail_message_values_fromto_document_alias(self):
         msg = self.Message.create({
             'model': 'mail.test.container',
@@ -451,7 +451,7 @@ class TestMessageValues(MailCommon):
         self.assertEqual(msg.reply_to, formataddr((reply_to_name, reply_to_email)))
         self.assertEqual(msg.email_from, formataddr((self.user_employee.name, self.user_employee.email)))
 
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     def test_mail_message_values_fromto_document_no_alias(self):
         test_record = self.env['mail.test.simple'].create({'name': 'Test', 'email_from': 'ignasse@example.com'})
 
@@ -465,7 +465,7 @@ class TestMessageValues(MailCommon):
         self.assertEqual(msg.reply_to, formataddr((reply_to_name, reply_to_email)))
         self.assertEqual(msg.email_from, formataddr((self.user_employee.name, self.user_employee.email)))
 
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     def test_mail_message_values_fromto_document_manual_alias(self):
         test_record = self.env['mail.test.simple'].create({'name': 'Test', 'email_from': 'ignasse@example.com'})
         alias = self.env['mail.alias'].create({

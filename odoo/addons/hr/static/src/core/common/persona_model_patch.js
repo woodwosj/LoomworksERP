@@ -1,4 +1,4 @@
-/* @odoo-module */
+/* @loomworks-module */
 
 import { Persona } from "@mail/core/common/persona_model";
 

@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 
-from odoo.tests import tagged
+from loomworks.tests import tagged
 
-from odoo.addons.payment.models.payment_provider import PaymentProvider
-from odoo.addons.payment.tests.http_common import PaymentHttpCommon
-from odoo.addons.sale.tests.common import SaleCommon
+from loomworks.addons.payment.models.payment_provider import PaymentProvider
+from loomworks.addons.payment.tests.http_common import PaymentHttpCommon
+from loomworks.addons.sale.tests.common import SaleCommon
 
 
 @tagged('post_install', '-at_install')
@@ -32,7 +32,7 @@ class TestPaymentProviderVisibility(PaymentHttpCommon, SaleCommon):
         portal_url = f"{website_portal.domain}{url_so}"
 
         with patch(
-            'odoo.addons.website_payment.models.payment_provider.PaymentProvider._get_compatible_providers',
+            'loomworks.addons.website_payment.models.payment_provider.PaymentProvider._get_compatible_providers',
             side_effect=lambda *args, **kwargs: PaymentProvider._get_compatible_providers(
                 self.env['payment.provider'], *args, **kwargs
             ),

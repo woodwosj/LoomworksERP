@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import Form
+from loomworks.tests import Form
 from datetime import datetime, timedelta
 
-from odoo.fields import Datetime as Dt
-from odoo.exceptions import UserError
-from odoo.addons.mrp.tests.common import TestMrpCommon
+from loomworks.fields import Datetime as Dt
+from loomworks.exceptions import UserError
+from loomworks.addons.mrp.tests.common import TestMrpCommon
 
 
 class TestMrpCancelMO(TestMrpCommon):

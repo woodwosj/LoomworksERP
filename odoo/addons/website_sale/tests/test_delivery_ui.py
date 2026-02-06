@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-import odoo.tests
-from odoo.fields import Command
+import loomworks.tests
+from loomworks.fields import Command
 
 
-@odoo.tests.tagged('post_install', '-at_install')
-class TestUi(odoo.tests.HttpCase):
+@loomworks.tests.tagged('post_install', '-at_install')
+class TestUi(loomworks.tests.HttpCase):
 
     def test_01_free_delivery_when_exceed_threshold(self):
         if self.env['ir.module.module']._get('payment_custom').state != 'installed':

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
     <data noupdate="1">
 
         <!-- Cron: Sync Contracts (every 4 hours) -->
@@ -51,4 +51,4 @@
         </record>
 
     </data>
-</odoo>
+</loomworks>

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import markupsafe
 import re
 
-from odoo import api, fields, models, release
-from odoo.tools import LazyTranslate
+from loomworks import api, fields, models, release
+from loomworks.tools import LazyTranslate
 
 _lt = LazyTranslate(__name__)
 

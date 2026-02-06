@@ -1,7 +1,7 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, api
-from odoo.addons.l10n_my_edi.models.product_template import CLASSIFICATION_CODES_LIST
+from loomworks import fields, models, api
+from loomworks.addons.l10n_my_edi.models.product_template import CLASSIFICATION_CODES_LIST
 
 
 class AccountMoveLine(models.Model):

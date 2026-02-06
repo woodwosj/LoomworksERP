@@ -1,18 +1,18 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from markupsafe import Markup
 import re
 from werkzeug.exceptions import NotFound
 from urllib.parse import urlsplit
 
-from odoo import http, tools, _, release
-from odoo.exceptions import UserError
-from odoo.http import request
-from odoo.tools import replace_exceptions
-from odoo.addons.base.models.assetsbundle import AssetsBundle
-from odoo.addons.base.models.ir_qweb_fields import nl2br
-from odoo.addons.mail.models.discuss.mail_guest import add_guest_to_context
-from odoo.addons.mail.tools.discuss import Store
+from loomworks import http, tools, _, release
+from loomworks.exceptions import UserError
+from loomworks.http import request
+from loomworks.tools import replace_exceptions
+from loomworks.addons.base.models.assetsbundle import AssetsBundle
+from loomworks.addons.base.models.ir_qweb_fields import nl2br
+from loomworks.addons.mail.models.discuss.mail_guest import add_guest_to_context
+from loomworks.addons.mail.tools.discuss import Store
 
 
 class LivechatController(http.Controller):

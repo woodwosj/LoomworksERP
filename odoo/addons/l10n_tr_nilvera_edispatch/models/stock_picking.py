@@ -3,12 +3,12 @@ import uuid
 
 from lxml import etree
 
-from odoo import Command, _, api, fields, models
-from odoo.exceptions import UserError
-from odoo.tools import cleanup_xml_node
-from odoo.tools.xml_utils import find_xml_value
+from loomworks import Command, _, api, fields, models
+from loomworks.exceptions import UserError
+from loomworks.tools import cleanup_xml_node
+from loomworks.tools.xml_utils import find_xml_value
 
-from odoo.addons.account_edi_ubl_cii.models.account_edi_xml_ubl_20 import UBL_NAMESPACES
+from loomworks.addons.account_edi_ubl_cii.models.account_edi_xml_ubl_20 import UBL_NAMESPACES
 
 
 class StockPicking(models.Model):

@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import math
 import re
 
 from werkzeug import urls
 
-from odoo import http, tools, _, SUPERUSER_ID
-from odoo.exceptions import AccessDenied, AccessError, MissingError, UserError, ValidationError
-from odoo.http import content_disposition, Controller, request, route
-from odoo.tools import consteq
+from loomworks import http, tools, _, SUPERUSER_ID
+from loomworks.exceptions import AccessDenied, AccessError, MissingError, UserError, ValidationError
+from loomworks.http import content_disposition, Controller, request, route
+from loomworks.tools import consteq
 
 # --------------------------------------------------
 # Misc tools

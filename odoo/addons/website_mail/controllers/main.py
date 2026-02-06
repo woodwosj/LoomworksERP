@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from collections import defaultdict
-from odoo import http, _
-from odoo.http import request
-from odoo.exceptions import UserError
+from loomworks import http, _
+from loomworks.http import request
+from loomworks.exceptions import UserError
 
 
 class WebsiteMail(http.Controller):

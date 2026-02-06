@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import re
 from markupsafe import Markup
 
-from odoo import _, api, fields, models
-from odoo.addons.l10n_it_edi.models.account_move import get_float
-from odoo.tools import float_compare, float_round, html2plaintext
+from loomworks import _, api, fields, models
+from loomworks.addons.l10n_it_edi.models.account_move import get_float
+from loomworks.tools import float_compare, float_round, html2plaintext
 
 _logger = logging.getLogger(__name__)
 

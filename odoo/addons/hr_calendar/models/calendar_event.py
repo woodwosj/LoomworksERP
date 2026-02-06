@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from dateutil.relativedelta import relativedelta
 from pytz import UTC
 
-from odoo import api, fields, models
+from loomworks import api, fields, models
 
-from odoo.addons.resource.models.utils import Intervals, sum_intervals, timezone_datetime
+from loomworks.addons.resource.models.utils import Intervals, sum_intervals, timezone_datetime
 
 
 class CalendarEvent(models.Model):

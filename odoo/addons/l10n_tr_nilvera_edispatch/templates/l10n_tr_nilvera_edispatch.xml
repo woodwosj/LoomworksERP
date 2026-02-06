@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<loomworks>
 
     <template id="nilvera_party_details"
         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
@@ -190,4 +190,4 @@
         </DespatchAdvice>
     </template>
 
-</odoo>
+</loomworks>

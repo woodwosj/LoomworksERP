@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 /* global YT */
 
 import publicWidget from "@web/legacy/js/public/public_widget";

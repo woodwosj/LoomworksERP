@@ -1,6 +1,6 @@
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import float_compare
+from loomworks import _, api, fields, models
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.tools import float_compare
 
 
 class AccountTax(models.Model):

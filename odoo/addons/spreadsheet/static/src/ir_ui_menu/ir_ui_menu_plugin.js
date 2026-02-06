@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 import { OdooCorePlugin } from "@spreadsheet/plugins";
 
 export class IrMenuPlugin extends OdooCorePlugin {

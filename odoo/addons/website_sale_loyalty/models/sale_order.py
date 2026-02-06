@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 from datetime import timedelta
 
-from odoo import api, fields, models
-from odoo.exceptions import UserError
-from odoo.http import request
-from odoo.osv import expression
+from loomworks import api, fields, models
+from loomworks.exceptions import UserError
+from loomworks.http import request
+from loomworks.osv import expression
 
 
 class SaleOrder(models.Model):

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<odoo>
+<loomworks>
     <record id="certificate_certificate_view_search" model="ir.ui.view">
         <field name="name">certificate_certificate_view_search.inherit.l10n_es_edi_sii</field>
         <field name="model">certificate.certificate</field>
@@ -44,4 +44,4 @@
                       sequence="100"
                       groups="account.group_account_manager"/>
         </menuitem>
-</odoo>
+</loomworks>

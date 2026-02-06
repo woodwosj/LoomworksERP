@@ -1,12 +1,12 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import base64
 
-from odoo import _, api, fields, models, tools
-from odoo.exceptions import ValidationError
-from odoo.tools.image import is_image_size_above
+from loomworks import _, api, fields, models, tools
+from loomworks.exceptions import ValidationError
+from loomworks.tools.image import is_image_size_above
 
-from odoo.addons.web_editor.tools import get_video_embed_code, get_video_thumbnail
+from loomworks.addons.web_editor.tools import get_video_embed_code, get_video_thumbnail
 
 
 class ProductImage(models.Model):

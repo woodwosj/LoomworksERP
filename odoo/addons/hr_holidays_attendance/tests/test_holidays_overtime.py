@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 
-from odoo.tests import new_test_user
-from odoo.tests.common import TransactionCase, tagged
+from loomworks.tests import new_test_user
+from loomworks.tests.common import TransactionCase, tagged
 
-from odoo.exceptions import AccessError, ValidationError
+from loomworks.exceptions import AccessError, ValidationError
 
 from freezegun import freeze_time
 import time

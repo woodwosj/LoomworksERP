@@ -1,11 +1,11 @@
 import base64
 import stdnum.pl.nip
 
-from odoo import api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from loomworks import api, fields, models
+from loomworks.exceptions import UserError, ValidationError
 
-from odoo.addons.l10n_pl_edi.tools.ksef_api_service import KsefApiService
-from odoo.addons.l10n_pl_edi.tools.xades_signer import XadesSigner
+from loomworks.addons.l10n_pl_edi.tools.ksef_api_service import KsefApiService
+from loomworks.addons.l10n_pl_edi.tools.xades_signer import XadesSigner
 
 
 class ResConfigSettings(models.TransientModel):

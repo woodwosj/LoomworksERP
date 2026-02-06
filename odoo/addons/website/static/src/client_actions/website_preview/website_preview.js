@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { _t } from "@web/core/l10n/translation";
 import { browser } from '@web/core/browser/browser';
@@ -318,12 +318,12 @@ export class WebsitePreview extends Component {
      * @private
      */
     _isTopWindowURL({ host, pathname }) {
-        const backendRoutes = ['/web', '/web/session/logout', '/odoo'];
+        const backendRoutes = ['/web', '/web/session/logout', '/loomworks'];
         return host !== window.location.host
             || (pathname
                 && (backendRoutes.includes(pathname)
                     || pathname.startsWith('/@/')
-                    || pathname.startsWith('/odoo/')
+                    || pathname.startsWith('/loomworks/')
                     || pathname.startsWith('/web/content/')
                     // This is defined here to avoid creating a
                     // website_documents module for just one patch.
@@ -341,7 +341,7 @@ export class WebsitePreview extends Component {
             // loads "about:blank"), do not push that into the history
             // state as that could prevent the user from going back and could
             // trigger a traceback.
-            history.replaceState(history.state, document.title, '/odoo');
+            history.replaceState(history.state, document.title, '/loomworks');
             return;
         }
         const currentTitle = this.iframe.el.contentDocument.title;
@@ -559,7 +559,7 @@ export class WebsitePreview extends Component {
         ev.preventDefault();
         const path = this.websiteService.contentWindow.location;
         const debugMode = this.env.debug ? `&debug=${this.env.debug}` : "";
-        redirect(`/odoo/action-website.website_preview?path=${encodeURIComponent(path)}${debugMode}`);
+        redirect(`/loomworks/action-website.website_preview?path=${encodeURIComponent(path)}${debugMode}`);
     }
 }
 

@@ -1,5 +1,5 @@
-from odoo import _, models, Command
-from odoo.tools import float_repr, is_html_empty, html2plaintext, cleanup_xml_node
+from loomworks import _, models, Command
+from loomworks.tools import float_repr, is_html_empty, html2plaintext, cleanup_xml_node
 from lxml import etree
 
 from datetime import datetime

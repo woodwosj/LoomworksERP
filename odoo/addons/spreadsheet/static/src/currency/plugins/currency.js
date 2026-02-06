@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @loomworks-module */
 
 import { EvaluationError, helpers, registries } from "@odoo/o-spreadsheet";
 import { OdooUIPlugin } from "@spreadsheet/plugins";

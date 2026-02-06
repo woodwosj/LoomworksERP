@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
-from odoo.http import request
-from odoo.tools.misc import format_duration
+from loomworks import _, api, fields, models
+from loomworks.exceptions import ValidationError
+from loomworks.http import request
+from loomworks.tools.misc import format_duration
 
-from odoo.addons.website_sale_collect import utils
+from loomworks.addons.website_sale_collect import utils
 
 
 class DeliveryCarrier(models.Model):

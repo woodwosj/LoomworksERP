@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 from random import randint
 
-from odoo import api, Command, fields, models, _
-from odoo.exceptions import UserError, ValidationError
-from odoo.osv import expression
-from odoo.tools import float_compare, float_is_zero, clean_context
-from odoo.tools.misc import format_date, groupby
+from loomworks import api, Command, fields, models, _
+from loomworks.exceptions import UserError, ValidationError
+from loomworks.osv import expression
+from loomworks.tools import float_compare, float_is_zero, clean_context
+from loomworks.tools.misc import format_date, groupby
 
 MAP_REPAIR_TO_PICKING_LOCATIONS = {
     'location_id': 'default_location_src_id',

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
     <!-- ECO Type Tree View -->
     <record id="plm_eco_type_view_tree" model="ir.ui.view">
@@ -91,4 +91,4 @@
         </field>
     </record>
 
-</odoo>
+</loomworks>

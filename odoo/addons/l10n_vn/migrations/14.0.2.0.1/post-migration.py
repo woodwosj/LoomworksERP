@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import api, SUPERUSER_ID
+from loomworks import api, SUPERUSER_ID
 
 FIXED_ACCOUNTS_MAP = {
     '5221': '5211',

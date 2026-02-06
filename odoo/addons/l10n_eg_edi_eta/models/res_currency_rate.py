@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 
-from odoo import models, api, _
-from odoo.tools import float_compare
+from loomworks import models, api, _
+from loomworks.tools import float_compare
 
 
 class ResCurrencyRate(models.Model):

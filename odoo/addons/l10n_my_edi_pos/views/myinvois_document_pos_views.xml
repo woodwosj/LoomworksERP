@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="myinvois_document_pos_form_view" model="ir.ui.view">
             <field name="name">myinvois.document.pos.form.view</field>
@@ -58,4 +58,4 @@
                   action="l10n_my_edi_pos.action_consolidated_invoices"
                   sequence="50"/>
     </data>
-</odoo>
+</loomworks>

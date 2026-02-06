@@ -1,5 +1,5 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import fields, models, _
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import fields, models, _
 
 
 class Partner(models.Model):

@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields
-from odoo.addons.l10n_tw_edi_ecpay.utils import call_ecpay_api, convert_utc_time_to_tw_time
-from odoo.exceptions import UserError
+from loomworks import models, fields
+from loomworks.addons.l10n_tw_edi_ecpay.utils import call_ecpay_api, convert_utc_time_to_tw_time
+from loomworks.exceptions import UserError
 
 
 class L10nTwEDIInvoicePrint(models.TransientModel):

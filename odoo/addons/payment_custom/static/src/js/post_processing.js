@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import paymentPostProcessing from '@payment/js/post_processing';
 

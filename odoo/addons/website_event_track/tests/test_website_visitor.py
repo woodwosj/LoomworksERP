@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 
-from odoo.addons.website.tests.test_website_visitor import WebsiteVisitorTestsCommon
-from odoo.addons.website_event.tests.common import TestEventOnlineCommon
-from odoo.tests import tagged
+from loomworks.addons.website.tests.test_website_visitor import WebsiteVisitorTestsCommon
+from loomworks.addons.website_event.tests.common import TestEventOnlineCommon
+from loomworks.tests import tagged
 
 
 @tagged('website_visitor', 'is_query_count')

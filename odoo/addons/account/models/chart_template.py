@@ -10,12 +10,12 @@ from copy import deepcopy
 import logging
 import re
 
-from odoo import Command, api, models
-from odoo.addons.base.models.ir_model import MODULE_UNINSTALL_FLAG
-from odoo.exceptions import AccessError, UserError
-from odoo.modules import get_resource_from_path
-from odoo.tools import file_open, float_compare, get_lang, groupby, SQL
-from odoo.tools.translate import _, code_translations, TranslationImporter
+from loomworks import Command, api, models
+from loomworks.addons.base.models.ir_model import MODULE_UNINSTALL_FLAG
+from loomworks.exceptions import AccessError, UserError
+from loomworks.modules import get_resource_from_path
+from loomworks.tools import file_open, float_compare, get_lang, groupby, SQL
+from loomworks.tools.translate import _, code_translations, TranslationImporter
 
 _logger = logging.getLogger(__name__)
 

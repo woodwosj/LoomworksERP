@@ -1,9 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import http
-from odoo.addons.base.tests.common import TransactionCaseWithUserDemo
-from odoo.addons.website.tools import MockRequest
-from odoo.tests.common import TransactionCase
+from loomworks import http
+from loomworks.addons.base.tests.common import TransactionCaseWithUserDemo
+from loomworks.addons.website.tools import MockRequest
+from loomworks.tests.common import TransactionCase
 
 
 class TestQweb(TransactionCaseWithUserDemo):

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <template id="efaktur_coretax_invoice_line">
             <GoodService>
@@ -58,4 +58,4 @@
             </TaxInvoiceBulk>
         </template>
     </data>
-</odoo>
+</loomworks>

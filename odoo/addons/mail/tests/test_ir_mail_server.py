@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 
-from odoo.addons.mail.tests.common import MailCommon
-from odoo.tests import tagged, users
-from odoo.tools import config, mute_logger
+from loomworks.addons.mail.tests.common import MailCommon
+from loomworks.tests import tagged, users
+from loomworks.tools import config, mute_logger
 
 
 @tagged('mail_server')
@@ -52,7 +52,7 @@ class TestIrMailServer(MailCommon):
                 )
                 self.assertEqual(message["From"], expected_from)
 
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     @patch.dict(config.options, {
         "from_filter": "dummy@example.com, test.mycompany.com, dummy2@example.com",
         "smtp_server": "example.com",
@@ -113,7 +113,7 @@ class TestIrMailServer(MailCommon):
                         from_filter="dummy@example.com, test.mycompany.com, dummy2@example.com",
                     )
 
-        # for from_filter in ICP, overwrite the one from odoo-bin
+        # for from_filter in ICP, overwrite the one from loomworks-bin
         self.env['ir.config_parameter'].sudo().set_param('mail.default.from_filter', 'icp.example.com')
 
         # Use an email in the domain of the config parameter "mail.default.from_filter"
@@ -168,7 +168,7 @@ class TestIrMailServer(MailCommon):
                 email_from = test_server._get_test_email_from()
                 self.assertEqual(email_from, expected_test_email)
 
-    @mute_logger('odoo.models.unlink')
+    @mute_logger('loomworks.models.unlink')
     def test_mail_server_priorities(self):
         """ Test if we choose the right mail server to send an email.
         Priorities are
@@ -228,7 +228,7 @@ class TestIrMailServer(MailCommon):
                 self.assertEqual(mail_server, expected_mail_server)
                 self.assertEqual(mail_from, expected_email_from)
 
-    @mute_logger('odoo.models.unlink', 'odoo.addons.base.models.ir_mail_server')
+    @mute_logger('loomworks.models.unlink', 'loomworks.addons.base.models.ir_mail_server')
     def test_mail_server_send_email(self):
         """ Test main 'send_email' usage: check mail_server choice based on from
         filters, encapsulation, spoofing. """

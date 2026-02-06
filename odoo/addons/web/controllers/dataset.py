@@ -1,13 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 import warnings
 from werkzeug.exceptions import NotFound
 
-from odoo import http
-from odoo.api import call_kw
-from odoo.http import request
-from odoo.service.model import get_public_method
+from loomworks import http
+from loomworks.api import call_kw
+from loomworks.http import request
+from loomworks.service.model import get_public_method
 from .utils import clean_action
 
 

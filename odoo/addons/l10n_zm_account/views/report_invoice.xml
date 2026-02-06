@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="report_invoice_document" inherit_id="account.report_invoice_document" primary="True">
         <xpath expr="//div[@id='informations']" position="before">
             <t t-set="forced_vat" t-value="o.company_id.vat"/>
@@ -25,4 +25,4 @@
                t-lang="lang"/>
         </xpath>
     </template>
-</odoo>
+</loomworks>

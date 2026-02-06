@@ -1,7 +1,7 @@
-from odoo.fields import Command
-from odoo.tests.common import tagged
-from odoo.addons.account.tests.common import AccountTestInvoicingHttpCommon
-from odoo.addons.base.tests.common import BaseUsersCommon
+from loomworks.fields import Command
+from loomworks.tests.common import tagged
+from loomworks.addons.account.tests.common import AccountTestInvoicingHttpCommon
+from loomworks.addons.base.tests.common import BaseUsersCommon
 
 
 @tagged('post_install', '-at_install')

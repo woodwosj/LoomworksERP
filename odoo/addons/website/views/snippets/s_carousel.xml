@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
 <template id="s_carousel" name="Carousel">
     <section class="s_carousel_wrapper p-0" data-vxml="001" data-vcss="001">
@@ -80,4 +80,4 @@
     <path>website/static/src/snippets/s_carousel/001.scss</path>
 </asset>
 
-</odoo>
+</loomworks>

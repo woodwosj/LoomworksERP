@@ -1,4 +1,4 @@
-from odoo.tests.common import HttpCase, tagged
+from loomworks.tests.common import HttpCase, tagged
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

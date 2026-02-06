@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import patch
 from contextlib import contextmanager
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.payment.tests.common import PaymentCommon
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.addons.payment.tests.common import PaymentCommon
 
 
 class AccountPaymentCommon(PaymentCommon, AccountTestInvoicingCommon):

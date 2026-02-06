@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
         <xpath expr="//t[@t-set='forced_vat']" position="after">
             <t t-set="din5008_document_information">
@@ -99,4 +99,4 @@
             </t>
         </xpath>
     </template>
-</odoo>
+</loomworks>

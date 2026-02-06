@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import timedelta
 
-import odoo.tests
-from odoo import Command
-from odoo.exceptions import ValidationError
-from odoo.tests import JsonRpcException
+import loomworks.tests
+from loomworks import Command
+from loomworks.exceptions import ValidationError
+from loomworks.tests import JsonRpcException
 
-from odoo.addons.base.tests.common import HttpCaseWithUserDemo
-from odoo.addons.payment.tests.http_common import PaymentHttpCommon
-from odoo.fields import Datetime
-from odoo.tools import mute_logger
+from loomworks.addons.base.tests.common import HttpCaseWithUserDemo
+from loomworks.addons.payment.tests.http_common import PaymentHttpCommon
+from loomworks.fields import Datetime
+from loomworks.tools import mute_logger
 
 from .common import TestWebsiteEventSaleCommon
 
 
-@odoo.tests.common.tagged('post_install', '-at_install')
+@loomworks.tests.common.tagged('post_install', '-at_install')
 class TestUi(HttpCaseWithUserDemo, TestWebsiteEventSaleCommon):
     def setUp(self):
         super().setUp()
@@ -121,10 +121,10 @@ class TestUi(HttpCaseWithUserDemo, TestWebsiteEventSaleCommon):
     # TO DO - add public test with new address when convert to web.tour format.
 
 
-@odoo.tests.common.tagged('post_install', '-at_install')
+@loomworks.tests.common.tagged('post_install', '-at_install')
 class TestRoutes(HttpCaseWithUserDemo, TestWebsiteEventSaleCommon, PaymentHttpCommon):
 
-    @mute_logger('odoo.http')
+    @mute_logger('loomworks.http')
     def test_check_seats_avail_before_purchase(self):
         """Check that payments fails when there aren't enough seats available.
         - First check payment fails due to exceeding the ticket's limit

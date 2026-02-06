@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { ControlPanel } from "@web/search/control_panel/control_panel";
 import { FormController } from "@web/views/form/form_controller";

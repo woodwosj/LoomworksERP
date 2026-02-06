@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { LinkTools } from '@web_editor/js/wysiwyg/widgets/link_tools';
 import { patch } from "@web/core/utils/patch";

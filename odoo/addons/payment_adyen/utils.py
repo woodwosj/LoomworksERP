@@ -1,7 +1,7 @@
-from odoo import _
-from odoo.exceptions import ValidationError
+from loomworks import _
+from loomworks.exceptions import ValidationError
 
-from odoo.addons.payment import utils as payment_utils
+from loomworks.addons.payment import utils as payment_utils
 
 
 def format_partner_name(partner_name):

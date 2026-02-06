@@ -1,7 +1,7 @@
-from odoo import Command, fields
+from loomworks import Command, fields
 
-from odoo.addons.purchase.tests.test_purchase_invoice import TestPurchaseToInvoiceCommon
-from odoo.tests import tagged
+from loomworks.addons.purchase.tests.test_purchase_invoice import TestPurchaseToInvoiceCommon
+from loomworks.tests import tagged
 
 
 @tagged('-at_install', 'post_install')

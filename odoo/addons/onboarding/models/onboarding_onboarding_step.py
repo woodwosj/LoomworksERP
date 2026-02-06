@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, Command, fields, models
-from odoo.addons.onboarding.models.onboarding_progress import ONBOARDING_PROGRESS_STATES
-from odoo.exceptions import ValidationError
+from loomworks import _, api, Command, fields, models
+from loomworks.addons.onboarding.models.onboarding_progress import ONBOARDING_PROGRESS_STATES
+from loomworks.exceptions import ValidationError
 
 
 class OnboardingStep(models.Model):

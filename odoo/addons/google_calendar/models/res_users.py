@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import logging
 
 
-from odoo import api, fields, models, Command
-from odoo.addons.google_calendar.utils.google_calendar import GoogleCalendarService, InvalidSyncToken
-from odoo.addons.google_calendar.models.google_sync import google_calendar_token
-from odoo.addons.google_account.models import google_service
-from odoo.loglevels import exception_to_unicode
-from odoo.tools import str2bool
+from loomworks import api, fields, models, Command
+from loomworks.addons.google_calendar.utils.google_calendar import GoogleCalendarService, InvalidSyncToken
+from loomworks.addons.google_calendar.models.google_sync import google_calendar_token
+from loomworks.addons.google_account.models import google_service
+from loomworks.loglevels import exception_to_unicode
+from loomworks.tools import str2bool
 
 _logger = logging.getLogger(__name__)
 

@@ -1,4 +1,4 @@
-// @odoo-module ignore
+// @loomworks-module ignore
 
 odoo.define(
     "@odoo/o-spreadsheet",

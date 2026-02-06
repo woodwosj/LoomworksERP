@@ -1,6 +1,6 @@
-from odoo import http
-from odoo.http import request
-from odoo.addons.web.controllers.home import CREDENTIAL_PARAMS
+from loomworks import http
+from loomworks.http import request
+from loomworks.addons.web.controllers.home import CREDENTIAL_PARAMS
 
 
 CREDENTIAL_PARAMS.append('webauthn_response')

@@ -1,6 +1,6 @@
-from odoo.addons.sms.tests.common import SMSCommon
-from odoo.addons.test_mail_sms.tests.common import TestSMSRecipients
-from odoo.tests import Form, tagged
+from loomworks.addons.sms.tests.common import SMSCommon
+from loomworks.addons.test_mail_sms.tests.common import TestSMSRecipients
+from loomworks.tests import Form, tagged
 
 
 @tagged('sms_composer')

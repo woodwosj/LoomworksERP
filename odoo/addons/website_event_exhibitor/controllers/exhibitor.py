@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from ast import literal_eval
 from collections import OrderedDict
 from random import randint, sample
 from werkzeug.exceptions import Forbidden
 
-from odoo import http
-from odoo.addons.website_event.controllers.main import WebsiteEventController
-from odoo.http import request
-from odoo.osv import expression
-from odoo.tools import format_duration
+from loomworks import http
+from loomworks.addons.website_event.controllers.main import WebsiteEventController
+from loomworks.http import request
+from loomworks.osv import expression
+from loomworks.tools import format_duration
 
 
 class ExhibitorController(WebsiteEventController):

@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import re
 from operator import itemgetter
 
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import ValidationError
-from odoo.osv import expression
-from odoo.tools import float_compare, format_list, groupby
-from odoo.tools.image import is_image_size_above
-from odoo.tools.misc import unique
-from odoo.tools.sql import SQL
+from loomworks import api, fields, models, tools, _
+from loomworks.exceptions import ValidationError
+from loomworks.osv import expression
+from loomworks.tools import float_compare, format_list, groupby
+from loomworks.tools.image import is_image_size_above
+from loomworks.tools.misc import unique
+from loomworks.tools.sql import SQL
 
 
 class ProductProduct(models.Model):
@@ -444,7 +444,7 @@ class ProductProduct(models.Model):
             self = to_unlink
 
         try:
-            with self.env.cr.savepoint(), tools.mute_logger('odoo.sql_db'):
+            with self.env.cr.savepoint(), tools.mute_logger('loomworks.sql_db'):
                 self.unlink()
         except Exception:
             # We catch all kind of exceptions to be sure that the operation

@@ -1,11 +1,11 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import datetime
 
 from freezegun import freeze_time
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tools import file_open
-from odoo.tests import tagged
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tools import file_open
+from loomworks.tests import tagged
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

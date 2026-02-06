@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 /**
  * Loomworks Field Service Timer Widget
  * Provides a timer control for tracking time spent on FSM tasks

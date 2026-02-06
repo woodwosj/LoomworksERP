@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <data>
         <record id="incoterm_DAF" model="account.incoterms">
             <field name="code">DAF</field>
@@ -18,4 +18,4 @@
             <field name="name">DELIVERED EX SHIP</field>
         </record>
     </data>
-</odoo>
+</loomworks>

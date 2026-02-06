@@ -1,4 +1,4 @@
-from odoo.addons.website_slides.tests.common import SlidesCase
+from loomworks.addons.website_slides.tests.common import SlidesCase
 
 
 class TestSlidesMail(SlidesCase):

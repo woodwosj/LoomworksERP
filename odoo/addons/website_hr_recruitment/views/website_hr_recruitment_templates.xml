@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
 
 <template id="index" name="Jobs">
     <t t-call="website.layout">
@@ -939,4 +939,4 @@
     </xpath>
 </template>
 
-</odoo>
+</loomworks>

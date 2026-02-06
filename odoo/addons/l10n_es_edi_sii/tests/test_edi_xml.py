@@ -6,8 +6,8 @@ import json
 from freezegun import freeze_time
 from unittest.mock import patch
 
-from odoo import Command
-from odoo.tests import tagged
+from loomworks import Command
+from loomworks.tests import tagged
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
@@ -26,7 +26,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_010_out_invoice_s_iva10b_s_iva21s(self):
         """ Invoice with goods and services as they need to be reported in different sections for customer invoices. """
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 partner_id=self.partner_a.id,
@@ -99,7 +99,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_020_out_invoice_s_iva10b_s_iva0_ns(self):
         """ The ns tax is a special case with l10n_es_type ignore and should not appear in what we send"""
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 partner_id=self.partner_b.id,
@@ -151,7 +151,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_030_out_invoice_s_iva10b_s_req014_s_iva21s_s_req52(self):
         """Recargo de Equivalencia with 2 different taxes and 2 different IVAs as it is reported in the same tag as the IVA"""
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 partner_id=self.partner_a.id,
@@ -238,7 +238,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_040_out_refund_s_iva10b_s_iva10b_s_iva21s(self):
         """For a customer refund, the amounts need to be reported as negative and also have goods and services separate"""
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 move_type='out_refund',
@@ -314,7 +314,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_050_out_invoice_s_iva0_sp_i_s_iva0_g_i(self):
         """An intra-community sale needs to be reported as exempt and intra-community services as no sujeto por reglas de localizacion (no_sujeto_loc)"""
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 partner_id=self.partner_a.id,
@@ -372,7 +372,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_060_out_refund_s_iva0_sp_i_s_iva0_g_i(self):
         """ Intra-community refund of service and good"""
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 move_type='out_refund',
@@ -432,7 +432,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_070_out_invoice_s_iva_e_s_iva0_g_e(self):
         """ Export of service (no sujeto por reglas de localization) and export of goods (exempt)"""
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 partner_id=self.partner_a.id,
@@ -490,7 +490,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_080_out_refund_s_iva0_sp_i_s_iva0_g_i(self):
         """Customer refund of an intracom good and service"""
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 move_type='out_refund',
@@ -550,7 +550,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_085_out_refund_s_iva0_sp_i_s_iva0_g_i_multi_currency(self):
         """ Same as test_080 but in multi-currency"""
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 move_type='out_refund',
@@ -613,7 +613,7 @@ class TestEdiXmls(TestEsEdiCommon):
         The retention just needs to be ignored basically, but in the ImporteTotal,
         we need the amount before retention (withholding). """
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 move_type='in_invoice',
@@ -666,7 +666,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_100_in_refund_p_iva10_bc(self):
         """Vendor bill refund of VAT 10% goods"""
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 move_type='in_refund',
@@ -710,7 +710,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_110_in_invoice_p_iva10_bc_p_req014_p_iva21_sc_p_req52(self):
         """Vendor bill with recargo de equivalencia that needs to be reported within the VAT tax"""
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 move_type='in_invoice',
@@ -775,7 +775,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_120_in_invoice_p_iva21_sp_ex(self):
         """ Extra-community vendor bill with reverse charge (-100 line which changes importetotal)"""
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 move_type='in_invoice',
@@ -820,7 +820,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_130_in_invoice_p_iva0_ns_p_iva10_bc(self):
         """Vendor bill with a line of no sujeto services and a line of 10% goods.  Here, there is no separation between goods and services"""
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 move_type='in_invoice',
@@ -867,7 +867,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_140_out_invoice_s_iva10b_s_irpf1(self):
         """Customer invoice with a 10% VAT and a retention.  The retention should not be deducted from the importetotal."""
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 partner_id=self.partner_b.id,
@@ -922,7 +922,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_150_in_invoice_p_iva10_bc_p_irpf1(self):
         """Same as test_140 but for vendor bills"""
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 move_type='in_invoice',
@@ -974,7 +974,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_160_in_refund_p_iva10_bc_p_irpf1(self):
         """Same as 150 but for supplier refunds.  The amounts need to be negative. """
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 move_type='in_refund',
@@ -1027,7 +1027,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_165_in_refund_p_iva10_bc_p_irpf1_multi_currency(self):
         """Same as test_160, but with another currency.  With double the amounts, the result is the same. """
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 move_type='in_refund',
@@ -1081,7 +1081,7 @@ class TestEdiXmls(TestEsEdiCommon):
     def test_170_in_invoice_dua(self):
         """DUA invoice.  The TipoFactura needs to change as well as the importetotal needs to include the base. """
         with freeze_time(self.frozen_today), patch(
-                'odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+                'loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                 new=mocked_l10n_es_edi_call_web_service_sign
         ):
             invoice = self.create_invoice(
@@ -1129,7 +1129,7 @@ class TestEdiXmls(TestEsEdiCommon):
         """ For intra-community purchase of services and goods, the -100 needs to be taken into account in the importe total.
         The clave should also change to 09. """
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 move_type='in_invoice',
@@ -1182,7 +1182,7 @@ class TestEdiXmls(TestEsEdiCommon):
         """ For intra-community purchase return services and goods, the -100 needs to be taken into account in the importe total.
         For a refund, the type should change to R4"""
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 move_type='in_refund',
@@ -1236,7 +1236,7 @@ class TestEdiXmls(TestEsEdiCommon):
         """ For bills with the 12% agricuture tax the Clave Regime Special should be E2
         """
         with freeze_time(self.frozen_today), \
-             patch('odoo.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
+             patch('loomworks.addons.l10n_es_edi_sii.models.account_edi_format.AccountEdiFormat._l10n_es_edi_call_web_service_sign',
                    new=mocked_l10n_es_edi_call_web_service_sign):
             invoice = self.create_invoice(
                 move_type='in_invoice',

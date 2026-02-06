@@ -1,14 +1,14 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
+from loomworks import Command
 
-import odoo
-from odoo.addons.point_of_sale.tests.common import TestPoSCommon
-from odoo.tests import Form
-from odoo.exceptions import UserError
+import loomworks
+from loomworks.addons.point_of_sale.tests.common import TestPoSCommon
+from loomworks.tests import Form
+from loomworks.exceptions import UserError
 
 
-@odoo.tests.tagged('post_install', '-at_install')
+@loomworks.tests.tagged('post_install', '-at_install')
 class TestPoSProductsWithTax(TestPoSCommon):
     """ Test normal configuration PoS selling products with tax
     """
@@ -619,17 +619,17 @@ class TestPoSProductsWithTax(TestPoSCommon):
         product_all_taxes = self.env['product.product'].create({
             'name': 'Product all taxes',
             'available_in_pos': True,
-            'taxes_id': [odoo.Command.set((tax_a + tax_b + tax_x + tax_xx).ids)],
+            'taxes_id': [loomworks.Command.set((tax_a + tax_b + tax_x + tax_xx).ids)],
         })
         product_no_xx_tax = self.env['product.product'].create({
             'name': 'Product no tax from XX',
             'available_in_pos': True,
-            'taxes_id': [odoo.Command.set((tax_a + tax_b + tax_x).ids)],
+            'taxes_id': [loomworks.Command.set((tax_a + tax_b + tax_x).ids)],
         })
         product_no_branch_tax = self.env['product.product'].create({
             'name': 'Product no tax from branch',
             'available_in_pos': True,
-            'taxes_id': [odoo.Command.set((tax_a + tax_b).ids)],
+            'taxes_id': [loomworks.Command.set((tax_a + tax_b).ids)],
         })
         product_no_tax = self.env['product.product'].create({
             'name': 'Product no tax',
@@ -657,7 +657,7 @@ class TestPoSProductsWithTax(TestPoSCommon):
             'company_id': branch_xx.id,
         })
         xx_config.write({'payment_method_ids': [
-            odoo.Command.set(xx_cash_payment_method.ids),
+            loomworks.Command.set(xx_cash_payment_method.ids),
         ]})
         self.config = xx_config
         pos_session = self.open_new_session()

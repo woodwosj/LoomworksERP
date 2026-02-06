@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 from datetime import timedelta
 
-from odoo import exceptions, Command, fields
-from odoo.api import UserError
-from odoo.tests import Form
-from odoo.addons.mrp.tests.common import TestMrpCommon
-from odoo.tests.common import HttpCase, tagged, freeze_time
-from odoo.tools import float_compare, float_round, float_repr
+from loomworks import exceptions, Command, fields
+from loomworks.api import UserError
+from loomworks.tests import Form
+from loomworks.addons.mrp.tests.common import TestMrpCommon
+from loomworks.tests.common import HttpCase, tagged, freeze_time
+from loomworks.tools import float_compare, float_round, float_repr
 
 
 @freeze_time(fields.Date.today())
@@ -2937,7 +2937,7 @@ class TestTourBoM(HttpCase):
 
         self.assertEqual(len(self.bom.bom_line_ids), 0)
 
-        url = f'/odoo/action-mrp.mrp_bom_form_action/{self.bom.id}'
+        url = f'/loomworks/action-mrp.mrp_bom_form_action/{self.bom.id}'
 
         self.start_tour(url, 'test_mrp_bom_product_catalog', login='admin')
         self.assertEqual(len(self.bom.bom_line_ids), 1)
@@ -2946,7 +2946,7 @@ class TestTourBoM(HttpCase):
         """
         Create a new MO by pressing the "Manufacture" button in BoM Overview
         """
-        url = '/odoo/action-mrp.mrp_bom_form_action'
+        url = '/loomworks/action-mrp.mrp_bom_form_action'
         self.start_tour(url, 'test_manufacture_from_bom', login='admin', timeout=100)
 
     def test_bom_kit_rounding(self):

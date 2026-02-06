@@ -1,6 +1,6 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import models, api, _
-from odoo.exceptions import ValidationError
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
+from loomworks import models, api, _
+from loomworks.exceptions import ValidationError
 import logging
 _logger = logging.getLogger(__name__)
 

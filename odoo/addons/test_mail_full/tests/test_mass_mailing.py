@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import werkzeug
 
-from odoo.addons.test_mail_full.tests.common import TestMailFullCommon
-from odoo.tests.common import users
-from odoo.tools import mute_logger
-from odoo.tests import tagged
+from loomworks.addons.test_mail_full.tests.common import TestMailFullCommon
+from loomworks.tests.common import users
+from loomworks.tools import mute_logger
+from loomworks.tests import tagged
 
 
 @tagged('mass_mailing')
 class TestMassMailing(TestMailFullCommon):
 
     @users('user_marketing')
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('loomworks.addons.mail.models.mail_mail')
     def test_mailing_w_blacklist_opt_out(self):
         mailing = self.env['mailing.mailing'].browse(self.mailing_bl.ids)
         mailing.write({'subject': 'Subject {{ object.name }}'})

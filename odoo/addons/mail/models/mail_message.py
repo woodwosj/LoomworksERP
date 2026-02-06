@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import contextlib
 import logging
@@ -7,12 +7,12 @@ import textwrap
 from binascii import Error as binascii_error
 from collections import defaultdict
 
-from odoo import _, api, fields, models, modules, tools
-from odoo.exceptions import AccessError, MissingError
-from odoo.osv import expression
-from odoo.tools import clean_context, format_list, groupby, SQL
-from odoo.tools.misc import OrderedSet
-from odoo.addons.mail.tools.discuss import Store
+from loomworks import _, api, fields, models, modules, tools
+from loomworks.exceptions import AccessError, MissingError
+from loomworks.osv import expression
+from loomworks.tools import clean_context, format_list, groupby, SQL
+from loomworks.tools.misc import OrderedSet
+from loomworks.addons.mail.tools.discuss import Store
 
 _logger = logging.getLogger(__name__)
 _image_dataurl = re.compile(r'(data:image/[a-z]+?);base64,([a-z0-9+/\n]{3,}=*)\n*([\'"])(?: data-filename="([^"]*)")?', re.I)

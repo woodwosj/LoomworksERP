@@ -1,20 +1,20 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from unittest.mock import Mock, patch
 
 from werkzeug import urls
 
-from odoo.http import root
-from odoo.tests import HttpCase, tagged
+from loomworks.http import root
+from loomworks.tests import HttpCase, tagged
 
-from odoo.addons.base.tests.common import BaseUsersCommon
-from odoo.addons.payment import utils as payment_utils
-from odoo.addons.website.tools import MockRequest
-from odoo.addons.website_sale.controllers.main import WebsiteSale
-from odoo.addons.website_sale.controllers.delivery import (
+from loomworks.addons.base.tests.common import BaseUsersCommon
+from loomworks.addons.payment import utils as payment_utils
+from loomworks.addons.website.tools import MockRequest
+from loomworks.addons.website_sale.controllers.main import WebsiteSale
+from loomworks.addons.website_sale.controllers.delivery import (
     Delivery as WebsiteSaleDeliveryController,
 )
-from odoo.addons.website_sale.tests.common import WebsiteSaleCommon
+from loomworks.addons.website_sale.tests.common import WebsiteSaleCommon
 
 
 @tagged('post_install', '-at_install')
@@ -142,7 +142,7 @@ class TestWebsiteSaleDeliveryExpressCheckoutFlows(BaseUsersCommon, WebsiteSaleCo
         session['sale_order_id'] = self.sale_order.id
         root.session_store.save(session)
         with patch(
-            'odoo.addons.delivery.models.delivery_carrier.DeliveryCarrier.rate_shipment',
+            'loomworks.addons.delivery.models.delivery_carrier.DeliveryCarrier.rate_shipment',
             return_value=self.rate_shipment_result
         ):
             self.make_jsonrpc_request(
@@ -169,7 +169,7 @@ class TestWebsiteSaleDeliveryExpressCheckoutFlows(BaseUsersCommon, WebsiteSaleCo
         session['sale_order_id'] = self.sale_order.id
         root.session_store.save(session)
         with patch(
-            'odoo.addons.delivery.models.delivery_carrier.DeliveryCarrier.rate_shipment',
+            'loomworks.addons.delivery.models.delivery_carrier.DeliveryCarrier.rate_shipment',
             return_value=self.rate_shipment_result
         ):
             self.make_jsonrpc_request(
@@ -202,7 +202,7 @@ class TestWebsiteSaleDeliveryExpressCheckoutFlows(BaseUsersCommon, WebsiteSaleCo
         session['sale_order_id'] = self.sale_order.id
         root.session_store.save(session)
         with patch(
-            'odoo.addons.delivery.models.delivery_carrier.DeliveryCarrier.rate_shipment',
+            'loomworks.addons.delivery.models.delivery_carrier.DeliveryCarrier.rate_shipment',
             return_value=self.rate_shipment_result
         ):
             self.make_jsonrpc_request(
@@ -224,7 +224,7 @@ class TestWebsiteSaleDeliveryExpressCheckoutFlows(BaseUsersCommon, WebsiteSaleCo
         session['sale_order_id'] = self.sale_order.id
         root.session_store.save(session)
         with patch(
-            'odoo.addons.delivery.models.delivery_carrier.DeliveryCarrier.rate_shipment',
+            'loomworks.addons.delivery.models.delivery_carrier.DeliveryCarrier.rate_shipment',
             return_value=self.rate_shipment_result
         ):
             self.make_jsonrpc_request(
@@ -253,7 +253,7 @@ class TestWebsiteSaleDeliveryExpressCheckoutFlows(BaseUsersCommon, WebsiteSaleCo
         session['sale_order_id'] = self.sale_order.id
         root.session_store.save(session)
         with patch(
-            'odoo.addons.delivery.models.delivery_carrier.DeliveryCarrier.rate_shipment',
+            'loomworks.addons.delivery.models.delivery_carrier.DeliveryCarrier.rate_shipment',
             return_value=self.rate_shipment_result
         ):
             self.make_jsonrpc_request(
@@ -304,7 +304,7 @@ class TestWebsiteSaleDeliveryExpressCheckoutFlows(BaseUsersCommon, WebsiteSaleCo
         session['sale_order_id'] = self.sale_order.id
         root.session_store.save(session)
         with patch(
-            'odoo.addons.delivery.models.delivery_carrier.DeliveryCarrier.rate_shipment',
+            'loomworks.addons.delivery.models.delivery_carrier.DeliveryCarrier.rate_shipment',
             return_value=self.rate_shipment_result
         ):
             shipping_options_data = self.make_jsonrpc_request(
@@ -332,7 +332,7 @@ class TestWebsiteSaleDeliveryExpressCheckoutFlows(BaseUsersCommon, WebsiteSaleCo
         session['sale_order_id'] = self.sale_order.id
         root.session_store.save(session)
         with patch(
-            'odoo.addons.delivery.models.delivery_carrier.DeliveryCarrier.rate_shipment',
+            'loomworks.addons.delivery.models.delivery_carrier.DeliveryCarrier.rate_shipment',
             return_value=self.rate_shipment_result
         ):
             # Won't create a new partner because the partial information are the same the an

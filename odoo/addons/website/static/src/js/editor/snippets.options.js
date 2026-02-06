@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { loadCSS } from "@web/core/assets";
 import { AutoComplete } from "@web/core/autocomplete/autocomplete";

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="vat_registry_tax_id_external_layout">
         <li t-if="company.company_registry and company.account_fiscal_country_id.code == 'SK'">
             ID: <span t-field="company.company_registry"/>
@@ -63,4 +63,4 @@
             </div>
         </xpath>
     </template>
-</odoo>
+</loomworks>

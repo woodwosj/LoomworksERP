@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <template id="arabic_english_invoice" inherit_id="l10n_gcc_invoice.arabic_english_invoice">
         <xpath expr="//div[hasclass('col-4')]//span[@t-if=&quot;o.move_type == &apos;out_invoice&apos; and o.state == &apos;posted&apos;&quot;]" position="replace">
             <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
@@ -146,4 +146,4 @@
             <t t-set="additional_footer_text" t-value="o.get_l10n_sa_confirmation_datetime_sa_tz()"/> <!-- This is to show the issue date on the footer of all layouts. -->
         </xpath>
     </template>
-</odoo>
+</loomworks>

@@ -1,8 +1,8 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
-from odoo.http import route
-from odoo.addons.mail.controllers.message_reaction import MessageReactionController
-from odoo.addons.im_livechat.tools.misc import force_guest_env
+from loomworks.http import route
+from loomworks.addons.mail.controllers.message_reaction import MessageReactionController
+from loomworks.addons.im_livechat.tools.misc import force_guest_env
 
 
 class LivechatMessageReactionController(MessageReactionController):

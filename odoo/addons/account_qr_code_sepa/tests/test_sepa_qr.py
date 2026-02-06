@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 
-from odoo.exceptions import UserError
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import tagged
-from odoo import fields
+from loomworks.exceptions import UserError
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import tagged
+from loomworks import fields
 
 @tagged('post_install', '-at_install')
 class TestSEPAQRCode(AccountTestInvoicingCommon):

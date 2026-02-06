@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<loomworks>
     <record id="service_tag" model="account.account.tag">
         <field name="name">Service</field>
         <field name="applicability">taxes</field>
@@ -10,4 +10,4 @@
         <field name="applicability">taxes</field>
         <field name="country_id" ref="base.au"/>
     </record>
-    </odoo>
+    </loomworks>

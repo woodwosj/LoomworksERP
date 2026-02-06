@@ -6,7 +6,7 @@
 # Loomworks modifications copyright: Loomworks
 # License: LGPL-3
 
-from odoo import models
+from loomworks import models
 
 
 class ResCompany(models.Model):

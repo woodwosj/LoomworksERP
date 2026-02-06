@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from odoo import http, fields
-from odoo.http import request
-from odoo.tools import float_is_zero
-from odoo.addons.pos_self_order.controllers.orders import PosSelfOrderController
+from loomworks import http, fields
+from loomworks.http import request
+from loomworks.tools import float_is_zero
+from loomworks.addons.pos_self_order.controllers.orders import PosSelfOrderController
 from werkzeug.exceptions import Unauthorized
 
 class PosSelfOrderControllerStripe(PosSelfOrderController):

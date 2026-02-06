@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
 
-from odoo import tools
-from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.fields import Date
-from odoo.tests import Form, tagged, users, loaded_demo_data
-from odoo.tests.common import TransactionCase
+from loomworks import tools
+from loomworks.addons.mail.tests.common import mail_new_test_user
+from loomworks.fields import Date
+from loomworks.tests import Form, tagged, users, loaded_demo_data
+from loomworks.tests.common import TransactionCase
 
 
 @tagged('crm_lead_pls')

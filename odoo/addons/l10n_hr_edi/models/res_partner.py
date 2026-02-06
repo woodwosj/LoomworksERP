@@ -1,5 +1,5 @@
-from odoo import models, fields, api
-from odoo.exceptions import ValidationError
+from loomworks import models, fields, api
+from loomworks.exceptions import ValidationError
 
 TIMEOUT = 10
 

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import math
 
-from odoo import http
-from odoo.addons.website_event.controllers.community import EventCommunityController
-from odoo.http import request
+from loomworks import http
+from loomworks.addons.website_event.controllers.community import EventCommunityController
+from loomworks.http import request
 
 
 class WebsiteEventTrackQuizCommunityController(EventCommunityController):

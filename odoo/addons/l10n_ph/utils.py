@@ -1,4 +1,4 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 import io
 import re
 from collections import defaultdict
@@ -6,7 +6,7 @@ from collections import defaultdict
 import xlsxwriter
 import xlwt
 
-from odoo.tools.misc import format_date
+from loomworks.tools.misc import format_date
 
 COLUMN_HEADER_MAP = {
     "Reporting_Month": "invoice_date",

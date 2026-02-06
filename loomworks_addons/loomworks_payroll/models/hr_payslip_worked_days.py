@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Loomworks ERP. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
+from loomworks import api, fields, models
 
 
 class HrPayslipWorkedDays(models.Model):

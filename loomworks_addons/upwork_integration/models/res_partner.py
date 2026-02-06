@@ -10,7 +10,7 @@
 Extend res.partner with Upwork-specific fields.
 """
 
-from odoo import api, fields, models
+from loomworks import api, fields, models
 
 
 class ResPartner(models.Model):

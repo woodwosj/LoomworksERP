@@ -1,5 +1,5 @@
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import tagged, Form
+from loomworks.addons.account.tests.common import AccountTestInvoicingCommon
+from loomworks.tests import tagged, Form
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

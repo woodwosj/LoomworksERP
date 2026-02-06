@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/** @loomworks-module **/
 
 import { EventBus } from "@odoo/owl";
 import { browser } from "@web/core/browser/browser";

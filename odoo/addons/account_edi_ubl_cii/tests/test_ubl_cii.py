@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 from lxml import etree
-from odoo import fields, Command
-from odoo.addons.account_edi_ubl_cii.tests.common import TestUblCiiCommon
-from odoo.tests import tagged
-from odoo.tools import file_open
-from odoo.tools.safe_eval import datetime
+from loomworks import fields, Command
+from loomworks.addons.account_edi_ubl_cii.tests.common import TestUblCiiCommon
+from loomworks.tests import tagged
+from loomworks.tools import file_open
+from loomworks.tools.safe_eval import datetime
 
 
 @tagged('post_install', '-at_install')

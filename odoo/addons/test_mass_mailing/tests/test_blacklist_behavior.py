@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Loomworks ERP (based on Odoo by Odoo S.A.). See LICENSE file for full copyright and licensing details.
 
 import datetime
 
 from freezegun import freeze_time
 from unittest.mock import patch
 
-from odoo.addons.mass_mailing.models.mail_thread import BLACKLIST_MAX_BOUNCED_LIMIT
-from odoo.addons.test_mass_mailing.tests import common
-from odoo.tests import tagged
-from odoo.tests.common import users
-from odoo.tools import mute_logger
-from odoo.sql_db import Cursor
+from loomworks.addons.mass_mailing.models.mail_thread import BLACKLIST_MAX_BOUNCED_LIMIT
+from loomworks.addons.test_mass_mailing.tests import common
+from loomworks.tests import tagged
+from loomworks.tests.common import users
+from loomworks.tools import mute_logger
+from loomworks.sql_db import Cursor
 
 
 @tagged('mail_blacklist')
@@ -49,7 +49,7 @@ class TestAutoBlacklist(common.TestMassMailCommon):
         })
         self._test_mailing_bounce_w_auto_bl({'bounced_partner': bounced_partners})
 
-    @mute_logger('odoo.addons.mail.models.mail_thread')
+    @mute_logger('loomworks.addons.mail.models.mail_thread')
     def _test_mailing_bounce_w_auto_bl(self, bounce_base_values):
         mailing = self.mailing_bl.with_env(self.env)
         target = self.target_rec.with_env(self.env)
